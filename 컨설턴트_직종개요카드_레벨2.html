@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>컨설턴트 직종 개요 카드 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+  :root { --bg:#0a0a0f; --surface:#141419; --surface-2:#1c1c24; --border:#2a2a35; --border-hover:#3a3a48; --text:#e8e8ed; --text-sub:#c0c0d0; --text-dim:#8888a0; --text-muted:#555568; --accent:#ef7b45; --accent-soft:rgba(239,123,69,0.08); --accent-border:rgba(239,123,69,0.18); }
+  *{margin:0;padding:0;box-sizing:border-box}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}.container{max-width:760px;margin:0 auto;padding:0 24px 100px}
+  .hero{padding:56px 24px 40px;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 0%,rgba(239,123,69,0.05) 0%,transparent 70%)}.hero-inner{position:relative;z-index:1;max-width:760px;margin:0 auto}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);padding:5px 14px;border-radius:16px;margin-bottom:20px}.hero-icon{width:64px;height:64px;border-radius:14px;background:var(--accent-soft);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--accent);font-family:'Noto Sans JP',sans-serif;font-weight:700;margin:0 auto 20px}.hero h1{font-size:32px;font-weight:900;margin-bottom:6px}.hero .title-jp{font-family:'Noto Sans JP',sans-serif;font-size:14px;color:var(--text-muted);margin-bottom:4px}.hero .title-en{font-size:12px;color:var(--text-muted);margin-bottom:20px}.hero-tags{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:20px}.hero-tag{font-size:11px;padding:4px 12px;border-radius:12px;background:var(--accent-soft);color:var(--accent);font-weight:500;border:1px solid var(--accent-border)}.hero-summary{font-size:13px;color:var(--text-dim);max-width:560px;margin:0 auto;line-height:1.9}
+  .section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0}.section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}.section-nav-inner::-webkit-scrollbar{display:none}.nav-item{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap}.nav-item:hover,.nav-item.active{color:var(--accent);background:var(--accent-soft)}
+  .section{padding:40px 0;border-bottom:1px solid rgba(255,255,255,0.03)}.section:last-child{border-bottom:none}.section-number{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);opacity:0.6;margin-bottom:6px}.section-title{font-size:20px;font-weight:800;margin-bottom:4px}.section-title-jp{font-family:'Noto Sans JP',sans-serif;font-size:12px;color:var(--text-muted);margin-bottom:20px}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px}.section p:last-child{margin-bottom:0}.hl{color:var(--accent);font-weight:600}.hl-warn{color:#ef4444;font-weight:600}
+  .info-box{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0}.info-box-accent{border-left:3px solid var(--accent);background:var(--accent-soft);border-color:var(--accent-border);border-left-color:var(--accent)}.info-box h4{font-size:13px;font-weight:700;margin-bottom:8px}.info-box p{font-size:12px;color:var(--text-dim);line-height:1.8}
+  .framework-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.framework-item{padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-align:center}.framework-item .axis-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text-muted);margin-bottom:8px}.framework-item .axis-options{display:flex;justify-content:center;gap:8px}.axis-opt{font-size:12px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);font-weight:500}.axis-vs{font-size:10px;color:var(--text-muted);align-self:center}
+  .branch-list{display:flex;flex-direction:column;gap:8px;margin:16px 0}.branch-card{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;transition:all 0.2s}.branch-card:hover{border-color:var(--border-hover);background:var(--surface-2)}.branch-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:7px;flex-shrink:0;opacity:0.7}.branch-body h4{font-size:14px;font-weight:700;margin-bottom:4px}.branch-body p{font-size:12px;color:var(--text-dim);line-height:1.7;margin-bottom:6px}.branch-tags{display:flex;gap:4px;flex-wrap:wrap}.branch-tag{font-size:10px;padding:2px 8px;border-radius:8px;background:rgba(255,255,255,0.03);color:var(--text-muted);border:1px solid var(--border)}
+  .strength-grid{display:flex;flex-direction:column;gap:10px;margin:16px 0}.strength-item{display:flex;gap:14px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px}.strength-rank{font-size:22px;font-weight:900;color:var(--accent);opacity:0.4;width:30px;flex-shrink:0;text-align:center;line-height:1;padding-top:2px}.strength-body h4{font-size:14px;font-weight:700;margin-bottom:4px}.strength-body p{font-size:12px;color:var(--text-dim);line-height:1.7}
+  .career-timeline{position:relative;margin:20px 0;padding-left:28px}.career-timeline::before{content:'';position:absolute;left:8px;top:4px;bottom:4px;width:2px;background:linear-gradient(180deg,var(--accent) 0%,rgba(239,123,69,0.1) 100%);border-radius:1px}.career-step{position:relative;padding:14px 0}.career-step::before{content:'';position:absolute;left:-24px;top:20px;width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}.career-year{font-size:11px;font-weight:700;color:var(--accent);margin-bottom:4px}.career-role{font-size:14px;font-weight:700;margin-bottom:4px}.career-desc{font-size:12px;color:var(--text-dim);line-height:1.7}
+  .qa-list{display:flex;flex-direction:column;gap:8px;margin:16px 0}.qa-item{padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.2s}.qa-item:hover{border-color:var(--border-hover)}.qa-question{font-size:13px;font-weight:600;display:flex;align-items:flex-start;gap:10px}.qa-q-mark{color:var(--accent);font-weight:800;font-size:14px;flex-shrink:0;opacity:0.7}.qa-answer{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--text-dim);line-height:1.8;padding-left:24px}.qa-item.open .qa-answer{display:block}
+  .keyword-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.keyword-card{padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px}.keyword-card .kw-name{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:6px}.keyword-card .kw-desc{font-size:11px;color:var(--text-dim);line-height:1.7}
+  .warn-box{padding:18px 20px;background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.12);border-left:3px solid #ef4444;border-radius:10px;margin:14px 0}.warn-box h4{font-size:13px;font-weight:700;color:#ef4444;margin-bottom:6px}.warn-box p{font-size:12px;color:var(--text-dim);line-height:1.8}
+  .footer{text-align:center;padding-top:40px;margin-top:20px;border-top:1px solid var(--border)}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8}.footer .brand{font-weight:700;color:var(--text-dim)}
+  @media(max-width:640px){.hero h1{font-size:26px}.section-title{font-size:18px}.framework-grid{grid-template-columns:1fr}.keyword-grid{grid-template-columns:1fr}.hero{padding:40px 20px 32px}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">職種概要カード vol.03</div>
+    <div class="hero-icon">顧</div>
+    <h1>컨설턴트</h1>
+    <div class="title-jp">コンサルタント 概要ガイド</div>
+    <div class="title-en">Consultant — Overview Card</div>
+    <div class="hero-tags">
+      <span class="hero-tag">신졸 인기 급상승</span>
+      <span class="hero-tag">이미지와 현실 갭 큼</span>
+      <span class="hero-tag">IT안건 다수</span>
+      <span class="hero-tag">체력+논리+소통</span>
+    </div>
+    <p class="hero-summary">
+      기업이 안고 있는 경영 과제를 분석하고, 해결책을 제안하며, 실행까지 돕는 직종.<br>
+      신졸 인기 직종 상위권이지만, 이미지와 현실의 갭이 가장 큰 직종이기도 하다.<br>
+      이 카드에서는 "컨설턴트란 실제로 뭘 하는 직종인가?"를 이미지가 아닌 현실 기준으로 정리했다.
+    </p>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="scrollToSection('s1')">01 정의</button>
+    <button class="nav-item" onclick="scrollToSection('s2')">02 분류축</button>
+    <button class="nav-item" onclick="scrollToSection('s3')">03 업계분기</button>
+    <button class="nav-item" onclick="scrollToSection('s4')">04 역량</button>
+    <button class="nav-item" onclick="scrollToSection('s5')">05 커리어패스</button>
+    <button class="nav-item" onclick="scrollToSection('s6')">06 ES/면접</button>
+    <button class="nav-item" onclick="scrollToSection('s7')">07 키워드</button>
+    <button class="nav-item" onclick="scrollToSection('s8')">08 주의점</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ========== SECTION 1 ========== -->
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">컨설턴트란 무엇인가</div>
+    <div class="section-title-jp">コンサルタントとは</div>
+
+    <p>
+      한마디로 말하면, <span class="hl">기업이 안고 있는 경영/업무상의 과제를 분석하고, 
+      해결책을 설계해서 제안하고, 때로는 실행까지 함께 하는 직종</span>이다.
+    </p>
+
+    <p>
+      "경영자의 상담 상대"라는 화려한 이미지가 있지만, 현실은 좀 다르다.
+      특히 신졸이 알아야 할 가장 중요한 팩트: <span class="hl">지금 일본 컨설팅 업계의 안건(프로젝트) 대부분은 "IT 관련"이다.</span>
+      "전략을 짠다"는 이미지로 들어왔는데 실제로는 "시스템 도입 프로젝트"를 관리하고 있었다는 갭이 가장 흔한 현실.
+    </p>
+
+    <p>
+      그래서 "컨설턴트"라는 직종을 이해하려면, <span class="hl">"전략 컨설"과 "IT/업무 컨설"을 구분해서 생각하는 것</span>이 첫걸음.
+      두 개는 같은 "컨설턴트"라는 이름을 쓰지만, 하는 일이 상당히 다르다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>컨설턴트를 이해하는 3가지 포인트</h4>
+      <p>
+        <strong>① "과제 해결"이 본질</strong> — 고객(기업)이 "매출이 떨어지고 있다", "업무가 비효율적이다", "새 시장에 진출하고 싶다" 같은 과제를 가지고 오면, 그것을 분석하고 해결책을 만드는 것이 컨설턴트의 일. 제조업이나 IT처럼 "물건을 만드는" 직종이 아니라 "답을 만드는" 직종.<br><br>
+        <strong>② 안건의 대부분이 IT 관련</strong> — "전략 컨설"이라는 화려한 이미지가 있지만, 일본 컨설팅 시장의 매출 기준으로 보면 IT/디지털 관련 안건이 압도적으로 많다. 특히 대형 컨설팅 회사(액센츄어, 아빔, NRI 등)에서는 신졸이 배치되는 프로젝트의 상당수가 시스템 도입/DX 관련.<br><br>
+        <strong>③ 체력전이다</strong> — "머리를 쓰는 일"이라는 이미지와 달리, 현실은 장시간 근무와 마감 프레셔가 강한 업계. "분석 + 자료 작성 + 고객 프레젠"을 동시에 돌리면서 마감을 지키는 체력이 기본.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>컨설턴트의 하루는 이런 느낌이다 (IT컨설 2년차 예시)</h4>
+      <p>
+        09:00 고객사 출근 (대부분의 프로젝트는 고객사에 상주)<br>
+        09:30 팀 미팅 — 이번 주 태스크(할 일) 확인, 이슈 공유<br>
+        10:00 자료 작성 — 고객의 업무 프로세스를 분석한 결과를 파워포인트로 정리<br>
+        12:00 점심<br>
+        13:00 고객 담당자와 워크숍(작업 회의) — 현장의 문제를 함께 정리<br>
+        15:00 시스템 도입 요건 정리 — "어떤 시스템이 필요한가"를 문서화<br>
+        17:00 팀 내 리뷰 — 매니저에게 자료 확인 받고 피드백 반영<br>
+        18:30 자료 수정, 내일 미팅 준비<br>
+        20:00 퇴근 (마감 전에는 22시-23시도)
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>다른 직종과 뭐가 다른가?</h4>
+      <p>
+        <strong>vs 영업</strong>: 영업은 "자사 상품/서비스를 고객에게 파는 것"이 목적. 컨설턴트는 "고객의 과제를 해결하는 것"이 목적. 자사 상품이 아니라 "분석과 해결책"이라는 무형의 가치를 제공.<br><br>
+        <strong>vs SE/IT엔지니어</strong>: SE는 "시스템을 만드는 사람," 컨설턴트는 "어떤 시스템을 만들어야 하는지 결정하는 사람." SE보다 한 단계 위(상류)에서 "무엇을, 왜 만들어야 하는가"를 설계. 다만 IT컨설턴트와 SIer SE의 업무 경계는 실제로 모호한 경우가 많음.<br><br>
+        <strong>vs 기획 직종</strong>: 사내 기획은 "자기 회사의 전략"을 짜는 사람. 컨설턴트는 "다른 회사의 전략"을 짜는 사람. 외부 전문가로서 여러 기업의 과제를 경험할 수 있다는 게 차이.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>솔직히 말하면: 컨설턴트의 현실</h4>
+      <p>
+        <strong>장시간 근무가 일상이다.</strong> 최근 개선되고 있지만, 여전히 다른 업계 대비 근무 시간이 길다. 마감 전에는 심야 근무가 발생하는 프로젝트도. "워라밸을 중시한다"면 컨설은 신중하게 생각할 것.<br><br>
+        <strong>"전략을 짠다"는 일은 극소수만 한다.</strong> 순수한 경영 전략 안건은 MBB(맥킨지, BCG, 베인) 같은 전략 펌의 시니어급이 하는 일. 대부분의 컨설턴트(특히 신졸)가 하는 일은 데이터 분석, 자료 작성, 시스템 요건 정리, 프로젝트 관리 등 "지미한 실무."<br><br>
+        <strong>고객사에 상주하는 경우가 많다.</strong> 자기 회사가 아니라 고객사에 출근해서 일하는 패턴. 프로젝트마다 고객사가 바뀌기 때문에 출근 장소도 바뀔 수 있다.<br><br>
+        <strong>Up or Out 문화가 있는 곳도.</strong> 특히 외자계 컨설팅 펌에서는 "승진하거나 떠나거나(Up or Out)"라는 문화가 있다. 일정 기간 내에 성과를 내지 못하면 사실상 퇴사를 권유받는 구조.<br><br>
+        그 대신, <span class="hl">20대부터 대기업 경영진과 직접 일하는 경험, 다양한 업계/과제에 노출되는 성장 속도, 전직 시장에서의 높은 가치</span>는 다른 업계에서는 얻기 어렵다. "하드하지만 빠르게 성장하고 싶다"는 사람에게 맞는 직종.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 2 ========== -->
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">컨설턴트의 분류 축</div>
+    <div class="section-title-jp">コンサルタントを分解する軸</div>
+
+    <p>
+      "컨설턴트"라고 해도 <span class="hl">"무엇을 컨설팅하느냐"에 따라 전혀 다른 직종</span>이다.
+      가장 중요한 분류는 "전략계"와 "IT/업무계"의 차이.
+    </p>
+
+    <div class="framework-grid">
+      <div class="framework-item">
+        <div class="axis-label">축 1: 무엇을 컨설팅하나</div>
+        <div class="axis-options">
+          <span class="axis-opt">경영 전략</span>
+          <span class="axis-vs">vs</span>
+          <span class="axis-opt">IT/업무 개선</span>
+        </div>
+      </div>
+      <div class="framework-item">
+        <div class="axis-label">축 2: 어디까지 하나</div>
+        <div class="axis-options">
+          <span class="axis-opt">제안까지</span>
+          <span class="axis-vs">vs</span>
+          <span class="axis-opt">실행(도입)까지</span>
+        </div>
+      </div>
+      <div class="framework-item">
+        <div class="axis-label">축 3: 회사 유형</div>
+        <div class="axis-options">
+          <span class="axis-opt">외자계</span>
+          <span class="axis-vs">vs</span>
+          <span class="axis-opt">일본계</span>
+        </div>
+      </div>
+      <div class="framework-item">
+        <div class="axis-label">축 4: 업계 특화</div>
+        <div class="axis-options">
+          <span class="axis-opt">전업계 대응</span>
+          <span class="axis-vs">vs</span>
+          <span class="axis-opt">특정 업계 특화</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box info-box-accent">
+      <h4>전략 / 종합 / IT — 3가지 유형을 구분해야 한다</h4>
+      <p>
+        <strong>전략 컨설팅</strong> = 기업의 경영 전략(어디에 투자할까, 어떤 시장에 들어갈까, 사업을 합칠까 등)을 짜는 일. 대표: 맥킨지(McKinsey), BCG, 베인(Bain) — 이 세 곳을 MBB라고 부름. 채용 극소수, 난이도 최상.<br><br>
+        <strong>종합 컨설팅</strong> = 전략, 업무 개선, IT, 인사, 재무 등 폭넓은 영역을 커버하는 대형 펌. 대표: BIG4(デロイト, PwC, EY, KPMG). 감사법인 계열로 컨설팅 부문을 확장. IT비중이 커지고 있지만 비IT 안건(인사, 재무, M&A 등)도 상당량 있어서 "종합"이 맞음.<br><br>
+        <strong>IT컨설팅</strong> = IT시스템 도입, DX(디지털 전환) 프로젝트를 기획 단계부터 실행까지 이끄는 일. 대표: アクセンチュア(액센츄어), アビームコンサルティング(아빔), 野村総合研究所(NRI), ベイカレント, フューチャー 등. 액센츄어는 "종합"이라고 하지만 매출의 대부분이 IT/테크놀로지. NRI도 시스템(ITソリューション) 매출이 압도적. 실질적으로 IT컨설 색채가 강함.<br><br>
+        <span class="hl">신졸이 "컨설턴트가 되고 싶다"라고 할 때, 현실적으로 대부분이 가게 되는 곳은 종합 또는 IT컨설팅 쪽이다.</span> 전략 컨설은 최상위 학력 + 극강 논리력이 요구되는 별도의 세계.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 3 ========== -->
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">컨설팅 업계 분기 일람</div>
+    <div class="section-title-jp">コンサル業界の分岐マップ</div>
+
+    <p>
+      "컨설턴트가 되고 싶다"의 다음 질문은 "어떤 컨설턴트?" 아래 분류를 보고 자기 지향을 좁혀보자.
+    </p>
+
+    <div class="branch-list">
+      <div class="branch-card">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <h4>전략컨설팅 (MBB 등)</h4>
+          <p>McKinsey, BCG, Bain을 중심으로 한 경영전략 특화 펌. 기업의 최고경영진을 직접 상대. 채용 인원 극소수(신졸 연간 수십 명 수준), 난이도 최상. 케이스 면접(비즈니스 문제를 그 자리에서 분석하는 시험)이 필수. 일본에서는 ドリームインキュベータ, CDI 등 일계 전략펌도 있다.</p>
+          <div class="branch-tags"><span class="branch-tag">전략 특화</span><span class="branch-tag">극소수 채용</span><span class="branch-tag">최고 난이도</span></div>
+        </div>
+      </div>
+      <div class="branch-card">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <h4>종합컨설팅 (BIG4)</h4>
+          <p>デロイト トーマツ, PwC, EY, KPMG의 4대 감사법인 계열 컨설팅 부문. 전략, 업무 개선, IT, 인사, 재무, M&A 등 폭넓은 영역을 커버. IT안건 비중이 커지고 있지만 비IT 영역도 상당량 있어서 "종합"이라 부름. 신졸 채용 규모가 크고, 대부분의 학생이 여기를 목표로 함.</p>
+          <div class="branch-tags"><span class="branch-tag">종합</span><span class="branch-tag">BIG4</span><span class="branch-tag">신졸 접근 가능</span></div>
+        </div>
+      </div>
+      <div class="branch-card">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <h4>IT컨설팅</h4>
+          <p>IT시스템 도입, DX 프로젝트를 기획 단계부터 실행까지 이끄는 역할. アクセンチュア(액센츄어), アビーム, NRI, ベイカレント, フューチャー 등. 액센츄어는 "종합"을 표방하지만 매출 대부분이 IT/테크놀로지. NRI도 시스템 사업 매출이 압도적. 실질적으로 IT컨설의 색채가 강한 기업들. SIer SE의 상류 업무와 겹치는 부분이 크다.</p>
+          <div class="branch-tags"><span class="branch-tag">IT 특화</span><span class="branch-tag">SIer과 경계 모호</span><span class="branch-tag">실행까지</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>"컨설 = 전략"이 아니라는 것을 먼저 이해하자</h4>
+      <p>
+        일본 컨설팅 시장에서 전략안건이 차지하는 비율은 극히 일부다.
+        액센츄어의 매출 구성을 보면 IT관련(테크놀로지/오퍼레이션) 비율이 압도적으로 크고,
+        BIG4도 IT/업무 컨설팅이 주력이다.
+        "전략을 짜는 화려한 컨설턴트"를 기대하고 들어왔는데,
+        실제 배치된 프로젝트가 "시스템 도입의 요건 정리"였다는 갭은 매우 흔하다.
+        <span class="hl">이 현실을 이해한 위에서 지원하는 것이 중요하다.</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 4 ========== -->
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">컨설턴트에서 보는 역량</div>
+    <div class="section-title-jp">コンサルタントに求められる力</div>
+
+    <p>
+      컨설턴트 채용에서 "이 사람은 맞겠다"고 판단하는 기준은?
+      <span class="hl">"논리적 사고 + 체력 + 커뮤니케이션"</span>의 총체. 어느 하나만으로는 부족하다.
+    </p>
+
+    <div class="strength-grid">
+      <div class="strength-item"><div class="strength-rank">01</div><div class="strength-body"><h4>논리적 사고력 — 모호함을 구조화하는 힘</h4><p>고객이 "뭔가 잘 안 되는데..."라는 막연한 과제를 가지고 오면, 그것을 "원인은 A와 B, 해결책은 C와 D, 우선순위는..."이라고 구조적으로 정리하는 힘. 컨설턴트의 가장 기본적인 무기. 면접에서도 답변의 구조 자체가 평가 대상.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">02</div><div class="strength-body"><h4>체력/끈기 — "하드워크를 버틸 수 있는가"</h4><p>솔직히 컨설팅은 체력전이다. 대량의 데이터를 분석하고, 수십 페이지의 자료를 만들고, 고객 프레젠을 준비하는 것이 동시에 돌아간다. 마감 프레셔 속에서 품질을 유지하는 체력과 정신력이 기본 요건.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">03</div><div class="strength-body"><h4>커뮤니케이션 — 고객을 "움직이게" 하는 힘</h4><p>아무리 좋은 분석이라도 고객이 납득하고 행동하지 않으면 의미가 없다. 경영진부터 현장 담당자까지, 상대방의 레벨에 맞춰 설명하고 설득하는 힘. "정답을 말하는 것"이 아니라 "상대방이 움직이게 만드는 것"이 목표.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">04</div><div class="strength-body"><h4>학습 속도 — 매번 새로운 업계/과제</h4><p>프로젝트마다 업계(금융, 제조, 유통 등)와 과제가 다르다. 1-2주 안에 해당 업계의 기본 구조를 파악하고, 과제의 핵심을 이해해야 한다. "배우는 속도"가 곧 성과의 속도.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">05</div><div class="strength-body"><h4>자료 작성력 — 파워포인트/엑셀이 무기</h4><p>컨설턴트의 "결과물"은 대부분 자료(파워포인트 슬라이드 + 엑셀 분석). 복잡한 내용을 한 장에 명확하게 전달하는 자료를 만드는 기술. 신졸 시절에 가장 많이 하는 업무이기도 함.</p></div></div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 5 ========== -->
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">커리어패스 — 컨설 후에 뭐가 되나</div>
+    <div class="section-title-jp">コンサルタントのキャリアパス</div>
+
+    <p>
+      컨설팅 업계의 커리어는 <span class="hl">"직위(タイトル) 기반의 명확한 단계"</span>가 특징.
+      그리고 "컨설에서 쌓은 경험 → 사업회사/스타트업으로 전직"하는 패턴이 매우 활발하다.
+    </p>
+
+    <div class="career-timeline">
+      <div class="career-step"><div class="career-year">1-2년차</div><div class="career-role">애널리스트 (Analyst)</div><div class="career-desc">데이터 수집/분석, 자료(슬라이드) 작성, 회의록 정리 등 "팀의 손발" 역할. 선배 컨설턴트의 지시에 따라 태스크를 실행. 엑셀/파워포인트 스킬이 급격히 올라간다. 가장 체력적으로 힘든 시기.</div></div>
+      <div class="career-step"><div class="career-year">3-4년차</div><div class="career-role">컨설턴트 (Consultant)</div><div class="career-desc">프로젝트의 특정 영역(워크스트림)을 주도적으로 담당. 고객과 직접 미팅을 리드하기 시작. "시키는 일"에서 "스스로 방향을 결정하는 일"로 전환.</div></div>
+      <div class="career-step"><div class="career-year">5-7년차</div><div class="career-role">매니저 (Manager)</div><div class="career-desc">프로젝트 전체를 관리. 팀원에게 업무를 배분하고, 고객 관계를 관리하고, 품질을 담보. "실무"에서 "관리"로 비중이 이동. 동시에 새 안건의 영업(제안서 작성)도 시작.</div></div>
+      <div class="career-step"><div class="career-year">8년차 이후</div><div class="career-role">파트너/디렉터 (Partner/Director)</div><div class="career-desc">회사의 경영진. 대형 안건의 수주, 고객 경영진과의 관계 구축, 사내 조직 관리가 미션. "컨설팅을 하는 사람"에서 "컨설팅을 파는 사람"으로. 극히 일부만 도달.</div></div>
+    </div>
+
+    <div class="info-box">
+      <h4>"컨설 출신"의 전직 선택지가 넓다</h4>
+      <p>
+        컨설팅 업계에서 3-5년 경험을 쌓은 뒤 다른 곳으로 전직하는 사람이 많다. 이유: 컨설에서 배운 "과제 분석 + 프로젝트 관리 + 자료 작성 + 고객 대응" 스킬은 어디서든 가치가 있기 때문.<br><br>
+        <strong>주요 전직처</strong>: 사업회사의 경영기획/전략부문, 스타트업의 COO/CXO, 투자펀드, 독립(프리랜서 컨설), IT기업의 프로덕트 매니저 등.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 6 ========== -->
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">ES/면접 공통 포인트</div>
+    <div class="section-title-jp">ES・面接で貫く核心</div>
+
+    <p>
+      컨설턴트 지망 ES/면접의 핵심:
+      <span class="hl">"왜 컨설인가(다른 업계가 아니라)"와 "논리적 사고력을 증명할 수 있는가."</span>
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>지망동기는 이 순서로</h4>
+      <p>
+        ① 과제 해결/분석에 관심을 가진 계기<br>
+        → ② 왜 사업회사(영업/기획)가 아니라 컨설인가 — "외부 전문가로서 다양한 업계/과제를 경험하고 싶다"<br>
+        → ③ 왜 이 펌인가 — 종합인지 전략인지 IT특화인지, 이 펌의 강점과 자기 지향의 연결<br>
+        → ④ 입사 후 어떤 컨설턴트가 되고 싶은가
+      </p>
+    </div>
+
+    <div class="qa-list">
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>왜 영업이나 기획이 아니라 컨설턴트인가?</span></div><div class="qa-answer">"하나의 회사/상품에 국한되지 않고, 다양한 업계/과제를 경험하면서 과제 해결 능력을 빠르게 성장시키고 싶다"가 기본 방향. "외부 전문가"로서 여러 기업에 관여할 수 있다는 컨설만의 가치를 설명.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>IT관련 안건이 많은데 그래도 괜찮은가?</span></div><div class="qa-answer">종합컨설팅 펌에서 거의 반드시 나오는 질문. "전략만 하고 싶다"고 답하면 현실을 모르는 사람으로 보인다. "IT는 지금 기업 과제의 핵심 수단이기 때문에 IT 관련 안건을 통해서도 경영 과제 해결에 기여할 수 있다고 생각한다"는 방향. IT에 대한 거부감이 없다는 것을 보여줄 것.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>장시간 근무에 대해 어떻게 생각하나?</span></div><div class="qa-answer">"괜찮다"만으로는 부족. "빠르게 성장하고 싶다는 목표가 있고, 그 과정에서의 하드워크는 투자라고 생각한다"는 방향. 동시에 "효율적으로 일하는 것도 중요하다고 생각한다"는 균형감.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>어떤 업계/분야에 관심이 있는가?</span></div><div class="qa-answer">하나를 깊이 파서 "왜 그 업계에 관심이 있고, 그 업계의 과제가 무엇이라고 생각하는가"까지 말할 수 있으면 강함. "아무 업계든 괜찮다"는 약함. 다만 "입사 후 다양한 경험을 하면서 전문 분야를 좁혀가고 싶다"는 것은 OK.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>케이스 면접(페르미 추정 등)은 어떻게 준비하나?</span></div><div class="qa-answer">전략 컨설팅 펌에서는 케이스 면접(비즈니스 문제를 그 자리에서 분석/해결하는 시험)이 필수. 종합컨설팅에서도 간이 케이스나 논리 테스트가 있는 경우. 대비법: 케이스 면접 서적(東大生が書いた 등)으로 기본 프레임워크를 익히고, 친구와 연습. "정답"보다 "사고 과정"을 보는 시험이므로 과정을 소리 내어 설명하는 연습이 핵심.</div></div>
+    </div>
+
+    <div class="info-box">
+      <h4>가쿠치카 연결법</h4>
+      <p>
+        컨설이 보는 역량은 "논리적 사고 + 리더십 + 끈기."<br><br>
+        <strong>좋은 예</strong>: 어떤 과제/문제를 분석하고, 가설을 세워 검증하고, 결론을 도출한 경험 → 논리적 사고<br>
+        <strong>좋은 예</strong>: 팀 프로젝트를 이끌면서 방향을 제시하고 멤버를 조율한 경험 → 리더십+조정력<br>
+        <strong>좋은 예</strong>: 어려운 목표에 장기간 꾸준히 도전해서 결과를 낸 경험 → 끈기+목표 달성<br>
+        <strong>약한 예</strong>: "다양한 경험을 했다" → 양이 아니라 하나를 깊이 팠는지를 봄
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 7 ========== -->
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 연결</div>
+    <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+    <p><span class="hl">"논리적이니까 컨설에 맞다"가 아니라, "논리적 사고가 컨설의 어떤 장면에서 발휘되는가"</span>까지.</p>
+
+    <div class="keyword-grid">
+      <div class="keyword-card"><div class="kw-name">논리적사고력</div><div class="kw-desc">컨설턴트의 가장 기본 무기. 막연한 과제를 구조화하고, 원인을 분석하고, 해결책을 논리적으로 설계하는 힘. 면접에서 답변의 구조 자체가 논리력의 증명.</div></div>
+      <div class="keyword-card"><div class="kw-name">향상심</div><div class="kw-desc">프로젝트마다 새로운 업계/기술을 빠르게 배워야 하는 세계. "지금보다 더 성장하겠다"는 강한 의지가 없으면 버티기 어렵다. 컨설은 "성장 중독자"한테 맞는 환경.</div></div>
+      <div class="keyword-card"><div class="kw-name">리더십</div><div class="kw-desc">컨설턴트는 고객을 "움직이게" 해야 한다. 분석 결과를 전달하는 것에서 끝나지 않고, 고객이 실제로 행동하도록 이끄는 힘. 팀 내에서도 방향을 제시하는 역할.</div></div>
+      <div class="keyword-card"><div class="kw-name">끈기</div><div class="kw-desc">마감 프레셔, 고객의 높은 기대, 하드워크. 이 환경에서 품질을 유지하면서 끝까지 해내는 끈기. "힘들어도 포기하지 않는" 경험이 있으면 강력한 어필.</div></div>
+      <div class="keyword-card"><div class="kw-name">과제해결력</div><div class="kw-desc">컨설턴트의 본질이 "과제 해결." 학생 시절에도 뭔가의 과제를 분석하고 해결한 경험이 있으면 직접적 연결. 학업이든 동아리든 아르바이트든 상관없음.</div></div>
+      <div class="keyword-card"><div class="kw-name">도전정신</div><div class="kw-desc">"안전한 길"보다 "빠르게 성장할 수 있는 험한 길"을 선택하는 자세. 컨설은 안정 지향 사람에게는 맞지 않는다. "하드해도 성장하겠다"는 각오가 있느냐.</div></div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 8 ========== -->
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">コンサルタントの落とし穴</div>
+
+    <p>컨설턴트를 지망하는 학생들이 자주 빠지는 함정. 해당 사항이 있으면 지금이라도 수정하면 된다.</p>
+
+    <div class="warn-box"><h4>함정 1: "컨설 = 전략을 짠다"라는 환상</h4><p>가장 흔하고 가장 위험한 오해. 전략 안건은 MBB의 시니어급이 하는 일. 종합컨설팅 펌의 신졸 대부분이 배치되는 건 IT도입, 업무 개선, 프로젝트 관리 등의 안건. 면접에서 "전략을 짜고 싶다"만 말하면 "현실을 모르는 사람"으로 보인다. <span class="hl-warn">"전략만 하고 싶다면 MBB에 가야 하고, 종합컨설을 지원하면서 전략만 말하면 안 된다"는 것을 이해할 것.</span></p></div>
+    <div class="warn-box"><h4>함정 2: 업무 강도를 모르고 지원</h4><p>컨설팅은 일본에서도 "하드워크" 대표 업계 중 하나. 최근 개선되고 있지만 여전히 장시간 근무가 발생하는 프로젝트가 있다. "고연봉이니까" "성장할 수 있으니까"만 보고 들어왔다가 체력적으로 버티지 못하는 패턴은 흔하다.</p></div>
+    <div class="warn-box"><h4>함정 3: "BIG4/액센츄어"만 보는 것</h4><p>대형 펌만 지원하면 전멸할 수 있다. 일본계 IT컨설(アビーム, ベイカレント, フューチャー 등), 부티크 컨설(특정 분야 특화 소규모 펌), SIer의 컨설팅 부문 등 선택지는 넓다. BIG4와 액센츄어만이 컨설팅의 전부가 아니다.</p></div>
+    <div class="warn-box"><h4>함정 4: "논리적 사고가 강점"만 말하는 ES</h4><p>"논리적 사고가 강점이니까 컨설에 맞다"는 컨설 지망 ES의 90%가 쓰는 표현. 차별화가 안 된다. 중요한 건 "논리적 사고를 사용해서 구체적으로 뭘 해결했는가"의 에피소드. 추상적 자기 평가가 아니라 구체적 행동과 결과.</p></div>
+    <div class="warn-box"><h4>함정 5: SIer SE와의 차이를 설명 못 하는 것</h4><p>"IT컨설턴트"와 "SIer SE"는 실제로 업무가 겹치는 부분이 많다. 면접에서 "왜 SIer가 아니라 컨설인가"를 물어볼 때 답하지 못하면 "차이를 모르고 지원했구나"로 보인다. 핵심 차이: 컨설은 "어떤 시스템을 왜 도입해야 하는지"를 결정하는 쪽, SIer는 "결정된 시스템을 어떻게 만들 것인지"를 실행하는 쪽.</p></div>
+  </div>
+
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 직종 개요 카드 vol.03 — 컨설턴트</p>
+    <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+    <p style="margin-top:8px;font-size:10px;">직종 대분류 맵(레벨1)도 함께 참고</p>
+  </div>
+</div>
+
+<script>
+function scrollToSection(id){const el=document.getElementById(id);if(el){const navHeight=document.querySelector('.section-nav').offsetHeight;const y=el.getBoundingClientRect().top+window.pageYOffset-navHeight-12;window.scrollTo({top:y,behavior:'smooth'})}}
+const sections=['s1','s2','s3','s4','s5','s6','s7','s8'];const navItems=document.querySelectorAll('.nav-item');
+function updateActiveNav(){const navHeight=document.querySelector('.section-nav').offsetHeight;let current='';sections.forEach(id=>{const el=document.getElementById(id);if(el){const rect=el.getBoundingClientRect();if(rect.top<=navHeight+60)current=id}});navItems.forEach((item,i)=>{if(sections[i]===current)item.classList.add('active');else item.classList.remove('active')})}
+window.addEventListener('scroll',updateActiveNav);updateActiveNav();
+</script>
+</body>
+</html>
