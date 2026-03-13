@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SES 엔지니어 상세 카드 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+  :root { --bg:#0a0a0f; --surface:#141419; --surface-2:#1c1c24; --border:#2a2a35; --border-hover:#3a3a48; --text:#e8e8ed; --text-sub:#c0c0d0; --text-dim:#8888a0; --text-muted:#555568; --accent:#f87171; --accent-soft:rgba(248,113,113,0.08); --accent-border:rgba(248,113,113,0.18); }
+  *{margin:0;padding:0;box-sizing:border-box}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}.container{max-width:760px;margin:0 auto;padding:0 24px 100px}
+  .hero{padding:56px 24px 40px;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 0%,rgba(248,113,113,0.05) 0%,transparent 70%)}.hero-inner{position:relative;z-index:1;max-width:760px;margin:0 auto}.hero-breadcrumb{font-size:11px;color:var(--text-muted);margin-bottom:16px}.hero-breadcrumb a{color:var(--accent);text-decoration:none}.hero-breadcrumb span{margin:0 6px}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);padding:5px 14px;border-radius:16px;margin-bottom:20px}.hero-icon{width:64px;height:64px;border-radius:14px;background:var(--accent-soft);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--accent);font-family:'Noto Sans JP',sans-serif;font-weight:700;margin:0 auto 20px}.hero h1{font-size:30px;font-weight:900;margin-bottom:6px}.hero .title-jp{font-family:'Noto Sans JP',sans-serif;font-size:14px;color:var(--text-muted);margin-bottom:4px}.hero .title-en{font-size:12px;color:var(--text-muted);margin-bottom:20px}.hero-tags{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:20px}.hero-tag{font-size:11px;padding:4px 12px;border-radius:12px;background:var(--accent-soft);color:var(--accent);font-weight:500;border:1px solid var(--accent-border)}.hero-summary{font-size:13px;color:var(--text-dim);max-width:540px;margin:0 auto;line-height:1.9}
+  .section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0}.section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}.section-nav-inner::-webkit-scrollbar{display:none}.nav-item{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap}.nav-item:hover,.nav-item.active{color:var(--accent);background:var(--accent-soft)}
+  .section{padding:40px 0;border-bottom:1px solid rgba(255,255,255,0.03)}.section:last-child{border-bottom:none}.section-number{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);opacity:0.6;margin-bottom:6px}.section-title{font-size:20px;font-weight:800;margin-bottom:4px}.section-title-jp{font-family:'Noto Sans JP',sans-serif;font-size:12px;color:var(--text-muted);margin-bottom:20px}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px}.section p:last-child{margin-bottom:0}.hl{color:var(--accent);font-weight:600}.hl-warn{color:#ef4444;font-weight:600}
+  .info-box{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0}.info-box-accent{border-left:3px solid var(--accent);background:var(--accent-soft);border-color:var(--accent-border);border-left-color:var(--accent)}.info-box h4{font-size:13px;font-weight:700;margin-bottom:8px}.info-box p{font-size:12px;color:var(--text-dim);line-height:1.8}
+  .strength-grid{display:flex;flex-direction:column;gap:10px;margin:16px 0}.strength-item{display:flex;gap:14px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px}.strength-rank{font-size:22px;font-weight:900;color:var(--accent);opacity:0.4;width:30px;flex-shrink:0;text-align:center;line-height:1;padding-top:2px}.strength-body h4{font-size:14px;font-weight:700;margin-bottom:4px}.strength-body p{font-size:12px;color:var(--text-dim);line-height:1.7}
+  .career-timeline{position:relative;margin:20px 0;padding-left:28px}.career-timeline::before{content:'';position:absolute;left:8px;top:4px;bottom:4px;width:2px;background:linear-gradient(180deg,var(--accent) 0%,rgba(248,113,113,0.1) 100%);border-radius:1px}.career-step{position:relative;padding:14px 0}.career-step::before{content:'';position:absolute;left:-24px;top:20px;width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px solid var(--accent)}.career-year{font-size:11px;font-weight:700;color:var(--accent);margin-bottom:4px}.career-role{font-size:14px;font-weight:700;margin-bottom:4px}.career-desc{font-size:12px;color:var(--text-dim);line-height:1.7}
+  .qa-list{display:flex;flex-direction:column;gap:8px;margin:16px 0}.qa-item{padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.2s}.qa-item:hover{border-color:var(--border-hover)}.qa-question{font-size:13px;font-weight:600;display:flex;align-items:flex-start;gap:10px}.qa-q-mark{color:var(--accent);font-weight:800;font-size:14px;flex-shrink:0;opacity:0.7}.qa-answer{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--text-dim);line-height:1.8;padding-left:24px}.qa-item.open .qa-answer{display:block}
+  .keyword-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.keyword-card{padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px}.keyword-card .kw-name{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:6px}.keyword-card .kw-desc{font-size:11px;color:var(--text-dim);line-height:1.7}
+  .warn-box{padding:18px 20px;background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.12);border-left:3px solid #ef4444;border-radius:10px;margin:14px 0}.warn-box h4{font-size:13px;font-weight:700;color:#ef4444;margin-bottom:6px}.warn-box p{font-size:12px;color:var(--text-dim);line-height:1.8}
+  .footer{text-align:center;padding-top:40px;margin-top:20px;border-top:1px solid var(--border)}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8}.footer .brand{font-weight:700;color:var(--text-dim)}
+  @media(max-width:640px){.hero h1{font-size:24px}.section-title{font-size:18px}.keyword-grid{grid-template-columns:1fr}.hero{padding:40px 20px 32px}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-breadcrumb"><a href="#">직종 대분류 맵</a><span>›</span><a href="#">SE/IT엔지니어 개요</a><span>›</span>SES</div>
+    <div class="hero-label">業界×職種カード SE-04</div>
+    <div class="hero-icon">SES</div>
+    <h1>SES 엔지니어</h1>
+    <div class="title-jp">SES（客先常駐）エンジニア</div>
+    <div class="title-en">SES Engineer — Industry Detail Card</div>
+    <div class="hero-tags">
+      <span class="hero-tag">고객사 상주</span>
+      <span class="hero-tag">파견형</span>
+      <span class="hero-tag">채용 문턱 낮음</span>
+      <span class="hero-tag">주의 필요</span>
+    </div>
+    <p class="hero-summary">
+      SES란, 자기 회사에 소속되어 있지만 실제로는 다른 회사(고객사)에 가서 일하는 형태의 IT엔지니어.<br>
+      채용 문턱이 낮아서 IT업계에 들어가기 쉽지만, 커리어 설계에 주의가 필요한 직종이다.<br>
+      이 카드는 SES의 장점과 리스크를 솔직하게 정리했다. "알고 선택하는 것"이 중요하다.
+    </p>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="scrollToSection('s1')">01 정의</button>
+    <button class="nav-item" onclick="scrollToSection('s2')">02 구조</button>
+    <button class="nav-item" onclick="scrollToSection('s3')">03 장점</button>
+    <button class="nav-item" onclick="scrollToSection('s4')">04 리스크</button>
+    <button class="nav-item" onclick="scrollToSection('s5')">05 선별법</button>
+    <button class="nav-item" onclick="scrollToSection('s6')">06 커리어패스</button>
+    <button class="nav-item" onclick="scrollToSection('s7')">07 면접Q&A</button>
+    <button class="nav-item" onclick="scrollToSection('s8')">08 판단기준</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">SES란 — 구조를 먼저 이해하자</div>
+    <div class="section-title-jp">SESとは何か</div>
+
+    <p>
+      <span class="hl">SES = System Engineering Service</span>.
+      한마디로 말하면, "자기 회사(SES 기업)에 소속되어 있지만, 실제로 일하는 장소는 다른 회사(고객사)"라는 형태.
+      고객사의 프로젝트에 참여해서 일하고, 프로젝트가 끝나면 다른 고객사로 이동한다.
+    </p>
+
+    <p>
+      일본 IT업계의 피라미드 구조에서 SES는 주로 <span class="hl">2차-3차 이하(하청)</span>에 위치한다.
+      대형 SIer가 고객으로부터 받은 프로젝트의 일부(코딩, 테스트 등)를 SES 기업에 의뢰하고,
+      SES 기업은 자사 엔지니어를 그 프로젝트 현장에 보내는 구조.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>SES의 핵심 구조를 이해하자</h4>
+      <p>
+        <strong>고용 관계</strong>: SES 기업과 맺음 (급여는 SES 기업에서 받음)<br>
+        <strong>일하는 장소</strong>: 고객사 (SES 기업 사무실이 아님)<br>
+        <strong>업무 지시</strong>: 법적으로는 SES 기업이지만, 현실적으로는 고객사 현장의 지시를 따르는 경우가 많음<br>
+        <strong>프로젝트 선택</strong>: 원칙적으로 SES 기업의 영업이 결정. 본인의 희망이 반영되는 정도는 회사마다 다름<br><br>
+        쉽게 말하면: <span class="hl">"고용은 A사, 실제 일은 B사에서"</span>라는 구조. 이 구조가 장점이 되기도 하고 리스크가 되기도 한다.
+      </p>
+    </div>
+  </div>
+
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">SES 기업의 유형</div>
+    <div class="section-title-jp">SES企業の種類</div>
+
+    <p>같은 "SES"라도 회사의 질에 따라 경험이 천차만별이다. <span class="hl">모든 SES가 나쁜 것은 아니지만, 골라야 한다.</span></p>
+
+    <div class="info-box">
+      <h4>양질의 SES 기업의 특징</h4>
+      <p>
+        — 배치 전에 본인 희망을 충분히 히어링하고, 커리어 방향에 맞는 프로젝트에 배치<br>
+        — 사내 기술 연수/자격증 지원 제도가 충실<br>
+        — 정기적 면담으로 커리어 상담. "다음은 이런 프로젝트를 경험시키자"는 계획이 있음<br>
+        — 자사 개발 사업도 병행하고 있어서, SES 이외의 기회도 있음<br>
+        — 1차/2차 프로젝트 비율이 높음 (3차 이하가 아님)
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>주의해야 할 SES 기업의 특징</h4>
+      <p>
+        — 배치 프로젝트를 본인이 전혀 선택할 수 없음. "아무 데나 빈 곳에 넣는" 방식<br>
+        — 사내 연수가 거의 없음. "현장에서 알아서 배워라" 방식<br>
+        — 테스트, 단순 운용만 반복. 기술이 쌓이지 않는 현장에 장기간 배치<br>
+        — 면접에서 "다양한 경험" "성장 환경"만 강조하고 구체적 사례가 없음<br>
+        — <span class="hl-warn">대량 채용 → 대량 이직이 반복되는 회사는 특히 주의</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">SES의 장점 — 활용하면 무기가 된다</div>
+    <div class="section-title-jp">SESのメリット</div>
+
+    <p>SES를 무조건 피하라는 게 아니다. <span class="hl">제대로 활용하면 IT커리어의 좋은 출발점</span>이 될 수 있다.</p>
+
+    <div class="strength-grid">
+      <div class="strength-item"><div class="strength-rank">01</div><div class="strength-body"><h4>IT업계에 들어가기 쉽다</h4><p>SIer이나 Web계보다 채용 문턱이 낮다. 문과 미경험, 프로그래밍 경험 없음이어도 채용되는 경우가 많다. "일단 IT업계에 발을 들이고 싶다"는 사람에게 현실적 선택지.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">02</div><div class="strength-body"><h4>다양한 업계/기술을 경험할 수 있다</h4><p>프로젝트마다 업계(금융, 제조, 유통 등)와 기술이 다르다. 여러 현장을 거치면서 "자기한테 맞는 분야"를 찾을 수 있다는 장점. 이 경험을 바탕으로 이직할 때 강점이 될 수도.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">03</div><div class="strength-body"><h4>실무 경험을 빠르게 쌓을 수 있다</h4><p>SIer 신입은 연수만 몇 개월이지만, SES는 상대적으로 빠르게 현장에 투입된다. 단, 어떤 현장에 배치되느냐에 따라 경험의 질이 크게 달라짐.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">04</div><div class="strength-body"><h4>이직의 발판으로 활용 가능</h4><p>SES에서 2-3년 실무 경험 + 자격증을 쌓으면, SIer나 사내SE, Web계로 이직하는 루트가 열린다. "SES를 최종 목적지가 아니라 경유지로 사용하겠다"는 전략.</p></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">SES의 리스크 — 반드시 알고 선택하라</div>
+    <div class="section-title-jp">SESのリスク</div>
+
+    <p>SES의 리스크는 "몰라서 당하는 것"이 가장 위험하다. <span class="hl">알고 선택하면 대응할 수 있다.</span></p>
+
+    <div class="warn-box"><h4>리스크 1: 프로젝트를 자기가 선택할 수 없다</h4><p>어떤 현장에 배치될지는 SES 기업의 영업이 결정한다. 본인 희망과 다른 프로젝트(예: 금융 시스템을 하고 싶었는데 테스트만 하는 현장에 배치)에 보내질 수 있다. 이게 SES의 가장 본질적인 리스크.</p></div>
+    <div class="warn-box"><h4>리스크 2: 기술이 쌓이지 않는 현장에 고정될 수 있다</h4><p>단순 테스트, 데이터 입력, 운용 감시 등 기술적 성장이 없는 업무를 몇 년간 반복하게 되는 패턴이 실제로 있다. 자격증 취득이나 현장 변경 요청을 적극적으로 하지 않으면 커리어가 정체됨.</p></div>
+    <div class="warn-box"><h4>리스크 3: 급여가 상대적으로 낮다</h4><p>SES 기업은 고객사로부터 받는 단가에서 자사 마진을 뺀 금액이 엔지니어의 급여가 된다. 같은 현장에서 같은 일을 해도 SIer 정사원보다 급여가 낮은 경우가 많다.</p></div>
+    <div class="warn-box"><h4>리스크 4: "소속감"이 희박하다</h4><p>실제로 일하는 곳은 고객사이고, 자기 회사(SES 기업)에는 거의 가지 않는다. 동기나 선배와의 교류가 적어서 "어디에도 속하지 못하는" 느낌을 받는 사람이 있다.</p></div>
+    <div class="warn-box"><h4>리스크 5: "위장 파견"의 가능성</h4><p>SES는 법적으로 "준위임 계약"이라서 고객사가 직접 업무 지시를 하면 안 되지만, 현실에서는 고객사의 지시를 직접 받는 경우가 있다. 이것은 "위장 파견"으로 위법. 이런 구조가 상태화된 회사는 피해야 한다.</p></div>
+  </div>
+
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">SES 기업을 선별하는 체크리스트</div>
+    <div class="section-title-jp">SES企業の見極め方</div>
+
+    <p>SES를 선택한다면, <span class="hl">반드시 아래 항목을 면접/설명회에서 확인해야 한다.</span></p>
+
+    <div class="info-box info-box-accent">
+      <h4>면접에서 반드시 확인할 7가지</h4>
+      <p>
+        <strong>① 배치 프로젝트는 어떻게 결정되나?</strong> — 본인 희망이 반영되는가, 아니면 영업이 일방적으로 결정하는가<br>
+        <strong>② 어떤 프로젝트 실적이 있는가?</strong> — 구체적 사례(업계, 기술, 규모)를 물어볼 것. 답이 모호하면 주의<br>
+        <strong>③ 사내 연수/자격증 지원이 있는가?</strong> — 자격증 수당, 교육 제도의 구체적 내용<br>
+        <strong>④ 정기 면담/커리어 상담이 있는가?</strong> — 배치 후 방치하지 않는가<br>
+        <strong>⑤ 평균 현장 체류 기간은?</strong> — 1년 이하로 자주 바뀌면 불안정, 3년 이상 같은 곳이면 성장 기회 부족 가능<br>
+        <strong>⑥ 이직률은?</strong> — 높은 이직률은 적신호. 구체적 수치를 물어볼 것<br>
+        <strong>⑦ 자사 개발 사업이 있는가?</strong> — SES만 하는 회사보다 자사 사업도 있는 회사가 커리어 선택지가 넓음
+      </p>
+    </div>
+  </div>
+
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">SES에서의 커리어 전략</div>
+    <div class="section-title-jp">SESでのキャリア戦略</div>
+
+    <p>SES를 선택했다면, <span class="hl">"여기에 오래 있겠다"가 아니라 "여기를 발판으로 어디로 갈 것인가"</span>를 처음부터 설계해야 한다.</p>
+
+    <div class="career-timeline">
+      <div class="career-step"><div class="career-year">입사 직후</div><div class="career-role">목표를 세운다</div><div class="career-desc">"2-3년 이내에 어떤 기술/자격증을 쌓고, 어디로 이직할 것인가"를 구체적으로 계획. SES를 "경유지"로 사용하겠다는 전략적 마인드셋이 핵심.</div></div>
+      <div class="career-step"><div class="career-year">1-2년차</div><div class="career-role">현장에서 기술을 흡수 + 자격증 취득</div><div class="career-desc">배치된 현장에서 가능한 한 많은 것을 배우면서, 동시에 자격증(LPIC, CCNA, AWS SAA, 기본정보기술자 등)을 취득. 이 자격증이 다음 현장/이직의 무기가 됨.</div></div>
+      <div class="career-step"><div class="career-year">2-3년차</div><div class="career-role">현장 변경 요청 or 이직 준비</div><div class="career-desc">기술이 쌓이지 않는 현장이라면 적극적으로 변경 요청. 동시에 이직 시장의 상황을 파악. 자격증 + 실무 경험이 갖춰지면 SIer, 사내SE, Web계 등으로의 이직 기회가 열림.</div></div>
+      <div class="career-step"><div class="career-year">3년차 이후</div><div class="career-role">다음 스텝으로 이동</div><div class="career-desc">
+        <strong>이직A: SIer (원청)</strong> — SES에서의 실무 경험을 살려 상류공정으로.<br>
+        <strong>이직B: 사내SE</strong> — 자사 시스템 관리. 안정적이고 워라밸 좋은 경우 많음.<br>
+        <strong>이직C: Web계</strong> — 기술력이 충분하면. 포트폴리오 준비 필요.<br>
+        <strong>이직D: 프리랜서</strong> — SES 경험이 있으면 프리랜서로 독립하는 루트도. 단가가 올라갈 수 있음.
+      </div></div>
+    </div>
+  </div>
+
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">면접에서 확인할 질문</div>
+    <div class="section-title-jp">面接で確認すべき質問</div>
+
+    <p>SES 기업 면접에서는 <span class="hl">"선택 당하는" 입장이 아니라 "선별하는" 입장</span>으로 임해야 한다. 아래 질문을 적극적으로 할 것.</p>
+
+    <div class="qa-list">
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>신졸 1년차는 주로 어떤 프로젝트에 배치되나요?</span></div><div class="qa-answer">구체적 사례(업계, 기술, 역할)를 확인. "다양한 프로젝트가 있습니다"만 반복하고 구체적 사례가 없으면 주의. 특히 "테스트만 하는 현장에 장기간 배치되는 경우가 있는가"를 직접 물어볼 것.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>현장이 맞지 않을 때 변경 요청이 가능한가요?</span></div><div class="qa-answer">"가능하다"고 답하면 "실제로 변경된 사례가 있는가"를 추가로 확인. 제도는 있지만 실제로는 안 되는 회사도 있기 때문.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>자격증 취득 지원은 구체적으로 어떻게 되나요?</span></div><div class="qa-answer">수험료 부담, 자격증 수당(매월 금액), 공부 시간 확보 등 구체적 내용. "지원합니다"만 말하고 내용이 불명확하면 기대하기 어려움.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>3년차 사원은 지금 어떤 일을 하고 있나요?</span></div><div class="qa-answer">"3년 후 나의 모습"을 구체적으로 확인하는 질문. 3년차가 여전히 테스트만 하고 있다면 성장 환경으로서 의문. "설계에 참여하고 있다" "리더를 맡고 있다" 같은 구체적 답이 있으면 양호.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>이 회사의 1차 프로젝트(원청) 비율은 어느 정도인가요?</span></div><div class="qa-answer">피라미드의 위치를 확인하는 핵심 질문. 1차 비율이 높을수록 상류공정 경험 기회가 많고 급여도 높은 경향. "대부분 2차 이하"라면 기술 성장 기회가 제한적일 수 있음.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>자사 개발(수주/자사 서비스) 사업은 있나요?</span></div><div class="qa-answer">SES만 하는 회사보다 자사 사업도 있는 회사가 커리어 선택지가 넓다. "SES에서 경험을 쌓은 뒤 자사 개발 쪽으로 이동"이라는 패스가 있으면 좋은 신호.</div></div>
+    </div>
+  </div>
+
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
+    <div class="section-title">"SES를 선택할까 말까" 판단 기준</div>
+    <div class="section-title-jp">SESを選ぶべきか判断する基準</div>
+
+    <p>최종적으로, <span class="hl">SES가 "맞는 사람"과 "피해야 할 상황"</span>을 정리한다.</p>
+
+    <div class="info-box info-box-accent">
+      <h4>SES가 맞을 수 있는 경우</h4>
+      <p>
+        — IT업계에 들어가고 싶지만 SIer/Web계 채용에서 내정이 나오지 않는 경우 (발판으로 활용)<br>
+        — 아직 자기가 어떤 분야에 맞는지 모르는 경우 (다양한 현장을 경험하면서 찾기)<br>
+        — "2-3년 SES → 자격증 취득 → 이직"이라는 명확한 계획이 있는 경우<br>
+        — 양질의 SES 기업(Section 02, 05의 체크리스트를 통과한 기업)에 입사하는 경우
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>SES를 피해야 할(혹은 신중해야 할) 경우</h4>
+      <p>
+        — "IT업계면 어디든 괜찮다"는 생각으로 아무 SES나 들어가는 경우<br>
+        — Section 05의 체크리스트에서 경고 신호가 나왔는데 무시하는 경우<br>
+        — "SES에 들어가면 알아서 기술이 쌓이겠지"라는 수동적 자세인 경우<br>
+        — 장기적 커리어 계획 없이 "일단 취직"만 생각하는 경우<br><br>
+        <span class="hl-warn">핵심 메시지: SES 자체가 나쁜 것이 아니라, "모르고 들어가는 것"과 "계획 없이 머무는 것"이 위험하다.</span>
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 업계x직종 카드 SE-04 — SES 엔지니어</p>
+    <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+    <p style="margin-top:8px;font-size:10px;">SE/IT엔지니어 개요 카드(레벨2) | 직종 대분류 맵(레벨1)도 함께 참고</p>
+  </div>
+</div>
+
+<script>
+function scrollToSection(id){const el=document.getElementById(id);if(el){const navHeight=document.querySelector('.section-nav').offsetHeight;const y=el.getBoundingClientRect().top+window.pageYOffset-navHeight-12;window.scrollTo({top:y,behavior:'smooth'})}}
+const sections=['s1','s2','s3','s4','s5','s6','s7','s8'];const navItems=document.querySelectorAll('.nav-item');
+function updateActiveNav(){const navHeight=document.querySelector('.section-nav').offsetHeight;let current='';sections.forEach(id=>{const el=document.getElementById(id);if(el){const rect=el.getBoundingClientRect();if(rect.top<=navHeight+60)current=id}});navItems.forEach((item,i)=>{if(sections[i]===current)item.classList.add('active');else item.classList.remove('active')})}
+window.addEventListener('scroll',updateActiveNav);updateActiveNav();
+</script>
+</body>
+</html>
