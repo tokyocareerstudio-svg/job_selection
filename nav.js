@@ -32,11 +32,10 @@
       label: "💻 SE/IT엔지니어",
       file: "SE_IT엔지니어_직종개요카드_레벨2.html",
       children: [
-        { label: "SIer SE",       file: "SIer_SE_상세카드_레벨3.html" },
+        { label: "SIer SE",        file: "SIer_SE_상세카드_레벨3.html" },
         { label: "Web계 엔지니어", file: "Web계엔지니어_상세카드_레벨3.html" },
         { label: "인프라 엔지니어", file: "인프라엔지니어_상세카드_레벨3.html" },
-        { label: "SES 엔지니어",  file: "SES엔지니어_상세카드_레벨3.html" },
-        { label: "IT컨설팅",      file: "IT컨설팅_상세카드_레벨3.html" },
+        { label: "SES 엔지니어",   file: "SES엔지니어_상세카드_레벨3.html" },
       ]
     },
     {
@@ -106,6 +105,7 @@
       file: "컨설턴트_직종개요카드_레벨2.html",
       children: [
         { label: "전략·종합 컨설팅", file: "전략종합컨설팅_상세카드_레벨3.html" },
+        { label: "IT컨설팅",         file: "IT컨설팅_상세카드_레벨3.html" },
       ]
     },
   ];
