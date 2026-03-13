@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>영업(営業) 직종 개요 카드 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --surface-3: #22222e;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #4a9eff;
+    --accent-soft: rgba(74, 158, 255, 0.08);
+    --accent-border: rgba(74, 158, 255, 0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 56px 24px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(74,158,255,0.05) 0%, transparent 70%);
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .hero-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    padding: 5px 14px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+  }
+
+  .hero-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: var(--accent);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    margin: 0 auto 20px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+
+  .hero .title-jp {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+
+  .hero .title-en {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .hero-tags {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .hero-tag {
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 500;
+    border: 1px solid var(--accent-border);
+  }
+
+  .hero-summary {
+    font-size: 13px;
+    color: var(--text-dim);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.9;
+  }
+
+  /* ===== SECTION NAV ===== */
+  .section-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+    margin-bottom: 0;
+  }
+
+  .section-nav-inner {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .section-nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-item {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .nav-item:hover, .nav-item.active {
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    padding: 40px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .section:last-child {
+    border-bottom: none;
+  }
+
+  .section-number {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    opacity: 0.6;
+    margin-bottom: 6px;
+  }
+
+  .section-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+  }
+
+  .section-title-jp {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .section p {
+    font-size: 13px;
+    color: var(--text-sub);
+    line-height: 2.0;
+    margin-bottom: 14px;
+  }
+
+  .section p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ===== CARDS / BOXES ===== */
+  .info-box {
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin: 16px 0;
+  }
+
+  .info-box-accent {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-color: var(--accent-border);
+    border-left-color: var(--accent);
+  }
+
+  .info-box h4 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .info-box p {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+
+  /* Highlight text */
+  .hl {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  .hl-warn {
+    color: #f59e0b;
+    font-weight: 600;
+  }
+
+  /* ===== FRAMEWORK GRID ===== */
+  .framework-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .framework-item {
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  .framework-item .axis-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .framework-item .axis-options {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .axis-opt {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--surface-2);
+    color: var(--text-dim);
+    font-weight: 500;
+  }
+
+  .axis-vs {
+    font-size: 10px;
+    color: var(--text-muted);
+    align-self: center;
+  }
+
+  /* ===== BRANCH MAP ===== */
+  .branch-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0;
+  }
+
+  .branch-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: all 0.2s;
+  }
+
+  .branch-card:hover {
+    border-color: var(--border-hover);
+    background: var(--surface-2);
+  }
+
+  .branch-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 7px;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .branch-body h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .branch-body p {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 6px;
+  }
+
+  .branch-tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .branch-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.03);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  /* ===== STRENGTH SECTION ===== */
+  .strength-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .strength-item {
+    display: flex;
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .strength-rank {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--accent);
+    opacity: 0.4;
+    width: 30px;
+    flex-shrink: 0;
+    text-align: center;
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  .strength-body h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .strength-body p {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* ===== CAREER PATH ===== */
+  .career-timeline {
+    position: relative;
+    margin: 20px 0;
+    padding-left: 28px;
+  }
+
+  .career-timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent) 0%, rgba(74,158,255,0.1) 100%);
+    border-radius: 1px;
+  }
+
+  .career-step {
+    position: relative;
+    padding: 14px 0;
+  }
+
+  .career-step::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 20px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent);
+  }
+
+  .career-year {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .career-role {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .career-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* ===== QA SECTION ===== */
+  .qa-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0;
+  }
+
+  .qa-item {
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .qa-item:hover {
+    border-color: var(--border-hover);
+  }
+
+  .qa-question {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .qa-q-mark {
+    color: var(--accent);
+    font-weight: 800;
+    font-size: 14px;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .qa-answer {
+    display: none;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.8;
+    padding-left: 24px;
+  }
+
+  .qa-item.open .qa-answer {
+    display: block;
+  }
+
+  /* ===== KEYWORD MAP ===== */
+  .keyword-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 16px 0;
+  }
+
+  .keyword-card {
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .keyword-card .kw-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  .keyword-card .kw-desc {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+
+  /* ===== WARNING BOX ===== */
+  .warn-box {
+    padding: 18px 20px;
+    background: rgba(245, 158, 11, 0.05);
+    border: 1px solid rgba(245, 158, 11, 0.15);
+    border-left: 3px solid #f59e0b;
+    border-radius: 10px;
+    margin: 14px 0;
+  }
+
+  .warn-box h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #f59e0b;
+    margin-bottom: 6px;
+  }
+
+  .warn-box p {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding-top: 40px;
+    margin-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer p {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  .footer .brand {
+    font-weight: 700;
+    color: var(--text-dim);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 26px; }
+    .section-title { font-size: 18px; }
+    .framework-grid { grid-template-columns: 1fr; }
+    .keyword-grid { grid-template-columns: 1fr; }
+    .hero { padding: 40px 20px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">職種概要カード vol.01</div>
+    <div class="hero-icon">営</div>
+    <h1>영업 (営業)</h1>
+    <div class="title-jp">営業職 概要ガイド</div>
+    <div class="title-en">Sales / Business Development — Overview Card</div>
+    <div class="hero-tags">
+      <span class="hero-tag">문과 중심</span>
+      <span class="hero-tag">전학부 가능</span>
+      <span class="hero-tag">8개 업계 분기</span>
+      <span class="hero-tag">신졸 배치율 최다</span>
+    </div>
+    <p class="hero-summary">
+      일본 취활에서 가장 많은 사람이 배치되는 직종, 영업.<br>
+      그런데 같은 "영업"이라도 업계마다 하는 일이 전혀 다르다.<br>
+      이 카드에서는 "영업이란 도대체 뭘 하는 직종인가?"를 처음부터 정리했다.
+    </p>
+  </div>
+</div>
+
+<!-- ===== SECTION NAV ===== -->
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="scrollToSection('s1')">01 정의</button>
+    <button class="nav-item" onclick="scrollToSection('s2')">02 분류축</button>
+    <button class="nav-item" onclick="scrollToSection('s3')">03 업계분기</button>
+    <button class="nav-item" onclick="scrollToSection('s4')">04 역량</button>
+    <button class="nav-item" onclick="scrollToSection('s5')">05 커리어패스</button>
+    <button class="nav-item" onclick="scrollToSection('s6')">06 ES/면접</button>
+    <button class="nav-item" onclick="scrollToSection('s7')">07 키워드</button>
+    <button class="nav-item" onclick="scrollToSection('s8')">08 주의점</button>
+  </div>
+</div>
+
+<!-- ===== CONTENT ===== -->
+<div class="container">
+
+  <!-- ========== SECTION 1: 직종 정의 ========== -->
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">영업이란 무엇인가</div>
+    <div class="section-title-jp">営業とは何か</div>
+
+    <p>
+      영업이란, <span class="hl">고객이 안고 있는 문제를 파악하고, 자기 회사의 상품이나 서비스로 그 문제를 해결하는 직종</span>이다.
+      "물건을 파는 사람"이라고만 생각하면 절반밖에 이해 못 한 것이다.
+      고객과 자기 회사 사이에서 "가치를 연결하는 역할"이 영업의 본질이다.
+    </p>
+
+    <p>
+      일본 취활에서 문과 출신의 절반 이상이 영업으로 배치된다(マイナビ調査).
+      이공계에서도 기술영업이라는 포지션이 있다.
+      일본에서 영업은 "비즈니스의 기초 체력을 쌓는 훈련"으로 여겨지고 있고,
+      실제로 일본 기업 경영진의 상당수가 영업 출신이다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>영업이 하는 일은 크게 3가지다</h4>
+      <p>
+        <strong>① 문제 발견</strong> — 고객 자신도 잘 모르고 있는 문제를 찾아내는 것<br>
+        <strong>② 해결책 제안</strong> — 자기 회사의 상품/서비스를 사용해서 "이렇게 하면 해결됩니다"라고 제안하는 것<br>
+        <strong>③ 관계 유지</strong> — 한 번 팔고 끝이 아니라, 오랜 기간 신뢰를 쌓아가는 것
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>영업의 하루는 이런 느낌이다 (기업 고객 대상 메이커 영업 예시)</h4>
+      <p>
+        08:30 출근, 메일 확인, 오늘 방문할 곳 준비<br>
+        09:30 기존 거래처 A사 방문 — 납품일(납기) 조정 미팅<br>
+        11:00 기존 거래처 B사 방문 — 새로운 안건(프로젝트)에 대한 이야기 듣기<br>
+        12:00 점심 (거래처 담당자와 함께 먹는 경우도 많다)<br>
+        13:30 사내 회의 — 기술부서와 제품 사양 확인<br>
+        15:00 견적서 작성, 제안 자료 준비<br>
+        16:30 새 거래처 C사에 전화 또는 방문<br>
+        18:00 업무일지 작성, 내일 스케줄 확인<br>
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>다른 직종과 뭐가 다른가?</h4>
+      <p>
+        <strong>vs SE/IT엔지니어</strong>: SE는 "직접 만드는 사람", 영업은 "고객과 만드는 사람을 연결하는 사람." 기술을 깊이 파는 건 SE지만, 고객의 진짜 문제를 파악하고 사내에 전달하는 건 영업의 역할.<br><br>
+        <strong>vs 기획/마케팅</strong>: 기획은 "전략을 짜는 사람", 영업은 "현장에서 실행하는 사람." 하지만 일본에서는 영업이 기획적 요소(제안서 작성, 시장 분석)까지 담당하는 경우가 많아 경계가 모호한 편.<br><br>
+        <strong>vs 사무/관리</strong>: 사무는 "회사를 뒤에서 지원하는 사람", 영업은 "회사의 매출을 직접 만드는 사람." 영업이 있어야 회사에 돈이 들어오고, 사무가 있어야 그 돈이 제대로 관리된다. 서로 없으면 안 되는 관계.
+      </p>
+    </div>
+
+    <div class="info-box info-box-accent">
+      <h4>"영업은 아무나 하는 거 아니야?" — 흔한 오해 3가지</h4>
+      <p>
+        <strong>오해 1: 말을 잘해야 영업을 잘한다</strong> → 현실은 반대. 영업의 시작은 "잘 듣는 것"이다. 고객이 뭘 원하는지 정확히 파악하는 사람이 좋은 영업이지, 말만 잘하는 사람이 아니다.<br><br>
+        <strong>오해 2: 영업은 커리어의 막다른 길이다</strong> → 일본에서는 영업 경험을 "비즈니스의 기초"로 본다. 기획, 마케팅, 경영 쪽으로의 이동이 열려 있고, 경영진의 상당수가 영업 출신.<br><br>
+        <strong>오해 3: 성격이 외향적이어야 영업에 맞다</strong> → 내향적인 사람도 성실함과 경청력으로 좋은 영업을 하는 경우가 많다. 특히 기존 고객 관리형(루트영업)에서는 "조용하지만 빠뜨리지 않는 사람"이 높이 평가받는다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 2: 분류 축 ========== -->
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">영업의 분류 축</div>
+    <div class="section-title-jp">営業を分解する4つの軸</div>
+
+    <p>
+      "영업"은 하나의 직종이 아니다. 실은 아래 <span class="hl">4가지 축</span>의 조합에 따라 전혀 다른 일이 된다.
+      "나한테 맞는 영업"을 찾으려면, 이 4축 중 어디에 내 지향이 있는지를 먼저 파악해야 한다.
+    </p>
+
+    <div class="framework-grid">
+      <div class="framework-item">
+        <div class="axis-label">축 1: 누구한테 파나</div>
+        <div class="axis-options">
+          <span class="axis-opt">기업 고객 (BtoB)</span>
+          <span class="axis-vs">vs</span>
+          <span class="axis-opt">개인 고객 (BtoC)</span>
+        </div>
+      </div>
+      <div class="framework-item">
+        <div class="axis-label">축 2: 어떻게 파나</div>
+        <div class="axis-options">
+          <span class="axis-opt">새 고객 개척</span>
+          <span class="axis-vs">vs</span>
+          <span class="axis-opt">기존 고객 관리</span>
+        </div>
+      </div>
+      <div class="framework-item">
+        <div class="axis-label">축 3: 무엇을 파나</div>
+        <div class="axis-options">
+          <span class="axis-opt">눈에 보이는 제품</span>
+          <span class="axis-vs">vs</span>
+          <span class="axis-opt">눈에 안 보이는 서비스</span>
+        </div>
+      </div>
+      <div class="framework-item">
+        <div class="axis-label">축 4: 어떤 방식으로</div>
+        <div class="axis-options">
+          <span class="axis-opt">만들어진 것을 팔기</span>
+          <span class="axis-vs">vs</span>
+          <span class="axis-opt">맞춤형 해결책 제안</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>축 조합 예시 — 같은 "영업"인데 이렇게 다르다</h4>
+      <p>
+        <strong>메이커 영업</strong> = 기업 고객 + 기존 고객 관리 + 실제 제품 + 만들어진 것을 팔기 → 장기 관계형<br>
+        <strong>IT영업 (SaaS)</strong> = 기업 고객 + 새 고객 개척+기존 관리 + 서비스 + 맞춤형 제안 → 문제 해결형<br>
+        <strong>부동산 개인영업</strong> = 개인 고객 + 새 고객 개척 + 실제 제품(물건) + 만들어진 것을 팔기 → 즉결형<br>
+        <strong>광고영업</strong> = 기업 고객 + 기존+새 고객 + 서비스 + 맞춤형 제안 → 기획 제안형
+      </p>
+    </div>
+
+    <p>
+      면접에서 "왜 영업을 하고 싶은가?"라고 물었을 때,
+      이 4축 중 어디에 자기 지향이 있는지를 설명할 수 있으면 설득력이 생긴다.
+      "사람을 좋아해서"만으로는 부족하다.
+    </p>
+  </div>
+
+  <!-- ========== SECTION 3: 업계별 분기 일람 ========== -->
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">업계별 분기 일람</div>
+    <div class="section-title-jp">業界別の営業マップ</div>
+
+    <p>
+      같은 "영업"이라도 업계에 따라 하는 일이 전혀 다르다.
+      아래는 주요 8개 업계별 영업의 특징을 요약한 것이다.
+      "영업이 하고 싶다"까지 정해졌다면, 다음은 "어떤 업계의 영업인가"를 구체화할 차례.
+    </p>
+
+    <div class="branch-list">
+      <div class="branch-card">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <h4>메이커 영업 (製造業)</h4>
+          <p>자기 회사가 만든 제품(부품, 소재 등)을 기존 거래처에 정기적으로 판매하는 영업. 제품 지식 + 납기(납품일)/품질 조정 능력이 필요. 같은 고객과 오래 관계를 쌓아가는 장기 관계형.</p>
+          <div class="branch-tags">
+            <span class="branch-tag">BtoB</span><span class="branch-tag">루트</span><span class="branch-tag">유형상품</span><span class="branch-tag">관계구축형</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="branch-card">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <h4>IT영업 (SIer/SaaS)</h4>
+          <p>고객 기업의 업무상 문제를 듣고, IT시스템이나 클라우드 서비스로 해결책을 제안하는 영업. SE(기술 담당자)와 팀으로 움직이며, 고객의 문제를 논리적으로 정리하는 능력이 핵심.</p>
+          <div class="branch-tags">
+            <span class="branch-tag">BtoB</span><span class="branch-tag">제안형</span><span class="branch-tag">무형상품</span><span class="branch-tag">논리형</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="branch-card">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <h4>상사영업 (商社)</h4>
+          <p>상품을 중개하거나 해외 거래처를 개척하는 영업. 물류, 환율 리스크, 무역 실무까지 시야가 넓어야 한다. 종합상사(대형)와 전문상사(특정 분야 특화)로 스케일이 다름.</p>
+          <div class="branch-tags">
+            <span class="branch-tag">BtoB</span><span class="branch-tag">개척+루트</span><span class="branch-tag">글로벌</span><span class="branch-tag">무역</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="branch-card">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <h4>광고/미디어 영업</h4>
+          <p>광고주(클라이언트)의 문제를 파악하고, 광고/미디어를 활용한 해결책을 제안하는 영업. 기획력과 발표(프레젠) 능력이 필수. 사내 크리에이티브/미디어 부서와의 팀워크가 핵심.</p>
+          <div class="branch-tags">
+            <span class="branch-tag">BtoB</span><span class="branch-tag">제안형</span><span class="branch-tag">무형상품</span><span class="branch-tag">기획형</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="branch-card">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <h4>금융영업 (銀行/証券/保険)</h4>
+          <p>개인 고객 대상(리테일)과 기업 고객 대상(홀세일)으로 나뉜다. 자격증 취득이 필수이며, 입사 후 자격 공부가 계속 이어진다. 고객의 신뢰를 얻는 것 + 전문적인 제안 능력이 양쪽 다 필요.</p>
+          <div class="branch-tags">
+            <span class="branch-tag">BtoB/BtoC</span><span class="branch-tag">제안형</span><span class="branch-tag">무형상품</span><span class="branch-tag">자격증</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="branch-card">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <h4>부동산영업</h4>
+          <p>개인 대상(仲介/販売)과 법인 대상(디벨로퍼)으로 분기. 인센티브형 vs 안정형 차이 큼. 개인영업은 주말근무가 기본인 경우가 많다.</p>
+          <div class="branch-tags">
+            <span class="branch-tag">BtoB/BtoC</span><span class="branch-tag">신규</span><span class="branch-tag">유형상품</span><span class="branch-tag">인센티브</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="branch-card">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <h4>인재/HR영업</h4>
+          <p>기업에 인재를 소개하는 영업. 기업 담당(RA)과 구직자 담당(CA)으로 역할이 나뉜다. 목표 수치(KPI) 관리와 "사람과 기업을 매칭하는 감각"이 핵심. 사람의 인생에 관여하는 보람과 무게가 공존.</p>
+          <div class="branch-tags">
+            <span class="branch-tag">BtoB+BtoC</span><span class="branch-tag">제안형</span><span class="branch-tag">무형상품</span><span class="branch-tag">KPI형</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="branch-card">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <h4>MR (製薬)</h4>
+          <p>의사/약사 대상 정보제공형 영업. 의약품 지식 필수. "판매"가 아니라 "정보전달"이 본질. 이공계(약학/생물) 출신 우대이나 문과도 가능.</p>
+          <div class="branch-tags">
+            <span class="branch-tag">BtoB</span><span class="branch-tag">정보제공형</span><span class="branch-tag">전문성</span><span class="branch-tag">고연봉</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 4: 求められる力 ========== -->
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">영업에서 보는 역량</div>
+    <div class="section-title-jp">営業職に求められる力</div>
+
+    <p>
+      업계마다 강조하는 점은 다르지만, <span class="hl">어떤 업계의 영업이든 공통으로 보는 역량</span>이 있다.
+      면접에서는 이 역량들을 학생 시절의 에피소드(가쿠치카 = 학생 때 노력한 경험)로 증명해야 한다.
+    </p>
+
+    <div class="strength-grid">
+      <div class="strength-item">
+        <div class="strength-rank">01</div>
+        <div class="strength-body">
+          <h4>경청력 — 말하기보다 듣기가 먼저</h4>
+          <p>상대방의 말 속에서 진짜 문제를 읽어내는 힘. 영업의 출발점은 "잘 말하는 것"이 아니라 "잘 듣는 것"이다. 면접에서도 "상대 입장에서 생각한 경험"을 묻는 이유가 여기에 있다.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">02</div>
+        <div class="strength-body">
+          <h4>관계구축력 — "이 사람이니까 맡긴다"를 만드는 힘</h4>
+          <p>한 번의 거래가 아니라 오랜 기간 신뢰를 쌓는 힘. 일본의 기업 대상 영업에서는 "이 사람이니까 맡긴다"라는 관계가 계약서보다 강할 때가 많다. 꾸준함, 약속 지키기, 세심한 배려가 기반.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">03</div>
+        <div class="strength-body">
+          <h4>문제 발견력 — "뭐가 문제인지" 찾아내는 힘</h4>
+          <p>고객 자신도 인식하지 못한 문제를 찾아내는 힘. "무엇이 필요하세요?"가 아니라 "이런 것이 문제 아닐까요?"라고 제안할 수 있는 영업이 가치를 만든다.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">04</div>
+        <div class="strength-body">
+          <h4>조정력 — 양쪽 사이에서 답을 찾는 힘</h4>
+          <p>고객 요구와 사내 현실 사이를 조율하는 힘. 영업은 고객과 자기 회사의 "사이"에 서는 직종이다. 납기(납품일), 가격, 사양 등에서 양쪽이 수용 가능한 착지점을 찾아내야 한다.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">05</div>
+        <div class="strength-body">
+          <h4>행동력 — 생각만 하지 않고 실제로 움직이는 힘</h4>
+          <p>머리로 생각만 하는 것이 아니라 실제로 움직이는 힘. 특히 새로운 고객을 개척하는 타입의 영업에서는 "일단 부딪혀보는" 행동력이 결정적이다.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>업계별 역량 강조점 차이</h4>
+      <p>
+        <strong>메이커 영업</strong> → 관계구축력 + 조정력 (납기/품질의 사내조정이 핵심)<br>
+        <strong>IT영업</strong> → 과제발견력 + 논리적사고력 (과제를 구조화해서 제안)<br>
+        <strong>상사영업</strong> → 행동력 + 글로벌 커뮤니케이션 (해외 거래처 개척)<br>
+        <strong>광고영업</strong> → 기획력 + 프레젠테이션 (크리에이티브 제안)<br>
+        <strong>금융영업</strong> → 신뢰구축 + 전문지식 (자격증 기반 제안)<br>
+        <strong>MR</strong> → 전문지식 + 정보전달력 (의약품 정보의 정확한 전달)
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 5: 커리어패스 ========== -->
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">커리어패스 — 영업 후에 뭐가 되나</div>
+    <div class="section-title-jp">営業職のキャリアパス</div>
+
+    <p>
+      "영업으로 시작하면 평생 영업만 하는 건가?" 아니다.
+      <span class="hl">영업 → 관리직, 영업 → 기획/마케팅, 영업 → 전문직</span>이라는 크게 3가지 길이 열려 있다.
+      일본 기업에서는 영업 경험을 "비즈니스의 기초 체력"으로 보기 때문에, 다른 직종으로 이동할 가능성이 충분히 있다.
+    </p>
+
+    <div class="career-timeline">
+      <div class="career-step">
+        <div class="career-year">1년차</div>
+        <div class="career-role">선배 따라다니며 배우기</div>
+        <div class="career-desc">현장 훈련(OJT = On the Job Training) 기간. 선배 영업을 따라 거래처를 방문하면서 상품 지식, 비즈니스 매너, 고객 대응을 몸으로 익힌다. 반년쯤 지나면 자기 담당 거래처가 생기기 시작.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">2-3년차</div>
+        <div class="career-role">혼자서 고객 담당 / 실적 쌓기</div>
+        <div class="career-desc">자기 담당 고객을 혼자서 관리. 매출/이익 목표에 대한 책임이 생긴다. 이 시기에 "나만의 영업 스타일"이 만들어지기 시작.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">4-5년차</div>
+        <div class="career-role">팀 리더 / 후배 지도</div>
+        <div class="career-desc">팀 안에서 리더 역할을 맡기 시작. 후배를 가르치면서 큰 프로젝트도 주도. 여기서부터 "관리직으로 갈 것인가 vs 전문가로 갈 것인가"의 분기가 보이기 시작.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">6-10년차</div>
+        <div class="career-role">여기서 길이 갈린다</div>
+        <div class="career-desc">
+          <strong>길A: 관리직</strong> — 영업 과장 → 부장 → 본부장. 팀을 관리하고 전략을 짜는 포지션.<br>
+          <strong>길B: 기획으로 이동</strong> — 영업기획, 마케팅, 사업기획 등. 현장 경험이 기획력의 기반이 됨.<br>
+          <strong>길C: 전문가</strong> — 해외영업 전문, 기술영업 전문 등 특정 영역의 프로.
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>면접에서 커리어패스를 물어볼 때</h4>
+      <p>
+        "10년 후에 어떻게 되고 싶은가"라는 질문은 정답을 보는 게 아니라, <span class="hl">이 회사에서의 성장 이미지를 구체적으로 그리고 있는가</span>를 본다.
+        "아직 모르겠다"보다는 "우선 현장에서 고객과의 신뢰를 쌓은 뒤, 그 경험을 바탕으로 기획이나 매니지먼트로 영역을 넓히고 싶다" 정도의 방향성이 있으면 충분.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 6: ES/면접 공통 포인트 ========== -->
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">ES/면접 공통 포인트</div>
+    <div class="section-title-jp">ES・面接で貫く核心</div>
+
+    <p>
+      영업 지망 ES나 면접에서 관통하는 핵심은 하나다:
+      <span class="hl">"왜 영업인가"가 아니라 "왜 이 업계의, 이 회사의 영업인가"</span>를 설명할 수 있는가.
+      "사람과 이야기하는 게 좋아서"는 동기가 아니라 성격이다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>지망동기는 이 순서로 쓴다</h4>
+      <p>
+        ① 영업에 관심을 가진 계기 (나의 경험/가치관에서 출발)<br>
+        → ② 왜 이 업계인가 (메이커? IT? 상사? 금융?)<br>
+        → ③ 왜 이 회사의 영업인가 (이 회사만의 특성과 연결)<br>
+        → ④ 입사 후 뭘 실현하고 싶은가 (구체적 기여 이미지)<br><br>
+        이 4단계가 논리적으로 이어져야 한다. ①에서 ④까지의 "일관성"이 핵심.
+      </p>
+    </div>
+
+    <div class="qa-list">
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>왜 영업직을 지망하는가?</span>
+        </div>
+        <div class="qa-answer">
+          "사람이 좋아서"만으로는 부족. 자기 경험 중에서 "누군가의 과제를 해결했을 때 보람을 느낀" 에피소드를 연결할 것. 영업의 본질(과제발견 → 해결제안 → 관계구축)에 대한 이해를 보여줘야 한다.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>본인이 영업에 적합하다고 생각하는가?</span>
+        </div>
+        <div class="qa-answer">
+          "네 자신있습니다"가 아니라, 구체적 에피소드로 적성을 증명. "아르바이트에서 고객의 숨겨진 니즈를 파악해 제안한 경험" 등. 경청력, 행동력, 끈기 중 자기 강점과 연결.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>우리 회사 영업의 특징을 이해하고 있는가?</span>
+        </div>
+        <div class="qa-answer">
+          이 질문이 나오면 기업연구 깊이를 보는 것. BtoB인지 BtoC인지, 루트인지 신규인지, 어떤 고객을 상대하는지를 사전에 파악해두어야 한다. OB/OG 방문이나 설명회에서 들은 내용을 구체적으로 언급하면 가산점.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>스트레스에 강한가? / 거절당했을 때 어떻게 하는가?</span>
+        </div>
+        <div class="qa-answer">
+          거절 내성(ストレス耐性)을 보는 질문. "강하다/약하다"의 이분법이 아니라, "거절을 다음 행동의 재료로 바꾸는 사고방식"을 보여줄 것. 실패 → 원인분석 → 개선 → 재도전의 PDCA 경험이 있으면 좋다.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>숫자를 쫓는 것에 거부감은 없는가?</span>
+        </div>
+        <div class="qa-answer">
+          영업은 수치 목표가 따라다니는 직종. "숫자에 강하다"보다는 "목표를 역산해서 행동계획을 세우는 것에 익숙하다"는 방향이 좋다. 학생 시절 목표를 세우고 계획적으로 달성한 경험을 연결.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 7: 자기분석 키워드 연결 ========== -->
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 연결</div>
+    <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+    <p>
+      자기분석에서 찾은 강점이 영업에서 어떻게 쓸모 있는지를 보여주는 맵이다.
+      <span class="hl">"협조성이 있으니까 영업에 맞다"가 아니라, "왜 그 강점이 이 업계의 영업에서 발휘되는가"까지 설명</span>할 수 있어야 한다.
+    </p>
+
+    <div class="keyword-grid">
+      <div class="keyword-card">
+        <div class="kw-name">협조성</div>
+        <div class="kw-desc">팀으로 움직이는 영업(IT, 메이커)에서 특히 중요. 사내 기술부문, 물류, 관리부서와의 연계를 이끌어가는 힘. "나 혼자"가 아니라 "주변을 끌어들이는" 영업.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">주체성</div>
+        <div class="kw-desc">신규개척형 영업의 핵심. 지시를 기다리지 않고 스스로 고객을 찾아가고 제안하는 힘. 상사영업, 인재영업에서 특히 요구됨.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">경청력</div>
+        <div class="kw-desc">모든 영업의 기본이자 출발점. 특히 솔루션 제안형 영업(IT, 광고)에서는 고객의 과제를 정확히 히어링하는 능력이 제안의 품질을 결정.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">과제발견력</div>
+        <div class="kw-desc">고객이 인식하지 못한 잠재 과제를 찾아내는 힘. IT영업, 컨설팅 영업 등 고부가가치형 영업에서 핵심 차별화 요소.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">관계구축력</div>
+        <div class="kw-desc">루트영업(메이커, 금융)의 생명선. 단발 거래가 아니라 3년, 5년, 10년 단위로 신뢰를 쌓는 힘. "이 사람이니까 맡긴다"를 만들어가는 것.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">도전정신</div>
+        <div class="kw-desc">신규개척 영업, 해외영업에서 특히 가치 있음. 거절에 좌절하지 않고 새로운 시장/고객을 향해 나아가는 에너지. 행동력과 직결.</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>키워드 연결 예시 (ES 지망동기)</h4>
+      <p>
+        "저는 동아리 운영에서 멤버 한 사람 한 사람의 이야기를 듣고 그에 맞는 역할을 제안하는 것에 보람을 느꼈습니다(<strong>경청력 + 과제발견력</strong>).
+        이 경험을 통해 상대방의 진짜 니즈를 파악하고 해결책을 제시하는 영업의 본질에 매력을 느끼게 되었습니다.
+        특히 귀사의 IT영업은 고객의 경영과제를 기술로 해결하는 솔루션 제안형이라는 점에서, 저의 강점을 가장 발휘할 수 있는 환경이라고 생각합니다."
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 8: 주의점/함정 ========== -->
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">よくある誤解と落とし穴</div>
+
+    <p>
+      영업 직종에 대해 학생들이 자주 가지고 있는 오해와,
+      지원할 때 빠지기 쉬운 함정을 정리했다. 해당 사항이 있으면 지금 고치면 된다.
+    </p>
+
+    <div class="warn-box">
+      <h4>함정 1: "영업은 누구나 할 수 있는 직종"이라는 오해</h4>
+      <p>
+        "문과라서 영업밖에 못 한다"는 소극적 동기는 면접관이 가장 싫어하는 패턴.
+        영업은 "누구나 배치되는" 직종이지만, "누구나 잘할 수 있는" 직종이 아니다.
+        능동적으로 "영업을 선택한 이유"를 말할 수 있어야 한다.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 2: "사람을 좋아해서 영업"이라는 동기</h4>
+      <p>
+        면접관 입장에서 이건 "동기"가 아니라 "성격"이다.
+        "사람을 좋아한다"는 영업 적성의 일부일 수 있지만, 지망동기로는 약하다.
+        "사람과의 관계를 통해 구체적으로 무엇을 실현하고 싶은가"까지 파고들어야 한다.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 3: 업계를 고려하지 않은 "영업 지망"</h4>
+      <p>
+        "영업이 하고 싶습니다"만으로는 메이커든 IT든 상사든 다 같은 말이 된다.
+        Section 02의 4축을 사용해서 "어떤 유형의 영업을 왜 하고 싶은가"를 구체화해야 한다.
+        이것이 안 되면 "아무 데나 영업이면 OK인 사람"으로 비친다.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 4: "영업 = 전화 돌리기/무작정 방문"이라는 이미지</h4>
+      <p>
+        기업 고객 대상 기존 관계형 영업(루트영업)이 주류인 일본에서, 신졸이 무작정 전화만 돌리는 회사는 오히려 소수.
+        다만 인재업계, 부동산, 보험 등 일부 업계에서는 새 고객 개척 비중이 높은 것도 사실.
+        기업연구 단계에서 "이 회사의 영업은 실제로 어떻게 움직이는가"를 확인하는 것이 필수.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 5: 한국식 "영업" 이미지를 그대로 적용</h4>
+      <p>
+        한국에서 "영업"이라고 하면 "실적 압박, 접대, 술자리" 이미지가 강하지만,
+        일본의 BtoB 영업은 "관계구축 + 과제해결"의 성격이 더 강하다.
+        물론 업계에 따라 다르지만, 한국식 선입견으로 영업 자체를 기피하는 것은 선택지를 불필요하게 좁힌다.
+        <span class="hl-warn">자기 이미지가 아니라, 실제 현장의 정보를 기반으로 판단할 것.</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 직종 개요 카드 vol.01 — 영업(営業)</p>
+    <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+    <p style="margin-top: 8px; font-size: 10px;">업계별 상세 카드(레벨3: 메이커영업, IT영업, 상사영업 등)는 별도 제작 예정</p>
+  </div>
+
+</div>
+
+<script>
+// Section nav scroll & active state
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const navHeight = document.querySelector('.section-nav').offsetHeight;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+
+// Highlight active nav on scroll
+const sections = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+const navItems = document.querySelectorAll('.nav-item');
+
+function updateActiveNav() {
+  const navHeight = document.querySelector('.section-nav').offsetHeight;
+  let current = '';
+  
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= navHeight + 60) {
+        current = id;
+      }
+    }
+  });
+
+  navItems.forEach((item, i) => {
+    if (sections[i] === current) {
+      item.classList.add('active');
+    } else {
+      item.classList.remove('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', updateActiveNav);
+updateActiveNav();
+</script>
+
+</body>
+</html>

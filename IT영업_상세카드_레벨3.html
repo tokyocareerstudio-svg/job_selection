@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IT영업(SIer/SaaS) 상세 카드 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --surface-3: #22222e;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #34d399;
+    --accent-soft: rgba(52, 211, 153, 0.08);
+    --accent-border: rgba(52, 211, 153, 0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 760px; margin: 0 auto; padding: 0 24px 100px; }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 56px 24px 40px; text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(52,211,153,0.05) 0%, transparent 70%);
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+  .hero-breadcrumb { font-size: 11px; color: var(--text-muted); margin-bottom: 16px; }
+  .hero-breadcrumb a { color: var(--accent); text-decoration: none; }
+  .hero-breadcrumb span { margin: 0 6px; }
+  .hero-label {
+    display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 3px;
+    color: var(--accent); background: var(--accent-soft);
+    border: 1px solid var(--accent-border); padding: 5px 14px; border-radius: 16px; margin-bottom: 20px;
+  }
+  .hero-icon {
+    width: 64px; height: 64px; border-radius: 14px;
+    background: var(--accent-soft); border: 1px solid var(--accent-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; color: var(--accent);
+    font-family: 'Noto Sans JP', sans-serif; font-weight: 700; margin: 0 auto 20px;
+  }
+  .hero h1 { font-size: 30px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.5px; }
+  .hero .title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; color: var(--text-muted); margin-bottom: 4px; }
+  .hero .title-en { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .hero-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .hero-tag {
+    font-size: 11px; padding: 4px 12px; border-radius: 12px;
+    background: var(--accent-soft); color: var(--accent);
+    font-weight: 500; border: 1px solid var(--accent-border);
+  }
+  .hero-summary { font-size: 13px; color: var(--text-dim); max-width: 540px; margin: 0 auto; line-height: 1.9; }
+
+  /* ===== NAV ===== */
+  .section-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); padding: 10px 0;
+  }
+  .section-nav-inner {
+    max-width: 760px; margin: 0 auto; padding: 0 24px;
+    display: flex; gap: 4px; overflow-x: auto;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .section-nav-inner::-webkit-scrollbar { display: none; }
+  .nav-item {
+    flex-shrink: 0; padding: 6px 12px; border-radius: 8px;
+    font-size: 11px; font-weight: 500; color: var(--text-muted);
+    cursor: pointer; border: none; background: none;
+    font-family: inherit; transition: all 0.2s; white-space: nowrap;
+  }
+  .nav-item:hover, .nav-item.active { color: var(--accent); background: var(--accent-soft); }
+
+  /* ===== SECTIONS ===== */
+  .section { padding: 40px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom: none; }
+  .section-number { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); opacity: 0.6; margin-bottom: 6px; }
+  .section-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+  .section-title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .section p { font-size: 13px; color: var(--text-sub); line-height: 2.0; margin-bottom: 14px; }
+  .section p:last-child { margin-bottom: 0; }
+  .hl { color: var(--accent); font-weight: 600; }
+  .hl-warn { color: #ef4444; font-weight: 600; }
+
+  /* ===== BOXES ===== */
+  .info-box { padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin: 16px 0; }
+  .info-box-accent { border-left: 3px solid var(--accent); background: var(--accent-soft); border-color: var(--accent-border); border-left-color: var(--accent); }
+  .info-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .info-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  /* ===== TABLE ===== */
+  .compare-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12px; }
+  .compare-table th { text-align: left; padding: 10px 14px; background: var(--surface-2); color: var(--text-dim); font-weight: 600; font-size: 11px; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
+  .compare-table td { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-sub); vertical-align: top; line-height: 1.7; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .row-label { font-weight: 600; color: var(--accent); white-space: nowrap; width: 110px; }
+
+  /* ===== STRENGTHS ===== */
+  .strength-grid { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+  .strength-item { display: flex; gap: 14px; padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .strength-rank { font-size: 22px; font-weight: 900; color: var(--accent); opacity: 0.4; width: 30px; flex-shrink: 0; text-align: center; line-height: 1; padding-top: 2px; }
+  .strength-body h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .strength-body p { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  /* ===== TIMELINE ===== */
+  .career-timeline { position: relative; margin: 20px 0; padding-left: 28px; }
+  .career-timeline::before { content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px; width: 2px; background: linear-gradient(180deg, var(--accent) 0%, rgba(52,211,153,0.1) 100%); border-radius: 1px; }
+  .career-step { position: relative; padding: 14px 0; }
+  .career-step::before { content: ''; position: absolute; left: -24px; top: 20px; width: 10px; height: 10px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+  .career-year { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+  .career-role { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .career-desc { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  /* ===== QA ===== */
+  .qa-list { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
+  .qa-item { padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+  .qa-item:hover { border-color: var(--border-hover); }
+  .qa-question { font-size: 13px; font-weight: 600; color: var(--text); display: flex; align-items: flex-start; gap: 10px; }
+  .qa-q-mark { color: var(--accent); font-weight: 800; font-size: 14px; flex-shrink: 0; opacity: 0.7; }
+  .qa-answer { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-dim); line-height: 1.8; padding-left: 24px; }
+  .qa-item.open .qa-answer { display: block; }
+
+  /* ===== KEYWORDS ===== */
+  .keyword-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .keyword-card { padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .keyword-card .kw-name { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .keyword-card .kw-desc { font-size: 11px; color: var(--text-dim); line-height: 1.7; }
+
+  /* ===== WARN ===== */
+  .warn-box { padding: 18px 20px; background: rgba(239,68,68,0.04); border: 1px solid rgba(239,68,68,0.12); border-left: 3px solid #ef4444; border-radius: 10px; margin: 14px 0; }
+  .warn-box h4 { font-size: 13px; font-weight: 700; color: #ef4444; margin-bottom: 6px; }
+  .warn-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  /* ===== FOOTER ===== */
+  .footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--border); }
+  .footer p { font-size: 11px; color: var(--text-muted); line-height: 1.8; }
+  .footer .brand { font-weight: 700; color: var(--text-dim); }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 24px; }
+    .section-title { font-size: 18px; }
+    .keyword-grid { grid-template-columns: 1fr; }
+    .hero { padding: 40px 20px 32px; }
+    .compare-table { font-size: 11px; }
+    .compare-table th, .compare-table td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-breadcrumb">
+      <a href="#">직종 대분류 맵</a><span>›</span><a href="#">영업 개요</a><span>›</span>IT영업
+    </div>
+    <div class="hero-label">業界×職種カード vol.02</div>
+    <div class="hero-icon">IT</div>
+    <h1>IT영업</h1>
+    <div class="title-jp">IT営業（SIer・SaaS）</div>
+    <div class="title-en">IT Sales — Industry Detail Card</div>
+    <div class="hero-tags">
+      <span class="hero-tag">BtoB</span>
+      <span class="hero-tag">솔루션 제안형</span>
+      <span class="hero-tag">무형상품</span>
+      <span class="hero-tag">SE협업</span>
+    </div>
+    <p class="hero-summary">
+      IT영업이란, 기업 고객이 안고 있는 문제를 파악하고 "IT로 이렇게 해결합시다"라고 제안하는 일이다.<br>
+      "시스템을 파는 것"이 아니라 "문제 해결을 파는 것"이 본질.<br>
+      이 카드에서는 IT영업이 구체적으로 어떤 일인지, 어떤 사람에게 맞는지를 정리했다.
+    </p>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="scrollToSection('s1')">01 정의</button>
+    <button class="nav-item" onclick="scrollToSection('s2')">02 업계 세분화</button>
+    <button class="nav-item" onclick="scrollToSection('s3')">03 역량</button>
+    <button class="nav-item" onclick="scrollToSection('s4')">04 커리어패스</button>
+    <button class="nav-item" onclick="scrollToSection('s5')">05 ES포인트</button>
+    <button class="nav-item" onclick="scrollToSection('s6')">06 후카보리</button>
+    <button class="nav-item" onclick="scrollToSection('s7')">07 키워드</button>
+    <button class="nav-item" onclick="scrollToSection('s8')">08 주의점</button>
+  </div>
+</div>
+
+<!-- ===== CONTENT ===== -->
+<div class="container">
+
+  <!-- ========== SECTION 1 ========== -->
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">IT영업이란</div>
+    <div class="section-title-jp">IT営業とは</div>
+
+    <p>
+      한마디로 말하면, <span class="hl">기업 고객이 안고 있는 업무상의 문제를 듣고, 
+      "IT를 사용하면 이렇게 해결할 수 있습니다"라고 제안하는 직종</span>이다.
+    </p>
+
+    <p>
+      메이커 영업이 "실제 물건(부품, 소재 등)"을 팔았다면, IT영업은 "눈에 보이지 않는 서비스/시스템"을 판다.
+      그래서 고객에게 "이걸 도입하면 어떤 좋은 일이 생기는지"를 스토리로 설명하는 능력이 중요하다.
+    </p>
+
+    <p>
+      그리고 IT영업의 가장 큰 특징이 하나 있다.
+      <span class="hl">혼자 뛰는 영업이 아니라, SE(시스템 엔지니어 = 기술 담당자)와 팀으로 움직인다는 것</span>.
+      영업이 고객의 문제를 파악하면, SE가 기술적 해결책을 설계하고, 영업이 다시 그것을 고객에게 제안한다.
+      즉, "팀을 조율해서 결과를 만들어내는 영업"이라고 이해하면 된다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>IT영업을 이해하는 3가지 포인트</h4>
+      <p>
+        <strong>① 과제 히어링(듣기)이 출발점</strong> — 고객이 "새 시스템이 필요해요"라고 말하기 전에, "지금 뭐가 불편하세요?"를 먼저 끌어내는 힘. IT영업은 "듣기"에서 시작한다.<br><br>
+        <strong>② SE와 함께 해결책을 만든다</strong> — 고객한테 들은 내용을 SE에게 전달 → SE가 기술적 해결책을 설계 → 영업이 그것을 고객이 알아들을 수 있는 말로 제안서를 쓴다. 이 협업이 IT영업의 핵심.<br><br>
+        <strong>③ 계약한 뒤에도 일이 계속된다</strong> — 메이커 영업은 제품을 납품하면 한 사이클이 끝나지만, IT영업은 시스템 개발이 시작되면서 본격적인 관리가 시작된다. 고객의 요구 변경 대응, 추가 개발 제안, 가동 후 문제 대응까지 영업의 책임 범위다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>IT영업의 하루는 이런 느낌이다 (SIer 영업 예시)</h4>
+      <p>
+        09:00 출근. 메일 확인, 진행 중인 프로젝트들의 상황 체크<br>
+        09:30 사내 미팅 — SE팀과 A사 제안서 내용 최종 확인<br>
+        11:00 A사 방문 — 제안 발표(프레젠테이션). SE와 함께 감<br>
+        12:30 점심<br>
+        13:30 B사 전화 대응 — 개발 중인 프로젝트에서 "사양을 바꾸고 싶다"는 요청<br>
+        14:30 사내 — B사 건으로 SE리더와 영향 범위(비용/일정) 확인, 견적 다시 계산<br>
+        16:00 C사 방문 — 처음 만나는 고객. 지금 어떤 시스템을 쓰고 있는지, 뭐가 불편한지 듣기(히어링)<br>
+        17:30 회사 복귀. C사에서 들은 내용 정리해서 사내 공유. 다음 제안 방향 검토<br>
+        18:30 퇴근
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>참고: "수주 후"에 영업이 하는 일</h4>
+      <p>
+        IT영업(특히 SIer)은 계약을 따낸 뒤부터가 진짜 시작이다. 개발이 진행되는 동안 영업이 관리해야 할 것들:<br><br>
+        <strong>① 요구 변경 대응</strong> — 고객이 개발 도중에 "이것도 추가해달라", "여기 바꿔달라"고 요청. 그게 비용과 일정에 어떤 영향을 주는지 SE와 확인하고, 고객과 교섭(추가 비용 제시 등)<br>
+        <strong>② 다음 프로젝트 제안</strong> — 1차 시스템이 완성되면, "다음에는 이런 것도 해보시죠"라고 2차, 3차 확장을 제안. 이게 매출을 키우는 핵심<br>
+        <strong>③ 시스템 가동 후 문제 대응</strong> — 새 시스템에 버그나 문제가 생기면 영업이 1차 창구. SE와 연계해서 원인 파악, 고객 보고<br>
+        <strong>④ 계약 갱신/유지보수</strong> — 보수(유지관리) 계약 갱신, 라이선스 갱신 등. SaaS라면 고객이 해약하지 않도록 관리하는 것도 영업의 역할
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 2 ========== -->
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">IT영업의 세분화</div>
+    <div class="section-title-jp">IT営業の細分化マップ</div>
+
+    <p>
+      "IT영업"이라고 하면 다 같아 보이지만, 실제로는 전혀 다른 세계가 여러 개 있다.
+      가장 큰 차이는 <span class="hl">SIer(에스아이어)인지 SaaS(사스)인지</span>다.
+      이 두 가지를 구분 못 하면 면접에서 바로 들통나니까, 여기서 확실히 정리하자.
+    </p>
+
+    <div class="info-box">
+      <h4>먼저 용어부터 정리</h4>
+      <p>
+        <strong>SIer (에스아이어)</strong> = System Integrator. 고객의 요구에 맞춰 시스템을 처음부터 만들어주는 회사. NTTデータ, 富士通, NEC 같은 대기업이 대표적.<br>
+        <strong>SaaS (사스)</strong> = Software as a Service. 이미 만들어진 클라우드 서비스를 월정액으로 제공하는 회사. Salesforce, freee, Sansan 같은 기업.<br>
+        <strong>SE (에스이)</strong> = System Engineer. 시스템을 설계/개발하는 기술 담당자. IT영업은 이 SE와 항상 팀으로 움직인다.
+      </p>
+    </div>
+
+    <p>아래 표로 유형별 차이를 한눈에 보자.</p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>무엇을 파나</th>
+          <th>영업 스타일</th>
+          <th>한 건 사이클</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-label">대형 SIer</td>
+          <td>고객 맞춤형 시스템을 처음부터 구축</td>
+          <td>대형 안건(프로젝트) 중심. 제안서 만드는 데만 수개월. 경쟁 입찰이 많음</td>
+          <td>6개월 - 수년. 금액 수억 - 수십억 엔</td>
+        </tr>
+        <tr>
+          <td class="row-label">중소 SIer</td>
+          <td>맞춤형 시스템 + 기존 패키지 커스터마이즈</td>
+          <td>영업 1명이 여러 안건 동시 진행. 중소기업 고객이 많음</td>
+          <td>1-6개월. 수백만 - 수천만 엔</td>
+        </tr>
+        <tr>
+          <td class="row-label">SaaS 기업</td>
+          <td>이미 만들어진 클라우드 서비스를 월정액으로 제공</td>
+          <td>전화/온라인 영업(인사이드)과 방문 영업(필드)을 분업. 스피드 중시</td>
+          <td>1-3개월. 월정액이라 계약 후 해약 방지도 중요</td>
+        </tr>
+        <tr>
+          <td class="row-label">패키지 벤더</td>
+          <td>ERP(경영관리), CRM(고객관리) 등 기성 소프트웨어 + 도입 지원</td>
+          <td>제품 시연(데모) + 도입 컨설팅. 제품 지식이 많아야 함</td>
+          <td>3-12개월. 라이선스비 + 도입비 + 유지보수비</td>
+        </tr>
+        <tr>
+          <td class="row-label">통신/인프라</td>
+          <td>네트워크, 클라우드 서버, 데이터센터 서비스</td>
+          <td>대기업 대상 장기 계약형 영업. 기술 담당자(SE)와 같이 방문</td>
+          <td>3-12개월. 월액/연액 계약</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box">
+      <h4>SIer와 SaaS, 어떤 사람에게 맞을까?</h4>
+      <p>
+        <strong>SIer가 맞는 타입</strong>: 하나의 큰 프로젝트에 시간을 들여 깊이 파고드는 것을 좋아하는 사람. "고객의 업무를 근본부터 바꾸는" 스케일감에 끌리는 사람. 조정력과 끈기가 강점.<br><br>
+        <strong>SaaS가 맞는 타입</strong>: 빠르게 움직이는 환경을 좋아하는 사람. 성과가 숫자로 바로 보이는 것을 선호하는 사람. 행동력이 강하고 "일단 해보자" 마인드. 스타트업/벤처 분위기에 끌리는 사람.
+      </p>
+    </div>
+
+    <div class="info-box info-box-accent">
+      <h4>SaaS 기업의 영업 분업 구조 (The Model)</h4>
+      <p>
+        SaaS 기업에서는 영업을 한 사람이 전부 하는 게 아니라, 4단계로 나눠서 한다. 이 구조를 "The Model"이라고 부른다. 면접에서 이걸 알고 있으면 "공부해왔구나"라는 인상을 준다.<br><br>
+        <strong>① 마케팅</strong> — 관심 있는 기업(잠재 고객)을 모으는 역할. 웹사이트, 세미나, 광고 등을 활용<br>
+        <strong>② 인사이드세일즈 (IS)</strong> — 전화나 메일로 잠재 고객에게 연락해서 "한번 이야기 나눠볼까요?"라고 미팅 약속을 잡는 역할. 회사 안에서 하는 내근 영업. 신졸이 처음 배치되는 경우가 많음<br>
+        <strong>③ 필드세일즈 (FS)</strong> — 실제로 만나서 제안하고 계약까지 이끄는 역할. 수주(계약 획득)의 최전선. 인사이드에서 실적을 쌓은 후 올라가는 패턴이 일반적<br>
+        <strong>④ 카스타머석세스 (CS)</strong> — 계약 후 고객이 서비스를 잘 활용하도록 도와주는 역할. "팔고 끝"이 아니라 "계속 쓰게 만드는" 것이 미션. 해약 방지가 핵심<br><br>
+        면접에서 "어떤 포지션에 관심이 있나?"고 물어볼 수 있다. 각각의 특성을 이해하고 자기 성향과 연결해두면 좋다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 3 ========== -->
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">IT영업에서 보는 역량</div>
+    <div class="section-title-jp">IT営業に求められる力</div>
+
+    <p>
+      면접에서 "이 사람은 IT영업에 맞겠다"라고 판단하는 기준이 뭘까?
+      메이커 영업이 "성실함 + 관계 쌓기"였다면,
+      IT영업은 <span class="hl">"논리적으로 생각하기 + 문제를 정리하기 + 팀과 함께 일하기"</span>가 핵심이다.
+    </p>
+
+    <div class="strength-grid">
+      <div class="strength-item">
+        <div class="strength-rank">01</div>
+        <div class="strength-body">
+          <h4>문제 파악력 — "뭐가 불편하세요?"를 끌어내는 힘</h4>
+          <p>고객이 "시스템을 바꾸고 싶다"고 말할 때, 그 뒤에 있는 진짜 문제(업무가 비효율적, 정보가 공유 안 됨, 경영 판단이 느림 등)를 끌어내는 힘. "무엇이 필요하세요?"가 아니라 "지금 무엇에 곤란하고 계시죠?"라고 물을 수 있는가가 포인트.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">02</div>
+        <div class="strength-body">
+          <h4>논리적 사고력 — 감이 아니라 로직으로 설득</h4>
+          <p>고객의 문제를 정리해서 "이 문제에 대해 이 방법이 왜 최적인지"를 논리적으로 설명하는 힘. 제안서의 품질이 곧 영업의 품질이다. 메이커 영업과 달리 "인간관계"만으로는 계약을 딸 수 없고, "로직으로 납득시키는" 세계.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">03</div>
+        <div class="strength-body">
+          <h4>팀 협업력 — SE와 함께 움직이는 힘</h4>
+          <p>IT영업은 혼자 완결하는 일이 없다. SE(기술 담당), 컨설턴트, PM(프로젝트 매니저) 등과 팀으로 움직인다. 고객한테 들은 내용을 기술진에게 정확히 전달하고, 기술진이 만든 솔루션을 고객이 알아들을 수 있는 말로 바꿔서 전달하는 "다리 역할."</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">04</div>
+        <div class="strength-body">
+          <h4>프레젠력 — 제안 발표에서 승패가 갈린다</h4>
+          <p>특히 SIer에서는 여러 회사가 같은 고객에게 경쟁 제안(컨페)하는 경우가 많다. 그 자리에서 "우리 회사가 최적"이라고 설득해야 한다. 자료를 잘 만드는 것 + 말로 잘 전달하는 것, 양쪽 다 필요.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">05</div>
+        <div class="strength-body">
+          <h4>숫자 관리력 — 감으로 일하지 않는 영업</h4>
+          <p>여러 프로젝트를 동시에 돌리면서, 각각의 진행 상황/계약 가능성/예상 매출을 관리한다. SaaS에서는 파이프라인(영업 진행 목록) 관리, SIer에서는 프로젝트별 이익률 관리가 일상. 데이터를 보고 다음 행동을 결정하는 영업.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 4 ========== -->
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">커리어패스</div>
+    <div class="section-title-jp">IT営業のキャリアパス</div>
+
+    <p>
+      "IT영업으로 들어가면 그 다음은?"
+      메이커 영업이 "한 회사에서 오래 쌓아가는" 타입이었다면,
+      IT영업은 <span class="hl">분기가 빠르고 선택지가 넓다.</span>
+      영업 관리직뿐 아니라, IT컨설턴트, 서비스 기획, 기술 제안 전문가 등으로 갈아탈 수 있는 게 IT업계의 매력.
+    </p>
+
+    <div class="career-timeline">
+      <div class="career-step">
+        <div class="career-year">1년차</div>
+        <div class="career-role">선배 동행 + IT기초 공부</div>
+        <div class="career-desc">IT용어, 자기 회사 서비스/솔루션, 고객 업계 지식을 집중적으로 배우는 시기. 선배 영업의 고객 미팅에 따라가면서 "듣기(히어링) → 제안"의 흐름을 체감. SIer라면 시스템 개발의 기본 프로세스(요건 정리 → 설계 → 개발 → 테스트)도 배운다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">2-3년차</div>
+        <div class="career-role">혼자서 고객 담당, 작은 안건부터 수주</div>
+        <div class="career-desc">자기 담당 고객이 생기고, 작은 프로젝트부터 혼자서 제안 → 계약 → 관리를 해본다. 제안서를 직접 쓰기 시작하고, SE와의 협업 방식이 몸에 베는 시기. 첫 수주(계약 획득)의 성공 체험이 자신감의 기반이 된다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">4-6년차</div>
+        <div class="career-role">큰 프로젝트 담당 / 팀 리더</div>
+        <div class="career-desc">대형 고객이나 중요한 프로젝트를 맡게 됨. 수억 엔 규모의 제안을 리드하는 경험. 후배 육성도 시작. 여기서부터 "앞으로 어떤 방향으로 갈 것인가"의 분기가 본격화.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">7년차 이후</div>
+        <div class="career-role">여기서 길이 갈린다</div>
+        <div class="career-desc">
+          <strong>길A: 영업 관리직</strong> — 영업 과장/부장. 팀 매출 책임, 전략 수립, 대형 고객 관계 관리.<br>
+          <strong>길B: IT컨설턴트</strong> — 영업 경험을 기반으로 컨설팅 쪽으로 확장. 고객의 문제 정의부터 솔루션 설계까지 일관되게 담당.<br>
+          <strong>길C: 서비스/프로덕트 기획</strong> — "고객이 실제로 뭘 원하는지"를 아는 영업 출신이 자기 회사 서비스 기획으로 이동.<br>
+          <strong>길D: 기술 제안 전문가(프리세일즈)</strong> — 기술 이해가 깊어진 영업이 기술적 제안 전문가로 전환.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 5 ========== -->
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">ES 작성 포인트</div>
+    <div class="section-title-jp">IT営業志望のES攻略</div>
+
+    <p>
+      ES(엔트리시트)에서 IT영업 지망이라면 관통해야 할 메시지:
+      <span class="hl">"나는 고객의 문제를 정리하고, 팀과 함께 해결책을 만들어낼 수 있는 사람이다."</span>
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>지망동기는 이 4단계로 쓴다</h4>
+      <p>
+        ① <strong>IT/기술에 관심을 가진 계기</strong> — 프로그래밍 경험이 없어도 괜찮다. "IT가 누군가의 일하는 방식을 바꾸는 장면"을 체감한 경험이면 충분<br>
+        ② <strong>"문제 해결"에 보람을 느끼는 자기 성향</strong> — 누군가의 문제를 분석하고 해결한 경험<br>
+        ③ <strong>이 회사의 서비스/고객층에 대한 이해</strong> — "IT기업이니까"가 아니라, 이 회사가 어떤 업계의 어떤 문제를 어떤 방법으로 풀고 있는지까지<br>
+        ④ <strong>팀으로 성과를 낸 경험</strong> — IT영업은 SE와의 협업이 본질. "혼자 해냈다"보다 "팀을 조율해서 결과를 만들었다"가 강함
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>"IT에 관심이 있다"만으로는 왜 부족한가</h4>
+      <p>
+        "IT업계에서 일하고 싶습니다"는 지망동기가 아니라 업계 선택이다.
+        면접관이 보고 싶은 것은 "IT를 왜, 어떻게 사용하고 싶은가."
+        특히 IT영업에서는 <span class="hl">"기술 그 자체"가 아니라 "기술을 사용해서 고객의 일하는 방식을 어떻게 바꾸고 싶은가"</span>까지 이야기할 수 있어야 한다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>가쿠치카(학생 시절 노력한 것)와의 연결법</h4>
+      <p>
+        IT영업이 보는 역량은 "문제 정리 + 팀 협업 + 논리적 설명."<br><br>
+        <strong>좋은 예</strong>: 제미(ゼミ = 대학 세미나)에서 조별 연구를 진행할 때, 주제 설정부터 역할 분담, 발표까지 전체를 조율한 경험 → 문제 구조화 + 팀 협업<br>
+        <strong>좋은 예</strong>: 아르바이트에서 업무 효율이 나쁜 부분을 발견하고 개선안을 제안해서 실행한 경험 → 문제 발견 + 해결 제안<br>
+        <strong>약한 예</strong>: "프로그래밍을 독학했다" → SE 지망이면 모를까, 영업 지망에서는 직접적 연결이 약함
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>SIer용 ES와 SaaS용 ES, 톤이 다르다</h4>
+      <p>
+        같은 IT영업 지망이라도, SIer와 SaaS에서 면접관이 보고 싶은 것이 다르다.<br><br>
+        <strong>SIer ES의 톤</strong>: "고객의 문제에 깊이 들어가서, 장기적으로 함께 해결해가는 것에 매력을 느낀다." 핵심 단어는 깊이, 장기, 신뢰, 조정. 하나의 에피소드를 깊게 파서 "끈기 있게 마주했다"는 자세를 보여주는 것이 효과적.<br><br>
+        <strong>SaaS ES의 톤</strong>: "빠르게 가설을 세우고 실행하며 개선하는 사이클에 매력을 느낀다." 핵심 단어는 스피드, 실행, 수치, 행동력. 에피소드도 "목표를 세우고 → 계획을 짜고 → 실행하고 → 결과를 숫자로 확인하고 → 개선한" 흐름이 맞다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 6 ========== -->
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">면접에서 자주 파고드는 질문</div>
+    <div class="section-title-jp">面接で掘り下げられるポイント</div>
+
+    <p>
+      IT영업 면접에서 가장 많이 파고드는 건 두 가지다:
+      <span class="hl">"논리적으로 생각할 수 있는 사람인가"</span>와 <span class="hl">"왜 SE(기술직)가 아니라 영업인가"</span>.
+      아래 질문들을 클릭하면 답변 방향을 볼 수 있다.
+    </p>
+
+    <div class="qa-list">
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>왜 SE가 아니라 영업을 지망하는가?</span>
+        </div>
+        <div class="qa-answer">
+          IT기업 면접에서 거의 100% 나오는 질문. "기술보다 사람"이라는 식의 이분법은 NG. IT영업의 본질을 이해한 답변: "고객의 과제를 비즈니스 관점에서 파악하고, 그것을 기술진과 함께 해결하는 '다리 역할'에 매력을 느낀다." SE를 깎아내리지 않으면서 영업만의 가치를 설명할 것.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>IT지식이 없는데 대응할 수 있겠는가?</span>
+        </div>
+        <div class="qa-answer">
+          문과 지원자에게 높은 확률로 나옴. "지금 모르는 것"은 문제가 아님. "배울 자세가 있는가"를 보는 질문. 새로운 분야를 단기간에 습득한 경험을 구체적으로 제시. 그리고 "IT영업에서 필요한 것은 코딩 능력이 아니라, 고객의 과제를 이해하고 기술진에게 정확히 전달하는 커뮤니케이션 능력"이라는 이해를 보여줄 것.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>우리 회사의 솔루션(서비스)을 설명해달라.</span>
+        </div>
+        <div class="qa-answer">
+          기업연구의 깊이를 보는 질문. 자사 HP의 솔루션/사례 페이지를 읽는 것은 기본. "어떤 업계의 어떤 과제를 어떤 기술로 해결하고 있는가"를 구조적으로 설명. 도입 사례까지 언급하면 강력. "전부 알지는 못하지만, 이 부분에 특히 관심이 있다"는 식의 솔직함도 OK.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>고객이 가격 인하를 강하게 요구할 때 어떻게 하겠는가?</span>
+        </div>
+        <div class="qa-answer">
+          교섭력과 논리적 사고를 보는 질문. "단순히 할인한다"는 최악. "왜 이 가격인지(가치)를 설명한다" → "그래도 안 되면 대안(스코프 조정, 페이즈 분리 등)을 제시한다" → "사내와 협의해서 최종 판단"이라는 프로세스를 보여줄 것. 가격이 아니라 "가치"로 싸우는 자세.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>SE와의 협업에서 의견이 갈릴 때 어떻게 하겠는가?</span>
+        </div>
+        <div class="qa-answer">
+          IT영업 특유의 질문. 영업은 "고객 요구를 수용하고 싶고", SE는 "기술적으로 무리한 것은 안 된다"고 생각하는 상황이 일상. "영업이 항상 맞다"도 "SE에게 맡긴다"도 NG. "고객의 진짜 니즈와 기술적 제약을 양쪽 다 이해한 위에서, 최적의 대안을 함께 찾는다"는 조정의 자세.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>최근 주목하고 있는 IT트렌드가 있는가?</span>
+        </div>
+        <div class="qa-answer">
+          IT업계 지망의 기본. AI, 클라우드, DX 등 키워드만 나열하면 약함. "그 트렌드가 고객 기업의 비즈니스에 어떤 영향을 주는가"까지 연결해서 말할 수 있으면 강함. 예: "생성 AI의 보급으로 콜센터 업무가 변하고 있고, 그에 따른 시스템 재구축 수요가 늘어날 것으로 생각한다" 같은 비즈니스 관점의 분석.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>프로젝트 도중에 고객이 "생각했던 것과 다르다"고 불만을 표시하면 어떻게 하겠는가?</span>
+        </div>
+        <div class="qa-answer">
+          SIer 영업의 현실을 이해하는지 보는 질문. 실제로 개발이 진행되면서 "처음 이야기와 다르다"는 갭이 생기는 것은 흔한 일이다. 포인트는 ① 고객의 불만을 경청하고 구체적으로 무엇이 기대와 다른지 정리, ② 요건정의 시점의 합의 내용을 확인, ③ SE/PM과 함께 대응 방안(사양 수정, 추가 개발, 스케줄 조정)을 검토, ④ 비용/납기 영향을 명확히 하여 고객에게 선택지를 제시. "고객 말이 다 맞다"도 "계약서에 없다"도 아닌, 사실 관계를 정리하고 대안을 함께 찾는 자세가 정답.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 7 ========== -->
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 연결</div>
+    <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+    <p>
+      자기분석에서 "나의 강점"을 찾았다면, 그것이 IT영업에서 왜 쓸모 있는지를 설명할 수 있어야 한다.
+      <span class="hl">"논리적이니까 IT에 맞다"가 아니라, "논리적 사고력이 IT영업에서 구체적으로 어떤 장면에서 발휘되는가"</span>까지가 포인트.
+    </p>
+
+    <div class="keyword-grid">
+      <div class="keyword-card">
+        <div class="kw-name">과제발견력</div>
+        <div class="kw-desc">IT영업의 핵심 중의 핵심. 고객이 인식하지 못한 과제를 끌어내고 구조화하는 힘. "듣는 것"을 넘어 "파고드는 것"의 레벨.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">논리적사고력</div>
+        <div class="kw-desc">과제 → 원인 → 해결책 → 기대효과를 일직선으로 설명하는 힘. 제안서의 구조 그 자체. IT영업에서 "감으로 파는" 것은 통하지 않음.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">협조성</div>
+        <div class="kw-desc">SE, 컨설턴트, PM 등 기술진과 팀으로 움직이는 것이 일상. "자기 실적"만 생각하면 팀이 무너짐. 주변을 살피고 함께 성과를 내는 자세.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">향상심</div>
+        <div class="kw-desc">IT기술은 빠르게 변한다. 작년의 지식이 올해 구식이 될 수 있는 세계. 끊임없이 새로운 기술/트렌드를 배우려는 자세가 장기적 성장의 열쇠.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">주체성</div>
+        <div class="kw-desc">특히 SaaS 영업에서 중요. 자기 목표를 역산해서 행동 계획을 세우고, 스스로 PDCA를 돌리는 힘. "지시를 기다리지 않는" 자세.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">경청력</div>
+        <div class="kw-desc">과제 히어링의 기반. 고객이 "하고 싶은 말" 뒤에 있는 "진짜 과제"를 잡아내는 감각. IT영업에서 경청력이 없으면 제안의 방향이 어긋남.</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>ES 연결 예시 (IT영업 지망동기)</h4>
+      <p>
+        "제미 연구에서 팀원들의 문제의식을 히어링하고, 연구 방향을 구조화해서 제안한 경험이 있습니다(<strong>과제발견력 + 논리적사고력</strong>).
+        각자의 강점을 살린 역할 분담을 통해 팀 전체의 성과를 최대화할 수 있었습니다(<strong>협조성</strong>).
+        이 경험을 통해 '과제를 파악하고, 팀과 함께 해결책을 만들어가는 일'에 보람을 느꼈고,
+        귀사의 IT솔루션 영업에서 이 강점을 발휘하고 싶습니다."
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 8 ========== -->
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">IT営業の落とし穴</div>
+
+    <p>
+      IT영업을 지망하는 학생들이 자주 빠지는 함정을 모았다.
+      해당 사항이 있으면 지금이라도 수정하면 된다.
+    </p>
+
+    <div class="warn-box">
+      <h4>함정 1: "IT에 관심이 있다" = 지망동기가 아니다</h4>
+      <p>
+        "IT업계에서 일하고 싶다"는 업계 선택이지 직종 지망동기가 아니다.
+        면접관이 묻는 것은 "왜 SE도 컨설턴트도 아닌, 영업인가."
+        IT라는 도구를 사용해서 "고객의 비즈니스를 바꾸고 싶다"는 방향이어야 영업 지망의 논리가 성립.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 2: SIer와 SaaS의 차이를 모르고 지원</h4>
+      <p>
+        "IT영업"이라고 뭉뚱그려서 지원하면 면접에서 바로 들통. 
+        SIer의 수주개발 영업과 SaaS의 서브스크립션 영업은 일하는 방식, 성과 평가, 커리어패스가 완전히 다르다.
+        Section 02의 세분화를 이해하고, "왜 이 비즈니스 모델의 영업인가"까지 설명할 수 있어야 한다.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 3: "기술을 몰라도 OK"라고 안심하는 것</h4>
+      <p>
+        "IT영업은 기술을 몰라도 된다"는 반은 맞고 반은 틀림.
+        코딩을 할 필요는 없지만, 고객과 SE 사이에서 "번역자" 역할을 하려면 기본적인 IT용어/시스템 구조는 이해해야 한다.
+        입사 후 "기술을 배우기 싫다"는 자세면 빠르게 한계에 부딪힌다.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 4: "화려한 프레젠 = 좋은 영업"이라는 착각</h4>
+      <p>
+        프레젠테이션은 영업의 일부이지 전부가 아니다.
+        특히 SIer 영업에서는 프레젠 전의 히어링, 과제 정리, SE와의 솔루션 설계 과정이 훨씬 중요.
+        "말 잘하는 사람"이 아니라 "과제를 정확히 파악하는 사람"이 수주를 따낸다.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 5: 대형 SIer만 보는 것</h4>
+      <p>
+        NTTデータ, 富士通, NEC 같은 대형 SIer에만 눈이 가기 쉽지만,
+        독립계 SIer, 니치 특화형 SIer, 급성장 SaaS 기업 등 선택지가 매우 넓다.
+        대형은 안건 스케일이 크지만 자기 재량이 작고, 중소/벤처는 재량이 크지만 안건 스케일이 작다.
+        <span class="hl-warn">"규모"가 아니라 "어떤 환경에서 어떤 성장을 하고 싶은가"로 선택할 것.</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 업계x직종 카드 vol.02 — IT영업(SIer/SaaS)</p>
+    <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+    <p style="margin-top: 8px; font-size: 10px;">영업 개요 카드(레벨2) | 직종 대분류 맵(레벨1)도 함께 참고</p>
+  </div>
+
+</div>
+
+<script>
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const navHeight = document.querySelector('.section-nav').offsetHeight;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+const navItems = document.querySelectorAll('.nav-item');
+function updateActiveNav() {
+  const navHeight = document.querySelector('.section-nav').offsetHeight;
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { const rect = el.getBoundingClientRect(); if (rect.top <= navHeight + 60) current = id; }
+  });
+  navItems.forEach((item, i) => {
+    if (sections[i] === current) item.classList.add('active'); else item.classList.remove('active');
+  });
+}
+window.addEventListener('scroll', updateActiveNav);
+updateActiveNav();
+</script>
+
+</body>
+</html>

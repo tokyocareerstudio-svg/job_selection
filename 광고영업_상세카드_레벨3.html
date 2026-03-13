@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>광고/미디어 영업 상세 카드 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #f472b6;
+    --accent-soft: rgba(244, 114, 182, 0.08);
+    --accent-border: rgba(244, 114, 182, 0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif; line-height: 1.8; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 760px; margin: 0 auto; padding: 0 24px 100px; }
+
+  .hero { padding: 56px 24px 40px; text-align: center; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 50% 0%, rgba(244,114,182,0.05) 0%, transparent 70%); }
+  .hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+  .hero-breadcrumb { font-size: 11px; color: var(--text-muted); margin-bottom: 16px; }
+  .hero-breadcrumb a { color: var(--accent); text-decoration: none; }
+  .hero-breadcrumb span { margin: 0 6px; }
+  .hero-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-border); padding: 5px 14px; border-radius: 16px; margin-bottom: 20px; }
+  .hero-icon { width: 64px; height: 64px; border-radius: 14px; background: var(--accent-soft); border: 1px solid var(--accent-border); display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--accent); font-family: 'Noto Sans JP', sans-serif; font-weight: 700; margin: 0 auto 20px; }
+  .hero h1 { font-size: 30px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.5px; }
+  .hero .title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; color: var(--text-muted); margin-bottom: 4px; }
+  .hero .title-en { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .hero-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .hero-tag { font-size: 11px; padding: 4px 12px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); font-weight: 500; border: 1px solid var(--accent-border); }
+  .hero-summary { font-size: 13px; color: var(--text-dim); max-width: 540px; margin: 0 auto; line-height: 1.9; }
+
+  .section-nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 10px 0; }
+  .section-nav-inner { max-width: 760px; margin: 0 auto; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+  .section-nav-inner::-webkit-scrollbar { display: none; }
+  .nav-item { flex-shrink: 0; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 500; color: var(--text-muted); cursor: pointer; border: none; background: none; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
+  .nav-item:hover, .nav-item.active { color: var(--accent); background: var(--accent-soft); }
+
+  .section { padding: 40px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom: none; }
+  .section-number { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); opacity: 0.6; margin-bottom: 6px; }
+  .section-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+  .section-title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .section p { font-size: 13px; color: var(--text-sub); line-height: 2.0; margin-bottom: 14px; }
+  .section p:last-child { margin-bottom: 0; }
+  .hl { color: var(--accent); font-weight: 600; }
+  .hl-warn { color: #ef4444; font-weight: 600; }
+
+  .info-box { padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin: 16px 0; }
+  .info-box-accent { border-left: 3px solid var(--accent); background: var(--accent-soft); border-color: var(--accent-border); border-left-color: var(--accent); }
+  .info-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .info-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12px; }
+  .compare-table th { text-align: left; padding: 10px 14px; background: var(--surface-2); color: var(--text-dim); font-weight: 600; font-size: 11px; border-bottom: 1px solid var(--border); }
+  .compare-table td { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-sub); vertical-align: top; line-height: 1.7; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .row-label { font-weight: 600; color: var(--accent); white-space: nowrap; width: 110px; }
+
+  .strength-grid { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+  .strength-item { display: flex; gap: 14px; padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .strength-rank { font-size: 22px; font-weight: 900; color: var(--accent); opacity: 0.4; width: 30px; flex-shrink: 0; text-align: center; line-height: 1; padding-top: 2px; }
+  .strength-body h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .strength-body p { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  .career-timeline { position: relative; margin: 20px 0; padding-left: 28px; }
+  .career-timeline::before { content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px; width: 2px; background: linear-gradient(180deg, var(--accent) 0%, rgba(244,114,182,0.1) 100%); border-radius: 1px; }
+  .career-step { position: relative; padding: 14px 0; }
+  .career-step::before { content: ''; position: absolute; left: -24px; top: 20px; width: 10px; height: 10px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+  .career-year { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+  .career-role { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .career-desc { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  .qa-list { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
+  .qa-item { padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+  .qa-item:hover { border-color: var(--border-hover); }
+  .qa-question { font-size: 13px; font-weight: 600; color: var(--text); display: flex; align-items: flex-start; gap: 10px; }
+  .qa-q-mark { color: var(--accent); font-weight: 800; font-size: 14px; flex-shrink: 0; opacity: 0.7; }
+  .qa-answer { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-dim); line-height: 1.8; padding-left: 24px; }
+  .qa-item.open .qa-answer { display: block; }
+
+  .keyword-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .keyword-card { padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .keyword-card .kw-name { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .keyword-card .kw-desc { font-size: 11px; color: var(--text-dim); line-height: 1.7; }
+
+  .warn-box { padding: 18px 20px; background: rgba(239,68,68,0.04); border: 1px solid rgba(239,68,68,0.12); border-left: 3px solid #ef4444; border-radius: 10px; margin: 14px 0; }
+  .warn-box h4 { font-size: 13px; font-weight: 700; color: #ef4444; margin-bottom: 6px; }
+  .warn-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  .footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--border); }
+  .footer p { font-size: 11px; color: var(--text-muted); line-height: 1.8; }
+  .footer .brand { font-weight: 700; color: var(--text-dim); }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 24px; }
+    .section-title { font-size: 18px; }
+    .keyword-grid { grid-template-columns: 1fr; }
+    .hero { padding: 40px 20px 32px; }
+    .compare-table { font-size: 11px; }
+    .compare-table th, .compare-table td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-breadcrumb">
+      <a href="#">직종 대분류 맵</a><span>›</span><a href="#">영업 개요</a><span>›</span>광고영업
+    </div>
+    <div class="hero-label">業界×職種カード vol.04</div>
+    <div class="hero-icon">広</div>
+    <h1>광고/미디어 영업</h1>
+    <div class="title-jp">広告・メディア営業</div>
+    <div class="title-en">Advertising / Media Sales — Industry Detail Card</div>
+    <div class="hero-tags">
+      <span class="hero-tag">기업 고객(BtoB)</span>
+      <span class="hero-tag">기획 제안형</span>
+      <span class="hero-tag">무형상품</span>
+      <span class="hero-tag">크리에이티브 연계</span>
+    </div>
+    <p class="hero-summary">
+      광고영업이란, 광고를 내고 싶은 기업(광고주)의 과제를 듣고,<br>
+      "어떤 미디어에, 어떤 메시지를, 어떤 방식으로 전달할지"를 기획해서 제안하는 직종이다.<br>
+      이 카드에서는 광고영업이 구체적으로 어떤 일인지, 어떤 사람에게 맞는지를 정리했다.
+    </p>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="scrollToSection('s1')">01 정의</button>
+    <button class="nav-item" onclick="scrollToSection('s2')">02 세분화</button>
+    <button class="nav-item" onclick="scrollToSection('s3')">03 역량</button>
+    <button class="nav-item" onclick="scrollToSection('s4')">04 커리어패스</button>
+    <button class="nav-item" onclick="scrollToSection('s5')">05 ES포인트</button>
+    <button class="nav-item" onclick="scrollToSection('s6')">06 후카보리</button>
+    <button class="nav-item" onclick="scrollToSection('s7')">07 키워드</button>
+    <button class="nav-item" onclick="scrollToSection('s8')">08 주의점</button>
+  </div>
+</div>
+
+<!-- ===== CONTENT ===== -->
+<div class="container">
+
+  <!-- ========== SECTION 1 ========== -->
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">광고영업이란</div>
+    <div class="section-title-jp">広告営業とは</div>
+
+    <p>
+      한마디로 말하면, <span class="hl">광고를 내고 싶은 기업(= 광고주, 클라이언트)의 문제를 듣고, 
+      그 문제를 "광고/미디어"를 사용해서 해결하는 제안을 하는 직종</span>이다.
+    </p>
+
+    <p>
+      메이커 영업이 "물건"을 팔고, IT영업이 "시스템"을 팔았다면, 광고영업은 "아이디어+실행"을 판다.
+      광고주의 "신제품 인지도를 올리고 싶다", "채용 브랜드를 강화하고 싶다", "젊은 층에게 다가가고 싶다" 같은 과제에 대해,
+      TV CM을 만들지, SNS 캠페인을 하는지, 이벤트를 여는지 등 <span class="hl">해결 방법까지 포함해서 기획하고 제안하는 것</span>이 핵심이다.
+    </p>
+
+    <p>
+      그리고 광고영업의 가장 큰 특징: <span class="hl">혼자 기획하는 것이 아니라, 사내 전문가 팀을 "지휘"하는 역할</span>이라는 것.
+      크리에이티브(광고를 만드는 사람), 미디어(어디에 광고를 싣는가를 결정하는 사람), 마케팅 전략 등 각 분야의 전문가를
+      하나로 묶어서 클라이언트의 과제에 맞는 "답"을 만들어내는 사령탑이 바로 광고영업이다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>광고영업을 이해하는 3가지 포인트</h4>
+      <p>
+        <strong>① 클라이언트의 과제를 듣는 것이 시작</strong> — 광고주가 "TV CM 만들어주세요"라고 말해도, 진짜 과제는 "매출이 떨어지고 있어서"일 수 있다. 그 근본 과제를 파악하는 것이 영업의 출발점.<br><br>
+        <strong>② 사내 전문가 팀을 조율한다</strong> — 광고영업은 "광고를 만드는 사람"이 아니다. 크리에이터, 미디어 플래너, 디지털 전문가 등을 조합해서 최적의 팀을 짜고, 전체를 관리하는 "프로듀서" 역할.<br><br>
+        <strong>③ 제안(프레젠)이 승부처</strong> — 광고주는 보통 여러 대리점에 동시에 의뢰해서 제안을 경쟁시킨다(경합 프레젠 = 컨페). 이 프레젠에서 이기는 것이 매출로 직결된다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>광고영업의 하루는 이런 느낌이다 (종합 광고대리점 예시)</h4>
+      <p>
+        09:30 출근. 메일 확인, 오늘 미팅 자료 최종 체크<br>
+        10:00 사내 미팅 — 크리에이티브팀과 A사 CM 기획안 방향 논의<br>
+        11:30 A사(광고주) 방문 — 기획안 프레젠테이션. 피드백 수집<br>
+        13:00 점심 (A사 마케팅 부장과 함께. 관계 구축의 시간이기도 함)<br>
+        14:00 사내 — B사 건 미디어팀과 매체 플랜(어디에 광고를 실을지) 확인<br>
+        15:30 B사에 견적서 + 미디어 플랜 메일 송부<br>
+        16:00 C사 신규 컨페 오리엔테이션(광고주가 과제를 설명하는 첫 미팅) 참석<br>
+        17:30 사내 — C사 컨페를 위한 팀 구성 논의. 크리에이티브 디렉터에게 브리프(요약 지시서) 작성<br>
+        19:00 내일 미팅 준비. 제안서 수정<br>
+        20:00 퇴근 (or 접대 저녁 식사)
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>솔직히 말하면: 광고영업은 "체력전"이다</h4>
+      <p>
+        광고업계는 화려한 이미지와 달리 업무량이 상당히 많은 업계다.<br><br>
+        <strong>컨페 시즌에는 야근이 일상.</strong> 경합 프레젠 전에는 크리에이티브/미디어 팀과 함께 밤늦게까지 기획을 다듬는다. 동시에 기존 클라이언트 업무도 계속 돌아간다.<br><br>
+        <strong>클라이언트의 스케줄이 곧 내 스케줄.</strong> 광고주의 신제품 출시일, 캠페인 런칭일은 절대로 늦출 수 없다. 급한 수정 요청, 갑작스런 방향 전환 등 "클라이언트가 움직이면 나도 움직여야" 하는 구조.<br><br>
+        <strong>접대/관계 구축도 업무의 일부.</strong> 클라이언트와의 저녁 식사, 이벤트 동행 등 업무 외 시간까지 일의 연장인 경우가 많다.<br><br>
+        그 대신 "자기가 기획한 광고가 세상에 나오는 순간"의 쾌감은 다른 업계에서는 맛볼 수 없다.
+        중요한 것은 <span class="hl">"화려함"에 끌렸는지 "기획하고 실행하는 과정 자체"에 끌렸는지</span>를 정직하게 확인하는 것.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 2 ========== -->
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">광고영업의 세분화</div>
+    <div class="section-title-jp">広告営業の細分化マップ</div>
+
+    <p>
+      "광고영업"이라고 해도 <span class="hl">어디에서 일하느냐</span>에 따라 성격이 상당히 다르다.
+      크게 나누면 "대리점(광고를 대행하는 쪽)"과 "미디어(광고를 싣는 쪽)" 그리고 "사업회사(광고를 내는 쪽)"로 갈린다.
+    </p>
+
+    <div class="info-box">
+      <h4>먼저 광고업계의 구조를 이해하자</h4>
+      <p>
+        <strong>광고주 (クライアント)</strong> = 광고를 내고 싶은 회사. 도요타, 유니클로, 소니 같은 사업회사.<br>
+        <strong>광고대리점 (広告代理店)</strong> = 광고주의 의뢰를 받아 광고를 기획/제작/운용하는 회사. 덴츠(電通), 하쿠호도, ADK 등.<br>
+        <strong>미디어 (媒体社)</strong> = 광고를 싣는 곳. TV방송국, 신문사, 웹미디어, SNS 플랫폼 등.<br>
+        <strong>제작회사 (制作会社)</strong> = 실제로 광고물(CM, 포스터, 웹사이트 등)을 만드는 곳.<br><br>
+        광고영업이라고 하면 보통은 "광고대리점의 영업"을 가리키는 경우가 많다.
+      </p>
+    </div>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>무엇을 하나</th>
+          <th>영업 스타일</th>
+          <th>특징</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-label">종합 광고대리점</td>
+          <td>광고주의 마케팅 과제를 종합적으로 해결. TV/디지털/이벤트 등 전 채널</td>
+          <td>대형 광고주 담당. 기획 제안 + 사내 전문가 팀 조율. 컨페(경쟁 제안) 다수</td>
+          <td>덴츠(電通), 하쿠호도(博報堂), ADK 등. 스케일 크지만 업무량도 최상급</td>
+        </tr>
+        <tr>
+          <td class="row-label">디지털/인터넷 광고 대리점</td>
+          <td>웹광고, SNS광고, 검색광고 등 디지털 채널 특화</td>
+          <td>데이터 기반. 광고 효과를 숫자로 관리. 운용형 광고가 메인</td>
+          <td>사이버에이전트, 옵트, 세프테니 등. 스피드감 있는 환경. 젊은 문화</td>
+        </tr>
+        <tr>
+          <td class="row-label">미디어(매체) 영업</td>
+          <td>자사 미디어의 광고 틀을 광고대리점/광고주에게 판매</td>
+          <td>방송국, 신문사, 웹미디어 등. 광고 틀(枠)의 가치를 어필</td>
+          <td>"어떤 콘텐츠에 붙이면 효과가 좋은가"를 제안하는 독특한 영업</td>
+        </tr>
+        <tr>
+          <td class="row-label">사업회사 선전부(宣伝部)</td>
+          <td>자사 제품/서비스의 광고를 대리점에 의뢰하고 관리하는 측</td>
+          <td>대리점을 선정하고, 브리프(지시서)를 내리고, 완성물을 체크하는 "발주 측"</td>
+          <td>광고대리점의 "클라이언트" 입장. 신졸로 직접 배치되는 경우는 적음</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box">
+      <h4>종합 광고대리점 vs 디지털 대리점, 어떤 사람에게 맞을까?</h4>
+      <p>
+        <strong>종합 대리점이 맞는 타입</strong>: "TV CM을 만들어보고 싶다", "대형 캠페인을 통째로 기획하고 싶다"는 사람. 스케일에 매력을 느끼는 타입. 조정력과 끈기가 강점. 다만 채용 난이도가 극히 높다.<br><br>
+        <strong>디지털 대리점이 맞는 타입</strong>: "데이터로 효과를 증명하고 싶다", "빠르게 시도하고 개선하고 싶다"는 사람. 숫자에 강하고 스피드감 있는 환경을 좋아하는 타입. 종합 대리점보다 채용 문턱이 낮고 성장 기회가 빠르다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 3 ========== -->
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">광고영업에서 보는 역량</div>
+    <div class="section-title-jp">広告営業に求められる力</div>
+
+    <p>
+      면접에서 "이 사람은 광고영업에 맞겠다"라고 판단하는 기준은?
+      메이커가 "성실함"이고 IT가 "논리적 사고"였다면,
+      광고영업은 <span class="hl">"기획력 + 사람을 움직이는 힘 + 끝까지 해내는 추진력"</span>이 핵심이다.
+    </p>
+
+    <div class="strength-grid">
+      <div class="strength-item">
+        <div class="strength-rank">01</div>
+        <div class="strength-body">
+          <h4>기획력 — "그래서 뭘 하자는 건데?"에 답하는 힘</h4>
+          <p>클라이언트의 과제를 듣고, "그러면 이런 광고/캠페인은 어떨까요?"라고 제안하는 힘. 크리에이티브를 직접 만드는 것은 아니지만, "어떤 방향으로 만들 것인가"의 큰 그림을 짜는 것은 영업의 역할. 그래서 "기획서를 쓸 수 있는 영업"이 가치가 높다.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">02</div>
+        <div class="strength-body">
+          <h4>프레젠력 — 아이디어를 "팔 수 있는" 힘</h4>
+          <p>광고대리점 영업에서 프레젠은 수주(계약)의 승패를 가르는 결정적 순간. 아무리 좋은 기획이라도 전달이 안 되면 의미가 없다. 자료를 보기 좋게 구성하는 것 + 목소리와 태도로 설득력 있게 전달하는 것, 양쪽 다 필요.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">03</div>
+        <div class="strength-body">
+          <h4>조율력 — 사내 전문가 팀을 "지휘"하는 힘</h4>
+          <p>광고영업은 크리에이터, 미디어 플래너, 디지털 전문가, 프로듀서 등 다양한 전문가를 하나의 방향으로 이끌어야 한다. "이 사람들이 최고의 결과를 내도록 환경을 만드는 것"이 광고영업의 조율력. 오케스트라의 지휘자에 비유되기도.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">04</div>
+        <div class="strength-body">
+          <h4>관계구축력 — 클라이언트의 "파트너"가 되는 힘</h4>
+          <p>광고영업은 클라이언트의 마케팅 부서와 매우 밀접하게 일한다. 단순한 "출입 업자"가 아니라 "마케팅 파트너"로 인정받으면, 경합 없이 지명으로 일이 들어오기도 한다. 이를 위해서는 클라이언트의 사업/제품을 자사 직원만큼 이해하는 깊이가 필요.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">05</div>
+        <div class="strength-body">
+          <h4>추진력 — 끝까지 완주하는 힘</h4>
+          <p>기획 제안에서 끝이 아니다. 수주 후에는 크리에이티브 제작, 미디어 수배, 클라이언트 확인, 수정, 최종 납품까지 긴 프로세스가 이어진다. 도중에 갑작스런 변경이 들어와도 "최종 온에어(방영/공개) 날짜"는 절대 안 변한다. 이 마감 압박 속에서 끝까지 완주하는 힘.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 4 ========== -->
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">커리어패스</div>
+    <div class="section-title-jp">広告営業のキャリアパス</div>
+
+    <p>
+      광고영업의 커리어는 <span class="hl">"어떤 영역으로 전문성을 넓히느냐"</span>에 따라 갈린다.
+      영업 안에서 성장하는 길도 있고, 기획/전략/디지털 쪽으로 이동하는 길도 있다.
+      업계 내 이직도 비교적 활발한 편.
+    </p>
+
+    <div class="career-timeline">
+      <div class="career-step">
+        <div class="career-year">1-2년차</div>
+        <div class="career-role">선배 보조 + 업계 기초 습득</div>
+        <div class="career-desc">선배 영업의 보조로 미팅 동행, 자료 작성, 클라이언트 연락 대응을 배운다. 광고업계의 구조(광고주-대리점-미디어-제작사), 미디어의 종류, 기본적인 용어를 익히는 시기. 소규모 안건의 진행 관리를 맡기 시작.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">3-4년차</div>
+        <div class="career-role">담당 클라이언트 배정 / 컨페 경험</div>
+        <div class="career-desc">자기 담당 클라이언트가 생긴다. 기획서를 직접 쓰고, 프레젠을 리드하기 시작. 컨페(경쟁 제안)에서 이기는 경험과 지는 경험 양쪽을 통해 빠르게 성장. 크리에이티브/미디어 팀과의 협업이 익숙해지는 시기.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">5-7년차</div>
+        <div class="career-role">대형 클라이언트 / 팀 리더</div>
+        <div class="career-desc">대형 광고주나 주요 캠페인을 담당. 팀을 이끌고 후배를 육성. "이 사람에게 맡기면 안심"이라는 신뢰를 클라이언트와 사내 양쪽에서 얻는 단계.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">8년차 이후</div>
+        <div class="career-role">여기서 길이 갈린다</div>
+        <div class="career-desc">
+          <strong>길A: 영업 관리직</strong> — 영업국장(局長) 등. 복수 클라이언트/팀을 총괄. 경영에 가까운 포지션.<br>
+          <strong>길B: 전략/기획 직군으로 이동</strong> — 스트래티직 플래너, 비즈니스 프로듀서 등. 영업 경험 기반의 전략가.<br>
+          <strong>길C: 디지털/데이터 영역</strong> — 디지털 마케팅, 데이터 분석 등 성장 영역으로 전환.<br>
+          <strong>길D: 클라이언트 측으로 이직</strong> — 광고주(사업회사)의 마케팅부/선전부로. 업계에서는 흔한 커리어 전환.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 5 ========== -->
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">ES 작성 포인트</div>
+    <div class="section-title-jp">広告営業志望のES攻略</div>
+
+    <p>
+      광고영업 지망 ES에서 관통해야 할 메시지:
+      <span class="hl">"나는 사람의 마음을 움직이는 기획을 만들고, 팀을 이끌어 실행까지 해낼 수 있는 사람이다."</span>
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>지망동기는 이 4단계로 쓴다</h4>
+      <p>
+        ① <strong>광고/커뮤니케이션에 관심을 가진 계기</strong> — "마음이 움직이는 경험"을 자기 체험에서 찾기. 단순히 "광고가 좋다"보다 "왜 좋은지"까지<br>
+        ② <strong>"기획 제안형 영업"에 끌리는 이유</strong> — 정해진 물건을 파는 게 아니라, 답을 직접 만들어내는 것에 보람을 느끼는 성향<br>
+        ③ <strong>이 회사의 강점/실적에 대한 이해</strong> — 이 대리점의 어떤 캠페인/클라이언트에 관심이 있는지. 구체적 사례를 언급할 것<br>
+        ④ <strong>자기가 기여할 수 있는 것</strong> — 기획 경험, 팀 조율 경험, 프레젠 경험 등과의 연결
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>"광고가 좋아서"만으로는 왜 약한가</h4>
+      <p>
+        "광고가 좋아서 광고업계에 왔습니다"는 "라면이 좋아서 라면집에 취직했습니다"와 같은 수준이다.
+        면접관이 보는 것은 "광고가 좋다"는 소비자적 관점이 아니라, <span class="hl">"광고를 사용해서 기업의 문제를 해결하고 싶다"</span>는 비즈니스적 관점.
+        좋아하는 것과 일로 하는 것의 차이를 인식하고 있는지가 핵심.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>가쿠치카(학생 시절 노력한 것)와의 연결법</h4>
+      <p>
+        광고영업이 보는 역량은 "기획력 + 팀 조율 + 추진력."<br><br>
+        <strong>좋은 예</strong>: 학교 축제나 이벤트를 기획하고, 참여자/협력자를 모아서 실제로 실행까지 이끌어낸 경험 → 기획+조율+추진<br>
+        <strong>좋은 예</strong>: SNS나 동영상 등으로 뭔가를 발신해서 사람의 반응을 이끌어낸 경험 → 커뮤니케이션 감각<br>
+        <strong>약한 예</strong>: "광고를 많이 본다", "좋아하는 CM이 있다" → 소비자 관점은 약함. "그것을 어떻게 일에 연결할 것인가"까지
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 6 ========== -->
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">면접에서 자주 파고드는 질문</div>
+    <div class="section-title-jp">面接で掘り下げられるポイント</div>
+
+    <p>
+      광고영업 면접에서 파고드는 포인트: <span class="hl">"왜 크리에이터가 아니라 영업인가"</span>와
+      <span class="hl">"기획하고 실행한 경험의 깊이"</span>. 아래 질문을 클릭하면 답변 방향을 볼 수 있다.
+    </p>
+
+    <div class="qa-list">
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>왜 크리에이터(만드는 쪽)가 아니라 영업(파는 쪽)인가?</span>
+        </div>
+        <div class="qa-answer">
+          광고업계 면접에서 거의 반드시 나오는 질문. "직접 만드는 것"보다 "여러 전문가를 모아서 최고의 결과를 만드는 것"에 매력을 느낀다는 방향. 오케스트라의 "연주자"가 아니라 "지휘자"에 비유하면 이해하기 쉬움. 팀을 조율해서 성과를 낸 경험으로 뒷받침.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>최근 기억에 남는 광고(캠페인)와 그 이유는?</span>
+        </div>
+        <div class="qa-answer">
+          광고에 대한 감도(感度)를 보는 질문. "좋았다/멋있었다"만으로는 NG. "이 광고가 어떤 과제를 해결하기 위해 만들어졌고, 타겟에게 어떤 메시지를 전달하려 했고, 왜 효과적이라고 생각하는지"까지 분석할 수 있으면 강함. 1-2개의 사례를 준비해둘 것.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>클라이언트가 기획안을 전면 부정했을 때 어떻게 하겠는가?</span>
+        </div>
+        <div class="qa-answer">
+          광고영업의 현실을 이해하는지 보는 질문. 자기 기획이 부정당하는 것은 일상이다. "처음부터 다시 만든다"만이 답이 아니라, "왜 부정당했는지 피드백을 정확히 파악 → 과제 인식이 어긋난 건지, 표현이 맞지 않은 건지를 분리 → 크리에이티브팀과 재논의 → 수정안 재제안"이라는 프로세스를 보여줄 것.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>디지털과 전통 미디어(TV/신문)의 차이를 어떻게 보나?</span>
+        </div>
+        <div class="qa-answer">
+          미디어 환경에 대한 이해도를 보는 질문. "디지털이 대세고 TV는 끝났다"는 단순한 답은 NG. 전통 미디어는 "한번에 넓게 도달", 디지털은 "타겟을 세밀하게 설정 + 효과 측정 가능"이라는 특성 차이를 이해하고, "과제에 따라 최적의 조합이 다르다"는 관점을 보여주면 좋음.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>팀 내에서 의견이 갈릴 때 어떻게 하는가?</span>
+        </div>
+        <div class="qa-answer">
+          광고대리점에서는 영업, 크리에이터, 미디어 플래너 등 직종이 다른 사람들이 한 팀이 된다. 각자의 "최고"가 다를 수 있음. 이때 "클라이언트의 과제 해결"이라는 공통 목표로 되돌려서, 각자의 전문성을 살리면서 방향을 맞추는 조율의 자세를 보여줄 것.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>야근이나 장시간 근무에 대해 어떻게 생각하는가?</span>
+        </div>
+        <div class="qa-answer">
+          광고업계의 현실을 직접 묻는 질문. "전혀 괜찮다"고 허세를 부리는 것도, "싫다"고 솔직하게 말하는 것도 좋지 않다. "마감 전 집중적으로 일하는 것은 감수하되, 평상시에는 효율적으로 일하고 싶다"는 현실적 자세. 그리고 "왜 그 부담을 감수하면서까지 이 일을 하고 싶은가"의 동기가 명확하면 강함.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>우리 회사(대리점)의 강점을 어떻게 이해하고 있나?</span>
+        </div>
+        <div class="qa-answer">
+          기업연구의 깊이를 보는 질문. 덴츠(電通)이면 "스케일과 미디어 바잉력", 하쿠호도(博報堂)면 "생활자 발상(生活者発想)의 기획력" 등, 각 대리점마다 특색이 있다. 그 특색을 이해하고 "왜 그 특색이 자기 지향과 맞는지"까지 연결. 수상 작품이나 대표적 캠페인을 구체적으로 언급할 수 있으면 가산점.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 7 ========== -->
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 연결</div>
+    <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+    <p>
+      자기분석에서 찾은 강점이 광고영업에서 왜 쓸모 있는지를 설명할 수 있어야 한다.
+      <span class="hl">"발상력이 있으니까 광고에 맞다"가 아니라, "발상력이 광고영업의 어떤 장면에서 구체적으로 발휘되는가"</span>까지가 포인트.
+    </p>
+
+    <div class="keyword-grid">
+      <div class="keyword-card">
+        <div class="kw-name">발상력</div>
+        <div class="kw-desc">클라이언트의 과제에 대해 "이런 방법도 있지 않을까?"라고 새로운 각도에서 제안하는 힘. 크리에이티브를 직접 만드는 건 아니지만, "큰 그림의 방향"을 제시하는 발상력이 영업에게도 필요하다.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">조정력</div>
+        <div class="kw-desc">크리에이터, 미디어, 클라이언트 등 전혀 다른 입장의 사람들을 하나의 방향으로 이끄는 힘. 광고영업에서 가장 많은 시간을 쓰는 것이 바로 이 "조율" 업무.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">주체성</div>
+        <div class="kw-desc">클라이언트에게 "시킨 대로만 하는 대리점"이 아니라 "먼저 제안해주는 대리점"이 되려면 주체성이 필수. "이런 건 어떨까요?"를 먼저 꺼낼 수 있는 자세.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">경청력</div>
+        <div class="kw-desc">클라이언트의 "광고 만들어주세요" 뒤에 숨겨진 진짜 과제를 읽어내는 힘. 좋은 기획의 출발점은 항상 "잘 듣는 것"이다.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">도전정신</div>
+        <div class="kw-desc">컨페에서 지는 것은 일상. 기획이 부정당하는 것도 흔하다. 그래도 다시 새로운 아이디어로 도전하는 회복력과 에너지.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">관계구축력</div>
+        <div class="kw-desc">클라이언트의 "마케팅 파트너"로 인정받으려면 오랜 기간 신뢰를 쌓아야 한다. 단발 거래가 아니라 "이 사람이니까 맡긴다"를 만드는 것이 장기적 성과의 기반.</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>ES 연결 예시 (광고영업 지망동기)</h4>
+      <p>
+        "학교 축제에서 홍보 기획을 맡아, SNS 콘텐츠 기획부터 디자이너/영상 담당과의 역할 분담, 실행 관리까지 전체를 진행한 경험이 있습니다(<strong>기획력 + 조정력</strong>).
+        결과적으로 전년 대비 내장자 수를 30% 늘릴 수 있었고, '아이디어를 형태로 만들어서 사람의 행동을 바꾸는 일'에 깊은 보람을 느꼈습니다.
+        이 경험을 살려, 귀사에서 클라이언트의 과제를 기획으로 해결하는 영업이 되고 싶습니다."
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 8 ========== -->
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">広告営業の落とし穴</div>
+
+    <p>
+      광고영업을 지망하는 학생들이 자주 빠지는 함정을 모았다.
+      해당 사항이 있으면 지금이라도 수정하면 된다.
+    </p>
+
+    <div class="warn-box">
+      <h4>함정 1: "광고가 좋아서" = 지망동기가 아니다</h4>
+      <p>
+        광고를 "보는 것"이 좋다는 건 소비자의 관점이다. 면접관은 "만드는 쪽"의 시선을 원한다.
+        "이 광고를 좋아한다"가 아니라, "이 광고가 어떤 과제를 해결하기 위해 만들어졌는지 이해하고, 그런 기획을 하고 싶다"까지 가야 한다.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 2: "광고영업 = 크리에이티브한 일"이라는 오해</h4>
+      <p>
+        광고를 "만드는" 건 크리에이터의 역할이다. 영업의 일상은 클라이언트 대응, 견적 관리, 스케줄 조정, 사내외 조율이 대부분.
+        화려한 기획서를 쓰는 시간보다, 지미한 조정/관리 업무에 쓰는 시간이 훨씬 많다.
+        <span class="hl-warn">"기획만 하고 싶다"면 영업이 아니라 기획직이나 크리에이터를 목표로 해야 한다.</span>
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 3: 종합 대리점(덴츠/하쿠호도)만 보는 것</h4>
+      <p>
+        종합 광고대리점은 채용 난이도가 극히 높다. 덴츠, 하쿠호도 모두 신졸 채용은 소수 정예(각 100명 전후).
+        디지털 대리점, 전문 대리점, 미디어 회사, PR 회사 등 광고업계의 선택지는 넓다.
+        종합 대리점만 쏘다가 전멸하면 광고업계 자체에 못 들어갈 수도 있다.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 4: 업무 강도를 모르고 지원</h4>
+      <p>
+        광고업계는 일본에서도 "하드워크"로 유명한 업계다. 최근 개선되고 있지만 여전히 업무량이 많고,
+        특히 컨페 시즌이나 캠페인 런칭 직전에는 집중적인 장시간 근무가 발생한다.
+        "화려해 보여서"로 들어온 사람이 현실 갭으로 일찍 퇴사하는 패턴은 흔하다.
+        Section 01의 "체력전" 부분을 다시 읽어볼 것.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 5: "어느 대리점이나 같다"고 생각하는 것</h4>
+      <p>
+        대리점마다 문화, 강점, 주요 클라이언트가 전혀 다르다.
+        덴츠는 "스케일과 미디어 파워", 하쿠호도는 "생활자 발상의 기획력", ADK는 "애니메이션/콘텐츠 연계",
+        디지털 대리점은 "데이터 드리븐" 등. "왜 이 대리점인가"를 설명 못 하면 "어디든 광고면 되는 사람"으로 보인다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 업계x직종 카드 vol.04 — 광고/미디어 영업</p>
+    <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+    <p style="margin-top: 8px; font-size: 10px;">영업 개요 카드(레벨2) | 직종 대분류 맵(레벨1)도 함께 참고</p>
+  </div>
+
+</div>
+
+<script>
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const navHeight = document.querySelector('.section-nav').offsetHeight;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+const navItems = document.querySelectorAll('.nav-item');
+function updateActiveNav() {
+  const navHeight = document.querySelector('.section-nav').offsetHeight;
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { const rect = el.getBoundingClientRect(); if (rect.top <= navHeight + 60) current = id; }
+  });
+  navItems.forEach((item, i) => {
+    if (sections[i] === current) item.classList.add('active'); else item.classList.remove('active');
+  });
+}
+window.addEventListener('scroll', updateActiveNav);
+updateActiveNav();
+</script>
+
+</body>
+</html>

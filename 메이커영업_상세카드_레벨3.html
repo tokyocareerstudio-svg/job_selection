@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>메이커 영업(製造業営業) 상세 카드 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --surface-3: #22222e;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #f59e0b;
+    --accent-soft: rgba(245, 158, 11, 0.08);
+    --accent-border: rgba(245, 158, 11, 0.18);
+    --accent-blue: #4a9eff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px 100px;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 56px 24px 40px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(245,158,11,0.05) 0%, transparent 70%);
+  }
+
+  .hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+
+  .hero-breadcrumb {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .hero-breadcrumb a {
+    color: var(--accent-blue);
+    text-decoration: none;
+  }
+
+  .hero-breadcrumb span { margin: 0 6px; }
+
+  .hero-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    padding: 5px 14px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+  }
+
+  .hero-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 14px;
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: var(--accent);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 700;
+    margin: 0 auto 20px;
+  }
+
+  .hero h1 { font-size: 30px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.5px; }
+
+  .hero .title-jp {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px; color: var(--text-muted); margin-bottom: 4px;
+  }
+
+  .hero .title-en { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+
+  .hero-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+
+  .hero-tag {
+    font-size: 11px; padding: 4px 12px; border-radius: 12px;
+    background: var(--accent-soft); color: var(--accent);
+    font-weight: 500; border: 1px solid var(--accent-border);
+  }
+
+  .hero-summary { font-size: 13px; color: var(--text-dim); max-width: 540px; margin: 0 auto; line-height: 1.9; }
+
+  /* ===== SECTION NAV ===== */
+  .section-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10, 10, 15, 0.92);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 10px 0;
+  }
+
+  .section-nav-inner {
+    max-width: 760px; margin: 0 auto; padding: 0 24px;
+    display: flex; gap: 4px; overflow-x: auto;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+
+  .section-nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-item {
+    flex-shrink: 0; padding: 6px 12px; border-radius: 8px;
+    font-size: 11px; font-weight: 500; color: var(--text-muted);
+    cursor: pointer; border: none; background: none;
+    font-family: inherit; transition: all 0.2s; white-space: nowrap;
+  }
+
+  .nav-item:hover, .nav-item.active { color: var(--accent); background: var(--accent-soft); }
+
+  /* ===== SECTIONS ===== */
+  .section { padding: 40px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom: none; }
+  .section-number { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); opacity: 0.6; margin-bottom: 6px; }
+  .section-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+  .section-title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .section p { font-size: 13px; color: var(--text-sub); line-height: 2.0; margin-bottom: 14px; }
+  .section p:last-child { margin-bottom: 0; }
+
+  .hl { color: var(--accent); font-weight: 600; }
+  .hl-blue { color: var(--accent-blue); font-weight: 600; }
+  .hl-warn { color: #ef4444; font-weight: 600; }
+
+  /* ===== INFO BOXES ===== */
+  .info-box {
+    padding: 18px 20px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 10px; margin: 16px 0;
+  }
+
+  .info-box-accent {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft); border-color: var(--accent-border);
+    border-left-color: var(--accent);
+  }
+
+  .info-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .info-box p, .info-box li { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  /* ===== COMPARISON TABLE ===== */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 12px;
+  }
+
+  .compare-table th {
+    text-align: left;
+    padding: 10px 14px;
+    background: var(--surface-2);
+    color: var(--text-dim);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .compare-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    color: var(--text-sub);
+    vertical-align: top;
+    line-height: 1.7;
+  }
+
+  .compare-table tr:last-child td { border-bottom: none; }
+
+  .compare-table .row-label {
+    font-weight: 600;
+    color: var(--accent);
+    white-space: nowrap;
+    width: 100px;
+  }
+
+  /* ===== STRENGTH ITEMS ===== */
+  .strength-grid { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+
+  .strength-item {
+    display: flex; gap: 14px; padding: 16px 18px;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  }
+
+  .strength-rank {
+    font-size: 22px; font-weight: 900; color: var(--accent); opacity: 0.4;
+    width: 30px; flex-shrink: 0; text-align: center; line-height: 1; padding-top: 2px;
+  }
+
+  .strength-body h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .strength-body p { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  /* ===== CAREER TIMELINE ===== */
+  .career-timeline { position: relative; margin: 20px 0; padding-left: 28px; }
+
+  .career-timeline::before {
+    content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px;
+    width: 2px; background: linear-gradient(180deg, var(--accent) 0%, rgba(245,158,11,0.1) 100%);
+    border-radius: 1px;
+  }
+
+  .career-step { position: relative; padding: 14px 0; }
+
+  .career-step::before {
+    content: ''; position: absolute; left: -24px; top: 20px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--accent);
+  }
+
+  .career-year { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+  .career-role { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .career-desc { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  /* ===== QA SECTION ===== */
+  .qa-list { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
+
+  .qa-item {
+    padding: 16px 18px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 10px;
+    cursor: pointer; transition: all 0.2s;
+  }
+
+  .qa-item:hover { border-color: var(--border-hover); }
+
+  .qa-question { font-size: 13px; font-weight: 600; color: var(--text); display: flex; align-items: flex-start; gap: 10px; }
+  .qa-q-mark { color: var(--accent); font-weight: 800; font-size: 14px; flex-shrink: 0; opacity: 0.7; }
+
+  .qa-answer {
+    display: none; margin-top: 12px; padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px; color: var(--text-dim); line-height: 1.8; padding-left: 24px;
+  }
+
+  .qa-item.open .qa-answer { display: block; }
+
+  /* ===== KEYWORD CARDS ===== */
+  .keyword-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+
+  .keyword-card {
+    padding: 16px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 10px;
+  }
+
+  .keyword-card .kw-name { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .keyword-card .kw-desc { font-size: 11px; color: var(--text-dim); line-height: 1.7; }
+
+  /* ===== WARN BOX ===== */
+  .warn-box {
+    padding: 18px 20px;
+    background: rgba(239, 68, 68, 0.04);
+    border: 1px solid rgba(239, 68, 68, 0.12);
+    border-left: 3px solid #ef4444;
+    border-radius: 10px; margin: 14px 0;
+  }
+
+  .warn-box h4 { font-size: 13px; font-weight: 700; color: #ef4444; margin-bottom: 6px; }
+  .warn-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  /* ===== FOOTER ===== */
+  .footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--border); }
+  .footer p { font-size: 11px; color: var(--text-muted); line-height: 1.8; }
+  .footer .brand { font-weight: 700; color: var(--text-dim); }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 24px; }
+    .section-title { font-size: 18px; }
+    .keyword-grid { grid-template-columns: 1fr; }
+    .hero { padding: 40px 20px 32px; }
+    .compare-table { font-size: 11px; }
+    .compare-table th, .compare-table td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-breadcrumb">
+      <a href="#">직종 대분류 맵</a><span>›</span><a href="#">영업 개요</a><span>›</span>메이커 영업
+    </div>
+    <div class="hero-label">業界×職種カード vol.01</div>
+    <div class="hero-icon">製</div>
+    <h1>메이커 영업</h1>
+    <div class="title-jp">製造業 営業職</div>
+    <div class="title-en">Manufacturer Sales — Industry Detail Card</div>
+    <div class="hero-tags">
+      <span class="hero-tag">BtoB</span>
+      <span class="hero-tag">루트영업 중심</span>
+      <span class="hero-tag">유형상품</span>
+      <span class="hero-tag">관계구축형</span>
+    </div>
+    <p class="hero-summary">
+      메이커(제조업)의 영업이란, 자기 회사가 만든 제품을 기업 고객에게 팔고, 오랜 기간 관계를 유지하는 일이다.<br>
+      "실제로 손에 잡히는 물건"을 매개로 일한다는 점이 가장 큰 특징.<br>
+      이 카드에서는 메이커 영업이 구체적으로 어떤 일인지, 어떤 사람에게 맞는지를 정리했다.
+    </p>
+  </div>
+</div>
+
+<!-- ===== SECTION NAV ===== -->
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="scrollToSection('s1')">01 정의</button>
+    <button class="nav-item" onclick="scrollToSection('s2')">02 업계 세분화</button>
+    <button class="nav-item" onclick="scrollToSection('s3')">03 역량</button>
+    <button class="nav-item" onclick="scrollToSection('s4')">04 커리어패스</button>
+    <button class="nav-item" onclick="scrollToSection('s5')">05 ES포인트</button>
+    <button class="nav-item" onclick="scrollToSection('s6')">06 후카보리</button>
+    <button class="nav-item" onclick="scrollToSection('s7')">07 키워드</button>
+    <button class="nav-item" onclick="scrollToSection('s8')">08 주의점</button>
+  </div>
+</div>
+
+<!-- ===== CONTENT ===== -->
+<div class="container">
+
+  <!-- ========== SECTION 1: 직종 정의 ========== -->
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">메이커 영업이란</div>
+    <div class="section-title-jp">製造業の営業とは</div>
+
+    <p>
+      한마디로 말하면, <span class="hl">자기 회사가 만든 제품을 기업 고객에게 팔고, 
+      팔고 난 뒤에도 계속 관계를 유지하는 직종</span>이다.
+    </p>
+
+    <p>
+      IT영업이나 광고영업은 "눈에 보이지 않는 서비스"를 파는 반면,
+      메이커 영업은 자동차 부품이든 화학 소재든 "실제로 존재하는 물건"을 매개로 일한다.
+      이게 가장 큰 차이점이다.
+      "자기 회사가 만든 물건이 세상에서 쓰이고 있다"는 것을 실감할 수 있는 건 메이커 영업만의 매력.
+    </p>
+
+    <p>
+      일본에서 제조업은 경제의 약 20%를 차지하는 거대한 산업이고,
+      영업 인력은 항상 필요하다. 문과 출신이 메이커에 들어가면 대부분 영업부터 시작하게 된다.
+      이공계 출신도 "기술영업"이라는 포지션으로 영업에 배치되는 경우가 있다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>메이커 영업을 이해하는 3가지 포인트</h4>
+      <p>
+        <strong>① 루트영업이 기본</strong> — "루트영업"이란, 이미 거래가 있는 고객을 정기적으로 방문하며 관계를 유지하는 영업 스타일이다. 새 고객을 찾아다니는 "신규개척"보다, 기존 고객과의 관계를 깊게 만드는 것이 메인. 같은 담당자와 3년, 5년, 10년 단위로 관계를 이어가는 세계.<br><br>
+        <strong>② 제품 지식이 필요하다</strong> — 자기 회사 제품이 어떻게 만들어지고, 어떤 성능이 있는지 이해해야 한다. 고객의 기술 담당자와 대화할 수 있는 수준이 최소한. 문과여도 입사 후 공장 연수를 거쳐 반드시 배우게 된다. "기술을 모르는 영업"은 고객한테 신뢰를 못 얻는다.<br><br>
+        <strong>③ 사내 조정이 일의 절반</strong> — 고객이 "납기를 앞당겨줘", "사양을 바꿔줘"라고 요청하면, 사내 기술부/생산부/물류부에 전달하고 양쪽이 OK할 수 있는 선을 찾아야 한다. 이 "사내 조정"이 메이커 영업에서 가장 시간을 많이 쓰는 업무다. 고객을 상대하는 것보다 사내를 설득하는 것이 더 어려울 때도 많다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>메이커 영업의 하루는 이런 느낌이다 (소재 메이커 예시)</h4>
+      <p>
+        08:30 출근. 메일 확인, 어제 출하된 제품 상황 확인<br>
+        09:00 사내 미팅 — 기술부와 A사 사양 변경 건 상의<br>
+        10:30 거래처 A사 방문 — 정기 방문, 다음 분기에 얼마나 주문할지 히어링<br>
+        12:00 점심 (A사 담당자와 함께 먹는 경우도 많다)<br>
+        13:30 거래처 B사 방문 — 불량품이 나왔다는 클레임 대응. 원인 설명과 대책 보고<br>
+        15:30 이동 중 전화 — C사 납기(납품일) 조정 연락<br>
+        16:30 회사 복귀. 견적서 작성, B사 클레임 보고서 작성<br>
+        17:30 내일 방문 준비, 샘플 발송 확인<br>
+        18:00 퇴근
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>다른 영업과 뭐가 다른가?</h4>
+      <p>
+        <strong>vs IT영업</strong>: IT영업은 "눈에 보이지 않는 서비스"를 제안하기 때문에 논리적 설명이 핵심. 메이커 영업은 "실제 물건"이 있으니 샘플을 보여주고 성능 데이터로 대화할 수 있다. 대신 납기/품질/재고 같은 "물리적 제약"과 싸워야 한다.<br><br>
+        <strong>vs 상사영업</strong>: 상사는 "다른 회사가 만든 것"을 중개하지만, 메이커 영업은 "자기 회사가 만든 것"을 판다. 자사 제품에 대한 깊은 이해가 필수이고, 제품에 문제가 생기면 직접 책임져야 한다.<br><br>
+        <strong>vs 광고영업</strong>: 광고영업은 "기획을 파는" 세계라 화려한 프레젠이 중요하지만, 메이커 영업은 "성실하게 쌓아온 신뢰"가 무기. 한 방의 프레젠보다 3년간의 꾸준한 대응이 계약을 결정한다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 2: 업계 세분화 ========== -->
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">메이커 영업의 세분화</div>
+    <div class="section-title-jp">製造業営業の細分化マップ</div>
+
+    <p>
+      "메이커 영업"이라고 하면 전부 같은 일을 하는 것 같지만, 실제로는 전혀 다르다.
+      <span class="hl">무엇을 만드는 회사인지(완성품? 부품? 소재?), 그리고 누구한테 파는지</span>에 따라 
+      일하는 방식이 크게 달라진다.
+    </p>
+
+    <p>
+      아래 표를 보면 "같은 메이커 영업인데 이렇게 다르구나"가 느껴질 것이다.
+    </p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>무엇을 만드나</th>
+          <th>누구한테 파나</th>
+          <th>영업 스타일</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-label">완성품 메이커</td>
+          <td>자동차, 가전, 공작기계 등 최종 제품</td>
+          <td>딜러(대리점), 유통회사, 직접 기업 고객</td>
+          <td>제품 시연(데모) + 기술 설명. 기술 담당자와 함께 방문하는 경우 많음</td>
+        </tr>
+        <tr>
+          <td class="row-label">부품 메이커</td>
+          <td>자동차부품, 전자부품, 기계부품</td>
+          <td>완성품 메이커의 구매부/기술부</td>
+          <td>고객 요구에 맞춘 사양 조정 + 납기/품질 관리. 오랜 기간 같은 거래처를 담당</td>
+        </tr>
+        <tr>
+          <td class="row-label">소재 메이커</td>
+          <td>화학, 철강, 수지(플라스틱 원료), 종이 등</td>
+          <td>가공업체, 부품/완성품 메이커</td>
+          <td>기술 상담형 영업. "이런 용도에는 이 소재가 최적"이라고 제안. 연구개발부서와 연계</td>
+        </tr>
+        <tr>
+          <td class="row-label">장비/설비 메이커</td>
+          <td>공장 생산설비, 검사장비, 물류기기</td>
+          <td>공장의 생산기술/설비 담당자</td>
+          <td>한 건당 금액이 크고 도입까지 시간이 걸림. 도입 후 유지보수(애프터서비스)도 포함</td>
+        </tr>
+        <tr>
+          <td class="row-label">식품 메이커</td>
+          <td>가공식품, 음료, 조미료</td>
+          <td>슈퍼마켓/편의점 바이어(구매 담당), 외식업체</td>
+          <td>매장 진열(棚取り=선반 확보) 교섭 + 판촉 기획 제안. 시장 데이터를 활용한 영업</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box">
+      <h4>여기서 한 가지 알아둘 것</h4>
+      <p>
+        취활할 때 "메이커 영업"이라고 한 묶음으로 지원하면, 면접에서 "왜 우리 회사인지" 설명이 안 된다.
+        위 표처럼 유형이 다르기 때문에, <span class="hl">"어떤 유형의 메이커 영업이 나한테 맞는지"</span>를 먼저 생각하는 것이 중요하다.
+        예를 들어, 장기적으로 같은 고객과 깊은 관계를 쌓고 싶다면 부품/소재 메이커가 맞고,
+        소비자에게 가까운 제품을 다루고 싶다면 식품 메이커가 맞다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 3: 역량 ========== -->
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">메이커 영업에서 보는 역량</div>
+    <div class="section-title-jp">製造業営業に求められる力</div>
+
+    <p>
+      면접에서 "이 사람은 메이커 영업에 맞겠다"라고 판단하는 기준이 뭘까?
+      한마디로 말하면, <span class="hl">"화려하게 프레젠하는 능력"보다 "꾸준히 신뢰를 쌓고, 사내외를 정확하게 조율하는 능력"</span>을 본다.
+    </p>
+
+    <div class="strength-grid">
+      <div class="strength-item">
+        <div class="strength-rank">01</div>
+        <div class="strength-body">
+          <h4>관계구축력 — 오래 사귈 수 있는 힘</h4>
+          <p>메이커 영업은 같은 거래처 담당자와 3년, 5년, 10년 단위로 관계를 이어간다. "이 사람이니까 맡긴다"라는 말을 듣는 것이 목표. 화려한 말솜씨가 아니라, 약속을 지키고 사소한 연락을 빠뜨리지 않는 "성실함"이 관계를 만든다.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">02</div>
+        <div class="strength-body">
+          <h4>조정력 — 양쪽 사이에서 답을 찾는 힘</h4>
+          <p>고객은 "더 빨리, 더 싸게, 더 좋게" 요구하고, 사내 생산부/기술부는 "그건 현실적으로 어렵다"고 한다. 이 사이에서 양쪽이 수용할 수 있는 착지점을 찾아내는 것이 메이커 영업의 하루 중 가장 많은 시간을 차지하는 업무다.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">03</div>
+        <div class="strength-body">
+          <h4>기술 이해력 — 전문가까진 아니어도 "대화 가능" 수준</h4>
+          <p>문과여도 입사 후 자기 회사 제품이 어떻게 만들어지고, 어떤 성능을 가지는지 배워야 한다. 고객의 기술 담당자가 하는 말을 이해하고, 사내 기술부에 정확하게 전달할 수 있는 "번역자" 역할이 최소한.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">04</div>
+        <div class="strength-body">
+          <h4>경청력 — 말하기보다 듣기가 먼저</h4>
+          <p>거래처가 "필요한 것"을 명확하게 말해주지 않는 경우가 많다. 특히 부품/소재 메이커에서는 고객이 "뭔가 더 좋은 게 없을까..."라는 막연한 불만을 가지고 있을 때, 그걸 캐치할 수 있는 "듣기의 깊이"가 제안의 질을 결정한다.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">05</div>
+        <div class="strength-body">
+          <h4>꼼꼼함 — "대충"이 통하지 않는 세계</h4>
+          <p>견적서 숫자 하나 틀리면, 납기(납품일) 하루 어긋나면 수천만 엔의 손해로 이어질 수 있다. 제품 사양, 수량, 납기, 가격을 실수 없이 관리하는 꼼꼼함은 기본 중의 기본.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 4: 커리어패스 ========== -->
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">커리어패스</div>
+    <div class="section-title-jp">メーカー営業のキャリアパス</div>
+
+    <p>
+      "메이커 영업으로 들어가면 그 다음은 어떻게 되나?"
+      한마디로 말하면, <span class="hl">오랜 시간에 걸쳐 천천히, 하지만 확실하게 성장하는 타입</span>이다.
+      IT업계처럼 2-3년마다 이직하는 문화가 아니라, 한 회사에서 10년 이상 쌓아가는 패턴이 주류.
+    </p>
+
+    <div class="career-timeline">
+      <div class="career-step">
+        <div class="career-year">1년차</div>
+        <div class="career-role">선배 동행 + 제품 공부</div>
+        <div class="career-desc">입사 후 1-3개월은 공장 연수. 자기 회사 제품이 어떻게 만들어지는지 직접 체험한다. 그 후 선배 영업을 따라다니며 고객 방문, 명함 교환, 비즈니스 매너를 익힘. "기술을 모르는 영업"이 되지 않기 위한 기초 체력을 만드는 시기.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">2-3년차</div>
+        <div class="career-role">혼자서 거래처 담당</div>
+        <div class="career-desc">자기 담당 거래처가 생긴다. 처음에는 작은 회사부터. 견적서 작성, 납기 조정, 클레임 대응을 혼자 해내야 하는 시기. 제품 지식이 빠르게 늘어난다. 이때 "나만의 영업 스타일"이 만들어지기 시작.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">4-6년차</div>
+        <div class="career-role">주요 거래처 담당 + 후배 지도</div>
+        <div class="career-desc">큰 거래처나 중요한 고객을 맡게 됨. 가격 교섭, 대형 프로젝트 등 스케일이 커진다. 후배를 가르치는 역할도 시작. 일부는 해외영업이나 해외주재 기회가 열리는 시기.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">7-10년차</div>
+        <div class="career-role">여기서 길이 갈린다</div>
+        <div class="career-desc">
+          <strong>길A: 매니지먼트</strong> — 영업 과장/부장이 되어 팀을 관리. 부하 육성, 영업 전략 수립, 수치 책임.<br>
+          <strong>길B: 해외</strong> — 해외영업부나 해외주재원으로. 글로벌 거래처 담당.<br>
+          <strong>길C: 기획으로 이동</strong> — 영업기획, 마케팅, 사업기획 등으로 이동. 현장 경험이 기획력의 기반이 된다.
+        </div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">10년차 이후</div>
+        <div class="career-role">부장/본부장/경영층</div>
+        <div class="career-desc">영업본부장, 사업부장, 해외 법인 대표 등. 일본 메이커에서는 영업 출신 경영자가 많다. "현장을 아는 경영자"가 높이 평가되는 문화.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 5: ES 포인트 ========== -->
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">ES 작성 포인트</div>
+    <div class="section-title-jp">メーカー営業志望のES攻略</div>
+
+    <p>
+      ES(엔트리시트)에서 메이커 영업 지망이라면 관통해야 할 메시지는 하나:
+      <span class="hl">"나는 오랜 기간 신뢰관계를 쌓으며 고객과 회사 양쪽에 가치를 만들 수 있는 사람이다."</span>
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>지망동기는 이 4단계로 쓴다</h4>
+      <p>
+        ① <strong>제조업에 관심을 가진 계기</strong> — 왜 "눈에 보이는 제품"을 다루는 일에 끌리는가<br>
+        ② <strong>루트영업(기존 고객 관계형 영업)에 끌리는 이유</strong> — "한 번 팔고 끝"이 아니라 오래 관계를 쌓는 것에 가치를 두는 자기 성향<br>
+        ③ <strong>이 회사의 제품/기술에 대한 이해</strong> — 구체적으로 어떤 제품이, 누구한테, 어떤 가치를 주는지<br>
+        ④ <strong>자기가 기여할 수 있는 것</strong> — 자기 강점(성실함, 조정력 등)을 어떻게 발휘할 것인지
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>"모노즈쿠리에 관심" 만으로는 약하다</h4>
+      <p>
+        "모노즈쿠리(물건 만들기)에 관심이 있어서 메이커를 지망합니다"는 가장 흔하고 가장 추상적인 지망동기다.
+        면접관은 이 말을 듣고 반드시 이렇게 묻는다: <span class="hl">"그러면 왜 설계/개발이 아니라 영업인가?"</span><br><br>
+        여기서 막히면 끝이다. "제품의 가치를 직접 고객에게 전달하고, 현장의 피드백을 제품 개선에 연결하고 싶다"는 
+        식으로 "영업만의 역할"까지 말할 수 있어야 한다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>가쿠치카(학생 시절 노력한 것)와의 연결법</h4>
+      <p>
+        메이커 영업이 보는 역량은 "관계구축력 + 조정력 + 성실함."
+        가쿠치카에서 이 세 가지 중 하나를 증명할 수 있는 에피소드를 골라야 한다.<br><br>
+        <strong>좋은 예</strong>: 동아리에서 기업 협찬을 받기 위해 3개월간 여러 번 방문하여 신뢰를 얻은 경험 → 관계구축력<br>
+        <strong>좋은 예</strong>: 아르바이트에서 고객 요구와 점장 방침 사이를 조율한 경험 → 조정력<br>
+        <strong>약한 예</strong>: "리더십을 발휘해서 팀을 이끌었다" → 메이커 루트영업과의 접점이 약함
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>완성품 메이커 vs 부품/소재 메이커: ES의 톤이 다르다</h4>
+      <p>
+        같은 메이커 영업 지망이라도, 완성품인지 부품/소재인지에 따라 어필 포인트가 달라진다.<br><br>
+        <strong>완성품 메이커 ES의 톤</strong>: "최종 사용자에게 가치를 전달하고 싶다." 자사 제품이 소비자나 사회에 어떤 영향을 주는지를 말할 수 있으면 강하다. 제품에 대한 "애정"을 구체적으로 보여주는 것이 효과적.<br><br>
+        <strong>부품/소재 메이커 ES의 톤</strong>: "눈에 보이지 않는 곳에서 산업을 지탱하는 역할에 매력을 느낀다." 완성품처럼 일반인이 아는 제품은 아니지만, 그 완성품이 만들어지기 위해 반드시 필요한 부품/소재. "알짜 기업"을 스스로 찾아냈다는 것 자체가 기업연구의 깊이를 보여준다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>메이커 기업연구, 어디서 정보를 찾나?</h4>
+      <p>
+        회사 HP의 "제품 소개" 페이지만 봐서는 부족하다. 면접에서 차별화하려면 여기까지 봐야 한다:<br><br>
+        <strong>IR자료(投資家向け資料)</strong> — 매출 구성, 주력 제품, 성장 전략이 한눈에 보임. "제품별 매출 비율"을 알면 "이 회사가 뭘로 먹고 사는지"를 설명할 수 있음<br>
+        <strong>중기경영계획(中期経営計画)</strong> — 3-5년 후 이 회사가 어디로 가려고 하는지. "귀사의 중기경영계획에서 OO 분야에 주력한다고 이해했습니다"라고 말하면 가산점<br>
+        <strong>전시회/기술보고서</strong> — 제품의 기술적 특징을 더 깊이 이해할 수 있음. 실제로 전시회에 갔다면 면접에서 강력한 무기<br>
+        <strong>업계 뉴스/전문지</strong> — 그 회사가 속한 업계의 트렌드. "원재료 가격 상승" "EV 전환" 같은 업계 과제를 알고 있으면 대화의 깊이가 달라짐
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 6: 면접 후카보리 ========== -->
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">면접에서 자주 파고드는 질문</div>
+    <div class="section-title-jp">面接で掘り下げられるポイント</div>
+
+    <p>
+      메이커 영업 면접은 "화려한 답변"보다 <span class="hl">"구체적이고 솔직한 답변"</span>을 좋아한다.
+      특히 "왜 이 업계?" "왜 영업?"을 깊이 파고드는 패턴이 많다.
+      아래 질문들을 클릭하면 답변 방향을 볼 수 있다.
+    </p>
+
+    <div class="qa-list">
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>왜 무형상품(IT/광고)이 아니라 유형상품(메이커)의 영업인가?</span>
+        </div>
+        <div class="qa-answer">
+          "눈에 보이는 제품을 통해 고객에게 구체적인 가치를 전달하는 것에 매력을 느낀다"는 방향. 자기 경험 중 "구체적인 것을 만들거나 전달했을 때 보람을 느낀" 에피소드와 연결. 추상적 서비스보다 "모노"를 매개로 한 관계에 끌리는 이유를 설명.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>루트영업은 지루하지 않겠는가? 같은 거래처만 반복 방문하는 것에 대해 어떻게 생각하는가?</span>
+        </div>
+        <div class="qa-answer">
+          이건 함정 질문. "지루하지 않다"고 부정만 하면 약함. 오히려 "같은 거래처라도 매번 과제가 다르고, 관계가 깊어질수록 더 큰 안건을 맡길 수 있다. 반복이 아니라 심화"라는 관점을 보여줄 것. 실제로 장기 관계에서 보람을 느낀 경험이 있으면 금상첨화.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>클레임이 들어왔을 때 어떻게 대처하겠는가?</span>
+        </div>
+        <div class="qa-answer">
+          메이커 영업의 현실을 이해하고 있는지 보는 질문. 포인트는 "우선 고객에게 사과와 상황 확인 → 사내 기술/품질 부문에 즉시 공유 → 원인 분석 후 재발 방지책까지 보고"라는 프로세스를 보여주는 것. "저 혼자 해결하겠다"가 아니라 "관련 부서와 연계해서 대응하겠다"는 답변이 좋음.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>우리 제품(기술)에 대해 아는 대로 설명해달라.</span>
+        </div>
+        <div class="qa-answer">
+          기업연구의 깊이를 보는 직구. 회사 HP의 제품 페이지만 봤으면 바로 들통난다. IR자료, 기술보고서, 전시회 정보 등을 통해 "어떤 제품이 어떤 고객에게 어떤 가치를 제공하는지"를 구조적으로 설명할 수 있으면 강력. 완벽하게 몰라도 "여기까지 조사했고, 이 부분은 더 배우고 싶다"는 자세가 좋음.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>고객의 요구와 사내 사정이 충돌할 때 어떻게 하겠는가?</span>
+        </div>
+        <div class="qa-answer">
+          조정력을 보는 핵심 질문. "고객 우선"만 말하면 사내를 무시하는 사람으로 보이고, "사내 사정 우선"만 말하면 고객을 잃는 사람으로 보인다. 답은 "양쪽의 제약조건을 정확히 파악하고, 대안을 제시하며 착지점을 찾는다." 이 프로세스를 자기 경험(동아리/아르바이트 등)으로 증명하면 강함.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>문과인데 기술적인 내용을 배울 자신이 있는가?</span>
+        </div>
+        <div class="qa-answer">
+          문과 지원자에게 높은 확률로 나오는 질문. "자신 있다"만으로는 부족. "지금까지 새로운 분야를 배워야 했던 상황에서 어떻게 대응했는가"를 구체적으로 보여줘야 한다. 예: 전공 외 자격증 공부, 어학 습득 과정 등. "모르는 것을 배우는 것에 저항이 없다"는 자세 + 구체적 증거.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question">
+          <span class="qa-q-mark">Q</span>
+          <span>전국 전근(지방 근무)이 가능한가?</span>
+        </div>
+        <div class="qa-answer">
+          메이커 영업 특유의 질문. 공장은 도쿄/오사카가 아니라 지방에 있는 경우가 많고, 영업소도 공장 근처에 있다. 신졸 배치에서 지방 근무가 될 가능성은 충분히 있다. "도쿄에서만 일하고 싶다"면 메이커 영업은 신중하게 생각할 필요가 있다. 면접에서는 "어디에서든 일할 수 있다"는 자세를 보여주되, 그 이유(어떤 환경에서든 적응한 경험 등)를 구체적으로 뒷받침하면 강하다.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 7: 자기분석 키워드 연결 ========== -->
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 연결</div>
+    <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+    <p>
+      자기분석에서 "나의 강점"을 찾았다면, 그것이 메이커 영업에서 왜 쓸모 있는지를 설명할 수 있어야 한다.
+      <span class="hl">"성실하니까 영업에 맞다"가 아니라, "성실함이 메이커 영업에서 구체적으로 어떻게 발휘되는가"</span>까지가 포인트.
+    </p>
+
+    <div class="keyword-grid">
+      <div class="keyword-card">
+        <div class="kw-name">성실성</div>
+        <div class="kw-desc">메이커 루트영업에서 가장 가치 있는 자질. 화려함보다 "빠뜨리지 않는 꼼꼼함"과 "약속을 반드시 지키는 신뢰성"이 장기 관계의 기반. 일본어로 真面目さ・誠実さ.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">협조성</div>
+        <div class="kw-desc">메이커 영업은 혼자 완결하는 일이 거의 없다. 기술부, 생산부, 품질부, 물류부와 팀으로 움직인다. "주변을 끌어들여 함께 결과를 만드는" 협조성이 필수.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">책임감</div>
+        <div class="kw-desc">맡은 거래처의 매출/이익에 대한 책임. 그리고 납품한 제품의 품질에 대한 책임. "자기 일로 받아들이고 끝까지 따라가는" 자세가 메이커에서 높이 평가됨.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">경청력</div>
+        <div class="kw-desc">고객의 현장에서 "말로 표현되지 않는 니즈"를 캐치하는 힘. 특히 부품/소재 메이커에서는 고객이 "더 좋은 것이 없을까"라는 막연한 니즈를 가지고 있는 경우가 많아, 듣기의 깊이가 제안의 질을 결정.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">향상심</div>
+        <div class="kw-desc">기술 지식은 끝없이 업데이트된다. 입사 후에도 계속 배워야 하는 환경. "현상유지에 만족하지 않는" 자세가 장기적 성장의 열쇠.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">융통성</div>
+        <div class="kw-desc">급한 납기 변경, 갑작스러운 클레임, 사양 변경 요청 등 예상 밖 상황이 일상. 계획대로 되지 않을 때 유연하게 대응하는 힘. 스트레스 내성과도 연결.</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>ES 연결 예시 (메이커 영업 지망동기)</h4>
+      <p>
+        "동아리 운영에서 협력업체와 반복적으로 소통하며 신뢰를 얻어낸 경험이 있습니다(<strong>성실성 + 관계구축력</strong>).
+        상대방의 사정을 경청하고, 우리 쪽의 제약조건과 맞춰 최선의 안을 찾아내는 과정에서 보람을 느꼈습니다(<strong>경청력 + 조정력</strong>).
+        귀사의 소재 영업은 고객의 설계 요구에 맞춘 맞춤형 제안이 핵심이라고 이해했으며,
+        저의 이러한 강점을 살려 고객과 귀사 양쪽에 가치를 만드는 영업이 되고 싶습니다."
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 8: 주의점/함정 ========== -->
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">メーカー営業の落とし穴</div>
+
+    <p>
+      메이커 영업을 지망하는 학생들이 자주 빠지는 함정을 모았다.
+      해당 사항이 있으면 지금이라도 수정하면 된다.
+    </p>
+
+    <div class="warn-box">
+      <h4>함정 1: "모노즈쿠리에 관심" = 지망동기가 아니다</h4>
+      <p>
+        "모노즈쿠리가 좋아서"는 지망동기가 아니라 흥미 표현이다.
+        면접관은 "그래서 왜 설계/개발이 아니라 영업인가?"를 반드시 묻는다.
+        "제품의 가치를 고객에게 전달하고, 현장의 목소리를 제품 개선에 연결하는 역할을 하고 싶다"까지 가야 영업 지망의 논리가 완성된다.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 2: 루트영업은 "편할 것 같다"는 착각</h4>
+      <p>
+        "새 고객 찾아다니지 않아도 되니까 편하겠다"는 오해가 있다.
+        루트영업(기존 거래처를 반복 방문하는 영업)은 신규개척의 스트레스는 적지만,
+        대신 기존 거래처의 기대치 관리, 클레임(불량 대응), 가격 인하 교섭 등 다른 종류의 어려움이 있다.
+        "편한 영업"은 어디에도 없다.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 3: 기술을 "몰라도 된다"고 생각하는 것</h4>
+      <p>
+        "문과니까 기술은 몰라도 괜찮겠지"는 입사 후 고생의 시작.
+        메이커 영업은 자사 제품의 기술적 특징을 고객에게 설명해야 하는 직종이다.
+        면접에서도 "기술을 배울 의지"를 반드시 확인한다. "지금 모르는 것"은 OK이지만, "배울 마음이 없는 것"은 NG.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 4: 회사 규모만 보고 선택</h4>
+      <p>
+        대기업 완성품 메이커(자동차 OEM 등)에만 눈이 가기 쉽지만,
+        부품/소재 메이커 중에 세계 시장점유율 1위인 "알짜 중견기업"이 수두룩하다.
+        매출 규모보다 "어떤 제품을, 어떤 고객에게, 어떤 포지션에서 팔고 있는가"를 봐야 한다.
+        <span class="hl-warn">규모가 아니라 "시장에서의 존재감"으로 기업을 평가할 것.</span>
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 5: "지방 근무/공장 근무" 리스크를 모르고 지원</h4>
+      <p>
+        메이커 영업은 본사(도쿄/오사카)만이 아니라, 공장 소재지(지방)에 영업소가 있는 경우가 많다.
+        신졸 배치에서 지방 근무 가능성을 감안하지 않으면 입사 후 갭이 크다.
+        면접에서 "전국 전근 가능한가"라는 질문에 대한 준비는 필수.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 업계x직종 카드 vol.01 — 메이커 영업(製造業営業)</p>
+    <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+    <p style="margin-top: 8px; font-size: 10px;">영업 개요 카드(레벨2) | 직종 대분류 맵(레벨1)도 함께 참고</p>
+  </div>
+
+</div>
+
+<script>
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const navHeight = document.querySelector('.section-nav').offsetHeight;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+
+const sections = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+const navItems = document.querySelectorAll('.nav-item');
+
+function updateActiveNav() {
+  const navHeight = document.querySelector('.section-nav').offsetHeight;
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= navHeight + 60) current = id;
+    }
+  });
+  navItems.forEach((item, i) => {
+    if (sections[i] === current) item.classList.add('active');
+    else item.classList.remove('active');
+  });
+}
+
+window.addEventListener('scroll', updateActiveNav);
+updateActiveNav();
+</script>
+
+</body>
+</html>
