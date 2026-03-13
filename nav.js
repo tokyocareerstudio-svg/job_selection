@@ -137,6 +137,27 @@
     return { cat: null, page: "직종 가이드북" };
   }
 
+  // ===== 폰트 — nav.js에서 한 번만 로드 =====
+  if (!document.querySelector("link[data-tcs-font]")) {
+    const preconn1 = document.createElement("link");
+    preconn1.rel = "preconnect";
+    preconn1.href = "https://fonts.googleapis.com";
+    preconn1.dataset.tcsFont = "1";
+    document.head.appendChild(preconn1);
+
+    const preconn2 = document.createElement("link");
+    preconn2.rel = "preconnect";
+    preconn2.href = "https://fonts.gstatic.com";
+    preconn2.crossOrigin = "anonymous";
+    document.head.appendChild(preconn2);
+
+    const fontLink = document.createElement("link");
+    fontLink.rel = "stylesheet";
+    fontLink.href = "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap";
+    fontLink.dataset.tcsFont = "1";
+    document.head.appendChild(fontLink);
+  }
+
   // ===== CSS =====
   const style = document.createElement("style");
   style.textContent = `
@@ -182,6 +203,9 @@
     }
     .tcs-item:hover { background: var(--nav-hover); color: var(--nav-text); }
     .tcs-item.active { background: var(--nav-active); color: var(--nav-accent); font-weight: 600; }
+    .tcs-item.visited::after { content: '✓'; margin-left: auto; font-size: 9px; color: var(--nav-muted); opacity: 0.6; padding-left: 4px; }
+    .tcs-item.visited.active::after { color: var(--nav-accent); opacity: 0.8; }
+    .tcs-ch-header.visited .tcs-ch-toggle::before { content: '✓ '; font-size: 9px; color: var(--nav-muted); opacity: 0.6; }
     body.tcs-ready { margin-left: var(--nav-w) !important; }
     #tcs-pager {
       position: fixed; bottom: 0; left: var(--nav-w); right: 0; height: 52px;
@@ -324,6 +348,32 @@
   document.body.insertAdjacentHTML("afterbegin", buildTopbar() + buildSidebar());
   document.body.insertAdjacentHTML("beforeend", buildPager());
   document.body.classList.add("tcs-ready");
+
+  // ===== 읽은 페이지 추적 =====
+  const VISITED_KEY = "tcs_visited";
+  function getVisited() {
+    try { return JSON.parse(sessionStorage.getItem(VISITED_KEY) || "[]"); } catch { return []; }
+  }
+  function markVisited(file) {
+    const v = getVisited();
+    if (!v.includes(file)) { v.push(file); sessionStorage.setItem(VISITED_KEY, JSON.stringify(v)); }
+  }
+  function applyVisitedStyles() {
+    const visited = getVisited();
+    document.querySelectorAll(".tcs-item").forEach(el => {
+      const href = el.getAttribute("href");
+      if (href && visited.includes(href)) el.classList.add("visited");
+    });
+    // overview(ch-header) 링크도 체크
+    document.querySelectorAll(".tcs-ch-header a").forEach(el => {
+      const href = el.getAttribute("href");
+      if (href && visited.includes(href)) el.closest(".tcs-ch-header").classList.add("visited");
+    });
+  }
+
+  // 현재 페이지 방문 기록
+  if (currentFile && currentFile !== "index.html") markVisited(currentFile);
+  applyVisitedStyles();
 
   // ===== 토글 =====
   window.tcsCh = el => el.closest(".tcs-ch").classList.toggle("open");
