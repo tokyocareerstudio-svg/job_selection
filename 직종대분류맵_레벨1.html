@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>일본취업 직종 대분류 맵 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent-blue: #4a9eff;
+    --accent-green: #34d399;
+    --accent-orange: #f59e0b;
+    --accent-pink: #f472b6;
+    --accent-purple: #a78bfa;
+    --accent-red: #ef4444;
+    --accent-teal: #2dd4bf;
+    --accent-cyan: #22d3ee;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    background: rgba(74, 158, 255, 0.08);
+    border: 1px solid rgba(74, 158, 255, 0.15);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #fff 0%, #8888a0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .header p {
+    font-size: 14px;
+    color: var(--text-dim);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .header .subtitle-jp {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 8px;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-number {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--accent-blue);
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  /* Navigation */
+  .nav-section {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  .nav-btn {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+    color: var(--text-dim);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .nav-btn:hover, .nav-btn.active {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+    background: rgba(74, 158, 255, 0.05);
+  }
+
+  /* Category Cards */
+  .categories-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .category-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .category-card:hover {
+    border-color: var(--border-hover);
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .category-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .category-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .category-info h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .category-info .jp-name {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  .category-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .industry-count {
+    font-size: 11px;
+    color: var(--text-dim);
+    background: var(--surface-2);
+    padding: 4px 10px;
+    border-radius: 12px;
+  }
+
+  .expand-icon {
+    color: var(--text-muted);
+    transition: transform 0.3s;
+    font-size: 18px;
+  }
+
+  .category-card.open .expand-icon {
+    transform: rotate(180deg);
+  }
+
+  /* Category Body */
+  .category-body {
+    display: none;
+    padding: 0 24px 24px;
+  }
+
+  .category-card.open .category-body {
+    display: block;
+  }
+
+  .category-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.8;
+    padding: 16px;
+    background: var(--surface-2);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border-left: 3px solid;
+  }
+
+  /* Industry Branches */
+  .branches-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .branches-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+  }
+
+  .branch-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+
+  .branch-item:hover {
+    background: rgba(255,255,255,0.04);
+    border-color: var(--border-hover);
+  }
+
+  .branch-marker {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-top: 8px;
+    flex-shrink: 0;
+  }
+
+  .branch-content h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+
+  .branch-content p {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .branch-tags {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+  }
+
+  .branch-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.04);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+
+  /* Key Strengths Section */
+  .strengths-section {
+    margin-top: 16px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 8px;
+    border: 1px dashed var(--border);
+  }
+
+  .strengths-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+
+  .strength-chips {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .strength-chip {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer p {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  .footer .brand {
+    font-weight: 700;
+    color: var(--text-dim);
+  }
+
+  /* Color themes per category */
+  .cat-sales .category-icon { background: rgba(74, 158, 255, 0.1); color: var(--accent-blue); }
+  .cat-sales .category-desc { border-color: var(--accent-blue); }
+  .cat-sales .branch-marker { background: var(--accent-blue); }
+  .cat-sales .strength-chip { background: rgba(74, 158, 255, 0.1); color: var(--accent-blue); }
+
+  .cat-admin .category-icon { background: rgba(167, 139, 250, 0.1); color: var(--accent-purple); }
+  .cat-admin .category-desc { border-color: var(--accent-purple); }
+  .cat-admin .branch-marker { background: var(--accent-purple); }
+  .cat-admin .strength-chip { background: rgba(167, 139, 250, 0.1); color: var(--accent-purple); }
+
+  .cat-se .category-icon { background: rgba(52, 211, 153, 0.1); color: var(--accent-green); }
+  .cat-se .category-desc { border-color: var(--accent-green); }
+  .cat-se .branch-marker { background: var(--accent-green); }
+  .cat-se .strength-chip { background: rgba(52, 211, 153, 0.1); color: var(--accent-green); }
+
+  .cat-mech .category-icon { background: rgba(245, 158, 11, 0.1); color: var(--accent-orange); }
+  .cat-mech .category-desc { border-color: var(--accent-orange); }
+  .cat-mech .branch-marker { background: var(--accent-orange); }
+  .cat-mech .strength-chip { background: rgba(245, 158, 11, 0.1); color: var(--accent-orange); }
+
+  .cat-marketing .category-icon { background: rgba(244, 114, 182, 0.1); color: var(--accent-pink); }
+  .cat-marketing .category-desc { border-color: var(--accent-pink); }
+  .cat-marketing .branch-marker { background: var(--accent-pink); }
+  .cat-marketing .strength-chip { background: rgba(244, 114, 182, 0.1); color: var(--accent-pink); }
+
+  .cat-hr .category-icon { background: rgba(45, 212, 191, 0.1); color: var(--accent-teal); }
+  .cat-hr .category-desc { border-color: var(--accent-teal); }
+  .cat-hr .branch-marker { background: var(--accent-teal); }
+  .cat-hr .strength-chip { background: rgba(45, 212, 191, 0.1); color: var(--accent-teal); }
+
+  .cat-kikaku .category-icon { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); }
+  .cat-kikaku .category-desc { border-color: var(--accent-red); }
+  .cat-kikaku .branch-marker { background: var(--accent-red); }
+  .cat-kikaku .strength-chip { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); }
+
+  .cat-seisan .category-icon { background: rgba(34, 211, 238, 0.1); color: var(--accent-cyan); }
+  .cat-seisan .category-desc { border-color: var(--accent-cyan); }
+  .cat-seisan .branch-marker { background: var(--accent-cyan); }
+  .cat-seisan .strength-chip { background: rgba(34, 211, 238, 0.1); color: var(--accent-cyan); }
+
+  .cat-logistics .category-icon { background: rgba(245, 158, 11, 0.12); color: #e0a030; }
+  .cat-logistics .category-desc { border-color: #e0a030; }
+  .cat-logistics .branch-marker { background: #e0a030; }
+  .cat-logistics .strength-chip { background: rgba(245, 158, 11, 0.1); color: #e0a030; }
+
+  .cat-service .category-icon { background: rgba(244, 114, 182, 0.12); color: #e879a8; }
+  .cat-service .category-desc { border-color: #e879a8; }
+  .cat-service .branch-marker { background: #e879a8; }
+  .cat-service .strength-chip { background: rgba(244, 114, 182, 0.1); color: #e879a8; }
+
+  .cat-sekou .category-icon { background: rgba(167, 139, 250, 0.12); color: #b09cf0; }
+  .cat-sekou .category-desc { border-color: #b09cf0; }
+  .cat-sekou .branch-marker { background: #b09cf0; }
+  .cat-sekou .strength-chip { background: rgba(167, 139, 250, 0.1); color: #b09cf0; }
+
+  .cat-rd .category-icon { background: rgba(52, 211, 153, 0.12); color: #40c898; }
+  .cat-rd .category-desc { border-color: #40c898; }
+  .cat-rd .branch-marker { background: #40c898; }
+  .cat-rd .strength-chip { background: rgba(52, 211, 153, 0.1); color: #40c898; }
+
+  .cat-creative .category-icon { background: rgba(239, 68, 68, 0.12); color: #f08080; }
+  .cat-creative .category-desc { border-color: #f08080; }
+  .cat-creative .branch-marker { background: #f08080; }
+  .cat-creative .strength-chip { background: rgba(239, 68, 68, 0.1); color: #f08080; }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .container { padding: 24px 16px 60px; }
+    .header h1 { font-size: 24px; }
+    .stats-bar { gap: 24px; }
+    .stat-number { font-size: 22px; }
+    .branches-grid { grid-template-columns: 1fr; }
+    .category-header { padding: 16px; }
+    .category-body { padding: 0 16px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-label">Tokyo Career Studio</div>
+    <h1>일본취업 직종 대분류 맵</h1>
+    <p>일본 신졸 채용에서 모집하는 주요 직종을 체계적으로 정리한 마스터 맵.<br>
+    "직종으로 시보리 → 업계로 확장"의 커리어 설계 기반자료.</p>
+    <div class="subtitle-jp">新卒採用 職種カテゴリ マスターマップ</div>
+
+    <div class="stats-bar">
+      <div class="stat-item">
+        <div class="stat-number">13</div>
+        <div class="stat-label">직종 대분류</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">70+</div>
+        <div class="stat-label">업계별 분기</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">8</div>
+        <div class="stat-label">섹션 / 카드</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav -->
+  <div class="nav-section">
+    <button class="nav-btn active" onclick="toggleAll(true)">전체 열기</button>
+    <button class="nav-btn" onclick="toggleAll(false)">전체 닫기</button>
+    <button class="nav-btn" onclick="filterCat('문과')">문과 중심</button>
+    <button class="nav-btn" onclick="filterCat('이과')">이과 중심</button>
+    <button class="nav-btn" onclick="filterCat('전학부')">전학부 가능</button>
+  </div>
+
+  <!-- Categories -->
+  <div class="categories-grid">
+
+    <!-- ===== 1. 영업 ===== -->
+    <div class="category-card cat-sales open" data-target="문과,전학부">
+      <div class="category-header" onclick="toggleCard(this)">
+        <div class="category-left">
+          <div class="category-icon">📊</div>
+          <div class="category-info">
+            <h3>영업 (営業)</h3>
+            <div class="jp-name">Sales / Business Development</div>
+          </div>
+        </div>
+        <div class="category-meta">
+          <span class="industry-count">8개 분기</span>
+          <span class="expand-icon">▾</span>
+        </div>
+      </div>
+      <div class="category-body">
+        <div class="category-desc">
+          일본 취활에서 가장 많은 사람이 배치되는 직종. 같은 "영업"이라도 업계에 따라 하는 일이 전혀 다르다.
+          기업 고객(BtoB) 대상인지 개인 고객(BtoC) 대상인지, 새 고객을 찾아다니는지 기존 고객을 관리하는지, 실제 물건을 파는지 서비스를 파는지에 따라 필요한 능력이 달라진다.
+          문과 출신의 절반 이상이 영업으로 배치되는 현실(マイナビ調査). 다만 "영업 = 전화 돌리기"라는 이미지는 오해.
+        </div>
+
+        <div class="branches-title">업계별 분기</div>
+        <div class="branches-grid">
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>메이커 영업 (製造業)</h4>
+              <p>기존거래처 루트영업 중심. 기술적 이해+납기/품질 조정 능력 필요. 장기 관계구축형.</p>
+              <div class="branch-tags"><span class="branch-tag">BtoB</span><span class="branch-tag">루트</span><span class="branch-tag">유형상품</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>IT영업 (SIer/SaaS)</h4>
+              <p>과제 히어링 → 솔루션 제안형. SE와 팀으로 움직임. 논리적 과제정리 능력이 핵심.</p>
+              <div class="branch-tags"><span class="branch-tag">BtoB</span><span class="branch-tag">제안형</span><span class="branch-tag">무형상품</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>상사영업 (商社)</h4>
+              <p>중개/트레이딩 + 해외 거래처 개척. 물류, 환리스크, 무역실무까지 시야가 넓어야 한다.</p>
+              <div class="branch-tags"><span class="branch-tag">BtoB</span><span class="branch-tag">개척+루트</span><span class="branch-tag">글로벌</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>광고/미디어 영업</h4>
+              <p>클라이언트 과제 파악 → 미디어/크리에이티브 제안. 기획력과 프레젠 능력 필수.</p>
+              <div class="branch-tags"><span class="branch-tag">BtoB</span><span class="branch-tag">제안형</span><span class="branch-tag">무형상품</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>금융영업 (銀行/証券/保険)</h4>
+              <p>개인 고객(리테일)과 기업 고객(홀세일)으로 나뉜다. 자격증 취득 필수. 신뢰구축+제안력.</p>
+              <div class="branch-tags"><span class="branch-tag">BtoB/BtoC</span><span class="branch-tag">제안형</span><span class="branch-tag">무형상품</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>부동산영업</h4>
+              <p>개인 대상(仲介/販売)과 법인 대상(디벨로퍼)으로 분기. 인센티브형 vs 안정형 차이 큼.</p>
+              <div class="branch-tags"><span class="branch-tag">BtoB/BtoC</span><span class="branch-tag">신규</span><span class="branch-tag">유형상품</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>인재/HR영업</h4>
+              <p>기업에 인재를 소개하는 영업. 기업 담당(RA)과 구직자 담당(CA)으로 나뉜다. 매칭 감각이 핵심.</p>
+              <div class="branch-tags"><span class="branch-tag">BtoB+BtoC</span><span class="branch-tag">제안형</span><span class="branch-tag">무형상품</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>MR (製薬)</h4>
+              <p>의사/약사 대상 정보제공형 영업. 의약품 지식 필수. 판매가 아니라 "정보전달"이 본질.</p>
+              <div class="branch-tags"><span class="branch-tag">BtoB</span><span class="branch-tag">정보제공형</span><span class="branch-tag">전문성</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strengths-section">
+          <div class="strengths-title">연결되는 자기분석 키워드</div>
+          <div class="strength-chips">
+            <span class="strength-chip">협조성</span>
+            <span class="strength-chip">주체성</span>
+            <span class="strength-chip">경청력</span>
+            <span class="strength-chip">과제발견력</span>
+            <span class="strength-chip">관계구축력</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 2. SE/IT엔지니어 ===== -->
+    <div class="category-card cat-se" data-target="이과,전학부">
+      <div class="category-header" onclick="toggleCard(this)">
+        <div class="category-left">
+          <div class="category-icon">💻</div>
+          <div class="category-info">
+            <h3>SE/IT엔지니어</h3>
+            <div class="jp-name">System Engineer / IT Engineer</div>
+          </div>
+        </div>
+        <div class="category-meta">
+          <span class="industry-count">5개 분기</span>
+          <span class="expand-icon">▾</span>
+        </div>
+      </div>
+      <div class="category-body">
+        <div class="category-desc">
+          일본 IT업계는 만성적인 인력 부족으로, SIer(고객 맞춤형 시스템을 만드는 회사)나 SES(기술자 파견)를 중심으로 문과 미경험자도 채용하고 있다(단, 자사 서비스를 만드는 Web계 기업은 경험자/포트폴리오 중시라 문과 미경험 채용은 적음).
+          고객 맞춤형(SIer)인지 자사 서비스(Web계)인지에 따라 일하는 방식이 전혀 다르다.
+          신졸은 입사 후 연수를 받고 배치되므로 "지금 코딩을 할 수 있는가"보다 "논리적으로 생각할 수 있는가 + 배우려는 의욕이 있는가"를 본다.
+        </div>
+
+        <div class="branches-title">업계별 분기</div>
+        <div class="branches-grid">
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>SIer SE (대형/독립계)</h4>
+              <p>고객 요건정의 → 설계 → 협력사 관리가 메인. 상류공정일수록 코딩보다 조정/관리 비중 높음. 경험 쌓으면 ITコンサルタント 영역까지 확장 가능.</p>
+              <div class="branch-tags"><span class="branch-tag">수주개발</span><span class="branch-tag">상류공정</span><span class="branch-tag">PM지향</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>Web계 엔지니어</h4>
+              <p>자사서비스 개발. 프론트/백엔드/인프라 등 세분화. 스피드+자율성 중시 문화.</p>
+              <div class="branch-tags"><span class="branch-tag">자사개발</span><span class="branch-tag">애자일</span><span class="branch-tag">기술지향</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>사내SE (情シス)</h4>
+              <p>자사 IT인프라 관리/운용. 사내조정 능력 중요. 안정적이지만 기술 깊이는 한정적.</p>
+              <div class="branch-tags"><span class="branch-tag">사내</span><span class="branch-tag">운용관리</span><span class="branch-tag">안정형</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>인프라/네트워크 엔지니어</h4>
+              <p>서버/네트워크/클라우드 설계/구축/운용. 자격증(CCNA, AWS)이 커리어에 직결.</p>
+              <div class="branch-tags"><span class="branch-tag">인프라</span><span class="branch-tag">자격증</span><span class="branch-tag">전문성</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>SES (기술자파견)</h4>
+              <p>고객사 상주형. 다양한 프로젝트 경험 가능하지만 커리어 자기결정권이 약한 구조.</p>
+              <div class="branch-tags"><span class="branch-tag">파견형</span><span class="branch-tag">다업종경험</span><span class="branch-tag">주의필요</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strengths-section">
+          <div class="strengths-title">연결되는 자기분석 키워드</div>
+          <div class="strength-chips">
+            <span class="strength-chip">논리적사고력</span>
+            <span class="strength-chip">향상심</span>
+            <span class="strength-chip">과제해결력</span>
+            <span class="strength-chip">정확성</span>
+            <span class="strength-chip">협조성</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 3. 사무/관리 ===== -->
+    <div class="category-card cat-admin" data-target="문과,전학부">
+      <div class="category-header" onclick="toggleCard(this)">
+        <div class="category-left">
+          <div class="category-icon">📋</div>
+          <div class="category-info">
+            <h3>사무/관리 (事務・管理)</h3>
+            <div class="jp-name">Administrative / Back Office</div>
+          </div>
+        </div>
+        <div class="category-meta">
+          <span class="industry-count">6개 분기</span>
+          <span class="expand-icon">▾</span>
+        </div>
+      </div>
+      <div class="category-body">
+        <div class="category-desc">
+          경리(회계), 인사, 총무, 법무, 무역사무 등 회사를 뒤에서 지원하는 직종의 총칭.
+          "사무직으로 채용"이라고 적혀 있어도 실제로는 종합직(여러 부서를 돌며 성장하는 코스) 안에서 관리부문에 배치되는 경우가 많다. 순수한 사무직만 하는 채용은 줄어드는 추세.
+          정확하게 일하는 꼼꼼함, 사내 여러 부서를 조율하는 조정력, 그리고 "시킨 일만 하는 게 아니라 스스로 개선하려는 자세"를 본다.
+        </div>
+
+        <div class="branches-title">업종/기능별 분기</div>
+        <div class="branches-grid">
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>경리/재무 (経理・財務)</h4>
+              <p>결산, 예산관리, 세무. 자격증(簿記)이 강점. 숫자에 강하고 꼼꼼한 사람에게 적합.</p>
+              <div class="branch-tags"><span class="branch-tag">전문성</span><span class="branch-tag">자격증</span><span class="branch-tag">정확성</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>인사/노무 (人事・労務)</h4>
+              <p>채용, 연수, 인사평가, 노무관리. 사람을 다루는 일이므로 커뮤니케이션 능력 필수.</p>
+              <div class="branch-tags"><span class="branch-tag">조정력</span><span class="branch-tag">기밀성</span><span class="branch-tag">대인</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>총무 (総務)</h4>
+              <p>사내 환경정비, 주주총회, 사내이벤트 등 회사 전체를 지원. 범위가 넓고 잡다하지만 경영진에 가까운 포지션.</p>
+              <div class="branch-tags"><span class="branch-tag">멀티태스크</span><span class="branch-tag">조정력</span><span class="branch-tag">서포트</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>법무 (法務)</h4>
+              <p>계약서 검토, 컴플라이언스, 지재권 관리. 법학 전공 우대. 대기업일수록 전문부서 독립.</p>
+              <div class="branch-tags"><span class="branch-tag">전문성</span><span class="branch-tag">논리성</span><span class="branch-tag">법학</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>무역사무 (貿易事務)</h4>
+              <p>수출입 서류작성, 통관, 물류 조정. 영어+일본어 필수. 상사/메이커/물류회사에서 모집.</p>
+              <div class="branch-tags"><span class="branch-tag">어학력</span><span class="branch-tag">정확성</span><span class="branch-tag">글로벌</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>영업사무 (営業事務)</h4>
+              <p>영업부문 서포트. 견적서/발주서 작성, 고객 대응. 영업과 사무의 중간 포지션.</p>
+              <div class="branch-tags"><span class="branch-tag">서포트</span><span class="branch-tag">정확성</span><span class="branch-tag">대인</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strengths-section">
+          <div class="strengths-title">연결되는 자기분석 키워드</div>
+          <div class="strength-chips">
+            <span class="strength-chip">정확성</span>
+            <span class="strength-chip">성실성</span>
+            <span class="strength-chip">협조성</span>
+            <span class="strength-chip">조정력</span>
+            <span class="strength-chip">책임감</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 4. 기계/전기 엔지니어 ===== -->
+    <div class="category-card cat-mech" data-target="이과">
+      <div class="category-header" onclick="toggleCard(this)">
+        <div class="category-left">
+          <div class="category-icon">⚙️</div>
+          <div class="category-info">
+            <h3>기계/전기 엔지니어</h3>
+            <div class="jp-name">Mechanical / Electrical Engineer</div>
+          </div>
+        </div>
+        <div class="category-meta">
+          <span class="industry-count">5개 분기</span>
+          <span class="expand-icon">▾</span>
+        </div>
+      </div>
+      <div class="category-body">
+        <div class="category-desc">
+          일본 "모노즈쿠리(물건 만들기)" 산업의 핵심. 자동차, 전기전자, 정밀기기 등에서 항상 인력이 부족하다.
+          이공계 전공자라면 학교 추천(教授の推薦)으로 들어가는 루트도 강한 직종. 설계, 개발, 생산기술, 품질 등으로 세분화된다.
+        </div>
+
+        <div class="branches-title">업계별 분기</div>
+        <div class="branches-grid">
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>자동차/부품 (설계/개발)</h4>
+              <p>완성차 OEM, Tier1/2 부품사. CAD/CAE 활용 설계. CASE 트렌드 대응이 핵심 과제.</p>
+              <div class="branch-tags"><span class="branch-tag">기계/전기</span><span class="branch-tag">CAD</span><span class="branch-tag">대규모</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>전기전자/반도체</h4>
+              <p>회로설계, 프로세스개발, 평가. 반도체 부흥 국책과 맞물려 채용 확대 중.</p>
+              <div class="branch-tags"><span class="branch-tag">전자/전기</span><span class="branch-tag">클린룸</span><span class="branch-tag">성장세</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>정밀기기/의료기기</h4>
+              <p>광학, 정밀가공, 의료기기 설계. 소수정예 개발팀. 니치하지만 고부가가치.</p>
+              <div class="branch-tags"><span class="branch-tag">정밀</span><span class="branch-tag">소수정예</span><span class="branch-tag">니치</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>생산기술/제조기술</h4>
+              <p>양산 라인 설계/개선. 현장과 설계의 다리 역할. QCD(품질/비용/납기) 최적화가 미션.</p>
+              <div class="branch-tags"><span class="branch-tag">현장밀착</span><span class="branch-tag">개선</span><span class="branch-tag">QCD</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>플랜트/중공업</h4>
+              <p>대형 설비/플랜트 설계. 프로젝트 단위 장기. 해외 현장 부임 가능성 높음.</p>
+              <div class="branch-tags"><span class="branch-tag">대형PJ</span><span class="branch-tag">해외</span><span class="branch-tag">장기</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strengths-section">
+          <div class="strengths-title">연결되는 자기분석 키워드</div>
+          <div class="strength-chips">
+            <span class="strength-chip">논리적사고력</span>
+            <span class="strength-chip">정확성</span>
+            <span class="strength-chip">향상심</span>
+            <span class="strength-chip">도전정신</span>
+            <span class="strength-chip">협조성</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 5. 마케팅 ===== -->
+    <div class="category-card cat-marketing" data-target="문과,전학부">
+      <div class="category-header" onclick="toggleCard(this)">
+        <div class="category-left">
+          <div class="category-icon">📈</div>
+          <div class="category-info">
+            <h3>마케팅</h3>
+            <div class="jp-name">Marketing / Promotion</div>
+          </div>
+        </div>
+        <div class="category-meta">
+          <span class="industry-count">5개 분기</span>
+          <span class="expand-icon">▾</span>
+        </div>
+      </div>
+      <div class="category-body">
+        <div class="category-desc">
+          신졸 채용에서 "마케팅 직종으로 뽑는" 경우는 사실 매우 적다. 대부분 영업이나 기획을 경험한 뒤에 이동하는 포지션이다.
+          다만 IT/Web계 기업이나 외자계(외국계 기업)에서는 신졸 마케팅 배치가 있다.
+          학생들이 동경하지만 실태를 잘 모르는 경우가 많아, 현실적인 이해가 필요한 직종.
+        </div>
+
+        <div class="branches-title">업계별 분기</div>
+        <div class="branches-grid">
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>메이커 마케팅 (소비재)</h4>
+              <p>브랜드 매니저형. 상품기획부터 프로모션까지. P&G/유니리버 등 외자계가 유명.</p>
+              <div class="branch-tags"><span class="branch-tag">BtoC</span><span class="branch-tag">브랜드</span><span class="branch-tag">전략</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>디지털 마케팅 (Web/IT)</h4>
+              <p>SEO, 광고운용, CRM, 데이터분석. 성과가 수치로 보이는 세계. 스피드감 있는 PDCA.</p>
+              <div class="branch-tags"><span class="branch-tag">데이터</span><span class="branch-tag">PDCA</span><span class="branch-tag">Web</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>광고대리점 마케팅</h4>
+              <p>클라이언트 마케팅 전략 대행. 미디어 플래닝, 크리에이티브 디렉션. 대리점의 "꽃" 부서.</p>
+              <div class="branch-tags"><span class="branch-tag">대리점</span><span class="branch-tag">기획</span><span class="branch-tag">미디어</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>BtoB 마케팅</h4>
+              <p>리드 제너레이션, 전시회, 화이트페이퍼. 영업과의 연계가 핵심. 최근 MA툴 도입 확산.</p>
+              <div class="branch-tags"><span class="branch-tag">BtoB</span><span class="branch-tag">리드</span><span class="branch-tag">영업연계</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>리서치/데이터분석</h4>
+              <p>시장조사, 소비자분석, 데이터사이언스. 마케팅의 "두뇌" 역할. 통계/분석 스킬 필요.</p>
+              <div class="branch-tags"><span class="branch-tag">분석</span><span class="branch-tag">통계</span><span class="branch-tag">전문성</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strengths-section">
+          <div class="strengths-title">연결되는 자기분석 키워드</div>
+          <div class="strength-chips">
+            <span class="strength-chip">분석력</span>
+            <span class="strength-chip">발상력</span>
+            <span class="strength-chip">주체성</span>
+            <span class="strength-chip">도전정신</span>
+            <span class="strength-chip">논리적사고력</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 6. 기획 ===== -->
+    <div class="category-card cat-kikaku" data-target="문과,전학부">
+      <div class="category-header" onclick="toggleCard(this)">
+        <div class="category-left">
+          <div class="category-icon">💡</div>
+          <div class="category-info">
+            <h3>기획 (企画)</h3>
+            <div class="jp-name">Planning / Strategy</div>
+          </div>
+        </div>
+        <div class="category-meta">
+          <span class="industry-count">5개 분기</span>
+          <span class="expand-icon">▾</span>
+        </div>
+      </div>
+      <div class="category-body">
+        <div class="category-desc">
+          "기획직 채용"도 마케팅과 마찬가지로, 신졸에서 직접 뽑는 경우는 적다. 경영기획, 사업기획, 상품기획 등으로 나뉜다.
+          실태는 "기획서 만드는 사람"이 아니라 "문제를 정의하고 해결책을 설계하는 사람."
+          영업이나 현장 경험을 쌓은 뒤에 발탁되는 것이 일본 대기업의 일반적인 패턴이다.
+        </div>
+
+        <div class="branches-title">기능별 분기</div>
+        <div class="branches-grid">
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>경영기획 (経営企画)</h4>
+              <p>중기경영계획 수립, M&A 검토, 경영진 서포트. 회사 전체를 보는 "참모" 포지션.</p>
+              <div class="branch-tags"><span class="branch-tag">전략</span><span class="branch-tag">경영진</span><span class="branch-tag">엘리트</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>사업기획 (事業企画)</h4>
+              <p>신규사업 입안, 기존사업 개선. 시장분석+수지계획+실행까지 일관되게.</p>
+              <div class="branch-tags"><span class="branch-tag">신규사업</span><span class="branch-tag">P&L</span><span class="branch-tag">실행력</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>상품기획 (商品企画)</h4>
+              <p>소비자 니즈 파악 → 상품 콘셉트 → 개발/생산부문과 협업. 메이커의 꽃 포지션.</p>
+              <div class="branch-tags"><span class="branch-tag">소비재</span><span class="branch-tag">콘셉트</span><span class="branch-tag">크로스</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>영업기획 (営業企画)</h4>
+              <p>영업전략 수립, KPI설계, 영업지원 도구 개발. 현장과 경영의 다리.</p>
+              <div class="branch-tags"><span class="branch-tag">전략</span><span class="branch-tag">데이터</span><span class="branch-tag">영업지원</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>웹/서비스 기획 (Web企画)</h4>
+              <p>IT서비스의 기능설계, UX개선, KPI관리. 디렉터/PdM 커리어로 연결.</p>
+              <div class="branch-tags"><span class="branch-tag">IT/Web</span><span class="branch-tag">UX</span><span class="branch-tag">PdM</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strengths-section">
+          <div class="strengths-title">연결되는 자기분석 키워드</div>
+          <div class="strength-chips">
+            <span class="strength-chip">분석력</span>
+            <span class="strength-chip">과제발견력</span>
+            <span class="strength-chip">주체성</span>
+            <span class="strength-chip">발상력</span>
+            <span class="strength-chip">조정력</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 7. 생산관리/품질관리 ===== -->
+    <div class="category-card cat-seisan" data-target="이과,전학부">
+      <div class="category-header" onclick="toggleCard(this)">
+        <div class="category-left">
+          <div class="category-icon">🏭</div>
+          <div class="category-info">
+            <h3>생산관리/품질관리</h3>
+            <div class="jp-name">Production Control / Quality Assurance</div>
+          </div>
+        </div>
+        <div class="category-meta">
+          <span class="industry-count">4개 분기</span>
+          <span class="expand-icon">▾</span>
+        </div>
+      </div>
+      <div class="category-body">
+        <div class="category-desc">
+          제조업(메이커)의 심장부. 공장 현장에서 품질(Q), 비용(C), 납기(D)를 관리하는 직종.
+          현장 작업자들과의 소통이 생명이다. "물건 만드는 것에 관심있다"만으로는 부족하고,
+          "왜 품질에 집착하는가", "현장 개선을 어떻게 이끄는가"를 설명할 수 있어야 한다.
+        </div>
+
+        <div class="branches-title">기능별 분기</div>
+        <div class="branches-grid">
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>생산관리 (生産管理)</h4>
+              <p>생산계획 수립, 자재조달, 납기관리. 공장 전체의 "사령탑." 조정력의 극치.</p>
+              <div class="branch-tags"><span class="branch-tag">계획</span><span class="branch-tag">조정</span><span class="branch-tag">SCM</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>품질관리 (品質管理/QC)</h4>
+              <p>검사, 불량분석, 공정개선. 통계적 품질관리(SQC) 지식 필요. "0불량"을 추구하는 세계.</p>
+              <div class="branch-tags"><span class="branch-tag">분석</span><span class="branch-tag">통계</span><span class="branch-tag">개선</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>품질보증 (品質保証/QA)</h4>
+              <p>고객 클레임 대응, 제품인증, 감사대응. 사내/사외 양방향 커뮤니케이션 필수.</p>
+              <div class="branch-tags"><span class="branch-tag">고객대응</span><span class="branch-tag">인증</span><span class="branch-tag">대외</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>구매/조달 (購買・調達)</h4>
+              <p>부품/원재료 소싱, 가격교섭, 서플라이어 관리. 코스트 삭감의 최전선.</p>
+              <div class="branch-tags"><span class="branch-tag">교섭</span><span class="branch-tag">코스트</span><span class="branch-tag">글로벌</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strengths-section">
+          <div class="strengths-title">연결되는 자기분석 키워드</div>
+          <div class="strength-chips">
+            <span class="strength-chip">성실성</span>
+            <span class="strength-chip">정확성</span>
+            <span class="strength-chip">협조성</span>
+            <span class="strength-chip">책임감</span>
+            <span class="strength-chip">과제해결력</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 8. 물류 ===== -->
+    <div class="category-card cat-logistics" data-target="문과,전학부">
+      <div class="category-header" onclick="toggleCard(this)">
+        <div class="category-left">
+          <div class="category-icon">🚛</div>
+          <div class="category-info">
+            <h3>물류 (物流)</h3>
+            <div class="jp-name">Logistics / Supply Chain</div>
+          </div>
+        </div>
+        <div class="category-meta">
+          <span class="industry-count">4개 분기</span>
+          <span class="expand-icon">▾</span>
+        </div>
+      </div>
+      <div class="category-body">
+        <div class="category-desc">
+          온라인 쇼핑(EC) 확대와 글로벌 공급망이 복잡해지면서 주목도가 올라가고 있는 직종.
+          "물류 = 트럭 운전"이라는 오해가 있지만, 신졸이 배치되는 건 기획/관리/시스템 쪽이다.
+          2024년 트럭 운전사 잔업 규제 시행 이후, 업계 전체가 효율화에 본격 착수하면서 IT 인재 수요도 높아진 상황.
+        </div>
+
+        <div class="branches-title">기능별 분기</div>
+        <div class="branches-grid">
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>물류기획/SCM</h4>
+              <p>배송루트 최적화, 재고관리, 물류센터 설계. 데이터 분석+현장 이해 양쪽 필요.</p>
+              <div class="branch-tags"><span class="branch-tag">기획</span><span class="branch-tag">최적화</span><span class="branch-tag">데이터</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>포워딩/국제물류</h4>
+              <p>국제 화물 수배, 통관, 서류작성. 어학력 필수. 상사/물류업체에서 모집.</p>
+              <div class="branch-tags"><span class="branch-tag">글로벌</span><span class="branch-tag">어학</span><span class="branch-tag">무역</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>물류센터 관리</h4>
+              <p>입출하 오퍼레이션, 인원배치, 안전관리. 현장 리더십이 핵심.</p>
+              <div class="branch-tags"><span class="branch-tag">현장관리</span><span class="branch-tag">리더십</span><span class="branch-tag">효율화</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>물류DX/시스템</h4>
+              <p>WMS, TMS 도입, 로봇화, 데이터 활용. 전통적 물류 + IT의 교차점.</p>
+              <div class="branch-tags"><span class="branch-tag">DX</span><span class="branch-tag">시스템</span><span class="branch-tag">성장세</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strengths-section">
+          <div class="strengths-title">연결되는 자기분석 키워드</div>
+          <div class="strength-chips">
+            <span class="strength-chip">조정력</span>
+            <span class="strength-chip">과제해결력</span>
+            <span class="strength-chip">정확성</span>
+            <span class="strength-chip">협조성</span>
+            <span class="strength-chip">융통성</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 9. 판매/서비스 ===== -->
+    <div class="category-card cat-service" data-target="문과,전학부">
+      <div class="category-header" onclick="toggleCard(this)">
+        <div class="category-left">
+          <div class="category-icon">🛍️</div>
+          <div class="category-info">
+            <h3>판매/서비스 (販売・サービス)</h3>
+            <div class="jp-name">Sales Staff / Service</div>
+          </div>
+        </div>
+        <div class="category-meta">
+          <span class="industry-count">5개 분기</span>
+          <span class="expand-icon">▾</span>
+        </div>
+      </div>
+      <div class="category-body">
+        <div class="category-desc">
+          최종 소비자를 직접 만나는 직종. 소매(매장), 외식, 호텔, 여행 등.
+          "접객 = 커리어 막다른 길"이라는 이미지가 있지만, 실제로는 점장 → 지역 매니저 → 본사 기획으로 올라가는 길이 있다.
+          사람과의 소통 능력이 성과에 직접 연결되는 세계.
+        </div>
+
+        <div class="branches-title">업계별 분기</div>
+        <div class="branches-grid">
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>소매/유통 (小売)</h4>
+              <p>백화점, 전문점, 편의점 SV. 점포 운영 → 매니지먼트 커리어.</p>
+              <div class="branch-tags"><span class="branch-tag">BtoC</span><span class="branch-tag">점포운영</span><span class="branch-tag">매니지먼트</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>외식 (フード)</h4>
+              <p>점장후보 채용이 메인. 식재관리+인원관리+매출관리 = 미니 경영자 훈련.</p>
+              <div class="branch-tags"><span class="branch-tag">경영</span><span class="branch-tag">멀티태스크</span><span class="branch-tag">체력</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>호텔/관광</h4>
+              <p>프론트, 컨시어지, 예약관리. 인바운드 수요로 어학력 있는 인재 수요 급증.</p>
+              <div class="branch-tags"><span class="branch-tag">접객</span><span class="branch-tag">어학</span><span class="branch-tag">인바운드</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>브라이달/이벤트</h4>
+              <p>웨딩플래너, 이벤트 프로듀서. 기획력+실행력+감성이 요구되는 특수 분야.</p>
+              <div class="branch-tags"><span class="branch-tag">기획</span><span class="branch-tag">감성</span><span class="branch-tag">프로듀스</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>카 딜러/고급품 판매</h4>
+              <p>고단가 상품 제안형 판매. 고객과의 장기 관계구축이 핵심. 인센티브형.</p>
+              <div class="branch-tags"><span class="branch-tag">고단가</span><span class="branch-tag">관계구축</span><span class="branch-tag">인센티브</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strengths-section">
+          <div class="strengths-title">연결되는 자기분석 키워드</div>
+          <div class="strength-chips">
+            <span class="strength-chip">경청력</span>
+            <span class="strength-chip">협조성</span>
+            <span class="strength-chip">공헌</span>
+            <span class="strength-chip">융통성</span>
+            <span class="strength-chip">관계구축력</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 10. 시공관리 ===== -->
+    <div class="category-card cat-sekou" data-target="이과,전학부">
+      <div class="category-header" onclick="toggleCard(this)">
+        <div class="category-left">
+          <div class="category-icon">🏗️</div>
+          <div class="category-info">
+            <h3>시공관리 (施工管理)</h3>
+            <div class="jp-name">Construction Management</div>
+          </div>
+        </div>
+        <div class="category-meta">
+          <span class="industry-count">4개 분기</span>
+          <span class="expand-icon">▾</span>
+        </div>
+      </div>
+      <div class="category-body">
+        <div class="category-desc">
+          건설업계의 핵심 직종. 공사 현장에서 안전/품질/일정/비용을 관리하는 "현장 감독."
+          일본 건설업계가 초고령화되면서 인력 부족이 가장 심각한 직종 중 하나. 기술자 파견회사(テクノプロ, 夢真 등)를 중심으로 문과 미경험자 채용도 있지만, 대형 건설사(ゼネコン) 본사 채용은 이공계가 기본.
+          체력 + 소통력 + 관리능력의 3박자. 자격증(시공관리기사)이 커리어의 열쇠.
+        </div>
+
+        <div class="branches-title">분야별 분기</div>
+        <div class="branches-grid">
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>건축 시공관리</h4>
+              <p>빌딩, 맨션, 상업시설 등의 건축공사 관리. 가장 수요가 많은 분야.</p>
+              <div class="branch-tags"><span class="branch-tag">건축</span><span class="branch-tag">대규모</span><span class="branch-tag">수요최대</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>토목 시공관리</h4>
+              <p>도로, 터널, 교량, 댐 등 인프라 공사. 공공사업 비중 높아 경기 변동에 강함.</p>
+              <div class="branch-tags"><span class="branch-tag">인프라</span><span class="branch-tag">공공</span><span class="branch-tag">안정</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>설비 시공관리</h4>
+              <p>전기, 공조, 급배수 등 설비계 공사. 전문성 높고 수요 안정적.</p>
+              <div class="branch-tags"><span class="branch-tag">설비</span><span class="branch-tag">전문성</span><span class="branch-tag">자격증</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>플랜트 시공관리</h4>
+              <p>공장, 발전소 등 대형 설비 시공. 해외안건도 다수. 고연봉이지만 장기출장 각오.</p>
+              <div class="branch-tags"><span class="branch-tag">대형PJ</span><span class="branch-tag">해외</span><span class="branch-tag">고연봉</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strengths-section">
+          <div class="strengths-title">연결되는 자기분석 키워드</div>
+          <div class="strength-chips">
+            <span class="strength-chip">책임감</span>
+            <span class="strength-chip">리더십</span>
+            <span class="strength-chip">협조성</span>
+            <span class="strength-chip">스트레스내성</span>
+            <span class="strength-chip">조정력</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 11. 연구개발 ===== -->
+    <div class="category-card cat-rd" data-target="이과">
+      <div class="category-header" onclick="toggleCard(this)">
+        <div class="category-left">
+          <div class="category-icon">🔬</div>
+          <div class="category-info">
+            <h3>연구개발 (R&D)</h3>
+            <div class="jp-name">Research & Development</div>
+          </div>
+        </div>
+        <div class="category-meta">
+          <span class="industry-count">5개 분기</span>
+          <span class="expand-icon">▾</span>
+        </div>
+      </div>
+      <div class="category-body">
+        <div class="category-desc">
+          이공계 석사 이상이 주요 대상. 대학에서의 연구 내용과 기업의 연구 주제가 맞는지가 핵심.
+          기초연구(원리 탐구)와 응용/개발연구(제품화)로 나뉘며, 신졸은 대부분 응용/개발 쪽에 배치.
+          교수 추천이 강하고, 연구실 선배(OB/OG) 네트워크가 중요한 독특한 채용 문화.
+        </div>
+
+        <div class="branches-title">분야별 분기</div>
+        <div class="branches-grid">
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>화학/소재 R&D</h4>
+              <p>신소재 개발, 배합/프로세스 최적화. 화학/재료공학 전공 필수. 연구 주기 길다.</p>
+              <div class="branch-tags"><span class="branch-tag">화학</span><span class="branch-tag">소재</span><span class="branch-tag">장기</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>제약/바이오 R&D</h4>
+              <p>신약 탐색, 전임상/임상시험. 고도 전문성 필요. 박사도 다수. 개발 기간 10년+.</p>
+              <div class="branch-tags"><span class="branch-tag">바이오</span><span class="branch-tag">전문성</span><span class="branch-tag">초장기</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>식품 R&D</h4>
+              <p>맛/식감/기능성 개발, 관능평가. 농학/식품과학 전공 우대. 소비자 가까운 연구.</p>
+              <div class="branch-tags"><span class="branch-tag">식품</span><span class="branch-tag">관능</span><span class="branch-tag">소비자접점</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>전기전자/반도체 R&D</h4>
+              <p>디바이스 개발, 프로세스 연구. 물리/전기전자 전공. 클린룸 환경.</p>
+              <div class="branch-tags"><span class="branch-tag">전자</span><span class="branch-tag">프로세스</span><span class="branch-tag">첨단</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>AI/소프트웨어 R&D</h4>
+              <p>기계학습, 자연어처리, 화상인식 등. CS/수학 전공. 논문 실적이 곧 채용 무기.</p>
+              <div class="branch-tags"><span class="branch-tag">AI/ML</span><span class="branch-tag">논문</span><span class="branch-tag">최첨단</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strengths-section">
+          <div class="strengths-title">연결되는 자기분석 키워드</div>
+          <div class="strength-chips">
+            <span class="strength-chip">논리적사고력</span>
+            <span class="strength-chip">탐구심</span>
+            <span class="strength-chip">향상심</span>
+            <span class="strength-chip">정확성</span>
+            <span class="strength-chip">인내력</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 12. 크리에이티브 ===== -->
+    <div class="category-card cat-creative" data-target="문과,전학부">
+      <div class="category-header" onclick="toggleCard(this)">
+        <div class="category-left">
+          <div class="category-icon">🎨</div>
+          <div class="category-info">
+            <h3>크리에이티브 (デザイン/制作)</h3>
+            <div class="jp-name">Creative / Design</div>
+          </div>
+        </div>
+        <div class="category-meta">
+          <span class="industry-count">5개 분기</span>
+          <span class="expand-icon">▾</span>
+        </div>
+      </div>
+      <div class="category-body">
+        <div class="category-desc">
+          디자인, 영상, 카피라이팅(광고 문구 작성) 등 창작 계열 직종. 포트폴리오(작품 모음) 제출이 필수인 경우가 많다.
+          광고대리점, 제작회사, 게임회사, 사내 디자이너 등으로 분기된다.
+        </div>
+
+        <div class="branches-title">분야별 분기</div>
+        <div class="branches-grid">
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>그래픽/웹디자이너</h4>
+              <p>광고물, 웹사이트, 앱 UI 디자인. Figma/XD/Illustrator 필수. 포폴이 전부.</p>
+              <div class="branch-tags"><span class="branch-tag">디자인</span><span class="branch-tag">UI/UX</span><span class="branch-tag">포폴</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>영상 제작/에디터</h4>
+              <p>TV, CM, YouTube, 기업PR 영상. 촬영+편집+기획까지. 제작회사 or 사내 제작팀.</p>
+              <div class="branch-tags"><span class="branch-tag">영상</span><span class="branch-tag">기획</span><span class="branch-tag">제작</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>게임 크리에이터</h4>
+              <p>게임플래너, 2D/3D 아티스트, 사운드. 게임업계 특유의 채용 프로세스(과제 제출).</p>
+              <div class="branch-tags"><span class="branch-tag">게임</span><span class="branch-tag">과제</span><span class="branch-tag">전문성</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>카피라이터/편집자</h4>
+              <p>광고 카피, 웹콘텐츠, 출판 편집. 일본어 네이티브 레벨 필수. 언어 감각의 세계.</p>
+              <div class="branch-tags"><span class="branch-tag">언어</span><span class="branch-tag">감성</span><span class="branch-tag">N1이상</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>UX디자이너/리서처</h4>
+              <p>사용자 조사 → 인사이트 도출 → UI개선 제안. 디자인+분석의 교차점. IT계에서 수요 급증.</p>
+              <div class="branch-tags"><span class="branch-tag">UX</span><span class="branch-tag">리서치</span><span class="branch-tag">성장세</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strengths-section">
+          <div class="strengths-title">연결되는 자기분석 키워드</div>
+          <div class="strength-chips">
+            <span class="strength-chip">발상력</span>
+            <span class="strength-chip">향상심</span>
+            <span class="strength-chip">도전정신</span>
+            <span class="strength-chip">주체성</span>
+            <span class="strength-chip">경청력</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 13. 컨설턴트 ===== -->
+    <div class="category-card cat-sales" data-target="문과,전학부">
+      <div class="category-header" onclick="toggleCard(this)">
+        <div class="category-left">
+          <div class="category-icon">🎯</div>
+          <div class="category-info">
+            <h3>컨설턴트</h3>
+            <div class="jp-name">Consultant</div>
+          </div>
+        </div>
+        <div class="category-meta">
+          <span class="industry-count">3개 분기</span>
+          <span class="expand-icon">▾</span>
+        </div>
+      </div>
+      <div class="category-body">
+        <div class="category-desc">
+          외국계/일본계 컨설팅 회사 + 일반 기업 안의 컨설팅 부문.
+          신졸 채용에서 인기가 급상승하고 있지만, 이미지와 현실의 갭이 큰 직종.
+          "기업의 문제를 해결하는 것"이 본질이며, 체력/논리적 사고/소통력이 전부 필요하다.
+          실제 업무의 대부분이 IT 관련 프로젝트라는 점도 알아둘 것. "컨설 = 전략"이라는 이미지와 현실은 다르다.
+        </div>
+
+        <div class="branches-title">분야별 분기</div>
+        <div class="branches-grid">
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>전략 컨설팅</h4>
+              <p>경영전략, M&A, 신규사업. MBB(맥킨지/BCG/베인) 등. 극소수 정예 채용.</p>
+              <div class="branch-tags"><span class="branch-tag">전략</span><span class="branch-tag">톱티어</span><span class="branch-tag">극소수</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>종합컨설팅 (BIG4/아빔/NRI 등)</h4>
+              <p>업무개혁, IT도입, 조직변혁 등 폭넓은 안건. IT계 프로젝트 비중이 가장 높다. 외자계(BIG4)와 일계(아빔/NRI)로 나뉘지만 학생 입장에서는 같은 선상에서 비교하는 대상.</p>
+              <div class="branch-tags"><span class="branch-tag">종합</span><span class="branch-tag">IT비중高</span><span class="branch-tag">대량채용</span></div>
+            </div>
+          </div>
+          <div class="branch-item">
+            <div class="branch-marker"></div>
+            <div class="branch-content">
+              <h4>전문특화 컨설팅</h4>
+              <p>인사(HR), 재무(FAS), 리스크, 헬스케어 등 특정 영역 특화. 전문성이 무기.</p>
+              <div class="branch-tags"><span class="branch-tag">전문특화</span><span class="branch-tag">니치</span><span class="branch-tag">전문성</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="strengths-section">
+          <div class="strengths-title">연결되는 자기분석 키워드</div>
+          <div class="strength-chips">
+            <span class="strength-chip">논리적사고력</span>
+            <span class="strength-chip">과제발견력</span>
+            <span class="strength-chip">주체성</span>
+            <span class="strength-chip">향상심</span>
+            <span class="strength-chip">스트레스내성</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /categories-grid -->
+
+  <!-- Footer -->
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 직종 대분류 맵 v1.0</p>
+    <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+    <p style="margin-top: 8px; font-size: 10px;">각 직종별 상세 카드(8섹션)는 별도 제작 예정</p>
+  </div>
+
+</div>
+
+<script>
+function toggleCard(header) {
+  const card = header.closest('.category-card');
+  card.classList.toggle('open');
+}
+
+function toggleAll(open) {
+  document.querySelectorAll('.category-card').forEach(card => {
+    if (open) card.classList.add('open');
+    else card.classList.remove('open');
+  });
+  // Update nav button active state
+  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+}
+
+function filterCat(type) {
+  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.classList.add('active');
+
+  document.querySelectorAll('.category-card').forEach(card => {
+    const targets = card.dataset.target || '';
+    if (targets.includes(type)) {
+      card.style.display = '';
+      card.classList.add('open');
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>
