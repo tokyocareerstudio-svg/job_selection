@@ -9,103 +9,103 @@
     {
       id: "intro",
       label: "🗺️ 직종 대분류 맵",
-      file: "직종대분류맵_레벨1.html",
+      file: "map-lv1.html",
       children: []
     },
     {
       id: "sales",
       label: "📊 영업",
-      file: "영업_직종개요카드_레벨2.html",
+      file: "sales-overview.html",
       children: [
-        { label: "메이커 영업",   file: "메이커영업_상세카드_레벨3.html" },
-        { label: "IT영업",        file: "IT영업_상세카드_레벨3.html" },
-        { label: "상사 영업",     file: "상사영업_상세카드_레벨3.html" },
-        { label: "광고 영업",     file: "광고영업_상세카드_레벨3.html" },
-        { label: "금융 영업",     file: "금융영업_상세카드_레벨3.html" },
-        { label: "부동산 영업",   file: "부동산영업_상세카드_레벨3.html" },
-        { label: "인재/HR 영업",  file: "인재HR영업_상세카드_레벨3.html" },
-        { label: "MR 제약영업",   file: "MR제약영업_상세카드_레벨3.html" },
+        { label: "메이커 영업",   file: "sales-eg01-maker.html" },
+        { label: "IT영업",        file: "sales-eg02-it.html" },
+        { label: "상사 영업",     file: "sales-eg03-trading.html" },
+        { label: "광고 영업",     file: "sales-eg04-ad.html" },
+        { label: "금융 영업",     file: "sales-eg05-finance.html" },
+        { label: "부동산 영업",   file: "sales-eg06-realestate.html" },
+        { label: "인재/HR 영업",  file: "sales-eg07-hr.html" },
+        { label: "MR 제약영업",   file: "sales-eg08-pharma.html" },
       ]
     },
     {
       id: "se",
       label: "💻 SE/IT엔지니어",
-      file: "SE_IT엔지니어_직종개요카드_레벨2.html",
+      file: "se-overview.html",
       children: [
-        { label: "SIer SE",        file: "SIer_SE_상세카드_레벨3.html" },
-        { label: "Web계 엔지니어", file: "Web계엔지니어_상세카드_레벨3.html" },
-        { label: "인프라 엔지니어", file: "인프라엔지니어_상세카드_레벨3.html" },
-        { label: "SES 엔지니어",   file: "SES엔지니어_상세카드_레벨3.html" },
+        { label: "SIer SE",        file: "se-se01-sier.html" },
+        { label: "Web계 엔지니어", file: "se-se02-web.html" },
+        { label: "인프라 엔지니어", file: "se-se03-infra.html" },
+        { label: "SES 엔지니어",   file: "se-se04-ses.html" },
       ]
     },
     {
       id: "tech",
       label: "⚙️ 기술계 종합직",
-      file: "기술계종합직_직종개요카드_레벨2.html",
+      file: "tech-overview.html",
       children: [
-        { label: "기계/전기 엔지니어",   file: "기계전기엔지니어_상세카드_레벨3.html" },
-        { label: "생산관리·품질관리",     file: "생산관리품질관리_상세카드_레벨3.html" },
-        { label: "연구개발 (R&D)",       file: "연구개발RD_상세카드_레벨3.html" },
+        { label: "기계/전기 엔지니어",   file: "tech-gi01-mech.html" },
+        { label: "생산관리·품질관리",     file: "tech-gi02-production.html" },
+        { label: "연구개발 (R&D)",       file: "tech-gi03-rd.html" },
       ]
     },
     {
       id: "kikaku",
       label: "💡 기획/관리 계열",
-      file: "기획관리계열_직종개요카드_레벨2.html",
+      file: "kikaku-overview.html",
       children: [
-        { label: "사무/관리",       file: "사무관리_상세카드_레벨3.html" },
-        { label: "기획",            file: "기획_상세카드_레벨3.html" },
-        { label: "마케팅",          file: "마케팅_상세카드_레벨3.html" },
-        { label: "부동산·사업기획", file: "부동산사업기획_상세카드_레벨3.html" },
+        { label: "사무/관리",       file: "kikaku-kk01-admin.html" },
+        { label: "기획",            file: "kikaku-kk02-planning.html" },
+        { label: "마케팅",          file: "kikaku-kk03-marketing.html" },
+        { label: "부동산·사업기획", file: "kikaku-kk04-realestate.html" },
       ]
     },
     {
       id: "logistics",
       label: "🚛 물류·SCM",
-      file: "물류SCM_직종개요카드_레벨2.html",
+      file: "logistics-overview.html",
       children: [
-        { label: "메이커·유통 SCM", file: "메이커유통SCM_상세카드_레벨3.html" },
-        { label: "3PL·포워더",      file: "3PL포워더_상세카드_레벨3.html" },
-        { label: "무역·조달·구매",  file: "무역조달구매_상세카드_레벨3.html" },
+        { label: "메이커·유통 SCM", file: "logistics-scm01-maker.html" },
+        { label: "3PL·포워더",      file: "logistics-scm02-3pl.html" },
+        { label: "무역·조달·구매",  file: "logistics-scm03-trade.html" },
       ]
     },
     {
       id: "service",
       label: "🛍️ 판매·서비스",
-      file: "판매서비스_직종개요카드_레벨2.html",
+      file: "service-overview.html",
       children: [
-        { label: "소매 판매",         file: "소매판매_상세카드_레벨3.html" },
-        { label: "호텔·관광·브라이달", file: "호텔관광브라이달_상세카드_레벨3.html" },
-        { label: "음식·F&B 서비스",  file: "음식FB서비스_상세카드_레벨3.html" },
+        { label: "소매 판매",         file: "service-sv01-retail.html" },
+        { label: "호텔·관광·브라이달", file: "service-sv02-hotel.html" },
+        { label: "음식·F&B 서비스",  file: "service-sv03-fb.html" },
       ]
     },
     {
       id: "sekou",
       label: "🏗️ 시공관리",
-      file: "시공관리_직종개요카드_레벨2.html",
+      file: "sekou-overview.html",
       children: [
-        { label: "건축 시공관리", file: "건축시공관리_상세카드_레벨3.html" },
-        { label: "토목 시공관리", file: "토목시공관리_상세카드_레벨3.html" },
-        { label: "설비 시공관리", file: "설비시공관리_상세카드_레벨3.html" },
+        { label: "건축 시공관리", file: "sekou-sk01-arch.html" },
+        { label: "토목 시공관리", file: "sekou-sk02-civil.html" },
+        { label: "설비 시공관리", file: "sekou-sk03-facility.html" },
       ]
     },
     {
       id: "creative",
       label: "🎨 크리에이티브",
-      file: "크리에이티브_직종개요카드_레벨2.html",
+      file: "creative-overview.html",
       children: [
-        { label: "UI/UX 디자인",          file: "UIUX디자인_상세카드_레벨3.html" },
-        { label: "광고·엔터 크리에이티브", file: "광고엔터테인먼트크리에이티브_상세카드_레벨3.html" },
-        { label: "그래픽·비주얼 디자인",  file: "그래픽비주얼디자인_상세카드_레벨3.html" },
+        { label: "UI/UX 디자인",          file: "creative-cr01-uiux.html" },
+        { label: "광고·엔터 크리에이티브", file: "creative-cr02-ad.html" },
+        { label: "그래픽·비주얼 디자인",  file: "creative-cr03-graphic.html" },
       ]
     },
     {
       id: "consul",
       label: "🎯 컨설턴트",
-      file: "컨설턴트_직종개요카드_레벨2.html",
+      file: "consul-overview.html",
       children: [
-        { label: "전략·종합 컨설팅", file: "전략종합컨설팅_상세카드_레벨3.html" },
-        { label: "IT컨설팅",         file: "IT컨설팅_상세카드_레벨3.html" },
+        { label: "전략·종합 컨설팅", file: "consul-con01-strategy.html" },
+        { label: "IT컨설팅",         file: "consul-con02-it.html" },
       ]
     },
   ];

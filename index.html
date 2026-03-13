@@ -270,7 +270,7 @@
 
   // 이미 인증된 경우 바로 진입
   if (sessionStorage.getItem(SESSION_KEY) === "ok") {
-    location.replace("직종대분류맵_레벨1.html");
+    location.replace("map-lv1.html");
   }
 
   function tryEnter() {
@@ -282,7 +282,7 @@
       sessionStorage.setItem(SESSION_KEY, "ok");
       document.getElementById("enter-btn").textContent = "로딩 중...";
       document.getElementById("enter-btn").disabled = true;
-      setTimeout(() => location.replace("직종대분류맵_레벨1.html"), 300);
+      setTimeout(() => location.replace("map-lv1.html"), 300);
     } else {
       input.classList.add("error", "shake");
       errEl.classList.add("show");
