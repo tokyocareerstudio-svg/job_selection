@@ -311,5 +311,6 @@ const navs=document.querySelectorAll('.nav-item');
 function upNav(){const h=document.querySelector('.section-nav').offsetHeight;let cur='';secs.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=h+60)cur=id;});navs.forEach((n,i)=>n.classList.toggle('active',secs[i]===cur));}
 window.addEventListener('scroll',upNav);upNav();
 </script>
+<script src="nav.js"></script>
 </body>
 </html>

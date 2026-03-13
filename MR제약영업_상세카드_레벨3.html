@@ -77,5 +77,6 @@ const sections=['s1','s2','s3','s4','s5'];const navItems=document.querySelectorA
 function updateActiveNav(){const navHeight=document.querySelector('.section-nav').offsetHeight;let current='';sections.forEach(id=>{const el=document.getElementById(id);if(el){const rect=el.getBoundingClientRect();if(rect.top<=navHeight+60)current=id}});navItems.forEach((item,i)=>{if(sections[i]===current)item.classList.add('active');else item.classList.remove('active')})}
 window.addEventListener('scroll',updateActiveNav);updateActiveNav();
 </script>
+<script src="nav.js"></script>
 </body>
 </html>
