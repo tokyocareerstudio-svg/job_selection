@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>메이커·유통 SCM 상세 카드 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #22d3ee;
+    --accent-soft: rgba(34, 211, 238, 0.08);
+    --accent-border: rgba(34, 211, 238, 0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif; line-height: 1.8; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 760px; margin: 0 auto; padding: 0 24px 100px; }
+
+  .hero { padding: 56px 24px 40px; text-align: center; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 50% 0%, rgba(34,211,238,0.05) 0%, transparent 70%); }
+  .hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+  .hero-breadcrumb { font-size: 11px; color: var(--text-muted); margin-bottom: 16px; }
+  .hero-breadcrumb a { color: var(--accent); text-decoration: none; }
+  .hero-breadcrumb span { margin: 0 6px; }
+  .hero-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-border); padding: 5px 14px; border-radius: 16px; margin-bottom: 20px; }
+  .hero-icon { width: 64px; height: 64px; border-radius: 14px; background: var(--accent-soft); border: 1px solid var(--accent-border); display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--accent); font-family: 'Noto Sans JP', sans-serif; font-weight: 700; margin: 0 auto 20px; letter-spacing: -1px; line-height: 1.3; text-align: center; }
+  .hero h1 { font-size: 28px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.5px; }
+  .hero .title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; color: var(--text-muted); margin-bottom: 4px; }
+  .hero .title-en { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .hero-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .hero-tag { font-size: 11px; padding: 4px 12px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); font-weight: 500; border: 1px solid var(--accent-border); }
+  .hero-summary { font-size: 13px; color: var(--text-dim); max-width: 540px; margin: 0 auto; line-height: 1.9; }
+
+  .section-nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 10px 0; }
+  .section-nav-inner { max-width: 760px; margin: 0 auto; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .section-nav-inner::-webkit-scrollbar { display: none; }
+  .nav-item { flex-shrink: 0; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 500; color: var(--text-muted); cursor: pointer; border: none; background: none; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
+  .nav-item:hover, .nav-item.active { color: var(--accent); background: var(--accent-soft); }
+
+  .section { padding: 40px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom: none; }
+  .section-number { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); opacity: 0.6; margin-bottom: 6px; }
+  .section-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+  .section-title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .section p { font-size: 13px; color: var(--text-sub); line-height: 2.0; margin-bottom: 14px; }
+  .section p:last-child { margin-bottom: 0; }
+  .hl { color: var(--accent); font-weight: 600; }
+
+  .info-box { padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin: 16px 0; }
+  .info-box-accent { border-left: 3px solid var(--accent); background: var(--accent-soft); border-color: var(--accent-border); border-left-color: var(--accent); }
+  .info-box-blue { border-left: 3px solid #60a5fa; background: rgba(96,165,250,0.06); border-color: rgba(96,165,250,0.18); border-left-color: #60a5fa; }
+  .info-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .info-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12px; }
+  .compare-table th { text-align: left; padding: 10px 14px; background: var(--surface-2); color: var(--text-dim); font-weight: 600; font-size: 11px; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
+  .compare-table td { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-sub); vertical-align: top; line-height: 1.7; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .row-label { font-weight: 600; color: var(--accent); white-space: nowrap; width: 110px; }
+
+  .career-timeline { position: relative; margin: 20px 0; padding-left: 28px; }
+  .career-timeline::before { content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px; width: 2px; background: linear-gradient(180deg, var(--accent) 0%, rgba(34,211,238,0.1) 100%); border-radius: 1px; }
+  .career-step { position: relative; padding: 14px 0; }
+  .career-step::before { content: ''; position: absolute; left: -24px; top: 20px; width: 10px; height: 10px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+  .career-year { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+  .career-role { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .career-desc { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+  .match-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .match-card.good { border-color: var(--accent-border); background: var(--accent-soft); }
+  .match-card.bad { border-color: rgba(239,68,68,0.2); background: rgba(239,68,68,0.05); }
+  .match-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; }
+  .match-card.good .match-label { color: var(--accent); }
+  .match-card.bad .match-label { color: #f87171; }
+  .match-item { font-size: 12px; color: var(--text-dim); margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.6; }
+  .match-item::before { flex-shrink: 0; margin-top: 3px; font-size: 10px; }
+  .match-card.good .match-item::before { content: '▶'; color: var(--accent); }
+  .match-card.bad .match-item::before { content: '▶'; color: #f87171; }
+
+  .keyword-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .keyword-card { padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .keyword-card .kw-name { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .keyword-card .kw-desc { font-size: 11px; color: var(--text-dim); line-height: 1.7; }
+
+  .qa-list { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
+  .qa-item { padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+  .qa-item:hover { border-color: var(--border-hover); }
+  .qa-question { font-size: 13px; font-weight: 600; color: var(--text); display: flex; align-items: flex-start; gap: 10px; }
+  .qa-q-mark { color: var(--accent); font-weight: 800; font-size: 14px; flex-shrink: 0; opacity: 0.7; }
+  .qa-answer { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-dim); line-height: 1.8; padding-left: 24px; }
+  .qa-item.open .qa-answer { display: block; }
+
+  .warn-box { padding: 18px 20px; background: rgba(239,68,68,0.04); border: 1px solid rgba(239,68,68,0.12); border-left: 3px solid #ef4444; border-radius: 10px; margin: 14px 0; }
+  .warn-box h4 { font-size: 13px; font-weight: 700; color: #ef4444; margin-bottom: 6px; }
+  .warn-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  .footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--border); }
+  .footer p { font-size: 11px; color: var(--text-muted); line-height: 1.8; }
+  .footer .brand { font-weight: 700; color: var(--text-dim); }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 22px; }
+    .section-title { font-size: 18px; }
+    .match-grid { grid-template-columns: 1fr; }
+    .keyword-grid { grid-template-columns: 1fr; }
+    .hero { padding: 40px 20px 32px; }
+    .compare-table { font-size: 11px; }
+    .compare-table th, .compare-table td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-breadcrumb">
+      <a href="#">직종 대분류 맵</a><span>›</span><a href="#">물류·SCM 개요</a><span>›</span>메이커·유통 SCM
+    </div>
+    <div class="hero-label">業界×職種カード vol.SCM-01</div>
+    <div class="hero-icon">SCM<br>製造</div>
+    <h1>메이커·유통 SCM</h1>
+    <div class="title-jp">メーカー・流通 SCM担当（製造業・小売・食品）</div>
+    <div class="title-en">Manufacturer &amp; Retail SCM — Detail Card</div>
+    <div class="hero-tags">
+      <span class="hero-tag">제조·식품·유통</span>
+      <span class="hero-tag">사내 조정 중심</span>
+      <span class="hero-tag">재고 최적화</span>
+      <span class="hero-tag">안정적 신졸 채용</span>
+    </div>
+    <p class="hero-summary">
+      메이커·유통 SCM이란, 자사 제품의 원자재 조달부터 생산·보관·배송·납품까지<br>
+      <strong style="color:var(--accent)">공급망 전체를 설계·운영·최적화하는 직종</strong>이다.<br>
+      영업·생산·품질·구매 등 사내 전 부문과 연결되는 조정 기능이 핵심이다.
+    </p>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="scrollToSection('s1')">01 정의</button>
+    <button class="nav-item" onclick="scrollToSection('s2')">02 업무 세분화</button>
+    <button class="nav-item" onclick="scrollToSection('s3')">03 커리어패스</button>
+    <button class="nav-item" onclick="scrollToSection('s4')">04 맞는 사람</button>
+    <button class="nav-item" onclick="scrollToSection('s5')">05 ES포인트</button>
+    <button class="nav-item" onclick="scrollToSection('s6')">06 후카보리</button>
+    <button class="nav-item" onclick="scrollToSection('s7')">07 기업연구</button>
+    <button class="nav-item" onclick="scrollToSection('s8')">08 주의점</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ===== S1 ===== -->
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">메이커·유통 SCM이란</div>
+    <div class="section-title-jp">メーカー・流通SCM担当とは何か</div>
+
+    <p>
+      메이커·유통 SCM 담당이란, <span class="hl">자사 제품이 원자재·부품 단계에서 완성품이 되어 최종 고객에게 전달되기까지의 흐름을 일관 관리하는 직종</span>이다.
+      조달처와의 발주·납기 교섭, 생산 계획과 재고의 균형 조정, 물류 업체와의 배송 설계, 영업 부문의 수요 예측 지원 — 이 모든 업무가 SCM 담당의 사정권이다.
+    </p>
+
+    <p>
+      이 직종의 가장 큰 특징은 <span class="hl">사내외의 수많은 관계자를 연결하는 "허브" 역할</span>을 한다는 점이다. 영업이 "다음 달 대량 수주가 들어왔다"고 하면 생산 계획을 조정하고, 조달처가 "부품 공급이 2주 지연된다"고 하면 생산·납품 스케줄 전체를 재조정한다. 외부의 변화에 사내 전체가 흔들리지 않도록 완충하는 것이 이 직종의 본질적인 가치다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>메이커 SCM과 유통 SCM의 차이</h4>
+      <p>
+        <strong>메이커(제조업) SCM</strong> — 자사 공장의 생산 능력과 조달처의 부품 공급을 연결하는 것이 핵심. 생산계획·재고 관리·조달 리드타임 관리가 중심 업무. 자동차·전자·식품·화장품 등 생산 공정이 있는 기업이 해당. 수요 변동이 생산에 직접 영향을 미치기 때문에 예측 정밀도가 경쟁력에 직결된다.<br><br>
+        <strong>유통(소매·EC) SCM</strong> — 자사 매장·EC사이트에 적정 재고를 유지하는 것이 핵심. 발주 타이밍·입하 관리·배송 최적화·반품 처리가 중심 업무. 이온·세븐&아이·조조타운 등 대형 유통기업이 해당. 계절 수요·트렌드 변화에 대한 빠른 대응 능력이 요구된다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>왜 SCM이 "경영 직결 기능"인가</h4>
+      <p>
+        재고 과다는 보관 비용·폐기 손실로, 재고 부족은 기회 손실·고객 이탈로 직결된다. 조달 리드타임이 길면 수요 변화에 대응하지 못하고, 물류 코스트가 높으면 이익을 압박한다. SCM 담당이 공급망을 1% 최적화하면, 그것이 수억 엔 단위의 코스트 절감 또는 매출 기회의 창출로 이어지는 케이스가 실제로 많다. 이 직종이 "사무직이지만 경영에 직접 기여하는" 포지션으로 평가받는 이유가 여기에 있다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== S2 ===== -->
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">업무 세분화 — 메이커 SCM의 4가지 영역</div>
+    <div class="section-title-jp">業務の細分化 — メーカーSCMの4領域</div>
+
+    <p>
+      메이커 SCM 담당의 업무는 <span class="hl">조달·생산계획·재고·물류의 4가지 영역</span>으로 구성된다.
+      신졸 입사 후 어느 영역에서 시작하느냐는 기업과 배속에 따라 다르지만, 커리어를 쌓으면서 전 영역을 경험하는 것이 SCM 전문가로서의 가치를 높인다.
+    </p>
+
+    <table class="compare-table">
+      <thead>
+        <tr><th>영역</th><th>주요 업무</th><th>요구 능력</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-label">조달·구매</td>
+          <td>조달처 선정·발주·납기 관리·단가 교섭·공급 리스크 관리</td>
+          <td>교섭력, 원가 분석, 조달처 관계 구축</td>
+        </tr>
+        <tr>
+          <td class="row-label">생산계획</td>
+          <td>수요 예측·생산 스케줄 작성·공장과의 조정·긴급 대응</td>
+          <td>수치 분석, 관계자 조정, 시스템 운용</td>
+        </tr>
+        <tr>
+          <td class="row-label">재고 관리</td>
+          <td>적정 재고 수준 설정·결품·과잉재고 대응·재고 회전율 개선</td>
+          <td>데이터 분석, 판단력, 엑셀·WMS 조작</td>
+        </tr>
+        <tr>
+          <td class="row-label">물류 기획</td>
+          <td>물류 업체 관리·배송 루트 최적화·코스트 절감·창고 운영 개선</td>
+          <td>협상력, 물류 지식, 코스트 감각</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box info-box-blue">
+      <h4>신졸이 입사 후 처음 맡는 업무</h4>
+      <p>
+        대부분의 경우 신졸 SCM 담당은 <strong>재고 관리 또는 조달 보조</strong>에서 시작한다. 구체적으로는 발주 데이터의 엑셀 집계, 재고 수준의 모니터링, 조달처와의 납기 확인 연락 등. "지시받은 것을 정확하게 처리하는" 시기가 1~2년 있고, 그 후 단독 담당 영역을 맡게 된다.<br><br>
+        이 시기에 중요한 것은 <strong>숫자의 의미를 이해하는 습관</strong>을 기르는 것이다. "재고가 500개 있다"가 아니라, "이 재고는 몇 주분에 해당하고, 현재의 수요 추이에서 보면 과잉인가 부족인가"를 항상 생각하는 시점이, 3년차 이후의 성장을 결정한다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== S3 ===== -->
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">커리어패스</div>
+    <div class="section-title-jp">キャリアパス — メーカーSCM担当の成長ロード</div>
+
+    <p>
+      메이커 SCM의 커리어는 <span class="hl">실무 담당 → 리더 → SCM 전략 → 경영 기여</span>의 흐름이 전형적이다.
+      다른 직종과 달리 "이 회사에서 오래 일수록 공급망 전체가 보인다"는 특성이 있어, 장기 재직이 커리어 가치를 높이는 직종이기도 하다.
+    </p>
+
+    <div class="career-timeline">
+      <div class="career-step">
+        <div class="career-year">1~3년차</div>
+        <div class="career-role">SCM 실무 담당 — 기초 구축</div>
+        <div class="career-desc">발주·납기 관리·재고 모니터링 등 일상적인 SCM 운영 업무를 담당. 엑셀·WMS·ERP(SAP 등)의 기본 조작을 습득하고, 사내외 관계자의 연락 창구 역할을 맡는다. 이 시기에 납기 트러블·결품·긴급 대응을 얼마나 많이 경험하느냐가 이후의 문제해결력을 결정한다. "예상 밖의 사태에 냉정하게 대안을 만들어내는" 능력이 이 시기에 형성된다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">3~7년차</div>
+        <div class="career-role">SCM 전문 담당 — 개선 제안</div>
+        <div class="career-desc">단순한 운영에서 "어떻게 개선하는가"의 기획 업무로 비중이 이행하는 시기. 재고 회전율 개선 프로젝트, 조달처 재편, 물류 코스트 절감 시책의 입안·실행을 담당하기 시작한다. 데이터 분석 능력이 직접적인 성과로 이어지는 시기이며, 엑셀 피벗·SQL·BI 도구 활용이 차별화 요소가 된다. 글로벌 공급망을 담당하는 기업에서는 이 시기에 영어·한국어를 활용한 해외 조달처 교섭 경험이 쌓인다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">7~12년차</div>
+        <div class="career-role">SCM 리더·매니저</div>
+        <div class="career-desc">팀의 SCM 전략 방향을 결정하고, 후배 담당자의 육성을 책임지는 포지션. 경영진·사업부장과의 협의에서 SCM 시점의 의견을 제시하고, 공급망 투자(시스템 도입·창고 재편·조달처 변경)의 의사결정에 관여한다. 이 시기에 사내에서 "SCM의 전문가"로 인식되면, 사내 이동·외부 이직 양쪽에서 선택지가 넓어진다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">12년차 이후</div>
+        <div class="career-role">세 갈래 — SCM부장·컨설턴트·독립</div>
+        <div class="career-desc">
+          <strong>길A: SCM부장·경영층</strong> — 기업의 공급망 전략 총괄. 글로벌 SCM을 통괄하는 포지션은 외자계 기업에서 특히 수요가 높다.<br>
+          <strong>길B: SCM 컨설턴트</strong> — 빅4·전략 컨설팅·물류 특화 부티크로 이동. 실무 경험을 바탕으로 여러 기업의 공급망 과제를 지원하는 루트.<br>
+          <strong>길C: 스타트업·독립</strong> — 물류 DX 스타트업·조달 플랫폼·무역 자문 등 독립 루트.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== S4 ===== -->
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">맞는 사람 / 안 맞는 사람</div>
+    <div class="section-title-jp">向いている人・向いていない人</div>
+
+    <p>
+      메이커 SCM에 맞는 사람의 핵심 키워드는 <span class="hl">"전체 최적을 추구하는 사고방식"</span>이다.
+      각 부문이 자기 이익을 주장하는 가운데, SCM 담당만이 공급망 전체의 최적을 보는 포지션에 있다.
+      자기 부문의 이익보다 전체의 효율을 우선할 수 있는 시점이 이 직종의 근본적인 적성이다.
+    </p>
+
+    <div class="match-grid">
+      <div class="match-card good">
+        <div class="match-label">맞는 사람</div>
+        <div class="match-item">숫자와 데이터로 현상을 파악하고 논리적으로 결론을 내는 것이 자연스러운 사람</div>
+        <div class="match-item">예상 밖의 트러블이 발생했을 때 패닉하지 않고 대안을 찾을 수 있는 사람</div>
+        <div class="match-item">영업·생산·조달 등 각자의 논리를 가진 관계자를 조율하는 것에 보람을 느끼는 사람</div>
+        <div class="match-item">자사 제품·브랜드에 애착을 갖고 그것이 고객에게 제대로 전달되는 것에 가치를 두는 사람</div>
+        <div class="match-item">업무 개선·프로세스 최적화에 관심이 있고 현상 유지에 만족하지 않는 사람</div>
+      </div>
+      <div class="match-card bad">
+        <div class="match-label">안 맞는 사람</div>
+        <div class="match-item">갑작스러운 변경·긴급 대응에 강한 스트레스를 느끼고 회복이 오래 걸리는 사람</div>
+        <div class="match-item">숫자·데이터보다 감각·직관으로 판단하는 것을 선호하는 사람</div>
+        <div class="match-item">조정 역할보다 직접 고객과 마주하거나 무언가를 만드는 업무를 원하는 사람</div>
+        <div class="match-item">특정 제품·회사에 얽매이지 않고 다양한 고객의 과제를 다루고 싶은 사람 (3PL·컨설팅이 맞을 가능성)</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>한국인 지원자의 강점이 발휘되는 포인트</h4>
+      <p>
+        <strong>한국 조달처·파트너와의 교섭</strong> — 반도체·화학·식품·뷰티 분야에서 한국은 일본 기업의 중요 조달처다. 한국어 네이티브로 한국 비즈니스 문화를 이해하는 SCM 담당은, 이 분야에서 즉전력으로 평가된다. 특히 한국 중소 조달처와의 세부 교섭에서 언어·문화 장벽 없이 진행할 수 있는 것은 대체하기 어려운 강점이다.<br><br>
+        <strong>글로벌 SCM 시점</strong> — 한국·일본 양쪽의 비즈니스 관행을 이해하고 있으면, 조달 다변화·글로벌 공급망 재편 프로젝트에서 다른 담당자와는 다른 시점을 제공할 수 있다. 이것은 면접에서 "왜 당신인가"에 대한 설득력 있는 답변이 된다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== S5 ===== -->
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">ES 작성 전략</div>
+    <div class="section-title-jp">ES攻略 — メーカー・流通SCM志望</div>
+
+    <p>
+      메이커 SCM 지망 ES에서 가장 중요한 것은 <span class="hl">"조정 경험"과 "수치로 생각하는 습관"의 구체적인 증명</span>이다.
+      "물류에 흥미가 있다"는 추상적인 동기에서 멈추지 말고, 실제 경험에서 이 직종의 본질과 연결되는 에피소드를 찾아내는 것이 핵심이다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>지망동기 3단계 구조</h4>
+      <p>
+        <strong>Step1. SCM에 관심을 갖게 된 원점</strong> — 아르바이트에서의 재고 관리 경험, 수업에서 공급망 붕괴 사례를 다룬 경험, 코로나로 반도체 부족이 자동차 생산에 영향을 준 것을 뉴스에서 보고 관심을 가진 경험 등. 추상적인 "효율화에 흥미"보다 구체적인 계기가 동기의 신뢰성을 높인다.<br><br>
+        <strong>Step2. 자기 강점과의 연결</strong> — 조정 경험(여러 관계자가 있는 상황에서 전체를 조율한 경험), 수치 분석 경험(데이터를 기반으로 판단한 경험), 트러블 대응 경험(예상 밖의 사태에 대안을 만들어낸 경험) 중 하나 이상을 구체적인 에피소드로 정리해둘 것.<br><br>
+        <strong>Step3. 이 회사·이 제품의 공급망에 기여하고 싶은 이유</strong> — "○○ 제품이 고객에게 제대로 전달되는 구조를 더 강하게 만들고 싶다"처럼, 지원 기업의 사업과 직결되는 지망 이유를 구체적으로. 지원 기업의 주력 제품·조달 구조·물류 과제를 사전에 조사해두는 것이 필수다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>에피소드 발굴 — SCM 지망에서 쓸 수 있는 경험</h4>
+      <p>
+        아르바이트의 시프트 관리나 재고 보충 경험, 학교 행사의 물자 조달 담당 경험, 팀 프로젝트에서 전체 일정과 리소스를 관리한 경험 — 이런 경험들이 SCM의 "조달·계획·조정"과 직결된다. "특별한 경험이 없다"고 생각하는 사람도, SCM의 본질인 "여러 요소를 연결하고 전체가 잘 돌아가게 하는" 경험을 일상에서 찾아보면 반드시 소재가 나온다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== S6 ===== -->
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">면접 빈출 질문 — 후카보리 대비</div>
+    <div class="section-title-jp">面接頻出質問と深掘り対策</div>
+
+    <p>
+      메이커 SCM 면접에서는 <span class="hl">트러블 대응력·조정 경험·수치 감각</span>을 집중적으로 파고든다.
+      "정해진 것을 처리한다"가 아니라, "예상 밖의 사태에 어떻게 대처하는가"의 실체를 면접관은 확인하려 한다.
+    </p>
+
+    <div class="qa-list">
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>예상 밖의 상황이 발생했을 때 어떻게 대처하는가?</span></div>
+        <div class="qa-answer">
+          SCM 면접에서 가장 핵심적인 질문. "당황하지 않는다"는 선언은 답이 되지 않는다. 실제 에피소드에서 "상황 파악 → 관계자에게 공유 → 대안 제시 → 실행"의 흐름을 보여주는 것이 요구된다. 아르바이트나 동아리에서 계획이 틀어진 경험을 이 구조로 정리해두면 어떤 형태의 후카보리에도 대응할 수 있다.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>재고 관리에서 "적정 재고"를 어떻게 결정하는가?</span></div>
+        <div class="qa-answer">
+          SCM의 기본 개념에 대한 이해를 보는 질문. 신졸이라도 "수요 예측의 정밀도", "조달 리드타임", "결품 리스크와 보관 코스트의 균형"이라는 3가지 요소로 설명할 수 있으면 충분하다. "재고는 많을수록 안전하다"와 "재고는 적을수록 좋다"의 양극단이 아니라, 상황에 따라 최적점이 달라진다는 시점을 보여주는 것이 포인트.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>여러 관계자의 의견이 충돌할 때 어떻게 조정하는가?</span></div>
+        <div class="qa-answer">
+          SCM 담당은 영업("납기를 앞당겨라"), 생산("무리다"), 조달("부품이 없다")의 삼각 충돌을 일상적으로 처리한다. 각자의 논리를 이해한 위에서 "전체 최적"의 시점으로 대안을 제시하는 것이 SCM 담당의 역할임을 이해하고 있는 것을 보여줄 것. 에피소드에서 자기가 어떻게 조정했는지를 구체적으로 설명할 수 있으면 강하다.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>SCM의 DX·자동화에 대해 어떻게 생각하는가?</span></div>
+        <div class="qa-answer">
+          AI 수요예측, RPA에 의한 발주 자동화, WMS의 고도화 등 SCM DX의 구체적인 사례를 하나 이상 파악해두는 것이 최소 요건. "자동화로 일자리가 줄어든다"는 방어적 시점이 아니라, "자동화로 사람이 할 수 있는 일이 어떻게 변하는가"를 적극적으로 논하는 자세가 이 업계 면접에서 평가받는다.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>한국 출신으로서 이 회사의 SCM에서 어떤 역할을 할 수 있는가?</span></div>
+        <div class="qa-answer">
+          한국인 지원자에게 거의 확실히 나오는 질문. "한국어를 할 수 있다"에서 끝내지 말 것. 지원 기업의 한국 조달처·한국 시장·한국 관련 사업을 사전에 조사하고, "이 회사의 ○○ 부문에서 한국 조달처와의 교섭·관계 구축에 기여할 수 있다"처럼 업무와의 직접 연결까지 준비해두는 것이 이상적.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== S7 ===== -->
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 + 기업연구 포인트</div>
+    <div class="section-title-jp">自己分析キーワード接続と企業研究の軸</div>
+
+    <div class="keyword-grid">
+      <div class="keyword-card">
+        <div class="kw-name">책임감</div>
+        <div class="kw-desc">납기를 지키는 것, 결품을 내지 않는 것 — SCM 담당의 판단이 공장 가동·고객 만족에 직접 영향을 미친다. "내가 책임진다"는 의식이 이 직종의 기반이다.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">향상심</div>
+        <div class="kw-desc">현재의 공급망을 당연하게 받아들이지 않고 "더 빠르게, 더 싸게, 더 안정적으로"를 항상 추구하는 것. 개선 제안 없이 운영만 하는 담당자는 중간에 성장이 멈춘다.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">협조성</div>
+        <div class="kw-desc">영업·생산·조달·물류·경영 — SCM은 사내 전 부문의 교차점이다. 어느 한쪽 편을 드는 것이 아니라, 전원이 납득할 수 있는 해결책을 만들어내는 협조성이 핵심이다.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">성실성</div>
+        <div class="kw-desc">발주 수량의 1개 오류, 납기 일자의 하루 착각 — 이런 작은 실수가 생산 라인 정지나 고객 결품으로 이어진다. 꼼꼼함과 확인 습관이 이 직종에서 신뢰를 쌓는 기본이다.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">주체성</div>
+        <div class="kw-desc">지시된 운영을 처리하는 것에서 멈추지 않고, 공급망의 과제를 스스로 발견하고 개선안을 제안하는 것. 이 주체성이 3년차 이후의 커리어 성장 속도를 결정한다.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">도전정신</div>
+        <div class="kw-desc">조달처 재편·새로운 물류 루트 개척·DX 시스템 도입 — SCM에서의 혁신은 현상 유지를 거부하는 담당자에 의해 만들어진다. 리스크를 취하면서 공급망을 진화시키는 자세.</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>기업연구 4가지 축</h4>
+      <p>
+        <strong>① 주력 제품의 공급망 구조</strong> — 원자재는 어디서 조달하고, 어디서 생산하고, 어떤 경로로 고객에게 납품되는가. 유가증권보고서·IR 자료·뉴스에서 파악. "이 회사의 SCM 과제는 무엇인가"를 자기 나름대로 가설로 만들어두면 면접에서 차별화된다.<br><br>
+        <strong>② 한국·아시아와의 조달 연결</strong> — 한국 조달처·생산 거점이 있는 기업을 지원하는 경우, 그 규모와 구체적인 취급 품목을 조사해두는 것이 한국인 강점 어필의 전제가 된다.<br><br>
+        <strong>③ SCM의 DX 투자 방향</strong> — SAP 도입, WMS 고도화, AI 수요예측 등 지원 기업이 SCM에 어떤 IT 투자를 하고 있는지. 뉴스 릴리즈·결산설명회 자료로 확인.<br><br>
+        <strong>④ 신졸 SCM 담당의 배속·성장 환경</strong> — OB/OG 방문 또는 채용 페이지에서 "신졸이 입사 후 어떤 업무에서 시작해 어떻게 성장하는가"를 구체적으로 파악해두는 것이 지망도와 현실 이해를 동시에 보여주는 방법이다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== S8 ===== -->
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">よくある誤解と落とし穴</div>
+
+    <div class="warn-box">
+      <h4>함정 1: SCM을 "사무직의 일종"으로 가볍게 보는 것</h4>
+      <p>SCM 담당은 책상에서 서류를 처리하는 이미지가 있지만, 실제로는 납기 트러블·결품·운임 급등·공급망 붕괴 등 상시적인 위기 관리 업무다. "조용한 사무 환경에서 일하고 싶다"는 이유로 SCM을 선택하면 입사 후 빠르게 미스매치가 발생한다. 면접에서도 이 인식의 부족은 즉시 드러난다.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 2: 지원 기업의 제품·공급망에 대한 이해 없이 지원하는 것</h4>
+      <p>메이커 SCM은 "자사 제품의 공급망을 최적화한다"는 것이 핵심이다. 지원 기업의 주력 제품, 조달처의 나라와 업종, 물류의 특수성(냉장·위험물·정밀기기 등)을 파악하지 않은 채로 지원하면, "왜 이 회사인가"에 대한 답변이 공허해진다. 최소한 지원 기업의 IR 자료 1개를 읽고 SCM 관련 기술을 찾아두는 것이 기본이다.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 3: "어학 능력 = SCM의 강점"으로 단순화하는 것</h4>
+      <p>한국어·영어 능력은 글로벌 SCM에서 강점이 되지만, 어학만이 유일한 무기인 지원자는 채용 판단에서 약하다. SCM의 본질인 "공급망 전체를 보는 시점", "수치 기반의 판단력", "관계자 조정력"과 세트로 어필하는 것이 필요하다. 어학은 "이 강점들을 글로벌 환경에서 더 효과적으로 발휘할 수 있다"는 위치에 놓는 것이 전략적으로 올바르다.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 4: 메이커 SCM과 3PL·포워더를 혼동해서 지원하는 것</h4>
+      <p>메이커 SCM은 "자사 제품 전용의 공급망 최적화"이고, 3PL·포워더는 "다양한 화주의 물류를 수탁"하는 전혀 다른 비즈니스 모델이다. 어느 환경에서 무엇을 배우고 싶은지를 명확히 하지 않으면, "왜 3PL이 아니라 메이커를 지원하는가"의 질문에 답하지 못하게 된다.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 직종 라이브러리 레벨3 — 메이커·유통 SCM</p>
+    <p>물류·SCM 개요 카드(레벨2) | 3PL·포워더 / 무역·조달 레벨3 카드도 함께 참고</p>
+  </div>
+
+</div>
+
+<script>
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const navHeight = document.querySelector('.section-nav').offsetHeight;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+const navItems = document.querySelectorAll('.nav-item');
+function updateActiveNav() {
+  const navHeight = document.querySelector('.section-nav').offsetHeight;
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { const rect = el.getBoundingClientRect(); if (rect.top <= navHeight + 60) current = id; }
+  });
+  navItems.forEach((item, i) => {
+    if (sections[i] === current) item.classList.add('active');
+    else item.classList.remove('active');
+  });
+}
+window.addEventListener('scroll', updateActiveNav);
+updateActiveNav();
+</script>
+</body>
+</html>

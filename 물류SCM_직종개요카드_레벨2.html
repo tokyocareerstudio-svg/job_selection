@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>물류·SCM 직종 개요 카드 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #22d3ee;
+    --accent-soft: rgba(34, 211, 238, 0.08);
+    --accent-border: rgba(34, 211, 238, 0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif; line-height: 1.8; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 760px; margin: 0 auto; padding: 0 24px 100px; }
+
+  .hero { padding: 56px 24px 40px; text-align: center; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 50% 0%, rgba(34,211,238,0.05) 0%, transparent 70%); }
+  .hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+  .hero-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-border); padding: 5px 14px; border-radius: 16px; margin-bottom: 20px; }
+  .hero-icon { width: 64px; height: 64px; border-radius: 14px; background: var(--accent-soft); border: 1px solid var(--accent-border); display: flex; align-items: center; justify-content: center; font-size: 15px; color: var(--accent); font-family: 'Noto Sans JP', sans-serif; font-weight: 700; margin: 0 auto 20px; letter-spacing: -1px; }
+  .hero h1 { font-size: 28px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.5px; }
+  .hero .title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; color: var(--text-muted); margin-bottom: 4px; }
+  .hero .title-en { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .hero-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .hero-tag { font-size: 11px; padding: 4px 12px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); font-weight: 500; border: 1px solid var(--accent-border); }
+  .hero-summary { font-size: 13px; color: var(--text-dim); max-width: 540px; margin: 0 auto; line-height: 1.9; }
+
+  .section-nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 10px 0; }
+  .section-nav-inner { max-width: 760px; margin: 0 auto; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .section-nav-inner::-webkit-scrollbar { display: none; }
+  .nav-item { flex-shrink: 0; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 500; color: var(--text-muted); cursor: pointer; border: none; background: none; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
+  .nav-item:hover, .nav-item.active { color: var(--accent); background: var(--accent-soft); }
+
+  .section { padding: 40px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom: none; }
+  .section-number { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); opacity: 0.6; margin-bottom: 6px; }
+  .section-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+  .section-title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .section p { font-size: 13px; color: var(--text-sub); line-height: 2.0; margin-bottom: 14px; }
+  .section p:last-child { margin-bottom: 0; }
+  .hl { color: var(--accent); font-weight: 600; }
+
+  .info-box { padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin: 16px 0; }
+  .info-box-accent { border-left: 3px solid var(--accent); background: var(--accent-soft); border-color: var(--accent-border); border-left-color: var(--accent); }
+  .info-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .info-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  .framework-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .framework-item { padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .framework-item .axis-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 10px; }
+  .framework-item .axis-options { display: flex; flex-direction: column; gap: 6px; }
+  .axis-opt { font-size: 12px; color: var(--text-dim); padding: 5px 10px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--border); line-height: 1.5; }
+  .axis-opt.active { color: var(--accent); background: var(--accent-soft); border-color: var(--accent-border); font-weight: 600; }
+
+  .branch-list { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+  .branch-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; transition: border-color 0.2s; }
+  .branch-item:hover { border-color: var(--accent-border); }
+  .branch-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .branch-body { flex: 1; }
+  .branch-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .branch-sub { font-size: 11px; color: var(--accent); margin-bottom: 6px; font-weight: 600; }
+  .branch-desc { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  .strength-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .strength-card { padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .strength-title { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .strength-desc { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  .warn-box { padding: 18px 20px; background: rgba(245,158,11,0.04); border: 1px solid rgba(245,158,11,0.15); border-left: 3px solid #f59e0b; border-radius: 10px; margin: 14px 0; }
+  .warn-box h4 { font-size: 13px; font-weight: 700; color: #f59e0b; margin-bottom: 6px; }
+  .warn-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  .flow-steps { display: flex; flex-direction: column; gap: 0; margin: 16px 0; }
+  .flow-step { display: flex; gap: 14px; align-items: flex-start; }
+  .flow-step-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .flow-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 4px; }
+  .flow-connector { width: 2px; flex: 1; background: var(--border); min-height: 20px; margin: 4px 0; }
+  .flow-body { padding-bottom: 20px; flex: 1; }
+  .flow-label { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
+  .flow-text { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  .footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--border); }
+  .footer p { font-size: 11px; color: var(--text-muted); line-height: 1.8; }
+  .footer .brand { font-weight: 700; color: var(--text-dim); }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 22px; }
+    .section-title { font-size: 18px; }
+    .framework-grid { grid-template-columns: 1fr; }
+    .strength-grid { grid-template-columns: 1fr; }
+    .hero { padding: 40px 20px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">職種概要カード — 物流·SCM</div>
+    <div class="hero-icon">物流<br>SCM</div>
+    <h1>물류·SCM</h1>
+    <div class="title-jp">物流・サプライチェーンマネジメント（3PL・商社・メーカー）</div>
+    <div class="title-en">Logistics &amp; Supply Chain Management — Overview Card</div>
+    <div class="hero-tags">
+      <span class="hero-tag">상사·메이커·3PL</span>
+      <span class="hero-tag">글로벌 수요 높음</span>
+      <span class="hero-tag">디지털 전환 가속</span>
+      <span class="hero-tag">한국인 강점 영역</span>
+    </div>
+    <p class="hero-summary">
+      물류·SCM이란, 원자재 조달부터 생산·보관·배송·판매까지<br>
+      <strong style="color:var(--accent)">상품이 고객에게 도달하는 전 과정을 설계하고 최적화하는 직종</strong>이다.<br>
+      일본 제조업·상사·유통의 글로벌 전개 확대와 함께, 수요가 구조적으로 높아지고 있다.
+    </p>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="scrollToSection('s1')">01 직종 특성</button>
+    <button class="nav-item" onclick="scrollToSection('s2')">02 분류 축</button>
+    <button class="nav-item" onclick="scrollToSection('s3')">03 3분기</button>
+    <button class="nav-item" onclick="scrollToSection('s4')">04 요구 역량</button>
+    <button class="nav-item" onclick="scrollToSection('s5')">05 커리어패스</button>
+    <button class="nav-item" onclick="scrollToSection('s6')">06 ES 포인트</button>
+    <button class="nav-item" onclick="scrollToSection('s7')">07 주의점</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ===== S1 ===== -->
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">물류·SCM 직종이란</div>
+    <div class="section-title-jp">物流・SCM職とは何か</div>
+
+    <p>
+      물류·SCM(Supply Chain Management)이란, <span class="hl">원자재의 조달·생산·재고 관리·수배송·통관·납품까지 상품이 이동하는 전 과정을 설계하고 최적화하는 직종</span>이다.
+      단순히 "짐을 나르는" 업무가 아니라, 비용·속도·품질·리스크의 균형을 관리하는 경영 직결 기능이다.
+    </p>
+
+    <p>
+      일본은 세계 유수의 제조·무역 대국이며, 공급망의 복잡성과 글로벌 전개 속도가 가속하고 있다.
+      코로나 이후 공급망 재편, 미중 갈등에 따른 조달 다변화, 물류 2024년 문제(트럭 운전사 시간외 규제) 등
+      <span class="hl">구조적 과제가 산적해 있어 SCM 인재의 수요가 중장기적으로 높다</span>.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>물류와 SCM의 차이 — 두 단어의 범위를 정리</h4>
+      <p>
+        <strong>물류(物流 / Logistics)</strong> — 보관·수배송·포장·유통가공·반품 처리 등 물리적 상품 이동의 관리. 창고 운영, 트럭 배차, 수입통관 등이 대표적인 업무 범위.<br><br>
+        <strong>SCM(Supply Chain Management)</strong> — 물류를 포함하는 더 넓은 개념. 조달처 선정·발주 계획·생산 계획·재고 최적화·납기 관리 등 공급망 전체의 전략적 설계와 운영. 제조업·상사·유통 기업의 경영 중추 기능이다.<br><br>
+        채용 직종 명칭은 "물류기획", "SCM담당", "구매·조달", "수출입관리", "물류코디네이터" 등 기업마다 다르지만, 실질적으로 다루는 내용은 이 두 범주 안에 있다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>왜 지금 물류·SCM인가 — 일본 시장의 구조적 배경</h4>
+      <p>
+        <strong>물류 2024년 문제</strong> — 2024년 4월 트럭 운전사 시간외 노동 규제 강화로, 일본 내 물류 능력의 구조적 부족이 표면화됐다. 이에 대응하기 위한 물류 시스템 재설계·DX 투자가 기업 단위에서 가속하고 있다.<br><br>
+        <strong>공급망 탈중국·다변화</strong> — 미중 갈등·지정학적 리스크를 배경으로 조달처를 동남아·인도·멕시코 등으로 분산하는 움직임이 가속. 복수 국가의 공급망을 관리할 수 있는 글로벌 SCM 인재의 수요가 높아지고 있다.<br><br>
+        <strong>EC 확대와 라스트마일 경쟁</strong> — 아마존·라쿠텐·야후쇼핑 등 EC 시장의 성장과 함께, 소비자 직배송(BtoC 물류)의 효율화 과제가 커지고 있다. 당일배송·시간지정배송 등 서비스 수준 경쟁이 물류 기획·IT 인재의 수요를 끌어올리고 있다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== S2 ===== -->
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">물류·SCM 직종의 4가지 분류 축</div>
+    <div class="section-title-jp">物流・SCM職を分ける4つの軸</div>
+
+    <p>
+      물류·SCM이라는 이름 아래 다양한 포지션이 존재한다.
+      <span class="hl">4가지 축으로 자기 지향이 어디에 있는지를 정리하면</span>, 지원할 직종과 기업의 윤곽이 잡힌다.
+    </p>
+
+    <div class="framework-grid">
+      <div class="framework-item">
+        <div class="axis-label">축 A — 업무의 성격</div>
+        <div class="axis-options">
+          <span class="axis-opt active">전략·기획 (SCM설계)</span>
+          <span class="axis-opt active">운영·실무 (물류현장)</span>
+          <span class="axis-opt">조달·구매</span>
+          <span class="axis-opt">무역·통관</span>
+        </div>
+      </div>
+      <div class="framework-item">
+        <div class="axis-label">축 B — 소속 기업 유형</div>
+        <div class="axis-options">
+          <span class="axis-opt active">메이커 (제조업)</span>
+          <span class="axis-opt active">종합상사·전문상사</span>
+          <span class="axis-opt active">3PL (물류수탁)</span>
+          <span class="axis-opt">EC·유통</span>
+        </div>
+      </div>
+      <div class="framework-item">
+        <div class="axis-label">축 C — 국내 vs 글로벌</div>
+        <div class="axis-options">
+          <span class="axis-opt">국내 물류 운영</span>
+          <span class="axis-opt active">수출입·국제물류</span>
+          <span class="axis-opt active">글로벌 SCM</span>
+        </div>
+      </div>
+      <div class="framework-item">
+        <div class="axis-label">축 D — 아날로그 vs DX</div>
+        <div class="axis-options">
+          <span class="axis-opt">현장 운영 관리</span>
+          <span class="axis-opt active">물류 시스템·IT</span>
+          <span class="axis-opt active">데이터 분석·최적화</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>4축을 어떻게 쓰는가</h4>
+      <p>
+        <strong>축 A (업무 성격)</strong> — "공급망 전체를 설계하는 전략 업무"에 끌리는지, "현장에서 실제 물류를 돌리는 운영 업무"에 끌리는지. 신졸 입사 후 어느 쪽에서 시작하느냐가 이후 커리어의 방향을 결정하기 쉽다.<br><br>
+        <strong>축 B (기업 유형)</strong> — 메이커 SCM은 자사 제품의 공급망 최적화가 중심. 3PL은 다양한 화주 기업의 물류를 수탁 운영. 상사는 무역·조달·재고관리의 복합 업무. 어느 비즈니스 모델에서 일하고 싶은지로 지원 기업을 좁힌다.<br><br>
+        <strong>축 C (국내 vs 글로벌)</strong> — 한국인 지원자에게 가장 강점이 발휘되는 것이 이 축. 글로벌 SCM·수출입 담당은 영어·한국어 능력이 직접적인 무기가 된다. 국내 물류 운영은 언어보다 현장 관리 능력이 중심이 되므로, 한국인의 상대적 강점이 발휘되기 어렵다.<br><br>
+        <strong>축 D (아날로그 vs DX)</strong> — 물류 DX(WMS·TMS·AI 수요예측) 수요가 가속하고 있다. IT·데이터 분석에 강점이 있는 경우, 이 각도에서 지원 전략을 세우면 차별화가 가능하다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== S3 ===== -->
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">물류·SCM 직종 3분기</div>
+    <div class="section-title-jp">物流・SCM職の3分岐</div>
+
+    <p>
+      물류·SCM 직종은 소속 기업의 유형과 업무 성격에 따라 크게 3가지로 분기된다.
+      <span class="hl">어느 환경에서 무엇을 배우고 싶은지를 먼저 정리한 뒤 지원 전략을 세울 것</span>.
+    </p>
+
+    <div class="branch-list">
+      <div class="branch-item">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <div class="branch-name">메이커·유통 SCM</div>
+          <div class="branch-sub">製造業・流通 SCM担当</div>
+          <div class="branch-desc">
+            자사 제품의 원자재 조달부터 완성품 납품까지의 공급망을 일관 관리. 생산계획·재고 최적화·조달처 관리·납기 조정이 중심 업무다. 토요타·캐논·자포·이온 등 대형 메이커·유통 기업에서 안정적인 신졸 채용이 있다. 자사 제품에 애착을 갖고 그 공급망에 깊이 관여하고 싶은 사람에게 맞는다.<br><br>
+            메이커 SCM의 특징은 <strong>자사 제품·브랜드에 대한 이해가 업무의 기반이 된다</strong>는 점이다. 같은 공급망 최적화라도 "우리 제품이 고객에게 제대로 전달되고 있는가"라는 시점이 중심에 있으며, 영업·생산·품질보증 등 사내 관계자와의 조정이 업무의 큰 비중을 차지한다. 이직 시에는 같은 업계의 경쟁사 또는 3PL·컨설팅으로 이동하는 루트가 많다.
+          </div>
+        </div>
+      </div>
+      <div class="branch-item">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <div class="branch-name">3PL·포워더 (물류수탁·국제운송)</div>
+          <div class="branch-sub">3PL・フォワーダー（物流受託・国際輸送）</div>
+          <div class="branch-desc">
+            3PL(Third Party Logistics)은 기업으로부터 물류 업무를 수탁해 창고 운영·배송·재고관리를 대행하는 비즈니스 모델. 포워더(貨物利用運送事業者)는 항공·선박·트럭을 조합해 국제화물 운송을 주선한다. 닛폰통운·야마토HD·긴테쓰익스프레스·일본통운 등이 대표적. 다양한 화주·화물·노선을 경험하기 때문에 물류 실무 능력이 빠르게 쌓인다.<br><br>
+            3PL·포워더의 특징은 <strong>다양한 업종·상품의 물류를 동시에 다룬다</strong>는 점이다. 자동차 부품, 식품, 의료기기, 패션 — 화주 기업에 따라 요구되는 물류 품질·속도·규제 준수 기준이 전혀 다르며, 이 다양성이 물류 전문가로서의 시야를 넓힌다. 한국인 지원자에게는 한국·동아시아 노선의 전문성이 강점이 된다. 포워더 경력은 업계 전반에서 이직 시 평가가 높다.
+          </div>
+        </div>
+      </div>
+      <div class="branch-item">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <div class="branch-name">무역·조달·구매 (상사·메이커 무역부문)</div>
+          <div class="branch-sub">貿易・調達・購買（商社・メーカー貿易部門）</div>
+          <div class="branch-desc">
+            종합상사·전문상사 및 메이커 무역부문에서 수출입 계약·통관·외환 관리·해외 조달처와의 교섭을 담당. 영어·한국어·중국어 등 외국어 능력이 직접적인 무기가 된다. 한국·중국·동남아 조달처와의 교섭에서 한국인 네이티브의 강점이 발휘되기 쉽다. 미쓰비시상사·이토추·마루베니 등 대형 상사 외에, 한국 제품을 취급하는 전문상사도 진입 루트가 된다.<br><br>
+            이 분기의 특징은 <strong>물류 실무보다 "비즈니스 교섭"의 비중이 높다</strong>는 점이다. 조달처의 납기·단가·품질 조건을 교섭하고, 리스크를 관리하면서 최적의 공급 체계를 구축하는 것이 핵심이다. 통관 지식·무역 실무(인코텀즈·신용장·보험 등)의 기초 지식이 입사 후 빠르게 요구되므로, 무역실무검정 등의 사전 학습이 지망의 진지함을 보여주는 데 효과적이다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== S4 ===== -->
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">요구 역량과 한국인 강점</div>
+    <div class="section-title-jp">求められる能力と韓国人の強み</div>
+
+    <p>
+      물류·SCM 직종에서 공통적으로 요구되는 것은 <span class="hl">복잡한 변수를 정리하고 현실적인 해결책을 만드는 문제해결력</span>이다.
+      납기 지연·재고 부족·운임 급등 등 예측 불가능한 사태에 냉정하게 대처하는 능력이 현장에서 직접적으로 요구된다.
+      동시에 이 직종은 "영업처럼 외부를 향하는 것도 아니고, 기술계처럼 전문 기술이 중심인 것도 아닌" 포지션으로, 처음에는 자기 강점과의 연결이 잘 보이지 않는 사람도 많다. 그러나 조정력·다국어 커뮤니케이션·데이터 분석·리스크 관리 — 이런 강점을 가진 사람에게는 매우 적합한 직종이다.
+    </p>
+
+    <div class="strength-grid">
+      <div class="strength-card">
+        <div class="strength-title">글로벌 커뮤니케이션</div>
+        <div class="strength-desc">해외 조달처·파트너·현지 법인과의 교섭·조정이 일상적인 직종. 영어 + 한국어의 이중 언어 운용 능력, 한국 비즈니스 문화에 대한 이해는 한일 공급망에서 직접적인 가치가 된다.</div>
+      </div>
+      <div class="strength-card">
+        <div class="strength-title">수치 분석·엑셀 활용</div>
+        <div class="strength-desc">재고 수준 분석, 운송 코스트 비교, 수요 예측 — 물류·SCM의 현장에서는 대량의 데이터를 엑셀이나 WMS로 처리하는 능력이 기본 요건이다. SQL·BI 도구까지 다룰 수 있으면 차별화가 된다.</div>
+      </div>
+      <div class="strength-card">
+        <div class="strength-title">스트레스 내성·유연한 대처</div>
+        <div class="strength-desc">납기 트러블·결품·재해·파업 등 예상 외의 사태가 일상적으로 발생하는 직종. "어떤 상황에서도 대안을 찾아내고 관계자에게 설명할 수 있는" 능력이 장기 커리어를 결정한다.</div>
+      </div>
+      <div class="strength-card">
+        <div class="strength-title">협조성·관계자 조정</div>
+        <div class="strength-desc">조달처·생산부문·영업·창고·운송 업체·통관사 — 물류·SCM은 사내외 수십 개의 관계자를 조율하는 직종. 이해관계가 엇갈리는 상황에서 전체 최적을 만들어내는 조정력이 핵심이다.</div>
+      </div>
+    </div>
+
+    <div class="info-box info-box-accent">
+      <h4>한국인이 이 직종에서 발휘할 수 있는 강점</h4>
+      <p>
+        <strong>한일 공급망의 연결 포인트</strong> — 일본 기업의 한국 조달·한국 기업의 일본 납품 루트에서, 양국의 비즈니스 문화와 언어를 이해하는 인재는 희소 가치가 높다. 반도체·화학·식품·뷰티 분야에서 한일 공급망은 구조적으로 연결되어 있으며 이 부분의 담당자 수요는 안정적이다.<br><br>
+        <strong>동아시아 시점</strong> — 한국·중국·동남아를 포함한 동아시아 공급망 전체를 시야에 넣을 수 있는 인재는, 글로벌 SCM을 강화하려는 일본 대기업에서 수요가 있다. 단순한 "어학 강점"을 넘어, 동아시아 비즈니스 환경에 대한 이해까지 면접에서 전달하는 것이 포인트다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== S5 ===== -->
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">커리어패스 개요</div>
+    <div class="section-title-jp">キャリアパス概観</div>
+
+    <p>
+      물류·SCM 직종은 <span class="hl">초반 3~5년의 현장 경험이 이후 전략 업무로의 이행을 결정</span>한다.
+      어느 기업 유형에서 시작하든, "현장 감각 × 데이터 분석 × 글로벌 시점"의 3가지가 갖춰지면 커리어의 선택지가 크게 넓어진다.
+      이 직종의 또 하나의 특징은 <span class="hl">이직 시장에서의 수요가 지속적으로 높다</span>는 점이다. 경력 3년 이상의 SCM 실무 경험자는 업계 불문으로 수요가 있으며, 특히 글로벌 업무 경험 + 어학 능력의 조합은 외자계 기업·컨설팅 펌으로의 이직 루트도 열어준다.
+    </p>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-step-line"><div class="flow-dot"></div><div class="flow-connector"></div></div>
+        <div class="flow-body">
+          <div class="flow-label">1~3년차 — 실무 기반 구축</div>
+          <div class="flow-text">수배송 조정·재고 관리·통관 수속·포워더 교섭 등 물류 실무의 기초를 현장에서 습득. 이 시기에 얼마나 많은 트러블 대응을 경험하느냐가 이후의 문제해결력을 결정한다. WMS·TMS 등 물류 시스템 조작도 이 시기에 습득.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-line"><div class="flow-dot"></div><div class="flow-connector"></div></div>
+        <div class="flow-body">
+          <div class="flow-label">3~7년차 — 전문 영역 확립</div>
+          <div class="flow-text">국제물류 전문, 조달 전문, 재고 최적화 전문 등 자기만의 강점 영역이 형성되는 시기. 데이터 분석을 통한 코스트 절감 제안, 조달처 재편 프로젝트의 리드 등 성과가 가시화되기 시작한다. 이 시기에 영어·한국어를 활용한 글로벌 업무 실적이 쌓이면 이직 시장에서의 가치가 높아진다.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-line"><div class="flow-dot"></div><div class="flow-connector"></div></div>
+        <div class="flow-body">
+          <div class="flow-label">7년차 이후 — 3가지 방향</div>
+          <div class="flow-text">
+            <strong>길A: SCM 매니저·부장</strong> — 공급망 전략의 입안·실행을 리드하는 포지션. 기업의 경쟁력에 직결하는 역할.<br>
+            <strong>길B: 물류 컨설턴트·SCM 컨설턴트</strong> — 여러 기업의 공급망 과제를 외부 전문가로 지원. 빅4·전략 컨설팅 또는 물류 특화 부티크로 이동하는 루트.<br>
+            <strong>길C: 스타트업·독립</strong> — 물류 DX 스타트업, 조달 플랫폼, 무역 자문 등 독립 루트.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== S6 ===== -->
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">ES·면접 공략 포인트</div>
+    <div class="section-title-jp">ES・面接攻略ポイント</div>
+
+    <p>
+      물류·SCM 직종의 ES에서 중요한 것은 <span class="hl">"왜 물류·SCM인가"의 동기와 "어떤 강점을 이 직종에서 발휘하는가"의 구체성</span>이다.
+      "물건의 흐름에 흥미가 있다"는 추상적인 동기에서 멈추지 말고, 구체적인 경험·지식·비즈니스 이해와 연결해야 한다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>지망동기 구성 3단계</h4>
+      <p>
+        <strong>Step1. 관심의 원점</strong> — 물류·공급망에 관심을 갖게 된 계기. 인턴십 경험, 아르바이트에서의 재고 관리 경험, 코로나 때 공급망 붕괴를 관찰한 경험 등 구체적인 체험이 동기의 신뢰성을 높인다. 한국과 일본의 공급망 차이를 직접 경험했다면 더욱 강하다.<br><br>
+        <strong>Step2. 자기 강점의 연결</strong> — 글로벌 커뮤니케이션 능력, 데이터 분석 경험, 다문화 환경에서의 조정 경험 등 자기 강점이 물류·SCM의 어떤 업무에 어떻게 기여하는지를 구체적으로. 특히 한국어·영어 능력과 한국 비즈니스 이해를 무기로 쓰는 경우, 지원 기업의 한국 관련 사업을 반드시 사전 조사해서 연결할 것.<br><br>
+        <strong>Step3. 이 회사에서 이루고 싶은 것</strong> — 3분기(메이커·3PL·무역상사) 중 어느 방향인지, 그 회사의 어떤 사업·노선·상품에 끌리는지를 구체적으로. "물류가 하고 싶다"는 선언이 아니라, "이 회사의 이 부분에 기여하고 싶다"까지 좁혀야 지망도가 전달된다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>면접에서 자주 나오는 질문</h4>
+      <p>
+        <strong>"트러블 대응 경험을 알려달라"</strong> — 물류·SCM은 예상 밖의 사태가 일상적인 직종. 아르바이트·학업·과외활동에서 계획이 틀어졌을 때 어떻게 대처했는지의 에피소드를 "상황 → 과제 → 행동 → 결과"의 구조로 정리해둘 것.<br><br>
+        <strong>"물류 DX에 대해 어떻게 생각하는가"</strong> — AI 수요예측, 자동화 창고, TMS 최적화 등 최신 트렌드에 대한 의견을 요구하는 질문. 구체적인 사례(아마존의 로봇 창고, 사가와 익스프레스의 AI 배차 등)를 하나라도 파악해두면 면접에서 즉시 활용할 수 있다.<br><br>
+        <strong>"한국인으로서 이 직종에서 어떤 강점이 있는가"</strong> — 거의 확실히 나오는 질문. "한국어를 할 수 있다"에서 끝내지 말고, "한국의 ○○ 업계의 조달 구조를 이해하고 있으며, 일본 기업의 한국 소싱에 기여할 수 있다"처럼 업무와의 연결까지 준비해둘 것.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== S7 ===== -->
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">よくある誤解と落とし穴</div>
+
+    <div class="warn-box">
+      <h4>주의 01: "물류 = 현장 운반 업무"로 오해하는 것</h4>
+      <p>물류·SCM은 창고에서 짐을 나르는 업무가 아니다. 공급망 전략의 설계·코스트 최적화·글로벌 조달처 교섭 등 경영 직결의 전략 업무가 중심이다. 이 오해를 가진 채로 ES나 면접에 임하면, 직종 이해 부족이 즉시 드러난다. 지원 기업의 SCM 담당이 실제로 어떤 업무를 하는지를 유가증권보고서·OB 방문으로 사전에 파악해둘 것.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>주의 02: 어학 능력만을 강점으로 내세우는 것</h4>
+      <p>한국어·영어가 가능한 것은 글로벌 SCM 지원에서 강점이 되지만, 그것만으로는 채용의 결정적인 이유가 되지 않는다. "어학 능력 + 물류·무역의 업무 지식 + 한국·동아시아 시장에 대한 이해"의 3가지 세트로 어필하는 것이 필요하다. IATA 자격, 통관사 자격, 무역실무검정 등 관련 자격 취득은 지망 진지함을 보여주는 효과가 있다.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>주의 03: 3PL과 메이커 SCM의 차이를 이해하지 않고 지원하는 것</h4>
+      <p>3PL은 다양한 화주의 물류를 수탁하는 "서비스 기업"이고, 메이커 SCM은 자사 제품의 공급망을 최적화하는 "기능 부문"이다. 업무의 리듬·관계자·성과 지표가 전혀 다르다. 어느 쪽을 원하는지를 명확히 하지 않고 지원하면, 면접에서 "왜 우리 회사인가"에 대한 답변이 설득력을 잃는다.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>주의 04: 물류 DX 트렌드를 모르고 지원하는 것</h4>
+      <p>WMS(창고관리시스템), TMS(운송관리시스템), AI 수요예측, 자동화 창고, ドローン배송 등 물류 DX의 핵심 용어와 구체적인 사례를 최소한 파악해두는 것이 필요하다. "물류의 디지털화에 관심이 있다"는 선언은 구체성이 없다. 어떤 기술이 어떤 물류 과제를 어떻게 해결하는지를 한 가지라도 깊이 파고든 지식을 준비해둘 것.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 직종 라이브러리 레벨2 — 물류·SCM</p>
+    <p>각 분기의 상세는 레벨3 카드를 참고 | 직종 대분류 맵(레벨1)도 함께 참고</p>
+  </div>
+
+</div>
+
+<script>
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const navHeight = document.querySelector('.section-nav').offsetHeight;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7'];
+const navItems = document.querySelectorAll('.nav-item');
+function updateActiveNav() {
+  const navHeight = document.querySelector('.section-nav').offsetHeight;
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { const rect = el.getBoundingClientRect(); if (rect.top <= navHeight + 60) current = id; }
+  });
+  navItems.forEach((item, i) => {
+    if (sections[i] === current) item.classList.add('active');
+    else item.classList.remove('active');
+  });
+}
+window.addEventListener('scroll', updateActiveNav);
+updateActiveNav();
+</script>
+</body>
+</html>

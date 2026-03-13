@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>설비시공관리 상세 카드 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+  :root {
+    --bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;
+    --border:#2a2a35;--border-hover:#3a3a48;
+    --text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;
+    --accent:#d97706;--accent-soft:rgba(217,119,6,0.08);--accent-border:rgba(217,119,6,0.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased;}
+  .container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+  .hero{padding:56px 24px 40px;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(217,119,6,0.06) 0%,transparent 70%);}
+  .hero-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;}
+  .hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);padding:5px 14px;border-radius:16px;margin-bottom:20px;}
+  .hero-icon{width:64px;height:64px;border-radius:14px;background:var(--accent-soft);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--accent);font-family:'Noto Sans JP',sans-serif;font-weight:700;margin:0 auto 20px;line-height:1.4;text-align:center;}
+  .hero h1{font-size:28px;font-weight:900;margin-bottom:6px;letter-spacing:-0.5px;}
+  .hero .title-jp{font-family:'Noto Sans JP',sans-serif;font-size:14px;color:var(--text-muted);margin-bottom:4px;}
+  .hero-tags{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+  .hero-tag{font-size:11px;padding:4px 12px;border-radius:12px;background:var(--accent-soft);color:var(--accent);font-weight:500;border:1px solid var(--accent-border);}
+  .hero-summary{font-size:13px;color:var(--text-dim);max-width:540px;margin:0 auto;line-height:1.9;}
+  .section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0;}
+  .section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+  .section-nav-inner::-webkit-scrollbar{display:none;}
+  .nav-item{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap;}
+  .nav-item:hover,.nav-item.active{color:var(--accent);background:var(--accent-soft);}
+  .section{padding:40px 0;border-bottom:1px solid rgba(255,255,255,0.03);}
+  .section:last-child{border-bottom:none;}
+  .section-number{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);opacity:0.6;margin-bottom:6px;}
+  .section-title{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}
+  .section-title-jp{font-family:'Noto Sans JP',sans-serif;font-size:12px;color:var(--text-muted);margin-bottom:20px;}
+  .section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}
+  .section p:last-child{margin-bottom:0;}
+  .hl{color:var(--accent);font-weight:600;}
+  .info-box{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}
+  .info-box-accent{border-left:3px solid var(--accent);background:var(--accent-soft);border-color:var(--accent-border);border-left-color:var(--accent);}
+  .info-box h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}
+  .info-box p{font-size:12px;color:var(--text-dim);line-height:1.8;}
+  .compare-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:12px;}
+  .compare-table th{text-align:left;padding:10px 14px;background:var(--surface-2);color:var(--text-dim);font-weight:600;font-size:11px;border-bottom:1px solid var(--border);}
+  .compare-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-sub);vertical-align:top;line-height:1.7;}
+  .compare-table tr:last-child td{border-bottom:none;}
+  .row-label{font-weight:600;color:var(--accent);white-space:nowrap;width:100px;}
+  .career-timeline{position:relative;margin:20px 0;padding-left:28px;}
+  .career-timeline::before{content:'';position:absolute;left:8px;top:4px;bottom:4px;width:2px;background:linear-gradient(180deg,var(--accent) 0%,rgba(217,119,6,0.1) 100%);border-radius:1px;}
+  .career-step{position:relative;padding:14px 0;}
+  .career-step::before{content:'';position:absolute;left:-24px;top:20px;width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);}
+  .career-year{font-size:11px;font-weight:700;color:var(--accent);margin-bottom:4px;}
+  .career-role{font-size:14px;font-weight:700;margin-bottom:6px;}
+  .career-desc{font-size:12px;color:var(--text-dim);line-height:1.8;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;}
+  .match-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;}
+  .match-card.good{border-color:var(--accent-border);background:var(--accent-soft);}
+  .match-card.bad{border-color:rgba(239,68,68,0.2);background:rgba(239,68,68,0.05);}
+  .match-label{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:10px;}
+  .match-card.good .match-label{color:var(--accent);}
+  .match-card.bad .match-label{color:#f87171;}
+  .match-item{font-size:12px;color:var(--text-dim);margin-bottom:6px;display:flex;gap:8px;line-height:1.6;}
+  .match-card.good .match-item::before{content:'▶';color:var(--accent);font-size:10px;flex-shrink:0;margin-top:3px;}
+  .match-card.bad .match-item::before{content:'▶';color:#f87171;font-size:10px;flex-shrink:0;margin-top:3px;}
+  .keyword-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0;}
+  .keyword-card{padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;}
+  .keyword-card .kw-name{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:5px;}
+  .keyword-card .kw-desc{font-size:11px;color:var(--text-dim);line-height:1.7;}
+  .qa-list{display:flex;flex-direction:column;gap:8px;margin:16px 0;}
+  .qa-item{padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color 0.2s;}
+  .qa-item:hover{border-color:var(--border-hover);}
+  .qa-question{font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:flex-start;gap:10px;}
+  .qa-q-mark{color:var(--accent);font-weight:800;font-size:14px;flex-shrink:0;opacity:0.7;}
+  .qa-answer{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--text-dim);line-height:1.8;padding-left:24px;}
+  .qa-item.open .qa-answer{display:block;}
+  .warn-box{padding:18px 20px;background:rgba(245,158,11,0.04);border:1px solid rgba(245,158,11,0.15);border-left:3px solid #f59e0b;border-radius:10px;margin:14px 0;}
+  .warn-box h4{font-size:13px;font-weight:700;color:#f59e0b;margin-bottom:6px;}
+  .warn-box p{font-size:12px;color:var(--text-dim);line-height:1.8;}
+  .footer{text-align:center;padding-top:40px;margin-top:20px;border-top:1px solid var(--border);}
+  .footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}
+  .footer .brand{font-weight:700;color:var(--text-dim);}
+  @media(max-width:640px){.hero h1{font-size:22px;}.match-grid,.keyword-grid{grid-template-columns:1fr;}.hero{padding:40px 20px 32px;}.compare-table{font-size:11px;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">施工管理カード vol.SK-03</div>
+    <div class="hero-icon">設備<br>施工管理</div>
+    <h1>설비시공관리</h1>
+    <div class="title-jp">設備施工管理（電気・空調・衛生・消防）</div>
+    <div class="hero-tags">
+      <span class="hero-tag">전기·공조·위생·소방</span>
+      <span class="hero-tag">ZEB·탈탄소 수요 확대</span>
+      <span class="hero-tag">설비시공관리기사 자격</span>
+      <span class="hero-tag">스마트 빌딩·IoT 연계</span>
+      <span class="hero-tag">건물 기능을 실현하는 전문직</span>
+    </div>
+    <p class="hero-summary">
+      설비시공관리란, 건물의 전기·공조·급배수·소방 설비 공사에서<br>
+      <strong style="color:var(--accent)">4대 관리를 담당하며 건물의 기능을 실현하는 직종</strong>이다.<br>
+      탈탄소·ZEB·스마트 빌딩화 수요의 구조적 확대로<br>
+      설비 전문가의 희소성과 처우가 빠르게 올라가고 있다.
+    </p>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="go('s1')">01 정의</button>
+    <button class="nav-item" onclick="go('s2')">02 업무 세분화</button>
+    <button class="nav-item" onclick="go('s3')">03 커리어패스</button>
+    <button class="nav-item" onclick="go('s4')">04 맞는 사람</button>
+    <button class="nav-item" onclick="go('s5')">05 ES포인트</button>
+    <button class="nav-item" onclick="go('s6')">06 후카보리</button>
+    <button class="nav-item" onclick="go('s7')">07 기업연구</button>
+    <button class="nav-item" onclick="go('s8')">08 주의점</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">설비시공관리란</div>
+    <div class="section-title-jp">設備施工管理とは何か</div>
+    <p>설비시공관리란, <span class="hl">건물의 전기설비·공조(空調)설비·위생(급배수·화장실)설비·소방설비·통신설비 등의 공사에서 공정·원가·품질·안전의 4대 관리를 담당하며 건물의 기능을 실현하는 직종</span>이다. 건축시공관리가 건물의 뼈대(구조체)를 만드는 것이라면, 설비시공관리는 그 건물에 전기·물·공기·정보를 통하게 하는 역할이다. 건물은 설비 없이는 기능하지 않으며, 현대 건물의 성능과 편쾌성 대부분은 설비의 품질로 결정된다.</p>
+    <p>설비시공관리의 수요를 구조적으로 밀어올리는 요인은 <span class="hl">탈탄소·ZEB(넷제로 에너지 빌딩)·스마트 빌딩화</span>다. 건물의 에너지 소비량을 실질 제로로 만들기 위한 고효율 공조·태양광 발전·축전 시스템의 설계와 시공이 급속히 확대되고 있으며, 이 분야의 전문가는 업계 전체에서 부족하다. 또한 IoT 센서·BAS(빌딩 자동화 시스템)의 도입으로 설비와 IT의 경계가 무너지고 있어, IT 지식을 갖춘 설비시공관리사의 희소성이 높아지고 있다.</p>
+    <div class="info-box">
+      <h4>데이터센터 수요와 설비시공관리의 확대</h4>
+      <p>AI·클라우드 서비스의 급속한 확대에 따라 데이터센터의 신설·증설 수요가 일본 전역에서 급증하고 있다. 데이터센터는 서버 냉각을 위한 대형 공조 시스템·무정전 전원 설비(UPS)·비상 발전 설비가 통상 건물보다 고밀도로 설치되며, 설비시공관리의 전문성이 특히 요구되는 분야다. 또한 반도체 공장·배터리 공장의 국내 회귀 투자도 확대되고 있어, 클린룸 관련 공조·위생 설비의 시공 수요가 구조적으로 증가하고 있다. 이 두 분야 모두 설비시공관리사의 인력 부족이 심각하며, 전문성을 쌓은 시공관리사에 대한 처우 개선이 진행되고 있다.</p>
+    </div>
+
+    <div class="info-box info-box-accent">
+      <h4>ZEB(넷제로 에너지 빌딩)이란</h4>
+      <p>건물에서 소비하는 에너지와 창출하는 에너지(태양광 발전 등)의 수지를 연간 기준으로 실질 제로로 만드는 것을 목표로 한 건물. 일본 정부는 2030년까지 신축 건물의 평균 ZEB화를 목표로 정하고 있으며, 공조·전기·위생 설비의 고효율화가 ZEB 달성의 핵심이다. 설비시공관리사에게 ZEB 설계·시공 지식은 앞으로 10~20년간 가장 중요한 부가가치 중 하나가 된다. ZEB 플래너 자격(공익재단법인 건축환경·에너지기구)은 이 분야의 전문성을 증명하는 자격으로 수요가 높아지고 있다.</p>
+    </div>
+    <div class="info-box">
+      <h4>설비시공관리와 건축시공관리의 협업</h4>
+      <p>건축 공사에서 설비 공사는 구조체(建築)가 완성된 후 내부에서 진행된다. 건축시공관리사와 설비시공관리사는 동일 현장에서 공정을 조율하면서 협업한다. 전기 배선 루트·배관 경로·천장 내 공간 확보 등 건축과 설비의 조율이 부족하면 설계 변경·공기 지연이 발생한다. BIM을 활용한 설비·건축 간 간섭 확인이 최근 대형 현장에서 표준화되고 있으며, 설비시공관리사에게도 BIM 기초 지식이 요구된다.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">업무 세분화 — 설비 종별 4분기</div>
+    <div class="section-title-jp">設備種別の4つの分岐</div>
+    <p>설비시공관리는 담당하는 설비 종별에 따라 <span class="hl">전기설비 / 공조·위생설비 / 소방설비 / 통신·약전설비</span>의 네 분기로 나뉜다. 취득해야 할 자격과 요구되는 전문 지식이 분기마다 다르며, 배속 후의 업무 내용이 크게 달라진다.</p>
+    <table class="compare-table">
+      <thead><tr><th>분기</th><th>주요 업무·설비 종류</th><th>관련 자격·특성</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="row-label">전기설비</td>
+          <td>수변전 설비·간선·분전반·조명·콘센트·비상전원·태양광 발전·EV 충전 설비의 시공 관리. 대형 빌딩에서 데이터센터까지 전력을 공급하는 모든 설비가 대상.</td>
+          <td>전기공사시공관리기사 1·2급이 핵심 자격. 전력 수요의 증가(데이터센터·EV 보급)와 재생에너지 도입으로 수요가 구조적으로 확대. 제1종·제2종 전기공사사 자격도 병행 취득을 목표로 하는 경우가 많다.</td>
+        </tr>
+        <tr>
+          <td class="row-label">공조·위생설비</td>
+          <td>공기조화(냉난방·환기·제습)·급배수·급탕·화장실 위생 설비의 시공 관리. ZEB·에너지 절약 대응의 중심이 되는 분기이며, 고효율 열원 기기·열회수 환기 시스템·수소 보일러 등 최신 기술이 집중된다.</td>
+          <td>관공사시공관리기사 1·2급이 핵심 자격. ZEB·탈탄소 관련 수요가 구조적으로 확대되고 있어 장기 성장이 전망된다. ZEB 플래너 자격 취득이 부가가치 향상의 핵심이 된다.</td>
+        </tr>
+        <tr>
+          <td class="row-label">소방설비</td>
+          <td>스프링클러·자동화재경보기·비상방송·유도등·소화기 설비의 시공 관리. 소방법 기준에 따른 엄격한 검사와 소방서 확인 신청 절차가 수반된다.</td>
+          <td>소방설비사 자격(갑종·을종)이 핵심. 법령 개정에 따른 기존 건물의 설비 갱신 수요가 안정적으로 존재한다. 법적 절차·소방서와의 교섭이 이 분기 특유의 업무다.</td>
+        </tr>
+        <tr>
+          <td class="row-label">통신·약전설비</td>
+          <td>LAN 배선·구내 통신 설비·방범 카메라·입퇴관 관리·BAS(빌딩 자동화 시스템)·스마트 빌딩 관련 설비의 시공 관리. IT·IoT 기술과의 융합이 가장 빠르게 진행되는 분기.</td>
+          <td>통신설비 관련 자격 외에 IT·네트워크 지식이 실무에 직결된다. 스마트 빌딩·IoT 연계 수요의 확대로 이 분기의 전문가 희소성이 급속히 높아지고 있다. IT 배경을 가진 지원자에게 진입 친화성이 높다.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="info-box">
+      <h4>설비 공사업의 기업 유형</h4>
+      <p><strong>종합설비 업체(유아사·칸켄텍노·다이다이코·고다마·산아이설비 등)</strong> — 전기·공조·위생·소방을 일괄 담당. 대형 빌딩·공장·병원의 설비 전체를 원도급으로 수주.<br><br>
+      <strong>전문 설비업(전기전문·공조전문 등)</strong> — 특정 설비 종별에 특화. 종합설비 업체의 하청 또는 전문 공종을 직접 수주. 특정 분야의 깊은 전문성을 집중적으로 쌓을 수 있다.<br><br>
+      <strong>대형 제네콘 설비 부문</strong> — 가지마·시미즈·다이세이 등 대형 제네콘의 설비 부문은 건축 공사와 일체화된 설비 공사를 담당. 건축시공관리사와의 협업 경험이 풍부하게 쌓인다.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">커리어패스</div>
+    <div class="section-title-jp">キャリアパス — 設備施工管理の成長ロード</div>
+    <p>설비시공관리의 커리어는 <span class="hl">현장 보조 → 독립 현장 담당 → 현장 소장·기술 관리 → 에너지 컨설팅·독립</span>으로 이행하는 것이 전형적이다. 설비 분야는 취득 자격의 종류와 조합이 커리어의 방향성을 크게 좌우한다.</p>
+    <div class="career-timeline">
+      <div class="career-step">
+        <div class="career-year">입사 ~ 3년차</div>
+        <div class="career-role">현장 보조 — 설비 지식과 현장 감각 동시 습득</div>
+        <div class="career-desc">선배에게 밀착해 설비 도면 읽기·자재 발주·협력 업체 조정·검사 기록 작성의 기초를 몸에 익히는 시기다. 전기설비 담당이라면 전선 루트·분전반 결선의 기초를, 공조 담당이라면 냉매 배관·덕트 시공의 기초를 현장에서 직접 배운다. 설비시공관리기사 2급 수험을 이 시기에 목표로 하는 기업이 많으며, 취득 후 소규모 현장의 주임기술자로 선임될 수 있다. ZEB·에너지 절약 관련 기초 지식을 자발적으로 습득해두면 이후 차별화의 기반이 된다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">3 ~ 8년차</div>
+        <div class="career-role">독립 현장 담당 — 복수 설비 종별 조율</div>
+        <div class="career-desc">중규모 건물의 설비 공사 전체를 독립으로 담당하기 시작하는 시기다. 전기·공조·위생·소방 등 복수의 설비 종별을 동시에 조율하는 복잡한 현장 관리가 이 시기에 집중적으로 경험된다. 건축시공관리사와의 공정 조율, 발주자 측 설비 설계자와의 설계 변경 협의도 이 시기에 독립으로 담당하게 된다. 설비시공관리기사 1급 수험은 이 시기에 본격화되며, 취득하면 대규모 설비 공사의 감리기술자로 선임될 수 있다. ZEB 플래너 자격을 이 시기에 취득하면 에너지 절약 제안 능력이 크게 높아진다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">8 ~ 15년차</div>
+        <div class="career-role">현장 소장·기술 관리 — 대형 설비 프로젝트 총괄</div>
+        <div class="career-desc">대형 빌딩·병원·데이터센터·공장의 설비 공사 전체를 총괄하는 현장 소장 포지션. 설비 전체의 원가 책임·공정 조정·발주자 설비 설계자와의 사양 협의가 이 포지션의 핵심 업무다. ZEB 대응·스마트 빌딩화 관련 기술 제안을 발주자에게 행하는 역할도 이 시기에 확대된다. 기술 관리 포지션에서는 사내 설비 기술의 표준화·ZEB 시공 가이드라인의 정비·신입 기술자의 육성을 담당한다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">15년차 이후</div>
+        <div class="career-role">세 갈래 — 기술 관리직 / 에너지 컨설팅 / 독립</div>
+        <div class="career-desc"><strong>길A: 사내 기술 관리직</strong> — ZEB 전략 수립·설비 기술 표준화·ICT 설비 도입 전략·신인 육성을 담당하는 기술 관리직. 현장 총괄 경험과 기술 지식의 양쪽을 살리는 포지션.<br><strong>길B: 에너지 컨설팅·FM(파실리티 매니지먼트)</strong> — 시공 경험을 살려 건물 에너지 진단·ZEB 개수 제안·설비 유지 관리 컨설팅으로 이동. 에너지 관리사(省エネ法)·건축설비사 등 복합 자격을 갖추면 희소성이 높아진다.<br><strong>길C: 독립·전문 설비 공사업 창업</strong> — 현장 인맥과 설비 기술을 바탕으로 전문 설비 공사업을 창업. 전기·공조 등 특정 분야에 특화한 소규모 법인으로 독립하는 루트가 현실적이다.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">맞는 사람 / 안 맞는 사람</div>
+    <div class="section-title-jp">向いている人・向いていない人</div>
+    <p>설비시공관리에 맞는 사람의 핵심은 <span class="hl">"건물의 기능을 실현하는 설비 기술에 관심이 있고, 탈탄소·스마트 빌딩이라는 시대 변화의 최전선에서 전문성을 쌓는 것에 동기부여되는 사람"</span>이다. 전기·물·공기·정보의 흐름을 이해하고 제어하는 기술적 관심, IT·에너지 기술에 대한 관심이 이 직종의 적성과 직결된다.</p>
+    <p>또한 이 직종의 특유한 매력은 <span class="hl">"보이지 않는 곳에서 건물을 지탱한다"는 역할에 보람을 느낄 수 있는가</span>다. 완성된 빌딩의 쾌적한 공조·안정적인 전력 공급·안전한 소방 설비는 모두 설비시공관리사의 일이지만, 이용자에게는 보이지 않는다. 이 "보이지 않지만 없어서는 안 되는 역할"에 오히려 자부심을 느끼는 타입이 이 직종에서 장기적으로 동기를 유지한다. 탈탄소·ZEB라는 사회적 과제에 기여하고 있다는 감각이 이 자부심을 더욱 강하게 만든다.</p>
+    <div class="match-grid">
+      <div class="match-card good">
+        <div class="match-label">맞는 사람</div>
+        <div class="match-item">전기·공조·배관 등 설비 기술의 구조에 순수한 관심이 있고, "이 건물의 설비는 어떻게 작동하는가"를 자발적으로 조사하는 타입</div>
+        <div class="match-item">탈탄소·ZEB·스마트 빌딩이라는 시대 변화의 방향성에 공감하고, 이 분야의 전문가로서 사회에 공헌하고 싶다는 동기가 있는 사람</div>
+        <div class="match-item">IT·IoT·자동화 기술에 관심이 있고, 설비와 IT가 융합하는 스마트 빌딩 분야를 커리어의 축으로 삼고 싶은 사람</div>
+        <div class="match-item">복수의 설비 종별(전기·공조·위생·소방)과 건축의 공정을 동시에 조율하는 복잡한 관리에 적성을 느끼는 사람</div>
+        <div class="match-item">설비시공관리기사뿐만 아니라 에너지 관련 자격·IT 자격 등 복합 자격을 단계적으로 취득해 전문성의 폭을 넓히고 싶은 향상심이 있는 사람</div>
+      </div>
+      <div class="match-card bad">
+        <div class="match-label">안 맞는 사람</div>
+        <div class="match-item">전기·기계·설비 시스템의 구조에 전혀 관심이 없는 사람 — 이 직종의 전문성은 설비 기술에 대한 기초적인 관심 없이는 쌓이지 않는다</div>
+        <div class="match-item">완성된 건물의 외관에 강하게 끌리는 타입 — 설비는 기본적으로 보이지 않는 곳에서 기능하는 존재다. 건축의 조형미에 끌리는 타입은 건축시공관리가 맞을 가능성이 높다</div>
+        <div class="match-item">법령·기준의 엄격한 준수(소방법·전기설비기술기준 등)가 강한 스트레스가 되는 사람 — 설비 공사는 법적 검사와 절차가 특히 엄격하다</div>
+        <div class="match-item">기술 변화의 속도가 빠른 환경에서 지속적으로 새로운 지식을 흡수하는 것에 강한 거부감이 있는 사람</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">ES 작성 전략</div>
+    <div class="section-title-jp">ES攻略 — 設備施工管理志望</div>
+    <p>설비시공관리 지망 ES에서 가장 중요한 것은 <span class="hl">"왜 건축·토목이 아닌 설비인가"의 차별화</span>와 <span class="hl">"탈탄소·ZEB·스마트 빌딩이라는 시대 변화에 대한 관심의 깊이"</span>다. 설비시공관리는 세 분기(건축·토목·설비) 중에서 가장 "기술과 시대 변화"에 대한 관심을 전면에 내세우기 좋은 직종이다.</p>
+    <div class="info-box info-box-accent">
+      <h4>지망동기 3단계 구조</h4>
+      <p><strong>Step1. 설비·에너지 기술에 끌리는 원점</strong> — 전기 관련 취미·자작 경험, 에너지 절약·환경 문제에 대한 관심, 건물의 설비 시스템에 흥미를 가진 계기, 공조·배관 시스템이 어떻게 작동하는지 자발적으로 조사한 경험. "건물을 만들고 싶다"는 방향성이 아니라 "건물의 기능·에너지를 제어하는 기술에 끌린다"는 원점이 있으면 설비 지망의 설득력이 생긴다.<br><br>
+      <strong>Step2. 탈탄소·ZEB에 대한 관심 근거</strong> — ZEB·에너지 절약 건물의 필요성을 이해하고 있는지, 그 실현에 설비가 얼마나 중요한 역할을 하는지를 자기 언어로 설명할 수 있는지가 이 직종 지원자의 차별화 포인트다. ZEB의 정의·일본 정부의 ZEB 목표·설비 기술(고효율 공조·태양광·축전)의 역할을 최소한 파악해두는 것이 기본이다.<br><br>
+      <strong>Step3. 이 회사·이 설비 종별을 선택하는 이유</strong> — 전기/공조·위생/소방/통신 중 어느 분야에 관심이 있는지를 명확히 하고, 지원 기업의 주력 설비 종별·대표 시공 실적과 연결할 것. 지원 기업이 ZEB 시공·스마트 빌딩 설비에 어느 수준으로 대응하고 있는지를 사전에 조사해두는 것이 "이 회사를 선택하는 이유"의 구체성을 만든다.</p>
+    </div>
+    <div class="info-box">
+      <h4>IT·이과 계열 지원자의 강점 활용 전략</h4>
+      <p>설비시공관리는 시공관리 3분기 중에서 IT·전기·기계계 지식을 가장 직접적으로 활용할 수 있는 분기다. 전기전자·기계·정보 계열 학부 출신은 "전기 회로의 기초 이해", "냉난방 열역학의 기초 지식", "IoT·센서 기술에 대한 관심"을 자기 강점으로 직접 연결할 수 있다. 학부 졸업 논문·연구 테마와 설비 기술의 접점을 찾아 ES에서 보여주는 것이 이 분기 지원자의 효과적인 차별화 전략이다. 문과 출신은 "탈탄소·환경 문제에 대한 관심"과 "복잡한 이해관계자 조율 능력"을 축으로 하는 것이 현실적이다.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">면접 빈출 질문 — 후카보리 대비</div>
+    <div class="section-title-jp">面接頻出質問と深掘り対策</div>
+    <p>설비시공관리 면접에서는 <span class="hl">설비 종별 선택 이유·ZEB·탈탄소에 대한 이해·현장 환경 적응 의지·자격 취득 계획</span>이 집중적으로 확인된다. 특히 "왜 건축·토목이 아닌 설비인가"는 거의 반드시 나오는 질문이다.</p>
+    <div class="qa-list">
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>건축·토목이 아닌 설비를 선택하는 이유는?</span></div>
+        <div class="qa-answer">설비시공관리 면접에서 가장 중요한 질문. "설비에 관심이 있다"는 선언으로 끝내지 말 것. "건물의 외형보다 기능·에너지의 흐름에 흥미가 있다", "ZEB·탈탄소라는 시대 변화의 핵심이 설비에 있다고 생각한다", "IT·IoT와 가장 융합이 진행되고 있는 분야가 설비다"처럼 건축·토목과의 차이를 이해한 위에서 "왜 설비인가"를 자기 언어로 말할 것. 학부 연구·취미·아르바이트에서 설비·에너지·전기 기술과의 접점이 있으면 직접 연결하는 것이 가장 강한 근거가 된다.</div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>ZEB를 어떻게 이해하고 있는가?</span></div>
+        <div class="qa-answer">설비시공관리 지원자의 시대 이해도를 확인하는 질문. 완벽한 기술 지식을 요구하는 것이 아니라, 개념과 사회적 배경을 이해하고 있는지를 본다. "건물에서 소비하는 에너지와 창출하는 에너지(태양광 등)의 수지를 연간 기준으로 실질 제로로 만드는 것이 목표이며, 고효율 공조·단열·재생에너지의 조합으로 실현한다. 일본 정부는 2030년까지 신축의 평균 ZEB화를 목표로 하고 있다"라고 설명할 수 있으면 기본 이해를 갖추고 있다는 인상을 준다. ZEB 플래너 자격에 관심이 있다는 것을 세트로 보여주면 향상심도 전달된다.</div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>어떤 설비 종별(전기·공조·위생·소방)에 관심이 있는가?</span></div>
+        <div class="qa-answer">설비 분야 내의 방향성을 확인하는 질문. "모두에 관심이 있다"는 답변은 준비 부족의 인상. 특정 분야를 골라 "이 종별에 끌리는 이유"를 말할 것. 전기라면 "전력 시스템의 구조와 재생에너지 연계에 관심이 있다", 공조라면 "ZEB의 핵심이 공조 에너지의 효율화에 있고, 이 분야의 전문가가 되고 싶다", 통신·약전이라면 "스마트 빌딩·IoT 설비와 IT의 융합에 강하게 끌린다"처럼 자기 관심과 연결해서 말할 것.</div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>설비시공관리기사 취득 계획은?</span></div>
+        <div class="qa-answer">자격 취득에 대한 진지함을 확인하는 질문. "입사 후 2~3년 안에 2급을 취득하고, 실무 경험을 쌓으면서 1급을 목표로 한다"처럼 단계적인 플랜을 말할 것. 더 나아가 "ZEB 플래너 자격도 관심이 있다"처럼 설비 종별에 맞는 인접 자격에 대한 관심을 보여주면 이 분야의 커리어를 진지하게 생각하고 있다는 인상이 강해진다. 각 자격의 수험 자격 요건을 사전에 파악해두는 것이 기본이다.</div>
+      </div>
+
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>설비시공관리와 설비 설계의 차이를 어떻게 이해하는가?</span></div>
+        <div class="qa-answer">직종 이해도를 확인하는 질문. "설비 설계는 도면을 그리는 것, 시공관리는 그것을 현장에서 실현하는 것"이 기본이지만, "도면대로 시공되지 않는 경우(자재 납기 지연·타 공종과의 간섭)에 발주자·설계자와 협의하면서 최선의 현실해를 찾는 것이 시공관리의 핵심"이라고 설명할 수 있으면 이해 깊이가 전달된다.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 + 기업연구 포인트</div>
+    <div class="section-title-jp">自己分析キーワード接続と企業研究の軸</div>
+    <div class="keyword-grid">
+      <div class="keyword-card"><div class="kw-name">향상심</div><div class="kw-desc">설비시공관리기사 1·2급→ZEB 플래너→에너지 관리사→건축설비사 — 설비 분야는 관련 자격의 종류가 많고, 조합에 따라 커리어의 방향성이 크게 달라진다. 이 자격 지도를 이해하고 단계적인 취득 계획을 갖춘 사람이 이 직종에서 빠르게 전문성의 폭을 넓힌다.</div></div>
+      <div class="keyword-card"><div class="kw-name">도전정신</div><div class="kw-desc">ZEB·스마트 빌딩·데이터센터 설비 — 설비시공관리는 지금 업계에서 기술 변화 속도가 가장 빠른 분야다. 새로운 기술·소재·시스템을 두려워하지 않고 현장에 도입하는 도전정신이 이 시대에 이 직종에서 차별화를 만드는 핵심이다.</div></div>
+      <div class="keyword-card"><div class="kw-name">공헌</div><div class="kw-desc">탈탄소·ZEB 실현을 통한 환경 공헌. 설비시공관리사의 일은 개별 건물의 에너지 성능을 높이는 것을 통해 사회 전체의 CO2 배출 삭감에 직결된다. 이 환경 공헌에 진심으로 보람을 느끼는 사람이 이 직종에서 장기적으로 동기를 유지한다.</div></div>
+      <div class="keyword-card"><div class="kw-name">성실성</div><div class="kw-desc">전기설비기술기준·소방법·건축설비 관련 법령에 따른 시공 기준의 준수가 설비시공관리의 절대 조건이다. 법령 개정 정보를 자발적으로 파악하고, 현장에서의 기준 준수를 철저히 하는 성실성이 법적 리스크 방지와 발주자 신뢰 구축의 기반이 된다.</div></div>
+      <div class="keyword-card"><div class="kw-name">협조성</div><div class="kw-desc">설비 공사는 건축시공관리사·다른 설비 종별 담당자·발주자 설비 설계자·소방서 검사원 등 다수의 이해관계자와의 조율이 일상이다. 특히 건축과의 공정 조율 실패는 전체 공사의 공기 지연으로 직결되기 때문에, 건축 담당자와의 긴밀한 커뮤니케이션이 이 직종의 핵심 역량이다.</div></div>
+      <div class="keyword-card"><div class="kw-name">주체성</div><div class="kw-desc">설비 공사에서는 자재 납기 지연·현장 조건 변화·타 공종과의 간섭 등 즉시 판단이 요구되는 상황이 매일 발생한다. 발주자·건축 담당자에게 설비 전문가로서 능동적으로 제안하고 조율하는 주체성이 현장 신뢰를 만든다.</div></div>
+    </div>
+    <div class="info-box">
+      <h4>기업연구 3가지 축</h4>
+      <p><strong>① 주력 설비 종별과 ZEB·탈탄소 대응 수준</strong> — 전기/공조·위생/소방/통신 중 어느 분야에 강점을 갖는 기업인지, ZEB 시공 실적·에너지 절약 인증 취득 건수를 파악할 것. 지원 기업이 ZEB 시공에 어느 수준으로 대응하고 있는지가 입사 후 어떤 기술을 배울 수 있는지를 직접 결정한다.<br><br>
+      <strong>② 스마트 빌딩·IoT 설비 관련 실적</strong> — BAS(빌딩 자동화 시스템)·IoT 센서·원격 감시 시스템의 시공 실적을 파악할 것. 이 분야에 적극적인 기업은 신졸 시기에 IT·IoT 지식을 설비 현장에서 실전 활용하는 환경이 갖추어져 있다.<br><br>
+      <strong>③ 자격 취득 지원 제도와 연수 환경</strong> — 설비시공관리기사·ZEB 플래너·에너지 관리사의 취득 지원 제도가 기업에 따라 크게 다르다. 특히 ZEB 플래너 취득 지원이 있는 기업은 이 분야의 전문가 육성에 진지하다는 것을 의미한다. 채용 설명회·홈페이지에서 자격 지원 제도를 반드시 확인할 것.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">よくある誤解と落とし穴</div>
+    <div class="warn-box">
+      <h4>함정 1: "설비는 건물 안에서 일하니까 현장 환경이 편할 것"이라는 오해</h4>
+      <p>설비 공사는 건물 내부에서 진행되지만, 천장 내 작업·배관 피트 내 작업·기계실 작업은 고온·저온·협소 공간에서의 작업이 포함된다. 또한 공사 초기 단계는 건축 공사와 병행하기 때문에 야외·분진이 있는 환경에서의 작업도 발생한다. "건물 안이라서 괜찮다"는 가정으로 지원하면 입사 후 현실과의 괴리가 발생할 수 있다. 현장 견학·OB 방문으로 실제 작업 환경을 사전에 확인해두는 것이 필수다.</p>
+    </div>
+    <div class="warn-box">
+      <h4>함정 2: 설비 시스템의 기초 지식 없이 지원하는 것</h4>
+      <p>설비시공관리는 시공관리 3분기 중 가장 기술적인 전문 지식의 기초가 실무에 직결되는 분기다. "전기란 무엇인가", "공조는 어떻게 열을 이동시키는가"의 기초 정도는 지원 전에 파악해두는 것이 최소한의 준비다. 제1종·제2종 전기공사사 자격의 수험 내용을 훑어보거나, 설비 관련 입문서 1권을 읽어두는 것이 면접에서 "이 분야에 관심이 있다"는 것을 구체적으로 보여주는 데 도움이 된다.</p>
+    </div>
+    <div class="warn-box">
+      <h4>함정 3: ZEB·탈탄소를 표면적으로만 언급하는 것</h4>
+      <p>설비 지망 ES·면접에서 ZEB나 탈탄소를 언급하는 지원자는 많다. 그러나 "환경에 관심이 있다", "탈탄소에 공헌하고 싶다"는 수준의 언급은 구체성이 없다. ZEB의 정의·일본의 ZEB 목표·설비가 ZEB 실현에 담당하는 구체적인 역할(고효율 공조·단열·재생에너지 연계)을 자기 언어로 설명할 수 있어야 "이 분야의 전문가가 되고 싶다"는 동기의 신뢰성이 생긴다.</p>
+    </div>
+    <div class="warn-box">
+      <h4>함정 4: 건축시공관리와 설비시공관리의 차이를 이해하지 않은 지원</h4>
+      <p>건축이 "건물의 구조·외관을 만드는 것"이라면, 설비는 "그 건물에 전기·물·공기·정보를 통하게 하는 것"이다. 이 차이를 이해하지 않으면 "설비가 아닌 건축에 지원하는 것이 맞지 않겠냐"는 면접 질문에 답하지 못한다. 지원 기업이 건축시공관리와 설비시공관리 양쪽을 채용하는 경우, "왜 설비인가"를 반드시 명확히 말할 수 있도록 준비해둘 것.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 직종 라이브러리 레벨3 — 설비시공관리 (SK-03)</p>
+    <p>시공관리 개요 카드(레벨2) | 건축시공관리·토목시공관리 레벨3 카드도 함께 참고</p>
+  </div>
+</div>
+
+<script>
+function go(id){const el=document.getElementById(id);if(el){const h=document.querySelector('.section-nav').offsetHeight;window.scrollTo({top:el.getBoundingClientRect().top+window.pageYOffset-h-12,behavior:'smooth'});}}
+const secs=['s1','s2','s3','s4','s5','s6','s7','s8'];
+const navs=document.querySelectorAll('.nav-item');
+function upNav(){const h=document.querySelector('.section-nav').offsetHeight;let cur='';secs.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=h+60)cur=id;});navs.forEach((n,i)=>n.classList.toggle('active',secs[i]===cur));}
+window.addEventListener('scroll',upNav);upNav();
+</script>
+</body>
+</html>

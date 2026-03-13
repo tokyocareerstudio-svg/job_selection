@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UI/UX 디자인 상세 카드 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --surface-3: #22222e;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #a855f7;
+    --accent-soft: rgba(168, 85, 247, 0.08);
+    --accent-border: rgba(168, 85, 247, 0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif; line-height: 1.8; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 760px; margin: 0 auto; padding: 0 24px 100px; }
+
+  .hero { padding: 56px 24px 40px; text-align: center; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 50% 0%, rgba(168,85,247,0.06) 0%, transparent 70%); }
+  .hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+  .hero-breadcrumb { font-size: 11px; color: var(--text-muted); margin-bottom: 16px; }
+  .hero-breadcrumb a { color: var(--accent); text-decoration: none; }
+  .hero-breadcrumb span { margin: 0 6px; }
+  .hero-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-border); padding: 5px 14px; border-radius: 16px; margin-bottom: 20px; }
+  .hero-icon { width: 64px; height: 64px; border-radius: 14px; background: var(--accent-soft); border: 1px solid var(--accent-border); display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--accent); font-family: 'Noto Sans JP', sans-serif; font-weight: 700; margin: 0 auto 20px; letter-spacing: -1px; }
+  .hero h1 { font-size: 30px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.5px; }
+  .hero .title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; color: var(--text-muted); margin-bottom: 4px; }
+  .hero .title-en { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .hero-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .hero-tag { font-size: 11px; padding: 4px 12px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); font-weight: 500; border: 1px solid var(--accent-border); }
+  .hero-summary { font-size: 13px; color: var(--text-dim); max-width: 540px; margin: 0 auto; line-height: 1.9; }
+
+  .section-nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 10px 0; }
+  .section-nav-inner { max-width: 760px; margin: 0 auto; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+  .section-nav-inner::-webkit-scrollbar { display: none; }
+  .nav-item { flex-shrink: 0; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 500; color: var(--text-muted); cursor: pointer; border: none; background: none; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
+  .nav-item:hover, .nav-item.active { color: var(--accent); background: var(--accent-soft); }
+
+  .section { padding: 40px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom: none; }
+  .section-number { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); opacity: 0.6; margin-bottom: 6px; }
+  .section-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+  .section-title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .section p { font-size: 13px; color: var(--text-sub); line-height: 2.0; margin-bottom: 14px; }
+  .section p:last-child { margin-bottom: 0; }
+  .hl { color: var(--accent); font-weight: 600; }
+  .hl-warn { color: #ef4444; font-weight: 600; }
+
+  .info-box { padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin: 16px 0; }
+  .info-box-accent { border-left: 3px solid var(--accent); background: var(--accent-soft); border-color: var(--accent-border); border-left-color: var(--accent); }
+  .info-box-blue { border-left: 3px solid #60a5fa; background: rgba(96,165,250,0.06); border-color: rgba(96,165,250,0.18); border-left-color: #60a5fa; }
+  .info-box-warn { border-left: 3px solid #f59e0b; background: rgba(245,158,11,0.06); border-color: rgba(245,158,11,0.18); border-left-color: #f59e0b; }
+  .info-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .info-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  .compare-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12px; }
+  .compare-table th { text-align: left; padding: 10px 14px; background: var(--surface-2); color: var(--text-dim); font-weight: 600; font-size: 11px; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
+  .compare-table td { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-sub); vertical-align: top; line-height: 1.7; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .row-label { font-weight: 600; color: var(--accent); white-space: nowrap; width: 110px; }
+
+  .career-timeline { position: relative; margin: 20px 0; padding-left: 28px; }
+  .career-timeline::before { content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px; width: 2px; background: linear-gradient(180deg, var(--accent) 0%, rgba(168,85,247,0.1) 100%); border-radius: 1px; }
+  .career-step { position: relative; padding: 14px 0; }
+  .career-step::before { content: ''; position: absolute; left: -24px; top: 20px; width: 10px; height: 10px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+  .career-year { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+  .career-role { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .career-desc { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+  .match-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .match-card.good { border-color: var(--accent-border); background: var(--accent-soft); }
+  .match-card.bad { border-color: rgba(239,68,68,0.2); background: rgba(239,68,68,0.05); }
+  .match-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; }
+  .match-card.good .match-label { color: var(--accent); }
+  .match-card.bad .match-label { color: #f87171; }
+  .match-item { font-size: 12px; color: var(--text-dim); margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.6; }
+  .match-item::before { flex-shrink: 0; margin-top: 3px; font-size: 10px; }
+  .match-card.good .match-item::before { content: '▶'; color: var(--accent); }
+  .match-card.bad .match-item::before { content: '▶'; color: #f87171; }
+
+  .keyword-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .keyword-card { padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .keyword-card .kw-name { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .keyword-card .kw-desc { font-size: 11px; color: var(--text-dim); line-height: 1.7; }
+
+  .qa-list { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
+  .qa-item { padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+  .qa-item:hover { border-color: var(--border-hover); }
+  .qa-question { font-size: 13px; font-weight: 600; color: var(--text); display: flex; align-items: flex-start; gap: 10px; }
+  .qa-q-mark { color: var(--accent); font-weight: 800; font-size: 14px; flex-shrink: 0; opacity: 0.7; }
+  .qa-answer { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-dim); line-height: 1.8; padding-left: 24px; }
+  .qa-item.open .qa-answer { display: block; }
+
+  .warn-box { padding: 18px 20px; background: rgba(239,68,68,0.04); border: 1px solid rgba(239,68,68,0.12); border-left: 3px solid #ef4444; border-radius: 10px; margin: 14px 0; }
+  .warn-box h4 { font-size: 13px; font-weight: 700; color: #ef4444; margin-bottom: 6px; }
+  .warn-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  .footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--border); }
+  .footer p { font-size: 11px; color: var(--text-muted); line-height: 1.8; }
+  .footer .brand { font-weight: 700; color: var(--text-dim); }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 24px; }
+    .section-title { font-size: 18px; }
+    .match-grid { grid-template-columns: 1fr; }
+    .keyword-grid { grid-template-columns: 1fr; }
+    .hero { padding: 40px 20px 32px; }
+    .compare-table { font-size: 11px; }
+    .compare-table th, .compare-table td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-breadcrumb">
+      <a href="#">직종 대분류 맵</a><span>›</span><a href="#">크리에이티브 개요</a><span>›</span>UI/UX 디자인
+    </div>
+    <div class="hero-label">業界×職種カード vol.CR-01</div>
+    <div class="hero-icon">UI</div>
+    <h1>UI/UX 디자인</h1>
+    <div class="title-jp">UI/UXデザイン（プロダクト・サービスデザイン）</div>
+    <div class="title-en">UI/UX Design — Detail Card</div>
+    <div class="hero-tags">
+      <span class="hero-tag">문과·이과 모두</span>
+      <span class="hero-tag">Figma 필수</span>
+      <span class="hero-tag">IT·스타트업 중심</span>
+      <span class="hero-tag">수요 > 공급</span>
+      <span class="hero-tag">포트폴리오 필수</span>
+    </div>
+    <p class="hero-summary">
+      UI/UX 디자이너란, 앱·웹 서비스의 화면과 사용자 체험을 설계하는 직종이다.<br>
+      "예쁘게 만드는 사람"이 아니라, <strong style="color:var(--accent)">"사용자가 헤매지 않도록 설계하는 사람"</strong>.<br>
+      일본에서 공급이 수요를 따라가지 못하는, 크리에이티브 중 가장 취업 루트가 열려 있는 직종이다.
+    </p>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="scrollToSection('s1')">01 정의</button>
+    <button class="nav-item" onclick="scrollToSection('s2')">02 UI vs UX</button>
+    <button class="nav-item" onclick="scrollToSection('s3')">03 커리어패스</button>
+    <button class="nav-item" onclick="scrollToSection('s4')">04 맞는 사람</button>
+    <button class="nav-item" onclick="scrollToSection('s5')">05 ES포인트</button>
+    <button class="nav-item" onclick="scrollToSection('s6')">06 후카보리</button>
+    <button class="nav-item" onclick="scrollToSection('s7')">07 기업연구</button>
+    <button class="nav-item" onclick="scrollToSection('s8')">08 체크리스트</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">UI/UX 디자이너란</div>
+    <div class="section-title-jp">UI/UXデザイナーとは何か</div>
+
+    <p>
+      UI/UX 디자이너란, <span class="hl">앱·웹 서비스에서 사용자가 목표를 달성하기까지의 흐름(UX)과 그것을 실현하는 화면(UI)을 설계하는 직종</span>이다.
+      "버튼을 어디에 놓는가", "이 페이지에서 사용자는 무엇을 하려 하는가", "어떤 흐름으로 결제까지 안내하는가" — 이 모든 것을 논리와 데이터를 바탕으로 결정하는 것이 이 직종의 핵심이다.
+    </p>
+
+    <p>
+      일본의 UI/UX 디자이너 시장은 <span class="hl">만성적인 인재 부족</span> 상태다.
+      IT기업·스타트업·SaaS 기업을 중심으로 수요가 급증하는 한편, 공급(미대·전문학교 출신 + 독학 전환자)이 따라가지 못하고 있다.
+      포트폴리오가 일정 수준 이상이면, 크리에이티브 직종 중 가장 채용 루트가 열려 있는 분야다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>UI/UX 디자이너가 하는 일 — 핵심 3역할</h4>
+      <p>
+        <strong>① 사용자 조사(UX 리서치)</strong> — 인터뷰, 설문, 행동 분석 데이터를 통해 "사용자가 무엇을 원하고 어디서 막히는가"를 파악. 디자인의 출발점이 되는 사실을 수집하는 역할.<br><br>
+        <strong>② 정보 설계·와이어프레임</strong> — 페이지 구조, 내비게이션, 콘텐츠 배치를 결정. Figma 등으로 와이어프레임·프로토타입을 만들어 사용자 흐름을 검증한다.<br><br>
+        <strong>③ 비주얼 UI 설계</strong> — 색상·타이포그래피·아이콘·컴포넌트를 디자인. 디자인 시스템을 구축해 서비스 전체의 일관성을 유지하고, 개발자에게 구현 사양을 전달한다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>UI/UX 디자이너의 하루 (스타트업 2년차 예시)</h4>
+      <p>
+        10:00 출근, 어제 릴리즈한 기능의 사용자 행동 데이터 확인<br>
+        10:30 PM과 1:1 — 다음 스프린트의 신기능 요건 확인<br>
+        11:00 Figma에서 새 기능 와이어프레임 작성<br>
+        12:00 점심<br>
+        13:00 사용자 인터뷰 2건 (온라인) — 결제 플로우의 이탈 원인 조사<br>
+        15:00 인터뷰 결과 정리, 개선 가설 설정<br>
+        16:00 디자인 리뷰 — 팀에 와이어프레임 공유·피드백 수집<br>
+        17:00 수정 반영, 개발자에게 구현 사양 Slack으로 공유<br>
+        18:30 퇴근
+      </p>
+    </div>
+  </div>
+
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">UI와 UX — 무엇이 다른가</div>
+    <div class="section-title-jp">UIとUXの違い、そして現場での実態</div>
+
+    <p>
+      "UI/UX"는 세트로 불리는 경우가 많지만, <span class="hl">UI와 UX는 다른 레이어의 개념</span>이다.
+      채용 공고에서도 양쪽을 한 명이 담당하는 경우와 분업하는 경우가 있어, 지원 전에 어느 쪽 비중이 높은지를 확인해두는 것이 중요하다.
+    </p>
+
+    <table class="compare-table">
+      <thead>
+        <tr><th>항목</th><th>UX (User Experience)</th><th>UI (User Interface)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-label">대상</td><td>서비스 전체의 체험·흐름</td><td>화면·컴포넌트의 시각 설계</td></tr>
+        <tr><td class="row-label">주요 작업</td><td>사용자 조사, 페르소나, 정보 설계, 플로우 차트</td><td>와이어프레임, 비주얼 디자인, 디자인 시스템</td></tr>
+        <tr><td class="row-label">판단 기준</td><td>사용자가 목표를 달성할 수 있는가</td><td>시각적으로 명확하고 일관성이 있는가</td></tr>
+        <tr><td class="row-label">가까운 직종</td><td>서비스 기획자, 프로덕트 매니저(PM)</td><td>그래픽 디자이너, 프론트엔드 개발자</td></tr>
+        <tr><td class="row-label">필요 스킬</td><td>리서치 설계, 분석력, 논리적 사고</td><td>Figma, 색채·타이포, 컴포넌트 설계</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info-box info-box-blue">
+      <h4>일본 취업 현장에서의 실태</h4>
+      <p>
+        일본의 중소·스타트업에서는 UI와 UX를 한 명이 담당하는 "UI/UX 겸임" 포지션이 대부분이다. 대기업·메가벤처에서는 UX 리서처, UI 디자이너, 프로덕트 디자이너로 분업이 진행되고 있다. 신졸·첫 취업의 경우, 겸임 포지션에서 경험을 쌓은 후 전문화하는 루트가 현실적이다.
+      </p>
+    </div>
+  </div>
+
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">커리어패스</div>
+    <div class="section-title-jp">UI/UXデザイナーのキャリアパス</div>
+
+    <p>
+      UI/UX 디자이너는 <span class="hl">기술 전문성과 프로덕트 이해도를 함께 쌓는</span> 직종이다.
+      경력이 쌓일수록 디자인에서 프로덕트 전략으로 관여 범위가 넓어지는 특징이 있다.
+    </p>
+
+    <div class="career-timeline">
+      <div class="career-step">
+        <div class="career-year">1~3년차</div>
+        <div class="career-role">주니어 UI/UX 디자이너</div>
+        <div class="career-desc">지시된 화면 설계·비주얼 수정을 정확하게 처리하면서, Figma 운용 능력과 디자인 시스템 이해를 높이는 시기. 사용자 인터뷰 동석, A/B 테스트 집계 등 UX 리서치의 보조 업무도 경험. 포트폴리오에 실전 서비스의 개선 사례가 쌓이기 시작한다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">3~6년차</div>
+        <div class="career-role">미들 디자이너 / 기능 단위 오너</div>
+        <div class="career-desc">특정 기능·페이지 단위의 UX를 처음부터 혼자 설계하는 포지션. PM·엔지니어와 대등하게 기획 단계부터 참여. 사용자 리서치의 설계·실행도 독자적으로 진행. "이 디자이너가 담당하면 사용성이 올라간다"는 사내 신뢰가 형성되는 시기.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">6~10년차</div>
+        <div class="career-role">시니어 / 리드 디자이너</div>
+        <div class="career-desc">여러 기능 팀의 디자인 일관성을 담당하거나, 디자인 시스템 전체를 책임지는 역할. 후배 디자이너의 멘토링, 채용 관여, 디자인 조직 문화 만들기도 업무 범위에 들어온다. PM·경영진과 디자인 전략을 논의하는 포지션.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">10년차 이후</div>
+        <div class="career-role">세 갈래 — 프로덕트 디렉터·CDO·독립</div>
+        <div class="career-desc">
+          <strong>길A: 프로덕트 디렉터 / VP of Design</strong> — 디자인 조직 전체를 통솔하고 제품 전략에 직접 관여.<br>
+          <strong>길B: CDO (Chief Design Officer)</strong> — 경영진으로서 디자인 경영을 주도. 스타트업·테크 기업에서 수요 증가 중.<br>
+          <strong>길C: 독립·프리랜스·스튜디오 설립</strong> — 지명도와 실적을 쌓은 후 독립. UI/UX는 프리랜서 단가가 크리에이티브 중 가장 높은 분야 중 하나.
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box info-box-warn">
+      <h4>한국인 UI/UX 디자이너의 강점</h4>
+      <p>
+        한국의 앱·서비스 UI 수준(카카오, 네이버, 토스 등)은 일본보다 앞서 있는 영역이 많다. 한국 서비스의 UX 패턴·디자인 시스템에 익숙한 감각은 일본 IT기업에서 신선한 관점으로 평가받는 경우가 있다. 특히 토스(Toss)·카카오의 디자인 시스템·UX 라이팅 접근법은 일본 디자이너 사이에서도 참조 사례로 알려져 있다.
+      </p>
+    </div>
+  </div>
+
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">맞는 사람 / 안 맞는 사람</div>
+    <div class="section-title-jp">向いている人・向いていない人</div>
+
+    <p>
+      UI/UX 디자이너는 <span class="hl">"왜 사용자는 여기서 헤매는가"를 데이터와 공감으로 파고드는 사람</span>에게 맞는 직종이다.
+      순수한 미적 감각보다, 논리적 사고와 사용자 관찰력이 더 중요한 크리에이티브다.
+    </p>
+
+    <div class="match-grid">
+      <div class="match-card good">
+        <div class="match-label">맞는 사람</div>
+        <div class="match-item">앱을 쓰다가 "왜 이렇게 만들었지"가 궁금해지는 사람</div>
+        <div class="match-item">미감과 논리를 동시에 가진 사람 — "예쁘면서 이해하기 쉬운" 양쪽을 추구</div>
+        <div class="match-item">사용자 인터뷰·관찰에서 에너지를 얻는 사람</div>
+        <div class="match-item">PM·엔지니어와 대등하게 토론하는 것이 즐거운 사람</div>
+        <div class="match-item">자기 디자인을 데이터로 검증하고 개선하는 사이클이 보람있는 사람</div>
+      </div>
+      <div class="match-card bad">
+        <div class="match-label">안 맞는 사람</div>
+        <div class="match-item">"나의 표현"을 최우선으로 하는 사람 (그래픽·아트 방향이 맞을 가능성)</div>
+        <div class="match-item">수치·데이터를 보는 것이 싫은 사람</div>
+        <div class="match-item">기획·PM 영역까지 발을 들이는 것이 부담스러운 사람</div>
+        <div class="match-item">잦은 사양 변경·수정 요청에 강한 스트레스를 느끼는 사람</div>
+        <div class="match-item">Figma 등 툴을 계속 업데이트해서 배우는 것이 귀찮은 사람</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>비전공자·문과 출신도 충분히 진입 가능한 이유</h4>
+      <p>
+        UI/UX는 크리에이티브 직종 중에서 가장 "논리 기반"이 강하다. 미대·예술계 출신보다 사고 구조가 명확한 문과·이과 출신이 UX 리서치나 정보 설계에서 강점을 발휘하는 케이스도 많다. 중요한 것은 전공이 아니라, "사용자 시점에서 설계를 생각해본 경험"을 어떤 형태로든 보여줄 수 있는가이다. 신졸 채용에서 기업이 보는 것은 완성도가 아니라 성장 가능성 — 스쿨이나 독학으로 만든 연습작이라도 사고 프로세스가 담겨 있으면 충분히 평가받는다.
+      </p>
+    </div>
+  </div>
+
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">ES 작성 전략</div>
+    <div class="section-title-jp">ES攻略 — UI/UXデザイナー志望</div>
+
+    <p>
+      UI/UX 지망 ES의 핵심은 <span class="hl">"사용자 시점에서 생각하는 습관"과 "포트폴리오의 사고 프로세스"</span>를 보여주는 것이다.
+      툴 스킬의 나열이 아니라, 어떤 문제をどう設計で解いたか(설계로 어떻게 풀었는가)가 평가의 중심이다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>지망동기 3단계 구조</h4>
+      <p>
+        <strong>Step1. 왜 UI/UX인가 — 원체험</strong> — "어떤 앱의 어떤 부분이 사용하기 불편했고, 어떻게 개선하면 좋을지를 생각했다", "자신이 만든 서비스를 사람들이 사용하는 장면에 보람을 느꼈다" 등 사용자 시점에서 설계에 관심이 생긴 계기를 구체적으로.<br><br>
+        <strong>Step2. 왜 이 회사·이 서비스인가</strong> — "이 앱의 ○○기능의 UX에 개선 여지를 느꼈다", "이 서비스가 타깃으로 하는 사용자층의 과제를 자신도 경험했다" 등 실제로 서비스를 사용한 체험에서 출발하는 동기가 강하다.<br><br>
+        <strong>Step3. 무엇을 가져다줄 수 있는가</strong> — 포트폴리오의 어떤 프로세스·역량이 이 회사의 어떤 과제에 연결되는지를 간결하게. "사용자 인터뷰를 통해 인사이트를 도출하는 능력을 ○○ 프로젝트에서 기른 것을 활용하고 싶다"처럼.
+      </p>
+    </div>
+
+    <div class="info-box info-box-accent">
+      <h4>포트폴리오 구성의 기본 — 신졸 기준</h4>
+      <p>
+        신졸 UI/UX 포트폴리오는 <strong>"완성된 화면"보다 "과정"</strong>을 보여주는 것이 핵심이다. 실전 클라이언트 업무가 없어도 전혀 문제없다 — 학교 과제, 수업 프로젝트, 가상의 앱 리디자인 등도 다음 흐름으로 정리하면 충분히 평가받는다.<br><br>
+        이상적인 케이스 스터디 구성: ① 과제 정의(어떤 문제를 해결하려 했는가) → ② 리서치(사용자 조사·현상 파악) → ③ 설계(와이어프레임·플로우) → ④ 비주얼 UI → ⑤ 검증·결과 또는 "다음에 검증하고 싶은 가설". 신졸이라면 ③ 이후만 있어도 충분히 통한다. 1~2개를 이 흐름으로 깊이 설명하는 것이, 10개의 완성 화면 나열보다 훨씬 강하다.
+      </p>
+    </div>
+  </div>
+
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">면접 빈출 질문 — 후카보리 대비</div>
+    <div class="section-title-jp">面接頻出質問と深掘り対策</div>
+
+    <p>
+      UI/UX 면접은 <span class="hl">포트폴리오 리뷰 + 설계 사고 + 협업 방식</span>을 집중적으로 파고든다.
+      "왜 이 디자인인가"를 논리적으로 설명할 수 없으면 통과하기 어렵다.
+    </p>
+
+    <div class="qa-list">
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>이 포트폴리오에서 가장 어려웠던 설계 결정은?</span></div>
+        <div class="qa-answer">
+          UI/UX 면접의 핵심 질문. "색상 선택"이나 "레이아웃" 수준이 아니라, "사용자의 행동 흐름 설계에서 A안과 B안을 비교했을 때 어떤 기준으로 결정했는가"처럼 UX 의사결정 프로세스를 보여주는 것이 이상적. 트레이드오프(사용성 vs 정보량 등)를 인식하고 있음을 보여주면 더욱 강하다.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>당사 서비스를 사용해본 감상과 개선 제안은?</span></div>
+        <div class="qa-answer">
+          사전 조사 깊이와 UX 시점을 동시에 보는 질문. 단순히 "사용하기 쉬웠습니다"가 아니라, "○○화면에서 ××조작을 하려 했을 때 △△단계가 많아서 이탈할 것 같다", "이 기능의 온보딩이 처음 사용자에게 충분히 전달되지 않는 것 같다"처럼 구체적인 UX 시점의 관찰을 준비. 개선안도 "이렇게 바꾸면 어떨까"를 한 가지 이상 제안할 것.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>PM이나 엔지니어와 의견이 충돌할 때 어떻게 하는가?</span></div>
+        <div class="qa-answer">
+          협업 스타일과 논거 능력을 보는 질문. "디자이너의 판단이 옳으니 따라야 한다"는 태도는 즉시 마이너스. "사용자 데이터·리서치 결과를 근거로 제안하고, PM·엔지니어의 제약 조건(개발 공수·비즈니스 목표)도 이해한 위에서 최선의 접점을 찾는다"는 구조가 좋다. 실제 에피소드가 있으면 연결.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>좋은 UX란 무엇이라고 생각하는가?</span></div>
+        <div class="qa-answer">
+          지원자의 UX 철학과 사고의 깊이를 보는 질문. "사용하기 쉬운 것"은 당연한 답이고 부족하다. "사용자가 서비스의 존재를 의식하지 않아도 목표를 달성할 수 있는 상태", "인지 부하를 최소화한 설계" 등 자기만의 언어로 정의를 가지고 있는 것이 중요. 구체적인 서비스 사례를 들어 설명하면 설득력이 올라간다.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>Figma 이외에 어떤 툴을 사용하는가?</span></div>
+        <div class="qa-answer">
+          스킬셋의 폭과 툴 학습 의욕을 보는 질문. Figma는 전제. 추가로 ① 리서치 계열(Maze, UserTesting, Dovetail) ② 데이터 분석 계열(Mixpanel, GA4, Amplitude) ③ 프로토타입 계열(ProtoPie, Framer) 중 하나라도 경험이 있으면 언급. "새로운 툴을 빠르게 습득해왔다"는 학습 속도를 보여주는 에피소드도 유효하다.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>일본어로 UI 문언·라이팅을 다루는 데 불안은 없는가?</span></div>
+        <div class="qa-answer">
+          한국인 지원자에게 나오는 질문. "버튼 텍스트", "에러 메시지", "온보딩 문언" 등 UI 라이팅은 일본어 자연스러움이 직접적인 사용성에 영향을 준다. "일본어 네이티브 수준에는 아직 차이가 있지만, 팀의 일본인 멤버와 협력해 문언을 검토하는 프로세스를 설계에서 처음부터 포함하겠다"는 현실적인 해결 방안을 준비.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 + 기업연구 포인트</div>
+    <div class="section-title-jp">自己分析キーワード接続と企業研究の軸</div>
+
+    <div class="keyword-grid">
+      <div class="keyword-card">
+        <div class="kw-name">공헌</div>
+        <div class="kw-desc">UI/UX의 본질은 "사용자의 문제를 해결하는 것". 자기 표현이 아니라 사용자·서비스에 기여하는 설계를 목적으로 할 수 있는가.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">향상심</div>
+        <div class="kw-desc">Figma 업데이트, Apple HIG, Material Design 등 UI 기준이 빠르게 변한다. 항상 최신 패턴을 흡수하고 자기 설계에 반영하는 습관이 필수.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">주체성</div>
+        <div class="kw-desc">좋은 UX는 지시받기 전에 "여기가 문제다"를 스스로 발견하는 힘에서 나온다. 사용자 데이터를 능동적으로 보고 과제를 설정하는 자세.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">협조성</div>
+        <div class="kw-desc">PM·엔지니어·마케터와의 협업 없이 UI/UX는 제품이 되지 않는다. 팀 전체를 사용자 시점으로 정렬하는 허브 역할.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">도전정신</div>
+        <div class="kw-desc">아직 없는 인터랙션 패턴, 새로운 플랫폼(XR·음성 UI 등)에 뛰어드는 의욕. 기존 패턴의 답을 넘는 설계를 추구할 수 있는가.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">성실성</div>
+        <div class="kw-desc">접근성(a11y) 준수, 엣지 케이스 설계, 개발자 핸드오프의 정확성. 완성도에 타협하지 않는 꼼꼼함이 제품 품질을 좌우한다.</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>기업연구 4가지 축</h4>
+      <p>
+        <strong>① 디자イン組織의 규모와 체제</strong> — 디자이너가 몇 명인지, 디자인 매니저가 있는지, 디자인 시스템이 있는지. 1명 체제와 팀 체제는 성장 환경이 전혀 다르다.<br><br>
+        <strong>② PM·엔지니어와의 관계</strong> — 디자이너가 기획 단계부터 참여하는지, 아니면 사양이 결정된 후 비주얼만 만드는지. 전자가 UX 경험을 쌓기 좋은 환경이다. OB/OG 방문에서 실태를 확인.<br><br>
+        <strong>③ 사용자 리서치 체제</strong> — 사내에서 사용자 인터뷰·UT(사용성 테스트)를 정기적으로 하는 문화가 있는지. 데이터 드리블 문화가 있는지.<br><br>
+        <strong>④ 서비스 규모와 사용자 수</strong> — 수십만~수백만 사용자의 서비스를 다루는 것과, 수천 명의 BtoB 서비스를 다루는 것은 경험이 크게 다르다. 어느 쪽이 자기 지향과 맞는지를 정리해두는 것이 중요하다.
+      </p>
+    </div>
+  </div>
+
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">よくある誤解と落とし穴</div>
+
+    <div class="warn-box">
+      <h4>함정 1: "예쁜 화면 모음"이 포트폴리오인 것</h4>
+      <p>Dribbble·Behance에 올라오는 화려한 UI 화면을 모아놓은 포트폴리오는 UI/UX 채용에서 통하지 않는다. 채용에서 보고 싶은 것은 "왜 이 설계인가"의 사고 프로세스다. 완성 화면 1장보다 문제 정의~리서치~설계~검증의 케이스 스터디 1개가 훨씬 강하다.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 2: Figma를 배운 것만으로 지원하는 것</h4>
+      <p>Figma는 UI/UX 디자이너의 최소 요건이지 차별화 포인트가 아니다. "Figma를 사용할 수 있습니다"는 "Word를 사용할 수 있습니다"와 같은 수준. 포트폴리오에서 보여야 하는 것은 Figma 숙련도가 아니라 UX 사고력이다.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 3: UX를 모른 채 UI만으로 지원하는 것</h4>
+      <p>"UI/UX 디자이너" 채용에서 비주얼 UI만 잘하고 UX 사고(사용자 조사·플로우 설계·정보 설계)가 없는 지원자는 채용 후 빠르게 미스매치가 발생한다. 실전 인터뷰 경험이 없어도 괜찮지만, "사용자를 관찰해서 문제를 발견하고 설계에 반영한" 사고 흐름을 포트폴리오 어딘가에서 보여줄 수 있어야 한다. 가상 리서치·가상 페르소나 설정이라도 논리가 있으면 신졸 수준에서는 유효하다.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 4: 게임·엔터·광고 계열 UI를 원하는데 IT 서비스 UI/UX로 지원하는 것</h4>
+      <p>게임 UI, 광고 비주얼, 엔터테인먼트 콘텐츠의 크리에이티브를 하고 싶은 경우, IT 서비스의 UI/UX와는 지향하는 방향이 다르다. IT 서비스 UI/UX는 "사용성·효율성"이 중심이지만, 게임·엔터 UI는 "몰입감·세계관·감성"이 중심이다. 지원 방향을 먼저 정리할 것.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 5: 일본어 UI 라이팅을 가볍게 보는 것</h4>
+      <p>"디자인은 시각적이므로 언어 장벽이 낮다"는 인식은 UI/UX에서는 반만 맞다. 버튼 텍스트, 에러 메시지, 툴팁, 온보딩 문언 등 UI 라이팅은 사용성에 직접 영향을 주며 일본어 감각이 필요하다. 팀에 일본어 네이티브가 있으면 협력 프로세스를 만드는 것이 현실적인 해결책이다.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 직종 라이브러리 레벨3 — UI/UX 디자인</p>
+    <p>크리에이티브 직종 개요 카드(레벨2) | 직종 대분류 맵(레벨1)도 함께 참고</p>
+    <p style="margin-top: 8px; font-size: 10px;">광고·엔터테인먼트 크리에이티브 | 그래픽·비주얼 디자인 레벨3 카드도 함께 참고</p>
+  </div>
+
+</div>
+
+<script>
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const navHeight = document.querySelector('.section-nav').offsetHeight;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+const navItems = document.querySelectorAll('.nav-item');
+function updateActiveNav() {
+  const navHeight = document.querySelector('.section-nav').offsetHeight;
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { const rect = el.getBoundingClientRect(); if (rect.top <= navHeight + 60) current = id; }
+  });
+  navItems.forEach((item, i) => {
+    if (sections[i] === current) item.classList.add('active');
+    else item.classList.remove('active');
+  });
+}
+window.addEventListener('scroll', updateActiveNav);
+updateActiveNav();
+</script>
+</body>
+</html>

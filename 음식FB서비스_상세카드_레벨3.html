@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>음식·F&B 서비스 상세 카드 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+  :root {
+    --bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;
+    --border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;
+    --accent:#f97316;--accent-soft:rgba(249,115,22,0.08);--accent-border:rgba(249,115,22,0.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased;}
+  .container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+  .hero{padding:56px 24px 40px;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(249,115,22,0.05) 0%,transparent 70%);}
+  .hero-inner{position:relative;z-index:1;max-width:760px;margin:0 auto;}
+  .hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);padding:5px 14px;border-radius:16px;margin-bottom:20px;}
+  .hero-icon{width:64px;height:64px;border-radius:14px;background:var(--accent-soft);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--accent);font-family:'Noto Sans JP',sans-serif;font-weight:700;margin:0 auto 20px;line-height:1.3;text-align:center;}
+  .hero h1{font-size:28px;font-weight:900;margin-bottom:6px;letter-spacing:-0.5px;}
+  .hero .title-jp{font-family:'Noto Sans JP',sans-serif;font-size:14px;color:var(--text-muted);margin-bottom:4px;}
+  .hero-tags{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+  .hero-tag{font-size:11px;padding:4px 12px;border-radius:12px;background:var(--accent-soft);color:var(--accent);font-weight:500;border:1px solid var(--accent-border);}
+  .hero-summary{font-size:13px;color:var(--text-dim);max-width:540px;margin:0 auto;line-height:1.9;}
+  .section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0;}
+  .section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+  .section-nav-inner::-webkit-scrollbar{display:none;}
+  .nav-item{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap;}
+  .nav-item:hover,.nav-item.active{color:var(--accent);background:var(--accent-soft);}
+  .section{padding:40px 0;border-bottom:1px solid rgba(255,255,255,0.03);}
+  .section:last-child{border-bottom:none;}
+  .section-number{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);opacity:0.6;margin-bottom:6px;}
+  .section-title{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}
+  .section-title-jp{font-family:'Noto Sans JP',sans-serif;font-size:12px;color:var(--text-muted);margin-bottom:20px;}
+  .section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}
+  .section p:last-child{margin-bottom:0;}
+  .hl{color:var(--accent);font-weight:600;}
+  .info-box{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}
+  .info-box-accent{border-left:3px solid var(--accent);background:var(--accent-soft);border-color:var(--accent-border);border-left-color:var(--accent);}
+  .info-box h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}
+  .info-box p{font-size:12px;color:var(--text-dim);line-height:1.8;}
+  .compare-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:12px;}
+  .compare-table th{text-align:left;padding:10px 14px;background:var(--surface-2);color:var(--text-dim);font-weight:600;font-size:11px;border-bottom:1px solid var(--border);}
+  .compare-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-sub);vertical-align:top;line-height:1.7;}
+  .compare-table tr:last-child td{border-bottom:none;}
+  .row-label{font-weight:600;color:var(--accent);white-space:nowrap;width:110px;}
+  .career-timeline{position:relative;margin:20px 0;padding-left:28px;}
+  .career-timeline::before{content:'';position:absolute;left:8px;top:4px;bottom:4px;width:2px;background:linear-gradient(180deg,var(--accent) 0%,rgba(249,115,22,0.1) 100%);border-radius:1px;}
+  .career-step{position:relative;padding:14px 0;}
+  .career-step::before{content:'';position:absolute;left:-24px;top:20px;width:10px;height:10px;border-radius:50%;background:var(--bg);border:2px solid var(--accent);}
+  .career-year{font-size:11px;font-weight:700;color:var(--accent);margin-bottom:4px;}
+  .career-role{font-size:14px;font-weight:700;margin-bottom:6px;}
+  .career-desc{font-size:12px;color:var(--text-dim);line-height:1.8;}
+  .match-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;}
+  .match-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;}
+  .match-card.good{border-color:var(--accent-border);background:var(--accent-soft);}
+  .match-card.bad{border-color:rgba(239,68,68,0.2);background:rgba(239,68,68,0.05);}
+  .match-label{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:10px;}
+  .match-card.good .match-label{color:var(--accent);}
+  .match-card.bad .match-label{color:#f87171;}
+  .match-item{font-size:12px;color:var(--text-dim);margin-bottom:6px;display:flex;gap:8px;line-height:1.6;}
+  .match-card.good .match-item::before{content:'▶';color:var(--accent);font-size:10px;flex-shrink:0;margin-top:3px;}
+  .match-card.bad .match-item::before{content:'▶';color:#f87171;font-size:10px;flex-shrink:0;margin-top:3px;}
+  .keyword-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0;}
+  .keyword-card{padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;}
+  .keyword-card .kw-name{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:5px;}
+  .keyword-card .kw-desc{font-size:11px;color:var(--text-dim);line-height:1.7;}
+  .qa-list{display:flex;flex-direction:column;gap:8px;margin:16px 0;}
+  .qa-item{padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:border-color 0.2s;}
+  .qa-item:hover{border-color:#3a3a48;}
+  .qa-question{font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:flex-start;gap:10px;}
+  .qa-q-mark{color:var(--accent);font-weight:800;font-size:14px;flex-shrink:0;opacity:0.7;}
+  .qa-answer{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--text-dim);line-height:1.8;padding-left:24px;}
+  .qa-item.open .qa-answer{display:block;}
+  .warn-box{padding:18px 20px;background:rgba(245,158,11,0.04);border:1px solid rgba(245,158,11,0.15);border-left:3px solid #f59e0b;border-radius:10px;margin:14px 0;}
+  .warn-box h4{font-size:13px;font-weight:700;color:#f59e0b;margin-bottom:6px;}
+  .warn-box p{font-size:12px;color:var(--text-dim);line-height:1.8;}
+  .footer{text-align:center;padding-top:40px;margin-top:20px;border-top:1px solid var(--border);}
+  .footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}
+  .footer .brand{font-weight:700;color:var(--text-dim);}
+  @media(max-width:640px){.hero h1{font-size:22px;}.match-grid,.keyword-grid{grid-template-columns:1fr;}.hero{padding:40px 20px 32px;}.compare-table{font-size:11px;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">業界×職種カード vol.SV-03</div>
+    <div class="hero-icon">F&amp;B<br>飲食</div>
+    <h1>음식·F&amp;B 서비스</h1>
+    <div class="title-jp">飲食・F&amp;Bサービス（レストラン・カフェ・給食）</div>
+    <div class="hero-tags">
+      <span class="hero-tag">아르바이트 경험 직결</span>
+      <span class="hero-tag">점장 이행 최속</span>
+      <span class="hero-tag">QSC 관리</span>
+      <span class="hero-tag">FL비율·수치 감각</span>
+      <span class="hero-tag">식문화 애착 필수</span>
+    </div>
+    <p class="hero-summary">
+      음식·F&amp;B 서비스란, 레스토랑·카페·패스트푸드·급식 등 음식 현장에서<br>
+      <strong style="color:var(--accent)">접객·홀 운영·점포 P&amp;L을 담당하는 직종</strong>이다.<br>
+      판매·서비스 3분기 중 아르바이트 경험이 가장 직접적으로 연결되고, 점장 이행이 가장 빠른 분기다.
+    </p>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="go('s1')">01 정의</button>
+    <button class="nav-item" onclick="go('s2')">02 기업 유형 비교</button>
+    <button class="nav-item" onclick="go('s3')">03 커리어패스</button>
+    <button class="nav-item" onclick="go('s4')">04 맞는 사람</button>
+    <button class="nav-item" onclick="go('s5')">05 ES포인트</button>
+    <button class="nav-item" onclick="go('s6')">06 후카보리</button>
+    <button class="nav-item" onclick="go('s7')">07 기업연구</button>
+    <button class="nav-item" onclick="go('s8')">08 주의점</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">음식·F&amp;B 서비스란</div>
+    <div class="section-title-jp">飲食・F&amp;Bサービス職とは何か</div>
+    <p>음식·F&amp;B 서비스란, <span class="hl">레스토랑·카페·패스트푸드·사원 식당·호텔 레스토랑 등 음식 제공 현장에서 접객·홀 운영·QSC 관리·점포 경영을 담당하는 직종</span>이다. QSC는 Quality(품질)·Service(서비스)·Cleanliness(청결)의 약자이며, 이 세 가지의 수준을 일정하게 유지하는 것이 음식 서비스 현장의 기본 요건이 된다.</p>
+    <p>이 분기의 가장 큰 특징은 <span class="hl">아르바이트 경험이 가장 직접적으로 연결되는 직종</span>이라는 점이다. 레스토랑·카페 아르바이트 경험이 있는 지원자는 접객 기초·홀 운영 흐름·QSC 기준을 이미 몸으로 익히고 있다. 이 경험이 ES·면접에서 즉시 소재가 되며, "아르바이트와 정사원의 차이"를 명확히 설명할 수 있는 지원자는 그것만으로 채용에서 두각을 나타낼 수 있다. 또한 판매·서비스 3분기 중 점장 이행이 가장 빠른 분기이기도 하며, 졸업 후 2~3년 안에 점장을 맡는 케이스가 있다.</p>
+
+    <p>이 직종의 또 다른 특징은 <span class="hl">업무 범위가 접객에 그치지 않는다</span>는 점이다. 식품 위생 관리·발주·원가 계산·메뉴 엔지니어링·판촉 기획·EC 연계까지, 점장이 되면 사실상 소규모 사업 경영자와 같은 역할이 요구된다. 반면 이 경험의 폭이 "경영 감각을 조기에 쌓고 싶다"는 사람에게는 타 직종과 비교해서 압도적으로 빠른 성장 환경이 된다. 음식업계는 일본의 GDP에서 외식산업이 차지하는 비율이 높고, 신졸 채용 규모도 안정적으로 유지되고 있다.</p>
+    <div class="info-box info-box-accent">
+      <h4>FL비율 — 이 직종에서 반드시 알아두어야 할 수치</h4>
+      <p>F&amp;B 서비스의 점포 운영에서 핵심 지표가 되는 것이 FL비율이다. FL은 Food cost(식재료비)와 Labor cost(인건비)의 합계를 매출로 나눈 비율로, 일반적으로 55~65% 이하가 건전한 점포 운영의 기준으로 알려져 있다. 점장·SV를 목표로 하는 경우, 이 수치를 개선하기 위한 발주량 조정·쉬프트 최적화·메뉴 믹스 분석 등의 경영 감각이 필수다. 입사 전에 FL비율의 개념을 이해해두면 면접에서 "수치를 의식한 점포 운영에 관심이 있다"는 인상을 줄 수 있다. 아르바이트 경험이 있는 경우 "자기가 일하던 점포의 FL비율은 어느 정도였을까"를 역산해서 생각해보는 것도 수치 감각 훈련이 된다.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">기업 유형 비교 — 어느 환경을 선택할 것인가</div>
+    <div class="section-title-jp">企業タイプ別の比較</div>
+    <p>F&amp;B 서비스는 기업 규모와 업태에 따라 <span class="hl">요구 역량·커리어 속도·업무 밀도</span>가 크게 달라진다. 신졸의 경우 어느 환경에서 기초를 쌓고 싶은지를 먼저 결정하는 것이 지원 전략의 핵심이다.</p>
+    <table class="compare-table">
+      <thead><tr><th>기업 유형</th><th>특징 및 대표 기업</th><th>신졸에게의 특성</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">대형 체인 (QSR)</td><td>맥도날드·스타벅스·모스버거 등. QSC 기준이 매뉴얼화되어 있어 기초를 체계적으로 배울 수 있다. 전국 이동 가능성 있음.</td><td>연수 충실, 점장 이행 빠름, 수치 관리 감각 조기 습득 가능</td></tr>
+        <tr><td class="row-label">패밀리레스토랑</td><td>사이제리야·가스토·데니즈 등. 홀·키친 양쪽을 경험. 다양한 고객층 대응. 아르바이트 비율이 높고 정사원의 역할은 팀 관리·교육이 중심.</td><td>팀 관리 경험을 조기에 쌓기 좋은 환경</td></tr>
+        <tr><td class="row-label">호텔 레스토랑·고급</td><td>호텔 내 레스토랑, 미슐랭 취득 점포 등. 접객의 밀도와 전문성이 높다. 서비스 기술을 극한까지 추구하는 환경.</td><td>진입 경쟁 높음, 소믈리에·서비스 전문가로의 전문직 루트가 있다</td></tr>
+        <tr><td class="row-label">급식·컨트랙트</td><td>레오팔레스21 계열·토피밸리 등. 사원 식당·학교·병원 급식 운영. B2B 계약이 중심. 안정적인 운영 환경.</td><td>야간 근무가 적고 생활 리듬이 안정적, 수치 관리·발주 업무 비중 높음</td></tr>
+
+      </tbody>
+    </table>
+    <div class="info-box">
+      <h4>아르바이트와 정사원의 실질적 차이</h4>
+      <p>아르바이트 F&amp;B 경험은 이 직종의 최대 강점이지만, 정사원 판매직은 역할의 차원이 다르다. 아르바이트는 지시된 업무를 잘 수행하는 것이 평가 기준이지만, 정사원은 점포의 매출 목표 설정·FL비율 관리·아르바이트 채용·교육·시프트 최적화·클레임 최종 대응까지 "점포를 경영하는" 역할이 요구된다. ES·면접에서 아르바이트 경험을 어필할 때는 반드시 "정사원으로서 이 경험을 어떻게 확장하고 싶은가"까지 연결하는 것이 필수다.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">커리어패스</div>
+    <div class="section-title-jp">キャリアパス — F&amp;Bサービスの成長ロード</div>
+    <p>F&amp;B 서비스의 커리어는 <span class="hl">홀 스태프 → 점장 → SV·에어리어 매니저 → 본부 기능직 또는 독립</span>으로 이행하는 것이 전형적이다. 소매 판매와 마찬가지로 학력보다 현장 성과가 커리어를 결정하며, 점장 이행 타임라인이 전 직종 중 가장 빠른 분야 중 하나다.</p>
+    <div class="career-timeline">
+      <div class="career-step">
+        <div class="career-year">1~2년차</div>
+        <div class="career-role">홀 스태프·포지션 리더 — QSC 기초와 수치 감각</div>
+        <div class="career-desc">배속 점포에서 홀 접객·주문·배달·청소·개점·폐점 작업 등 점포 운영의 기초를 습득. QSC 수준을 일정하게 유지하는 것이 이 시기의 최우선 과제다. 아르바이트 스태프의 지도·교육·시프트 관리도 이 시기부터 담당하기 시작한다. 매출·객수·객단가·폐기율을 매일 수치로 의식하는 습관을 이 시기에 몸에 익힌다. 대형 체인에서는 1~2년차에 점장 후보 발탁 프로그램에 선발되는 케이스가 있다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">2~5년차</div>
+        <div class="career-role">점장 대행·점장 — 점포 경영의 전 책임</div>
+        <div class="career-desc">점포 전체의 매출·FL비율·스태프 교육·고객 만족도를 책임지는 포지션으로 이행. 개인 접객 기술보다 "팀 전체의 서비스 품질을 일정하게 유지하는" 관리 능력이 이 시기의 핵심 역량이 된다. 아르바이트 채용 면접·교육 프로그램 설계·발주량 최적화·피크 타임 인원 배치 등 경영 감각이 요구되는 업무의 비중이 급격히 높아진다. 복수 점포를 경험하면서 다른 상권·고객층에서의 운영 노하우를 쌓는다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">5~10년차</div>
+        <div class="career-role">SV·에어리어 매니저 또는 본부 이행</div>
+        <div class="career-desc">복수 점포의 매출·QSC·스태프 품질을 통괄하는 SV·에어리어 매니저로 이행하거나, 본부의 메뉴 개발·운영 기획·트레이닝·FC 가맹점 지원 등 기능 부문으로 이동하는 분기점이다. 어느 방향이 자기에게 맞는지는 "현장 관리에서 발휘되는 것"과 "기획·설계에서 발휘되는 것" 중 어느 쪽인지에 따라 결정된다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">10년차 이후</div>
+        <div class="career-role">세 갈래 — 본부 간부 / 외식 컨설팅 / 독립·FC</div>
+        <div class="career-desc"><strong>길A: 본부 간부·MD·운영 기획</strong> — 메뉴 전략·브랜드 전체의 QSC 기준 설계·FC 가맹점 지원 등 브랜드 전체를 움직이는 포지션.<br><strong>길B: 외식 컨설팅·연수 강사</strong> — 점포 운영 노하우를 바탕으로 독립 점포의 컨설팅, 또는 F&amp;B 기업의 관리직 연수 강사로 독립하는 루트.<br><strong>길C: 독립·FC 가맹</strong> — 점포 운영 경험을 바탕으로 자기 점포를 개업하거나 프랜차이즈에 가맹하는 루트. F&amp;B 분야는 다른 분야보다 독립 루트를 처음부터 설계하는 사람이 많다.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">맞는 사람 / 안 맞는 사람</div>
+    <div class="section-title-jp">向いている人・向いていない人</div>
+    <p>F&amp;B 서비스에 맞는 사람의 핵심은 <span class="hl">"음식·식문화에 대한 진심 × 팀을 움직이는 리더십 × 피크 타임 압박에 강한 멘탈"</span>의 조합이다. 피크 타임에 주문이 몰리는 환경에서 판단이 흔들리지 않고 팀을 이끄는 능력이 이 직종에서 단기간에 점장으로 발탁되는 사람의 공통점이다. 반대로, 음식 자체에 대한 애착 없이 "점장 경험을 쌓고 싶어서" 진입하는 사람은 현장 밀도의 높음에 이른 시기에 소진되는 경우가 많다. 진입 동기의 진정성이 이 직종에서의 지속성을 결정하는 핵심 변수다.</p>
+    <div class="match-grid">
+      <div class="match-card good">
+        <div class="match-label">맞는 사람</div>
+        <div class="match-item">음식·식문화·요리에 진심으로 관심이 있고, 그 세계를 더 많은 사람에게 전달하는 것에 보람을 느끼는 사람</div>
+        <div class="match-item">바쁜 피크 타임에 오히려 집중력이 올라가고, 복수의 업무를 동시에 처리하는 것에 강한 사람</div>
+        <div class="match-item">팀 전체의 분위기를 올리고, 아르바이트 스태프를 교육·동기부여하는 것에 관심이 있는 사람</div>
+        <div class="match-item">매출·FL비율·객단가 등 숫자로 점포를 개선하는 것에 동기부여를 느끼는 사람</div>
+        <div class="match-item">장래에 독립·자기 점포를 갖는 것을 목표로, 정사원으로서 점포 경영을 배우고 싶은 사람</div>
+      </div>
+      <div class="match-card bad">
+        <div class="match-label">안 맞는 사람</div>
+        <div class="match-item">음식이나 식문화에 특별한 관심이 없는 사람 — 이 직종에서 장기 근속을 가능하게 하는 것은 업무 그 자체에 대한 애착이다</div>
+        <div class="match-item">피크 타임의 복잡한 환경에서 강한 스트레스를 느끼고, 멀티태스킹이 극도로 어려운 사람</div>
+        <div class="match-item">주말·공휴일·연말연시가 가장 바쁜 환경, 교대제 근무에 생활 리듬을 맞추는 것이 어려운 사람</div>
+        <div class="match-item">데스크·기획·분석 중심의 환경을 강하게 선호하는 사람 — 본부 메뉴 개발·운영 기획 직종을 목표로 하는 루트 검토 필요</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>이 직종에서 장기적으로 활약하는 사람의 공통점</h4>
+      <p>F&amp;B 서비스에서 10년 이상 활약하고 점장·SV·에어리어 매니저 이상으로 성장하는 사람には공통된 행동 패턴이 있다. 첫째, <strong>수치에 대한 주체적 관심</strong> — 지시받기 전에 매출·FL비율·객단가를 스스로 확인하고 원인을 찾는 습관. 둘째, <strong>아르바이트를 "팀"으로 보는 시점</strong> — 아르바이트 스태프의 동기·컨디션·성장을 의식적으로 관리하고, 팀 전체의 서비스 품질을 올리는 것에 보람을 느끼는 것. 셋째, <strong>피크 타임에 흔들리지 않는 판단력</strong> — 동시에 여러 테이블의 상황이 진행되는 환경에서 우선순위를 즉시 정하고 팀에 지시하는 능력. 이 세 가지가 아르바이트 시절부터 갖춰져 있는 사람은, 정사원 입사 후 점장 발탁까지의 속도가 현저히 빠르다.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">ES 작성 전략</div>
+    <div class="section-title-jp">ES攻略 — F&amp;Bサービス志望</div>
+    <p>F&amp;B 서비스 지망 ES의 가장 큰 강점은 <span class="hl">아르바이트 경험이 그대로 소재가 된다</span>는 점이다. 동시에, 같은 경험을 가진 지원자가 많기 때문에 "경험의 질 — 거기서 무엇을 배우고 어떻게 생각했는가"의 깊이가 차별화 포인트가 된다.</p>
+    <div class="info-box info-box-accent">
+      <h4>지망동기 3단계 구조</h4>
+      <p><strong>Step1. 음식·식문화에 끌리는 원점</strong> — 특정 브랜드의 매장 경험이 인상에 남은 것, 음식을 통해 사람이 연결되는 것을 경험한 것. "음식이 좋아서"라는 추상적인 이유보다, 지원 기업의 어떤 음식 철학·브랜드 스타일에 공감하는지를 구체적으로 보여줄 것.<br><br>
+      <strong>Step2. 아르바이트 경험에서의 구체적 성과</strong> — 단순히 "열심히 했다"가 아니라 수치로 보여줄 수 있는 성과가 이상적이다. "피크 타임의 회전율을 개선하기 위해 어떻게 홀 동선을 바꿨는가", "스태프 교육 방법을 개선해서 신입 아르바이트의 독립 기간을 단축했다" 등. QSC의 어떤 측면을 의식적으로 개선한 경험이 있으면 반드시 포함할 것.<br><br>
+      <strong>Step3. 정사원으로서의 커리어 이미지</strong> — "아르바이트에서 경험한 것을 정사원으로서 어떻게 확장하고 싶은가"를 명확히 보여줄 것. "3년 안에 점장으로서 팀을 이끄는 포지션에 있고 싶다", "장래에는 이 브랜드의 메뉴 기획에 관여하고 싶다" 등 구체적인 방향이 있을수록 지망도가 전달된다.</p>
+    </div>
+    <div class="info-box">
+      <h4>설득력 있는 에피소드의 조건</h4>
+      <p>F&amp;B 서비스 지원자 대부분이 아르바이트 경험을 가지고 있기 때문에, 차별화가 되는 것은 "경험의 유무"가 아니라 "그 경험에서 무엇을 보고 어떻게 생각했는가"의 깊이다. 단순히 "열심히 했다"가 아니라, 어떤 과제를 발견하고 어떻게 행동해서 어떤 수치가 바뀌었는지를 구체적으로 보여줄 수 있는 에피소드를 준비해둘 것. 매출·객단가·회전율·스태프 교육 기간 단축 등 어느 하나라도 수치로 말할 수 있으면 설득력이 크게 달라진다.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">면접 빈출 질문 — 후카보리 대비</div>
+    <div class="section-title-jp">面接頻出質問と深掘り対策</div>
+    <p>F&amp;B 서비스 면접에서는 <span class="hl">아르바이트 경험의 깊이·수치 감각·근무 형태 이해·커리어 의지</span>를 집중 확인한다. 아르바이트 경험이 있는 지원자가 대부분이기 때문에 "어떤 수준에서 일했는가"의 구체성이 채용 판단을 가른다.</p>
+    <div class="qa-list">
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span>아르바이트에서의 F&amp;B 경험에서 가장 힘들었던 것은 무엇이고, 어떻게 대응했는가?</div>
+        <div class="qa-answer">"피크 타임에 주문이 몰려서 힘들었다"는 수준에서 끝나면 안 된다. "힘든 상황에서 어떻게 판단하고, 팀과 어떻게 소통해서, 결과적으로 어떻게 해결했는가"의 흐름이 요구된다. 특히 "자기 권한 내에서 즉시 판단을 내린 경험"과 "상위자에게 에스컬레이션한 경험"을 구분해서 설명할 수 있으면 성숙도를 보여줄 수 있다.</div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span>점포의 매출·수치에 관심을 가진 경험이 있는가?</div>
+        <div class="qa-answer">F&amp;B 서비스 정사원에게 수치 감각은 필수 요건이다. 아르바이트 시절에 "어떤 수치를 의식했는가"를 구체적으로 답할 수 있으면 강하다. 매출 목표의 달성률, 객단가를 올리기 위해 어떤 추가 제안을 했는가, 피크 타임의 테이블 회전율을 어떻게 관리했는가 — 어느 하나라도 구체적으로 말할 수 있으면 "수치를 의식해서 일하는 사람"이라는 인상을 줄 수 있다.</div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span>우리 브랜드를 실제로 이용해본 경험이 있는가? 다른 브랜드와 비교해서 어떻게 생각했는가?</div>
+        <div class="qa-answer">소매 판매의 "매장 방문"과 같은 위치의 질문이다. 지원 브랜드를 직접 이용한 경험이 없으면 이 질문에 깊이 있는 답변이 나오지 않는다. 지원 전에 반드시 실제로 이용하고, "다른 브랜드와 비교해서 이 브랜드의 QSC·접객 스타일·메뉴 구성의 어떤 점이 인상적이었는가"를 자기 언어로 설명할 수 있는 수준까지 준비해둘 것.</div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span>5년 후 어떤 포지션에 있고 싶은가?</div>
+        <div class="qa-answer">"점장으로서 팀을 이끄는 포지션"이 기본 답변이지만, 거기에 "어떤 점포를 만들고 싶은가"까지 구체적으로 보여주면 더욱 강해진다. 예를 들어, "FL비율을 최적화하면서도 QSC 수준을 높게 유지하는 점포를 만들고 싶다", "인바운드 고객 비중이 높은 점포에서 한국어를 활용하면서 팀을 이끄는 점장이 되고 싶다"처럼 지원 기업의 맥락에 맞는 구체적인 이미지를 보여줄 것.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 + 기업연구 포인트</div>
+    <div class="section-title-jp">自己分析キーワード接続と企業研究の軸</div>
+    <div class="keyword-grid">
+      <div class="keyword-card"><div class="kw-name">책임감</div><div class="kw-desc">점포 P&amp;L·QSC·스태프 관리를 "내가 책임진다"는 감각. 점장으로서 발탁되는 사람에게 공통적으로 보이는 자세이며, 아르바이트 경험에서 이 감각의 싹을 보여줄 수 있는지가 채용 판단의 포인트가 된다.</div></div>
+      <div class="keyword-card"><div class="kw-name">협조성</div><div class="kw-desc">홀·키친·관리의 연계 없이 F&amp;B 서비스는 성립되지 않는다. 아르바이트 스태프와 정사원을 일체화해 팀으로 움직이게 하는 능력이 이 직종에서 점장이 되는 사람의 핵심 역량이다.</div></div>
+      <div class="keyword-card"><div class="kw-name">주체성</div><div class="kw-desc">매출 저조의 원인을 스스로 분석하고, 메뉴 제안 방법이나 홀 동선을 자기 판단으로 개선하는 능력. 지시를 기다리는 스태프와 자발적으로 과제를 발견하는 스태프의 차이가 이 직종에서 빠르게 드러난다.</div></div>
+      <div class="keyword-card"><div class="kw-name">성실성</div><div class="kw-desc">식품 위생 관리·알레르기 표시·발주량의 정확성 — F&amp;B에서의 부주의는 고객의 건강에 직접 영향을 미치는 경우가 있다. 꼼꼼한 확인 습관이 이 직종에서 신뢰를 쌓는 절대 조건이다.</div></div>
+      <div class="keyword-card"><div class="kw-name">향상심</div><div class="kw-desc">어제의 QSC보다 오늘의 QSC를 더 높게 유지하려는 의지. 메뉴 지식·접객 기술·위생 기준을 계속 업데이트하는 사람이 장기적으로 두각을 나타낸다.</div></div>
+      <div class="keyword-card"><div class="kw-name">도전정신</div><div class="kw-desc">새로운 메뉴 제안·프로모션 기획·점포 레이아웃 변경 등 점포를 더 좋게 만들기 위한 아이디어를 두려움 없이 제안하는 자세. 이 직종에서 커리어를 빠르게 쌓는 사람에게 공통되는 특성이다.</div></div>
+    </div>
+    <div class="info-box">
+      <h4>기업연구 3가지 축</h4>
+      <p><strong>① 브랜드 실제 이용 + QSC 관찰</strong> — 지원 브랜드를 복수 회 실제로 이용하고, 경쟁 브랜드와의 QSC 수준·접객 스타일·메뉴 구성을 비교해서 자기 언어로 설명할 수 있는 수준까지 파악해둘 것. "왜 이 브랜드인가"에 대한 답변이 이 관찰에서 만들어진다.<br><br>
+      <strong>② 커리어 트랙·점장 이행 타임라인</strong> — 신졸이 몇 년 안에 점장을 맡는지, 그 이후의 SV·에어리어 이행 기준이 어떻게 설정되어 있는지를 채용 페이지·OB 방문에서 확인해둘 것. 이것이 명확한 기업일수록 커리어를 진지하게 설계하고 있다는 신호가 된다.<br><br>
+      <strong>③ 브랜드의 성장 전략·출점 계획</strong> — 신규 출점 에어리어·해외 진출·EC 식품 판매 등 브랜드 자체가 어디로 향하는지. 성장하는 브랜드일수록 신졸의 점장 발탁 속도도 빠르다. 결산 자료·뉴스 릴리즈에서 파악해두면 "왜 지금 이 브랜드인가"의 답변에 깊이가 더해진다.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">よくある誤解と落とし穴</div>
+    <div class="warn-box">
+      <h4>함정 1: "아르바이트 경험이 있으니 문제없다"고 과신하는 것</h4>
+      <p>F&amp;B 아르바이트 경험은 이 직종 진입에서 가장 큰 강점이지만, 정사원 역할과의 차이를 과소평가하면 입사 후에 큰 괴리를 경험하게 된다. 점포 P&amp;L 책임·스태프 채용 판단·클레임 최종 대응·본부와의 수치 보고 — 이런 책임이 추가되었을 때 아르바이트 시절과 완전히 다른 무게를 느끼는 경우가 많다. 면접에서 "아르바이트와 정사원의 차이를 어떻게 이해하고 있는가"를 물어보는 면접관에게 명확하게 답할 수 있도록 준비해둘 것.</p>
+    </div>
+    <div class="warn-box">
+      <h4>함정 2: 지원 브랜드를 이용해보지 않고 지원하는 것</h4>
+      <p>소매 판매의 매장 방문과 마찬가지로, F&amp;B 지원에서도 지원 브랜드를 실제로 이용한 경험이 면접에서의 설득력을 결정한다. "왜 이 브랜드인가", "어떤 QSC의 수준이 인상적이었는가", "경쟁 브랜드와 어떻게 다른가" — 이런 질문에 실제 이용 경험 없이 답하면 이 브랜드에 대한 진지함이 없다는 인상을 줄 수 있다. 지원 전에 반드시 복수 회 이용하고, 경쟁 브랜드와도 비교해서 관찰해둘 것.</p>
+    </div>
+    <div class="warn-box">
+      <h4>함정 3: 근무 형태의 현실을 충분히 이해하지 않고 입사하는 것</h4>
+      <p>F&amp;B 서비스의 가장 바쁜 시기는 남들이 쉬는 주말·공휴일·연말연시다. 점장이 되면 이 시기에 현장을 떠날 수 없는 책임이 더해진다. 또한 교대제·이른 아침·심야 근무를 포함한 스케줄이 일상이 된다. 이 근무 형태에 대한 이해와 적응 의지를 면접에서 보여줄 때, "괜찮다"는 선언보다 아르바이트에서 이미 비슷한 환경을 경험하고 있다는 실적을 보여주는 것이 압도적으로 설득력이 있다.</p>
+    </div>
+    <div class="warn-box">
+      <h4>함정 4: 음식 서비스를 "손님에게 밥을 나르는 것"으로만 이해하는 것</h4>
+      <p>현대 F&amp;B 서비스는 접객 이상의 복잡한 업무가 포함된다. 식품 위생 관리·발주·원가 계산·메뉴 엔지니어링·마케팅 판촉·EC 연계 — 특히 대형 체인에서는 본부의 마케팅 전략과 현장의 QSC 실행을 연결하는 점장의 역할이 갈수록 복잡해지고 있다. 이 직종의 폭넓은 업무 범위를 이해하고, "단순한 접객 이상의 역할에 관심이 있다"는 것을 면접에서 보여줄 수 있으면 채용 판단에서 강하게 작용한다.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 직종 라이브러리 레벨3 — 음식·F&amp;B 서비스 (SV-03)</p>
+    <p>판매·서비스 개요 카드(레벨2) | 소매 판매 / 호텔·브라이달 레벨3 카드도 함께 참고</p>
+  </div>
+</div>
+
+<script>
+function go(id){const el=document.getElementById(id);if(el){const h=document.querySelector('.section-nav').offsetHeight;window.scrollTo({top:el.getBoundingClientRect().top+window.pageYOffset-h-12,behavior:'smooth'});}}
+const secs=['s1','s2','s3','s4','s5','s6','s7','s8'];
+const navs=document.querySelectorAll('.nav-item');
+function upNav(){const h=document.querySelector('.section-nav').offsetHeight;let cur='';secs.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=h+60)cur=id;});navs.forEach((n,i)=>n.classList.toggle('active',secs[i]===cur));}
+window.addEventListener('scroll',upNav);upNav();
+</script>
+</body>
+</html>

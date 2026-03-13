@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>판매·서비스 직종 개요 카드 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #f97316;
+    --accent-soft: rgba(249, 115, 22, 0.08);
+    --accent-border: rgba(249, 115, 22, 0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif; line-height: 1.8; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 760px; margin: 0 auto; padding: 0 24px 100px; }
+
+  .hero { padding: 56px 24px 40px; text-align: center; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 50% 0%, rgba(249,115,22,0.05) 0%, transparent 70%); }
+  .hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+  .hero-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-border); padding: 5px 14px; border-radius: 16px; margin-bottom: 20px; }
+  .hero-icon { width: 64px; height: 64px; border-radius: 14px; background: var(--accent-soft); border: 1px solid var(--accent-border); display: flex; align-items: center; justify-content: center; font-size: 13px; color: var(--accent); font-family: 'Noto Sans JP', sans-serif; font-weight: 700; margin: 0 auto 20px; letter-spacing: -1px; line-height: 1.3; text-align: center; }
+  .hero h1 { font-size: 28px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.5px; }
+  .hero .title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; color: var(--text-muted); margin-bottom: 4px; }
+  .hero .title-en { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .hero-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .hero-tag { font-size: 11px; padding: 4px 12px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); font-weight: 500; border: 1px solid var(--accent-border); }
+  .hero-summary { font-size: 13px; color: var(--text-dim); max-width: 540px; margin: 0 auto; line-height: 1.9; }
+
+  .section-nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 10px 0; }
+  .section-nav-inner { max-width: 760px; margin: 0 auto; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .section-nav-inner::-webkit-scrollbar { display: none; }
+  .nav-item { flex-shrink: 0; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 500; color: var(--text-muted); cursor: pointer; border: none; background: none; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
+  .nav-item:hover, .nav-item.active { color: var(--accent); background: var(--accent-soft); }
+
+  .section { padding: 40px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom: none; }
+  .section-number { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); opacity: 0.6; margin-bottom: 6px; }
+  .section-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+  .section-title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .section p { font-size: 13px; color: var(--text-sub); line-height: 2.0; margin-bottom: 14px; }
+  .section p:last-child { margin-bottom: 0; }
+  .hl { color: var(--accent); font-weight: 600; }
+
+  .info-box { padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin: 16px 0; }
+  .info-box-accent { border-left: 3px solid var(--accent); background: var(--accent-soft); border-color: var(--accent-border); border-left-color: var(--accent); }
+  .info-box-blue { border-left: 3px solid #60a5fa; background: rgba(96,165,250,0.06); border-color: rgba(96,165,250,0.18); border-left-color: #60a5fa; }
+  .info-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .info-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  .framework-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .framework-item { padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .framework-item .axis-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 10px; }
+  .framework-item .axis-options { display: flex; flex-direction: column; gap: 6px; }
+  .axis-opt { font-size: 12px; color: var(--text-dim); padding: 5px 10px; border-radius: 6px; background: var(--surface-2); border: 1px solid var(--border); line-height: 1.5; }
+  .axis-opt.active { color: var(--accent); background: var(--accent-soft); border-color: var(--accent-border); font-weight: 600; }
+
+  .branch-list { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
+  .branch-item { display: flex; align-items: flex-start; gap: 14px; padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; transition: border-color 0.2s; }
+  .branch-item:hover { border-color: var(--accent-border); }
+  .branch-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .branch-body { flex: 1; }
+  .branch-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .branch-sub { font-size: 11px; color: var(--accent); margin-bottom: 6px; font-weight: 600; }
+  .branch-desc { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  .strength-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .strength-card { padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .strength-title { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .strength-desc { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  .flow-steps { display: flex; flex-direction: column; margin: 16px 0; }
+  .flow-step { display: flex; gap: 14px; align-items: flex-start; }
+  .flow-step-line { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+  .flow-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 4px; }
+  .flow-connector { width: 2px; flex: 1; background: var(--border); min-height: 20px; margin: 4px 0; }
+  .flow-body { padding-bottom: 20px; flex: 1; }
+  .flow-label { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
+  .flow-text { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  .keyword-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .keyword-card { padding: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .keyword-card .kw-name { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 5px; }
+  .keyword-card .kw-desc { font-size: 11px; color: var(--text-dim); line-height: 1.7; }
+
+  .warn-box { padding: 18px 20px; background: rgba(245,158,11,0.04); border: 1px solid rgba(245,158,11,0.15); border-left: 3px solid #f59e0b; border-radius: 10px; margin: 14px 0; }
+  .warn-box h4 { font-size: 13px; font-weight: 700; color: #f59e0b; margin-bottom: 6px; }
+  .warn-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  .footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--border); }
+  .footer p { font-size: 11px; color: var(--text-muted); line-height: 1.8; }
+  .footer .brand { font-weight: 700; color: var(--text-dim); }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 22px; }
+    .section-title { font-size: 18px; }
+    .framework-grid { grid-template-columns: 1fr; }
+    .strength-grid { grid-template-columns: 1fr; }
+    .keyword-grid { grid-template-columns: 1fr; }
+    .hero { padding: 40px 20px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">職種概要カード — 販売·サービス</div>
+    <div class="hero-icon">販売<br>SV</div>
+    <h1>판매·서비스</h1>
+    <div class="title-jp">販売・サービス職（小売・飲食・ホテル・ブライダル）</div>
+    <div class="title-en">Retail Sales &amp; Service — Overview Card</div>
+    <div class="hero-tags">
+      <span class="hero-tag">소매·음식·호텔·브라이달</span>
+      <span class="hero-tag">고객 접점 최전선</span>
+      <span class="hero-tag">신졸 채용 수 최대</span>
+      <span class="hero-tag">관리직 진입 빠름</span>
+      <span class="hero-tag">한국어 강점 유효</span>
+    </div>
+    <p class="hero-summary">
+      판매·서비스란, 매장·호텔·레스토랑·웨딩 등 고객과 직접 마주하는 현장에서<br>
+      <strong style="color:var(--accent)">상품·서비스를 제공하고 고객 경험을 만드는 직종</strong>이다.<br>
+      크리에이티브 직종 중 채용 모집 수가 가장 많고, 가장 빠르게 관리직으로 이행할 수 있는 분야다.
+    </p>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="scrollToSection('s1')">01 직종 특성</button>
+    <button class="nav-item" onclick="scrollToSection('s2')">02 분류 축</button>
+    <button class="nav-item" onclick="scrollToSection('s3')">03 3분기</button>
+    <button class="nav-item" onclick="scrollToSection('s4')">04 공통 역량</button>
+    <button class="nav-item" onclick="scrollToSection('s5')">05 커리어패스</button>
+    <button class="nav-item" onclick="scrollToSection('s6')">06 ES 포인트</button>
+    <button class="nav-item" onclick="scrollToSection('s7')">07 주의점</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- S1 -->
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">판매·서비스 직종이란</div>
+    <div class="section-title-jp">販売・サービス職とは何か</div>
+
+    <p>
+      판매·서비스 직종이란, <span class="hl">소매 매장·음식점·호텔·브라이달·테마파크·항공 등 고객과 직접 마주하는 현장에서 상품·서비스를 제공하고 고객 경험을 설계하는 직종</span>이다.
+      "접객"이라는 단어로 묶이지만, 실제로는 판매·재고 관리·점포 운영·스태프 교육·VMD(비주얼 머천다이징)·매출 분석까지 폭넓은 업무가 포함된다. 일본 취업에서 판매·서비스직은 전체 신졸 채용의 20% 이상을 차지하는, 모집 규모 기준 가장 큰 직종 카테고리다.
+    </p>
+
+    <p>
+      이 직종의 가장 큰 특징은 <span class="hl">성과가 숫자로 즉시 가시화되고, 관리직으로의 이행이 가장 빠른 직종 중 하나</span>라는 점이다. 입사 3~5년 안에 점장(店長)·수퍼바이저(SV)·에어리어 매니저로 올라가는 케이스가 다른 직종과 비교해서 많다. "현장에서 결과를 내면 빠르게 책임 범위가 넓어진다"는 것이 이 직종에서 성장을 추구하는 사람에게 매력이 되는 이유다. 반면 학력보다 현장 실적·접객 품질·팀 관리 능력이 평가의 중심이 되기 때문에, 일본 명문대 졸업 여부보다 "어떻게 현장에서 성과를 냈는가"가 커리어를 결정하는 비율이 높다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>판매직과 영업직의 차이 — 혼동하기 쉬운 포인트</h4>
+      <p>
+        <strong>판매직</strong> — 매장·현장에 오는 고객을 상대로 상품·서비스를 제공. 고객이 찾아오는 인바운드 형태가 중심. 접객·재고 관리·VMD·점포 운영이 업무 범위. "어떻게 더 좋은 고객 경험을 만드는가"가 일상의 화두가 된다.<br><br>
+        <strong>영업직</strong> — 기업·개인을 대상으로 능동적으로 제안·교섭해 계약을 따내는 아웃바운드 형태. 신규 개척·루트 세일즈·제안 영업이 중심. 고객 쪽으로 이동하는 것이 일상이다.<br><br>
+        판매직은 "매장에 오는 고객을 얼마나 만족시키고 구매로 연결하는가"가 KPI의 중심이다. 아르바이트 경험이 가장 겹치기 쉬운 직종이지만, 정사원 판매직은 수치 목표 책임·스태프 관리·점포 P&amp;L 관여 등 아르바이트와는 전혀 다른 차원의 역할이 요구된다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>일본 판매·서비스 시장의 구조적 특성</h4>
+      <p>
+        <strong>접객 품질 기준이 세계 최고 수준</strong> — 일본 소비자는 언어의 정확성(경어 사용)·비언어 커뮤니케이션(표정·자세·목소리 톤)·대응 속도 전부에서 높은 기준을 당연하게 요구한다. 외국인 판매·서비스 직원에게도 이 기준은 동일하게 기대되지만, 대부분의 기업은 접객 경어를 입사 후 연수에서 체계적으로 가르치는 구조를 갖추고 있다. 입사 시점에 완벽한 경어를 요구하는 기업은 소수이며, "배우려는 의지와 기초 일본어 소통 능력"이 신졸 채용의 실질적인 기준이 되는 경우가 대부분이다. "오모테나시(おもてなし)"라는 개념이 이 직종 전체의 문화적 배경이 되고 있다.<br><br>
+        <strong>외국어 대응 수요의 구조적 확대</strong> — 방일 외국인 관광객 수가 코로나 이후 급속히 회복·확대되면서, 복수 언어 대응이 가능한 판매·서비스 직원의 수요가 소매·호텔·관광 분야에서 높아지고 있다.
+      </p>
+    </div>
+  </div>
+
+  <!-- S2 -->
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">판매·서비스 직종의 4가지 분류 축</div>
+    <div class="section-title-jp">販売・サービス職を分ける4つの軸</div>
+
+    <p>
+      판매·서비스는 넓은 범주이며, <span class="hl">4가지 축으로 자기 지향을 정리하면</span> 지원 방향이 잡힌다.
+      어느 환경에서 무엇을 배우고 싶은지를 먼저 결정하는 것이 지원 전략의 출발점이다.
+    </p>
+
+    <div class="framework-grid">
+      <div class="framework-item">
+        <div class="axis-label">축 A — 업종</div>
+        <div class="axis-options">
+          <span class="axis-opt active">소매 (패션·잡화·화장품)</span>
+          <span class="axis-opt active">음식·F&amp;B</span>
+          <span class="axis-opt active">호텔·숙박</span>
+          <span class="axis-opt">브라이달·이벤트</span>
+        </div>
+      </div>
+      <div class="framework-item">
+        <div class="axis-label">축 B — 고객층</div>
+        <div class="axis-options">
+          <span class="axis-opt active">일반 소비자 (BtoC)</span>
+          <span class="axis-opt">인바운드 외국인</span>
+          <span class="axis-opt">법인 고객 (BtoB)</span>
+          <span class="axis-opt">VIP·럭셔리</span>
+        </div>
+      </div>
+      <div class="framework-item">
+        <div class="axis-label">축 C — 목표</div>
+        <div class="axis-options">
+          <span class="axis-opt active">현장 접객 전문가</span>
+          <span class="axis-opt active">점포 관리직 (SV·점장)</span>
+          <span class="axis-opt">바이어·MD (상품 기획)</span>
+        </div>
+      </div>
+      <div class="framework-item">
+        <div class="axis-label">축 D — 기업 규모</div>
+        <div class="axis-options">
+          <span class="axis-opt active">대형 소매 체인·호텔</span>
+          <span class="axis-opt">외자계 럭셔리 브랜드</span>
+          <span class="axis-opt">독립 매장·부티크</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <h4>4축으로 지원 전략을 만드는 방법</h4>
+      <p>
+        <strong>축 A (업종)</strong> — 자기가 가장 관심 있는 상품·서비스 카테고리가 어디인지. 패션이라면 어패럴 소매, 음식·식문화라면 F&amp;B·호텔 레스토랑, 여행·숙박 경험에 끌린다면 호텔로 방향이 잡힌다. 업종에 대한 애정이 없으면 현장에서 오래 버티기 어렵다.<br><br>
+        <strong>축 C (목표)</strong> — "평생 현장에서 접객 전문가로 있고 싶다"는 사람과 "3~5년 안에 점장·SV가 되고 싶다"는 사람은 지원하는 기업 유형이 달라진다. 체인 계열 대기업은 관리직 트랙이 명확하고 이동이 빠르다. 소규모 매장·부티크는 전문성을 깊이 쌓기에 맞는다. "바이어·MD로 이행하고 싶다"는 경우는 해당 기능이 본부에 있는 대형 소매기업이 전제가 되기 때문에, 지원 기업의 커리어 트랙을 채용 페이지·OB 방문에서 확인해두는 것이 필수다.<br><br>
+        <strong>축 D (기업 규모)</strong> — 대형 체인은 연수 제도·배치 로테이션이 갖춰져 있어 신졸 첫 직장으로 안정적이고, 전국·해외 이동의 가능성도 있다. 외자계 럭셔리 브랜드는 어학·글로벌 감각이 필요하며, 처우와 글로벌 이동 기회가 있다. 독립 매장·부티크는 적은 스태프로 접객 전반을 담당하기 때문에 성장 속도가 빠른 반면, 체계적인 연수 환경은 대기업에 비해 적은 경향이 있다.
+      </p>
+    </div>
+  </div>
+
+  <!-- S3 -->
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">판매·서비스 직종 3분기</div>
+    <div class="section-title-jp">販売・サービス職の3分岐</div>
+
+    <p>
+      판매·서비스 직종은 업종과 고객층에 따라 3가지 방향으로 분기된다.
+      <span class="hl">자기가 어느 환경·고객층에서 일하고 싶은지를 먼저 정하면</span> 지원 기업의 범위가 좁혀진다.
+    </p>
+
+    <div class="branch-list">
+      <div class="branch-item">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <div class="branch-name">소매 판매 (패션·화장품·잡화·럭셔리)</div>
+          <div class="branch-sub">小売販売（アパレル・コスメ・雑貨・ラグジュアリー）</div>
+          <div class="branch-desc">
+            패션·화장품·라이프스타일 잡화 등 소매 매장에서의 접객·판매·VMD·재고 관리·매출 분석이 중심 업무다. 패스트리테일링(유니클로·GU)·스트라이프인터내셔널·이세탄미쓰코시·다카시마야 등 대형 소매기업부터 샤넬·루이비통·에르메스 등 외자계 럭셔리 브랜드, 편집숍·부티크 등 소규모 점포까지 폭넓게 채용이 있다.<br><br>
+            이 분기의 핵심은 <strong>"상품 애착 × 접객 기술 × 수치 감각"의 조합</strong>이다. 단순히 물건을 파는 것이 아니라, 고객의 라이프스타일에 맞는 제안을 통해 브랜드와 고객의 관계를 깊게 만드는 것이 이 직종의 본질이다. 브랜드와 상품에 대한 진심이 접객의 깊이로 직결되기 때문에, 취급 카테고리에 대한 관심 없이 장기 근속은 어렵다. 관리직 루트가 명확한 체인 기업에서는 입사 3~5년 안에 점장 후보로 발탁되고, 이후 바이어·MD·VMD 전문직 또는 SV·에어리어 매니저 트랙으로 분기된다.
+          </div>
+        </div>
+      </div>
+      <div class="branch-item">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <div class="branch-name">호텔·관광·브라이달 서비스</div>
+          <div class="branch-sub">ホテル・観光・ブライダルサービス</div>
+          <div class="branch-desc">
+            호텔 프런트·컨시어지·레스토랑 서비스·브라이달 플래너·여행사 카운터 등 비일상적인 고객 경험을 제공하는 분야. 제국호텔·오쿠라·프린스호텔 등 국내 대형 호텔과 하얏트·힐튼·메리어트 등 외자계 호텔 양쪽에 신졸 채용이 있다. 국내계 대형 호텔은 연수 체계가 충실하고, 외자계는 성과 기반 평가와 글로벌 이동 기회가 있다. 브라이달은 커플과 수개월에 걸쳐 결혼식을 함께 만드는 장기 관계 접객이 특징이다.<br><br>
+            이 분기의 특징은 <strong>고객의 "비일상"을 연출하는 전문성</strong>이다. 브라이달은 고객의 인생에서 가장 중요한 장면을 함께 만드는 직종으로, 접객의 밀도와 감동이 다른 분야보다 극적으로 높다. 호텔 직종의 커리어는 프런트·레스토랑·연회 등 복수 부문을 로테이션하면서 호텔 운영 전반을 배우고, 이후 부문 책임자·호텔 지배인 트랙으로 이행하는 것이 전형적이다. 외자계 호텔에서는 글로벌 이동 기회도 있다. 주말·공휴일 출근·교대제가 기본인 점을 사전에 충분히 이해해두는 것이 필요하다.
+          </div>
+        </div>
+      </div>
+      <div class="branch-item">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <div class="branch-name">음식·F&amp;B 서비스</div>
+          <div class="branch-sub">飲食・F&amp;Bサービス（レストラン・カフェ・給食）</div>
+          <div class="branch-desc">
+            레스토랑·카페·패스트푸드·사원 식당·급식 서비스 분야의 홀 스태프·점장·SV 직종. 스타벅스·맥도날드·워커힐·줄리에이트 등 대형 체인부터 호텔 레스토랑·고급 레스토랑까지 폭이 넓다. 이 분야의 특징은 <strong>아르바이트 경험이 가장 직접적으로 연결되는 직종</strong>이라는 점이다 — 아르바이트로 쌓은 접객·QSC(퀄리티·서비스·클린리니스) 관리·홀 운영 경험이 ES·면접에서 그대로 소재가 된다.<br><br>
+            관리직으로의 이행이 소매와 마찬가지로 빠르며, 졸업 후 2~3년 안에 점장·SV를 맡는 케이스가 있다. 매출·객수·객단가·FL비율(Food&amp;Labor) 등 점포 운영 수치를 매일 마주하는 환경이기 때문에, "숫자로 사업을 관리하는 감각"이 이 분야에서 빠르게 형성된다. 다양한 식문화·식재료에 관심이 있는 사람에게도 이 분야는 접점이 넓다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S4 -->
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">판매·서비스 직종의 공통 역량</div>
+    <div class="section-title-jp">共通して求められる能力と韓国人の強み</div>
+
+    <p>
+      판매·서비스 직종 전반에서 공통적으로 요구되는 것은 <span class="hl">고객 이해력·상황 대응력·팀워크</span>의 3가지다.
+      "웃으면서 접객한다"는 표면적인 이미지보다, 고객의 상태를 읽고 최적의 대응을 순간적으로 판단하는 능력이 이 직종의 본질이다. 일본 판매·서비스 현장에서 요구되는 역량 수준은 세계적으로도 높다고 알려져 있으며, 이 환경에서 역량을 갈고닦은 경험은 국내외 어느 업종으로 이동할 때도 통용되는 "서비스 마인드의 기초 체력"이 된다.
+    </p>
+
+    <div class="strength-grid">
+      <div class="strength-card">
+        <div class="strength-title">고객 이해력·상황 판단</div>
+        <div class="strength-desc">고객이 무엇을 원하는지를 말하기 전에 파악하고, 그에 맞는 제안·대응을 하는 능력. 일본 소비자의 행동 패턴·구매 심리를 이해하는 것이 이 능력의 전제가 된다.</div>
+      </div>
+      <div class="strength-card">
+        <div class="strength-title">일본어 소통력·접객 의지</div>
+        <div class="strength-desc">입사 시점에 경어가 완벽하지 않아도 대부분의 기업에서 문제가 되지 않는다. 접객 경어는 입사 후 연수에서 익히는 것이 일반적이다. 채용에서 보는 것은 "일상 일본어로 고객과 소통할 수 있는가"와 "접객 서비스에 대한 진지한 의지"다.</div>
+      </div>
+      <div class="strength-card">
+        <div class="strength-title">다언어 대응 능력</div>
+        <div class="strength-desc">인바운드 수요의 확대로, 한국어·영어·중국어 대응이 가능한 판매·서비스 직원의 가치가 높아지고 있다. 한국인 지원자의 한국어 능력은, 특히 화장품·패션·호텔 분야에서 즉전력으로 평가된다.</div>
+      </div>
+      <div class="strength-card">
+        <div class="strength-title">체력·지속력</div>
+        <div class="strength-desc">서있는 시간이 길고, 주말·공휴일 출근이 기본인 이 직종에서 체력은 직접적인 요건이다. 아르바이트 경험에서 비슷한 환경을 경험한 사람은 그 적응력을 면접에서 구체적으로 보여줄 수 있다.</div>
+      </div>
+      <div class="strength-card">
+        <div class="strength-title">팀 운영·후배 지도</div>
+        <div class="strength-desc">점장·SV로의 이행을 목표로 하는 경우, 개인 접객 능력뿐 아니라 팀 전체의 서비스 품질을 올리는 능력이 요구된다. 아르바이트 리더 경험·후배 지도 경험이 이 역량의 증명이 된다.</div>
+      </div>
+      <div class="strength-card">
+        <div class="strength-title">수치 관리·점포 운영</div>
+        <div class="strength-desc">매출·객단가·재고 회전율·인건비율 등 점포 운영의 수치를 이해하고 개선 행동에 연결하는 능력. 관리직 트랙을 목표로 하는 경우 이 감각을 조기에 기르는 것이 필수다.</div>
+      </div>
+    </div>
+
+    <div class="info-box info-box-accent">
+      <h4>판매·서비스 직종에서 평가받는 강점</h4>
+      <p>
+        <strong>브랜드·상품에 대한 진심</strong> — 자기가 다루는 상품에 진심으로 끌리는 사람은 고객에게 그 매력을 전달하는 순간 자연스럽게 설득력이 생긴다. 이 "진심"이 리피트 고객을 만드는 가장 강한 요소다.<br><br>
+        <strong>수치를 스스로 의식하는 습관</strong> — 점장·SV로 빠르게 발탁되는 스태프에게 공통되는 것은, 지시받기 전에 자기 매출·판매율·객단가를 스스로 확인하고 개선 행동을 취하는 습관이다.<br><br>
+        <strong>팀 전체를 올리는 커뮤니케이션</strong> — 혼자 성과를 내는 것보다, 아르바이트 스태프를 포함한 팀 전체의 서비스 품질을 올리는 것에 관심을 가진 사람이 관리직으로 빠르게 이행한다.
+      </p>
+    </div>
+  </div>
+
+  <!-- S5 -->
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">커리어패스</div>
+    <div class="section-title-jp">キャリアパス — 販売・サービス職の成長ロード</div>
+
+    <p>
+      판매·서비스 직종의 커리어는 <span class="hl">현장 접객 → 점포 관리 → 에어리어 관리 → 본부 기능직 또는 전문직 독립</span>의 흐름이 전형적이다.
+      다른 직종과 비교해서 현장 성과가 관리직 발탁으로 직결되기 쉽고, 커리어 이행의 타임라인이 빠른 것이 이 직종의 특징이다. "어떤 회사에 들어가느냐"보다 "현장에서 얼마나 성과를 내느냐"가 커리어를 결정하는 비율이 높다. 학력보다 현장 실적이 평가받는 환경이기 때문에, 입사 후 얼마나 빠르게 성과를 내느냐가 커리어를 결정하는 비율이 높다.
+    </p>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-step-line"><div class="flow-dot"></div><div class="flow-connector"></div></div>
+        <div class="flow-body">
+          <div class="flow-label">1~3년차 — 현장 접객·점포 운영 기초</div>
+          <div class="flow-text">배속 매장에서 접객·판매·재고 관리·VMD의 기초를 습득하는 시기. 개인 매출·고객 만족도·판매율 등을 수치로 의식하는 습관을 기른다. 아르바이트 스태프의 지도·시프트 관리 등 소규모 팀 운영도 이 시기에 시작된다. 체인 기업에서는 이 시기의 성과가 빠른 점장 후보 발탁으로 이어지며, 입사 2년차에 점장 대행을 맡는 케이스도 드물지 않다. 이 시기에 핵심은 "개인 접객 스킬"을 갈고 닦는 것과 동시에 "점포를 숫자로 보는 시점"을 조기에 기르는 것이다.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-line"><div class="flow-dot"></div><div class="flow-connector"></div></div>
+        <div class="flow-body">
+          <div class="flow-label">3~7년차 — 점장·SV로의 이행</div>
+          <div class="flow-text">점포 전체의 매출·이익·스태프 관리를 책임지는 점장, 또는 복수 점포의 운영을 지원·관리하는 수퍼바이저(SV)로 이행하는 시기. 개인 접객 능력에서 "팀 전체의 서비스 품질을 올리는" 역할로 전환이 이루어진다. 매출 분석·인건비 관리·재고 회전율 개선·신규 스태프 채용 면접 등 경영 감각이 요구되는 업무의 비중이 급격히 높아진다. 한국어 능력이 있는 경우, 이 시기에 인바운드 대응 전담 포지션이나 한국 관련 판촉 프로젝트를 주도하는 기회가 생기기 쉽다.</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-step-line"><div class="flow-dot"></div><div class="flow-connector"></div></div>
+        <div class="flow-body">
+          <div class="flow-label">7년차 이후 — 네 갈래</div>
+          <div class="flow-text">
+            <strong>길A: 에어리어 매니저·본부 기능직(MD·바이어·인사·교육)</strong> — 복수 점포의 실적 통괄 또는 상품 기획·조달·교육 기능의 본부 부문에 이행. 현장 경험을 살려 회사 전체를 위에서 움직이는 포지션이다.<br>
+            <strong>길B: 외자계·럭셔리 브랜드로 이직</strong> — 일본 소매 현장 경험을 바탕으로 외자계 럭셔리 브랜드의 점포 관리직으로 이직하는 루트. 처우 개선과 함께 글로벌 이동 기회도 열린다.<br>
+            <strong>길C: 업종 전환 — 호텔·관광·컨설팅</strong> — 접객 전문성을 살리면서 호텔 관리직으로 이동하거나, 소매 컨설팅·연수 강사로 전문성을 활용하는 루트.<br>
+            <strong>길D: 독립·프랜차이즈</strong> — 점포 운영 경험을 바탕으로 독립 또는 프랜차이즈 가맹으로 자기 점포를 가지는 루트. 음식·소매 모두 프랜차이즈 시스템이 잘 갖춰져 있어 이 루트를 처음부터 설계하는 사람도 있다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S6 -->
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">ES·면접 공략 포인트</div>
+    <div class="section-title-jp">ES・面接攻略ポイント</div>
+
+    <p>
+      판매·서비스 직종의 ES에서 가장 중요한 것은 <span class="hl">접객 경험의 구체성과 "왜 이 업종·이 기업인가"의 설득력</span>이다.
+      대부분의 지원자가 아르바이트 접객 경험을 가지고 있기 때문에, 경험의 유무보다 "그 경험을 통해 무엇을 배우고 어떻게 성장했는가"의 질이 차별화 포인트가 된다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>지망동기 구성 3단계</h4>
+      <p>
+        <strong>Step1. 이 업종에 끌리는 원점</strong> — 특정 브랜드의 점포 경험이 인상에 남은 것, 아르바이트에서 고객 접객에 보람을 느낀 구체적인 에피소드, 일본 서비스 문화 차이를 경험하고 관심을 가진 것 등. "사람을 상대하는 일이 좋다"는 추상적인 이유에서 한 단계 깊은 원점을 보여줄 것.<br><br>
+        <strong>Step2. 자기 강점과의 연결</strong> — 접객 경험에서 개인 매출·고객 재방문율·팀 분위기 개선 등 수치로 보여줄 수 있는 성과가 있으면 강하다. "어떤 어려운 상황에서 어떻게 고객 만족을 만들어냈는가"를 구체적으로 정리해둘 것.<br><br>
+        <strong>Step3. 이 회사에서 어떤 커리어를 쌓고 싶은가</strong> — "현장 접객을 잘 하고 싶다"에서 끝내지 말고, 3~5년 안에 점장·SV로서 팀을 이끌고 싶다, 이 브랜드를 더 많은 사람에게 전달하는 데 기여하고 싶다 등 지원 기업에서의 구체적인 성장 이미지를 보여주는 것이 지망도의 증명이 된다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>면접에서 자주 나오는 질문과 대비 포인트</h4>
+      <p>
+        <strong>"힘들었던 접객 경험을 알려달라"</strong> — 클레임 대응·어려운 고객과의 접촉·바쁜 시간대에서의 판단 등 구체적인 에피소드를 "상황 → 자기 판단 → 대응 → 결과"의 구조로 정리해둘 것. 단순히 "힘들었지만 웃으면서 대응했다"는 수준에서 끝내지 말고, 자기가 어떻게 생각하고 움직였는지의 판단 과정을 보여주는 것이 핵심이다.<br><br>
+        <strong>"왜 당사의 브랜드인가"</strong> — 실제로 그 브랜드의 매장을 방문해 접객을 받아본 경험, 상품의 어떤 부분에 끌리는지, 다른 브랜드와의 차이를 어떻게 느끼는지를 구체적으로. 경쟁 브랜드와의 비교를 자기 언어로 설명할 수 있는 지원자는 그렇지 않은 지원자와 명확하게 구별된다. 매장 방문 없이 지원하면 이 질문에서 즉시 약점이 드러난다.<br><br>
+        <strong>"주말·공휴일 근무, 입서 작업이 있는데 괜찮은가"</strong> — 판매·서비스 직종의 근무 형태에 대한 이해와 수용을 확인하는 질문. 아르바이트에서 비슷한 환경을 경험한 적이 있다면 구체적으로 보여주는 것이 효과적. "각오가 되어 있다"는 선언보다 "이미 경험하고 있고 적응되어 있다"는 실적이 훨씬 강하다.<br><br>
+        <strong>"5년 후 어떤 포지션에 있고 싶은가"</strong> — 커리어를 진지하게 쌓으려는 의지를 확인하는 질문. "점장으로서 팀을 이끄는 포지션에 있고 싶다"처럼 구체적인 목표를 보여주는 것이 기본. 거기에 "그 목표를 위해 입사 첫해에 무엇을 집중적으로 배우고 싶은가"까지 세트로 준비해두면 더욱 강해진다.<br><br>
+        <strong>"5년 후 어떤 포지션에 있고 싶은가"</strong> — 커리어를 진지하게 설계하고 있는지를 확인하는 질문. "점장으로서 팀을 이끄는 포지션"을 목표로 하는 경우, 거기에 "그 목표를 위해 입사 첫해에 무엇을 집중적으로 배우고 싶은가"까지 세트로 준비해두면 더욱 강해진다.
+      </p>
+    </div>
+  </div>
+
+  <!-- S7 -->
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">よくある誤解と落とし穴</div>
+
+    <div class="warn-box">
+      <h4>주의 01: 판매·서비스를 "임시 직종"으로 가볍게 보는 것</h4>
+      <p>판매·서비스 직종은 "다른 직종에 들어가지 못해서 선택하는 것"이 아니라, 점포 운영·팀 관리·매출 전략이 융합된 고도의 전문 직종이다. 이 인식이 없으면 "어떤 커리어를 쌓고 싶은가"의 질문에 설득력 있는 답변이 나오지 않는다. 면접에서 이 직종에 대한 진지함이 전달되지 않으면, 아무리 아르바이트 경험이 풍부해도 채용 판단에서 약해진다. "아르바이트와 정사원의 차이"를 어떻게 이해하고 있는지를 물어보는 면접관도 있다 — 정사원 판매 담당이 수치 목표·점포 P&amp;L·스태프 육성에 책임을 지는 포지션이라는 것을 이해하고 있으면 이 질문에도 흔들리지 않는다.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>주의 02: 지원 브랜드를 직접 경험하지 않고 지원하는 것</h4>
+      <p>판매·서비스 지원에서 지원 기업의 매장 방문은 거의 필수다. "왜 당사인가"라는 질문에 답하기 위해서는 실제 접객 경험·상품·매장 분위기를 피부로 느끼고 있어야 한다. 특히 패션·화장품·럭셔리 브랜드 지원에서, 매장에 한 번도 방문하지 않은 채로 지원하는 것은 지망도의 결여로 바로 이어진다. 한 번의 방문에 그치지 않고, 복수의 매장(경쟁 브랜드 포함)을 방문해서 접객·VMD·상품 구성을 비교해두면, 면접에서 "왜 이 회사의 ○○점이 다른 브랜드보다 좋다고 생각하는가"에 구체적으로 답할 수 있다. 이 한 가지 차이가 채용 결과에 직결되는 경우가 많다.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>주의 03: "경어가 완벽하지 않으면 지원할 수 없다"고 단념하는 것</h4>
+      <p>신졸 판매·서비스 채용에서 입사 시점의 경어 완성도를 요구하는 기업은 대부분이 아니다. 접객 경어는 입사 후 연수 프로그램에서 체계적으로 가르치는 기업이 많고, 외국인 신졸 채용에서 특히 이 점은 유연하게 운용된다. "일상 일본어로 소통할 수 있고, 접객 서비스에 진심인 것"이 채용의 실질적인 문이다. 경어에 자신이 없더라도, 지원 전에 해당 매장에서 실제로 접객을 받아보면서 "이 브랜드의 서비스 스타일을 자기 것으로 만들겠다"는 의지를 면접에서 보여주는 것이 훨씬 중요하다.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>주의 04: 커리어 목표 없이 "사람과 관계하는 일이 하고 싶어서"만으로 지원하는 것</h4>
+      <p>"사람을 상대하는 일이 좋다"는 동기는 이 직종 지원자 거의 전원이 가진 이유다. 이것만으로는 차별화가 되지 않는다. "5년 후에 점장으로서 ○○을 실현하고 싶다"처럼 구체적인 커리어 이미지와 지원 기업 고유의 문맥을 결합한 지망 이유를 만드는 것이 필수다.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 직종 라이브러리 레벨2 — 판매·서비스</p>
+    <p>각 분기의 상세는 레벨3 카드를 참고 | 직종 대분류 맵(레벨1)도 함께 참고</p>
+  </div>
+
+</div>
+
+<script>
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const navHeight = document.querySelector('.section-nav').offsetHeight;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7'];
+const navItems = document.querySelectorAll('.nav-item');
+function updateActiveNav() {
+  const navHeight = document.querySelector('.section-nav').offsetHeight;
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { const rect = el.getBoundingClientRect(); if (rect.top <= navHeight + 60) current = id; }
+  });
+  navItems.forEach((item, i) => {
+    if (sections[i] === current) item.classList.add('active');
+    else item.classList.remove('active');
+  });
+}
+window.addEventListener('scroll', updateActiveNav);
+updateActiveNav();
+</script>
+</body>
+</html>
