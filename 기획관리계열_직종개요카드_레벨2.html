@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기획/관리 계열 직종 개요 카드 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+  :root { --bg:#0a0a0f; --surface:#141419; --surface-2:#1c1c24; --border:#2a2a35; --border-hover:#3a3a48; --text:#e8e8ed; --text-sub:#c0c0d0; --text-dim:#8888a0; --text-muted:#555568; --accent:#60a5fa; --accent-soft:rgba(96,165,250,0.08); --accent-border:rgba(96,165,250,0.18); }
+  *{margin:0;padding:0;box-sizing:border-box}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}.container{max-width:760px;margin:0 auto;padding:0 24px 100px}
+  .hero{padding:56px 24px 40px;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 0%,rgba(96,165,250,0.05) 0%,transparent 70%)}.hero-inner{position:relative;z-index:1;max-width:760px;margin:0 auto}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);padding:5px 14px;border-radius:16px;margin-bottom:20px}.hero-icon{width:64px;height:64px;border-radius:14px;background:var(--accent-soft);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--accent);font-family:'Noto Sans JP',sans-serif;font-weight:700;margin:0 auto 20px}.hero h1{font-size:30px;font-weight:900;margin-bottom:6px}.hero .title-jp{font-family:'Noto Sans JP',sans-serif;font-size:14px;color:var(--text-muted);margin-bottom:4px}.hero .title-en{font-size:12px;color:var(--text-muted);margin-bottom:20px}.hero-tags{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:20px}.hero-tag{font-size:11px;padding:4px 12px;border-radius:12px;background:var(--accent-soft);color:var(--accent);font-weight:500;border:1px solid var(--accent-border)}.hero-summary{font-size:13px;color:var(--text-dim);max-width:560px;margin:0 auto;line-height:1.9}
+  .section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0}.section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}.section-nav-inner::-webkit-scrollbar{display:none}.nav-item{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap}.nav-item:hover,.nav-item.active{color:var(--accent);background:var(--accent-soft)}
+  .section{padding:40px 0;border-bottom:1px solid rgba(255,255,255,0.03)}.section:last-child{border-bottom:none}.section-number{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);opacity:0.6;margin-bottom:6px}.section-title{font-size:20px;font-weight:800;margin-bottom:4px}.section-title-jp{font-family:'Noto Sans JP',sans-serif;font-size:12px;color:var(--text-muted);margin-bottom:20px}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px}.section p:last-child{margin-bottom:0}.hl{color:var(--accent);font-weight:600}.hl-warn{color:#ef4444;font-weight:600}
+  .info-box{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0}.info-box-accent{border-left:3px solid var(--accent);background:var(--accent-soft);border-color:var(--accent-border);border-left-color:var(--accent)}.info-box h4{font-size:13px;font-weight:700;margin-bottom:8px}.info-box p{font-size:12px;color:var(--text-dim);line-height:1.8}
+  .compare-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:12px}.compare-table th{text-align:left;padding:10px 14px;background:var(--surface-2);color:var(--text-dim);font-weight:600;font-size:11px;border-bottom:1px solid var(--border)}.compare-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-sub);vertical-align:top;line-height:1.7}.compare-table tr:last-child td{border-bottom:none}.compare-table .row-label{font-weight:600;color:var(--accent);white-space:nowrap;width:110px}
+  .branch-list{display:flex;flex-direction:column;gap:8px;margin:16px 0}.branch-card{display:flex;align-items:flex-start;gap:14px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;transition:all 0.2s}.branch-card:hover{border-color:var(--border-hover);background:var(--surface-2)}.branch-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:7px;flex-shrink:0;opacity:0.7}.branch-body h4{font-size:14px;font-weight:700;margin-bottom:4px}.branch-body p{font-size:12px;color:var(--text-dim);line-height:1.7;margin-bottom:6px}.branch-tags{display:flex;gap:4px;flex-wrap:wrap}.branch-tag{font-size:10px;padding:2px 8px;border-radius:8px;background:rgba(255,255,255,0.03);color:var(--text-muted);border:1px solid var(--border)}
+  .strength-grid{display:flex;flex-direction:column;gap:10px;margin:16px 0}.strength-item{display:flex;gap:14px;padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px}.strength-rank{font-size:22px;font-weight:900;color:var(--accent);opacity:0.4;width:30px;flex-shrink:0;text-align:center;line-height:1;padding-top:2px}.strength-body h4{font-size:14px;font-weight:700;margin-bottom:4px}.strength-body p{font-size:12px;color:var(--text-dim);line-height:1.7}
+  .warn-box{padding:18px 20px;background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.12);border-left:3px solid #ef4444;border-radius:10px;margin:14px 0}.warn-box h4{font-size:13px;font-weight:700;color:#ef4444;margin-bottom:6px}.warn-box p{font-size:12px;color:var(--text-dim);line-height:1.8}
+  .keyword-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.keyword-card{padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px}.keyword-card .kw-name{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:6px}.keyword-card .kw-desc{font-size:11px;color:var(--text-dim);line-height:1.7}
+  .footer{text-align:center;padding-top:40px;margin-top:20px;border-top:1px solid var(--border)}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8}.footer .brand{font-weight:700;color:var(--text-dim)}
+  @media(max-width:640px){.hero h1{font-size:24px}.section-title{font-size:18px}.keyword-grid{grid-template-columns:1fr}.hero{padding:40px 20px 32px}.compare-table{font-size:11px}.compare-table th,.compare-table td{padding:8px 10px}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">職種概要カード vol.05</div>
+    <div class="hero-icon">企管</div>
+    <h1>기획/관리 계열</h1>
+    <div class="title-jp">企画・管理系 概要ガイド</div>
+    <div class="title-en">Corporate Planning / Administration — Overview Card</div>
+    <div class="hero-tags">
+      <span class="hero-tag">"영업 아닌 문과 직종"</span>
+      <span class="hero-tag">사무관리/기획/마케팅</span>
+      <span class="hero-tag">신졸 직접 채용 적음</span>
+      <span class="hero-tag">배치 결과가 대부분</span>
+    </div>
+    <p class="hero-summary">
+      "영업은 아닌데, 문과로 갈 수 있는 직종이 뭐가 있지?" — 이 질문에 대한 답이 이 계열이다.<br>
+      사무/관리, 기획, 마케팅. 인기는 높지만, 신졸에서 직접 채용되는 경우는 의외로 적다.<br>
+      이 카드에서는 3개 직종의 차이와, 신졸이 알아야 할 채용 현실을 정리했다.
+    </p>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="scrollToSection('s1')">01 전체상</button>
+    <button class="nav-item" onclick="scrollToSection('s2')">02 3직종 비교</button>
+    <button class="nav-item" onclick="scrollToSection('s3')">03 채용 현실</button>
+    <button class="nav-item" onclick="scrollToSection('s4')">04 역량</button>
+    <button class="nav-item" onclick="scrollToSection('s5')">05 커리어</button>
+    <button class="nav-item" onclick="scrollToSection('s6')">06 ES/면접</button>
+    <button class="nav-item" onclick="scrollToSection('s7')">07 키워드</button>
+    <button class="nav-item" onclick="scrollToSection('s8')">08 주의점</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ========== SECTION 1 ========== -->
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">기획/관리 계열이란</div>
+    <div class="section-title-jp">企画・管理系とは</div>
+
+    <p>
+      일본 취활에서 "企画・管理系"라고 분류되는 직종군.
+      <span class="hl">영업처럼 "밖에 나가서 매출을 만드는" 역할이 아니라,
+      회사의 안에서 "전략을 짜거나, 시장을 분석하거나, 회사를 돌아가게 하는" 역할</span>을 모아놓은 것이다.
+    </p>
+
+    <p>
+      크게 3가지로 나뉜다:
+      <span class="hl">사무/관리</span>(회사를 안정적으로 돌리는 뒷받침 역할),
+      <span class="hl">기획</span>(사업 전략이나 상품 기획을 짜는 역할),
+      <span class="hl">마케팅</span>(시장 분석과 프로모션을 통해 매출에 기여하는 역할).
+    </p>
+
+    <p>
+      학생들 사이에서 인기가 높지만, 가장 먼저 알아야 할 현실이 있다:
+      <span class="hl">이 계열은 신졸에서 직접 "이 직종으로" 채용되는 경우가 의외로 적다.</span>
+      대부분의 일본 기업에서는 종합직(総合職)으로 뽑은 뒤 입사 후 배치로 결정되거나,
+      영업 등 다른 직종을 거친 뒤 이동하는 패턴이 주류. 이 현실을 이해하고 전략을 세우는 것이 첫걸음.
+    </p>
+
+    <div class="info-box">
+      <h4>다른 직종 계열과 뭐가 다른가?</h4>
+      <p>
+        <strong>vs 영업</strong>: 영업은 "밖에 나가서 고객과 직접 만나 매출을 만드는" 역할. 기획/관리는 "안에서 전략을 짜거나 회사를 관리하는" 역할. 다만 일본에서는 영업을 경험한 뒤 기획/관리로 이동하는 것이 일반적인 커리어 경로. 참고로, 글로벌 기업에서는 영업과 마케팅을 "세일즈・&・マーケティング"로 묶어서 하나의 기능으로 다루는 것이 보통이다. 하지만 일본에서는 전통적으로 영업(足で稼ぐ=발로 뛰는 영업)의 비중이 워낙 크기 때문에, 영업과 마케팅을 별도의 직종으로 분리해서 다루는 경우가 대부분이다. 이 라이브러리에서도 그 일본식 구분을 따르고 있다.<br><br>
+        <strong>vs SE/IT</strong>: SE는 "시스템을 만드는" 기술직. 기획/관리는 기술직이 아니라 "비즈니스 직종." 다만 마케팅은 디지털 마케팅 영역에서 IT와 겹치는 부분이 있음.<br><br>
+        <strong>vs 컨설턴트</strong>: 컨설은 "외부 전문가"로서 다른 회사의 과제를 해결. 기획/관리는 "자기 회사"의 과제를 해결. 사내에서 깊이 관여한다는 점이 차이.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 2 ========== -->
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">3직종 비교 — 사무관리 / 기획 / 마케팅</div>
+    <div class="section-title-jp">事務管理・企画・マーケティング 比較</div>
+
+    <p>같은 "기획/관리 계열"이지만, <span class="hl">하는 일과 성격이 전혀 다르다.</span></p>
+
+    <table class="compare-table">
+      <thead><tr><th></th><th>사무/관리</th><th>기획</th><th>마케팅</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">한마디로</td><td>회사를 안정적으로 돌리는 "수비"</td><td>사업의 방향을 결정하는 "참모"</td><td>시장과 고객을 분석해서 매출에 연결하는 "공격 지원"</td></tr>
+        <tr><td class="row-label">구체적 업무</td><td>경리(결산/세무), 인사(채용/급여), 총무(사무실 관리), 법무(계약서)</td><td>경영기획(중기경영계획), 사업기획(새 사업 검토), 상품기획(신제품 개발)</td><td>시장 조사, 브랜드 전략, 광고/프로모션, SNS 운용, 데이터 분석</td></tr>
+        <tr><td class="row-label">성격</td><td>정확성/안정 운용. 실수가 허용 안 되는 세계</td><td>발상력/분석. "다음에 뭘 할 것인가"를 생각하는 세계</td><td>분석+크리에이티브. "어떻게 하면 팔릴 것인가"를 생각하는 세계</td></tr>
+        <tr><td class="row-label">신졸 접근성</td><td>종합직 배치. 직접 채용 적음</td><td>종합직 배치 or 영업 후 이동. 직접 채용 매우 적음</td><td>메이커/소비재에서 직접 채용하는 곳도 있음. 상대적으로 접근 가능</td></tr>
+        <tr><td class="row-label">일본어 요구</td><td>매우 높음 (사내 문서, 법률 용어)</td><td>높음 (경영진 보고, 제안서)</td><td>높음 (소비자 조사, 크리에이티브 디렉션)</td></tr>
+        <tr><td class="row-label">맞는 사람</td><td>꼼꼼하고 성실. "뒤에서 지탱하는" 것에 보람</td><td>분석하고 전략을 짜는 것을 좋아함. "왜?"를 파고드는 타입</td><td>시장/소비자에 대한 호기심. 데이터+감각 양쪽 쓰는 타입</td></tr>
+      </tbody>
+    </table>
+
+    <div class="branch-list">
+      <div class="branch-card">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <h4>사무/관리 (事務・管理)</h4>
+          <p>경리/인사/총무/법무/경영기획. 회사가 "돌아가기 위해" 필요한 모든 뒷받침. 전문성이 깊어지는 구조(경리→CFO, 인사→CHRO 등). 자세한 내용은 사무/관리 상세 카드 참고.</p>
+          <div class="branch-tags"><span class="branch-tag">수비</span><span class="branch-tag">정확성</span><span class="branch-tag">전문 심화형</span></div>
+        </div>
+      </div>
+      <div class="branch-card">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <h4>기획 (企画)</h4>
+          <p>경영기획, 사업기획, 상품기획. "다음에 뭘 할 것인가"를 분석하고 제안하는 역할. 경영진과 가까운 포지션이지만, 신졸에서 직접 배치되는 경우는 극히 드묾. 영업이나 현장을 거친 뒤 이동하는 패턴이 일반적.</p>
+          <div class="branch-tags"><span class="branch-tag">전략</span><span class="branch-tag">분석</span><span class="branch-tag">신졸 배치 극소</span></div>
+        </div>
+      </div>
+      <div class="branch-card">
+        <div class="branch-dot"></div>
+        <div class="branch-body">
+          <h4>마케팅 (マーケティング)</h4>
+          <p>시장 조사, 브랜드 전략, 광고/프로모션 기획, 디지털 마케팅, 데이터 분석. 소비재(식품, 화장품, 생활용품 등) 메이커에서는 신졸 마케팅 직종 채용이 있는 곳도. IT/Web계에서는 디지털 마케터 채용도 늘고 있음.</p>
+          <div class="branch-tags"><span class="branch-tag">시장 분석</span><span class="branch-tag">프로모션</span><span class="branch-tag">소비재 직접 채용 있음</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 3 ========== -->
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">신졸 채용의 현실 — 가장 먼저 알아야 할 것</div>
+    <div class="section-title-jp">新卒採用の現実</div>
+
+    <p>이 계열을 지망하는 학생이 반드시 이해해야 할 구조적 현실.</p>
+
+    <div class="warn-box">
+      <h4>현실 1: 대부분의 일본 기업은 "기획직/마케팅직"으로 신졸을 직접 뽑지 않는다</h4>
+      <p>
+        종합직(総合職)으로 뽑은 뒤 입사 후 배치가 결정되는 구조가 대부분.
+        "마케팅을 하고 싶어서 입사했는데 영업에 배치되었다"는 갭은 매우 흔하다.
+        <span class="hl-warn">지망했다고 가게 되는 것이 아니다.</span>
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>현실 2: 기획/마케팅은 "현장을 아는 사람"이 가는 곳</h4>
+      <p>
+        일본 기업의 일반적 사고방식: "현장(영업/생산)을 모르는 사람이 전략을 짤 수 있나?"
+        그래서 기획/마케팅 배치는 영업이나 현장을 2-3년 경험한 뒤에 이동하는 패턴이 주류.
+        신졸에서 바로 기획/마케팅에 배치되는 것은 "예외적인 경우"라고 생각하는 게 현실적.
+      </p>
+    </div>
+
+    <div class="warn-box">
+      <h4>현실 3: 그래도 신졸 직접 채용이 "있는" 곳이 있다</h4>
+      <p>
+        전부 불가능은 아니다. 아래 경우에는 신졸에서 직접 기획/마케팅에 갈 수 있음:<br><br>
+        <strong>마케팅 직종 채용이 있는 소비재 메이커</strong> — P&G, 유니리버, 네슬레, 시세이도(資生堂), 카오(花王) 등. "마케팅 직종"으로 별도 채용. 다만 채용 난이도 극히 높음.<br>
+        <strong>IT/Web계 기업의 마케터 채용</strong> — 디지털 마케팅, 그로스 해커, SNS 마케터 등. 스타트업/메가벤처에서 신졸 채용 있음.<br>
+        <strong>직종별 채용을 하는 기업</strong> — 일부 외자계 기업이나 중소기업에서 "기획 채용", "인사 채용"으로 직접 모집하는 경우.
+      </p>
+    </div>
+
+    <div class="info-box info-box-accent">
+      <h4>현실적 전략 — 이 계열을 목표로 한다면</h4>
+      <p>
+        <strong>전략A: 직종 채용이 있는 기업을 찾는다</strong> — 위에 나온 소비재 메이커, 외자계 등. 수는 적지만 확실한 루트.<br>
+        <strong>전략B: 종합직으로 입사해서 배치를 노린다</strong> — 면접/입사 후 면담에서 "이 분야에 관심 있다"는 의사를 전달. 배치 보장은 안 되지만 가능성을 높일 수 있음.<br>
+        <strong>전략C: 영업/현장에서 먼저 경험 쌓고 이동</strong> — 가장 현실적이고 가장 흔한 루트. 영업 2-3년 → 기획/마케팅으로 사내 이동. "현장을 아는 기획 인재"는 오히려 가치가 높다.<br>
+        <strong>전략D: 영업을 병행 지원한다</strong> — 기획/마케팅만 지원하면 전멸할 수 있음. 영업을 병행 지원하면서 "장기적으로 기획/마케팅으로 가겠다"는 커리어 플랜을 가지는 것이 현실적.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 4 ========== -->
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">기획/관리 계열 공통 역량</div>
+    <div class="section-title-jp">企画・管理系に共通する力</div>
+
+    <p>3직종에 공통으로 요구되는 역량. <span class="hl">직종마다 강조점은 다르지만 기반은 같다.</span></p>
+
+    <div class="strength-grid">
+      <div class="strength-item"><div class="strength-rank">01</div><div class="strength-body"><h4>논리적 사고 — "왜?"를 구조화하는 힘</h4><p>기획이면 "왜 이 전략인가", 마케팅이면 "왜 이 타겟인가", 사무면 "왜 이 프로세스인가"를 논리적으로 설명해야 한다. 감각이 아니라 근거로 말하는 힘이 3직종 공통 기반.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">02</div><div class="strength-body"><h4>조정력 — 사내를 움직이는 힘</h4><p>영업처럼 "고객"을 상대하는 게 아니라 "사내"를 상대한다. 경영진, 영업부, 기술부 등 사내 여러 부서의 이해관계를 조율하고, 합의를 이끌어내는 힘. 기획/관리 계열의 가장 핵심적인 공통 역량.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">03</div><div class="strength-body"><h4>자료 작성력 — 파워포인트와 엑셀이 무기</h4><p>기획서, 분석 자료, 보고서. 기획/관리 계열의 "결과물"은 대부분 문서다. 복잡한 내용을 한 장에 명확하게 정리하는 힘. 컨설턴트와 마찬가지로 "자료로 말하는" 직종.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">04</div><div class="strength-body"><h4>호기심 — "왜 이렇게 되어 있지?"를 파고드는 힘</h4><p>"시킨 대로만 하는" 사람은 이 계열에서 성장하기 어렵다. 현재의 업무/전략에 "왜?"를 던지고, 더 나은 방법을 스스로 찾아가는 호기심이 기획/마케팅 쪽에서 특히 중요.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">05</div><div class="strength-body"><h4>커뮤니케이션 — 경영진부터 현장까지</h4><p>기획/관리 계열은 경영진에게 보고하기도 하고, 현장 담당자에게 협력을 구하기도 한다. 상대방의 레벨에 맞춰 말하는 유연한 커뮤니케이션이 필수.</p></div></div>
+    </div>
+
+    <div class="info-box">
+      <h4>직종별 역량 강조점 차이</h4>
+      <p>
+        <strong>사무/관리</strong> → 정확성, 성실성, 사내 조정 (안정 운용이 미션)<br>
+        <strong>기획</strong> → 분석력, 발상력, 경영진과의 소통 (전략 수립이 미션)<br>
+        <strong>마케팅</strong> → 시장 감각, 데이터 분석, 크리에이티브 디렉션 (매출 기여가 미션)
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 5 ========== -->
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">커리어의 큰 그림</div>
+    <div class="section-title-jp">キャリアの全体像</div>
+
+    <p>
+      기획/관리 계열의 커리어는 <span class="hl">"영업/현장에서 시작 → 기획/관리로 이동 → 전문성 심화 → 경영 레벨"</span>이 전형적 흐름.
+      신졸에서 바로 이 계열에 가는 것은 예외이고, 현장 경험을 거치는 것이 표준 루트라는 것을 다시 한번 강조.
+    </p>
+
+    <div class="info-box">
+      <h4>각 직종의 장기 커리어 도착점</h4>
+      <p>
+        <strong>사무/관리</strong>: 경리부장→CFO, 인사부장→CHRO, 법무부장→CLO, 관리본부장. "한 분야의 전문가"로서 경영에 참여.<br>
+        <strong>기획</strong>: 경영기획부장→경영전략 담당 임원, CSO. 또는 사업부장(기획에서 사업 운영으로). "회사의 방향을 결정하는" 포지션.<br>
+        <strong>마케팅</strong>: 브랜드 매니저→마케팅 부장→CMO(최고마케팅책임자). 또는 독립해서 마케팅 컨설턴트/프리랜서. "시장과 소비자를 가장 잘 아는 사람."
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 6 ========== -->
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">ES/면접 공통 포인트</div>
+    <div class="section-title-jp">ES・面接で貫く核心</div>
+
+    <p>기획/관리 계열 지망에서 가장 중요한 것: <span class="hl">"왜 영업이 아닌가"를 소극적 이유가 아닌 적극적 이유로 설명하는 것.</span></p>
+
+    <div class="info-box info-box-accent">
+      <h4>공통 지망동기 구조</h4>
+      <p>
+        ① 이 분야(관리/기획/마케팅)에 관심을 가진 계기<br>
+        → ② 왜 영업이 아니라 이 계열인가 — <span class="hl">"영업이 싫다"가 아니라 "이 역할에 적극적으로 끌린다"</span><br>
+        → ③ 왜 이 회사인가 — 이 회사에서 이 직종이 어떤 역할을 하는지 이해<br>
+        → ④ 자기 강점과의 연결
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>"왜 영업이 아닌가" — 좋은 답 vs 나쁜 답</h4>
+      <p>
+        <strong>나쁜 답</strong>: "사람 만나는 게 싫다", "노르마가 싫다", "영업보다 안정적이니까" → 소극적. 즉시 마이너스.<br><br>
+        <strong>좋은 답 (사무/관리)</strong>: "회사가 안정적으로 돌아가도록 기반을 만드는 것에 보람을 느낀다. 숫자나 데이터를 정확하게 관리하는 것이 나의 강점."<br>
+        <strong>좋은 답 (기획)</strong>: "현장의 데이터를 분석해서 '다음에 무엇을 할 것인가'를 설계하는 것에 매력을 느낀다."<br>
+        <strong>좋은 답 (마케팅)</strong>: "시장과 소비자를 분석해서 '어떻게 하면 가치가 전달될 것인가'를 설계하는 것에 끌린다."<br><br>
+        핵심: "영업이 싫다(소거법)"가 아니라 <span class="hl">"이 역할 자체에 끌린다(적극적 선택)"</span>가 되어야 한다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 7 ========== -->
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 연결</div>
+    <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+    <div class="keyword-grid">
+      <div class="keyword-card"><div class="kw-name">논리적사고력</div><div class="kw-desc">기획서, 분석 보고서, 업무 개선 제안. 이 계열의 모든 결과물은 "논리"로 뒷받침되어야 한다. "왜?"에 구조적으로 답하는 힘.</div></div>
+      <div class="keyword-card"><div class="kw-name">조정력</div><div class="kw-desc">사내 여러 부서 사이에서 이해관계를 조율하는 힘. 특히 사무/관리에서 핵심이지만, 기획/마케팅에서도 "사내를 움직이게 하는" 조정이 필수.</div></div>
+      <div class="keyword-card"><div class="kw-name">정확성</div><div class="kw-desc">사무/관리에서 특히 중요. 숫자, 문서, 데이터를 실수 없이 다루는 힘. "대충"이 통하지 않는 세계.</div></div>
+      <div class="keyword-card"><div class="kw-name">분석력</div><div class="kw-desc">기획과 마케팅에서 특히 중요. 데이터나 시장 정보를 보고 "그래서 뭘 해야 하는가"까지 연결하는 힘.</div></div>
+      <div class="keyword-card"><div class="kw-name">호기심</div><div class="kw-desc">"왜 이렇게 되어 있지?" "더 나은 방법은 없을까?"를 파고드는 힘. 기획/마케팅에서 새로운 아이디어의 출발점. 사무에서도 업무 개선의 출발점.</div></div>
+      <div class="keyword-card"><div class="kw-name">성실성</div><div class="kw-desc">사무/관리에서 특히 핵심. 지미한 반복 업무를 빠뜨리지 않고 정확하게 하는 힘. "뒤에서 묵묵히 회사를 지탱하는" 역할의 기본.</div></div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 8 ========== -->
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">企画・管理系の落とし穴</div>
+
+    <div class="warn-box"><h4>함정 1: "영업이 싫어서" 이 계열을 선택하는 것</h4><p>가장 흔하고 가장 위험한 동기. 면접관이 가장 싫어하는 답이기도 하다. "영업이 싫다"가 아니라 "이 역할에 적극적으로 끌린다"를 말해야 한다. 소거법으로 남은 선택지가 아니라, 적극적으로 고른 선택지여야 한다.</p></div>
+    <div class="warn-box"><h4>함정 2: "기획/마케팅만 지원"이라는 전략</h4><p>신졸에서 직접 채용하는 곳이 적기 때문에 이 계열만 지원하면 전멸 리스크가 높다. 영업을 병행 지원하면서 "장기적으로 이 계열로 가겠다"는 플랜을 가지는 것이 현실적.</p></div>
+    <div class="warn-box"><h4>함정 3: "기획 = 아이디어를 내는 화려한 일"이라는 이미지</h4><p>기획직의 현실: 대부분의 시간은 데이터 분석, 자료 작성, 사내 조정, 회의. "아이디어만 내면 되는" 일이 아니라 "분석하고 조율하고 실행까지 이끄는" 일. 마케팅도 마찬가지로 지미한 실무(데이터 정리, 레포트 작성, 대행사 관리)가 대부분.</p></div>
+    <div class="warn-box"><h4>함정 4: 사무/기획/마케팅의 차이를 모르고 지원</h4><p>"기획/관리 계열이면 다 좋다"는 식으로 지원하면 면접에서 바로 들통. 이 카드의 Section 02를 참고해서 3직종의 차이를 이해하고, "왜 이 직종인가"를 설명할 수 있어야 한다.</p></div>
+    <div class="warn-box"><h4>함정 5: 일본어 수준을 가볍게 생각하는 것</h4><p>이 계열은 사내 문서, 보고서, 기획서, 법률 용어 등 고도의 일본어를 다룬다. 영업(구두 커뮤니케이션 중심)보다 읽기/쓰기의 허들이 높은 경우가 많다. N1은 최소이고, 비즈니스 문서를 자연스럽게 쓸 수 있는 수준이 필요.</p></div>
+  </div>
+
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 직종 개요 카드 vol.05 — 기획/관리 계열 (企画・管理系)</p>
+    <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+    <p style="margin-top:8px;font-size:10px;">사무/관리 상세 카드 | 직종 대분류 맵(레벨1)도 함께 참고</p>
+  </div>
+</div>
+
+<script>
+function scrollToSection(id){const el=document.getElementById(id);if(el){const navHeight=document.querySelector('.section-nav').offsetHeight;const y=el.getBoundingClientRect().top+window.pageYOffset-navHeight-12;window.scrollTo({top:y,behavior:'smooth'})}}
+const sections=['s1','s2','s3','s4','s5','s6','s7','s8'];const navItems=document.querySelectorAll('.nav-item');
+function updateActiveNav(){const navHeight=document.querySelector('.section-nav').offsetHeight;let current='';sections.forEach(id=>{const el=document.getElementById(id);if(el){const rect=el.getBoundingClientRect();if(rect.top<=navHeight+60)current=id}});navItems.forEach((item,i)=>{if(sections[i]===current)item.classList.add('active');else item.classList.remove('active')})}
+window.addEventListener('scroll',updateActiveNav);updateActiveNav();
+</script>
+</body>
+</html>
