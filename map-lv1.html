@@ -173,6 +173,56 @@
     border-radius: 8px;
     transition: all 0.2s;
   }
+
+
+  .overview-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 4px 10px;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .overview-badge:hover {
+    color: var(--accent);
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+  }
+
+  .branch-item-link {
+    display: flex;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    position: relative;
+  }
+  .branch-item-link::after {
+    content: '→';
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11px;
+    color: var(--text-muted);
+    opacity: 0;
+    transition: all 0.2s;
+  }
+  .branch-item-link:hover::after {
+    opacity: 1;
+    right: 10px;
+  }
+  .branch-item-link:hover {
+    background: rgba(255,255,255,0.04) !important;
+    border-color: var(--border-hover) !important;
+  }
+
   .branch-item:hover { background: rgba(255,255,255,0.04); border-color: var(--border-hover); }
 
   .branch-marker { width: 6px; height: 6px; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
@@ -305,6 +355,7 @@
         </div>
         <div class="category-meta">
           <span class="industry-count">8개 분기</span>
+          <a class="overview-badge" href="sales-overview.html" onclick="event.stopPropagation()">영업 개요 →</a>
           <span class="expand-icon">▾</span>
         </div>
       </div>
@@ -316,70 +367,70 @@
         </div>
         <div class="branches-title">업계별 분기</div>
         <div class="branches-grid">
-          <div class="branch-item">
+          <a class="branch-item branch-item-link" href="sales-eg01-maker.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>메이커 영업 (製造業)</h4>
               <p>기존 거래처 루트영업 중심. 기술적 이해+납기/품질 조정 능력 필요. 장기 관계구축형.</p>
               <div class="branch-tags"><span class="branch-tag">BtoB</span><span class="branch-tag">루트</span><span class="branch-tag">유형상품</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="sales-eg02-it.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>IT영업 (SIer/SaaS)</h4>
               <p>과제 히어링 → 솔루션 제안형. SE와 팀으로 움직임. 논리적 과제정리 능력이 핵심.</p>
               <div class="branch-tags"><span class="branch-tag">BtoB</span><span class="branch-tag">제안형</span><span class="branch-tag">무형상품</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="sales-eg04-ad.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>광고/미디어 영업</h4>
               <p>클라이언트 과제 파악 → 미디어/크리에이티브 제안. 기획력과 프레젠 능력 필수.</p>
               <div class="branch-tags"><span class="branch-tag">BtoB</span><span class="branch-tag">제안형</span><span class="branch-tag">무형상품</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="sales-eg05-finance.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>금융영업 (銀行/証券/保険)</h4>
               <p>개인 고객(리테일)과 기업 고객(홀세일)으로 나뉜다. 자격증 취득 필수. 신뢰구축+제안력.</p>
               <div class="branch-tags"><span class="branch-tag">BtoB/BtoC</span><span class="branch-tag">제안형</span><span class="branch-tag">무형상품</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="sales-eg03-trading.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>상사영업 (商社)</h4>
               <p>중개/트레이딩 + 해외 거래처 개척. 물류, 환리스크, 무역실무까지 시야가 넓어야 한다.</p>
               <div class="branch-tags"><span class="branch-tag">BtoB</span><span class="branch-tag">개척+루트</span><span class="branch-tag">글로벌</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="sales-eg06-realestate.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>부동산영업</h4>
               <p>개인 대상(仲介/販売)과 법인 대상(디벨로퍼)으로 분기. 인센티브형 vs 안정형 차이 큼.</p>
               <div class="branch-tags"><span class="branch-tag">BtoB/BtoC</span><span class="branch-tag">신규</span><span class="branch-tag">유형상품</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="sales-eg07-hr.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>인재/HR영업</h4>
               <p>기업에 인재를 소개하는 영업. 기업 담당(RA)과 구직자 담당(CA)으로 나뉜다. 매칭 감각이 핵심.</p>
               <div class="branch-tags"><span class="branch-tag">BtoB+BtoC</span><span class="branch-tag">제안형</span><span class="branch-tag">무형상품</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="sales-eg08-pharma.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>MR (製薬)</h4>
               <p>의사/약사 대상 정보제공형 영업. 의약품 지식 필수. 판매가 아니라 "정보전달"이 본질.</p>
               <div class="branch-tags"><span class="branch-tag">BtoB</span><span class="branch-tag">정보제공형</span><span class="branch-tag">전문성</span></div>
             </div>
-          </div>
+          </a>
         </div>
         <div class="strengths-section">
           <div class="strengths-title">연결되는 자기분석 키워드</div>
@@ -406,6 +457,7 @@
         </div>
         <div class="category-meta">
           <span class="industry-count">5개 분기</span>
+          <a class="overview-badge" href="se-overview.html" onclick="event.stopPropagation()">SE/IT 개요 →</a>
           <span class="expand-icon">▾</span>
         </div>
       </div>
@@ -417,46 +469,46 @@
         </div>
         <div class="branches-title">유형별 분기</div>
         <div class="branches-grid">
-          <div class="branch-item">
+          <a class="branch-item branch-item-link" href="se-se01-sier.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>SIer SE (대형/독립계)</h4>
               <p>고객 요건정의 → 설계 → 협력사 관리. 상류공정일수록 코딩보다 조정/관리 비중이 높음. PM 지향.</p>
               <div class="branch-tags"><span class="branch-tag">수주개발</span><span class="branch-tag">상류공정</span><span class="branch-tag">PM지향</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="se-se02-web.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>Web계 엔지니어</h4>
               <p>자사서비스 개발. 프론트/백엔드/인프라 등 세분화. 스피드+자율성 중시 문화.</p>
               <div class="branch-tags"><span class="branch-tag">자사개발</span><span class="branch-tag">애자일</span><span class="branch-tag">기술지향</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="se-se03-infra.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>인프라/네트워크 엔지니어</h4>
               <p>서버/네트워크/클라우드 설계·구축·운용. 자격증(CCNA, AWS)이 커리어에 직결.</p>
               <div class="branch-tags"><span class="branch-tag">인프라</span><span class="branch-tag">자격증</span><span class="branch-tag">전문성</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="consul-con02-it.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>IT컨설팅</h4>
               <p>업무개혁+시스템 도입을 세트로 지원. SIer 경험을 쌓은 뒤 이동하는 루트가 일반적.</p>
               <div class="branch-tags"><span class="branch-tag">전략+기술</span><span class="branch-tag">상류</span><span class="branch-tag">BtoB</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="se-se04-ses.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>SES (기술자파견)</h4>
               <p>고객사 상주형. 다양한 프로젝트 경험 가능하지만 커리어 자기결정권이 약한 구조.</p>
               <div class="branch-tags"><span class="branch-tag">파견형</span><span class="branch-tag">다업종경험</span><span class="branch-tag">주의필요</span></div>
             </div>
-          </div>
+          </a>
         </div>
         <div class="strengths-section">
           <div class="strengths-title">연결되는 자기분석 키워드</div>
@@ -483,6 +535,7 @@
         </div>
         <div class="category-meta">
           <span class="industry-count">3분야 · 10개 분기</span>
+          <a class="overview-badge" href="tech-overview.html" onclick="event.stopPropagation()">기술계 개요 →</a>
           <span class="expand-icon">▾</span>
         </div>
       </div>
@@ -495,110 +548,110 @@
 
         <div class="sub-section-title">① 설계·개발 — 제품을 만드는 사람</div>
         <div class="branches-grid">
-          <div class="branch-item">
+          <a class="branch-item branch-item-link" href="tech-gi01-mech.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>자동차/부품 (설계/개발)</h4>
               <p>완성차 OEM, Tier1/2 부품사. CAD/CAE 활용. CASE 트렌드 대응이 핵심 과제.</p>
               <div class="branch-tags"><span class="branch-tag">기계/전기</span><span class="branch-tag">CAD</span><span class="branch-tag">대규모</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="tech-gi01-mech.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>전기전자/반도체 (설계)</h4>
               <p>회로설계, 프로세스개발, 평가. 반도체 부흥 국책과 맞물려 채용 확대 중.</p>
               <div class="branch-tags"><span class="branch-tag">전자/전기</span><span class="branch-tag">클린룸</span><span class="branch-tag">성장세</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="tech-gi01-mech.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>정밀기기/의료기기</h4>
               <p>광학, 정밀가공, 의료기기 설계. 소수정예 개발팀. 니치하지만 고부가가치.</p>
               <div class="branch-tags"><span class="branch-tag">정밀</span><span class="branch-tag">소수정예</span><span class="branch-tag">니치</span></div>
             </div>
-          </div>
+          </a>
         </div>
 
         <div class="sub-section-title">② 생산관리·품질관리 — 공장을 돌리는 사람</div>
         <div class="branches-grid">
-          <div class="branch-item">
+          <a class="branch-item branch-item-link" href="tech-gi02-production.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>생산관리 (生産管理)</h4>
               <p>생산계획 수립, 자재조달, 납기관리. 공장 전체의 "사령탑." 조정력의 극치.</p>
               <div class="branch-tags"><span class="branch-tag">계획</span><span class="branch-tag">조정</span><span class="branch-tag">SCM</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="tech-gi02-production.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>품질관리/품질보증 (QC/QA)</h4>
               <p>검사·불량분석·공정개선(QC)에서 고객 클레임·제품인증 대응(QA)까지. "0불량"을 추구하는 세계.</p>
               <div class="branch-tags"><span class="branch-tag">분석</span><span class="branch-tag">통계</span><span class="branch-tag">개선</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="tech-gi02-production.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>생산기술/제조기술</h4>
               <p>양산 라인 설계·개선. 현장과 설계의 다리 역할. QCD(품질/비용/납기) 최적화가 미션.</p>
               <div class="branch-tags"><span class="branch-tag">현장밀착</span><span class="branch-tag">개선</span><span class="branch-tag">QCD</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="logistics-scm03-trade.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>구매/조달 (購買・調達)</h4>
               <p>부품/원재료 소싱, 가격교섭, 서플라이어 관리. 코스트 삭감의 최전선.</p>
               <div class="branch-tags"><span class="branch-tag">교섭</span><span class="branch-tag">코스트</span><span class="branch-tag">글로벌</span></div>
             </div>
-          </div>
+          </a>
         </div>
 
         <div class="sub-section-title">③ 연구개발 (R&D) — 기술을 탐구하는 사람</div>
         <div class="branches-grid">
-          <div class="branch-item">
+          <a class="branch-item branch-item-link" href="tech-gi03-rd.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>화학/소재 R&D</h4>
               <p>신소재 개발, 배합/프로세스 최적화. 화학·재료공학 전공 필수. 연구 주기 길다.</p>
               <div class="branch-tags"><span class="branch-tag">화학</span><span class="branch-tag">소재</span><span class="branch-tag">장기</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="tech-gi03-rd.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>제약/바이오 R&D</h4>
               <p>신약 탐색, 전임상/임상시험. 고도 전문성 필요. 개발 기간 10년+.</p>
               <div class="branch-tags"><span class="branch-tag">바이오</span><span class="branch-tag">전문성</span><span class="branch-tag">초장기</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="tech-gi03-rd.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>식품 R&D</h4>
               <p>맛/식감/기능성 개발, 관능평가. 농학/식품과학 전공 우대. 소비자와 가까운 연구.</p>
               <div class="branch-tags"><span class="branch-tag">식품</span><span class="branch-tag">관능</span><span class="branch-tag">소비자접점</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="tech-gi03-rd.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>전기전자/반도체 R&D</h4>
               <p>디바이스 개발, 프로세스 연구. 물리/전기전자 전공. 클린룸 환경.</p>
               <div class="branch-tags"><span class="branch-tag">전자</span><span class="branch-tag">프로세스</span><span class="branch-tag">첨단</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="tech-gi03-rd.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>AI/소프트웨어 R&D</h4>
               <p>기계학습, 자연어처리, 화상인식 등. CS/수학 전공. 논문 실적이 곧 채용 무기.</p>
               <div class="branch-tags"><span class="branch-tag">AI/ML</span><span class="branch-tag">논문</span><span class="branch-tag">최첨단</span></div>
             </div>
-          </div>
+          </a>
         </div>
 
         <div class="strengths-section">
@@ -626,6 +679,7 @@
         </div>
         <div class="category-meta">
           <span class="industry-count">4분야 · 14개 분기</span>
+          <a class="overview-badge" href="kikaku-overview.html" onclick="event.stopPropagation()">기획/관리 개요 →</a>
           <span class="expand-icon">▾</span>
         </div>
       </div>
@@ -638,122 +692,122 @@
 
         <div class="sub-section-title">① 사무/관리 — 회사를 안정적으로 돌리는 "수비"</div>
         <div class="branches-grid">
-          <div class="branch-item">
+          <a class="branch-item branch-item-link" href="kikaku-kk01-admin.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>경리/재무 (経理・財務)</h4>
               <p>결산, 예산관리, 세무. 자격증(簿記)이 강점. 숫자에 강하고 꼼꼼한 사람에게 적합.</p>
               <div class="branch-tags"><span class="branch-tag">전문성</span><span class="branch-tag">자격증</span><span class="branch-tag">정확성</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="kikaku-kk01-admin.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>인사/노무 (人事・労務)</h4>
               <p>채용, 연수, 인사평가, 노무관리. 사람을 다루는 일이므로 커뮤니케이션 능력 필수.</p>
               <div class="branch-tags"><span class="branch-tag">조정력</span><span class="branch-tag">기밀성</span><span class="branch-tag">대인</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="kikaku-kk01-admin.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>총무/법무 (総務・法務)</h4>
               <p>사내 환경정비, 계약서 검토, 컴플라이언스. 범위가 넓고 경영진과 가까운 포지션.</p>
               <div class="branch-tags"><span class="branch-tag">멀티태스크</span><span class="branch-tag">조정력</span><span class="branch-tag">법학</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="kikaku-kk01-admin.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>무역사무 (貿易事務)</h4>
               <p>수출입 서류작성, 통관, 물류 조정. 영어+일본어 필수. 상사/메이커/물류회사에서 모집.</p>
               <div class="branch-tags"><span class="branch-tag">어학력</span><span class="branch-tag">정확성</span><span class="branch-tag">글로벌</span></div>
             </div>
-          </div>
+          </a>
         </div>
 
         <div class="sub-section-title">② 기획 — 사업의 방향을 결정하는 "참모"</div>
         <div class="branches-grid">
-          <div class="branch-item">
+          <a class="branch-item branch-item-link" href="kikaku-kk02-planning.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>경영기획 (経営企画)</h4>
               <p>중기경영계획 수립, M&A 검토, 경영진 서포트. 회사 전체를 보는 "참모" 포지션.</p>
               <div class="branch-tags"><span class="branch-tag">전략</span><span class="branch-tag">경영진</span><span class="branch-tag">엘리트</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="kikaku-kk02-planning.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>사업기획 (事業企画)</h4>
               <p>신규사업 입안, 기존사업 개선. 시장분석+수지계획+실행까지 일관되게.</p>
               <div class="branch-tags"><span class="branch-tag">신규사업</span><span class="branch-tag">P&L</span><span class="branch-tag">실행력</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="kikaku-kk02-planning.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>상품기획 (商品企画)</h4>
               <p>소비자 니즈 파악 → 상품 콘셉트 → 개발/생산부문과 협업. 메이커의 꽃 포지션.</p>
               <div class="branch-tags"><span class="branch-tag">소비재</span><span class="branch-tag">콘셉트</span><span class="branch-tag">크로스</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="kikaku-kk02-planning.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>웹/서비스 기획 (Web企画)</h4>
               <p>IT서비스의 기능설계, UX개선, KPI관리. 디렉터/PdM 커리어로 연결.</p>
               <div class="branch-tags"><span class="branch-tag">IT/Web</span><span class="branch-tag">UX</span><span class="branch-tag">PdM</span></div>
             </div>
-          </div>
+          </a>
         </div>
 
         <div class="sub-section-title">③ 마케팅 — 시장·고객 분석을 매출로 연결하는 "공격 지원"</div>
         <div class="branches-grid">
-          <div class="branch-item">
+          <a class="branch-item branch-item-link" href="kikaku-kk03-marketing.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>메이커 마케팅 (소비재)</h4>
               <p>브랜드 매니저형. 상품기획부터 프로모션까지. P&G/유니리버/시세이도 등이 유명.</p>
               <div class="branch-tags"><span class="branch-tag">BtoC</span><span class="branch-tag">브랜드</span><span class="branch-tag">전략</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="kikaku-kk03-marketing.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>디지털 마케팅 (Web/IT)</h4>
               <p>SEO, 광고운용, CRM, 데이터분석. 성과가 수치로 보이는 세계. 스피드감 있는 PDCA.</p>
               <div class="branch-tags"><span class="branch-tag">데이터</span><span class="branch-tag">PDCA</span><span class="branch-tag">Web</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="kikaku-kk03-marketing.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>광고대리점 마케팅</h4>
               <p>클라이언트 마케팅 전략 대행. 미디어 플래닝, 크리에이티브 디렉션.</p>
               <div class="branch-tags"><span class="branch-tag">대리점</span><span class="branch-tag">기획</span><span class="branch-tag">미디어</span></div>
             </div>
-          </div>
+          </a>
         </div>
 
         <div class="sub-section-title">④ 부동산·사업기획 — 대형 프로젝트를 끝까지 이끄는 "PM"</div>
         <div class="branches-grid">
-          <div class="branch-item">
+          <a class="branch-item branch-item-link" href="kikaku-kk02-planning.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>디벨로퍼 사업기획</h4>
               <p>용지 취득, 수익 시뮬레이션, 인허가, 판매기획까지. 미쓰이/미쓰비시지소 등 최상위 인기 직종.</p>
               <div class="branch-tags"><span class="branch-tag">개발</span><span class="branch-tag">고난도</span><span class="branch-tag">고연봉</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="kikaku-kk04-realestate.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>CM/자산운용</h4>
               <p>건설 매니지먼트(CM)이나 REIT·펀드 운용. 부동산 개발 경험 후 이동하는 루트도 많음.</p>
               <div class="branch-tags"><span class="branch-tag">운용</span><span class="branch-tag">PJ관리</span><span class="branch-tag">금융연계</span></div>
             </div>
-          </div>
+          </a>
         </div>
 
         <div class="strengths-section">
@@ -781,6 +835,7 @@
         </div>
         <div class="category-meta">
           <span class="industry-count">3개 분기</span>
+          <a class="overview-badge" href="logistics-overview.html" onclick="event.stopPropagation()">물류·SCM 개요 →</a>
           <span class="expand-icon">▾</span>
         </div>
       </div>
@@ -792,30 +847,30 @@
         </div>
         <div class="branches-title">기능별 분기</div>
         <div class="branches-grid">
-          <div class="branch-item">
+          <a class="branch-item branch-item-link" href="kikaku-kk02-planning.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>물류기획/SCM</h4>
               <p>배송루트 최적화, 재고관리, 물류센터 설계. 데이터 분석+현장 이해 양쪽 필요.</p>
               <div class="branch-tags"><span class="branch-tag">기획</span><span class="branch-tag">최적화</span><span class="branch-tag">데이터</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="logistics-scm02-3pl.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>포워딩/국제물류</h4>
               <p>국제 화물 수배, 통관, 서류작성. 어학력 필수. 상사/물류업체에서 모집.</p>
               <div class="branch-tags"><span class="branch-tag">글로벌</span><span class="branch-tag">어학</span><span class="branch-tag">무역</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="logistics-scm01-maker.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>메이커 유통·SCM</h4>
               <p>메이커 내부 물류·조달 관리. 생산부문과 연동한 재고·납기 조정이 핵심.</p>
               <div class="branch-tags"><span class="branch-tag">사내SCM</span><span class="branch-tag">메이커</span><span class="branch-tag">조달</span></div>
             </div>
-          </div>
+          </a>
         </div>
         <div class="strengths-section">
           <div class="strengths-title">연결되는 자기분석 키워드</div>
@@ -842,6 +897,7 @@
         </div>
         <div class="category-meta">
           <span class="industry-count">4개 분기</span>
+          <a class="overview-badge" href="service-overview.html" onclick="event.stopPropagation()">판매·서비스 개요 →</a>
           <span class="expand-icon">▾</span>
         </div>
       </div>
@@ -853,38 +909,38 @@
         </div>
         <div class="branches-title">업계별 분기</div>
         <div class="branches-grid">
-          <div class="branch-item">
+          <a class="branch-item branch-item-link" href="service-sv01-retail.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>소매판매 (小売)</h4>
               <p>백화점, 전문점, 편의점 SV. 점포 운영 → 매니지먼트 커리어. 패스트리테일링 계열이 대표적.</p>
               <div class="branch-tags"><span class="branch-tag">BtoC</span><span class="branch-tag">점포운영</span><span class="branch-tag">매니지먼트</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="service-sv03-fb.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>외식/FB (フード)</h4>
               <p>점장후보 채용이 메인. 식재관리+인원관리+매출관리 = 미니 경영자 훈련.</p>
               <div class="branch-tags"><span class="branch-tag">경영</span><span class="branch-tag">멀티태스크</span><span class="branch-tag">체력</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="service-sv02-hotel.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>호텔/관광</h4>
               <p>프론트, 컨시어지, 예약관리. 인바운드 수요로 어학력 있는 인재 수요 급증.</p>
               <div class="branch-tags"><span class="branch-tag">접객</span><span class="branch-tag">어학</span><span class="branch-tag">인바운드</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="service-sv02-hotel.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>브라이달/이벤트</h4>
               <p>웨딩플래너, 이벤트 프로듀서. 기획력+실행력+감성이 요구되는 특수 분야.</p>
               <div class="branch-tags"><span class="branch-tag">기획</span><span class="branch-tag">감성</span><span class="branch-tag">프로듀스</span></div>
             </div>
-          </div>
+          </a>
         </div>
         <div class="strengths-section">
           <div class="strengths-title">연결되는 자기분석 키워드</div>
@@ -911,6 +967,7 @@
         </div>
         <div class="category-meta">
           <span class="industry-count">3개 분기</span>
+          <a class="overview-badge" href="sekou-overview.html" onclick="event.stopPropagation()">시공관리 개요 →</a>
           <span class="expand-icon">▾</span>
         </div>
       </div>
@@ -922,30 +979,30 @@
         </div>
         <div class="branches-title">분야별 분기</div>
         <div class="branches-grid">
-          <div class="branch-item">
+          <a class="branch-item branch-item-link" href="sekou-sk01-arch.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>건축 시공관리</h4>
               <p>빌딩, 맨션, 상업시설 등 건축공사 관리. 가장 수요가 많은 분야.</p>
               <div class="branch-tags"><span class="branch-tag">건축</span><span class="branch-tag">대규모</span><span class="branch-tag">수요최대</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="sekou-sk02-civil.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>토목 시공관리</h4>
               <p>도로, 터널, 교량, 댐 등 인프라 공사. 공공사업 비중 높아 경기 변동에 강함.</p>
               <div class="branch-tags"><span class="branch-tag">인프라</span><span class="branch-tag">공공</span><span class="branch-tag">안정</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="sekou-sk03-facility.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>설비 시공관리</h4>
               <p>전기, 공조, 급배수 등 설비계 공사. 전문성 높고 수요 안정적.</p>
               <div class="branch-tags"><span class="branch-tag">설비</span><span class="branch-tag">전문성</span><span class="branch-tag">자격증</span></div>
             </div>
-          </div>
+          </a>
         </div>
         <div class="strengths-section">
           <div class="strengths-title">연결되는 자기분석 키워드</div>
@@ -972,6 +1029,7 @@
         </div>
         <div class="category-meta">
           <span class="industry-count">3개 분기</span>
+          <a class="overview-badge" href="creative-overview.html" onclick="event.stopPropagation()">크리에이티브 개요 →</a>
           <span class="expand-icon">▾</span>
         </div>
       </div>
@@ -983,30 +1041,30 @@
         </div>
         <div class="branches-title">분야별 분기</div>
         <div class="branches-grid">
-          <div class="branch-item">
+          <a class="branch-item branch-item-link" href="creative-cr03-graphic.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>그래픽/비주얼 디자인</h4>
               <p>광고물, 웹사이트, 앱 UI 디자인. Figma/XD/Illustrator 필수. 포폴이 전부.</p>
               <div class="branch-tags"><span class="branch-tag">디자인</span><span class="branch-tag">UI</span><span class="branch-tag">포폴</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="creative-cr01-uiux.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>UIUX 디자인</h4>
               <p>사용자 조사 → 인사이트 도출 → UI개선. 디자인+분석의 교차점. IT계에서 수요 급증.</p>
               <div class="branch-tags"><span class="branch-tag">UX</span><span class="branch-tag">리서치</span><span class="branch-tag">성장세</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="creative-cr02-ad.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>광고·엔터테인먼트 크리에이티브</h4>
               <p>TV, CM, 영상, 게임 아트. 촬영+편집+기획까지. 포트폴리오+과제 전형이 일반적.</p>
               <div class="branch-tags"><span class="branch-tag">영상</span><span class="branch-tag">게임</span><span class="branch-tag">제작</span></div>
             </div>
-          </div>
+          </a>
         </div>
         <div class="strengths-section">
           <div class="strengths-title">연결되는 자기분석 키워드</div>
@@ -1033,6 +1091,7 @@
         </div>
         <div class="category-meta">
           <span class="industry-count">3개 분기</span>
+          <a class="overview-badge" href="consul-overview.html" onclick="event.stopPropagation()">컨설턴트 개요 →</a>
           <span class="expand-icon">▾</span>
         </div>
       </div>
@@ -1044,30 +1103,30 @@
         </div>
         <div class="branches-title">분야별 분기</div>
         <div class="branches-grid">
-          <div class="branch-item">
+          <a class="branch-item branch-item-link" href="consul-con01-strategy.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>전략 컨설팅 (MBB 등)</h4>
               <p>경영전략, M&A, 신규사업. MBB(맥킨지/BCG/베인) 등. 극소수 정예 채용.</p>
               <div class="branch-tags"><span class="branch-tag">전략</span><span class="branch-tag">톱티어</span><span class="branch-tag">극소수</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="consul-con01-strategy.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>종합컨설팅 (BIG4/아빔/NRI 등)</h4>
               <p>업무개혁, IT도입, 조직변혁 등 폭넓은 안건. IT계 프로젝트 비중이 가장 높다.</p>
               <div class="branch-tags"><span class="branch-tag">종합</span><span class="branch-tag">IT비중高</span><span class="branch-tag">대량채용</span></div>
             </div>
-          </div>
-          <div class="branch-item">
+          </a>
+          <a class="branch-item branch-item-link" href="consul-con02-it.html">
             <div class="branch-marker"></div>
             <div class="branch-content">
               <h4>IT컨설팅</h4>
               <p>업무개혁+시스템 도입 세트 지원. DX 수요 확대로 채용 증가 중. 문과도 진입 가능.</p>
               <div class="branch-tags"><span class="branch-tag">IT+전략</span><span class="branch-tag">DX</span><span class="branch-tag">성장세</span></div>
             </div>
-          </div>
+          </a>
         </div>
         <div class="strengths-section">
           <div class="strengths-title">연결되는 자기분석 키워드</div>
