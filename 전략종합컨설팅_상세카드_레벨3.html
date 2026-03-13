@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전략/종합 컨설팅 상세 카드 | Tokyo Career Studio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+  :root { --bg:#0a0a0f; --surface:#141419; --surface-2:#1c1c24; --surface-3:#22222e; --border:#2a2a35; --border-hover:#3a3a48; --text:#e8e8ed; --text-sub:#c0c0d0; --text-dim:#8888a0; --text-muted:#555568; --accent:#ef7b45; --accent-soft:rgba(239,123,69,0.08); --accent-border:rgba(239,123,69,0.18); }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif; line-height: 1.8; min-height: 100vh; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 760px; margin: 0 auto; padding: 0 24px 100px; }
+
+  /* ===== HERO ===== */
+  .hero { padding: 56px 24px 40px; text-align: center; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 50% 0%, rgba(239,123,69,0.05) 0%, transparent 70%); }
+  .hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+  .hero-breadcrumb { font-size: 11px; color: var(--text-muted); margin-bottom: 16px; }
+  .hero-breadcrumb a { color: var(--accent); text-decoration: none; }
+  .hero-breadcrumb span { margin: 0 6px; }
+  .hero-label { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); background: var(--accent-soft); border: 1px solid var(--accent-border); padding: 5px 14px; border-radius: 16px; margin-bottom: 20px; }
+  .hero-icon { width: 64px; height: 64px; border-radius: 14px; background: var(--accent-soft); border: 1px solid var(--accent-border); display: flex; align-items: center; justify-content: center; font-size: 18px; color: var(--accent); font-family: 'Noto Sans JP', sans-serif; font-weight: 700; margin: 0 auto 20px; letter-spacing: -1px; }
+  .hero h1 { font-size: 30px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.5px; }
+  .hero .title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; color: var(--text-muted); margin-bottom: 4px; }
+  .hero .title-en { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .hero-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .hero-tag { font-size: 11px; padding: 4px 12px; border-radius: 12px; background: var(--accent-soft); color: var(--accent); font-weight: 500; border: 1px solid var(--accent-border); }
+  .hero-summary { font-size: 13px; color: var(--text-dim); max-width: 540px; margin: 0 auto; line-height: 1.9; }
+
+  /* ===== NAV ===== */
+  .section-nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 10px 0; }
+  .section-nav-inner { max-width: 760px; margin: 0 auto; padding: 0 24px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+  .section-nav-inner::-webkit-scrollbar { display: none; }
+  .nav-item { flex-shrink: 0; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 500; color: var(--text-muted); cursor: pointer; border: none; background: none; font-family: inherit; transition: all 0.2s; white-space: nowrap; }
+  .nav-item:hover, .nav-item.active { color: var(--accent); background: var(--accent-soft); }
+
+  /* ===== SECTIONS ===== */
+  .section { padding: 40px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom: none; }
+  .section-number { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); opacity: 0.6; margin-bottom: 6px; }
+  .section-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+  .section-title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .section p { font-size: 13px; color: var(--text-sub); line-height: 2.0; margin-bottom: 14px; }
+  .section p:last-child { margin-bottom: 0; }
+  .hl { color: var(--accent); font-weight: 600; }
+  .hl-warn { color: #ef4444; font-weight: 600; }
+
+  /* ===== BOXES ===== */
+  .info-box { padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin: 16px 0; }
+  .info-box-accent { border-left: 3px solid var(--accent); background: var(--accent-soft); border-color: var(--accent-border); border-left-color: var(--accent); }
+  .info-box-blue { border-left: 3px solid #60a5fa; background: rgba(96,165,250,0.06); border-color: rgba(96,165,250,0.18); border-left-color: #60a5fa; }
+  .info-box-green { border-left: 3px solid #34d399; background: rgba(52,211,153,0.06); border-color: rgba(52,211,153,0.18); border-left-color: #34d399; }
+  .info-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .info-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  /* ===== BRANCH CARDS ===== */
+  .branch-grid { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+  .branch-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px 22px; display: flex; gap: 16px; transition: border-color 0.2s; }
+  .branch-card:hover { border-color: var(--border-hover); }
+  .branch-card.primary { border-color: var(--accent-border); background: var(--accent-soft); }
+  .branch-icon { width: 40px; height: 40px; border-radius: 10px; background: var(--accent-soft); border: 1px solid var(--accent-border); display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; color: var(--accent); font-weight: 700; font-family: 'Noto Sans JP', sans-serif; }
+  .branch-body { flex: 1; }
+  .branch-title { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .branch-title-jp { font-size: 11px; color: var(--text-muted); font-family: 'Noto Sans JP', sans-serif; margin-bottom: 8px; }
+  .branch-desc { font-size: 12px; color: var(--text-dim); line-height: 1.75; margin-bottom: 10px; }
+  .branch-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .branch-tag { font-size: 10px; padding: 3px 9px; border-radius: 10px; background: var(--surface-2); border: 1px solid var(--border); color: var(--text-muted); }
+
+  /* ===== COMPARE TABLE ===== */
+  .compare-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12px; }
+  .compare-table th { text-align: left; padding: 10px 14px; background: var(--surface-2); color: var(--text-dim); font-weight: 600; font-size: 11px; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
+  .compare-table td { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-sub); vertical-align: top; line-height: 1.7; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .row-label { font-weight: 600; color: var(--accent); white-space: nowrap; width: 100px; }
+
+  /* ===== QA ===== */
+  .qa-list { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
+  .qa-item { padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+  .qa-item:hover { border-color: var(--border-hover); }
+  .qa-question { font-size: 13px; font-weight: 600; display: flex; align-items: flex-start; gap: 10px; }
+  .qa-q-mark { color: var(--accent); font-weight: 800; font-size: 14px; flex-shrink: 0; opacity: 0.7; }
+  .qa-answer { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-dim); line-height: 1.8; padding-left: 24px; }
+  .qa-item.open .qa-answer { display: block; }
+
+  /* ===== KEYWORD GRID ===== */
+  .keyword-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .keyword-card { padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .keyword-card .kw-name { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .keyword-card .kw-desc { font-size: 11px; color: var(--text-dim); line-height: 1.7; }
+
+  /* ===== WARN ===== */
+  .warn-box { padding: 18px 20px; background: rgba(239,68,68,0.04); border: 1px solid rgba(239,68,68,0.12); border-left: 3px solid #ef4444; border-radius: 10px; margin: 14px 0; }
+  .warn-box h4 { font-size: 13px; font-weight: 700; color: #ef4444; margin-bottom: 6px; }
+  .warn-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  /* ===== FOOTER ===== */
+  .footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--border); }
+  .footer p { font-size: 11px; color: var(--text-muted); line-height: 1.8; }
+  .footer .brand { font-weight: 700; color: var(--text-dim); }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 24px; }
+    .section-title { font-size: 18px; }
+    .hero { padding: 40px 20px 32px; }
+    .compare-table { font-size: 11px; }
+    .compare-table th, .compare-table td { padding: 8px 10px; }
+    .branch-card { flex-direction: column; gap: 12px; }
+    .keyword-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-breadcrumb">
+      <a href="#">직종 대분류 맵</a><span>›</span><a href="#">컨설턴트 개요</a><span>›</span>전략/종합 컨설팅
+    </div>
+    <div class="hero-label">業界×職種カード — LEVEL 3</div>
+    <div class="hero-icon">戦総</div>
+    <h1>전략/종합 컨설팅</h1>
+    <div class="title-jp">戦略・総合コンサルティング 詳細ガイド</div>
+    <div class="title-en">Strategy & General Consulting — Detail Card</div>
+    <div class="hero-tags">
+      <span class="hero-tag">MBB vs BIG4</span>
+      <span class="hero-tag">케이스면접 필수</span>
+      <span class="hero-tag">인턴이 승부처</span>
+      <span class="hero-tag">전형이 전혀 다르다</span>
+    </div>
+    <p class="hero-summary">
+      \"전략컨설과 종합컨설, 뭐가 다른 거야?\" — 이 질문에 답하는 카드.<br>
+      하는 일, 채용 규모, 전형 방식, 스케줄이 전부 다르다.<br>
+      컨설 개요카드(레벨2)를 본 후, 이 카드로 MBB와 BIG4의 구체적 현실을 파고들 것.
+    </p>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="scrollToSection('s1')">01 정의</button>
+    <button class="nav-item" onclick="scrollToSection('s2')">02 MBBvsBIG4</button>
+    <button class="nav-item" onclick="scrollToSection('s3')">03 대표기업</button>
+    <button class="nav-item" onclick="scrollToSection('s4')">04 전형비교</button>
+    <button class="nav-item" onclick="scrollToSection('s5')">05 케이스면접</button>
+    <button class="nav-item" onclick="scrollToSection('s6')">06 ES/면접Q&A</button>
+    <button class="nav-item" onclick="scrollToSection('s7')">07 키워드</button>
+    <button class="nav-item" onclick="scrollToSection('s8')">08 주의점</button>
+  </div>
+</div>
+
+<!-- ===== CONTENT ===== -->
+<div class="container">
+
+  <!-- ========== SECTION 1 ========== -->
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">전략/종합 컨설팅이란</div>
+    <div class="section-title-jp">戦略・総合コンサルとは</div>
+
+    <p>
+      컨설팅 개요카드(레벨2)에서 \"전략 / 종합 / IT\"의 3분류를 배웠다면,
+      이 카드에서는 <span class="hl">\"전략컨설(MBB)\"과 \"종합컨설(BIG4)\"</span>에 초점을 맞춘다.
+      이 두 유형은 같은 \"컨설턴트\"라는 직함을 쓰지만, 하는 일과 채용 현실이 상당히 다르다.
+    </p>
+
+    <p>
+      가장 먼저 이해해야 할 것: <span class="hl">전략컨설(MBB)은 채용 인원이 극소수다.</span>
+      일본 전체에서 연간 수십 명 수준의 채용이 이루어지는 세계다.
+      반면 종합컨설(BIG4)은 신졸 수백 명 규모의 채용을 한다.
+      \"컨설턴트가 되고 싶다\"는 목표의 현실적 주전장은 BIG4다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>이 카드를 읽기 전에 확인</h4>
+      <p>
+        <strong>컨설턴트 개요카드(레벨2)를 먼저 읽었는가?</strong><br><br>
+        개요카드에서는 \"컨설턴트란 무엇인가\", \"전략/종합/IT의 3분류\", \"공통 역량\", \"커리어패스\", \"함정\"을 다루고 있다.
+        이 카드는 그 위에서 MBB와 BIG4에 특화한 심층 정보를 제공한다.
+        개요카드 없이 이 카드만 읽으면 전체 맥락이 빠진다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>\"전략컨설\"과 \"종합컨설\"의 본질적 차이</h4>
+      <p>
+        <strong>전략컨설 (MBB)</strong> — 기업의 경영 전략, 즉 \"무엇을 할 것인가\"를 결정하는 가장 상류의 안건을 담당.
+        CEO/경영진과 직접 대화하며 단기(2-4개월) 프로젝트를 고속으로 회전한다.
+        순수한 경영 전략 안건이 중심이며 IT안건 비율이 낮다.<br><br>
+        <strong>종합컨설 (BIG4)</strong> — 전략부터 업무 개선, IT, 인사, 재무, M&A까지 폭넓게 커버.
+        경영진에서 현장 담당자까지 관여하며 수개월에서 1년 이상의 프로젝트에 실행까지 관여.
+        신졸이 처음 배치되는 안건의 상당수는 IT도입·업무 개선 관련이다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 2 ========== -->
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">MBB vs BIG4 — 전면 비교</div>
+    <div class="section-title-jp">MBB vs BIG4 比較</div>
+
+    <p>
+      같은 \"컨설턴트\"라도 두 유형은 <span class="hl">일하는 방식·채용 규모·선발 방식이 전혀 다르다.</span>
+      어느 쪽을 목표로 하는지에 따라 취활 전략이 180도 달라진다.
+    </p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>항목</th>
+          <th>전략컨설 (MBB)</th>
+          <th>종합컨설 (BIG4)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-label">핵심 미션</td><td>\"무엇을 할 것인가\"를 결정</td><td>전략+실행 포함 폭넓게 지원</td></tr>
+        <tr><td class="row-label">고객 접점</td><td>CEO/경영진과 직접 대화</td><td>경영진+사업부장+현장 담당자까지</td></tr>
+        <tr><td class="row-label">안건 기간</td><td>2-4개월의 짧은 프로젝트</td><td>수개월~1년+, 실행까지 관여하면 더 길어짐</td></tr>
+        <tr><td class="row-label">IT안건 비율</td><td>낮음 (순수 경영전략 중심)</td><td>높아지는 중 (비IT 영역도 상당)</td></tr>
+        <tr><td class="row-label">신졸 업무</td><td>리서치, 데이터 분석, 슬라이드 작성. 소규모 팀에서 밀도 높음</td><td>분석, 자료 작성, 현장 조사, PM 보조. 대규모 팀의 일원</td></tr>
+        <tr><td class="row-label">채용 규모</td><td>연간 수십 명 (극소수)</td><td>수백 명 규모 (현실적)</td></tr>
+        <tr><td class="row-label">선발 핵심</td><td>케이스 면접 (페르미+비즈니스 케이스)</td><td>ES+웹테스트+GD+면접 (간이 케이스 있는 곳도)</td></tr>
+        <tr><td class="row-label">인턴</td><td>서머 인턴이 사실상 1차 선발</td><td>인턴→조기 선발 루트가 강해지는 중</td></tr>
+        <tr><td class="row-label">조직 문화</td><td>Up or Out 색채 강함</td><td>Up or Out보다 완화. 회사에 따라 다름</td></tr>
+        <tr><td class="row-label">연봉 수준</td><td>신졸부터 업계 최고 수준</td><td>일반 대기업보다 높지만 MBB보다 낮음</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info-box info-box-accent">
+      <h4>한 줄 요약</h4>
+      <p>
+        MBB = <strong>\"무엇을 할 것인가\"를 결정하는 곳. 극소수만 들어감.</strong><br>
+        BIG4 = <strong>\"무엇을 할 것인가\"부터 \"어떻게 실행할 것인가\"까지 폭넓게. 신졸의 가장 현실적 선택지.</strong>
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 3 ========== -->
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">대표 기업 일람</div>
+    <div class="section-title-jp">代表的な企業</div>
+
+    <p>
+      지원 전에 각 펌의 강점과 문화를 파악해둘 것.
+      <span class="hl">\"BIG4는 다 같다\"는 생각이 면접에서 치명적이 된다.</span>
+    </p>
+
+    <div class="branch-grid">
+      <div class="branch-card primary">
+        <div class="branch-icon">MBB</div>
+        <div class="branch-body">
+          <div class="branch-title">전략컨설 (MBB + α)</div>
+          <div class="branch-title-jp">戦略コンサルティング</div>
+          <div class="branch-desc">
+            <strong>McKinsey & Company (맥킨지)</strong> — 세계 최고봉. 일본 신졸 연간 10-20명 수준.<br>
+            <strong>BCG (보스턴 컨설팅 그룹)</strong> — 맥킨지와 양대 산맥. 일본 시장 존재감 강함.<br>
+            <strong>Bain & Company (베인)</strong> — 사모펀드(PE)와의 연계. 일본 오피스 소규모.<br>
+            <strong>A.T. Kearney, Roland Berger</strong> — 외자계 전략펌. MBB보다 규모 작지만 전략 특화.<br>
+            <strong>ドリームインキュベータ(DI), 経営共創基盤(IGPI)</strong> — 일본계 전략펌. 전략+실행. MBB보다 접근이 약간 현실적.
+          </div>
+          <div class="branch-tags">
+            <span class="branch-tag">전략 특화</span>
+            <span class="branch-tag">극소수 채용</span>
+            <span class="branch-tag">최고 난이도</span>
+            <span class="branch-tag">케이스면접 필수</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="branch-card">
+        <div class="branch-icon">BIG4</div>
+        <div class="branch-body">
+          <div class="branch-title">종합컨설 (BIG4)</div>
+          <div class="branch-title-jp">総合コンサルティング</div>
+          <div class="branch-desc">
+            <strong>デロイト トーマツ (DTC)</strong> — 일본 BIG4 중 컨설팅 규모 최대급. 업계별 전문성 깊음.<br>
+            <strong>PwCコンサルティング</strong> — 글로벌 네트워크 강점. 크로스보더 안건 많음. Strategy& (전략 부문) 보유.<br>
+            <strong>EYストラテジー・アンド・コンサルティング</strong> — 급성장 중. \"People First\" 문화 강조.<br>
+            <strong>KPMGコンサルティング</strong> — 소수 정예. 리스크/컴플라이언스에 강점.<br><br>
+            BIG4는 감사법인이 본업이고 컨설팅 부문을 확장한 구조. 재무/경영 데이터 이해가 강점. 인사, 재무, M&A 같은 비IT 영역은 IT컨설보다 BIG4가 두꺼운 경우가 많다.
+          </div>
+          <div class="branch-tags">
+            <span class="branch-tag">신졸 접근 가능</span>
+            <span class="branch-tag">종합</span>
+            <span class="branch-tag">비IT 영역도 두꺼움</span>
+            <span class="branch-tag">감사법인 계열</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box info-box-blue">
+      <h4>각 사 차별점 — \"왜 이 회사인가\"를 준비하는 포인트</h4>
+      <p>
+        <strong>DTC</strong>: 일본 컨설팅 시장에서 가장 큰 조직. 업계별(금융, 제조, 공공 등) 전문성이 깊다.<br>
+        <strong>PwC</strong>: Strategy&(전 부즈앤컴퍼니) 보유로 전략 안건도 두껍다. 크로스보더 딜이 많아 글로벌 지향에 맞다.<br>
+        <strong>EY</strong>: 컨설팅 부문을 급속 확장 중. \"People First\"라는 문화를 전면에 내세운다. 캐리어 개발에 투자하는 인상.<br>
+        <strong>KPMG</strong>: 4사 중 규모가 가장 작고 소수 정예 색채. 리스크 관리·컴플라이언스 분야에 독보적 강점.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 4 ========== -->
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">채용 전형 비교와 스케줄</div>
+    <div class="section-title-jp">採用選考の比較とスケジュール</div>
+
+    <p>
+      MBB와 BIG4는 전형 방식이 전혀 다르다. <span class="hl">둘 다 일반 기업보다 채용이 빠르다.</span>
+      \"3월에 취활 시작\"이면 두 유형 모두 이미 늦다.
+    </p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>단계</th>
+          <th>전략컨설 (MBB)</th>
+          <th>종합컨설 (BIG4)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-label">서류</td><td>ES+학력. 학력 필터 사실상 존재 (도쿄대/교토대/해외 톱스쿨 중심)</td><td>ES. 논리적 구성 중시. 학력 폭이 MBB보다 넓음</td></tr>
+        <tr><td class="row-label">웹테스트</td><td>고난이도 독자 논리 시험</td><td>GAB/TG-WEB 등. 일반 SPI보다 어려움. 사전 대비 필수</td></tr>
+        <tr><td class="row-label">GD</td><td>없는 경우가 대부분</td><td>있는 곳도 있음 (DTC, PwC 등). 비즈니스 과제 팀 토론</td></tr>
+        <tr><td class="row-label">면접 핵심</td><td><strong>케이스 면접</strong>이 최대 관문. 페르미+비즈니스 케이스를 30-45분에 풀어야 함</td><td>지망동기+가쿠치카 중심. <strong>간이 케이스</strong> 나오는 곳도 있음</td></tr>
+        <tr><td class="row-label">최종</td><td>파트너(경영진급) 면접. 지적 호기심+인간적 매력</td><td>파트너/디렉터 면접. \"이 사람과 함께 일하고 싶은가\"</td></tr>
+        <tr><td class="row-label">난이도</td><td>최상. 합격률 1% 미만이라는 설도</td><td>높음. 하지만 MBB보다는 현실적</td></tr>
+      </tbody>
+    </table>
+
+    <div class="info-box info-box-accent">
+      <h4>스케줄 — 인턴이 승부처</h4>
+      <p>
+        <strong>학부 3년/M1 여름 (6-8월)</strong><br>
+        MBB: 서머 인턴(2-5일 잡 형식). <span class="hl">사실상 이것이 1차 선발.</span> 인턴→조기 내정 루트가 메인.<br>
+        BIG4: 서머 인턴(3-5일). 인턴→조기 선발 루트가 점점 강해지는 중. DTC, PwC 등 대부분 실시.<br><br>
+
+        <strong>가을-겨울 (10-2월)</strong><br>
+        MBB: 인턴 고평가자에게 조기 내정. 본선발(일반 루트)은 봄.<br>
+        BIG4: 인턴 경유 조기 선발 + 일부 추가 인턴.<br><br>
+
+        <strong>학부 4년/M2 봄 (3월-)</strong><br>
+        MBB: 본선발. 인턴 미참가자도 가능하지만 확률 낮음.<br>
+        BIG4: 본선발. 인턴 미참가자도 지원 가능.<br><br>
+
+        핵심: <span class="hl">MBB든 BIG4든, 서머 인턴이 승부처.</span> 인턴 지원 마감은 5-6월이므로, 늦어도 학부 3년/M1 봄에 준비를 시작해야 한다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 5 ========== -->
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">케이스 면접 기본</div>
+    <div class="section-title-jp">ケース面接の基本と対策</div>
+
+    <p>
+      MBB에서 <span class="hl">필수</span>, BIG4에서 <span class="hl">간이 형태로 나올 수 있음</span>.
+      \"정답을 맞히는 시험\"이 아니라 <span class="hl">\"사고 과정을 보는 시험\"</span>이다.
+    </p>
+
+    <div class="branch-grid">
+      <div class="branch-card">
+        <div class="branch-icon">FRM</div>
+        <div class="branch-body">
+          <div class="branch-title">유형 1 — 페르미 추정</div>
+          <div class="branch-title-jp">フェルミ推定</div>
+          <div class="branch-desc">
+            \"일본에 전봇대는 몇 개?\" \"도쿄의 택시 대수는?\" 같은 추정 문제.
+            정확한 숫자가 아니라 \"어떤 논리로 분해했는가\"를 본다.
+            인구→세대수→지역당 밀도 같은 구조적 분해 사고가 핵심.
+            숫자가 다소 틀려도 구조가 깔끔하면 평가받는다.
+          </div>
+          <div class="branch-tags">
+            <span class="branch-tag">구조적 분해</span>
+            <span class="branch-tag">숫자 추정</span>
+            <span class="branch-tag">논리 프로세스</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="branch-card">
+        <div class="branch-icon">BIZ</div>
+        <div class="branch-body">
+          <div class="branch-title">유형 2 — 비즈니스 케이스</div>
+          <div class="branch-title-jp">ビジネスケース</div>
+          <div class="branch-desc">
+            \"A사(편의점 체인)의 매출을 향상시키려면?\" \"B사가 신규 시장에 진출해야 하는가?\" 같은 경영 과제를 구조적으로 분석.
+            프레임워크(3C, 4P 등)를 활용하되, 기계적 적용이 아니라 과제에 맞는 사고가 핵심.
+            면접관과의 대화를 통해 깊이를 파고드는 형식.
+          </div>
+          <div class="branch-tags">
+            <span class="branch-tag">경영 과제 분석</span>
+            <span class="branch-tag">프레임워크</span>
+            <span class="branch-tag">대화형</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box info-box-green">
+      <h4>케이스 면접 준비 방법</h4>
+      <p>
+        <strong>교재</strong>: 「東大生が書いた 問題を解く力を鍛えるケース問題ノート」「過去問で鍛える地頭力」가 일본 취활 정석 교재.<br><br>
+        <strong>연습법</strong>: 혼자 풀어보고 → 친구와 \"면접관/지원자 역할\"을 번갈아 연습. <span class="hl">소리 내어 사고 과정을 설명하는 훈련이 핵심.</span><br><br>
+        <strong>준비 기간</strong>: MBB 목표라면 최소 2-3개월 전부터. BIG4도 기본서 1-2권은 읽어둘 것.<br><br>
+        <strong>핵심 자세</strong>: \"정답\"이 아니라 \"사고의 구조\"를 보는 시험. 깔끔한 분해→가설→검증→결론의 프로세스를 보여주는 연습.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 6 ========== -->
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">ES/면접 핵심 Q&A</div>
+    <div class="section-title-jp">ES・面接の頻出Q&A</div>
+
+    <p>
+      컨설팅 전형에서 자주 나오는 질문들. <span class="hl">\"왜 이 유형인가\"를 논리적으로 말할 수 있는지</span>가 가장 중요하다.
+    </p>
+
+    <div class="qa-list">
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>[MBB] 왜 BIG4(종합)가 아니라 전략(MBB)인가?</span></div><div class="qa-answer">\"경영 전략이라는 가장 상류의 의사결정에 관여하고 싶다\", \"소규모 팀에서 높은 밀도로 성장하고 싶다\"가 기본 방향. \"전략이 더 위니까\"는 NG. MBB만의 가치(순수 전략 안건의 비율, CEO와의 직접 대화, 프로젝트의 짧은 사이클)를 구체적으로.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>[BIG4] 왜 MBB(전략)가 아니라 BIG4(종합)인가?</span></div><div class="qa-answer">\"전략만이 아니라 실행까지 관여하고 싶다\", \"폭넓은 영역(전략+업무+IT+인사 등)을 경험하면서 자기 전문 분야를 찾고 싶다\"가 기본. \"MBB에 떨어져서\"가 본심이어도 절대 말하면 안 됨.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>[BIG4] 왜 IT컨설(액센츄어 등)이 아니라 BIG4인가?</span></div><div class="qa-answer">\"IT 특화보다 폭넓은 영역을 커버하는 종합력에 매력을 느낀다\", \"감사법인 계열로서 재무/리스크/거버넌스에 대한 깊은 이해를 기반으로 한 컨설팅에 관심\"이라는 방향. BIG4만의 강점(비IT 영역의 두께)을 구체적으로.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>[BIG4] BIG4 4사 중 왜 이 회사인가?</span></div><div class="qa-answer">가장 답하기 어려운 질문. 4사는 외부에서 비슷해 보임. 각사 특색: DTC=일본 최대급/업계 전문성, PwC=글로벌+Strategy&, EY=급성장/문화, KPMG=리스크 전문/소수 정예. OB/OG 방문이나 인턴에서 느낀 구체적 인상을 넣을 것.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>[BIG4] 배치가 희망과 다를 수 있는데 괜찮은가?</span></div><div class="qa-answer">BIG4 특유의 질문. 실제 배치는 입사 후 연수 결과+당시 프로젝트 수요로 결정. \"어떤 영역에 배치되더라도, 장기적으로 커리어의 폭을 넓히는 기회라고 생각한다\"는 유연한 자세. \"전략이 아니면 안 된다\"는 경직된 답은 NG.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>[공통] 장시간 근무에 대해 어떻게 생각하나?</span></div><div class="qa-answer">\"빠르게 성장하고 싶다는 목표가 있고, 그 과정에서의 하드워크는 투자라고 생각한다\" + \"동시에 효율적으로 일하는 것도 중요하다고 생각한다\"의 균형감. MBB/BIG4 모두 업무 강도는 높다.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>[공통] 어떤 업계/분야에 관심이 있는가?</span></div><div class="qa-answer">하나를 깊이 파서 \"왜 그 업계, 어떤 과제\"까지 말할 수 있으면 강함. \"아무 업계든\"은 약함. \"지금은 ○○에 관심이 있고, 입사 후 다양한 경험을 하면서 전문 분야를 좁혀가고 싶다\"도 OK.</div></div>
+    </div>
+
+    <div class="info-box">
+      <h4>가쿠치카 연결 — 컨설에서 보는 역량과 에피소드</h4>
+      <p>
+        <strong>논리적 문제해결</strong>: 어떤 과제를 분석하고 가설을 세워 검증하고 결론을 도출한 경험 → 컨설턴트의 가장 기본 무기<br><br>
+        <strong>리더십+조정력</strong>: 팀 프로젝트를 이끌면서 방향을 제시하고 멤버를 조율한 경험 → 고객을 움직이게 하는 힘과 연결<br><br>
+        <strong>끈기+목표 달성</strong>: 어려운 목표에 장기간 꾸준히 도전해서 결과를 낸 경험 → 마감 프레셔와 하드워크를 버티는 증거<br><br>
+        <strong>약한 예</strong>: \"다양한 경험을 했다\" → 양이 아니라 하나를 얼마나 깊이 팠는지를 본다
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 7 ========== -->
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 연결</div>
+    <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+    <p>
+      <span class="hl">\"논리적이니까 컨설에 맞다\"가 아니라, \"논리적 사고가 컨설의 어떤 장면에서 발휘되는가\"</span>까지.
+      MBB와 BIG4는 보는 역량의 무게가 약간 다르다.
+    </p>
+
+    <div class="keyword-grid">
+      <div class="keyword-card"><div class="kw-name">논리적사고력</div><div class="kw-desc">모든 컨설의 기본 무기. MBB에서는 케이스 면접으로 직접 측정. BIG4에서는 면접 답변의 구조 자체가 증명의 장. \"구조적으로 분해→가설→검증\"의 프로세스를 에피소드로 보여줄 것.</div></div>
+      <div class="keyword-card"><div class="kw-name">향상심</div><div class="kw-desc">프로젝트마다 새 업계·기술을 단기에 습득해야 하는 환경. \"지금보다 더 성장하겠다\"는 강한 의지 없이는 버티기 어렵다. 특히 MBB의 Up or Out 문화에서는 성장 의지가 생존의 기본 조건.</div></div>
+      <div class="keyword-card"><div class="kw-name">주체성</div><div class="kw-desc">BIG4 신졸이 특히 보는 역량. 지시를 기다리는 것이 아니라 자분으로 과제를 발견하고 행동하는 자세. \"시키는 일을 잘 한다\"보다 \"스스로 움직인다\"는 증거가 강력하다.</div></div>
+      <div class="keyword-card"><div class="kw-name">끈기</div><div class="kw-desc">마감 프레셔, 고객의 높은 기대, 장시간 근무. 이 환경에서 품질을 유지하며 끝까지 해내는 힘. \"힘들어도 포기하지 않은\" 경험이 있으면 컨설 전형에서 강력한 어필이 된다.</div></div>
+      <div class="keyword-card"><div class="kw-name">도전정신</div><div class="kw-desc">\"안전한 길\"보다 \"빠르게 성장할 수 있는 험한 길\"을 선택하는 자세. MBB/BIG4 모두 안정 지향보다 성장 지향 인재를 원한다. \"하드해도 성장하겠다\"는 각오를 에피소드로 증명.</div></div>
+      <div class="keyword-card"><div class="kw-name">융통성</div><div class="kw-desc">BIG4에서 특히 중요. 배치가 희망과 달라도, 프로젝트가 바뀌어도 적응하는 유연성. \"어떤 상황에서도 과제를 찾아 기여한다\"는 자세. 경직된 \"이것만 하고 싶다\"는 마이너스.</div></div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 8 ========== -->
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">コンサル志望の落とし穴</div>
+
+    <p>
+      전략/종합 컨설팅을 지망하는 학생이 자주 빠지는 함정들이다.
+    </p>
+
+    <div class="warn-box">
+      <h4>함정 1: \"전략컨설만 지원\"이라는 올인</h4>
+      <p>MBB 채용은 극소수. 실력이 있어도 떨어지는 세계. <span class="hl-warn">BIG4, IT컨설을 반드시 병행할 것.</span> 전략펌에서 떨어져도 BIG4/IT컨설에서 경험 쌓고 전략으로 이직하는 루트도 현실적.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 2: \"전략 > 종합 > IT\"라는 서열 의식</h4>
+      <p>이건 편견이다. 종합/IT에서 \"실행까지 하는\" 경험은 전략에서는 얻기 어렵다. 각각의 강점이 다르고 어느 쪽이 우위라고 할 수 없다. 면접에서 다른 유형을 깎아내리면 마이너스.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 3: \"BIG4는 다 같다\"고 생각하는 것</h4>
+      <p>외부에서 비슷해 보이지만 각사의 강점/문화/주력 영역이 다르다. \"왜 이 회사인가\"를 설명 못 하면 \"아무 BIG4나 되면 좋은 사람\"으로 보인다. OB/OG 방문이나 인턴 참가로 차이를 직접 확인할 것.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 4: 케이스 면접 준비 없이 \"논리적이니까 괜찮겠지\"</h4>
+      <p>MBB의 케이스는 준비 없이 통과할 수 없다. BIG4도 간이 케이스가 나올 수 있다. 최소한 기본서 1-2권을 읽고 소리 내어 연습하는 것이 필수. \"논리적이다\"는 자기 평가는 증명이 아니다.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 5: 인턴을 놓치는 것</h4>
+      <p>MBB도 BIG4도 인턴→조기 선발이 점점 주류가 되고 있다. 인턴 지원 마감(5-6월)을 놓치면 채용 확률이 크게 떨어진다. <span class="hl-warn">학부 3년/M1 봄에는 이미 준비가 시작되어야 한다.</span></p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 6: 감사법인과 컨설팅 법인을 혼동 [BIG4]</h4>
+      <p>같은 \"デロイト\"라도 감사법인과 컨설팅은 별도 법인, 별도 채용이다. 컨설팅을 하고 싶으면 컨설팅 법인에 지원하는 것. \"デロイト トーマツ有限責任監査法人\"과 \"デロイト トーマツ コンサルティング合同会社\"는 다른 회사다.</p>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 직종 라이브러리 레벨3 — 전략/종합 컨설팅</p>
+    <p>컨설턴트 개요카드(레벨2) | IT컨설팅 상세카드(레벨3)도 함께 참고</p>
+    <p style="margin-top: 8px; font-size: 10px;">직종 대분류 맵(레벨1)도 함께 참고</p>
+  </div>
+
+</div>
+
+<script>
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const navHeight = document.querySelector('.section-nav').offsetHeight;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+const navItems = document.querySelectorAll('.nav-item');
+function updateActiveNav() {
+  const navHeight = document.querySelector('.section-nav').offsetHeight;
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { const rect = el.getBoundingClientRect(); if (rect.top <= navHeight + 60) current = id; }
+  });
+  navItems.forEach((item, i) => {
+    if (sections[i] === current) item.classList.add('active'); else item.classList.remove('active');
+  });
+}
+window.addEventListener('scroll', updateActiveNav);
+updateActiveNav();
+</script>
+
+</body>
+</html>
