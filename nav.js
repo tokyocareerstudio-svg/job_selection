@@ -106,6 +106,15 @@
     "IT컨설팅": "consul-con02-it.html",
   };
 
+  // ===== 인증 가드 =====
+  const _curFile = location.pathname.split("/").pop() || "";
+  if (_curFile !== "index.html" && _curFile !== "") {
+    if (sessionStorage.getItem("tcs_auth") !== "ok") {
+      sessionStorage.setItem("tcs_redirect", _curFile);
+      location.replace("index.html");
+    }
+  }
+
   const currentFile = location.pathname.split("/").pop() || "index.html";
 
   // 플랫 페이지 리스트 (catLabel 포함)
@@ -375,6 +384,88 @@
     document.addEventListener("DOMContentLoaded", injectBranchLinks);
   } else {
     injectBranchLinks();
+  }
+
+  // ===== 레벨2/3 섹션 스크롤 → 사이드바 섹션 표시 =====
+  function initSectionObserver() {
+    const sections = document.querySelectorAll(".section[id]");
+    if (!sections.length) return;
+
+    // 사이드바 현재 페이지 항목 아래에 섹션 미니맵 추가
+    const activeItem = document.querySelector(".tcs-item.active, .tcs-ch-header.active");
+    if (!activeItem) return;
+
+    // 섹션 레이블 수집
+    const sectionLabels = {};
+    document.querySelectorAll(".nav-item").forEach(btn => {
+      const match = btn.getAttribute("onclick") && btn.getAttribute("onclick").match(/'(s\d+)'/);
+      if (match) sectionLabels[match[1]] = btn.textContent.trim();
+    });
+
+    // 미니맵 컨테이너 생성
+    const minimap = document.createElement("div");
+    minimap.id = "tcs-section-map";
+    minimap.style.cssText = `
+      padding: 4px 0 6px 28px;
+      border-left: 1px solid var(--nav-border);
+      margin: 2px 6px 4px 20px;
+    `;
+
+    sections.forEach(sec => {
+      const label = sectionLabels[sec.id] || sec.id;
+      const dot = document.createElement("div");
+      dot.dataset.secId = sec.id;
+      dot.style.cssText = `
+        font-size: 10px; color: var(--nav-muted); padding: 3px 8px;
+        border-radius: 4px; cursor: pointer; transition: all 0.15s;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        margin: 1px 0;
+      `;
+      dot.textContent = label;
+      dot.onclick = () => {
+        const el = document.getElementById(sec.id);
+        if (!el) return;
+        const navEl = document.querySelector(".section-nav");
+        const offset = navEl ? navEl.offsetHeight : 0;
+        window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - offset - 16, behavior: "smooth" });
+      };
+      minimap.appendChild(dot);
+    });
+
+    // activeItem 바로 뒤에 삽입 (ch-header면 children 아래, item이면 그 다음)
+    const parent = activeItem.closest(".tcs-ch");
+    if (parent) {
+      const children = parent.querySelector(".tcs-children");
+      if (children) {
+        children.appendChild(minimap);
+      } else {
+        parent.appendChild(minimap);
+      }
+    }
+
+    // IntersectionObserver로 현재 섹션 추적
+    let currentSecId = null;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          currentSecId = entry.target.id;
+          minimap.querySelectorAll("[data-sec-id]").forEach(dot => {
+            const isActive = dot.dataset.secId === currentSecId;
+            dot.style.color = isActive ? "var(--nav-accent)" : "var(--nav-muted)";
+            dot.style.background = isActive ? "var(--nav-active)" : "";
+            dot.style.fontWeight = isActive ? "600" : "400";
+          });
+        }
+      });
+    }, { rootMargin: "-20% 0px -70% 0px", threshold: 0 });
+
+    sections.forEach(sec => observer.observe(sec));
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initSectionObserver);
+  } else {
+    setTimeout(initSectionObserver, 150);
   }
 
 })();

@@ -267,10 +267,13 @@
   // =============================================
 
   const SESSION_KEY = "tcs_auth";
+  const REDIRECT_KEY = "tcs_redirect";
 
   // 이미 인증된 경우 바로 진입
   if (sessionStorage.getItem(SESSION_KEY) === "ok") {
-    location.replace("map-lv1.html");
+    const dest = sessionStorage.getItem(REDIRECT_KEY) || "map-lv1.html";
+    sessionStorage.removeItem(REDIRECT_KEY);
+    location.replace(dest);
   }
 
   function tryEnter() {
@@ -282,7 +285,9 @@
       sessionStorage.setItem(SESSION_KEY, "ok");
       document.getElementById("enter-btn").textContent = "로딩 중...";
       document.getElementById("enter-btn").disabled = true;
-      setTimeout(() => location.replace("map-lv1.html"), 300);
+      const dest = sessionStorage.getItem(REDIRECT_KEY) || "map-lv1.html";
+      sessionStorage.removeItem(REDIRECT_KEY);
+      setTimeout(() => location.replace(dest), 300);
     } else {
       input.classList.add("error", "shake");
       errEl.classList.add("show");
