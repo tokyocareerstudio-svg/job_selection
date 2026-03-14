@@ -125,7 +125,8 @@
     <button class="nav-item" onclick="go('s4')">04 요구 역량</button>
     <button class="nav-item" onclick="go('s5')">05 커리어패스</button>
     <button class="nav-item" onclick="go('s6')">06 ES·면접</button>
-    <button class="nav-item" onclick="go('s7')">07 주의점</button>
+    <button class="nav-item" onclick="go('s7')">07 키워드</button>
+    <button class="nav-item" onclick="go('s8')">08 주의점</button>
   </div>
 </div>
 
@@ -328,6 +329,31 @@
   <!-- S7 -->
   <div class="section" id="s7">
     <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 연결</div>
+    <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+    <p>시공관리직과 잘 연결되는 자기분석 키워드. <span class="hl">"이 강점이 현장에서 구체적으로 어떻게 발휘되는가"까지 연결할 것.</span></p>
+
+    <div class="keyword-grid">
+      <div class="keyword-card"><div class="kw-name">리더십·통솔력</div><div class="kw-desc">시공관리는 협력사·작업원·설계자·발주자 등 다양한 관계자를 이끌고 현장 전체를 관리하는 역할. "여러 사람을 하나의 방향으로 이끈 경험"이 가장 직결되는 키워드다.</div></div>
+      <div class="keyword-card"><div class="kw-name">책임감·완수력</div><div class="kw-desc">공기(工期), 품질, 안전을 최후까지 지키는 책임감. 건물은 완성되면 수십 년 남는다. "맡은 것은 반드시 마무리한다"는 자세가 이 직종의 중심 가치다.</div></div>
+      <div class="keyword-card"><div class="kw-name">꼼꼼함·정확성</div><div class="kw-desc">설계 도면의 수치 하나, 콘크리트 배합 비율 하나가 건물 품질을 결정한다. 안전에 직결되는 현장에서 실수를 방지하는 꼼꼼한 확인 습관이 필수 기반이다.</div></div>
+      <div class="keyword-card"><div class="kw-name">조정력·커뮤니케이션력</div><div class="kw-desc">설계·시공·협력사·발주자 사이의 갭을 메우고 모두가 납득하는 결론으로 이끄는 힘. "다양한 관계자 사이에서 중심을 잡고 조율한 경험"이 직접 연결된다.</div></div>
+      <div class="keyword-card"><div class="kw-name">체력·행동력</div><div class="kw-desc">현장 순회, 더위·추위, 불규칙한 스케줄 등 육체적으로도 타이트한 환경. "체력에는 자신이 있다"는 어필을 스포츠 경험 등 구체적 근거와 함께 제시할 것.</div></div>
+      <div class="keyword-card"><div class="kw-name">문제 해결력</div><div class="kw-desc">현장에서는 설계와 다른 실정, 갑작스러운 날씨 변화, 자재 납기 지연 등 예상 밖 상황이 반드시 발생한다. 당황하지 않고 즉각 해결책을 생각하고 실행하는 힘이 현장 경험을 통해 갈고 닦인다.</div></div>
+    </div>
+
+    <div class="info-box">
+      <h4>ES 연결 예시 (시공관리 지망동기)</h4>
+      <p>
+        "대학 졸업 설계에서 팀 전체의 공정을 조율하는 역할을 담당한 경험으로, 다양한 관계자를 이끌면서 하나의 형태를 만들어가는 과정에 깊은 보람을 느꼈습니다(<strong>관심의 계기·리더십</strong>). 설계보다 실제 시공 현장에서 사람과 기술을 관리하면서 직접 완성에 관여하고 싶다는 생각에 시공관리직을 지망합니다(<strong>왜 시공관리인가</strong>). 귀사의 병원·복지시설 시공 실적에 관심을 가지고 있으며, 사람들의 생활을 지탱하는 시설을 완성하는 데 기여하고 싶습니다(<strong>회사 선택 이유</strong>)."
+      </p>
+    </div>
+  </div>
+
+  <!-- S8 -->
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
     <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
     <div class="section-title-jp">よくある誤解と落とし穴</div>
 
@@ -357,7 +383,7 @@
 
 <script>
 function go(id){const el=document.getElementById(id);if(el){const h=document.querySelector('.section-nav').offsetHeight;window.scrollTo({top:el.getBoundingClientRect().top+window.pageYOffset-h-12,behavior:'smooth'});}}
-const secs=['s1','s2','s3','s4','s5','s6','s7'];
+const secs=['s1','s2','s3','s4','s5','s6','s7','s8'];
 const navs=document.querySelectorAll('.nav-item');
 function upNav(){const h=document.querySelector('.section-nav').offsetHeight;let cur='';secs.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=h+60)cur=id;});navs.forEach((n,i)=>n.classList.toggle('active',secs[i]===cur));}
 window.addEventListener('scroll',upNav);upNav();

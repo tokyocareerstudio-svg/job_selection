@@ -134,7 +134,8 @@
     <button class="nav-item" onclick="scrollToSection('s4')">04 요구 역량</button>
     <button class="nav-item" onclick="scrollToSection('s5')">05 커리어패스</button>
     <button class="nav-item" onclick="scrollToSection('s6')">06 ES 포인트</button>
-    <button class="nav-item" onclick="scrollToSection('s7')">07 주의점</button>
+    <button class="nav-item" onclick="scrollToSection('s7')">07 키워드</button>
+    <button class="nav-item" onclick="scrollToSection('s8')">08 주의점</button>
   </div>
 </div>
 
@@ -397,6 +398,34 @@
   <!-- ===== S7 ===== -->
   <div class="section" id="s7">
     <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 연결</div>
+    <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+    <p>물류·SCM직과 잘 연결되는 자기분석 키워드. <span class="hl">"이 강점이 물류·SCM의 어떤 장면에서 발휘되는가"까지 설명할 수 있어야 한다.</span></p>
+
+    <div class="keyword-grid">
+      <div class="keyword-card"><div class="kw-name">전체 최적 사고</div><div class="kw-desc">조달→생산→보관→배송의 각 공정이 "부분 최적"이 되지 않고 전체로서 효율화되도록 설계하는 시각. "내 담당 공정만 잘 되면 된다"가 아니라 공급망 전체를 내려다보는 힘이 SCM의 핵심.</div></div>
+      <div class="keyword-card"><div class="kw-name">수치 감각·분석력</div><div class="kw-desc">리드타임, 재고 회전율, 코스트 비율, 납기 준수율 등 물류는 수치로 과제를 파악하고 개선하는 것이 기본. 데이터를 보고 "무엇이 문제인가"를 찾아내는 분석 능력이 일상 업무와 직결된다.</div></div>
+      <div class="keyword-card"><div class="kw-name">조정력·교섭력</div><div class="kw-desc">운송 업체, 창고 업자, 해외 조달처, 사내 영업·생산 부문 등 다양한 관계자와의 교섭과 조정. "각자의 이해관계를 파악하고 모두가 납득하는 결론으로 이끄는 힘"이 물류 업무의 핵심 역할이다.</div></div>
+      <div class="keyword-card"><div class="kw-name">꼼꼼함·정확성</div><div class="kw-desc">통관 서류 오류 하나가 화물의 수입 지연으로 이어진다. 납기 착오 하나가 생산 라인 정지로 이어질 수 있다. 물류는 "실수가 허용되지 않는" 영역이며, 꼼꼼함이 신뢰의 기반이다.</div></div>
+      <div class="keyword-card"><div class="kw-name">글로벌 시각</div><div class="kw-desc">국제 물류는 관세·무역 규제·환율·각국 법규를 이해해야 한다. "일본 국내만"이 아니라 글로벌한 시야를 가지고 공급망을 설계하는 힘이 한국인 지원자의 강점과도 연결된다.</div></div>
+      <div class="keyword-card"><div class="kw-name">리스크 관리력</div><div class="kw-desc">자연재해, 지정학적 리스크, 공급 부족 등 공급망은 항상 외부 리스크에 노출된다. "무슨 일이 일어났을 때 어떻게 대응할 것인가"를 사전에 설계하고 백업 계획을 세우는 힘이 SCM의 중요한 역할이다.</div></div>
+    </div>
+
+    <div class="info-box">
+      <h4>한국인 지원자의 물류·SCM 어필 포인트</h4>
+      <p>
+        물류·SCM에서 한국인 지원자가 특히 강점으로 활용할 수 있는 것:<br><br>
+        <strong>한국·동아시아 공급망 네트워크</strong> — 한국의 물류·무역 현장을 이해하고, 한국어로 교섭 가능한 것은 한일 무역·조달 관련 포지션에서 직접적인 강점.<br><br>
+        <strong>복수 언어 대응력</strong> — 한국어·일본어·영어의 3개 언어 구사는 글로벌 SCM에서 즉시 전력이 되는 능력. 통관 서류, 해외 조달처와의 교섭, 사내 보고 등 다양한 장면에서 발휘된다.<br><br>
+        <strong>이문화 적응력</strong> — 한국에서 일본으로 이주한 경험 자체가 "다른 문화·가치관에서 커뮤니케이션하는 힘"의 증거. 해외 조달처 관리나 외국계 물류 기업 교섭에서 직접 발휘될 수 있다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ===== S8 ===== -->
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
     <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
     <div class="section-title-jp">よくある誤解と落とし穴</div>
 
@@ -437,7 +466,7 @@ function scrollToSection(id) {
     window.scrollTo({ top: y, behavior: 'smooth' });
   }
 }
-const sections = ['s1','s2','s3','s4','s5','s6','s7'];
+const sections = ['s1','s2','s3','s4','s5','s6','s7','s8'];
 const navItems = document.querySelectorAll('.nav-item');
 function updateActiveNav() {
   const navHeight = document.querySelector('.section-nav').offsetHeight;
