@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>전기메이커 업계 리포트 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --surface-3: #22222e;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #00b894;
+    --accent-soft: rgba(0,184,148,0.08);
+    --accent-border: rgba(0,184,148,0.2);
+    --warn: #f59e0b;
+    --warn-soft: rgba(245,158,11,0.06);
+    --warn-border: rgba(245,158,11,0.18);
+    --success: #34d399;
+    --success-soft: rgba(52,211,153,0.07);
+    --success-border: rgba(52,211,153,0.18);
+    --blue: #4a9eff;
+    --blue-soft: rgba(74,158,255,0.08);
+    --blue-border: rgba(74,158,255,0.18);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:var(--bg); color:var(--text);
+    font-family:'Noto Sans KR','Noto Sans JP',sans-serif;
+    line-height:1.8; font-size:15px; -webkit-font-smoothing:antialiased;
+  }
+  .container { max-width:760px; margin:0 auto; padding:0 24px 100px; }
+
+  .hero { padding:64px 24px 48px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,184,148,0.06) 0%, transparent 70%);
+    pointer-events:none;
+  }
+  .hero-inner { position:relative; max-width:760px; margin:0 auto; }
+  .hero-label { display:inline-block; font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-border); padding:4px 12px; border-radius:12px; margin-bottom:20px; text-transform:uppercase; }
+  .hero h1 { font-size:30px; font-weight:900; line-height:1.3; margin-bottom:10px; letter-spacing:-0.5px; }
+  .hero-sub { font-size:13px; color:var(--text-dim); line-height:1.9; margin-bottom:20px; max-width:560px; }
+  .hero-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .hero-tag { font-size:11px; padding:4px 12px; border-radius:100px; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); font-weight:500; }
+
+  .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
+  .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+  .section-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-btn { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
+  .nav-btn:hover, .nav-btn.active { color:var(--accent); background:var(--accent-soft); }
+
+  .section { padding:44px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom:none; }
+  .section-num { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); opacity:0.7; margin-bottom:6px; text-transform:uppercase; }
+  .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
+  .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); margin-bottom:20px; }
+  .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section p:last-child { margin-bottom:0; }
+  .section h3 { font-size:14px; font-weight:700; color:var(--text-sub); margin:28px 0 12px; padding-left:10px; border-left:2px solid var(--accent); }
+
+  .info-box { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:16px 0; }
+  .info-box-accent { background:var(--accent-soft); border-color:var(--accent-border); border-left:3px solid var(--accent); }
+  .info-box-warn { background:var(--warn-soft); border-color:var(--warn-border); border-left:3px solid var(--warn); }
+  .info-box-success { background:var(--success-soft); border-color:var(--success-border); border-left:3px solid var(--success); }
+  .info-box-blue { background:var(--blue-soft); border-color:var(--blue-border); border-left:3px solid var(--blue); }
+  .info-box h4 { font-size:13px; font-weight:700; margin-bottom:8px; color:var(--text); }
+  .info-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+  .box-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .box-label-warn { color:var(--warn); }
+  .box-label-blue { color:var(--blue); }
+  .hl { color:var(--accent); font-weight:600; }
+  .hl-warn { color:var(--warn); font-weight:600; }
+  .hl-blue { color:var(--blue); font-weight:600; }
+
+  .table-wrap { overflow-x:auto; margin:16px 0; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  thead { background:var(--surface-2); }
+  th { padding:10px 14px; text-align:left; font-weight:700; font-size:10px; letter-spacing:1px; color:var(--text-muted); border-bottom:1px solid var(--border); white-space:nowrap; text-transform:uppercase; }
+  td { padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-dim); vertical-align:top; line-height:1.7; }
+  tr:last-child td { border-bottom:none; }
+  td:first-child { font-weight:700; color:var(--text-sub); }
+
+  .trend-card { padding:20px 22px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:12px 0; }
+  .trend-num { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .trend-card h4 { font-size:14px; font-weight:700; margin-bottom:10px; color:var(--text); }
+  .trend-card p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:10px; }
+  .trend-card p:last-child { margin-bottom:0; }
+  .use-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:10px; font-weight:700; margin:8px 4px 6px 0; letter-spacing:1px; text-transform:uppercase; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); }
+
+  .company-group { margin:20px 0; }
+  .company-group-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--text-muted); margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--border); text-transform:uppercase; }
+  .company-card { padding:16px 18px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:8px; transition:border-color 0.2s; }
+  .company-card:hover { border-color:var(--border-hover); }
+  .company-card.primary { border-color:var(--accent-border); }
+  .company-type { font-size:10px; font-weight:700; color:var(--accent); letter-spacing:1px; margin-bottom:4px; text-transform:uppercase; }
+  .company-name { font-size:15px; font-weight:700; color:var(--text); margin-bottom:6px; }
+  .company-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:12px; color:var(--text-muted); font-weight:400; margin-left:6px; }
+  .company-desc { font-size:12px; color:var(--text-dim); line-height:1.8; }
+  .company-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+  .company-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .company-tag.accent { background:var(--accent-soft); color:var(--accent); border-color:var(--accent-border); }
+
+  .job-link-card { display:flex; align-items:flex-start; gap:14px; padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; text-decoration:none; transition:all 0.2s; margin-bottom:8px; }
+  .job-link-card:hover { border-color:var(--accent-border); background:var(--accent-soft); }
+  .job-link-icon { font-size:24px; flex-shrink:0; margin-top:2px; }
+  .job-link-body { flex:1; }
+  .job-link-kicker { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:4px; text-transform:uppercase; }
+  .job-link-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .job-link-desc { font-size:12px; color:var(--text-dim); line-height:1.7; margin-bottom:8px; }
+  .job-link-tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .job-link-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .job-link-arrow { font-size:16px; color:var(--accent); flex-shrink:0; margin-top:4px; }
+
+  .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0; }
+  .keyword-card { padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .keyword-name { font-size:13px; font-weight:700; color:var(--accent); margin-bottom:4px; }
+  .keyword-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); font-weight:400; margin-left:4px; }
+  .keyword-desc { font-size:11px; color:var(--text-dim); line-height:1.7; }
+
+  .es-pattern { padding:16px 18px; background:var(--surface-2); border-radius:8px; margin:12px 0; }
+  .es-pattern-label { font-size:10px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:8px; text-transform:uppercase; }
+  .es-pattern p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+
+  .footer { padding:40px 0 60px; border-top:1px solid var(--border); margin-top:20px; text-align:center; }
+  .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; margin-bottom:0; }
+  .footer .brand { font-weight:700; color:var(--text-dim); }
+
+  @media (max-width:640px) {
+    .keyword-grid { grid-template-columns:1fr; }
+    .hero h1 { font-size:24px; }
+    .section-title { font-size:18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">업계 리포트 Vol.04</div>
+    <h1>전기메이커 업계 완전 정리</h1>
+    <p class="hero-sub">
+      일본 제조업의 근간이자, 세계 시장에서 여전히 존재감을 발휘하는 전기메이커 업계.<br>
+      "기술로 사회 인프라를 지탱하는 회사"를 구조부터 이해하고, 숨은 세계 1위 기업까지 완전 정리.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">이공계 중심 · 문과도 영업/기획으로</span>
+      <span class="hero-tag">OT×IT 솔루션 전환 중</span>
+      <span class="hero-tag">AI·EV·카본뉴트럴 수혜</span>
+      <span class="hero-tag">숨은 세계 1위 多</span>
+      <span class="hero-tag">장기고용 · 안정 기반</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('s1')">01 업계전체상</button>
+    <button class="nav-btn" onclick="scrollTo('s2')">02 트렌드</button>
+    <button class="nav-btn" onclick="scrollTo('s3')">03 활약직종</button>
+    <button class="nav-btn" onclick="scrollTo('s4')">04 키워드</button>
+    <button class="nav-btn" onclick="scrollTo('s5')">05 기업리스트</button>
+    <button class="nav-btn" onclick="scrollTo('s6')">06 ES대책</button>
+    <button class="nav-btn" onclick="scrollTo('s7')">07 면접대책</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ════ S1 ════ -->
+<div class="section" id="s1">
+  <div class="section-num">SECTION 01</div>
+  <div class="section-title">업계 전체상</div>
+  <div class="section-title-jp">業界全体像 — 5分類・ビジネスモデル・業界構造</div>
+
+  <div class="info-box info-box-accent">
+    <div class="box-label">한 줄 정의</div>
+    <p><span class="hl">전기 에너지를 활용한 제품(중전기기/가전/전자부품/산업기기)을 기획·설계·제조·판매하는 "기술 기반 ものづくり 기업"의 총칭.</span><br>
+    시장규모 약 29조 엔(전기기계제조업). 전자부품·정밀기기 포함 시 50조 엔 이상. 자동차와 함께 일본 산업계의 가장 큰 축.</p>
+  </div>
+
+  <p>핵심 변화: <span class="hl">"가전을 만들어 파는 회사"에서 "DX/AI/에너지/반도체로 사회 인프라를 지탱하는 솔루션 기업"으로 대전환 중.</span> BtoC 가전 의존에서 BtoB 솔루션·사회 인프라로 수익 구조가 근본적으로 바뀌고 있다.</p>
+
+  <h3>전기메이커 업계의 5가지 분류</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>분류</th><th>특징</th><th>대표 기업</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>종합전기</td>
+          <td>중전(발전/송전/인프라)부터 가전·IT·산업기기까지 폭넓게 전개. 사업 포트폴리오가 방대하고 그룹사 수가 수백 개 규모</td>
+          <td>히타치, 파나소닉HD, 미쓰비시전기, 도시바</td>
+        </tr>
+        <tr>
+          <td>전자부품</td>
+          <td>스마트폰/자동차/산업기기에 들어가는 콘덴서·센서·모터·커넥터 등을 제조. BtoB 중심으로 세계 점유율 1위 제품 다수 보유</td>
+          <td>TDK, 무라타제작소, 교세라, 니덱, 미네베아미쓰미</td>
+        </tr>
+        <tr>
+          <td>계측/제어기기</td>
+          <td>공장자동화(FA)·프로세스 자동화·산업용 센서/로봇 제조. 제조 현장의 "두뇌"를 만드는 기업군</td>
+          <td>요코가와전기, 오므론, 아즈빌, 호리바제작소</td>
+        </tr>
+        <tr>
+          <td>반도체/전자</td>
+          <td>반도체 설계/제조/장비/소재 담당. AI/EV/5G 시대의 핵심 밸류체인. 일본은 소재·장비에서 세계적 강점</td>
+          <td>르네사스, 로옴, 도쿄일렉트론</td>
+        </tr>
+        <tr>
+          <td>AV/영상/정밀</td>
+          <td>카메라·프린터·디스플레이·의료기기 등 정밀 광학/영상 기술 기반. 소비자 브랜드 인지도가 높은 기업 多</td>
+          <td>소니그룹, 캐논, 올림푸스, 테르모</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>비즈니스 모델 — 전기메이커는 어떻게 돈을 버는가</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>수익 모델</th><th>구조</th><th>특징</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>제품 판매</td>
+          <td>자사 기술로 개발한 제품(부품/완제품/장비)을 기업이나 소비자에게 판매</td>
+          <td>세계 점유율 1위 제품을 가진 기업일수록 가격 결정력(프라이싱 파워)이 높음. 무라타제작소 MLCC 세계 1위, TDK HDD 자기헤드 세계 1위 등</td>
+        </tr>
+        <tr>
+          <td>솔루션/시스템</td>
+          <td>제품+소프트웨어+컨설팅을 묶어 고객의 과제를 해결. 히타치의 Lumada가 대표적</td>
+          <td>대형 전기메이커의 성장 엔진. 히타치는 Lumada 사업(IoT 플랫폼)을 핵심으로 전환하며 시가총액 10년 만에 8배 성장</td>
+        </tr>
+        <tr>
+          <td>보수/서비스</td>
+          <td>납품 후 장기적인 유지보수·부품 교환·소프트웨어 업데이트로 안정 수익 창출</td>
+          <td>엘리베이터/에스컬레이터(히타치·미쓰비시전기), 의료기기(올림푸스) 등 인프라/의료 분야에서 특히 큰 비중. SIer의 운용보수와 유사한 스톡형 수익</td>
+        </tr>
+        <tr>
+          <td>라이선스/IP</td>
+          <td>보유 특허·기술의 라이선스 수입</td>
+          <td>소니의 CMOS 이미지 센서 세계 점유율 약 50%. 직접 제조하지 않더라도 기술 자체가 수익원</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box info-box-accent">
+    <div class="box-label">면접 포인트</div>
+    <p>"당사의 비즈니스 모델을 어떻게 이해하고 있나요?" → <span class="hl">"가전을 만들어 파는 회사"라고 답하면 감점.</span> 현재 대형 전기메이커의 수익 구조는 BtoB 솔루션 + 사회 인프라 + 전자부품이 핵심이다. <span class="hl">"ものづくり의 기술을 기반으로 사회 과제를 솔루션으로 해결하는 기업"</span>이라고 답할 수 있으면 강하다.</p>
+  </div>
+
+  <h3>업계 구조 — 기술 밸류체인의 위에서 어디에 서는가</h3>
+
+  <p>소재→부품→모듈→완제품→시스템이라는 긴 밸류체인 위에서 각 기업이 자신의 포지션을 잡고 있다. <span class="hl">"이 회사가 밸류체인 어디에 위치하는가"를 이해하는 것이 기업연구의 출발점이다.</span></p>
+
+  <h3>SIer·인터넷과 결정적으로 다른 점</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>비교 항목</th><th>SIer 업계</th><th>인터넷/웹 업계</th><th>전기메이커 업계</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>고객</td>
+          <td>기업/관공서 (BtoB)</td>
+          <td>일반 유저 중심 (BtoC)</td>
+          <td>기업 (BtoB) 중심 + 일부 소비자</td>
+        </tr>
+        <tr>
+          <td>수익 구조</td>
+          <td>수탁개발 + 운용보수</td>
+          <td>광고 + 수수료 + 구독</td>
+          <td>제품 판매 + 솔루션 + 보수 + IP</td>
+        </tr>
+        <tr>
+          <td>핵심 자산</td>
+          <td>고객 관계, 업종 노하우</td>
+          <td>유저 수, 데이터, 브랜드</td>
+          <td>특허, 기술력, 제조 노하우, 글로벌 공급망</td>
+        </tr>
+        <tr>
+          <td>개발 스타일</td>
+          <td>장기 프로젝트, 워터폴</td>
+          <td>애자일, 짧은 사이클</td>
+          <td>중장기 개발(2~5년), 팀 단위 ものづくり</td>
+        </tr>
+        <tr>
+          <td>변화 속도</td>
+          <td>안정적, 느림</td>
+          <td>매우 빠름</td>
+          <td>기술 축적형(느림) + 최근 DX로 가속</td>
+        </tr>
+        <tr>
+          <td>연봉 구조</td>
+          <td>연공서열 경향</td>
+          <td>실력주의 경향</td>
+          <td>연공서열 기반 + 직무급 전환 중</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box info-box-blue">
+    <div class="box-label box-label-blue">한국인 취준생이 반드시 알아야 할 것</div>
+    <p>소니·히타치·파나소닉 같은 톱 티어는 일본인도 들어가기 어려운 인기 기업. <span class="hl-blue">하지만 TDK·요코가와전기·오므론·미네베아미쓰미·아즈빌 등 중상위 티어로 시야를 넓히면 한국인이 현실적으로 도전할 수 있는 기업이 상당수 있다.</span> 이들 기업은 세계 시장 점유율 1위 제품을 보유하면서도 채용 경쟁률은 톱 티어보다 낮고 연봉·복리후생도 준수한 "숨은 우량 기업"이다.</p>
+  </div>
+</div>
+
+<!-- ════ S2 ════ -->
+<div class="section" id="s2">
+  <div class="section-num">SECTION 02</div>
+  <div class="section-title">면접관이 체크하는 트렌드 3선</div>
+  <div class="section-title-jp">面接官がチェックするトレンド</div>
+
+  <p>"최근 업계에서 주목하고 있는 것이 있나요?" — 반드시 나오는 질문. 트렌드를 아는 것뿐 아니라 <span class="hl">지원하는 회사의 기술·사업과 어떻게 연결되는지까지 말할 수 있어야</span> 평가받는다.</p>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 01</div>
+    <h4>AI/반도체가 만드는 "제2의 성장기" — 일본 전기메이커의 역습</h4>
+    <p>생성AI의 폭발적 보급으로 데이터센터용 반도체·전자부품 수요가 급증하고 있다. 세계 반도체 시장은 2024년 약 6,305억 달러(전년비 +19.7%), 2025년에는 7,722억 달러(+22.5%)로 성장이 예측된다. 일본 전기메이커가 강점을 가진 <strong style="color:var(--text-sub);">반도체 소재·제조장비(도쿄일렉트론)·전자부품(MLCC·센서)</strong>은 AI 인프라의 필수 요소다. TDK는 AI 서버용 고성능 인덕터/콘덴서 수요 급증의 직접 수혜를 받고 있으며, 무라타제작소의 MLCC는 AI 서버 1대에 수천 개가 사용된다.</p>
+    <p><strong style="color:var(--text-sub);">왜 중요한가:</strong> "일본 전기메이커는 쇠퇴하지 않느냐?"라는 질문에 대한 답. 가전에서는 한국/중국에 밀렸지만, BtoB 부품·소재·장비에서는 여전히 세계 압도적 1위. AI 시대가 오히려 일본 전기메이커에 유리한 구조.</p>
+    <div class="use-tag">ES/면접 활용</div>
+    <p>"AI·반도체 수요의 폭발적 성장은 일본 전기메이커의 소재·부품·장비 기술이 다시 주목받는 계기가 되고 있습니다. 가전 시대와 달리, 현재는 '최종 소비자에게 보이지 않는 핵심 기술'로 글로벌 경쟁력을 발휘하는 구조로 전환되었다고 생각합니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 02</div>
+    <h4>"ものづくり × DX" — 제조업의 디지털 전환과 Lumada 모델</h4>
+    <p>히타치제작소는 IoT 플랫폼 "Lumada"를 핵심으로 사업을 재편해, 시가총액이 2014년 약 2.5조 엔에서 2024년 약 20조 엔으로 <span class="hl">약 8배 성장</span>했다. 오므론은 FA 분야에서 "i-Automation!" 컨셉을 내걸고 제조 현장의 AI 활용을 선도. 요코가와전기는 프로세스 산업(석유/화학/제약) 특화 DX로 독자 포지션을 구축 중이다.</p>
+    <p><strong style="color:var(--text-sub);">왜 중요한가:</strong> "전기메이커는 IT 기업이 아니지 않냐"는 선입견에 대한 반론. 제조업의 DX는 현장을 모르면 할 수 없기 때문에, IT 기업보다 전기메이커가 유리한 영역이다.</p>
+    <div class="use-tag">ES/면접 활용</div>
+    <p>"전기메이커의 강점은 수십 년간 축적한 제조 현장의 노하우(OT: Operational Technology)에 있으며, 여기에 IT를 융합한 OT×IT 솔루션은 순수 IT 기업이 쉽게 따라할 수 없는 영역이라고 생각합니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 03</div>
+    <h4>카본 뉴트럴과 EV — 전기메이커의 "그린 전환"</h4>
+    <p>2050년 탄소중립 달성을 위해, 파워 반도체(전력 변환의 핵심)·EV용 배터리·재생에너지 인프라에 대한 수요가 구조적으로 확대되고 있다. 파나소닉은 테슬라에 EV용 원통형 배터리를 공급하며 에너지 사업을 확대 중이고, 미쓰비시전기는 파워 반도체(SiC 모듈)에서 세계 시장 점유율 확대를 목표로 한다. 니덱은 EV 구동 모터 "E-Axle"로 자동차 전동화 시장에 진출했다.</p>
+    <p><strong style="color:var(--text-sub);">주의:</strong> EV 시장 자체의 성장 둔화와 중국 기업의 가격 경쟁이 리스크 요인으로 부상. 단순 낙관론이 아닌 균형 잡힌 시각이 면접에서 평가받는다.</p>
+    <div class="use-tag">ES/면접 활용</div>
+    <p>"카본 뉴트럴의 실현에는 에너지를 효율적으로 변환·관리하는 파워 반도체·배터리·FA 기술이 불가결하며, 이는 전기메이커만이 가진 핵심 역량입니다. 다만 EV 시장의 성장 둔화 등 불확실성도 있기에 포트폴리오를 다각화하는 전략이 중요하다고 생각합니다."</p>
+  </div>
+</div>
+
+<!-- ════ S3 ════ -->
+<div class="section" id="s3">
+  <div class="section-num">SECTION 03</div>
+  <div class="section-title">이 업계에서 활약하는 직종</div>
+  <div class="section-title-jp">電機メーカー業界で活躍する職種</div>
+
+  <p>전기메이커는 <span class="hl">이공계만의 세계가 아니다.</span> 문과 출신도 영업·기획·구매·마케팅으로 충분히 활약할 수 있다. 단, 직종에 따라 요구 전공과 업무 내용이 크게 다르므로 지원 전에 반드시 파악해야 한다.</p>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/tech-overview" target="_blank" class="job-link-card">
+    <div class="job-link-icon">⚙️</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">이공계 핵심 — 직종 개요 카드 vol.05</div>
+      <div class="job-link-title">기술계 종합직 — 설계·생산관리·R&D 3분기</div>
+      <div class="job-link-desc">
+        이공계로 메이커에 들어가면 <strong style="color:var(--text-sub);">설계·개발 / 생산관리·품질관리 / 연구개발(R&D)</strong>의 3분기로 배치된다. 같은 "기술직"이어도 일상·현장·커리어패스가 전혀 다르다. 전공(기계/전기전자/화학/물리)이 곧 무기.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">이공계 대상</span>
+        <span class="job-link-tag">전공 직결</span>
+        <span class="job-link-tag">설계·개발·R&D</span>
+        <span class="job-link-tag">공장·연구소가 현장</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/sales-eg01-maker" target="_blank" class="job-link-card">
+    <div class="job-link-icon">📊</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">문과 핵심 루트 — 직종 상세 카드 EG-01</div>
+      <div class="job-link-title">메이커 영업 — 자사 제품으로 고객 과제를 해결하는 사람</div>
+      <div class="job-link-desc">
+        문과 출신이 전기메이커에 들어가면 가장 많이 배치되는 직종. <strong style="color:var(--text-sub);">루트영업 중심으로 기존 거래처와의 장기 관계 구축이 핵심.</strong> 자사 제품 지식과 사내 조정 능력이 요구된다. "눈에 보이는 물건"을 파는 것이 인터넷·컨설팅 영업과의 차이.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">문과 가능</span>
+        <span class="job-link-tag">BtoB 루트영업</span>
+        <span class="job-link-tag">유형상품</span>
+        <span class="job-link-tag">관계구축형</span>
+        <span class="job-link-tag">사내 조정이 절반</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/tech-gi02-production" target="_blank" class="job-link-card">
+    <div class="job-link-icon">🏭</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">제조 현장 — 직종 상세 카드 GI-02</div>
+      <div class="job-link-title">생산관리·품질관리 — 공장 전체의 "사령탑"</div>
+      <div class="job-link-desc">
+        <strong style="color:var(--text-sub);">생산계획 수립·자재조달·납기관리</strong>를 담당하는 생산관리와, 검사·불량분석·공정개선을 담당하는 품질관리. 조정력과 정확성이 핵심이며 이공계뿐 아니라 문과도 진입 가능한 분야도 있다.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">계획·조정·SCM</span>
+        <span class="job-link-tag">공장 사령탑</span>
+        <span class="job-link-tag">QCD 최적화</span>
+        <span class="job-link-tag">현장 밀착</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <div class="info-box" style="margin-top:20px;">
+    <div class="box-label">직종 선택 포인트</div>
+    <p>
+      <strong style="color:var(--text-sub);">이공계 지망이라면:</strong> 설계·개발 vs 생산관리·품질관리 vs R&D 중 어디가 맞는지를 먼저 파악할 것. 같은 회사라도 배치 직종에 따라 일상이 완전히 달라진다.<br><br>
+      <strong style="color:var(--text-sub);">문과 지망이라면:</strong> 영업 배치가 가장 일반적이지만, 기획·구매·마케팅 포지션도 있다. BtoB 메이커 영업은 루트 중심이므로 "장기 관계를 쌓는" 성향이 맞는지 확인할 것.<br><br>
+      <strong style="color:var(--text-sub);">기술 영업(技術営業)이라는 경로:</strong> 이공계 출신이 제품 기술 지식을 살려 영업을 담당하는 포지션. 전자부품·계측기기 업계에서 특히 많음. 기술력과 커뮤니케이션 능력 양쪽이 요구되는 고부가가치 포지션.
+    </p>
+  </div>
+</div>
+
+<!-- ════ S4 ════ -->
+<div class="section" id="s4">
+  <div class="section-num">SECTION 04</div>
+  <div class="section-title">전기메이커 × 직종별 자기분석 키워드</div>
+  <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+  <p>전기메이커는 직종마다 요구하는 역량이 크게 다르다. <span class="hl">자신의 강점이 어떤 직종에서 어떻게 발휘되는지</span>를 연결해서 말할 수 있어야 한다.</p>
+
+  <h3>기술계 종합직 (설계·개발·R&D) 에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">탐구심 <span class="keyword-name-jp">探求心</span></div>
+      <div class="keyword-desc">R&D는 수년~10년 단위의 긴 연구 사이클. "모르는 것을 파고드는" 지적 호기심이 지속력의 기반. 특히 연구 개발직에서 논문 실적이나 자발적 연구 경험이 차별화 포인트가 된다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">정확성 <span class="keyword-name-jp">正確性</span></div>
+      <div class="keyword-desc">설계·개발에서 1mm의 오차가 제품 품질을 좌우하는 세계. 꼼꼼하게 검증하고 문서화하는 능력이 핵심. "0불량"을 추구하는 품질관리에서도 마찬가지.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">향상심 <span class="keyword-name-jp">向上心</span></div>
+      <div class="keyword-desc">기술은 끊임없이 진화한다. 기존 방식에 만족하지 않고 더 나은 기술·방법을 탐구하는 자세. "CASE(Connected/Autonomous/Shared/Electric)"로 대표되는 기술 전환기에 특히 중요.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">끈기 <span class="keyword-name-jp">粘り強さ</span></div>
+      <div class="keyword-desc">실험이 실패하고, 설계를 처음부터 다시 하는 일이 반복되는 세계. 결과가 나올 때까지 포기하지 않고 시도를 계속하는 지속력이 기술계의 필수 역량.</div>
+    </div>
+  </div>
+
+  <h3>메이커 영업 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">경청력 <span class="keyword-name-jp">傾聴力</span></div>
+      <div class="keyword-desc">루트영업에서 거래처 담당자가 안고 있는 "말하지 않는 과제"를 히어링하는 능력. 장기 관계 속에서 신뢰를 쌓고 잠재 니즈를 파악하는 힘이 메이커 영업의 진짜 가치.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">조정력 <span class="keyword-name-jp">調整力</span></div>
+      <div class="keyword-desc">고객 요구와 사내 기술부·생산부·물류부 사이를 조율하는 능력. 메이커 영업에서 "사내 조정"에 쓰는 시간이 절반 이상인 경우도 많다. 여러 이해관계자를 동시에 관리하는 힘.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">관계구축력 <span class="keyword-name-jp">関係構築力</span></div>
+      <div class="keyword-desc">같은 담당자와 3년·5년·10년 단위로 관계를 이어가는 루트영업의 생명선. "이 사람이니까 맡긴다"를 만들어가는 힘. 꾸준함·약속 지키기·세심한 배려가 기반.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">책임감 <span class="keyword-name-jp">責任感</span></div>
+      <div class="keyword-desc">납기·품질·가격 등 고객과의 약속을 지키기 위해 사내를 움직이는 힘. "담당자가 책임진다"는 자세가 장기 신뢰 관계의 기반이 된다.</div>
+    </div>
+  </div>
+
+  <h3>생산관리·품질관리 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">자기관리능력 <span class="keyword-name-jp">自己管理能力</span></div>
+      <div class="keyword-desc">생산계획·발주·납기를 동시에 관리하는 생산관리에서 핵심. 여러 공정과 부서를 동시에 파악하고 전체 일정을 컨트롤하는 능력이 공장 사령탑으로서의 가치.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">냉정함 <span class="keyword-name-jp">冷静さ</span></div>
+      <div class="keyword-desc">납기 지연·불량 발생 등 돌발 상황에서도 패닉하지 않고 원인 분석과 대응책을 빠르게 조립하는 능력. 품질관리에서 클레임 대응 시 특히 중요.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">논리적사고력 <span class="keyword-name-jp">論理的思考力</span></div>
+      <div class="keyword-desc">불량 원인을 데이터로 특정하고 재발 방지책을 설계하는 품질관리 업무의 핵심. QC(품질관리)에서 통계적 사고법·데이터 분석 능력이 직접 요구된다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">협조성 <span class="keyword-name-jp">協調性</span></div>
+      <div class="keyword-desc">설계·영업·조달·물류 등 다양한 부서와 연계해서 공장 전체를 돌아가게 하는 생산관리에서 필수. "팀 전체가 잘 돌아가도록" 조율하는 힘.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S5 ════ -->
+<div class="section" id="s5">
+  <div class="section-num">SECTION 05</div>
+  <div class="section-title">기업 비교 & 리스트</div>
+  <div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+
+  <p>전기메이커는 <span class="hl">"유명한 기업"보다 "잘 모르지만 세계 1위인 기업"이 많은 업계.</span> 기업연구의 깊이가 곧 합격 확률이 된다.</p>
+
+  <!-- 한국인 공략 존 -->
+  <div class="company-group">
+    <div class="company-group-label">🎯 한국인 취준생 현실 공략 존</div>
+
+    <div class="company-card primary">
+      <div class="company-type">전자부품 | AI 서버 수혜 직격</div>
+      <div class="company-name">TDK <span class="company-name-jp">ティーディーケー</span></div>
+      <div class="company-desc">평균연봉 약 830만엔(43.2세). 해외 매출 90%+의 완전 글로벌 기업. 자기 기술 기반 글로벌 부품 메이커로 HDD 자기헤드 세계 1위. AI 서버용 부품 수요 급증 중. 학력 필터 낮은 편. 해외 출장·주재 기회 풍부. 한국인에게 "숨은 1급 기업".</div>
+      <div class="company-tags">
+        <span class="company-tag accent">평균연봉 830만엔</span>
+        <span class="company-tag">해외 매출 90%+</span>
+        <span class="company-tag">AI 수혜</span>
+        <span class="company-tag">학력 필터 낮음</span>
+      </div>
+    </div>
+
+    <div class="company-card primary">
+      <div class="company-type">계측/제어 | 고연봉 + 낮은 경쟁률</div>
+      <div class="company-name">要코가와전기 <span class="company-name-jp">横河電機</span></div>
+      <div class="company-desc">평균연봉 약 910만엔(44.5세). 종합전기 톱 티어에 준하는 연봉이면서 채용 필터는 상대적으로 낮음. 해외 매출 70%+. 프로세스 산업(석유/화학/제약) DX라는 독자 영역이라 취준생에게 인지도가 낮아 경쟁률 상대적으로 낮음. 안정+글로벌+고대우 3박자.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">평균연봉 910만엔</span>
+        <span class="company-tag">해외 70%+</span>
+        <span class="company-tag">스톡형 비즈니스</span>
+        <span class="company-tag">경쟁률 상대적 낮음</span>
+      </div>
+    </div>
+
+    <div class="company-card primary">
+      <div class="company-type">빌딩자동화 | 워라밸 최상위</div>
+      <div class="company-name">아즈빌 <span class="company-name-jp">アズビル</span></div>
+      <div class="company-desc">평균연봉 약 828만엔. 잔업 월 15시간 전후로 전기메이커 중에서도 워라밸 상위. 빌딩 공조 자동제어 국내 1위. 수주잔고 두텁고 경영 안정적. "사람을 중심으로 한 오토메이션"이 기업 이념. 복리후생 충실.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">잔업 15h/월</span>
+        <span class="company-tag">빌딩자동화 국내 1위</span>
+        <span class="company-tag">워라밸 최상위</span>
+      </div>
+    </div>
+
+    <div class="company-card primary">
+      <div class="company-type">FA/헬스케어 | 교토 자유 사풍</div>
+      <div class="company-name">오므론 <span class="company-name-jp">オムロン</span></div>
+      <div class="company-desc">평균연봉 약 820만엔. FA 센서·릴레이 세계 톱 클래스. 혈압계 등 헬스케어도 강함. 2024년 구조조정을 거쳐 체질 개선 중으로 앞으로의 성장 기대. さん 호칭·교토 문화의 자유로운 사풍.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">평균연봉 820만엔</span>
+        <span class="company-tag">FA 센서 세계 톱</span>
+        <span class="company-tag">자유로운 사풍</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">전자부품 | 볼 베어링 세계 1위</div>
+      <div class="company-name">미네베아미쓰미 <span class="company-name-jp">ミネベアミツミ</span></div>
+      <div class="company-desc">미니어처 볼 베어링 세계 점유율 60%. 평균연봉 약 750만엔. 아시아 생산 거점 다수로 해외 경험 기회 풍부. 지속적으로 M&A로 성장 중. "초정밀 기술"이라는 명확한 아이덴티티.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">베어링 세계 1위 60%</span>
+        <span class="company-tag">아시아 거점 다수</span>
+        <span class="company-tag">M&A 성장 중</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">파워반도체 | EV 시대 핵심</div>
+      <div class="company-name">로옴 <span class="company-name-jp">ローム</span></div>
+      <div class="company-desc">SiC 파워 반도체 세계 선두 그룹. 평균연봉 약 760만엔. 교토 본사. EV·재생에너지의 핵심 디바이스를 만드는 기업. R&D 투자 적극적. 반도체에 관심 있는 이공계 취준생에게.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">SiC 파워반도체 선두</span>
+        <span class="company-tag">EV·재생에너지</span>
+        <span class="company-tag">이공계 추천</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 톱 티어 -->
+  <div class="company-group">
+    <div class="company-group-label">🏛️ 종합전기 톱 티어</div>
+
+    <div class="company-card">
+      <div class="company-type">종합전기 | 이미지센서 세계 1위</div>
+      <div class="company-name">소니그룹 <span class="company-name-jp">ソニーグループ</span></div>
+      <div class="company-desc">평균연봉 약 1,113만엔. 전기메이커 중 최고 수준. CMOS 이미지 센서 세계 점유율 약 50%. 게임·음악·영화 등 엔터테인먼트 사업 비중이 높아 순수 전기메이커와는 성격이 다름. 채용 필터 최상위.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">평균연봉 1,113만엔</span>
+        <span class="company-tag">이미지센서 50%</span>
+        <span class="company-tag">채용 필터 최상위</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">종합전기 | Lumada IoT 플랫폼</div>
+      <div class="company-name">히타치제작소 <span class="company-name-jp">日立製作所</span></div>
+      <div class="company-desc">평균연봉 약 935만엔. 시가총액 20조 엔대로 성장 가속. IT·에너지·인프라·철도 종합. 직무급 전환 중으로 젊은 층에도 기회. Lumada 사업이 성장 엔진. 채용 필터 매우 높음.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">평균연봉 935만엔</span>
+        <span class="company-tag">시가총액 20조엔</span>
+        <span class="company-tag">직무급 전환 중</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">종합전기 | EV 배터리·가전</div>
+      <div class="company-name">파나소닉HD <span class="company-name-jp">パナソニックHD</span></div>
+      <div class="company-desc">평균연봉 약 908만엔. 테슬라 배터리 공급. 가전 이미지가 강하지만 차량·에너지 사업 비중 급증 중. FA 솔루션도 강화 중.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">평균연봉 908만엔</span>
+        <span class="company-tag">테슬라 배터리</span>
+        <span class="company-tag">에너지 전환 중</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">종합전기 | FA·인프라·우주</div>
+      <div class="company-name">미쓰비시전기 <span class="company-name-jp">三菱電機</span></div>
+      <div class="company-desc">평균연봉 약 827만엔. FA 분야 국내 톱. 인공위성·레이더 등 방위·우주 사업도 전개. 연간 휴일 129일로 복리후생 충실. "강한 제품군"이 특징.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">평균연봉 827만엔</span>
+        <span class="company-tag">FA 국내 톱</span>
+        <span class="company-tag">연간 휴일 129일</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 글로벌 -->
+  <div class="company-group">
+    <div class="company-group-label">🌍 글로벌 경험을 원한다면</div>
+
+    <div class="company-card primary">
+      <div class="company-type">전자부품 | 해외 매출 90%+</div>
+      <div class="company-name">TDK <span class="company-name-jp">ティーディーケー</span></div>
+      <div class="company-desc">해외 매출 90% 이상, 해외 거점 30개국 이상. 입사 후 해외 주재 기회가 가장 풍부한 전기메이커 중 하나. 영어 사용 빈도 높음. AI/EV/5G 등 글로벌 메가 트렌드 기술을 다루는 환경.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">해외 매출 90%+</span>
+        <span class="company-tag">30개국+ 거점</span>
+        <span class="company-tag">영어 업무 빈도 높음</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">계측/제어 | 해외 매출 70%+</div>
+      <div class="company-name">요코가와전기 <span class="company-name-jp">横河電機</span></div>
+      <div class="company-desc">중동·동남아·중남미 등 글로벌 플랜트 프로젝트에 직접 참여. 현지 팀과 협업하는 환경에서 "일본 기술을 세계에 전달하는" 경험이 가능. 해외 파견 기회 풍부.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">해외 매출 70%+</span>
+        <span class="company-tag">중동·동남아 플랜트</span>
+        <span class="company-tag">해외 파견 풍부</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">전자부품 | 베어링 세계 1위</div>
+      <div class="company-name">미네베아미쓰미 <span class="company-name-jp">ミネベアミツミ</span></div>
+      <div class="company-desc">태국·중국·캄보디아 등 아시아에 대규모 생산 거점. 해외 매출 약 70%. 해외 공장 관리·글로벌 SCM을 경험할 수 있는 환경.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">아시아 생산거점 다수</span>
+        <span class="company-tag">해외 매출 70%</span>
+        <span class="company-tag">글로벌 SCM</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">분석/계측 | 배기가스 분석 80%</div>
+      <div class="company-name">호리바제작소 <span class="company-name-jp">堀場製作所</span></div>
+      <div class="company-desc">해외 매출 약 65%. 프랑스·독일·미국 등 유럽·미국 거점 강함. 자동차 배기가스 분석 세계 점유율 80%. "おもしろおかしく(재미있고 유쾌하게)"가 사훈인 교토 기업. 평균연봉 약 770만엔(평균 40세). 자유로운 사풍과 글로벌 환경이 결합. 채용 인원이 적어 경쟁률은 높음.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">배기가스 분석 세계 80%</span>
+        <span class="company-tag">유럽·미국 거점</span>
+        <span class="company-tag">자유로운 사풍</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EV·모터 -->
+  <div class="company-group">
+    <div class="company-group-label">⚡ EV·모터 분야에 관심 있다면</div>
+
+    <div class="company-card">
+      <div class="company-type">모터/EV 구동장치 | 소형정밀모터 세계 1위</div>
+      <div class="company-name">니덱 <span class="company-name-jp">ニデック (旧 日本電産)</span></div>
+      <div class="company-desc">소형 정밀 모터 세계 1위. 평균연봉 약 700만엔. EV 구동 모터 "E-Axle"로 자동차 전동화 시장에 본격 진출. 나가모리 시게노부 창업자의 강한 리더십 문화. "すぐやる·必ずやる·できるまでやる"가 사풍. M&A로 성장 가속 중.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">소형모터 세계 1위</span>
+        <span class="company-tag">EV E-Axle</span>
+        <span class="company-tag">M&A 성장 중</span>
+        <span class="company-tag">강한 리더십 문화</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box info-box-accent" style="margin-top:20px;">
+    <div class="box-label">전기메이커 기업 선택의 핵심</div>
+    <p>"누구나 아는 기업"보다 <span class="hl">"잘 모르지만 세계 1위인 기업"이 많은 업계</span>가 전기메이커다. 기업연구의 깊이가 곧 합격 확률이 된다. 중요한 건 자기가 가장 중시하는 축(연봉/글로벌/워라밸/기술 영역)을 먼저 정하고, 그 축에서 강한 기업을 중심으로 지원 전략을 짜는 것.</p>
+  </div>
+</div>
+
+<!-- ════ S6 ════ -->
+<div class="section" id="s6">
+  <div class="section-num">SECTION 06</div>
+  <div class="section-title">ES 대책</div>
+  <div class="section-title-jp">合格パターン・落とし穴</div>
+
+  <p>전기메이커 ES의 가장 큰 함정은 <span class="hl">"ものづくりに貢献したい"라는 추상적 지원 동기.</span> 어떤 제품·기술·시장에 대한 이야기인지 구체화가 필수다. 특히 BtoB 기업은 제품을 일반인이 접하기 어렵기 때문에 <strong style="color:var(--text-sub);">"보이지 않는 기술에 대해 얼마나 조사했는가"</strong>가 열의를 보여주는 핵심 차별화 포인트가 된다.</p>
+
+  <h3>빈출 질문 TOP5</h3>
+
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 20px;">
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">① 학생시절 힘쓴 것</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">② 지원동기</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">③ 입사 후 하고 싶은 것</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">④ 자기PR</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">⑤ 당사 제품/기술에 대한 관심</span>
+  </div>
+
+  <div class="es-pattern">
+    <div class="es-pattern-label">✅ 합격 패턴 — "사회 과제 → 기술 연결 → 이 회사만의 강점 → 나의 역할"</div>
+    <p>
+      ① 사회적 과제(카본 뉴트럴/제조업 인력 부족/의료 고도화 등)를 구체적으로 제시<br>
+      ② 그 과제를 해결하기 위해 필요한 기술이 이 회사의 핵심 기술(센서/제어/부품)과 연결됨을 설명<br>
+      ③ 동종 기업이 아닌 "이 회사만의" 강점(세계 점유율/특허/밸류체인 포지션)을 구체적으로 언급<br>
+      ④ 그 속에서 자신이 어떤 역할(기술개발/영업/생산관리)을 하고 싶은지 제시
+    </p>
+  </div>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">❌ 불합격 공통 실수</div>
+    <p>
+      <span class="hl-warn">실수 1:</span> "일본의 ものづくりに貢献したい" — 너무 추상적. 어떤 제품·기술·시장인지 구체화 필수<br>
+      <span class="hl-warn">실수 2:</span> "어릴 때부터 ○○ 제품을 써왔습니다" — BtoB 기업에 BtoC 제품 이야기는 역효과. TDK에 "이어폰 써봤다"는 본질이 아님<br>
+      <span class="hl-warn">실수 3:</span> "안정적인 대기업이라 지원했습니다" — 기술·제품에 대한 관심이 보이지 않으면 탈락
+    </p>
+  </div>
+
+  <h3>지원 동기 작성 프레임 (4 STEP)</h3>
+
+  <div class="info-box info-box-accent">
+    <p>
+      <strong style="color:var(--text-sub);">Step 1.</strong> 지원 기업의 IR 자료(통합보고서)에서 핵심 사업과 성장 전략을 파악<br>
+      <strong style="color:var(--text-sub);">Step 2.</strong> 그 기업의 제품·기술이 해결하는 "사회 과제"를 자신의 관심사(전공/경험)와 연결<br>
+      <strong style="color:var(--text-sub);">Step 3.</strong> "ものづくりを通じて社会課題を解決する"는 전기메이커 업계의 특수성을 언급<br>
+      <strong style="color:var(--text-sub);">Step 4.</strong> 이 회사만의 [기술적 강점/밸류체인 포지션/글로벌 전개]과 자신의 관심이 합치하는 포인트를 제시
+    </p>
+  </div>
+
+  <h3>비교축 — "왜 A사가 아니라 B사?"</h3>
+
+  <div class="info-box">
+    <div class="box-label">밸류체인 포지션으로 차별화</div>
+    <p>"TDK는 밸류체인의 '부품' 레이어에서 세계 시장에 직접 경쟁하는 기업으로, 자사 기술이 최종 제품의 성능을 좌우하는 영향력을 갖습니다" vs "히타치는 부품에서 시스템·솔루션까지 밸류체인 전체를 커버하며, 사회 인프라 과제를 일괄 해결할 수 있습니다"</p>
+  </div>
+
+  <div class="info-box">
+    <div class="box-label">기술 영역·적용 분야로 차별화</div>
+    <p>"오므론은 FA 센서·제어 기술로 '만드는 현장'을 변혁하는 기업입니다. 제조업의 DX를 가장 가까운 곳에서 실현할 수 있습니다" vs "로옴은 SiC 파워 반도체로 에너지 변환 효율을 혁신하며, EV와 재생에너지 시대의 핵심 디바이스를 만듭니다"</p>
+  </div>
+</div>
+
+<!-- ════ S7 ════ -->
+<div class="section" id="s7">
+  <div class="section-num">SECTION 07</div>
+  <div class="section-title">면접 대책</div>
+  <div class="section-title-jp">面接対策 — 頻出質問・選考フロー</div>
+
+  <p>전기메이커 면접은 <span class="hl">제품·기술에 대한 사전 조사 깊이와, 지원 직종(기술직/영업/생산관리)에 맞는 역량 증명</span>이 핵심이다. BtoB 기업이므로 서비스를 직접 써볼 수 없는 만큼, IR 자료·기술 발표·OB 방문으로 준비도를 보여줘야 한다.</p>
+
+  <h3>전형 단계 구조</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>단계</th><th>내용</th><th>포인트</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>서류 전형</td>
+          <td>ES + 성적증명서. 이공계는 연구 내용 기재 요구 많음. 웹 테스트(SPI3) 병행</td>
+          <td>이공계는 연구 주제가 지원 직종과 얼마나 연결되는지가 중요. 문과는 "왜 이 기술·제품인가"의 구체성이 핵심</td>
+        </tr>
+        <tr>
+          <td>적성검사</td>
+          <td>SPI3(언어·비언어·성격)가 주류. 기술직은 理系 문제 비중 높음</td>
+          <td>대형 전기메이커는 높은 비언어 점수를 요구하는 경향. 충분한 사전 연습 필수</td>
+        </tr>
+        <tr>
+          <td>1차 면접</td>
+          <td>인사담당자 or 현장 기술자. 가쿠치카·자기PR + 지원 직종 이해도 확인</td>
+          <td>"왜 기술직(or 영업·생산관리)인가", "당사 제품·기술에 어떻게 관심을 갖게 됐는가"가 빈출</td>
+        </tr>
+        <tr>
+          <td>2차 면접</td>
+          <td>현장 부장·과장급. 기술 이해도·커리어 비전을 깊이 파고듦</td>
+          <td>이공계는 연구 내용을 비전문가에게 설명하는 능력(프레젠 능력)을 보는 경우 多</td>
+        </tr>
+        <tr>
+          <td>최종 면접</td>
+          <td>임원급. 인물·인성·입사 의향 확인. 제1지망 여부를 직접 물어보는 경우 多</td>
+          <td>이 회사를 왜 제1지망으로 하는가의 이유를 반드시 준비. 추상적인 답변은 NG</td>
+        </tr>
+        <tr>
+          <td>기술 면접</td>
+          <td>이공계 지망자 대상. 연구 내용 프레젠테이션 + Q&A 형식이 일반적</td>
+          <td>연구 내용을 5분·10분으로 정리해서 말하는 연습. "왜 이 연구를 선택했는가"의 동기도 준비</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>빈출 질문 & 답변 포인트</h3>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 01</div>
+    <h4>당사의 제품·기술에 대해 어떻게 알게 됐는가? 어떤 점에 매력을 느꼈는가?</h4>
+    <p><strong style="color:var(--text-sub);">나쁜 답변:</strong> "어릴 때부터 제품을 사용해왔습니다" → BtoB 기업에는 역효과. IR 자료·기술 발표·OB 방문 경로를 통한 구체적 조사가 없으면 설득력이 없다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 구조:</strong> 조사 경로(IR 자료/기술 세미나/OB 방문) → 알게 된 구체적 기술·제품명 → 그 기술이 해결하는 사회 과제와의 연결 → 자신이 관여하고 싶은 이유.</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 02</div>
+    <h4>왜 인터넷·IT 기업이 아닌 전기메이커인가?</h4>
+    <p>특히 기획·영업 지망의 문과 지원자에게 자주 나오는 질문.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 방향:</strong> "소프트웨어만이 아니라 '물리적으로 존재하는 것'을 통해 사회 인프라를 지탱하는 일에 매력을 느낍니다. 제가 관여한 기술이 실제로 공장에서 가동되거나 에너지를 절약하는 모습을 실감할 수 있는 환경에서 일하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 03</div>
+    <h4>당사 제품·기술의 과제나 개선 가능성을 어떻게 생각하는가?</h4>
+    <p>깊이 있는 기업연구를 요구하는 질문. 최종 면접 또는 기술 면접에서 자주 나온다.</p>
+    <p><strong style="color:var(--text-sub);">준비 방법:</strong> IR 자료의 "사업 리스크" 섹션과 중기경영계획에서 과제를 파악. 업계 트렌드(AI/EV/카본뉴트럴)와 엮어서 "이 회사의 다음 성장을 위해 필요한 것"을 자신의 언어로 말할 수 있어야 한다.</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 04</div>
+    <h4>(이공계) 연구 내용을 설명해주세요.</h4>
+    <p>기술 면접의 핵심. <span class="hl">비전문가인 인사담당자에게도 알기 쉽게 설명하는 능력</span>을 보는 경우와, 현장 기술자가 깊이 파고드는 경우 양쪽이 있다.</p>
+    <p><strong style="color:var(--text-sub);">준비 방법:</strong> ① 1분 요약(무엇을 왜 연구했는가) → ② 5분 상세(방법·결과·고찰) → ③ "이 연구가 이 회사의 어떤 사업에 어떻게 연결되는가"까지 준비. 시각 자료(슬라이드)를 가져가는 것이 효과적.</p>
+  </div>
+
+  <div class="info-box info-box-success">
+    <div class="box-label" style="color:var(--success);">OB·OG 방문의 중요성</div>
+    <p>전기메이커 면접에서 <span style="color:var(--success);font-weight:600;">OB·OG 방문 경험은 직접적인 가산점</span>이 된다. "설명회에서 들은 이야기"보다 "현장 사원에게 직접 들은 업무 내용"을 언급하면 준비 깊이가 확연히 다르게 보인다. TCS PT 상담을 통해 기업 선택과 OB 방문 준비를 함께 설계하는 것을 추천한다.</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> 업계 리포트 Vol.04 — 전기메이커 (電機メーカー)</p>
+  <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+  <p style="margin-top:8px;font-size:10px;">본 리포트의 정보는 각사 IR자료, 채용 페이지, 재무성 법인기업통계, WSTS 반도체 시장 통계, OpenWork 등 공개 정보를 기반으로 구조화한 것입니다.</p>
+</div>
+
+</div>
+
+<script>
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  const y = el.getBoundingClientRect().top + window.pageYOffset - navH - 16;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7'];
+const navBtns = document.querySelectorAll('.nav-btn');
+function updateNav() {
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  let current = 's1';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= navH + 60) current = id;
+  });
+  navBtns.forEach((btn, i) => btn.classList.toggle('active', sections[i] === current));
+}
+window.addEventListener('scroll', updateNav);
+updateNav();
+</script>
+</body>
+</html>
