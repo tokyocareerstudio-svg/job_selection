@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>외식 업계 리포트 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--border:#2a2a35;--border-hover:#3a3a48;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--accent:#fdcb6e;--accent-soft:rgba(253,203,110,0.08);--accent-border:rgba(253,203,110,0.22);--ff:#e17055;--ff-soft:rgba(225,112,85,0.08);--ff-border:rgba(225,112,85,0.2);--cafe:#a29bfe;--cafe-soft:rgba(162,155,254,0.08);--cafe-border:rgba(162,155,254,0.2);--warn:#f59e0b;--warn-soft:rgba(245,158,11,0.06);--warn-border:rgba(245,158,11,0.18)}
+  *{margin:0;padding:0;box-sizing:border-box}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased}.container{max-width:760px;margin:0 auto;padding:0 24px 100px}
+  .hero{padding:64px 24px 48px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(253,203,110,0.06) 0%,transparent 70%);pointer-events:none}.hero-inner{position:relative;max-width:760px;margin:0 auto}
+  .hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);padding:4px 12px;border-radius:12px;margin-bottom:20px;text-transform:uppercase}.hero h1{font-size:30px;font-weight:900;line-height:1.3;margin-bottom:10px;letter-spacing:-0.5px}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:20px;max-width:560px}.hero-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .hero-tag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500}.hero-tag.a{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent-border)}.hero-tag.f{background:var(--ff-soft);color:var(--ff);border:1px solid var(--ff-border)}.hero-tag.c{background:var(--cafe-soft);color:var(--cafe);border:1px solid var(--cafe-border)}
+  .section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0}.section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}.section-nav-inner::-webkit-scrollbar{display:none}.nav-btn{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all .2s;white-space:nowrap}.nav-btn:hover,.nav-btn.active{color:var(--accent);background:var(--accent-soft)}
+  .section{padding:44px 0;border-bottom:1px solid rgba(255,255,255,.03)}.section:last-child{border-bottom:none}.section-num{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);opacity:.7;margin-bottom:6px;text-transform:uppercase}.section-title{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-.3px}.section-title-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px}.section p:last-child{margin-bottom:0}.section h3{font-size:14px;font-weight:700;color:var(--text-sub);margin:28px 0 12px;padding-left:10px;border-left:2px solid var(--accent)}.section h3.f{border-left-color:var(--ff)}.section h3.c{border-left-color:var(--cafe)}
+  .info-box{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0}.info-box-accent{background:var(--accent-soft);border-color:var(--accent-border);border-left:3px solid var(--accent)}.info-box-warn{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn)}.info-box p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0}.box-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:6px;text-transform:uppercase}.box-label-warn{color:var(--warn)}.hl{color:var(--accent);font-weight:600}.hl-f{color:var(--ff);font-weight:600}.hl-c{color:var(--cafe);font-weight:600}.hl-warn{color:var(--warn);font-weight:600}
+  .table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px}table{width:100%;border-collapse:collapse;font-size:12px}thead{background:var(--surface-2)}th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase}td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.03);color:var(--text-dim);vertical-align:top;line-height:1.7}tr:last-child td{border-bottom:none}td:first-child{font-weight:700;color:var(--text-sub)}
+  .trend-card{padding:20px 22px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:12px 0}.trend-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:6px;text-transform:uppercase}.trend-card h4{font-size:14px;font-weight:700;margin-bottom:10px;color:var(--text)}.trend-card p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:10px}.trend-card p:last-child{margin-bottom:0}.use-tag{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;margin:6px 4px 4px 0;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent-border)}
+  .company-group{margin:20px 0}.company-group-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text-muted);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);text-transform:uppercase}.company-card{padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;transition:border-color .2s}.company-card:hover{border-color:var(--border-hover)}.company-card.primary{border-color:var(--accent-border)}.company-card.primary-f{border-color:var(--ff-border)}.company-card.primary-c{border-color:var(--cafe-border)}.company-type{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1px;margin-bottom:4px;text-transform:uppercase}.company-type.f{color:var(--ff)}.company-type.c{color:var(--cafe)}.company-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px}.company-name-jp{font-family:'Noto Sans JP',sans-serif;font-size:12px;color:var(--text-muted);font-weight:400;margin-left:6px}.company-desc{font-size:12px;color:var(--text-dim);line-height:1.8}.company-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}.company-tag{font-size:10px;padding:2px 8px;border-radius:6px;background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border)}.company-tag.a{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-border)}.company-tag.f{background:var(--ff-soft);color:var(--ff);border-color:var(--ff-border)}.company-tag.c{background:var(--cafe-soft);color:var(--cafe);border-color:var(--cafe-border)}
+  .job-link-card{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all .2s;margin-bottom:8px}.job-link-card:hover{border-color:var(--accent-border);background:var(--accent-soft)}.job-link-icon{font-size:24px;flex-shrink:0;margin-top:2px}.job-link-body{flex:1}.job-link-kicker{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:4px;text-transform:uppercase}.job-link-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}.job-link-desc{font-size:12px;color:var(--text-dim);line-height:1.7;margin-bottom:8px}.job-link-tags{display:flex;flex-wrap:wrap;gap:4px}.job-link-tag{font-size:10px;padding:2px 8px;border-radius:6px;background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border)}.job-link-arrow{font-size:16px;color:var(--accent);flex-shrink:0;margin-top:4px}
+  .keyword-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}.keyword-card{padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px}.keyword-name{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:4px}.keyword-name-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);font-weight:400;margin-left:4px}.keyword-desc{font-size:11px;color:var(--text-dim);line-height:1.7}
+  .es-pattern{padding:16px 18px;background:var(--surface-2);border-radius:8px;margin:12px 0}.es-pattern-label{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--accent);margin-bottom:8px;text-transform:uppercase}.es-pattern p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0}
+  .footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8}.footer .brand{font-weight:700;color:var(--text-dim)}
+  @media(max-width:640px){.keyword-grid{grid-template-columns:1fr}.hero h1{font-size:24px}.section-title{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">업계 리포트 Vol.24</div>
+    <h1>외식 업계 완전 정리</h1>
+    <p class="hero-sub">맥도날드·스카이락·돔도피자 체인부터 WDI·쿠라코퍼레이션 성장주까지.<br>인바운드·인력 부족·DX가 재편하는 외식 업계를 한 페이지에.</p>
+    <div class="hero-tags">
+      <span class="hero-tag f">패스트푸드·패밀리레스토랑</span>
+      <span class="hero-tag a">이자카야·캐주얼</span>
+      <span class="hero-tag c">카페·디저트</span>
+      <span class="hero-tag a">인바운드 수혜</span>
+    </div>
+  </div>
+</div>
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('s1')">01 업계전체상</button>
+    <button class="nav-btn" onclick="scrollTo('s2')">02 트렌드</button>
+    <button class="nav-btn" onclick="scrollTo('s3')">03 활약직종</button>
+    <button class="nav-btn" onclick="scrollTo('s4')">04 키워드</button>
+    <button class="nav-btn" onclick="scrollTo('s5')">05 기업리스트</button>
+    <button class="nav-btn" onclick="scrollTo('s6')">06 ES대책</button>
+    <button class="nav-btn" onclick="scrollTo('s7')">07 면접대책</button>
+  </div>
+</div>
+<div class="container">
+
+<div class="section" id="s1">
+  <div class="section-num">SECTION 01</div>
+  <div class="section-title">업계 전체상</div>
+  <div class="section-title-jp">業界全体像 — 外食チェーン・カフェ・居酒屋・ビジネスモデル</div>
+  <div class="info-box info-box-accent">
+    <div class="box-label">한 줄 정의</div>
+    <p><span class="hl">음식을 조리해 점포에서 직접 제공하는 업계. 패스트푸드·패밀리레스토랑·이자카야·카페·라멘·스시 등 업태가 폭넓고, 일본 외식 시장 규모는 약 26조 엔(2024년)으로 코로나 이전 수준을 회복했다.</span></p>
+  </div>
+  <p>외식 업계는 <span class="hl">소비자의 일상에 가장 가까운 업계</span>이면서 동시에 <span class="hl-warn">노동 집약적·저마진·인력 부족</span>이라는 구조적 과제를 안고 있다. 인바운드 수요 급증·AI·로봇 도입에 의한 DX·메뉴 가격 인상이 업계를 동시에 재편하고 있다.</p>
+
+  <h3>외식 업계의 4가지 분류</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>분류</th><th>특징</th><th>대표 기업</th></tr></thead>
+      <tbody>
+        <tr><td>패스트푸드·QSR</td><td>저가·빠른 서비스·표준화. 프랜차이즈 모델. 인력 절감 자동화 투자 선행. 아침·점심·야식 수요를 커버</td><td>닛폰맥도날드, 스카이락홀딩스, 모스푸드서비스</td></tr>
+        <tr><td>패밀리레스토랑</td><td>중간 가격대·폭넓은 메뉴·가족 이용. 세트 메뉴 구성력과 회전율이 수익의 핵심</td><td>스카이락(가스토), 로얄홀딩스(로얄호스트), 덴즈홀딩스(데니스)</td></tr>
+        <tr><td>이자카야·캐주얼</td><td>저녁 주력, 주류 수익 비중 높음. 코로나 타격이 가장 컸지만 인바운드·외식 회복으로 V자 반등</td><td>와타미, 도리키조쿠, 몬테로자</td></tr>
+        <tr><td>카페·디저트</td><td>입지·브랜드 감도·회전율이 수익을 결정. 테이크아웃 강화·EC(원두·상품) 확장. 인바운드 수요의 직접 수혜</td><td>스타벅스커피재팬, 코메다홀딩스, 도토루니혼레스토랑시스템</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>비즈니스 모델</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>수익 모델</th><th>구조</th><th>특징</th></tr></thead>
+      <tbody>
+        <tr><td>직영 점포 매출</td><td>음식·음료 판매 수입. 식재 원가율·인건비율·임대료(FLR)의 3대 비용 관리가 이익을 결정</td><td>FLR 비율 70% 이하가 경영의 목표. 가격 인상이 어려웠지만 인플레이션으로 단계적 인상 중</td></tr>
+        <tr><td>프랜차이즈 수수료</td><td>FC 가맹점으로부터 로열티 수취. 점포 수를 늘릴수록 수수료 수입 증가</td><td>맥도날드·모스 등. 가맹점 지원·QC 관리가 브랜드 가치 유지의 핵심</td></tr>
+        <tr><td>배달·테이크아웃</td><td>우버이츠·출판사배달 등 플랫폼 경유 배달. 코로나로 급성장. 점포 회전율에 의존하지 않는 수익</td><td>배달 수수료 30~35%가 마진을 압박. 자사 배달 강화·테이크아웃 전문 업태 개발로 대응</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">외식 업계 입사 전에 반드시 알아야 할 현실</div>
+    <p>외식 업계는 <span class="hl-warn">업계 전체에서 연봉이 낮고 노동 강도가 높다.</span> 특히 점포 현장 배치가 필수이며 토요일·일요일·공휴일이 가장 바쁜 날이다. 식품 위생관리자 자격·점장 취득까지 수년이 걸리고, 그 사이는 타 업계 대비 연봉 성장이 느린 경향이 있다. 그럼에도 "음식으로 사람을 행복하게 하고 싶다"는 진정한 열정이 있는 인재에게는 빠른 현장 성장·점장 발탁·독립 기회가 있는 업계다.</p>
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <div class="section-num">SECTION 02</div>
+  <div class="section-title">면접관이 체크하는 트렌드 3선</div>
+  <div class="section-title-jp">面接官がチェックするトレンド</div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 01</div>
+    <h4>인력 부족·자동화·로봇화 — 외식 DX의 본격화</h4>
+    <p>외식 업계는 일본에서 가장 심각한 인력 부족 업종 중 하나다. <span class="hl">서빙 로봇·자동 주문 패널(태블릿 주문)·AI 재고 관리·드라이브스루 자동화</span> 등 DX 투자가 전업계적으로 가속되고 있다. 스카이락은 서빙 로봇 도입으로 약 1만 명 상당의 인건비 절감을 실현. 맥도날드는 AI 드라이브스루·모바일 주문을 표준화했다. 인력 절감과 동시에 "AI가 할 수 없는 따뜻한 서비스"의 가치가 재평가되고 있다.</p>
+    <div class="use-tag">전 외식업체 활용</div>
+    <p>"인력 부족 속에서 자동화와 인간 서비스의 최적 역할 분담을 설계하는 것이 외식 기업의 핵심 과제입니다. 기술을 활용하면서 인간만이 할 수 있는 따뜻한 체험을 만드는 역할에 기여하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 02</div>
+    <h4>인바운드 수요와 일본 식문화의 세계화</h4>
+    <p>방일 외국인 3,687만 명의 "일본 음식 체험" 수요가 외식 업계에 직접적인 호황을 가져다주고 있다. 스시·라멘·야키토리·라멘 전문점이 인바운드 관광객에게 특히 인기이며, <span class="hl">도심 인기 외식점의 가격 인상·예약 필수화가 진행</span>되고 있다. 동시에 일본 외식 브랜드의 해외 진출도 가속되고 있다. 이치란·스시로·마루가메세이멘 등이 미국·아시아에 점포를 확장 중이다.</p>
+    <div class="use-tag">전 외식업체 활용</div>
+    <p>"인바운드를 통해 일본 식문화의 가치가 세계에서 재평가되고 있습니다. 일본의 식문화를 더 많은 사람에게 전달하는 역할에 기여하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 03</div>
+    <h4>식품 원가 상승·가격 인상 전략 — 외식의 가치를 재정의</h4>
+    <p>식재료비·에너지비·인건비의 3중 상승으로 외식 각사가 가격 인상을 진행하고 있다. <span class="hl">단순한 가격 인상이 아니라 메뉴의 질 향상·프리미엄 라인 투입으로 소비자에게 "가치 있는 가격 인상"을 납득시키는 전략</span>이 요구된다. 맥도날드의 프리미엄 버거·스타벅스의 한정 협업 메뉴 등 고부가가치 상품으로 객단가를 높이는 움직임이 업계 전체로 확산되고 있다.</p>
+    <div class="use-tag">패밀리레스토랑·카페 활용</div>
+    <p>"원가 상승 환경에서 단순히 가격을 올리는 것이 아니라 가격에 걸맞은 가치를 메뉴·서비스·공간으로 제공하는 것이 외식의 과제입니다. 상품 기획과 점포 운영 양쪽에서 이 도전에 임하고 싶습니다."</p>
+  </div>
+</div>
+
+<div class="section" id="s3">
+  <div class="section-num">SECTION 03</div>
+  <div class="section-title">이 업계에서 활약하는 직종</div>
+  <div class="section-title-jp">外食業界で活躍する職種</div>
+  <p>외식 업계는 <span class="hl">점포 현장에서 시작해 점장·SV·본부(상품기획·MD·영업기획)로 이동하는 경로</span>가 기본이다.</p>
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/service-sv03-fb" target="_blank" class="job-link-card">
+    <div class="job-link-icon">🍜</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">외식·F&B 직종 — 직종 상세 카드 SV-03</div>
+      <div class="job-link-title">외식 서비스 — 음식과 공간으로 행복을 만드는 사람</div>
+      <div class="job-link-desc">점포에서 접객·조리·운영을 담당하고 점장→슈퍼바이저→본부로 성장하는 경로. <strong style="color:var(--text-sub);">현장 성과가 커리어를 결정하는 실적 중심 세계. 학력보다 행동력과 서비스 마인드가 평가된다.</strong></div>
+      <div class="job-link-tags"><span class="job-link-tag">점포 현장 필수</span><span class="job-link-tag">점장→SV 경로</span><span class="job-link-tag">식품위생관리자</span><span class="job-link-tag">인바운드 대응</span></div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+  <div class="info-box" style="margin-top:16px">
+    <div class="box-label">외식 업계 직종 상세</div>
+    <p><strong style="color:var(--text-sub);">점포 스태프·점장:</strong> 신졸의 대부분이 시작. 접객·조리·재고·아르바이트 지도. 수년 내 점장 발탁 기회 있음. 학력보다 성과가 커리어를 결정.<br><br>
+    <strong style="color:var(--text-sub);">SV (슈퍼바이저):</strong> 담당 점포 (10~20점)를 순회하며 매출 향상·운영 개선·점장 육성을 지원. 외식의 핵심 본부 직종.<br><br>
+    <strong style="color:var(--text-sub);">상품기획·메뉴 개발:</strong> 신메뉴 개발·계절 한정 기획·가격 전략. 트렌드 분석과 식재료 지식 양쪽이 요구됨.<br><br>
+    <strong style="color:var(--text-sub);">FC 영업·출점 개발:</strong> 프랜차이즈 가맹점 모집·출점 입지 선정·계약 교섭. 부동산 지식과 영업력 양쪽 필요.<br><br>
+    <span class="hl">외식 업계는 신졸 채용 인원이 많고 접근성이 높지만, 현장 배치와 교대 근무를 포지티브하게 받아들이는 것이 필수 조건이다.</span></p>
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <div class="section-num">SECTION 04</div>
+  <div class="section-title">외식 업계 × 자기분석 키워드</div>
+  <div class="section-title-jp">自己分析キーワードとの接続</div>
+  <div class="keyword-grid">
+    <div class="keyword-card"><div class="keyword-name">공감력 <span class="keyword-name-jp">共感力</span></div><div class="keyword-desc">배가 고픈 고객·특별한 기념일 고객·인바운드 외국인 고객 각각의 상황에 공감하고 최적의 서비스를 제공하는 능력. "이 고객은 지금 어떤 것을 원하는가"를 순간에 읽는 감수성이 외식 서비스의 핵심이다.</div></div>
+    <div class="keyword-card"><div class="keyword-name">자기관리능력 <span class="keyword-name-jp">自己管理能力</span></div><div class="keyword-desc">식재 원가율·FLR·객단가·폐기율을 일상적으로 모니터링하고 개선하는 수치 관리 능력. 점장으로 빠르게 발탁되는 스태프에게 공통되는 것은 숫자를 스스로 언어화하는 습관이다.</div></div>
+    <div class="keyword-card"><div class="keyword-name">적극성 <span class="keyword-name-jp">積極性</span></div><div class="keyword-desc">피크 타임에 팀 전체를 이끄는 리더십·아르바이트 교육에서의 주도성·신메뉴 제안에서의 능동적 자세. "하라고 하면 한다"가 아니라 "스스로 생각해서 실행한다"는 자세가 외식 업계에서 빠른 성장을 만든다.</div></div>
+    <div class="keyword-card"><div class="keyword-name">끈기 <span class="keyword-name-jp">粘り強さ</span></div><div class="keyword-desc">연속 피크 타임·클레임 대응·아르바이트 이탈 등 어려운 상황에서도 현장을 유지하는 지속력. "외식이 좋아서"라는 열정을 행동으로 계속 표현하는 끈기가 장기 커리어를 만드는 원천이다.</div></div>
+  </div>
+</div>
+
+<div class="section" id="s5">
+  <div class="section-num">SECTION 05</div>
+  <div class="section-title">기업 비교 & 리스트</div>
+  <div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--ff)">🍔 패스트푸드·패밀리레스토랑</div>
+    <div class="company-card primary-f">
+      <div class="company-type f">패스트푸드 | 국내 최대 체인</div>
+      <div class="company-name">닛폰맥도날드홀딩스 <span class="company-name-jp">日本マクドナルドホールディングス</span></div>
+      <div class="company-desc">매출 약 4,300억 엔(2024). 평균연봉 약 677만 엔. 국내 최대 외식 체인(약 2,900점). AI 드라이브스루·모바일 주문·키오스크 도입으로 DX 선도. 프리미엄 버거·맥카페 전략으로 객단가 상승 중. 창업 정신·자기 주도성을 중시하는 기업 문화. 외식 업계 중 연봉·안정성 최상위급.</div>
+      <div class="company-tags"><span class="company-tag f">국내 최대 체인</span><span class="company-tag">AI·DX 선도</span><span class="company-tag f">평균연봉 677만 엔</span></div>
+    </div>
+    <div class="company-card primary-f">
+      <div class="company-type f">패밀리레스토랑 | 서빙 로봇 선도</div>
+      <div class="company-name">스카이락홀딩스 <span class="company-name-jp">すかいらーくホールディングス</span></div>
+      <div class="company-desc">가스토·바미얀·샤블리앙 등 약 3,000점 이상 운영하는 국내 최대 패밀리레스토랑 체인. 서빙 로봇 도입으로 인건비 절감을 업계 선도. 멀티 브랜드 전략으로 다양한 소비자층을 커버. 입사 후 어떤 브랜드에 배치될지에 따라 업무 환경이 달라짐.</div>
+      <div class="company-tags"><span class="company-tag f">국내 최대 패밀리레스토랑</span><span class="company-tag">서빙 로봇</span><span class="company-tag">멀티 브랜드</span></div>
+    </div>
+    <div class="company-card">
+      <div class="company-type f">패스트푸드 | 버거 프리미엄</div>
+      <div class="company-name">모스푸드서비스 <span class="company-name-jp">モスフードサービス</span></div>
+      <div class="company-desc">평균연봉 약 570만 엔. 맥도날드보다 고가격대의 프리미엄 버거 전략. 국내산 채소 활용·건강 소비자 타겟. 프랜차이즈 비율이 높아 FC 영업·오너 지원이 핵심 직종. 점포 수는 맥도날드보다 적지만 팬덤이 강한 브랜드.</div>
+      <div class="company-tags"><span class="company-tag f">프리미엄 버거</span><span class="company-tag">국내산 채소</span><span class="company-tag">팬덤 강함</span></div>
+    </div>
+  </div>
+
+  <div class="company-group">
+    <div class="company-group-label">🍺 이자카야·캐주얼 외식</div>
+    <div class="company-card primary">
+      <div class="company-type">이자카야 | 야키토리 체인</div>
+      <div class="company-name">도리키조쿠홀딩스 <span class="company-name-jp">鳥貴族ホールディングス</span></div>
+      <div class="company-desc">야키토리 균일가 이자카야로 젊은 층·저예산 소비자를 확실히 포착하는 전략. 균일가 유지와 원가 관리가 경영의 핵심. 코로나 타격에서 V자 회복. 새로운 브랜드(도시기아게) 개발에도 도전 중. 이자카야 업태에서 안정적 경영 기반을 가진 기업.</div>
+      <div class="company-tags"><span class="company-tag a">야키토리 균일가</span><span class="company-tag">젊은 층 특화</span><span class="company-tag">V자 회복</span></div>
+    </div>
+    <div class="company-card primary">
+      <div class="company-type">회전초밥 | 스시로</div>
+      <div name="company-name">FOOD & LIFE COMPANIES <span class="company-name-jp">FOOD & LIFE COMPANIES（スシロー）</span></div>
+      <div class="company-desc">스시로를 운영하는 국내 최대 회전초밥 체인. 인바운드 수요의 직접 수혜를 받아 외국인 관광객에게도 절대적 인기. 해외(한국·대만·홍콩 등) 전개도 적극적. 디지털 예약·앱 관리로 DX 선도. 회전초밥 업태에서 가장 강한 브랜드력.</div>
+      <div class="company-tags"><span class="company-tag a">회전초밥 최대</span><span class="company-tag">인바운드 수혜</span><span class="company-tag">해외 전개</span></div>
+    </div>
+  </div>
+
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--cafe)">☕ 카페·디저트</div>
+    <div class="company-card primary-c">
+      <div class="company-type c">카페 | 국내 1위</div>
+      <div class="company-name">스타벅스커피재팬 <span class="company-name-jp">スターバックスコーヒージャパン</span></div>
+      <div class="company-desc">국내 1,800점 이상. 스타벅스 글로벌 브랜드의 일본법인. 인바운드 관광객에게도 절대적 인기. 계절 한정 메뉴·협업 상품이 SNS 바이럴을 만드는 마케팅 모델. 사원 교육·파트너 제도가 외식 업계 중 가장 선진적. 본부 직종(마케팅·상품기획·점포개발)에서 문과 채용도 활발.</div>
+      <div class="company-tags"><span class="company-tag c">카페 국내 1위</span><span class="company-tag">인바운드 절대 인기</span><span class="company-tag">SNS 마케팅 선도</span></div>
+    </div>
+    <div class="company-card primary-c">
+      <div class="company-type c">카페 | 프랜차이즈 모델</div>
+      <div class="company-name">코메다홀딩스 <span class="company-name-jp">コメダホールディングス</span></div>
+      <div class="company-desc">평균연봉 약 735만 엔. 코메다커피점을 FC로 전국 전개. 모닝 서비스(커피+토스트 세트)가 브랜드 아이덴티티. FC 비율 98% 이상으로 직영점이 거의 없는 독자 FC 전문 모델. 안정적 로열티 수입 기반. 본부 직종은 FC 지원·상품개발·마케팅이 중심.</div>
+      <div class="company-tags"><span class="company-tag c">FC 98%</span><span class="company-tag">모닝 서비스</span><span class="company-tag">평균연봉 735만 엔</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="s6">
+  <div class="section-num">SECTION 06</div>
+  <div class="section-title">ES 대책</div>
+  <div class="section-title-jp">合格パターン·落とし穴</div>
+  <p>외식 ES의 최대 함정은 <span class="hl">"음식이 좋아서·요리가 좋아서"만으로 끝나는 지원 동기</span>다. <strong style="color:var(--text-sub);">"왜 이 회사의 이 업태인가, 어떤 직종에서 어떤 가치를 만들고 싶은가"</strong>까지 말해야 한다.</p>
+  <div class="es-pattern">
+    <div class="es-pattern-label">✅ 합격 지원 동기 4단계</div>
+    <p>Step 1. 지원 회사·브랜드와의 구체적 체험 에피소드 (아르바이트 경험·감동한 서비스 등)<br>
+    Step 2. "왜 음식·외식이라는 업계인가" — 일상에 가장 가까운 업계로 매일 직접 사람을 행복하게 할 수 있다는 임팩트 언어화<br>
+    Step 3. 왜 이 회사인가 — 브랜드 철학·업태·성장 전략에서 자신의 관심과의 합치점<br>
+    Step 4. 점포→점장→SV→본부 중 어떤 커리어 경로에서 어떤 가치를 만들고 싶은지</p>
+  </div>
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">❌ 불합격 공통 실수</div>
+    <p><span class="hl-warn">실수 1:</span> "음식이 좋아서·이 브랜드를 자주 이용해서" — 소비자 시점만으로는 부족. 사업을 만드는·경영하는 시점이 없으면 탈락<br>
+    <span class="hl-warn">실수 2:</span> 교대 근무·토일 근무를 모르는 것이 드러남 — 외식은 토일·공휴일이 가장 바쁨. 리얼리티 없이 지원하면 즉시 탈락<br>
+    <span class="hl-warn">실수 3:</span> 지원 회사의 점포에 방문하지 않음 — "우리 점포에서 무엇을 느꼈는가"는 반드시 물어본다. 경쟁사와의 비교 없이는 구체적 이야기 불가</p>
+  </div>
+</div>
+
+<div class="section" id="s7">
+  <div class="section-num">SECTION 07</div>
+  <div class="section-title">면접 대책</div>
+  <div class="section-title-jp">面接対策 — 頻出質問</div>
+  <div class="trend-card">
+    <div class="trend-num">Q 01</div>
+    <h4>우리 점포에 방문한 경험은? 느낀 점·개선하고 싶은 점은?</h4>
+    <p>외식 면접에서 반드시 나오는 질문. 소비자 체험 + 경영자 시점의 분석을 보여야 한다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 구조:</strong> 강점(서비스·메뉴·VMD)을 구체적으로 평가 → 경쟁사 대비 차별화 포인트 분석 → 개선 가능성을 포지티브하게 제안.</p>
+  </div>
+  <div class="trend-card">
+    <div class="trend-num">Q 02</div>
+    <h4>아르바이트 경험에서 힘들었던 일과 어떻게 극복했는가?</h4>
+    <p>외식 업계 면접에서 가장 많이 나오는 가쿠치카(학창 시절 힘쓴 것) 질문.</p>
+    <p><strong style="color:var(--text-sub);">핵심:</strong> 음식·서비스·접객 관련 아르바이트 경험이 있으면 구체적 수치(매출 향상·클레임 감소·신인 교육 수)와 함께 어필. 없는 경우도 팀 조율·고객 대응 경험으로 외식 업무와의 연결을 만들어야 한다.</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> 업계 리포트 Vol.24 — 외식</p>
+  <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+  <p style="margin-top:8px;font-size:10px;">본 리포트의 정보는 각사 IR자료, 채용 페이지, 일본푸드서비스협회 통계, OpenWork 등 공개 정보를 기반으로 구조화한 것입니다.</p>
+</div>
+</div>
+<script>
+function scrollTo(id){const el=document.getElementById(id);if(!el)return;const navH=document.querySelector('.section-nav').offsetHeight;const y=el.getBoundingClientRect().top+window.pageYOffset-navH-16;window.scrollTo({top:y,behavior:'smooth'})}
+const sections=['s1','s2','s3','s4','s5','s6','s7'];const navBtns=document.querySelectorAll('.nav-btn');
+function updateNav(){const navH=document.querySelector('.section-nav').offsetHeight;let current='s1';sections.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=navH+60)current=id});navBtns.forEach((btn,i)=>btn.classList.toggle('active',sections[i]===current))}
+window.addEventListener('scroll',updateNav);updateNav();
+</script>
+</body>
+</html>
