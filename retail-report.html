@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>소매유통 업계 리포트 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #e17055;
+    --accent-soft: rgba(225,112,85,0.08);
+    --accent-border: rgba(225,112,85,0.22);
+    --cvs: #fdcb6e;
+    --cvs-soft: rgba(253,203,110,0.08);
+    --cvs-border: rgba(253,203,110,0.2);
+    --spa: #55efc4;
+    --spa-soft: rgba(85,239,196,0.07);
+    --spa-border: rgba(85,239,196,0.2);
+    --ec: #a29bfe;
+    --ec-soft: rgba(162,155,254,0.08);
+    --ec-border: rgba(162,155,254,0.2);
+    --warn: #f59e0b;
+    --warn-soft: rgba(245,158,11,0.06);
+    --warn-border: rgba(245,158,11,0.18);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Noto Sans JP',sans-serif; line-height:1.8; font-size:15px; -webkit-font-smoothing:antialiased; }
+  .container { max-width:760px; margin:0 auto; padding:0 24px 100px; }
+
+  .hero { padding:64px 24px 48px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(225,112,85,0.06) 0%, transparent 70%); pointer-events:none; }
+  .hero-inner { position:relative; max-width:760px; margin:0 auto; }
+  .hero-label { display:inline-block; font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-border); padding:4px 12px; border-radius:12px; margin-bottom:20px; text-transform:uppercase; }
+  .hero h1 { font-size:30px; font-weight:900; line-height:1.3; margin-bottom:10px; letter-spacing:-0.5px; }
+  .hero-sub { font-size:13px; color:var(--text-dim); line-height:1.9; margin-bottom:20px; max-width:560px; }
+  .hero-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .hero-tag { font-size:11px; padding:4px 12px; border-radius:100px; font-weight:500; }
+  .hero-tag.a { background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); }
+  .hero-tag.cv { background:var(--cvs-soft); color:var(--cvs); border:1px solid var(--cvs-border); }
+  .hero-tag.sp { background:var(--spa-soft); color:var(--spa); border:1px solid var(--spa-border); }
+  .hero-tag.ec { background:var(--ec-soft); color:var(--ec); border:1px solid var(--ec-border); }
+
+  .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
+  .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+  .section-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-btn { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
+  .nav-btn:hover, .nav-btn.active { color:var(--accent); background:var(--accent-soft); }
+
+  .section { padding:44px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom:none; }
+  .section-num { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); opacity:0.7; margin-bottom:6px; text-transform:uppercase; }
+  .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
+  .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); margin-bottom:20px; }
+  .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section p:last-child { margin-bottom:0; }
+  .section h3 { font-size:14px; font-weight:700; color:var(--text-sub); margin:28px 0 12px; padding-left:10px; border-left:2px solid var(--accent); }
+  .section h3.cv { border-left-color:var(--cvs); }
+  .section h3.sp { border-left-color:var(--spa); }
+  .section h3.ec { border-left-color:var(--ec); }
+
+  .info-box { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:16px 0; }
+  .info-box-accent { background:var(--accent-soft); border-color:var(--accent-border); border-left:3px solid var(--accent); }
+  .info-box-cv { background:var(--cvs-soft); border-color:var(--cvs-border); border-left:3px solid var(--cvs); }
+  .info-box-sp { background:var(--spa-soft); border-color:var(--spa-border); border-left:3px solid var(--spa); }
+  .info-box-ec { background:var(--ec-soft); border-color:var(--ec-border); border-left:3px solid var(--ec); }
+  .info-box-warn { background:var(--warn-soft); border-color:var(--warn-border); border-left:3px solid var(--warn); }
+  .info-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+  .box-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .box-label-cv { color:var(--cvs); }
+  .box-label-sp { color:var(--spa); }
+  .box-label-ec { color:var(--ec); }
+  .box-label-warn { color:var(--warn); }
+  .hl { color:var(--accent); font-weight:600; }
+  .hl-cv { color:var(--cvs); font-weight:600; }
+  .hl-sp { color:var(--spa); font-weight:600; }
+  .hl-ec { color:var(--ec); font-weight:600; }
+  .hl-warn { color:var(--warn); font-weight:600; }
+
+  .table-wrap { overflow-x:auto; margin:16px 0; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  thead { background:var(--surface-2); }
+  th { padding:10px 14px; text-align:left; font-weight:700; font-size:10px; letter-spacing:1px; color:var(--text-muted); border-bottom:1px solid var(--border); white-space:nowrap; text-transform:uppercase; }
+  td { padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-dim); vertical-align:top; line-height:1.7; }
+  tr:last-child td { border-bottom:none; }
+  td:first-child { font-weight:700; color:var(--text-sub); }
+
+  .trend-card { padding:20px 22px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:12px 0; }
+  .trend-num { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .trend-card h4 { font-size:14px; font-weight:700; margin-bottom:10px; color:var(--text); }
+  .trend-card p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:10px; }
+  .trend-card p:last-child { margin-bottom:0; }
+  .use-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700; margin:6px 4px 4px 0; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); }
+
+  .company-group { margin:20px 0; }
+  .company-group-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--text-muted); margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--border); text-transform:uppercase; }
+  .company-card { padding:16px 18px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:8px; transition:border-color 0.2s; }
+  .company-card:hover { border-color:var(--border-hover); }
+  .company-card.primary { border-color:var(--accent-border); }
+  .company-card.primary-cv { border-color:var(--cvs-border); }
+  .company-card.primary-sp { border-color:var(--spa-border); }
+  .company-card.primary-ec { border-color:var(--ec-border); }
+  .company-type { font-size:10px; font-weight:700; color:var(--accent); letter-spacing:1px; margin-bottom:4px; text-transform:uppercase; }
+  .company-type.cv { color:var(--cvs); }
+  .company-type.sp { color:var(--spa); }
+  .company-type.ec { color:var(--ec); }
+  .company-name { font-size:15px; font-weight:700; color:var(--text); margin-bottom:6px; }
+  .company-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:12px; color:var(--text-muted); font-weight:400; margin-left:6px; }
+  .company-desc { font-size:12px; color:var(--text-dim); line-height:1.8; }
+  .company-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+  .company-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .company-tag.a { background:var(--accent-soft); color:var(--accent); border-color:var(--accent-border); }
+  .company-tag.cv { background:var(--cvs-soft); color:var(--cvs); border-color:var(--cvs-border); }
+  .company-tag.sp { background:var(--spa-soft); color:var(--spa); border-color:var(--spa-border); }
+  .company-tag.ec { background:var(--ec-soft); color:var(--ec); border-color:var(--ec-border); }
+
+  .job-link-card { display:flex; align-items:flex-start; gap:14px; padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; text-decoration:none; transition:all 0.2s; margin-bottom:8px; }
+  .job-link-card:hover { border-color:var(--accent-border); background:var(--accent-soft); }
+  .job-link-icon { font-size:24px; flex-shrink:0; margin-top:2px; }
+  .job-link-body { flex:1; }
+  .job-link-kicker { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:4px; text-transform:uppercase; }
+  .job-link-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .job-link-desc { font-size:12px; color:var(--text-dim); line-height:1.7; margin-bottom:8px; }
+  .job-link-tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .job-link-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .job-link-arrow { font-size:16px; color:var(--accent); flex-shrink:0; margin-top:4px; }
+
+  .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0; }
+  .keyword-card { padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .keyword-name { font-size:13px; font-weight:700; color:var(--accent); margin-bottom:4px; }
+  .keyword-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); font-weight:400; margin-left:4px; }
+  .keyword-desc { font-size:11px; color:var(--text-dim); line-height:1.7; }
+
+  .es-pattern { padding:16px 18px; background:var(--surface-2); border-radius:8px; margin:12px 0; }
+  .es-pattern-label { font-size:10px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:8px; text-transform:uppercase; }
+  .es-pattern p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+
+  .footer { padding:40px 0 60px; border-top:1px solid var(--border); margin-top:20px; text-align:center; }
+  .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; }
+  .footer .brand { font-weight:700; color:var(--text-dim); }
+
+  @media (max-width:640px) { .keyword-grid { grid-template-columns:1fr; } .hero h1 { font-size:24px; } .section-title { font-size:18px; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">업계 리포트 Vol.13</div>
+    <h1>소매유통 업계 완전 정리</h1>
+    <p class="hero-sub">
+      편의점·슈퍼·백화점·SPA·EC까지 — 소비자의 일상에 가장 가까운 업계.<br>
+      EC 전환과 인바운드 수요가 재편하는 소매유통 지형을 한 페이지에.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag cv">편의점 — 생활 인프라</span>
+      <span class="hero-tag a">백화점·슈퍼</span>
+      <span class="hero-tag sp">SPA — 제조부터 판매까지</span>
+      <span class="hero-tag ec">EC — 디지털 전환</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('s1')">01 업계전체상</button>
+    <button class="nav-btn" onclick="scrollTo('s2')">02 트렌드</button>
+    <button class="nav-btn" onclick="scrollTo('s3')">03 활약직종</button>
+    <button class="nav-btn" onclick="scrollTo('s4')">04 키워드</button>
+    <button class="nav-btn" onclick="scrollTo('s5')">05 기업리스트</button>
+    <button class="nav-btn" onclick="scrollTo('s6')">06 ES대책</button>
+    <button class="nav-btn" onclick="scrollTo('s7')">07 면접대책</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ════ S1 ════ -->
+<div class="section" id="s1">
+  <div class="section-num">SECTION 01</div>
+  <div class="section-title">업계 전체상</div>
+  <div class="section-title-jp">業界全体像 — CVS・スーパー・百貨店・SPA・EC</div>
+
+  <div class="info-box info-box-accent">
+    <div class="box-label">한 줄 정의</div>
+    <p><span class="hl">소비자에게 직접 상품·서비스를 판매하는 업계. 편의점·슈퍼·백화점·SPA·EC로 나뉘며, 일본 소매업 전체 시장 규모는 약 142조 엔.</span> 소비자의 일상에 가장 가까운 업계이며, EC 전환·인바운드 수요·인구 감소라는 3가지 구조 변화가 업계 재편을 가속하고 있다.</p>
+  </div>
+
+  <h3>소매유통 업계의 5가지 분류</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>분류</th><th>특징</th><th>대표 기업</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>편의점 (CVS)</td>
+          <td>24시간·소량 다품종·고회전. 일본 전국 약 5만 6,000점포. 결제·택배·ATM·공공요금까지 생활 인프라화. 프랜차이즈 모델이 중심</td>
+          <td>세븐일레븐재팬, 로손, 패밀리마트</td>
+        </tr>
+        <tr>
+          <td>슈퍼·GMS</td>
+          <td>식품·일용품의 대량 판매. 지역 밀착형 영업. 저가격·신선도 경쟁이 치열. 이온·이토요카도 등 대형 GMS와 지역 슈퍼가 병존</td>
+          <td>이온리테일, 이토요카도, 라이프코퍼레이션, 이즈미야</td>
+        </tr>
+        <tr>
+          <td>백화점</td>
+          <td>고급 브랜드·외식·문화의 복합 공간. 인바운드 소비의 최대 수혜. 부유층·시니어 고객 중심. 점포 수 감소 추세지만 생존한 점포의 수익성은 회복 중</td>
+          <td>미쓰코시이세탄홀딩스, 다카시마야, 소고세이부</td>
+        </tr>
+        <tr>
+          <td>SPA<br>(전문 소매)</td>
+          <td>기획·제조·판매를 수직 통합. 중간 마진 없이 고품질·저가격 실현. 브랜드 아이덴티티가 소비자 선택의 핵심. 글로벌 전개 적극적</td>
+          <td>패스트리테일링(유니클로), 니토리, 양품계획(무인양품), 시마무라</td>
+        </tr>
+        <tr>
+          <td>EC·오므니채널</td>
+          <td>오프라인과 온라인을 통합한 쇼핑 체험. EC 시장 규모 약 24조 엔(2024)으로 급성장. 물류·데이터 분석이 경쟁 핵심</td>
+          <td>아마존재팬, 라쿠텐, 조조타운, 메르카리</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>비즈니스 모델 — 소매업은 어떻게 돈을 버는가</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>수익 모델</th><th>구조</th><th>특징</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>상품 매매 마진</td>
+          <td>매입 원가와 판매 가격의 차익. 소매업의 가장 기본적인 수익원. 회전율과 폐기 손실 관리가 이익에 직결</td>
+          <td>식품 슈퍼는 마진율 낮고 회전 빠름. 백화점은 마진율 높고 단가 큰 소품종. SPA는 제조까지 자사화로 마진 최대화</td>
+        </tr>
+        <tr>
+          <td>프랜차이즈 수수료</td>
+          <td>편의점 본부가 가맹점에서 매출의 일정 비율을 수취. 점포 운영 리스크를 가맹점이 부담하는 구조</td>
+          <td>세븐일레븐·로손·패밀리마트는 점포를 늘릴수록 수수료 수익이 증가. 가맹점 관리가 핵심 업무</td>
+        </tr>
+        <tr>
+          <td>테넌트 임대 수입</td>
+          <td>백화점·쇼핑몰이 매장 내 브랜드 테넌트에게 임대료 징수. 인기 테넌트 유치가 집객력을 결정</td>
+          <td>이온몰 등 대형 SC는 임대 수입이 안정 수익. 테넌트 구성 능력이 차별화</td>
+        </tr>
+        <tr>
+          <td>데이터·광고 수익</td>
+          <td>포인트 카드·스마트폰 앱으로 축적한 소비자 구매 데이터를 광고·마케팅에 활용. 메이커로부터 광고비를 수취</td>
+          <td>세븐&아이·이온의 포인트 데이터는 일본 최대 소비 데이터. 이를 활용한 PB상품 개발·광고 사업이 새로운 수익원</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>5개 업태 비교 — 어디를 선택할 것인가</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>비교 항목</th><th>편의점</th><th>백화점</th><th>SPA</th><th>EC</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>주요 직종</td>
+          <td>SV(슈퍼바이저)·머천다이저·FC 개발</td>
+          <td>바이어·VMD·외상 영업·인바운드</td>
+          <td>MD(머천다이저)·점장·글로벌 상품 기획</td>
+          <td>데이터 분석·마케팅·물류·UI/UX</td>
+        </tr>
+        <tr>
+          <td>성장 환경</td>
+          <td>점포 현장에서 실적을 쌓아 SV·본부로 이동. 빠른 성장 가능</td>
+          <td>럭셔리 브랜드와의 관계·인바운드 응대로 고급 상업 지식 축적</td>
+          <td>글로벌 전개·상품 기획부터 판매까지 수직 경험 가능</td>
+          <td>IT·데이터 기술이 경쟁력. 빠른 PDCA 사이클</td>
+        </tr>
+        <tr>
+          <td>연봉 수준</td>
+          <td>세븐일레븐재팬 평균 약 817만엔 (본부직)</td>
+          <td>미쓰코시이세탄 평균 약 685만엔</td>
+          <td>패스트리테일링 평균 약 888만엔</td>
+          <td>아마존재팬 등 외자계는 업계 최상위급</td>
+        </tr>
+        <tr>
+          <td>성장성</td>
+          <td>점포 포화로 국내 성장 둔화. 해외 전개·EC 강화</td>
+          <td>인바운드로 단기 호황. 구조적 점포 감소는 계속</td>
+          <td>글로벌 전개 가속. 유니클로·니토리 해외 성장 강함</td>
+          <td>시장 성장 최강. 물류·AI 투자 확대</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ════ S2 ════ -->
+<div class="section" id="s2">
+  <div class="section-num">SECTION 02</div>
+  <div class="section-title">면접관이 체크하는 트렌드 3선</div>
+  <div class="section-title-jp">面接官がチェックするトレンド</div>
+
+  <p>"최근 소매유통 업계에서 주목하는 것이 있나요?" — 반드시 나오는 질문. <span class="hl">지원하는 업태(편의점·백화점·SPA·EC)에 따라 연결하는 트렌드가 달라진다</span>는 것을 이해해야 한다.</p>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 01</div>
+    <h4>EC 성장과 오므니채널화 — 오프라인 소매의 재정의</h4>
+    <p>일본 EC 시장은 2024년 약 <span class="hl">24조 엔</span>으로 소매업 전체의 약 17%를 차지하며 성장이 계속되고 있다. 특히 패션·가전·식품 EC의 성장으로 실물 점포의 내점객이 구조적으로 감소하고 있다.</p>
+    <p>이에 대응해 이온·세븐&아이 등 대형 소매는 <span class="hl">오므니채널(온라인·오프라인 통합) 전략</span>을 강화하고 있다. 앱으로 재고 확인·온라인 주문·점포 픽업·배달을 통합하는 체험 설계가 경쟁의 핵심으로 이동 중이다. 오프라인 점포의 역할은 "상품을 파는 곳"에서 "브랜드를 체험하는 공간"으로 진화하고 있다.</p>
+    <div class="use-tag">EC·SPA 활용</div>
+    <p>"EC의 성장으로 소매업의 경쟁축이 '어디서 사는가'에서 '어떤 체험을 하는가'로 이동했습니다. 오프라인의 강점을 살리면서 디지털로 편리성을 높이는 오므니채널 전략의 설계에 기여하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 02</div>
+    <h4>인바운드 소비 급확대 — 소매업 구조를 바꾸는 관광 소비</h4>
+    <p>2024년 방일 외국인 수 약 3,687만 명, 인바운드 소비 약 8.1조 엔으로 모두 사상 최고를 기록했다. 특히 <span class="hl">백화점·면세점·드러그스토어에서의 인바운드 소비가 폭발적으로 증가</span>하면서 소매업 수익 구조를 변화시키고 있다.</p>
+    <p>미쓰코시이세탄의 면세 판매는 연간 수천억 엔 규모로 성장했다. 드러그스토어 체인(마쓰모토키요시·스기약국 등)은 면세 대응·다국어 안내에 대규모 투자를 하고 있다. 인바운드 대응 능력 — 영어·중국어 응대·면세 절차·SNS 활용 — 이 소매 현장의 핵심 스킬이 됐다.</p>
+    <div class="use-tag">백화점·소매 활용</div>
+    <p>"인바운드 소비의 확대는 일본 소매업이 글로벌 고객에게 선택받는 시대를 만들고 있습니다. 다국어 대응 능력과 일본 문화의 이해를 동시에 살려 인바운드 고객에게 최고의 쇼핑 체험을 제공하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 03</div>
+    <h4>PB(프라이빗 브랜드) 확대와 가격 전략 — 인플레이션 시대의 소매 경쟁</h4>
+    <p>물가 상승이 계속되는 가운데, 소매업 각사는 <span class="hl">자사 PB(프라이빗 브랜드) 상품을 전략적으로 확대</span>하고 있다. 세븐프리미엄(세븐&아이)·탑밸류(이온)·무인양품(양품계획) 등 PB가 각 소매 체인의 수익성과 고객 충성도를 동시에 향상시키는 핵심 전략이 됐다.</p>
+    <p>PB는 단순한 저가 대안을 넘어 브랜드 아이덴티티의 표현 수단으로 진화하고 있다. 무인양품의 "감도 높은 생활 제안"·세븐프리미엄의 "내셔널 브랜드 동등 품질·저가격"이 각사의 차별화 전략으로 확립됐다. PB 개발에 관여하는 MD·바이어 직종의 가치가 높아지고 있다.</p>
+    <div class="use-tag">편의점·슈퍼·SPA 활용</div>
+    <p>"인플레이션 환경에서 PB는 소비자에게 가치를 제공하면서 기업 수익도 높이는 전략의 핵심입니다. 소비자 인사이트를 상품 기획에 반영하는 MD·바이어 역할에서 기여하고 싶습니다."</p>
+  </div>
+</div>
+
+<!-- ════ S3 ════ -->
+<div class="section" id="s3">
+  <div class="section-num">SECTION 03</div>
+  <div class="section-title">이 업계에서 활약하는 직종</div>
+  <div class="section-title-jp">小売・流通業界で活躍する職種</div>
+
+  <p>소매유통은 <span class="hl">현장(점포)에서 시작해 본부 기능(MD·바이어·SV·마케팅)으로 이동하는 경로</span>가 일반적이다. 업태에 따라 직종 구조가 크게 다르므로 지원 전에 반드시 확인해야 한다.</p>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/service-sv01-retail" target="_blank" class="job-link-card">
+    <div class="job-link-icon">🛍️</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">소매 직종 — 직종 상세 카드 SV-01</div>
+      <div class="job-link-title">소매 판매 — 브랜드 경험을 만드는 현장 최전선</div>
+      <div class="job-link-desc">
+        매장에서 고객 응대·상품 제안·재고 관리·VMD(비주얼 머천다이징)·아르바이트 지도까지 담당. <strong style="color:var(--text-sub);">학력보다 현장 실적이 커리어를 결정하는 업계.</strong> 2~3년 내 점장 후보 발탁도 있으며, 성과가 항상 가시화되는 환경.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">현장 성과가 전부</span>
+        <span class="job-link-tag">VMD·재고 관리</span>
+        <span class="job-link-tag">점장→본부 경로</span>
+        <span class="job-link-tag">빠른 승진 가능</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <div class="info-box" style="margin-top:20px;">
+    <div class="box-label">소매유통 직종 구조 상세</div>
+    <p>
+      <strong style="color:var(--text-sub);">점포 스태프·점장:</strong> 신졸의 대부분이 여기서 시작. 접객·재고·VMD·아르바이트 관리가 일체화된 업무. 성과가 명확하고 빠른 승진이 가능. 체력·서비스 마인드·수치 감각이 동시에 요구됨.<br><br>
+      <strong style="color:var(--text-sub);">MD(머천다이저)·바이어:</strong> 어떤 상품을 얼마에 얼마나 매입할지를 결정하는 구매 담당. 소매업 이익에 가장 직접적으로 기여하는 직종. 수년간의 현장 경험 후 이동하는 것이 일반적. 패션·식품 등 담당 카테고리의 전문가로 성장.<br><br>
+      <strong style="color:var(--text-sub);">SV(슈퍼바이저):</strong> 편의점 본부에서 담당 FC점포(10~20점)를 순회하며 경영 지도·상품 제안·운영 개선을 담당. 편의점 본부의 핵심 직종. 현장 경험 후 이동.<br><br>
+      <strong style="color:var(--text-sub);">EC·디지털 마케팅:</strong> 자사 EC 사이트 운영·광고 최적화·데이터 분석·UI/UX 개선. EC 전환으로 수요 급증. IT·데이터 스킬이 있는 인재를 소매업이 적극 채용 중.<br><br>
+      <span class="hl">단, 소매업은 신졸 채용에서 "점포 배치 필수"인 기업이 많다. 처음부터 본부 기능(MD·마케팅)에 배치되기를 원하면 EC계 기업·SPA 브랜드 등을 선택하는 것이 현실적이다.</span>
+    </p>
+  </div>
+</div>
+
+<!-- ════ S4 ════ -->
+<div class="section" id="s4">
+  <div class="section-num">SECTION 04</div>
+  <div class="section-title">소매유통 × 직종별 자기분석 키워드</div>
+  <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+  <p>소매유통은 <span class="hl">소비자와 직접 닿는 현장감·수치에 대한 감도·서비스 마인드</span>가 기본 전제다. 업태(편의점·백화점·SPA·EC)에 따라 강조하는 키워드가 달라진다.</p>
+
+  <h3>점포 현장·점장 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">경청력 <span class="keyword-name-jp">傾聴力</span></div>
+      <div class="keyword-desc">고객이 말하지 않는 니즈를 파악하는 힘. 특히 백화점·전문 소매에서는 "무엇을 원하는지 모르는 고객"에게 최적의 상품을 제안하는 히어링 능력이 구매 전환과 리피트를 결정한다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">자기관리능력 <span class="keyword-name-jp">自己管理能力</span></div>
+      <div class="keyword-desc">재고 수·매출·폐기율·객단가 등 수치를 스스로 관리하고 개선 행동을 취하는 능력. 점장·SV로 빠르게 발탁되는 스태프에게 공통되는 것은 "지시를 기다리기 전에 자기 숫자를 스스로 확인하는 습관"이다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">협조성 <span class="keyword-name-jp">協調性</span></div>
+      <div class="keyword-desc">점포는 정사원·아르바이트·파트타임이 팀으로 운영된다. 다양한 배경을 가진 스태프를 하나로 묶어 점포 목표를 달성하는 팀 운영 능력. 특히 점장 직책에서는 팀 관리가 업무의 핵심이 된다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">적극성 <span class="keyword-name-jp">積極性</span></div>
+      <div class="keyword-desc">고객에게 먼저 다가가 제안하는 접객 자세. "필요한 것이 있으면 말해주세요"가 아니라 "이 상품은 어떻습니까"라고 먼저 제안하는 능동적 영업 마인드가 매출로 직결된다.</div>
+    </div>
+  </div>
+
+  <h3 class="sp">MD·바이어·상품 기획 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">통찰력 <span class="keyword-name-jp">洞察力</span></div>
+      <div class="keyword-desc">소비자 트렌드·경쟁 동향·판매 데이터에서 "다음에 팔릴 것"을 예측하는 능력. MD·바이어의 한 번의 잘못된 매입 판단이 대규모 재고 손실로 이어지는 세계에서, 시장 예측 정확도가 가장 중요한 스킬이다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">논리적사고력 <span class="keyword-name-jp">論理的思考力</span></div>
+      <div class="keyword-desc">판매 데이터·재고 회전율·매입 단가를 분석해 최적 매입 전략을 수립하는 능력. "이 상품을 이 가격으로 이 수량 매입하면 이익이 얼마가 된다"는 수치 기반의 의사결정이 MD·바이어의 일상 업무다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">기획력 <span class="keyword-name-jp">企画力</span></div>
+      <div class="keyword-desc">PB 상품의 콘셉트 개발, 시즌 MD 플랜 수립, 점두 진열 기획 등 소매업에서 "기획"은 매출에 직결된다. 소비자 인사이트를 상품·배치·캠페인으로 구체화하는 힘.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">관계구축력 <span class="keyword-name-jp">関係構築力</span></div>
+      <div class="keyword-desc">바이어는 브랜드·메이커와의 장기 파트너십이 좋은 조건·독점 상품·신제품 우선 제공으로 이어진다. 신뢰 기반의 협력 관계가 상품 경쟁력을 만드는 업계.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S5 ════ -->
+<div class="section" id="s5">
+  <div class="section-num">SECTION 05</div>
+  <div class="section-title">기업 비교 & 리스트</div>
+  <div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+
+  <p>소매유통은 <span class="hl">업태마다 커리어 패스·연봉·업무 스타일이 완전히 다르다.</span> "소매가 좋다"가 아니라 "어떤 업태의 어떤 역할에서 어떤 커리어를 쌓고 싶은가"로 선택해야 한다.</p>
+
+  <!-- 편의점 -->
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--cvs);">🏪 편의점</div>
+
+    <div class="company-card primary-cv">
+      <div class="company-type cv">편의점 | 국내 1위 · 글로벌 전개</div>
+      <div class="company-name">세븐일레븐재팬 <span class="company-name-jp">セブン‐イレブン・ジャパン</span></div>
+      <div class="company-desc">국내 편의점 점포 수 1위(약 2만 1,000점). 세븐&아이홀딩스 산하. 세븐프리미엄 PB가 업계 최강. 데이터 기반 MD·신상품 개발이 업계 모델이 될 만한 수준. SV(슈퍼바이저) 직종이 본부 핵심 경로. 평균연봉 약 817만엔(세븐일레븐재팬 단체). 세계 최대 편의점 체인 운영 경험.</div>
+      <div class="company-tags">
+        <span class="company-tag cv">국내 점포 수 1위</span>
+        <span class="company-tag">세븐프리미엄</span>
+        <span class="company-tag cv">평균연봉 817만엔</span>
+      </div>
+    </div>
+
+    <div class="company-card primary-cv">
+      <div class="company-type cv">편의점 | 미쓰비시상사계</div>
+      <div class="company-name">로손 <span class="company-name-jp">ローソン</span></div>
+      <div class="company-desc">약 1만 4,000점. 미쓰비시상사 산하(2024년 완전 자회사화). 건강·내추럴계 상품 강화로 차별화. 마치카도키친 등 즉석 식품 강화. 의약품 판매 확대. 스마트폰 앱 활용도 업계 선진적. 미쓰비시상사와의 시너지로 글로벌·헬스케어 사업 확대 중.</div>
+      <div class="company-tags">
+        <span class="company-tag cv">미쓰비시상사 산하</span>
+        <span class="company-tag">건강·내추럴 강화</span>
+        <span class="company-tag">글로벌 전개</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type cv">편의점 | 이토추상사계</div>
+      <div class="company-name">패밀리마트 <span class="company-name-jp">ファミリーマート</span></div>
+      <div class="company-desc">약 1만 6,000점. 이토추상사 산하. 패밀리마트컬렉션 PB와 FamiPay 앱 전략이 강점. 편의점 내 미니 인형뽑기기기·광고 네트워크 등 새로운 수익 모델 개발에 적극적. 이토추상사의 소비재 포트폴리오와의 시너지.</div>
+      <div class="company-tags">
+        <span class="company-tag cv">이토추상사 산하</span>
+        <span class="company-tag">FamiPay 앱</span>
+        <span class="company-tag">신수익 모델 도전</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SPA·전문 소매 -->
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--spa);">👕 SPA·전문 소매</div>
+
+    <div class="company-card primary-sp">
+      <div class="company-type sp">SPA | 세계 3위 패션 기업</div>
+      <div class="company-name">패스트리테일링 <span class="company-name-jp">ファーストリテイリング</span></div>
+      <div class="company-desc">매출 약 3조 1,000억엔(2024). 평균연봉 약 888만엔. 유니클로·GU를 운영. 해외 매출이 이미 국내를 초과해 글로벌 브랜드로 확립. 야나이 타다시 회장의 "전원 경영자" 철학이 기업 문화 전체에 침투. 신졸 연봉은 초임 260만엔(점포)이지만 글로벌 총괄을 거치면 급격히 상승. 글로벌 이동 의향이 있는 지원자에게 최상의 선택지.</div>
+      <div class="company-tags">
+        <span class="company-tag sp">평균연봉 888만엔</span>
+        <span class="company-tag">세계 3위 패션</span>
+        <span class="company-tag">글로벌 전개 강함</span>
+        <span class="company-tag">전원 경영자 문화</span>
+      </div>
+    </div>
+
+    <div class="company-card primary-sp">
+      <div class="company-type sp">SPA | 가구·인테리어 국내 1위</div>
+      <div class="company-name">니토리홀딩스 <span class="company-name-jp">ニトリホールディングス</span></div>
+      <div class="company-desc">매출 약 9,700억엔(2024). 평균연봉 약 722만엔. "생활 제안형 소매"로 가구·인테리어·생활용품을 수직 통합. 32년 연속 증수증익 달성. 해외(대만·중국·미국)에 사업 확대 중. 초임부터 점장을 목표로 하는 "점장 트랙"이 명확. 안정성과 성장성 양쪽이 뛰어난 소매 기업.</div>
+      <div class="company-tags">
+        <span class="company-tag sp">32년 연속 증수증익</span>
+        <span class="company-tag">가구·인테리어 1위</span>
+        <span class="company-tag">안정 성장</span>
+      </div>
+    </div>
+
+    <div class="company-card primary-sp">
+      <div class="company-type sp">SPA | 생활 철학형 소매</div>
+      <div class="company-name">양품계획 <span class="company-name-jp">良品計画</span></div>
+      <div class="company-desc">매출 약 6,000억엔(2024). 평균연봉 약 623만엔. 무인양품(MUJI) 브랜드 운영. "이유 있는 물건"이라는 브랜드 철학이 세계에서 통용. 해외 약 1,000점포(2024). 식품·의류·가구·숙박(MUJI Hotel)까지 확장하는 라이프스타일 브랜드 전략. 상품 기획·MD에 깊이 관여할 수 있는 환경.</div>
+      <div class="company-tags">
+        <span class="company-tag sp">MUJI 글로벌 브랜드</span>
+        <span class="company-tag">라이프스타일 전략</span>
+        <span class="company-tag">해외 1,000점포</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 백화점·슈퍼 -->
+  <div class="company-group">
+    <div class="company-group-label">🏬 백화점·슈퍼</div>
+
+    <div class="company-card primary">
+      <div class="company-type">백화점 | 인바운드 최대 수혜</div>
+      <div class="company-name">미쓰코시이세탄홀딩스 <span class="company-name-jp">三越伊勢丹ホールディングス</span></div>
+      <div class="company-desc">평균연봉 약 685만엔. 이세탄 신주쿠본점·미쓰코시 긴자점 등 플래그십 점포의 수익성이 인바운드로 급회복. 럭셔리 브랜드·외상 고객 관리·VMD 등 고급 상업의 정수를 배울 수 있는 환경. 해외 사업(아시아)도 전개 중. 백화점 업계 중 가장 강한 브랜드력.</div>
+      <div class="company-tags">
+        <span class="company-tag a">인바운드 최대 수혜</span>
+        <span class="company-tag">럭셔리 MD</span>
+        <span class="company-tag">이세탄 신주쿠</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">슈퍼·GMS | 국내 최대</div>
+      <div class="company-name">이온리테일 <span class="company-name-jp">イオンリテール</span></div>
+      <div class="company-desc">이온그룹 산하의 GMS(종합 슈퍼) 운영 회사. 이온몰을 포함한 광역 상업 시설 운영. 탑밸류 PB가 매출의 큰 비중. 식품·의류·가전·약품까지 원스톱 쇼핑 환경. 채용 인원이 국내 소매업 최대급으로 다양한 직종에서 입사 기회가 있다.</div>
+      <div class="company-tags">
+        <span class="company-tag a">국내 최대 GMS</span>
+        <span class="company-tag">탑밸류 PB</span>
+        <span class="company-tag">채용 인원 최대</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EC -->
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--ec);">💻 EC·오므니채널</div>
+
+    <div class="company-card primary-ec">
+      <div class="company-type ec">EC | 글로벌 최대 EC</div>
+      <div class="company-name">아마존재팬 <span class="company-name-jp">Amazon Japan</span></div>
+      <div class="company-desc">글로벌 최대 EC 기업의 일본법인. EC·AWS·광고·프라임 서비스 등 복합 수익 구조. 영어 업무 환경. 물류·데이터·AI 인재의 수요 높음. 연봉은 외자계 중 최상위급. 채용 난이도도 높지만 소매업 중 최고 수준의 기술·데이터 환경.</div>
+      <div class="company-tags">
+        <span class="company-tag ec">글로벌 EC 1위</span>
+        <span class="company-tag">영어 업무</span>
+        <span class="company-tag">데이터·AI 환경</span>
+      </div>
+    </div>
+
+    <div class="company-card primary-ec">
+      <div class="company-type ec">EC | 패션 특화</div>
+      <div class="company-name">조조타운 <span class="company-name-jp">ZOZO</span></div>
+      <div class="company-desc">야후재팬(소프트뱅크그룹) 산하. 패션 EC 국내 1위. 조조수트(신체 치수 측정)·조조매트 등 패션 테크 투자가 특징적. 패션 데이터 분석·브랜드 파트너십 구축이 핵심 역량. 패션에 관심 있는 지원자에게 EC와 패션을 동시에 경험할 수 있는 환경.</div>
+      <div class="company-tags">
+        <span class="company-tag ec">패션 EC 국내 1위</span>
+        <span class="company-tag">패션 테크</span>
+        <span class="company-tag">야후재팬 산하</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S6 ════ -->
+<div class="section" id="s6">
+  <div class="section-num">SECTION 06</div>
+  <div class="section-title">ES 대책</div>
+  <div class="section-title-jp">合格パターン·落とし穴</div>
+
+  <p>소매유통 ES의 최대 함정은 <span class="hl">"쇼핑이 좋아서" "접객이 좋아서"만으로 끝나는 지원 동기</span>다. 지원자 전원이 소비자로서 이 업계와 닿아 있기 때문에, "사용자 체험"에서 출발하는 이야기 자체는 차별화가 되지 않는다. <strong style="color:var(--text-sub);">"어떤 업태의 어떤 역할로 어떤 가치를 만들고 싶은가"</strong>까지 말해야 한다.</p>
+
+  <h3>업태별 지원 동기의 차별화 포인트</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>업태</th><th>지원 동기에서 반드시 말해야 할 것</th><th>피해야 할 표현</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>편의점</td>
+          <td>생활 인프라·지역 사회 지원이라는 사회적 역할. PB 상품 개발·데이터 MD에 대한 구체적 관심. 프랜차이즈 모델의 가맹점 지원(SV)에 대한 이해</td>
+          <td>"편의점을 자주 이용해서" — 소비자 체험만으로는 부족. "SV로서 어떤 점포 지원을 하고 싶은가"를 말해야 함</td>
+        </tr>
+        <tr>
+          <td>백화점</td>
+          <td>럭셔리 브랜드·고급 소비의 세계와 고객에게 최고의 체험을 제공하는 포지션에 대한 흥미. 인바운드 고객 대응에 대한 관심</td>
+          <td>"백화점의 분위기가 좋아서" — 브랜드에 대한 얕은 이해로 보임. 바이어·VMD 등 구체적 역할과 연결해야 함</td>
+        </tr>
+        <tr>
+          <td>SPA</td>
+          <td>제조부터 판매까지 수직 통합하는 비즈니스 모델의 가치 이해. 글로벌 전개에서의 역할. "전원 경영자" 문화와의 적합성</td>
+          <td>"유니클로를 자주 입어서" — 구체성 없음. MD·글로벌 전개·경영 참여 등 역할을 구체적으로 제시해야 함</td>
+        </tr>
+        <tr>
+          <td>EC</td>
+          <td>데이터 기반의 마케팅·물류 최적화에 대한 흥미. 소비자 UX 개선·디지털 전환에 대한 구체적 비전</td>
+          <td>"EC를 잘 사용해서" — EC 이용 경험은 전원이 있음. 데이터 분석·UI/UX 등 기여 가능한 스킬을 어필해야 함</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="es-pattern">
+    <div class="es-pattern-label">✅ 합격 지원 동기 4단계</div>
+    <p>
+      Step 1. 소비자로서의 구체적 체험(어떤 상황에서 어떤 감동·불만을 경험했는가)을 제시<br>
+      Step 2. 그 체험을 "소매업이 소비자의 일상 체험에 미치는 영향"으로 구조화<br>
+      Step 3. 왜 이 업태·이 회사인가 — 비즈니스 모델·브랜드 철학·강점과 자신의 관심이 합치하는 포인트<br>
+      Step 4. 어떤 직종(현장 점장→MD / SV / EC 마케팅)에서 어떤 가치를 만들고 싶은지 구체적 커리어 비전
+    </p>
+  </div>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">❌ 불합격 공통 실수</div>
+    <p>
+      <span class="hl-warn">실수 1:</span> "접객이 좋아서" — 소매업 지원자 전원이 말하는 이유. 어떤 업태의 어떤 역할로 어떤 가치를 만들고 싶은지가 없으면 기억에 남지 않음<br>
+      <span class="hl-warn">실수 2:</span> 점포 배치를 싫어하는 것이 면접에서 드러남 — 대부분의 소매 기업은 신졸을 점포 현장에 배치한다. 처음부터 본부 기능을 원한다고 말하면 즉시 탈락<br>
+      <span class="hl-warn">실수 3:</span> 지원 회사의 점포에 한 번도 방문하지 않음 — "당사 점포에서 무엇을 느꼈는가"는 반드시 물어본다. 실제로 방문하고 경쟁사와 비교한 관찰 없이는 구체적인 이야기를 할 수 없음
+    </p>
+  </div>
+</div>
+
+<!-- ════ S7 ════ -->
+<div class="section" id="s7">
+  <div class="section-num">SECTION 07</div>
+  <div class="section-title">면접 대책</div>
+  <div class="section-title-jp">面接対策 — 頻出質問·選考フロー</div>
+
+  <p>소매유통 면접은 <span class="hl">서비스 마인드·수치 감각·구체적인 점포 관찰</span>이 핵심이다. 특히 "지원 회사의 점포에 실제로 방문한 경험"을 반드시 말할 수 있어야 한다.</p>
+
+  <h3>전형 단계 구조</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>단계</th><th>내용</th><th>포인트</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>서류·적성</td>
+          <td>ES + SPI. 지원 동기의 구체성·서비스 경험(아르바이트 등) 확인</td>
+          <td>소매·서비스 관련 아르바이트 경험이 있으면 구체적인 수치(매출·접객 건수·개선 사례)와 함께 어필</td>
+        </tr>
+        <tr>
+          <td>그룹 면접·GD</td>
+          <td>소매 기업은 그룹 토론 전형이 많음. "이 점포를 어떻게 개선하는가" 등 현장 과제 형식</td>
+          <td>데이터 기반의 논리 + 소비자 시점의 발상 양쪽을 보여주어야 함. 발언 횟수보다 논리의 질이 평가됨</td>
+        </tr>
+        <tr>
+          <td>1차 면접</td>
+          <td>인사담당자. 가쿠치카 + 지원 동기 + 점포 방문 체험</td>
+          <td>"당사 점포와 경쟁사 점포를 비교해서 느낀 점"을 반드시 준비. 구체적 관찰 없이는 차별화 불가</td>
+        </tr>
+        <tr>
+          <td>2차·최종 면접</td>
+          <td>현장 담당자·임원급. 점포 배치에 대한 의향·커리어 비전·입사 의향 확인</td>
+          <td>"처음에 점포 현장에 배치되는 것에 어떻게 생각하는가"는 반드시 나옴. 포지티브하게 받아들이는 이유를 준비</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>빈출 질문 & 답변 포인트</h3>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 01</div>
+    <h4>당사 점포에 방문한 적이 있는가? 느낀 점은?</h4>
+    <p>소매유통 면접에서 가장 중요한 질문 중 하나. <span class="hl">방문하지 않았으면 이 질문에 대답할 수 없어 즉시 탈락이다.</span></p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 구조:</strong> "○○점에 방문했습니다. 특히 [구체적 강점 — 접객·진열·상품 구성]이 인상적이었습니다. 한편 경쟁사의 △△점과 비교했을 때 [개선 가능성]이 있다고 느꼈으며, 이 점에서 [마케터·MD 시점의 제안]을 해보고 싶다고 생각했습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 02</div>
+    <h4>처음에 점포 현장에 배치되는 것에 대해 어떻게 생각하는가?</h4>
+    <p>소매 기업이 반드시 물어보는 질문. <span class="hl">"본부에 빨리 이동하고 싶다"는 뉘앙스를 주면 즉시 탈락이다.</span></p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 방향:</strong> "소매업에서 현장 경험이 모든 커리어의 기반이 된다고 생각합니다. 고객과 직접 닿는 현장에서 소비자 인사이트를 몸으로 익히지 않은 MD·바이어는 설득력이 없다고 생각합니다. 현장에서 실적을 쌓으면서 장기적으로 [MD/바이어/EC 마케팅] 역할에서 기여하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 03</div>
+    <h4>EC가 성장하는 시대에 오프라인 점포의 가치는 무엇인가?</h4>
+    <p>오프라인 소매 기업에서 자주 나오는 질문. "EC에 밀리고 있다"는 방어적 답변은 NG다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 방향:</strong> "EC에서는 제공할 수 없는 감각적 체험 — 실물을 만지고, 직원에게 상담하고, 브랜드 세계관에 몰입하는 체험 — 오프라인 점포만이 만들 수 있습니다. EC와 오프라인의 역할이 분화되는 가운데, 점포는 '사는 곳'에서 '브랜드를 체험하는 공간'으로 진화한다고 생각합니다."</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> 업계 리포트 Vol.13 — 소매유통</p>
+  <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+  <p style="margin-top:8px;font-size:10px;">본 리포트의 정보는 각사 IR자료, 채용 페이지, 경제산업성 상업통계, OpenWork 등 공개 정보를 기반으로 구조화한 것입니다.</p>
+</div>
+</div>
+
+<script>
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  const y = el.getBoundingClientRect().top + window.pageYOffset - navH - 16;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7'];
+const navBtns = document.querySelectorAll('.nav-btn');
+function updateNav() {
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  let current = 's1';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= navH + 60) current = id;
+  });
+  navBtns.forEach((btn, i) => btn.classList.toggle('active', sections[i] === current));
+}
+window.addEventListener('scroll', updateNav);
+updateNav();
+</script>
+</body>
+</html>
