@@ -1,0 +1,2366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>나의 커리어 나침반 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --surface-3: #22222e;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #4a9eff;
+    --accent-soft: rgba(74, 158, 255, 0.08);
+    --accent-border: rgba(74, 158, 255, 0.18);
+    --warn: #f59e0b;
+    --warn-soft: rgba(245, 158, 11, 0.05);
+    --warn-border: rgba(245, 158, 11, 0.15);
+    --success: #34d399;
+    --success-soft: rgba(52, 211, 153, 0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── 앱 구조 ── */
+  #app { min-height: 100vh; display: flex; flex-direction: column; }
+
+  .screen { display: none; flex: 1; animation: fadeIn 0.35s ease; }
+  .screen.active { display: flex; flex-direction: column; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── 헤더 ── */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10, 10, 15, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .logo {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .progress-wrap {
+    flex: 1;
+    max-width: 360px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .progress-bar {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 1px;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .progress-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  /* ── 컨테이너 ── */
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+    width: 100%;
+  }
+
+  /* ── 인트로 ── */
+  #screen-intro {
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .intro-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(74,158,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .intro-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .intro-inner {
+    position: relative;
+    text-align: center;
+    padding: 60px 24px;
+    max-width: 600px;
+  }
+
+  .intro-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    padding: 5px 14px;
+    border-radius: 16px;
+    margin-bottom: 24px;
+  }
+
+  .intro-title {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 900;
+    line-height: 1.25;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+
+  .intro-desc {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 2.0;
+    margin-bottom: 36px;
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .intro-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 32px;
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-num {
+    font-size: 28px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  .intro-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .step-pill {
+    font-size: 11px;
+    padding: 5px 12px;
+    border-radius: 100px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+
+  .step-arrow { font-size: 11px; color: var(--text-muted); }
+
+  /* ── 버튼 ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 28px;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+  }
+  .btn-primary:hover {
+    background: #6aadff;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(74,158,255,0.25);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--border-hover); color: var(--text-sub); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    padding: 10px 18px;
+    font-size: 12px;
+  }
+  .btn-ghost:hover { color: var(--text-dim); }
+
+  /* ── 문항 화면 공통 ── */
+  .question-screen {
+    flex: 1;
+    padding: 40px 0 100px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    opacity: 0.8;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+
+  .section-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.9;
+    margin-bottom: 28px;
+  }
+
+  /* ── 이상적 상황 테스트 ── */
+  .axis-question {
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    transition: border-color 0.2s;
+  }
+
+  .axis-question:has(input:checked),
+  .axis-question.answered { border-color: rgba(74,158,255,0.25); }
+
+  .axis-q-num {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+  }
+
+  .axis-options {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .axis-option {
+    padding: 10px 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.2s;
+    line-height: 1.6;
+  }
+
+  .axis-option:hover { border-color: var(--border-hover); color: var(--text-sub); }
+  .axis-option.a-side { text-align: right; }
+  .axis-option.b-side { text-align: left; }
+
+  .axis-option.selected-a {
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+    color: var(--text);
+  }
+
+  .axis-option.selected-b {
+    border-color: rgba(74,158,255,0.25);
+    background: rgba(74,158,255,0.05);
+    color: var(--text);
+  }
+
+  .axis-slider-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .axis-slider {
+    -webkit-appearance: none;
+    width: 70px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--border);
+    outline: none;
+    cursor: pointer;
+  }
+
+  .axis-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+    border: 2px solid var(--bg);
+    transition: all 0.2s;
+  }
+
+  .axis-slider-val {
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  /* ── 프로필 섹션 ── */
+  .profile-section {
+    background: var(--surface);
+    border: 1px solid var(--accent-border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin: 28px 0;
+  }
+
+  .profile-header {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .profile-options { display: flex; flex-direction: column; gap: 6px; }
+
+  .profile-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .profile-option:hover { border-color: var(--border-hover); }
+
+  .profile-option.selected {
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+  }
+
+  .profile-checkbox {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: transparent;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+
+  .profile-option.selected .profile-checkbox {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .profile-option-text { font-size: 12px; color: var(--text-dim); }
+  .profile-option.selected .profile-option-text { color: var(--text-sub); }
+
+  /* ── 선택 카드 ── */
+  .selection-limit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .limit-dots { display: flex; gap: 4px; }
+
+  .limit-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+
+  .limit-dot.filled { background: var(--accent); border-color: var(--accent); }
+
+  .choice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .choice-card {
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    user-select: none;
+  }
+
+  .choice-card:hover {
+    border-color: var(--border-hover);
+    background: var(--surface-2);
+  }
+
+  .choice-card.selected {
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+  }
+
+  .choice-card.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    width: 18px;
+    height: 18px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .choice-num {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+  }
+
+  .choice-text {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  .choice-card.selected .choice-text { color: var(--text-sub); }
+
+  .choice-example {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 5px;
+    line-height: 1.5;
+  }
+
+  /* ── Q5 트랙 ── */
+  .track-section { margin-bottom: 28px; }
+
+  .track-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .track-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 3px 10px;
+    border-radius: 100px;
+  }
+
+  .track-a-badge {
+    background: rgba(245,158,11,0.08);
+    color: var(--warn);
+    border: 1px solid rgba(245,158,11,0.2);
+  }
+
+  .track-b-badge {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid var(--accent-border);
+  }
+
+  .track-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+
+  .track-limit {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+
+  /* Q5A 카드는 warn 색상 */
+  #q5a-grid .choice-card.selected {
+    border-color: rgba(245,158,11,0.25);
+    background: rgba(245,158,11,0.05);
+  }
+
+  #q5a-grid .choice-card.selected::after {
+    background: var(--warn);
+  }
+
+  /* ── 업계 선택 ── */
+  .industry-category { margin-bottom: 28px; }
+
+  .industry-cat-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .industry-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .industry-card {
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .industry-card:hover {
+    border-color: var(--border-hover);
+    background: var(--surface-2);
+  }
+
+  .industry-card.selected {
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+  }
+
+  .industry-card.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .industry-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-sub);
+    margin-bottom: 6px;
+  }
+
+  .industry-card.selected .industry-name { color: var(--text); }
+
+  .industry-tag {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 6px;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    display: inline-block;
+  }
+
+  /* ── 경고/스킵 ── */
+  .warning-banner {
+    background: rgba(245,158,11,0.05);
+    border: 1px solid rgba(245,158,11,0.15);
+    border-left: 3px solid var(--warn);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--warn);
+    margin-top: 14px;
+    display: none;
+  }
+
+  .warning-banner.show { display: block; }
+
+  .skip-link {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    margin-top: 14px;
+    transition: color 0.2s;
+  }
+
+  .skip-link:hover { color: var(--text-dim); }
+
+  /* ── 네비게이션 바 ── */
+  .nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 14px 24px;
+    background: rgba(10,10,15,0.95);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+  }
+
+  .nav-info { font-size: 12px; color: var(--text-muted); }
+  .nav-actions { display: flex; gap: 8px; }
+
+  /* ── 결과 페이지 ── */
+  .result-hero {
+    padding: 48px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+
+  .result-hero-label {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    padding: 4px 12px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  .result-job-title {
+    font-size: 36px;
+    font-weight: 900;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+
+  .result-company-type {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+
+  .result-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .result-tag {
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid var(--accent-border);
+    font-weight: 500;
+  }
+
+  /* 결과 섹션 */
+  .result-section { margin-bottom: 36px; }
+
+  .result-section-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* 역량 바 */
+  .competency-bars { display: flex; flex-direction: column; gap: 8px; }
+
+  .comp-bar-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .comp-bar-name {
+    font-size: 12px;
+    color: var(--text-dim);
+    width: 110px;
+    flex-shrink: 0;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  .comp-bar-track {
+    flex: 1;
+    height: 3px;
+    background: var(--surface-2);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .comp-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--accent);
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .comp-bar-score {
+    font-size: 11px;
+    color: var(--text-muted);
+    width: 28px;
+    text-align: right;
+  }
+
+  /* 4축 결과 */
+  .axis-result {
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 8px;
+  }
+
+  .axis-result-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .axis-result-name { font-size: 12px; color: var(--text-dim); }
+  .axis-result-val { font-size: 12px; color: var(--accent); font-weight: 600; }
+
+  .axis-result-track {
+    height: 3px;
+    background: var(--surface-2);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+
+  .axis-result-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--accent);
+  }
+
+  .axis-result-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  /* 업계 결과 카드 */
+  .industry-result-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .industry-result-card {
+    display: flex;
+    gap: 14px;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+
+  .industry-result-card.primary { border-color: var(--accent-border); }
+
+  .industry-rank-badge {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .rank-1 { background: var(--accent); color: #fff; }
+  .rank-2 { background: var(--surface-2); color: var(--text-dim); border: 1px solid var(--border); }
+  .rank-3 { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); }
+
+  .industry-result-body { flex: 1; }
+  .industry-result-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .industry-result-desc { font-size: 11px; color: var(--text-dim); line-height: 1.6; }
+  .industry-result-warn { font-size: 11px; color: var(--warn); margin-top: 4px; }
+
+  /* 직종 라이브러리 링크 */
+  .library-link-section {
+    padding: 20px 22px;
+    background: var(--surface);
+    border: 1px solid var(--accent-border);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .library-link-section:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .library-link-body {}
+  .library-link-kicker {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+  .library-link-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+  .library-link-desc {
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  .library-link-arrow {
+    font-size: 18px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* 쿠폰 */
+  .coupon-section {
+    padding: 28px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-align: center;
+    margin: 36px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .coupon-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), rgba(74,158,255,0.2));
+  }
+
+  .coupon-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--accent);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .coupon-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 8px;
+  }
+
+  .coupon-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .coupon-code-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .coupon-code {
+    background: var(--surface-2);
+    border: 1px dashed rgba(74,158,255,0.3);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-family: monospace;
+    font-size: 20px;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .copy-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 11px;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+
+  .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .copy-btn.copied { border-color: var(--success); color: var(--success); }
+
+  /* ── 반응형 ── */
+  @media (max-width: 600px) {
+    .choice-grid { grid-template-columns: 1fr; }
+    .industry-grid { grid-template-columns: 1fr; }
+    .intro-stats { gap: 24px; }
+    .axis-options { grid-template-columns: 1fr; }
+    .axis-slider-wrap { display: none; }
+    .header { padding: 12px 16px; }
+    .progress-wrap { display: none; }
+    .result-job-title { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ══ 인트로 스크린 ══ -->
+  <div id="screen-intro" class="screen active">
+    <div class="intro-bg"></div>
+    <div class="intro-grid"></div>
+    <div class="intro-inner">
+      <div class="intro-label">Tokyo Career Studio</div>
+      <h1 class="intro-title">나의 커리어 나침반 찾기</h1>
+      <p class="intro-desc">
+        7년간 3,000명의 상담 데이터를 기반으로 설계된<br>
+        일본 신졸 취활 직종·업계 매칭 진단 서비스
+      </p>
+      <div class="intro-stats">
+        <div class="stat-item">
+          <div class="stat-num">20</div>
+          <div class="stat-label">성향 진단 문항</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">9</div>
+          <div class="stat-label">직종 카테고리</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">50</div>
+          <div class="stat-label">업계 데이터베이스</div>
+        </div>
+      </div>
+      <div class="intro-steps">
+        <span class="step-pill">성향 진단</span>
+        <span class="step-arrow">→</span>
+        <span class="step-pill">강점 선택</span>
+        <span class="step-arrow">→</span>
+        <span class="step-pill">약점 필터</span>
+        <span class="step-arrow">→</span>
+        <span class="step-pill">업계 선택</span>
+        <span class="step-arrow">→</span>
+        <span class="step-pill">결과 확인</span>
+      </div>
+      <button class="btn btn-primary" onclick="startTest()">
+        진단 시작하기
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <p style="font-size:12px;color:var(--text3);margin-top:12px;">약 10분 소요 · 저장 없음 · 무료</p>
+    </div>
+  </div>
+
+  <!-- ══ 이상적 상황 테스트 스크린 ══ -->
+  <div id="screen-test" class="screen">
+    <div class="header">
+      <div class="logo">TCS Career Compass</div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+        <div class="progress-label" id="progress-label">STEP 1 / 5</div>
+      </div>
+    </div>
+    <div class="question-screen">
+      <div class="container">
+        <p class="section-label">STEP 1 — 이상적 상황 진단</p>
+        <h2 class="section-title">당신의 이상적인 일하는 방식은?</h2>
+        <p class="section-desc">각 상황에서 더 가까운 쪽을 슬라이더로 선택해주세요.<br>정답은 없습니다 — 솔직하게 응답할수록 결과가 정확해집니다.</p>
+
+        <!-- 프로필 인라인 섹션 -->
+        <div class="profile-section">
+          <div class="profile-header">📋 기본 프로필 (해당하는 것 모두 선택)</div>
+          <div class="profile-options" id="profile-options">
+            <div class="profile-option" data-profile="engineering" onclick="toggleProfile(this)">
+              <div class="profile-checkbox">✓</div>
+              <div class="profile-option-text">이공계 전공 (기계·전기·전자·화학·재료 등)</div>
+            </div>
+            <div class="profile-option" data-profile="it" onclick="toggleProfile(this)">
+              <div class="profile-checkbox">✓</div>
+              <div class="profile-option-text">IT/CS 전공 또는 개발 경험 있음</div>
+            </div>
+            <div class="profile-option" data-profile="english" onclick="toggleProfile(this)">
+              <div class="profile-checkbox">✓</div>
+              <div class="profile-option-text">영어 비즈니스 레벨 이상</div>
+            </div>
+            <div class="profile-option" data-profile="overseas" onclick="toggleProfile(this)">
+              <div class="profile-checkbox">✓</div>
+              <div class="profile-option-text">해외 거주·유학 경험 있음</div>
+            </div>
+            <div class="profile-option" data-profile="none" id="profile-none" onclick="toggleProfileNone(this)" style="border-style:dashed;margin-top:4px;">
+              <div class="profile-checkbox" style="border-style:dashed;">✓</div>
+              <div class="profile-option-text" style="color:var(--text3);">해당 없음 (문과 계열 · 위 항목 모두 해당 없음)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 20문항 -->
+        <div id="axis-questions"></div>
+
+        <div class="warning-banner" id="test-warning">모든 문항에 응답해주세요.</div>
+      </div>
+    </div>
+    <div class="nav-bar">
+      <div class="nav-info" id="test-answered">0 / 20 응답</div>
+      <div class="nav-actions">
+        <button class="btn btn-ghost" onclick="goScreen('screen-intro')">← 처음으로</button>
+        <button class="btn btn-primary" onclick="submitTest()">다음 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Q3 무의식적 강점 스크린 ══ -->
+  <div id="screen-q3" class="screen">
+    <div class="header">
+      <div class="logo">TCS Career Compass</div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" style="width:40%"></div></div>
+        <div class="progress-label">STEP 2 / 5</div>
+      </div>
+    </div>
+    <div class="question-screen">
+      <div class="container">
+        <p class="section-label">STEP 2 — 무의식적 강점</p>
+        <h2 class="section-title">주변에서 자주 칭찬하는데<br>본인은 당연하다고 느끼는 것은?</h2>
+        <p class="section-desc">남들이 알아보지만 본인은 "이게 뭐가 대단해?"라고 느끼는 것.<br>그것이 당신의 진짜 강점입니다.</p>
+        <div class="selection-limit">
+          <span>최대 3개 선택</span>
+          <div class="limit-dots" id="q3-dots">
+            <div class="limit-dot"></div>
+            <div class="limit-dot"></div>
+            <div class="limit-dot"></div>
+          </div>
+          <span id="q3-count">0/3</span>
+        </div>
+        <div class="choice-grid" id="q3-grid"></div>
+        <div class="warning-banner" id="q3-warning">최소 1개 이상 선택해주세요.</div>
+        <a href="#" class="skip-link" onclick="skipQ('q3'); return false;">잘 모르겠다면 건너뛰기 →</a>
+      </div>
+    </div>
+    <div class="nav-bar">
+      <div class="nav-info">강점 선택</div>
+      <div class="nav-actions">
+        <button class="btn btn-ghost" onclick="goScreen('screen-test')">← 이전</button>
+        <button class="btn btn-primary" onclick="submitQ3()">다음 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Q4 자연스러운 적성 스크린 ══ -->
+  <div id="screen-q4" class="screen">
+    <div class="header">
+      <div class="logo">TCS Career Compass</div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
+        <div class="progress-label">STEP 3 / 5</div>
+      </div>
+    </div>
+    <div class="question-screen">
+      <div class="container">
+        <p class="section-label">STEP 3 — 자연스러운 적성</p>
+        <h2 class="section-title">시간 가는 줄 모르거나<br>남들은 힘든데 나는 아닌 것은?</h2>
+        <p class="section-desc">스트레스 없이 자연스럽게 할 수 있는 것이 진짜 적성입니다.<br>장기적으로 지속 가능한 커리어의 힌트가 됩니다.</p>
+        <div class="selection-limit">
+          <span>최대 3개 선택</span>
+          <div class="limit-dots" id="q4-dots">
+            <div class="limit-dot"></div>
+            <div class="limit-dot"></div>
+            <div class="limit-dot"></div>
+          </div>
+          <span id="q4-count">0/3</span>
+        </div>
+        <div class="choice-grid" id="q4-grid"></div>
+        <div class="warning-banner" id="q4-warning">최소 1개 이상 선택해주세요.</div>
+        <a href="#" class="skip-link" onclick="skipQ('q4'); return false;">잘 모르겠다면 건너뛰기 →</a>
+      </div>
+    </div>
+    <div class="nav-bar">
+      <div class="nav-info">적성 선택</div>
+      <div class="nav-actions">
+        <button class="btn btn-ghost" onclick="goScreen('screen-q3')">← 이전</button>
+        <button class="btn btn-primary" onclick="submitQ4()">다음 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Q5 약점 필터 스크린 ══ -->
+  <div id="screen-q5" class="screen">
+    <div class="header">
+      <div class="logo">TCS Career Compass</div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div>
+        <div class="progress-label">STEP 4 / 5</div>
+      </div>
+    </div>
+    <div class="question-screen">
+      <div class="container">
+        <p class="section-label">STEP 4 — 약점 필터</p>
+        <h2 class="section-title">솔직히 힘들거나<br>오래 하면 지치는 것은?</h2>
+        <p class="section-desc">진짜 치명적인 약점만 선택하세요.<br>약점을 아는 것이 더 잘 맞는 커리어로 가는 지름길입니다.</p>
+
+        <!-- 트랙 A -->
+        <div class="track-section">
+          <div class="track-header">
+            <span class="track-badge track-a-badge">TRACK A</span>
+            <span class="track-title">나에게는 너무나도 힘든 상황은?</span>
+            <span class="track-limit" id="q5a-limit">최대 2개</span>
+          </div>
+          <div class="selection-limit">
+            <div class="limit-dots" id="q5a-dots">
+              <div class="limit-dot"></div>
+              <div class="limit-dot"></div>
+            </div>
+            <span id="q5a-count">0/2</span>
+          </div>
+          <div class="choice-grid" id="q5a-grid"></div>
+        </div>
+
+        <!-- 트랙 B -->
+        <div class="track-section">
+          <div class="track-header">
+            <span class="track-badge track-b-badge">TRACK B</span>
+            <span class="track-title">내가 느끼는 나의 단점은?</span>
+            <span class="track-limit" id="q5b-limit">최대 3개</span>
+          </div>
+          <div class="selection-limit">
+            <div class="limit-dots" id="q5b-dots">
+              <div class="limit-dot"></div>
+              <div class="limit-dot"></div>
+              <div class="limit-dot"></div>
+            </div>
+            <span id="q5b-count">0/3</span>
+          </div>
+          <div class="choice-grid" id="q5b-grid"></div>
+        </div>
+
+        <a href="#" class="skip-link" onclick="skipQ('q5'); return false;">건너뛰기 (필터 없이 전체 결과 보기) →</a>
+      </div>
+    </div>
+    <div class="nav-bar">
+      <div class="nav-info">약점 필터</div>
+      <div class="nav-actions">
+        <button class="btn btn-ghost" onclick="goScreen('screen-q4')">← 이전</button>
+        <button class="btn btn-primary" onclick="submitQ5()">다음 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 업계 선택 스크린 ══ -->
+  <div id="screen-industry" class="screen">
+    <div class="header">
+      <div class="logo">TCS Career Compass</div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div>
+        <div class="progress-label">STEP 5 / 5</div>
+      </div>
+    </div>
+    <div class="question-screen">
+      <div class="container">
+        <p class="section-label">STEP 5 — 업계 선택</p>
+        <h2 class="section-title" id="industry-title">어느 업계에서 일하고 싶으세요?</h2>
+        <p class="section-desc" id="industry-desc">직종에 맞는 업계를 선택해주세요. 최대 3개까지 선택 가능합니다.</p>
+        <div class="selection-limit">
+          <span>최대 3개 선택</span>
+          <div class="limit-dots" id="industry-dots">
+            <div class="limit-dot"></div>
+            <div class="limit-dot"></div>
+            <div class="limit-dot"></div>
+          </div>
+          <span id="industry-count">0/3</span>
+        </div>
+        <div id="industry-list"></div>
+        <div class="warning-banner" id="industry-warning">최소 1개 이상 선택해주세요.</div>
+      </div>
+    </div>
+    <div class="nav-bar">
+      <div class="nav-info">업계 선택</div>
+      <div class="nav-actions">
+        <button class="btn btn-ghost" onclick="goScreen('screen-q5')">← 이전</button>
+        <button class="btn btn-primary" onclick="submitIndustry()">결과 보기 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 결과 스크린 ══ -->
+  <div id="screen-result" class="screen">
+    <div class="header">
+      <div class="logo">TCS Career Compass</div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
+        <div class="progress-label">완료</div>
+      </div>
+    </div>
+    <div class="question-screen">
+      <div class="container">
+        <div class="result-hero" id="result-hero"></div>
+        <div id="result-body"></div>
+
+        <!-- 쿠폰 섹션 -->
+        <div class="coupon-section">
+          <div class="coupon-label">Special Offer</div>
+          <h3 class="coupon-title">진단 완료 특별 쿠폰</h3>
+          <p class="coupon-desc">Tokyo Career Studio 1:1 PT 상담 또는 부트캠프 신청 시<br>아래 코드를 입력하면 할인 혜택을 받을 수 있습니다.</p>
+          <div class="coupon-code-wrap">
+            <div class="coupon-code" id="coupon-code">TCS2025</div>
+            <button class="copy-btn" id="copy-btn" onclick="copyCoupon()">복사</button>
+          </div>
+          <a href="https://tokyocareerstudio.com" target="_blank" class="btn btn-primary">
+            TCS 스토어에서 상담 신청하기 →
+          </a>
+        </div>
+
+        <div style="text-align:center;padding:24px 0 80px;">
+          <button class="btn btn-secondary" onclick="goScreen('screen-intro'); resetTest();">처음부터 다시하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ══════════════════════════════════════
+// 데이터
+// ══════════════════════════════════════
+
+const AXIS_QUESTIONS = [
+  { num:1, axis:'환경', a:'야근이 많더라도 처음 3년간 집중 성장하고 싶다', b:'번아웃 없이 지속 가능한 페이스로 꾸준히 가겠다' },
+  { num:2, axis:'문화', a:'정답 없는 프로젝트가 주어지면 심장이 뛴다. 실패해도 배움이 있다', b:'명확한 프로세스와 사례가 있을 때 더 좋은 결과를 낸다' },
+  { num:3, axis:'환경', a:'창업 5년차 성장 중인 회사. 불확실하지만 초기 멤버로 크게 성장', b:'창업 50년 업계 1위 회사. 성장 속도는 느려도 체계와 안정성이 확실' },
+  { num:4, axis:'환경', a:'아는 사람만 아는 회사지만 5년 후 내 시장가치가 확실히 높아지는 곳', b:'연봉은 평균이지만 모두가 아는 브랜드. 부모님·친구들이 인정해주는 곳' },
+  { num:5, axis:'업무', a:'목표 달성하면 인센티브. 숫자로 증명하는 게 명확해서 좋다', b:'사회나 고객에게 기여한다는 실감이 중요하다' },
+  { num:6, axis:'업무', a:'팀 분위기보다 성과가 우선이라고 생각한다', b:'한 명이 분위기 망치면 팀 전체가 무너진다. 협업이 더 중요하다' },
+  { num:7, axis:'업무', a:'내 담당은 내가 책임진다. 혼자 끝까지 완결하는 게 효율적이다', b:'역할 나눠서 함께 진행하는 게 좋다. 서로 피드백 주고받으며 발전한다' },
+  { num:8, axis:'문화', a:'기준이 높고 답을 스스로 찾게 하는 상사가 좋다', b:'구체적으로 방향 제시해주는 상사가 좋다. 가이드가 있어야 성장한다' },
+  { num:9, axis:'환경', a:'좋은 프로젝트라면 도쿄에서 평생 일해도 괜찮다', b:'다른 문화권에서 부딪히며 일하는 경험 자체가 중요하다. 해외 출장·주재 원한다' },
+  { num:10, axis:'환경', a:'업계 자체가 빠르게 변하고, 1년 후에 뭘 하고 있을지 모르는 역동적 환경', b:'업계와 회사가 안정적이고, 5년 후 내 모습이 예측 가능한 환경' },
+  { num:11, axis:'커리어', a:'"이 분야에서 내 이름 걸고 일할 수 있게 됐어"', b:'"좋은 사람들이랑 일하고 연봉도 괜찮고 가족과 시간도 보내"' },
+  { num:12, axis:'환경', a:'50명 조직의 핵심 멤버가 되고 싶다. 내 영향력이 바로 보이는 게 좋다', b:'1만 명 조직의 한 부분이어도 괜찮다. 체계와 리소스가 중요하다' },
+  { num:13, axis:'환경', a:'오늘 결정해서 내일 바로 실행하는 속도감이 좋다', b:'의사결정에 시간이 걸려도 신중하게 진행하는 문화가 좋다' },
+  { num:14, axis:'업무', a:'기업 담당자와 장기적 신뢰 관계를 쌓는 BtoB가 맞다', b:'일반 소비자 대상으로 대량 접점을 만드는 BtoC가 재미있다' },
+  { num:15, axis:'업무', a:'사내에서 분석, 기획, 시스템 등 백오피스 업무가 맞다', b:'매일 고객을 만나고 협상하는 프론트 업무가 맞다' },
+  { num:16, axis:'문화', a:'영어 이름으로 부르고 직급 없이 소통하는 문화가 좋다', b:'경어와 직급 호칭 문화가 익숙하고 편하다' },
+  { num:17, axis:'문화', a:'캐주얼 복장에 유연근무제, 결과만 내면 자유로운 환경이 좋다', b:'정해진 출퇴근 시간과 체계적인 근무 환경이 오히려 편하다' },
+  { num:18, axis:'커리어', a:'한 분야에서 10년 이상 깊이를 쌓아 전문가가 되는 커리어', b:'3~4년마다 부서 이동하며 영업→기획→인사 등 다양한 경험' },
+  { num:19, axis:'커리어', a:'"그건 쟤한테 물어봐"라고 불리는 특정 영역 전문가', b:'어떤 일이든 맡기면 해내는 올라운더' },
+  { num:20, axis:'커리어', a:'하나를 깊게 파고드는 게 성격에 맞다', b:'다양한 분야를 넓게 공부하는 게 재미있다' }
+];
+
+const Q3_ITEMS = [
+  { id:'q3_1', text:'복잡한 내용을 논리적으로 정리해서 설명한다', example:'발표 자료 정리를 잘한다고 함', competency:['論理的思考力','発信力'] },
+  { id:'q3_2', text:'데이터나 근거를 찾아서 이야기한다', example:'감이 아니라 숫자로 말한다고 함', competency:['論理的思考力','洞察力'] },
+  { id:'q3_3', text:'문제의 본질이나 핵심을 빨리 파악한다', example:'회의에서 요점을 먼저 잡는다고 함', competency:['洞察力','冷静さ'] },
+  { id:'q3_4', text:'아이디어를 구체적인 계획으로 만든다', example:'아이디어를 실행 가능하게 정리한다고 함', competency:['企画力','実行力'] },
+  { id:'q3_5', text:'계획을 세우고 일정을 체계적으로 관리한다', example:'팀 일정 관리를 자연스럽게 맡는다고 함', competency:['自己管理能力','企画力'] },
+  { id:'q3_6', text:'어떤 상황에서도 끝까지 해낸다', example:'포기하지 않는다고 주변에서 말함', competency:['粘り強さ','責任感'] },
+  { id:'q3_7', text:'아이디어를 시각적으로 표현하거나 직접 만드는 것이 즐겁다', example:'자료 디자인이나 뭔가 만드는 걸 잘한다고 함', competency:['創造力','実行力'] },
+  { id:'q3_8', text:'팀을 이끌고 방향을 제시한다', example:'자연스럽게 리더 역할을 맡게 된다고 함', competency:['牽引力','実行力'] },
+  { id:'q3_9', text:'주변 상황을 빠르게 파악하고 대응한다', example:'눈치가 빠르다, 상황 판단이 빠르다고 함', competency:['状況把握力','冷静さ'] },
+  { id:'q3_10', text:'자신의 생각을 명확하게 전달한다', example:'설명을 잘한다, 말이 명확하다고 함', competency:['発信力','論理的思考力'] },
+  { id:'q3_11', text:'남의 이야기를 끝까지 잘 들어준다', example:'친구들이 고민이 생기면 먼저 찾아온다고 함', competency:['傾聴力','共感力'] },
+  { id:'q3_12', text:'상대 입장에서 생각하고 공감해준다', example:'공감 능력이 높다고 주변에서 말함', competency:['共感力','傾聴力'] },
+  { id:'q3_13', text:'다양한 입장의 사람들 사이에서 중간 역할을 맡는 경우가 많다', example:'갈등 조정을 자연스럽게 한다고 함', competency:['調整力','協調性'] },
+  { id:'q3_14', text:'분위기를 빠르게 읽고 맞게 행동한다', example:'눈치가 빠르다, 분위기 메이커라고 함', competency:['状況把握力','共感力'] },
+  { id:'q3_15', text:'새로운 아이디어나 발상을 잘 낸다', example:'항상 아이디어가 많다고 함', competency:['創造力','積極性'] },
+  { id:'q3_16', text:'책상 앞보다 현장에서 직접 움직이며 일하는 게 맞다', example:'가만히 앉아 있는 것보다 밖에서 활동하는 게 편하다고 함', competency:['実行力','粘り強さ'] }
+];
+
+const Q4_ITEMS = [
+  { id:'q4_1', text:'데이터나 숫자를 정리하고 분석하는 것', competency:['論理的思考力','洞察力'] },
+  { id:'q4_2', text:'복잡한 문제의 원인을 파고드는 것', competency:['洞察力','粘り強さ'] },
+  { id:'q4_3', text:'새로운 기획이나 아이디어를 구상하는 것', competency:['創造力','企画力'] },
+  { id:'q4_4', text:'글을 쓰거나 내용을 정리하는 것', competency:['発信力','自己管理能力'] },
+  { id:'q4_5', text:'뭔가를 만들거나 시각적으로 표현하는 것', competency:['創造力','実行力'] },
+  { id:'q4_6', text:'계획을 세우고 체계적으로 실행하는 것', competency:['自己管理能力','実行力'] },
+  { id:'q4_7', text:'어려운 상황에서도 침착하게 판단하는 것', competency:['冷静さ','状況把握力'] },
+  { id:'q4_8', text:'목표를 향해 끈질기게 매달리는 것', competency:['粘り強さ','積極性'] },
+  { id:'q4_9', text:'사람들 앞에서 발표하거나 설득하는 것', competency:['発信力','牽引力'] },
+  { id:'q4_10', text:'다양한 사람의 이야기를 듣고 이해하는 것', competency:['傾聴力','共感力'] },
+  { id:'q4_11', text:'팀이나 조직을 이끄는 것', competency:['牽引力','責任感'] },
+  { id:'q4_12', text:'여러 사람 사이에서 조율하고 합의점을 찾는 것', competency:['調整力','柔軟性'] },
+  { id:'q4_13', text:'몸을 쓰며 활동적으로 움직이는 것이 오히려 편하다', competency:['実行力','粘り強さ'] },
+  { id:'q4_14', text:'전문 지식이나 기술을 깊게 파고드는 것', competency:['洞察力','粘り強さ'] },
+  { id:'q4_15', text:'상대가 필요한 것을 먼저 파악해서 돕는 것', competency:['共感力','状況把握力'] },
+  { id:'q4_16', text:'여러 일을 동시에 관리하고 돌아가게 하는 것', competency:['自己管理能力','調整力'] }
+];
+
+const Q5A_ITEMS = [
+  { id:'q5a_1', text:'숫자나 데이터 다루는 게 너무 힘들다', eliminates:['SE','기술계','기획(데이터)'] },
+  { id:'q5a_2', text:'모르는 사람에게 먼저 말 거는 게 부담스럽다', eliminates:['영업(신규)','판매/서비스','MR'] },
+  { id:'q5a_3', text:'같은 일을 반복하는 것이 힘들다', eliminates:['루트영업','생산관리','품질관리','경리'] },
+  { id:'q5a_4', text:'몸 쓰거나 야외에서 일하는 게 힘들다', eliminates:['시공관리','판매/서비스','외식'] },
+  { id:'q5a_5', text:'여러 사람 앞에서 발표하거나 설득하는 게 힘들다', eliminates:['컨설팅','제안형영업','광고'] },
+  { id:'q5a_6', text:'영어 등 외국어 환경이 부담스럽다', eliminates:['외자계','상사','글로벌메이커','국제물류'] }
+];
+
+const Q5B_ITEMS = [
+  { id:'q5b_1', text:'디테일에 집착해서 시작이 늦어진다', culture:'→ 완벽주의 성향. 스피드보다 정확성을 중시하는 제조·연구·금융 계열이 잘 맞아요.' },
+  { id:'q5b_2', text:'큰 그림은 잘 보는데 디테일을 놓칠 때가 많다', culture:'→ 전략·기획형 성향. 세부 실행보다 방향 설계가 맞는 경영기획·컨설팅 포지션을 추천해요.' },
+  { id:'q5b_3', text:'문제가 생기면 혼자 끙끙 앓는 편이다', culture:'→ 팀 서포트가 강하고 상담 문화가 잘 된 조직이 맞아요. 고립적 업무환경은 피하는 게 좋아요.' },
+  { id:'q5b_4', text:'혼자 결정을 내리고 책임지는 게 부담스럽다', culture:'→ 의사결정 프로세스가 명확한 대기업이나 팀 합의 문화가 강한 곳이 편할 거예요.' },
+  { id:'q5b_5', text:'예상 못한 돌발 상황 대응이 특히 힘들다', culture:'→ 업무 프로세스가 잘 정비된 안정적인 JTC·대기업 환경이 잘 맞아요. 스타트업은 피하세요.' },
+  { id:'q5b_6', text:'하나에 집중하면 다른 일을 동시에 챙기기 어렵다', culture:'→ 멀티태스킹이 적고 프로젝트 단위로 집중할 수 있는 R&D·전문직·SIer가 맞아요.' },
+  { id:'q5b_7', text:'동료와 경쟁하거나 숫자로 평가받는 게 힘들다', culture:'→ 팀 실적 중심·연공서열형 문화가 편해요. 인센티브 영업·외자계는 잘 안 맞을 수 있어요.' },
+  { id:'q5b_8', text:'외국어로 소통하거나 외국인과 함께 일하는 게 부담스럽다', culture:'→ 국내 중심·내수형 기업을 추천해요. 상사·외자계·글로벌 메이커는 피하는 게 좋아요.' },
+  { id:'q5b_9', text:'모르는 사람을 계속 상대하는 게 에너지 소모가 크다', culture:'→ BtoB 또는 사내 업무 중심 포지션이 맞아요. 소매·외식·판매 현장은 피하는 게 좋아요.' },
+  { id:'q5b_10', text:'야근이나 불규칙한 생활이 계속되면 지친다', culture:'→ 워라밸이 잡힌 곳이 맞아요. 광고대리점·컨설팅·외식업은 불규칙성이 높은 편이에요.' }
+];
+
+// 직종 라이브러리 URL 매핑
+const JOB_LIBRARY_LINKS = {
+  '영업':       'https://tokyocareerstudio-jobselection.netlify.app/sales-overview',
+  'SE/IT':      'https://tokyocareerstudio-jobselection.netlify.app/se-overview',
+  '기술계':     'https://tokyocareerstudio-jobselection.netlify.app/tech-overview',
+  '기획/관리':  'https://tokyocareerstudio-jobselection.netlify.app/kikaku-overview',
+  '컨설팅':     'https://tokyocareerstudio-jobselection.netlify.app/consul-overview',
+  '물류/SCM':   'https://tokyocareerstudio-jobselection.netlify.app/logistics-overview',
+  '판매/서비스':'https://tokyocareerstudio-jobselection.netlify.app/service-overview',
+  '시공관리':   'https://tokyocareerstudio-jobselection.netlify.app/sekou-overview',
+  '크리에이티브':'https://tokyocareerstudio-jobselection.netlify.app/creative-overview'
+};
+
+// 직종별 역량 프로파일
+const JOB_PROFILES = {
+  '영업': { core:['共感力','傾聴力','発信力'], sub:['状況把握力','積極性'], label:'영업 (営業)', emoji:'📊' },
+  'SE/IT': { core:['論理的思考力','実行力','洞察力'], sub:['粘り強さ','調整力'], label:'SE/IT엔지니어', emoji:'💻' },
+  '기술계': { core:['洞察力','粘り強さ','論理的思考力'], sub:['実行力','冷静さ'], label:'기술계 종합직', emoji:'⚙️' },
+  '기획/관리': { core:['企画力','論理的思考力','自己管理能力'], sub:['調整力','発信力'], label:'기획/관리', emoji:'💡' },
+  '컨설팅': { core:['論理的思考力','洞察力','発信力'], sub:['牽引力','積極性'], label:'컨설팅', emoji:'🎯' },
+  '물류/SCM': { core:['自己管理能力','調整力','実行力'], sub:['状況把握力','冷静さ'], label:'물류·SCM', emoji:'🚛' },
+  '판매/서비스': { core:['共感力','傾聴力','状況把握力'], sub:['実行力','柔軟性'], label:'판매·서비스', emoji:'🛍️' },
+  '시공관리': { core:['実行力','調整力','粘り強さ'], sub:['状況把握力','冷静さ'], label:'시공관리', emoji:'🏗️' },
+  '크리에이티브': { core:['創造力','企画力','実行力'], sub:['発信力','洞察力'], label:'크리에이티브', emoji:'🎨' }
+};
+
+// 업계 DB (간소화)
+const INDUSTRY_DB = [
+  { id:"it_sier", category:"IT/컨설팅", name:"SIer", desc:"고객사 시스템을 수주해 개발하는 IT업계의 근간. 대형~중견 SIer까지 폭넓게 채용. 문과 출신도 SE로 진입 가능하며, 프로젝트 관리·상류 공정을 거쳐 PM을 목표로 할 수 있는 안정적인 커리어 루트.", jobs:["SE/IT","영업","기획/관리"], biz:["BtoB"], culture:["체계적","장기고용","안정"], warnings:["야근많음"], global:"낮음", engineering:"문과가능" },
+  { id:"it_web", category:"IT/컨설팅", name:"인터넷/웹", desc:"메루카리·사이버에이전트·DeNA 같은 메가벤처부터 스타트업까지. 자사 서비스를 빠르게 개발·개선하는 문화. 직급이 수평적이고 스피드를 중시. PdM·기획·마케팅 등 다양한 직종이 있어 문과도 활약 가능.", jobs:["SE/IT","기획/관리","영업","크리에이티브"], biz:["BtoB","BtoC"], culture:["자율","수평","스피드"], warnings:["돌발많음","멀티태스킹"], global:"중간", engineering:"문과가능" },
+  { id:"it_software", category:"IT/컨설팅", name:"소프트웨어", desc:"특정 분야에 특화된 소프트웨어를 기업에 제공. SIer보다 자사 제품 중심. 안정적인 BtoB 비즈니스로 수익성이 좋은 편. 전문성을 키워 한 분야의 전문가가 되기 좋은 환경.", jobs:["SE/IT","영업","기획/관리"], biz:["BtoB"], culture:["전문성","안정","체계"], warnings:["야근많음"], global:"낮음", engineering:"우대" },
+  { id:"it_xtech", category:"IT/컨설팅", name:"X-Tech", desc:"핀테크·에듀테크·HR테크 등 IT로 기존 산업을 혁신하는 업태. 성장 속도가 빠르고 신사업에 적극적. 기획·영업·마케팅 포지션도 많아 문과 출신에게 기회가 열려 있음.", jobs:["SE/IT","기획/관리","영업"], biz:["BtoB","BtoC"], culture:["도전","자율","성장"], warnings:["돌발많음","불확실성"], global:"중간", engineering:"문과가능" },
+  { id:"it_strategy_consul", category:"IT/컨설팅", name:"전략컨설팅", desc:"MBB(맥킨지·BCG·베인) 등 톱티어 컨설팅펌. 경영전략·M&A·신규사업 등 최상위 의사결정을 지원. 채용 인원이 극소수이며 논리력·구조화 능력이 핵심. 초고연봉이지만 Up or Out 문화.", jobs:["컨설팅","기획/관리"], biz:["BtoB"], culture:["성과주의","엘리트"], warnings:["야근많음","경쟁강함"], global:"높음", engineering:"문과가능" },
+  { id:"it_general_consul", category:"IT/컨설팅", name:"종합컨설팅", desc:"아빔·NRI·BIG4 등 대형 컨설팅. IT도입·업무개혁·조직변혁 등 폭넓은 안건을 팀으로 대응. 전략계보다 채용 인원이 많고 문과도 진입 가능. DX 수요로 성장 중.", jobs:["컨설팅","SE/IT","기획/관리"], biz:["BtoB"], culture:["팀협업","체계","성장"], warnings:["야근많음","멀티태스킹"], global:"높음", engineering:"문과가능" },
+  { id:"it_thinktank", category:"IT/컨설팅", name:"씽크탱크", desc:"관공청·기업의 의뢰를 받아 조사·연구·정책제언을 수행. NRI·미쓰비시UFJ리서치 등이 대표적. 장기 프로젝트 중심으로 안정적이며 연구직에 가까운 업무 스타일.", jobs:["컨설팅","기획/관리","SE/IT"], biz:["BtoB"], culture:["전문성","안정","연구중심"], warnings:["야근많음","장기프로젝트"], global:"중간", engineering:"문과가능" },
+  { id:"maker_electric", category:"메이커", name:"전기메이커", desc:"소니·파나소닉·히타치·후지쯔 등. 가전·반도체·인프라까지 폭넓은 사업영역. 이공계 채용이 많지만 문과 종합직도 영업·기획으로 활약. 글로벌 사업이 활발해 해외 경험 기회도 있음.", jobs:["기술계","영업","기획/관리","SE/IT"], biz:["BtoB","BtoC"], culture:["체계","장기고용","안정"], warnings:["의사결정느림"], global:"높음", engineering:"우대" },
+  { id:"maker_auto", category:"메이커", name:"자동차메이커", desc:"도요타·혼다·닛산 등. 일본 제조업의 상징이자 최대 고용 산업. 이공계 중심이지만 문과도 영업·기획·구매 등으로 입사 가능. CASE 전환기로 IT 인재 수요도 증가 중.", jobs:["기술계","영업","기획/관리","물류/SCM"], biz:["BtoB","BtoC"], culture:["체계","장기고용","현장중시"], warnings:["의사결정느림"], global:"높음", engineering:"우대" },
+  { id:"maker_food", category:"메이커", name:"식품메이커", desc:"가오·아지노모토·닛신식품 등. 생활과 밀접한 소비재를 다루며 브랜드 인지도가 높음. 영업은 슈퍼·편의점 등 유통 루트 중심. 경기 변동에 강하고 안정적인 사업 기반.", jobs:["영업","기획/관리","기술계"], biz:["BtoB","BtoC"], culture:["안정","장기고용","팀협업"], warnings:["성장속도느림"], global:"중간", engineering:"문과가능" },
+  { id:"maker_beverage", category:"메이커", name:"음료메이커", desc:"산토리·아사히·기린 등. 자동판매기·슈퍼·음식점 등 다양한 채널에 납품하는 루트 영업 중심. 고정 거래처 관계를 쌓는 업무가 많아 꼼꼼한 성향의 사람에게 적합.", jobs:["영업","기획/관리","물류/SCM"], biz:["BtoB","BtoC"], culture:["안정","루트영업중심"], warnings:["반복업무"], global:"낮음", engineering:"문과가능" },
+  { id:"maker_consumer", category:"메이커", name:"소비재메이커", desc:"P&G·유니리버·라이온 등. 마케팅·브랜드 전략이 핵심이며 상품기획에서 프로모션까지 관여할 수 있음. BtoC 중심으로 소비자 분석 능력이 중요. 문과 출신에게 인기 높음.", jobs:["영업","기획/관리"], biz:["BtoC"], culture:["브랜드중심","안정"], warnings:["성장속도느림"], global:"중간", engineering:"문과가능" },
+  { id:"maker_cosmetics", category:"메이커", name:"화장품메이커", desc:"시세이도·코세·카오·후지필름 등. 감성과 브랜드 가치를 중시하는 문화. 마케팅·상품기획 포지션이 인기. 인바운드 수요로 글로벌 전략도 활발. 문과 출신도 활약 가능.", jobs:["영업","기획/관리","기술계"], biz:["BtoC"], culture:["브랜드중심","안정","감성중시"], warnings:["성장속도느림"], global:"높음", engineering:"문과가능" },
+  { id:"maker_pharma", category:"메이커", name:"제약", desc:"다케다·아스텔라스·다이이치산쿄 등. MR(의약정보담당)은 의사·약사에게 정보를 제공하는 전문 영업직. R&D는 이공계 필수. 개발 사이클이 길지만 연봉 수준이 높고 안정적.", jobs:["영업","기술계"], biz:["BtoB","BtoC"], culture:["전문성","안정","장기고용"], warnings:["장기프로젝트"], global:"높음", engineering:"R&D필수" },
+  { id:"maker_material", category:"메이커", name:"소재메이커", desc:"도레이·스미토모화학·미쓰이화학 등. 탄소섬유·반도체소재 등 첨단소재를 개발·제조. 이공계 전공 필수이며 장기 연구개발 업무가 중심. 글로벌 경쟁력이 높고 안정적인 BtoB 사업.", jobs:["기술계","영업","기획/관리"], biz:["BtoB"], culture:["전문성","안정","연구중심"], warnings:["장기프로젝트"], global:"높음", engineering:"필수" },
+  { id:"maker_precision", category:"메이커", name:"정밀기기", desc:"캐논·올림푸스·시마즈 등. 광학·의료기기·분석기기 등 정밀도가 요구되는 제품을 개발. 소수정예 개발팀에서 전문성을 쌓기 좋음. 니치하지만 글로벌 점유율이 높은 강소기업 많음.", jobs:["기술계","영업","기획/관리"], biz:["BtoB"], culture:["전문성","소수정예","안정"], warnings:["성장속도느림"], global:"중간", engineering:"우대" },
+  { id:"maker_heavy", category:"메이커", name:"중공업", desc:"미쓰비시중공업·IHI·가와사키중공업 등. 항공·방위·에너지·조선 등 대형 인프라 프로젝트를 담당. 이공계 중심이지만 문과도 영업·기획으로 입사 가능. 수주부터 납품까지 장기 프로젝트.", jobs:["기술계","영업","시공관리"], biz:["BtoB"], culture:["체계","장기고용","현장중시"], warnings:["야근많음","현장중심"], global:"높음", engineering:"우대" },
+  { id:"maker_apparel", category:"메이커", name:"아파렐", desc:"유니클로(패스트리테일링)·아다스트리아 등. 트렌드 분석·바잉·MD·판매 등 폭넓은 직종이 있음. 점포 운영에서 본사 기획까지 커리어 루트 다양. 감성과 수치 감각 모두 요구됨.", jobs:["영업","기획/관리","판매/서비스","크리에이티브"], biz:["BtoC"], culture:["감성중시","트렌드","브랜드"], warnings:["급여수준","불규칙"], global:"중간", engineering:"문과가능" },
+  { id:"service_retail", category:"서비스/유통", name:"소매", desc:"이온·패스트리테일링·세븐&아이 등 대형 소매기업. 신졸은 점포 운영·점장 후보로 입사하는 경우가 많음. 현장에서 매니지먼트 능력을 키우고 본사 기획직으로 이동하는 루트가 있음.", jobs:["판매/서비스","영업","기획/관리"], biz:["BtoC"], culture:["현장중시","실적중심"], warnings:["시프트근무","불특정다수","불규칙"], global:"낮음", engineering:"문과가능" },
+  { id:"service_food", category:"서비스/유통", name:"외식", desc:"맥도날드·스카이락·도미노피자 등. 신졸은 점장 후보로 입사해 식재 관리·인원 관리·매출 관리를 담당하는 미니 경영자 훈련을 받음. 체력과 멘탈이 필요하며 야근·불규칙 근무가 많음.", jobs:["판매/서비스","기획/관리"], biz:["BtoC"], culture:["현장중시","체력중심"], warnings:["시프트근무","야근많음","불규칙","불특정다수"], global:"낮음", engineering:"문과가능" },
+  { id:"service_hotel", category:"서비스/유통", name:"호텔", desc:"힐튼·하얏트·뉴오타니 등. 프론트·컨시어지·예약·기획 등 다양한 직종. 인바운드 수요로 어학력 있는 인재의 수요가 급증. 불규칙 근무가 있지만 접객의 프로를 목표로 할 수 있음.", jobs:["판매/서비스","기획/관리","영업"], biz:["BtoC","BtoB"], culture:["접객중심","어학활용"], warnings:["시프트근무","불규칙","불특정다수"], global:"높음", engineering:"문과가능" },
+  { id:"service_travel", category:"서비스/유통", name:"여행", desc:"JTB·HIS·클럽투어리즘 등. 국내외 여행 상품 기획·판매·수배를 담당. 어학력이 있으면 글로벌 업무로 이어지기 쉬움. 급여 수준이 낮은 편이지만 여행이 좋은 사람에게는 천직.", jobs:["판매/서비스","기획/관리","영업"], biz:["BtoC","BtoB"], culture:["접객중심","어학활용"], warnings:["시프트근무","급여수준","불특정다수"], global:"높음", engineering:"문과가능" },
+  { id:"service_hr", category:"서비스/유통", name:"인재", desc:"리쿠르트·퍼솔·만파워 등. 기업 담당(RA)과 구직자 담당(CA)으로 나뉘어 인재를 매칭하는 영업직. 스피드감과 성과주의가 강하며 단기간에 스킬을 키울 수 있는 환경.", jobs:["영업","기획/관리","컨설팅"], biz:["BtoB","BtoC"], culture:["성과주의","스피드","사람중심"], warnings:["경쟁강함","멀티태스킹"], global:"중간", engineering:"문과가능" },
+  { id:"service_edu", category:"서비스/유통", name:"교육", desc:"베네세·학습연구사·ECC 등. 학교·기업·개인을 대상으로 교육 콘텐츠와 서비스를 제공. 사회 공헌도가 높고 안정적인 사업. 급여 수준은 평균적이지만 사람을 키운다는 보람이 큼.", jobs:["영업","기획/관리","판매/서비스"], biz:["BtoC","BtoB"], culture:["사회공헌","안정","사람중심"], warnings:["급여수준"], global:"낮음", engineering:"문과가능" },
+  { id:"service_logistics", category:"서비스/유통", name:"물류", desc:"야마토·사가와·닛폰통운 등. EC 확대로 물류 수요가 급증. 신졸은 물류기획·SCM·영업 등으로 입사. 2024년 잔업 규제 이후 IT를 활용한 효율화 인재 수요도 증가 중.", jobs:["물류/SCM","영업","기획/관리"], biz:["BtoB"], culture:["체계","현장중시","안정"], warnings:["불규칙"], global:"중간", engineering:"문과가능" },
+  { id:"media_ad", category:"미디어/광고", name:"광고", desc:"덴츠·하쿠호도·사이버에이전트 광고 등. 클라이언트의 마케팅 과제를 해결하는 종합광고대리점부터 디지털 특화까지. 기획력과 프레젠 능력이 핵심. 야근이 많고 멀티태스킹이 요구됨.", jobs:["영업","기획/관리","크리에이티브"], biz:["BtoB"], culture:["크리에이티브","스피드","열정"], warnings:["야근많음","멀티태스킹","경쟁강함"], global:"중간", engineering:"문과가능" },
+  { id:"media_tv", category:"미디어/광고", name:"TV방송", desc:"TV도쿄·TBS·후지TV 등. 제작·편성·영업·디지털 등 다양한 직종이 있음. 채용 인원이 적고 경쟁률이 매우 높음. 불규칙 근무가 많지만 콘텐츠를 만드는 크리에이티브한 환경.", jobs:["기획/관리","영업","크리에이티브"], biz:["BtoC","BtoB"], culture:["크리에이티브","불규칙"], warnings:["야근많음","불규칙"], global:"낮음", engineering:"문과가능" },
+  { id:"media_publish", category:"미디어/광고", name:"출판", desc:"코단샤·슈에이샤·쇼가쿠칸 등. 편집·영업·저작권 관리 등 다양한 직종. 디지털 전환 중이며 종이책 시장은 축소 추세. 문화·콘텐츠를 사랑하는 사람에게 매력적인 업계.", jobs:["기획/관리","영업","크리에이티브"], biz:["BtoC"], culture:["크리에이티브","전문성"], warnings:["급여수준","시장축소"], global:"낮음", engineering:"문과가능" },
+  { id:"media_game", category:"미디어/광고", name:"게임", desc:"닌텐도·소니·캡콤·반다이남코 등. 게임 기획·프로그래밍·아트·영업 등 다양한 직종. 글로벌 시장을 겨냥한 대형 타이틀 개발이 증가. 열정이 있으면 문과도 기획직으로 도전 가능.", jobs:["SE/IT","기획/관리","크리에이티브","영업"], biz:["BtoC"], culture:["크리에이티브","전문성","열정"], warnings:["야근많음","경쟁강함"], global:"높음", engineering:"문과가능" },
+  { id:"finance_megabank", category:"금융", name:"메가뱅크", desc:"미쓰비시UFJ·미즈호·미쓰이스미토모 등. 법인·개인 대상으로 융자·투자·운용 등 종합 금융 서비스 제공. 순환근무로 다양한 부서를 경험. 글로벌 부문이 활발하며 해외 주재 기회도 있음.", jobs:["영업","기획/관리","SE/IT"], biz:["BtoB","BtoC"], culture:["체계","장기고용","순환근무"], warnings:["순환근무","보수적"], global:"높음", engineering:"문과가능" },
+  { id:"finance_regional_bank", category:"금융", name:"지방은행", desc:"지역 기업과 개인을 대상으로 한 밀착형 금융 서비스. 안정적인 고용과 지역 밀착 영업이 특징. 대도시보다 지방 근무를 원하는 사람에게 적합. 성장 속도는 느리지만 안정성이 높음.", jobs:["영업","기획/관리"], biz:["BtoB","BtoC"], culture:["안정","지역밀착","체계"], warnings:["성장속도느림","보수적"], global:"낮음", engineering:"문과가능" },
+  { id:"finance_trust_bank", category:"금융", name:"신탁은행", desc:"미쓰이스미토모신탁·미즈호신탁 등. 자산운용·부동산·연금 등 전문성 높은 금융 서비스를 제공. 일반 은행보다 전문직 성격이 강하며 자격증 취득을 통한 스킬업이 중요.", jobs:["영업","기획/관리"], biz:["BtoB","BtoC"], culture:["전문성","안정","체계"], warnings:["보수적"], global:"중간", engineering:"문과가능" },
+  { id:"finance_securities", category:"금융", name:"증권", desc:"노무라·다이와·SBI증권 등. 주식·채권·펀드 등 금융상품을 기업과 개인에게 판매. 성과주의가 강하고 자격증(증권외무원) 취득 필수. 경기 변동에 민감하지만 급여 수준이 높음.", jobs:["영업","기획/관리","SE/IT"], biz:["BtoB","BtoC"], culture:["성과주의","스피드"], warnings:["경쟁강함","압박강함"], global:"높음", engineering:"문과가능" },
+  { id:"finance_asset", category:"금융", name:"자산운용", desc:"노무라AM·블랙록재팬·피델리티 등. 연금·펀드 등 자산을 운용·관리하는 고도 전문직. 채용 인원이 매우 적고 경쟁률 높음. 금융공학·경제 지식이 요구되며 성과주의 문화.", jobs:["기획/관리","영업"], biz:["BtoB"], culture:["전문성","소수정예","성과주의"], warnings:["경쟁강함"], global:"높음", engineering:"문과가능" },
+  { id:"finance_life_ins", category:"금융", name:"생명보험", desc:"닛폰생명·메이지야스다·스미토모생명 등. 개인·법인 대상 보험 영업이 주력. 영업 압박이 있는 편이지만 안정적인 대기업 환경. 자격증(FP 등)을 취득하며 전문성을 키울 수 있음.", jobs:["영업","기획/관리","SE/IT"], biz:["BtoC","BtoB"], culture:["안정","체계","장기고용"], warnings:["영업압박"], global:"중간", engineering:"문과가능" },
+  { id:"finance_nonlife_ins", category:"금융", name:"손해보험", desc:"도쿄해상·손포재팬·MS&AD 등. 자동차·화재·기업 보험 등 법인 영업 비중이 높음. 생명보험보다 BtoB 성격이 강하며 안정적인 사업 기반. 글로벌 사업 확대로 해외 주재 기회도 있음.", jobs:["영업","기획/관리","SE/IT"], biz:["BtoB","BtoC"], culture:["안정","체계","장기고용"], warnings:["보수적"], global:"중간", engineering:"문과가능" },
+  { id:"finance_card", category:"금융", name:"카드", desc:"JCB·미쓰이스미토모카드·楽天카드 등. 신용카드·전자결제 관련 사업. 데이터 분석·마케팅·가맹점 영업 등 다양한 직종. 핀테크 흐름으로 IT 인재 수요도 증가 중.", jobs:["영업","기획/관리","SE/IT"], biz:["BtoC","BtoB"], culture:["안정","데이터중시"], warnings:["성장속도느림"], global:"중간", engineering:"문과가능" },
+  { id:"finance_lease", category:"금융", name:"리스", desc:"오릭스·미쓰이스미토모파이낸스 등. 설비·항공기·부동산 등을 기업에 리스하는 BtoB 금융. 영업은 장기 관계 구축형으로 루트 영업 중심. 다양한 업종 고객을 만나는 폭넓은 업무.", jobs:["영업","기획/관리"], biz:["BtoB"], culture:["안정","체계","관계구축"], warnings:["성장속도느림"], global:"중간", engineering:"문과가능" },
+  { id:"infra_general_trading", category:"상사/인프라", name:"종합상사", desc:"미쓰비시·미쓰이·이토추·스미토모·마루베니·도요타통상 등 7대 상사. 자원·에너지·식품·IT 등 모든 업종에 걸쳐 트레이딩·투자·사업운영을 담당. 글로벌 무대에서 비즈니스를 하고 싶은 사람의 최고 목적지.", jobs:["영업","기획/관리","물류/SCM"], biz:["BtoB","글로벌"], culture:["도전","글로벌","자율"], warnings:["경쟁강함","외국어필수"], global:"필수", engineering:"문과가능" },
+  { id:"infra_specialist_trading", category:"상사/인프라", name:"전문상사", desc:"화학·식품·IT·철강 등 특정 분야에 특화된 상사. 종합상사보다 전문성이 깊고 채용 경쟁률이 상대적으로 낮음. 특화 분야의 지식을 쌓아 장기적으로 전문가를 목표로 하기 좋음.", jobs:["영업","기획/관리","물류/SCM"], biz:["BtoB"], culture:["전문성","안정","관계구축"], warnings:["성장속도느림"], global:"중간", engineering:"문과가능" },
+  { id:"infra_telecom", category:"상사/인프라", name:"통신", desc:"NTT·KDDI·소프트뱅크 등. 인프라로서 안정적인 사업 기반을 가짐. 5G·클라우드 등 신규 사업에 적극적으로 투자 중. 영업·기획·SE 등 다양한 직종이 있으며 복리후생이 충실함.", jobs:["SE/IT","영업","기획/관리"], biz:["BtoB","BtoC"], culture:["안정","체계","장기고용"], warnings:["의사결정느림"], global:"중간", engineering:"우대" },
+  { id:"infra_re_retail", category:"상사/인프라", name:"부동산(리테일)", desc:"미쓰이부동산리얼티·스미토모부동산판매 등. 개인 대상 주택 중개·판매를 담당. 인센티브형으로 성과가 수입에 직결됨. 도전적이고 결과를 숫자로 증명하고 싶은 사람에게 맞음.", jobs:["영업","판매/서비스"], biz:["BtoC"], culture:["인센티브형","성과주의","개인실적"], warnings:["경쟁강함","영업압박"], global:"낮음", engineering:"문과가능" },
+  { id:"infra_re_developer", category:"상사/인프라", name:"부동산디벨로퍼", desc:"미쓰이부동산·미쓰비시지소·스미토모부동산 등. 용지취득·기획·건설·판매까지 대형 프로젝트를 총괄. 초고난도·고연봉으로 신졸 최인기 직종 중 하나. 10년 단위 장기 프로젝트를 이끄는 PM형 커리어.", jobs:["영업","기획/관리","시공관리"], biz:["BtoB","BtoC"], culture:["도전","대형프로젝트","장기"], warnings:["야근많음","장기프로젝트"], global:"중간", engineering:"문과가능" },
+  { id:"infra_construction", category:"상사/인프라", name:"건설/제네콘", desc:"시미즈·다이세이·가지마·오바야시 등 대형 종합건설사. 빌딩·터널·댐 등 대형 건축토목을 담당. 시공관리가 주요 직종. 이공계 중심이지만 문과도 영업·관리로 입사 가능.", jobs:["시공관리","기술계","영업"], biz:["BtoB"], culture:["현장중시","체계","팀협업"], warnings:["야근많음","현장중심"], global:"중간", engineering:"우대" },
+  { id:"infra_aviation", category:"상사/인프라", name:"항공", desc:"ANA·JAL 등. 총합직은 지상 사무(기획·영업·인사)와 기술직으로 구분. 채용 인원이 적고 경쟁률이 높음. 인바운드 수요 회복으로 채용 재개 중. 어학력과 호스피탈리티가 중요.", jobs:["판매/서비스","기획/관리","영업"], biz:["BtoC","BtoB"], culture:["접객중심","어학활용","안정"], warnings:["시프트근무","불규칙","불특정다수","외국어우대"], global:"높음", engineering:"문과가능" },
+  { id:"infra_railway", category:"상사/인프라", name:"철도", desc:"JR동일본·도큐·도쿄메트로 등. 교통 인프라를 운영하며 역 주변 개발·쇼핑센터·호텔 등 부동산 사업도 전개. 안정적인 고용과 공공성이 높은 사업. 보수적이지만 지역 밀착형 커리어가 가능.", jobs:["기획/관리","영업","기술계"], biz:["BtoC","BtoB"], culture:["안정","체계","공공성"], warnings:["보수적","순환근무"], global:"낮음", engineering:"우대" },
+  { id:"infra_shipping", category:"상사/인프라", name:"해운", desc:"상선미쓰이·일본우선·카와사키기선 등 3대 해운사. 일본 무역량의 99%를 담당하는 핵심 인프라. 글로벌 무대에서 거대한 비즈니스를 다루며 고연봉. 영어 필수이며 해외 근무 기회가 많음.", jobs:["영업","물류/SCM","기획/관리"], biz:["BtoB","글로벌"], culture:["글로벌","전문성","안정"], warnings:["외국어필수"], global:"필수", engineering:"문과가능" },
+  { id:"infra_electric_power", category:"상사/인프라", name:"전력", desc:"도쿄전력·간사이전력·규슈전력 등. 인프라로서 안정성이 매우 높음. 재생에너지 전환으로 사업 변혁 중. 기술직 중심이지만 사무직도 채용. 복리후생이 충실하고 워라밸이 좋은 편.", jobs:["기술계","기획/관리","영업"], biz:["BtoB","BtoC"], culture:["안정","공공성","체계"], warnings:["보수적","변화느림"], global:"낮음", engineering:"우대" },
+  { id:"infra_gas", category:"상사/인프라", name:"가스", desc:"도쿄가스·오사카가스·도호가스 등. 도시가스 공급이라는 생활 인프라를 담당. 안정적인 사업 기반으로 이직률이 낮음. 에너지 전환(수소·LNG) 등 신사업에도 투자 중.", jobs:["기술계","영업","기획/관리"], biz:["BtoB","BtoC"], culture:["안정","공공성","체계"], warnings:["보수적","변화느림"], global:"낮음", engineering:"우대" },
+  { id:"infra_oil", category:"상사/인프라", name:"석유", desc:"ENEOS·이데미쓰흥산·INPEX 등. 원유 조달·정제·판매를 담당하는 에너지 기간산업. 이공계 중심이지만 사무계도 채용. 개발계(INPEX 등)는 글로벌 영어 필수. 탈탄소 전환으로 사업 변혁 중.", jobs:["기술계","영업","기획/관리"], biz:["BtoB"], culture:["안정","글로벌","전문성"], warnings:["외국어우대(개발계필수)"], global:"높음", engineering:"우대" }
+];
+
+// ══════════════════════════════════════
+// 상태
+// ══════════════════════════════════════
+let state = {
+  profile: [],
+  axisScores: {}, // { 환경: 0~100, 업무: 0~100, 문화: 0~100, 커리어: 0~100 }
+  q3: [],
+  q4: [],
+  q5a: [],
+  q5b: [],
+  selectedIndustries: [],
+  result: null
+};
+
+// ══════════════════════════════════════
+// 유틸
+// ══════════════════════════════════════
+function goScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function startTest() {
+  buildAxisQuestions();
+  goScreen('screen-test');
+}
+
+function resetTest() {
+  state = { profile:[], axisScores:{}, q3:[], q4:[], q5a:[], q5b:[], selectedIndustries:[], result:null };
+}
+
+// ══════════════════════════════════════
+// 프로필
+// ══════════════════════════════════════
+function toggleProfile(el) {
+  // 해당없음 선택 해제
+  const noneEl = document.getElementById('profile-none');
+  if (noneEl) noneEl.classList.remove('selected');
+  state.profile = state.profile.filter(p => p !== 'none');
+
+  el.classList.toggle('selected');
+  const key = el.dataset.profile;
+  if (el.classList.contains('selected')) {
+    if (!state.profile.includes(key)) state.profile.push(key);
+  } else {
+    state.profile = state.profile.filter(p => p !== key);
+  }
+}
+
+function toggleProfileNone(el) {
+  // 다른 선택 모두 해제
+  document.querySelectorAll('.profile-option[data-profile]').forEach(opt => {
+    if (opt.dataset.profile !== 'none') opt.classList.remove('selected');
+  });
+  state.profile = [];
+
+  el.classList.toggle('selected');
+  if (el.classList.contains('selected')) {
+    state.profile = ['none'];
+  }
+}
+
+// ══════════════════════════════════════
+// 이상적 상황 테스트
+// ══════════════════════════════════════
+function buildAxisQuestions() {
+  const container = document.getElementById('axis-questions');
+  container.innerHTML = AXIS_QUESTIONS.map((q, i) => `
+    <div class="axis-question" id="aq-${i}">
+      <div class="axis-q-num">Q${q.num} · ${q.axis}</div>
+      <div class="axis-options">
+        <div class="axis-option a-side" onclick="selectAxis(${i}, 'a', this)">
+          ${q.a}
+        </div>
+        <div class="axis-slider-wrap">
+          <input type="range" class="axis-slider" min="1" max="5" value="3"
+            id="slider-${i}" oninput="updateSlider(${i}, this.value)">
+          <div class="axis-slider-val" id="slider-val-${i}">중간</div>
+        </div>
+        <div class="axis-option b-side" onclick="selectAxis(${i}, 'b', this)">
+          ${q.b}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function selectAxis(idx, side, el) {
+  const q = AXIS_QUESTIONS[idx];
+  const container = document.getElementById(`aq-${idx}`);
+  container.querySelectorAll('.axis-option').forEach(o => {
+    o.classList.remove('selected-a', 'selected-b');
+  });
+  el.classList.add(side === 'a' ? 'selected-a' : 'selected-b');
+
+  // 슬라이더 동기화
+  const slider = document.getElementById(`slider-${idx}`);
+  slider.value = side === 'a' ? 2 : 4;
+  updateSlider(idx, slider.value);
+
+  // 상태 저장
+  const val = side === 'a' ? 25 : 75;
+  state.axisScores[`q${idx}`] = { axis: q.axis, val };
+  updateTestProgress();
+}
+
+function updateSlider(idx, val) {
+  const labels = { 1:'A 강함', 2:'A 쪽', 3:'중간', 4:'B 쪽', 5:'B 강함' };
+  document.getElementById(`slider-val-${idx}`).textContent = labels[val] || '중간';
+  const q = AXIS_QUESTIONS[idx];
+  const normalized = ((val - 1) / 4) * 100;
+  state.axisScores[`q${idx}`] = { axis: q.axis, val: normalized };
+
+  // 옵션 하이라이트
+  const container = document.getElementById(`aq-${idx}`);
+  const opts = container.querySelectorAll('.axis-option');
+  opts.forEach(o => o.classList.remove('selected-a', 'selected-b'));
+  if (val <= 2) opts[0].classList.add('selected-a');
+  if (val >= 4) opts[1].classList.add('selected-b');
+
+  updateTestProgress();
+}
+
+function updateTestProgress() {
+  const answered = Object.keys(state.axisScores).length;
+  document.getElementById('test-answered').textContent = `${answered} / 20 응답`;
+}
+
+function submitTest() {
+  // 테스트 환경: 미응답 문항은 중간값(50)으로 자동 처리
+  document.getElementById('test-warning').classList.remove('show');
+
+  // 슬라이더 기본값(3) 처리 — 선택 안 한 문항은 중간값(50)으로
+  for (let i = 0; i < 20; i++) {
+    if (!state.axisScores[`q${i}`]) {
+      state.axisScores[`q${i}`] = { axis: AXIS_QUESTIONS[i].axis, val: 50 };
+    }
+  }
+
+  buildQ3();
+  goScreen('screen-q3');
+}
+
+// ══════════════════════════════════════
+// Q3
+// ══════════════════════════════════════
+function buildQ3() {
+  const grid = document.getElementById('q3-grid');
+  grid.innerHTML = Q3_ITEMS.map((item, i) => `
+    <div class="choice-card" id="q3-${i}" onclick="toggleChoice('q3', ${i}, 3)">
+      <div class="choice-num">강점 ${String(i+1).padStart(2,'0')}</div>
+      <div class="choice-text">${item.text}</div>
+      <div class="choice-example">예) ${item.example}</div>
+    </div>
+  `).join('');
+}
+
+function toggleChoice(qKey, idx, maxSelect) {
+  const items = qKey === 'q3' ? Q3_ITEMS : qKey === 'q4' ? Q4_ITEMS : null;
+  const stateKey = qKey;
+  const card = document.getElementById(`${qKey}-${idx}`);
+  const itemId = items[idx].id;
+  const arr = state[stateKey];
+
+  if (card.classList.contains('selected')) {
+    card.classList.remove('selected');
+    state[stateKey] = arr.filter(id => id !== itemId);
+  } else {
+    if (arr.length >= maxSelect) return;
+    card.classList.add('selected');
+    state[stateKey].push(itemId);
+  }
+  updateDots(qKey, state[stateKey].length, maxSelect);
+}
+
+function updateDots(qKey, count, max) {
+  const dots = document.querySelectorAll(`#${qKey}-dots .limit-dot`);
+  dots.forEach((dot, i) => dot.classList.toggle('filled', i < count));
+  const countEl = document.getElementById(`${qKey}-count`);
+  if (countEl) countEl.textContent = `${count}/${max}`;
+}
+
+function skipQ(qKey) {
+  if (qKey === 'q3') { state.q3 = []; goScreen('screen-q4'); buildQ4(); }
+  else if (qKey === 'q4') { state.q4 = []; goScreen('screen-q5'); buildQ5(); }
+  else if (qKey === 'q5') { state.q5a = []; state.q5b = []; computeResult(); }
+}
+
+function submitQ3() {
+  document.getElementById('q3-warning').classList.remove('show');
+  buildQ4();
+  goScreen('screen-q4');
+}
+
+// ══════════════════════════════════════
+// Q4
+// ══════════════════════════════════════
+function buildQ4() {
+  const grid = document.getElementById('q4-grid');
+  grid.innerHTML = Q4_ITEMS.map((item, i) => `
+    <div class="choice-card" id="q4-${i}" onclick="toggleChoice('q4', ${i}, 3)">
+      <div class="choice-num">적성 ${String(i+1).padStart(2,'0')}</div>
+      <div class="choice-text">${item.text}</div>
+    </div>
+  `).join('');
+}
+
+function submitQ4() {
+  document.getElementById('q4-warning').classList.remove('show');
+  buildQ5();
+  goScreen('screen-q5');
+}
+
+// ══════════════════════════════════════
+// Q5
+// ══════════════════════════════════════
+function buildQ5() {
+  const gridA = document.getElementById('q5a-grid');
+  const gridB = document.getElementById('q5b-grid');
+
+  gridA.innerHTML = Q5A_ITEMS.map((item, i) => `
+    <div class="choice-card" id="q5a-${i}" onclick="toggleQ5('a', ${i})">
+      <div class="choice-num">소거 ${String(i+1).padStart(2,'0')}</div>
+      <div class="choice-text">${item.text}</div>
+    </div>
+  `).join('');
+
+  gridB.innerHTML = Q5B_ITEMS.map((item, i) => `
+    <div class="choice-card" id="q5b-${i}" onclick="toggleQ5('b', ${i})">
+      <div class="choice-num">문화 ${String(i+1).padStart(2,'0')}</div>
+      <div class="choice-text">${item.text}</div>
+      <div class="choice-example">${item.culture}</div>
+    </div>
+  `).join('');
+}
+
+function toggleQ5(track, idx) {
+  const max = track === 'a' ? 2 : 3;
+  const stateKey = track === 'a' ? 'q5a' : 'q5b';
+  const items = track === 'a' ? Q5A_ITEMS : Q5B_ITEMS;
+  const card = document.getElementById(`q5${track}-${idx}`);
+  const itemId = items[idx].id;
+  const arr = state[stateKey];
+
+  if (card.classList.contains('selected')) {
+    card.classList.remove('selected');
+    state[stateKey] = arr.filter(id => id !== itemId);
+  } else {
+    if (arr.length >= max) return;
+    card.classList.add('selected');
+    state[stateKey].push(itemId);
+  }
+  updateDots(`q5${track}`, state[stateKey].length, max);
+}
+
+function submitQ5() {
+  computeAndShowIndustry();
+}
+
+// ══════════════════════════════════════
+// 알고리즘 — 직종 매핑
+// ══════════════════════════════════════
+function computeCompetencyScores() {
+  const scores = {};
+
+  // Q3 점수 누적
+  state.q3.forEach(id => {
+    const item = Q3_ITEMS.find(i => i.id === id);
+    if (!item) return;
+    item.competency.forEach(c => { scores[c] = (scores[c] || 0) + 1; });
+  });
+
+  // Q4 점수 누적
+  state.q4.forEach(id => {
+    const item = Q4_ITEMS.find(i => i.id === id);
+    if (!item) return;
+    item.competency.forEach(c => { scores[c] = (scores[c] || 0) + 1; });
+  });
+
+  return scores;
+}
+
+function computeJobScores(compScores) {
+  const jobScores = {};
+
+  Object.entries(JOB_PROFILES).forEach(([job, profile]) => {
+    let score = 0;
+    profile.core.forEach(c => { if (compScores[c]) score += compScores[c] * 2; });
+    profile.sub.forEach(c => { if (compScores[c]) score += compScores[c]; });
+    jobScores[job] = score;
+  });
+
+  return jobScores;
+}
+
+function applyHardFilters(jobScores) {
+  const filtered = { ...jobScores };
+  const hasEngineering = state.profile.includes('engineering');
+  const hasIT = state.profile.includes('it');
+
+  // 기술계 특별 진입 조건
+  if (!hasEngineering && !hasIT) {
+    filtered['기술계'] = 0;
+  }
+
+  // 크리에이티브 특별 진입 조건
+  const hasCreativeQ3 = state.q3.includes('q3_7');
+  const hasCreativeQ4 = state.q4.includes('q4_5');
+  if (!hasCreativeQ3 && !hasCreativeQ4) {
+    filtered['크리에이티브'] = 0;
+  }
+
+  // 시공관리 특별 진입 조건
+  const hasFieldQ3 = state.q3.includes('q3_16');
+  const hasFieldQ4 = state.q4.includes('q4_13');
+  const eliminatesField = state.q5a.includes('q5a_4');
+  if ((!hasFieldQ3 && !hasFieldQ4) || eliminatesField) {
+    filtered['시공관리'] = 0;
+  }
+
+  // Q5A 소거
+  if (state.q5a.includes('q5a_1')) {
+    filtered['SE/IT'] = filtered['SE/IT'] * 0.3;
+    filtered['기술계'] = 0;
+  }
+  if (state.q5a.includes('q5a_2')) {
+    filtered['영업'] = filtered['영업'] * 0.4;
+    filtered['판매/서비스'] = filtered['판매/서비스'] * 0.4;
+  }
+  if (state.q5a.includes('q5a_4')) {
+    filtered['판매/서비스'] = 0;
+    filtered['시공관리'] = 0;
+  }
+  if (state.q5a.includes('q5a_5')) {
+    filtered['컨설팅'] = filtered['컨설팅'] * 0.3;
+  }
+
+  // 이공계+IT 동시 → 기술계 오픈
+  if (hasEngineering && hasIT) {
+    filtered['기술계'] = jobScores['기술계']; // 원래 점수 복원
+    filtered['SE/IT'] = (jobScores['SE/IT'] || 0) + 2; // 개발경험 가중치
+  } else if (hasIT) {
+    filtered['SE/IT'] = (filtered['SE/IT'] || 0) + 2;
+  }
+
+  return filtered;
+}
+
+function getTopJobs(filteredScores, n = 3) {
+  return Object.entries(filteredScores)
+    .filter(([_, s]) => s > 0)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, n)
+    .map(([job]) => job);
+}
+
+// ══════════════════════════════════════
+// 업계 선택 화면
+// ══════════════════════════════════════
+function computeAndShowIndustry() {
+  const compScores = computeCompetencyScores();
+  const jobScores = computeJobScores(compScores);
+  const filtered = applyHardFilters(jobScores);
+  const topJobs = getTopJobs(filtered, 2);
+
+  state.result = { compScores, jobScores, filteredScores: filtered, topJobs };
+
+  // 업계 화면 빌드
+  const jobLabel = topJobs.map(j => JOB_PROFILES[j]?.label || j).join(' / ');
+  document.getElementById('industry-title').textContent = `${jobLabel} 직종에 맞는 업계를 골라주세요`;
+  document.getElementById('industry-desc').textContent = '직종과 연결되는 업계를 확인하고 관심 있는 곳을 선택해주세요. 최대 3개까지 선택 가능합니다.';
+
+  buildIndustryList(topJobs);
+  goScreen('screen-industry');
+}
+
+function buildIndustryList(topJobs) {
+  const container = document.getElementById('industry-list');
+
+  // 해당 직종을 커버하는 업계 필터링
+  const availableIndustries = INDUSTRY_DB.filter(ind => {
+    return topJobs.some(job => ind.jobs.includes(job));
+  });
+
+  // 카테고리별 그룹핑
+  const cats = {};
+  availableIndustries.forEach(ind => {
+    if (!cats[ind.category]) cats[ind.category] = [];
+    cats[ind.category].push(ind);
+  });
+
+  // Q5A 외국어 필터
+  const noForeignLang = state.q5a.includes('q5a_6') || state.q5b.includes('q5b_8');
+  // Q5B 야근 필터
+  const noOvertime = state.q5b.includes('q5b_10');
+  // Q5B 경쟁 필터
+  const noCompetition = state.q5b.includes('q5b_7');
+  // Q5B 불특정다수 필터
+  const noCrowd = state.q5b.includes('q5b_9');
+
+  container.innerHTML = Object.entries(cats).map(([cat, industries]) => `
+    <div class="industry-category">
+      <div class="industry-cat-label">${cat}</div>
+      <div class="industry-grid">
+        ${industries.map(ind => {
+          const warns = [];
+          let disabled = false;
+          if (noForeignLang && (ind.global === '필수' || ind.warnings.includes('외국어필수'))) {
+            warns.push('⚠ 외국어 필수 업계');
+            disabled = true;
+          }
+          if (noOvertime && ind.warnings.some(w => w.includes('야근많음'))) {
+            warns.push('⚠ 야근 많은 업계');
+            disabled = true;
+          }
+          if (noCompetition && ind.warnings.some(w => w.includes('경쟁강함'))) {
+            warns.push('⚠ 경쟁 강한 업계');
+            disabled = true;
+          }
+          if (noCrowd && ind.warnings.includes('불특정다수')) {
+            warns.push('⚠ 불특정 다수 접점');
+            disabled = true;
+          }
+
+          const globalTag = ind.global === '필수' ? '🌐 글로벌필수' : ind.global === '높음' ? '🌐 글로벌' : '';
+          const engTag = ind.engineering === '필수' || ind.engineering === 'R&D필수' ? '🔬 이공계필수' : ind.engineering === '우대' ? '🔬 이공계우대' : '';
+          const shiftTag = ind.warnings && ind.warnings.includes('시프트근무') ? '⏰ 시프트근무 있음' : '';
+
+          return `
+            <div class="industry-card ${disabled ? 'disabled' : ''}"
+              id="ind-${ind.id}"
+              onclick="toggleIndustry('${ind.id}')">
+              <div class="industry-name">${ind.name}</div>
+              <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:8px;">
+                ${ind.biz.map(b => `<span class="industry-tag">${b}</span>`).join('')}
+                ${globalTag ? `<span class="industry-tag" style="color:#6aadff;">${globalTag}</span>` : ''}
+                ${engTag ? `<span class="industry-tag" style="color:#34d399;">${engTag}</span>` : ''}
+                ${shiftTag ? `<span class="industry-tag" style="color:var(--warn);">${shiftTag}</span>` : ''}
+              </div>
+              <div style="font-size:12px;color:var(--text2);line-height:1.6;">${ind.desc || ''}</div>
+              ${warns.length ? `<div style="font-size:11px;color:#c97272;margin-top:8px;">${warns.join(' · ')}</div>` : ''}
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+function toggleIndustry(id) {
+  const card = document.getElementById(`ind-${id}`);
+  if (!card || card.classList.contains('disabled')) return;
+
+  if (card.classList.contains('selected')) {
+    card.classList.remove('selected');
+    state.selectedIndustries = state.selectedIndustries.filter(i => i !== id);
+  } else {
+    if (state.selectedIndustries.length >= 3) return;
+    card.classList.add('selected');
+    state.selectedIndustries.push(id);
+  }
+  updateDots('industry', state.selectedIndustries.length, 3);
+}
+
+function submitIndustry() {
+  document.getElementById('industry-warning').classList.remove('show');
+  computeResult();
+}
+
+// ══════════════════════════════════════
+// 결과 계산 및 렌더링
+// ══════════════════════════════════════
+function computeResult() {
+  const { topJobs, compScores, filteredScores } = state.result;
+
+  // 4축 평균 계산
+  const axisGroups = { 환경: [], 업무: [], 문화: [], 커리어: [] };
+  Object.values(state.axisScores).forEach(({ axis, val }) => {
+    if (axisGroups[axis]) axisGroups[axis].push(val);
+  });
+  const axisAvg = {};
+  Object.entries(axisGroups).forEach(([axis, vals]) => {
+    axisAvg[axis] = vals.length ? Math.round(vals.reduce((a,b) => a+b, 0) / vals.length) : 50;
+  });
+
+  // 기업유형 결정
+  const envScore = axisAvg['환경'] || 50;
+  const cultureScore = axisAvg['문화'] || 50;
+  const bizScore = axisAvg['업무'] || 50;
+  const careerScore = axisAvg['커리어'] || 50;
+  const hasEnglish = state.profile.includes('english') || state.profile.includes('overseas');
+
+  let companyType = '';
+  let companyDesc = '';
+
+  if (envScore < 35 && cultureScore < 35) {
+    companyType = '스타트업 · 외자계';
+    companyDesc = '도전적이고 자율적인 환경에서 빠르게 성장하는 것을 선호합니다.';
+  } else if (envScore < 45 && cultureScore < 45) {
+    companyType = '메가벤처 · 성장기업';
+    companyDesc = '성장하는 조직에서 팀과 함께 새로운 것을 만들어가는 것을 선호합니다.';
+  } else if (envScore < 55 && hasEnglish) {
+    companyType = '글로벌 대기업';
+    companyDesc = '체계 있는 대기업 환경에서 글로벌 무대를 지향합니다.';
+  } else if (envScore >= 55 && cultureScore >= 55) {
+    companyType = 'JTC · 안정형 대기업';
+    companyDesc = '체계적인 환경에서 장기적 커리어를 쌓는 것을 선호합니다.';
+  } else if (careerScore < 40) {
+    companyType = '전문직 · 독립계';
+    companyDesc = '한 분야의 전문가로 깊이 파고드는 커리어를 원합니다.';
+  } else {
+    companyType = '중견기업 · 성장형';
+    companyDesc = '안정성과 성장 가능성을 동시에 추구합니다.';
+  }
+
+  // 선택한 업계 정보
+  const selectedInds = state.selectedIndustries.map(id => INDUSTRY_DB.find(i => i.id === id)).filter(Boolean);
+
+  // 결과 렌더링
+  renderResult(topJobs, axisAvg, compScores, filteredScores, companyType, companyDesc, selectedInds);
+  goScreen('screen-result');
+}
+
+function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType, companyDesc, selectedInds) {
+  const primaryJob = topJobs[0];
+  const profile = JOB_PROFILES[primaryJob];
+
+  // Hero 섹션
+  document.getElementById('result-hero').innerHTML = `
+    <div class="result-hero-label">진단 결과</div>
+    <div class="result-job-title">${profile?.emoji || ''} ${profile?.label || primaryJob}</div>
+    <div class="result-company-type">추천 기업 유형 · ${companyType}</div>
+    <div class="result-tags">
+      ${topJobs.map((j, i) => `<span class="result-tag">${i===0?'1순위':i===1?'2순위':'3순위'} ${JOB_PROFILES[j]?.label||j}</span>`).join('')}
+      ${state.profile.includes('english') ? '<span class="result-tag">영어 가능</span>' : ''}
+      ${state.profile.includes('engineering') ? '<span class="result-tag">이공계</span>' : ''}
+    </div>
+  `;
+
+  // 4축 분석
+  const axisLabels = {
+    환경: { a: '도전/성장', b: '안정/지속' },
+    업무: { a: '개인성과', b: '팀협업' },
+    문화: { a: '자율/수평', b: '체계/구조' },
+    커리어: { a: '스페셜리스트', b: '제너럴리스트' }
+  };
+
+  const axisHTML = Object.entries(axisAvg).map(([axis, val]) => {
+    const labels = axisLabels[axis] || { a: 'A', b: 'B' };
+    const side = val < 50 ? labels.a : labels.b;
+    return `
+      <div class="axis-result">
+        <div class="axis-result-header">
+          <span class="axis-result-name">${axis}</span>
+          <span class="axis-result-val">${side} 성향 (${val}%)</span>
+        </div>
+        <div class="axis-result-track">
+          <div class="axis-result-fill" style="width:${val}%"></div>
+        </div>
+        <div class="axis-result-labels">
+          <span>${labels.a}</span>
+          <span>${labels.b}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // ── 컨설턴트용 상세 데이터 ──
+  // 직종 전체 점수 순위
+  const allJobScores = Object.entries(filteredScores)
+    .sort((a,b) => b[1]-a[1]);
+
+  // Q3 선택 텍스트
+  const q3Selected = state.q3.map(id => {
+    const item = Q3_ITEMS.find(i => i.id === id);
+    return item ? item.text : id;
+  });
+
+  // Q4 선택 텍스트
+  const q4Selected = state.q4.map(id => {
+    const item = Q4_ITEMS.find(i => i.id === id);
+    return item ? item.text : id;
+  });
+
+  // Q5A 소거 텍스트
+  const q5aSelected = state.q5a.map(id => {
+    const item = Q5A_ITEMS.find(i => i.id === id);
+    return item ? item.text : id;
+  });
+
+  // Q5B 단점 텍스트
+  const q5bSelected = state.q5b.map(id => {
+    const item = Q5B_ITEMS.find(i => i.id === id);
+    return item ? item.text : id;
+  });
+
+  // 프로필 텍스트
+  const profileMap = {
+    engineering: '이공계 전공',
+    it: 'IT/CS 전공 또는 개발 경험',
+    english: '영어 비즈니스 레벨 이상',
+    overseas: '해외 거주·유학 경험',
+    none: '해당 없음 (문과 계열)'
+  };
+  const profileSelected = state.profile.map(p => profileMap[p] || p);
+
+  // 컨설턴트용 HTML
+  const consultHTML = `
+    <div id="consult-detail" style="display:none;">
+      <div style="padding:20px 22px;background:rgba(74,158,255,0.04);border:1px solid var(--accent-border);border-radius:10px;margin-bottom:28px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:16px;text-transform:uppercase;">상세 데이터</div>
+
+        <!-- 프로필 -->
+        <div style="margin-bottom:18px;">
+          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">📋 기본 프로필</div>
+          ${profileSelected.length > 0
+            ? profileSelected.map(p => `<span style="display:inline-block;font-size:11px;padding:3px 10px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text-dim);margin:2px 3px 2px 0;">${p}</span>`).join('')
+            : '<span style="font-size:11px;color:var(--text-muted);">선택 없음</span>'
+          }
+        </div>
+
+        <!-- 4축 원점수 -->
+        <div style="margin-bottom:18px;">
+          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">📊 4축 성향 점수</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            ${Object.entries(axisAvg).map(([axis, val]) => {
+              const labels = axisLabels[axis] || { a:'A', b:'B' };
+              const side = val < 40 ? `강한 ${labels.a}` : val > 60 ? `강한 ${labels.b}` : val < 50 ? `${labels.a} 경향` : `${labels.b} 경향`;
+              return `<div style="padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;">
+                <div style="font-size:10px;color:var(--text-muted);margin-bottom:3px;">${axis}</div>
+                <div style="font-size:12px;font-weight:700;color:var(--text-sub);">${side}</div>
+                <div style="font-size:10px;color:var(--accent);margin-top:1px;">${val}%</div>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>
+
+        <!-- Q3 강점 선택 -->
+        <div style="margin-bottom:18px;">
+          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">💪 무의식적 강점 (Q3 선택)</div>
+          ${q3Selected.length > 0
+            ? q3Selected.map(t => `<div style="font-size:12px;color:var(--text-dim);padding:6px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:4px;">· ${t}</div>`).join('')
+            : '<span style="font-size:11px;color:var(--text-muted);">건너뜀</span>'
+          }
+        </div>
+
+        <!-- Q4 적성 선택 -->
+        <div style="margin-bottom:18px;">
+          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">🎯 자연스러운 적성 (Q4 선택)</div>
+          ${q4Selected.length > 0
+            ? q4Selected.map(t => `<div style="font-size:12px;color:var(--text-dim);padding:6px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:4px;">· ${t}</div>`).join('')
+            : '<span style="font-size:11px;color:var(--text-muted);">건너뜀</span>'
+          }
+        </div>
+
+        <!-- Q5A 소거 -->
+        <div style="margin-bottom:18px;">
+          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">🚫 직종 소거 필터 (Q5A 선택)</div>
+          ${q5aSelected.length > 0
+            ? q5aSelected.map(t => `<div style="font-size:12px;color:#f59e0b;padding:6px 10px;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);border-radius:6px;margin-bottom:4px;">· ${t}</div>`).join('')
+            : '<span style="font-size:11px;color:var(--text-muted);">선택 없음</span>'
+          }
+        </div>
+
+        <!-- Q5B 기업문화 단점 -->
+        <div style="margin-bottom:18px;">
+          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">⚠️ 나의 단점 / 기업문화 매칭 (Q5B 선택)</div>
+          ${q5bSelected.length > 0
+            ? q5bSelected.map(t => `<div style="font-size:12px;color:var(--text-dim);padding:6px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:4px;">· ${t}</div>`).join('')
+            : '<span style="font-size:11px;color:var(--text-muted);">선택 없음</span>'
+          }
+        </div>
+
+        <!-- 선택한 업계 -->
+        <div style="margin-bottom:18px;">
+          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">🏢 관심 업계 (선택)</div>
+          ${state.selectedIndustries.length > 0
+            ? state.selectedIndustries.map(id => {
+                const ind = INDUSTRY_DB.find(i => i.id === id);
+                return ind ? `<span style="display:inline-block;font-size:11px;padding:3px 10px;background:var(--accent-soft);border:1px solid var(--accent-border);border-radius:6px;color:var(--accent);margin:2px 3px 2px 0;">${ind.name}</span>` : '';
+              }).join('')
+            : '<span style="font-size:11px;color:var(--text-muted);">선택 없음</span>'
+          }
+        </div>
+
+        <!-- 직종 전체 점수 순위 -->
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">📈 직종 적합도 전체 순위</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            ${allJobScores.map(([job, score], i) => {
+              const p = JOB_PROFILES[job];
+              const maxScore = allJobScores[0][1] || 1;
+              const pct = maxScore > 0 ? Math.round(score/maxScore*100) : 0;
+              return `<div style="display:flex;align-items:center;gap:10px;">
+                <span style="font-size:10px;color:var(--text-muted);width:16px;text-align:right;flex-shrink:0;">${i+1}</span>
+                <span style="font-size:12px;color:${i===0?'var(--accent)':'var(--text-dim)'};font-weight:${i===0?'700':'400'};width:90px;flex-shrink:0;">${p?.label || job}</span>
+                <div style="flex:1;height:3px;background:var(--surface-2);border-radius:2px;overflow:hidden;">
+                  <div style="height:100%;width:${pct}%;background:${i===0?'var(--accent)':'var(--border-hover)'};border-radius:2px;"></div>
+                </div>
+                <span style="font-size:10px;color:var(--text-muted);width:32px;text-align:right;flex-shrink:0;">${pct}%</span>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  // 역량 점수 상위 5개
+  // 역량 한국어-일본어 매핑 + 설명
+  const COMP_INFO = {
+    '論理的思考力': { ko:'논리적사고력', desc:'체계적으로 분석하고 판단하는 힘' },
+    '洞察力':       { ko:'통찰력',       desc:'본질을 파악하고 핵심을 간파하는 힘' },
+    '創造力':       { ko:'창조력',       desc:'새로운 아이디어와 가치를 만들어내는 힘' },
+    '企画力':       { ko:'기획력',       desc:'아이디어를 현실로 만드는 힘' },
+    '冷静さ':       { ko:'냉정함',       desc:'어려운 상황에서도 이성적으로 판단하는 힘' },
+    '積極性':       { ko:'적극성',       desc:'자발적으로 행동하고 참여하는 자세' },
+    '粘り強さ':     { ko:'끈기',         desc:'성과를 위해 끝까지 노력하는 자세' },
+    '実行力':       { ko:'실행력',       desc:'계획을 신속하게 행동으로 옮기는 능력' },
+    '自己管理能力': { ko:'자기관리능력', desc:'자신의 상태와 일정을 컨트롤하는 능력' },
+    '状況把握力':   { ko:'상황파악력',   desc:'주변 상황을 빠르게 인식하고 대응하는 능력' },
+    '発信力':       { ko:'발신력',       desc:'생각을 논리적이고 정확하게 전달하는 능력' },
+    '傾聴力':       { ko:'경청력',       desc:'상대의 말을 주의 깊게 듣고 이해하는 능력' },
+    '共感力':       { ko:'공감력',       desc:'상대방의 입장에서 생각할 수 있는 능력' },
+    '牽引力':       { ko:'견인력',       desc:'팀을 이끌고 목표 달성으로 이끄는 리더십' },
+    '調整力':       { ko:'조정력',       desc:'이해관계가 다른 사람들 사이에서 합의점을 찾는 능력' },
+    '柔軟性':       { ko:'유연성',       desc:'다양한 의견을 수용하고 적응하는 능력' },
+    '協調性':       { ko:'협조성',       desc:'팀워크를 중시하고 함께 협력하는 자세' },
+    '責任感':       { ko:'책임감',       desc:'맡은 업무와 역할에 끝까지 책임지는 자세' },
+  };
+
+  const topComps = Object.entries(compScores)
+    .sort((a,b) => b[1]-a[1])
+    .slice(0, 5);
+
+  const maxCompScore = topComps[0]?.[1] || 1;
+
+  const compHTML = topComps.map(([name, score]) => {
+    const info = COMP_INFO[name] || { ko: name, desc: '' };
+    return `
+      <div class="comp-bar-item" style="align-items:flex-start;flex-direction:column;gap:6px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:6px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+          <div>
+            <span style="font-size:13px;font-weight:700;color:var(--text-sub);">${info.ko}</span>
+            <span style="font-size:11px;color:var(--text-muted);margin-left:6px;font-family:'Noto Sans JP',sans-serif;">${name}</span>
+          </div>
+          <span style="font-size:11px;color:var(--accent);font-weight:600;">${Math.round(score/maxCompScore*100)}%</span>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.5;">${info.desc}</div>
+        <div style="width:100%;height:3px;background:var(--surface-2);border-radius:2px;overflow:hidden;">
+          <div style="height:100%;width:${Math.round(score/maxCompScore*100)}%;background:var(--accent);border-radius:2px;"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // 업계 결과
+  const industryHTML = selectedInds.length > 0 ? selectedInds.map((ind, i) => {
+    const warnMsg = [];
+    if (ind.warnings.includes('야근많음')) warnMsg.push('⚠ 야근이 많은 편입니다');
+    if (ind.warnings.some(w=>w.includes('경쟁'))) warnMsg.push('⚠ 경쟁이 강한 문화입니다');
+
+    return `
+      <div class="industry-result-card ${i===0?'primary':''}">
+        <div class="industry-rank-badge rank-${i+1}">${i+1}</div>
+        <div class="industry-result-body">
+          <div class="industry-result-name">${ind.name}</div>
+          <div class="industry-result-desc">
+            ${ind.biz.join(' · ')} · ${ind.culture.slice(0,2).join(' · ')} · 글로벌 ${ind.global}
+          </div>
+          ${warnMsg.map(w => `<div class="industry-result-warn">${w}</div>`).join('')}
+        </div>
+      </div>
+    `;
+  }).join('') : '<p style="color:var(--text3);font-size:13px;">업계 선택을 건너뛰었습니다.</p>';
+
+  // 전체 결과 바디
+  document.getElementById('result-body').innerHTML = `
+
+    <!-- 컨설턴트용 토글 버튼 -->
+    <div style="margin-bottom:28px;">
+      <button onclick="document.getElementById('consult-detail').style.display = document.getElementById('consult-detail').style.display === 'none' ? 'block' : 'none'; this.textContent = this.textContent.includes('펼치기') ? '📋 상세 데이터 접기 ↑' : '📋 상세 데이터 펼치기 ↓';"
+        style="width:100%;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text-dim);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-align:left;transition:all 0.2s;"
+        onmouseover="this.style.borderColor='var(--accent-border)';this.style.color='var(--accent)'"
+        onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-dim)'"
+      >
+        📋 상세 데이터 펼치기 ↓
+      </button>
+      ${consultHTML}
+    </div>
+
+    <div class="result-section">
+      <div class="result-section-title">커리어 성향 분석 (4축)</div>
+      ${axisHTML}
+    </div>
+
+    <div class="result-section">
+      <div class="result-section-title">핵심 역량 프로파일</div>
+      <div class="competency-bars">${compHTML}</div>
+    </div>
+
+    <div class="result-section">
+      <div class="result-section-title">선택한 업계</div>
+      <div class="industry-result-list">${industryHTML}</div>
+    </div>
+
+    <div class="result-section">
+      <div class="result-section-title">직종 라이브러리 — 심화 학습</div>
+      <div style="padding:20px 22px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <div style="font-size:24px;flex-shrink:0;">🔒</div>
+          <div style="flex:1;">
+            <div style="font-size:13px;font-weight:700;color:var(--text-sub);margin-bottom:4px;">직종 라이브러리 — 유료 콘텐츠</div>
+            <div style="font-size:12px;color:var(--text-dim);line-height:1.8;margin-bottom:14px;">
+              9개 직종 × 3레벨 카드. 직종 정의부터 ES/면접 포인트까지.<br>
+              ${topJobs.map((job, i) => {
+                const p = JOB_PROFILES[job];
+                return `<strong style="color:var(--text-sub);">${p?.label || job}</strong> 포함`;
+              }).join(' · ')} 전 직종 접근 가능.
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <a href="https://tokyocareerstudio.com/library" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--accent);color:#fff;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">
+                라이브러리 구매하기 →
+              </a>
+              <a href="https://tokyocareerstudio-jobselection.netlify.app/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:transparent;color:var(--text-dim);border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">
+                미리보기 (lv1 맵)
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:12px 16px;background:var(--accent-soft);border:1px solid var(--accent-border);border-radius:8px;">
+        <div style="font-size:11px;color:var(--accent);line-height:1.7;">
+          💡 이미 구매하셨나요? 
+          <a href="https://tokyocareerstudio-jobselection.netlify.app/" target="_blank" style="color:var(--accent);font-weight:600;text-decoration:underline;">라이브러리 입장하기 →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-section">
+      <div class="result-section-title">다음 단계</div>
+      <div style="padding:20px 22px;background:var(--surface);border:1px solid var(--border);border-radius:10px;">
+        <p style="font-size:13px;color:var(--text-dim);line-height:2.0;margin-bottom:16px;">
+          ${companyDesc}<br><br>
+          Tokyo Career Studio의 1:1 PT 상담에서 이 결과를 바탕으로<br>
+          <strong style="color:var(--text-sub);">구체적인 기업 리스트와 ES 전략</strong>까지 함께 설계해드립니다.
+        </p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span style="font-size:11px;padding:4px 10px;border-radius:100px;border:1px solid var(--border);color:var(--text-muted);">직종별 ES 전략</span>
+          <span style="font-size:11px;padding:4px 10px;border-radius:100px;border:1px solid var(--border);color:var(--text-muted);">기업 선정 기준</span>
+          <span style="font-size:11px;padding:4px 10px;border-radius:100px;border:1px solid var(--border);color:var(--text-muted);">면접 대비</span>
+          <span style="font-size:11px;padding:4px 10px;border-radius:100px;border:1px solid var(--border);color:var(--text-muted);">자기분석 심화</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function copyCoupon() {
+  const code = document.getElementById('coupon-code').textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '복사됨!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '복사'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// 슬라이더 기본값 처리 (페이지 로드 시 모든 슬라이더를 중간값으로 초기화)
+document.addEventListener('DOMContentLoaded', () => {
+  // 인트로 화면 활성화는 CSS로 처리
+});
+</script>
+</body>
+</html>
