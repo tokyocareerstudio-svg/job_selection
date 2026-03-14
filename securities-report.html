@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>증권 업계 리포트 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--border:#2a2a35;--border-hover:#3a3a48;
+    --text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;
+    --accent:#e17055;--accent-soft:rgba(225,112,85,0.08);--accent-border:rgba(225,112,85,0.22);
+    --online:#55efc4;--online-soft:rgba(85,239,196,0.08);--online-border:rgba(85,239,196,0.2);
+    --intl:#a29bfe;--intl-soft:rgba(162,155,254,0.08);--intl-border:rgba(162,155,254,0.2);
+    --warn:#f59e0b;--warn-soft:rgba(245,158,11,0.06);--warn-border:rgba(245,158,11,0.18);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased}
+  .container{max-width:760px;margin:0 auto;padding:0 24px 100px}
+  .hero{padding:64px 24px 48px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(225,112,85,0.06) 0%,transparent 70%);pointer-events:none}
+  .hero-inner{position:relative;max-width:760px;margin:0 auto}
+  .hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);padding:4px 12px;border-radius:12px;margin-bottom:20px;text-transform:uppercase}
+  .hero h1{font-size:30px;font-weight:900;line-height:1.3;margin-bottom:10px;letter-spacing:-0.5px}
+  .hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:20px;max-width:560px}
+  .hero-tags{display:flex;flex-wrap:wrap;gap:6px}
+  .hero-tag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500}
+  .hero-tag.a{background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent-border)}
+  .hero-tag.o{background:var(--online-soft);color:var(--online);border:1px solid var(--online-border)}
+  .hero-tag.i{background:var(--intl-soft);color:var(--intl);border:1px solid var(--intl-border)}
+  .section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0}
+  .section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+  .section-nav-inner::-webkit-scrollbar{display:none}
+  .nav-btn{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap}
+  .nav-btn:hover,.nav-btn.active{color:var(--accent);background:var(--accent-soft)}
+  .section{padding:44px 0;border-bottom:1px solid rgba(255,255,255,0.03)}
+  .section:last-child{border-bottom:none}
+  .section-num{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);opacity:.7;margin-bottom:6px;text-transform:uppercase}
+  .section-title{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px}
+  .section-title-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px}
+  .section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px}
+  .section p:last-child{margin-bottom:0}
+  .section h3{font-size:14px;font-weight:700;color:var(--text-sub);margin:28px 0 12px;padding-left:10px;border-left:2px solid var(--accent)}
+  .section h3.o{border-left-color:var(--online)}
+  .section h3.i{border-left-color:var(--intl)}
+  .info-box{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0}
+  .info-box-accent{background:var(--accent-soft);border-color:var(--accent-border);border-left:3px solid var(--accent)}
+  .info-box-warn{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn)}
+  .info-box p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0}
+  .box-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:6px;text-transform:uppercase}
+  .box-label-warn{color:var(--warn)}
+  .hl{color:var(--accent);font-weight:600}
+  .hl-o{color:var(--online);font-weight:600}
+  .hl-i{color:var(--intl);font-weight:600}
+  .hl-warn{color:var(--warn);font-weight:600}
+  .table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  thead{background:var(--surface-2)}
+  th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase}
+  td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7}
+  tr:last-child td{border-bottom:none}
+  td:first-child{font-weight:700;color:var(--text-sub)}
+  .trend-card{padding:20px 22px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:12px 0}
+  .trend-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:6px;text-transform:uppercase}
+  .trend-card h4{font-size:14px;font-weight:700;margin-bottom:10px;color:var(--text)}
+  .trend-card p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:10px}
+  .trend-card p:last-child{margin-bottom:0}
+  .use-tag{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;margin:6px 4px 4px 0;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent-border)}
+  .company-group{margin:20px 0}
+  .company-group-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--text-muted);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);text-transform:uppercase}
+  .company-card{padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;transition:border-color 0.2s}
+  .company-card:hover{border-color:var(--border-hover)}
+  .company-card.primary{border-color:var(--accent-border)}
+  .company-card.primary-o{border-color:var(--online-border)}
+  .company-card.primary-i{border-color:var(--intl-border)}
+  .company-type{font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1px;margin-bottom:4px;text-transform:uppercase}
+  .company-type.o{color:var(--online)}
+  .company-type.i{color:var(--intl)}
+  .company-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px}
+  .company-name-jp{font-family:'Noto Sans JP',sans-serif;font-size:12px;color:var(--text-muted);font-weight:400;margin-left:6px}
+  .company-desc{font-size:12px;color:var(--text-dim);line-height:1.8}
+  .company-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+  .company-tag{font-size:10px;padding:2px 8px;border-radius:6px;background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border)}
+  .company-tag.a{background:var(--accent-soft);color:var(--accent);border-color:var(--accent-border)}
+  .company-tag.o{background:var(--online-soft);color:var(--online);border-color:var(--online-border)}
+  .company-tag.i{background:var(--intl-soft);color:var(--intl);border-color:var(--intl-border)}
+  .job-link-card{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;margin-bottom:8px}
+  .job-link-card:hover{border-color:var(--accent-border);background:var(--accent-soft)}
+  .job-link-icon{font-size:24px;flex-shrink:0;margin-top:2px}
+  .job-link-body{flex:1}
+  .job-link-kicker{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:4px;text-transform:uppercase}
+  .job-link-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px}
+  .job-link-desc{font-size:12px;color:var(--text-dim);line-height:1.7;margin-bottom:8px}
+  .job-link-tags{display:flex;flex-wrap:wrap;gap:4px}
+  .job-link-tag{font-size:10px;padding:2px 8px;border-radius:6px;background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border)}
+  .job-link-arrow{font-size:16px;color:var(--accent);flex-shrink:0;margin-top:4px}
+  .keyword-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}
+  .keyword-card{padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px}
+  .keyword-name{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:4px}
+  .keyword-name-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);font-weight:400;margin-left:4px}
+  .keyword-desc{font-size:11px;color:var(--text-dim);line-height:1.7}
+  .es-pattern{padding:16px 18px;background:var(--surface-2);border-radius:8px;margin:12px 0}
+  .es-pattern-label{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--accent);margin-bottom:8px;text-transform:uppercase}
+  .es-pattern p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0}
+  .footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center}
+  .footer p{font-size:11px;color:var(--text-muted);line-height:1.8}
+  .footer .brand{font-weight:700;color:var(--text-dim)}
+  @media(max-width:640px){.keyword-grid{grid-template-columns:1fr}.hero h1{font-size:24px}.section-title{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">업계 리포트 Vol.22</div>
+    <h1>증권 업계 완전 정리</h1>
+    <p class="hero-sub">
+      노무라·다이와·SMBC닛코 대형 증권사부터 SBI·라쿠텐 온라인 증권까지.<br>
+      신NISA·금리 상승·자산 운용 입국이 재편하는 증권 업계를 한 페이지에.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag a">대형 종합증권</span>
+      <span class="hero-tag o">온라인 증권</span>
+      <span class="hero-tag i">외자계 IB</span>
+      <span class="hero-tag a">신NISA·자산운용</span>
+    </div>
+  </div>
+</div>
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('s1')">01 업계전체상</button>
+    <button class="nav-btn" onclick="scrollTo('s2')">02 트렌드</button>
+    <button class="nav-btn" onclick="scrollTo('s3')">03 활약직종</button>
+    <button class="nav-btn" onclick="scrollTo('s4')">04 키워드</button>
+    <button class="nav-btn" onclick="scrollTo('s5')">05 기업리스트</button>
+    <button class="nav-btn" onclick="scrollTo('s6')">06 ES대책</button>
+    <button class="nav-btn" onclick="scrollTo('s7')">07 면접대책</button>
+  </div>
+</div>
+<div class="container">
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <div class="section-num">SECTION 01</div>
+  <div class="section-title">업계 전체상</div>
+  <div class="section-title-jp">業界全体像 — 総合証券・ネット証券・外資IB</div>
+  <div class="info-box info-box-accent">
+    <div class="box-label">한 줄 정의</div>
+    <p><span class="hl">주식·채권·투자신탁 등 유가증권의 매매·중개·인수·자산운용을 담당하는 업계. 2024년 신NISA 확충·금리 상승·일본 "자산운용 입국" 정책이 겹치면서 증권 업계 전체가 구조적 성장기에 진입했다.</span></p>
+  </div>
+  <p>일본 개인 금융 자산 약 <span class="hl">2,200조 엔</span> 중 현금·예금 비율이 약 54%로 세계 주요국 대비 압도적으로 높다. 정부의 "저축에서 투자로" 정책 전환과 신NISA 확충이 맞물려 증권 업계 전체의 영업 환경이 개선되고 있다.</p>
+
+  <h3>증권 업계의 4가지 분류</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>분류</th><th>특징</th><th>대표 기업</th></tr></thead>
+      <tbody>
+        <tr><td>대형 종합증권</td><td>리테일(개인 영업)·법인·투자은행·자산운용을 망라. 지점 네트워크와 대면 영업이 강점. 고액 자산가·기업 고객이 중심</td><td>노무라증권, 다이와증권, SMBC닛코증권, 미즈호증권</td></tr>
+        <tr><td>온라인 증권</td><td>수수료 무료·저수수료를 무기로 개인 투자자 시장을 과점. 신NISA 계좌 개설 수 폭발적 증가. 데이터 기반 서비스가 강점</td><td>SBI증권, 라쿠텐증권, 마쓰이증권, aukabu닷컴증권</td></tr>
+        <tr><td>외자계 투자은행</td><td>M&A자문·기업 인수합병·트레이딩에 특화. 성과주의 극단. 연봉 최상위. 채용 난이도 일본 취업 최최상위급</td><td>골드만삭스재팬, 모건스탠리재팬, JP모건재팬, UBS재팬</td></tr>
+        <tr><td>중소·지역 증권</td><td>특정 지역 고객·니치 분야에 특화. 대형 증권보다 채용 접근성이 현실적. 지역 경제와 밀착한 영업</td><td>오카산증권, 도카이도쿄금융홀딩스</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>비즈니스 모델</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>수익 모델</th><th>구조</th><th>특징</th></tr></thead>
+      <tbody>
+        <tr><td>위탁 수수료</td><td>주식·투자신탁 매매 수수료. 온라인 증권의 무료화 트렌드로 대형 종합증권도 NISA 거래 무료화를 추진 중</td><td>수수료 수입은 감소 경향. 대신 자산 잔고 연동 보수(랩 계좌 등)로 전환 중</td></tr>
+        <tr><td>인수·자문 수수료</td><td>기업의 주식·채권 공개(IPO·PO)·사채 발행 인수에서 수수료. M&A 자문도 포함</td><td>외자계 IB의 핵심 수익원. 일본 기업의 M&A 활성화로 성장 중</td></tr>
+        <tr><td>자산운용 보수</td><td>투자신탁·랩 계좌·연금의 운용 보수. 운용 자산 잔고에 비례하는 안정적 반복 수익</td><td>신NISA로 잔고 급증 중. 특히 인덱스 펀드의 저보수 경쟁과 액티브 펀드의 고보수 공존 구도</td></tr>
+        <tr><td>트레이딩 수익</td><td>자기 계정 트레이딩(채권·주식·외환). 금리 상승 환경에서 채권 운용 전략이 중요</td><td>금리 변동에 수익이 민감. 리스크 관리 능력이 트레이딩 부문의 핵심</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">대형 종합증권의 현실 — 리테일 영업의 어려움</div>
+    <p>대형 종합증권의 리테일(개인 영업)은 <span class="hl-warn">노르마(영업 할당)와 성과 압박이 강한 세계</span>다. 고객에게 금융 상품을 제안하고 매매를 이끌어내는 영업은 은행 MR과 달리 직접적인 매수 권유가 가능하지만, 그만큼 고객 자산 변동에 직접 관여하는 책임도 크다. 영업 노르마 미달 시의 압박·잦은 이직이 업계의 현실이다. <strong style="color:var(--text-sub);">이 환경을 이해한 뒤 "그럼에도 증권 리테일에서 일하고 싶은 이유"를 명확히 하는 것이 합격과 장기 커리어 양쪽에 필수다.</strong></p>
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <div class="section-num">SECTION 02</div>
+  <div class="section-title">면접관이 체크하는 트렌드 3선</div>
+  <div class="section-title-jp">面接官がチェックするトレンド</div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 01</div>
+    <h4>신NISA 확충과 "저축에서 투자로" — 증권 업계의 구조적 순풍</h4>
+    <p>2024년 신NISA 제도 확충으로 연간 투자 한도가 360만 엔·평생 한도 1,800만 엔으로 대폭 확대됐다. SBI증권·라쿠텐증권의 NISA 계좌 개설 수가 폭발적으로 증가하면서 <span class="hl">온라인 증권의 개인 자산 잔고가 구조적으로 성장</span>하고 있다. 동시에 대형 종합증권도 NISA 계좌 무료화로 젊은 세대의 유입을 가속하고 있다.</p>
+    <div class="use-tag">전 증권사 활용</div>
+    <p>"신NISA는 단순한 제도 확충이 아니라 일본인의 자산 형성 행동 자체를 바꾸는 전환점입니다. 이 기회에 더 많은 개인이 자산 운용에 참여할 수 있도록 지원하는 역할에서 기여하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 02</div>
+    <h4>일본 M&A·기업 재편 가속 — 투자은행 사업의 성장</h4>
+    <p>일본 기업의 M&A 건수가 2024년에 사상 최고 수준에 달했다. <span class="hl">기업 거버넌스 개혁·사업 포트폴리오 재편·후계자 부족으로 인한 M&A</span>가 구조적으로 증가하고 있으며, 노무라·다이와의 투자은행(IB) 부문이 성장 엔진이 되고 있다. 외자계 IB(골드만·모건스탠리)도 일본 시장에서의 딜 수주를 가속하고 있다.</p>
+    <div class="use-tag">대형 종합증권·외자계 활용</div>
+    <p>"일본 기업의 사업 재편을 자본 시장에서 지원하는 투자은행 업무에 관심이 있습니다. M&A를 통해 기업 가치를 높이고 일본 경제의 구조 전환에 기여하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 03</div>
+    <h4>자산운용 입국 — 일본을 세계 자산운용 허브로</h4>
+    <p>일본 정부가 "자산운용 입국" 구상을 발표하면서 <span class="hl-o">해외 운용사의 일본 거점 유치·일본계 운용사의 실력 향상</span>이 정책 목표가 됐다. 영어 능력이 있는 금융 인재에 대한 수요가 급증하고, 외자계 자산운용사·IB의 일본 채용이 활발해지고 있다. 핀테크·AI를 활용한 로보어드바이저·자동화 포트폴리오 관리도 성장 분야다.</p>
+    <div class="use-tag">외자계·자산운용 활용</div>
+    <p>"자산운용 입국 정책으로 일본 자본 시장의 글로벌화가 가속되고 있습니다. 영어 능력과 금융 지식을 동시에 활용해 국제적인 금융 서비스를 제공하는 역할에 기여하고 싶습니다."</p>
+  </div>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <div class="section-num">SECTION 03</div>
+  <div class="section-title">이 업계에서 활약하는 직종</div>
+  <div class="section-title-jp">証券業界で活躍する職種</div>
+  <p>증권 업계의 핵심 직종은 <span class="hl">리테일 영업(개인 고객 자산 운용 제안)·법인 영업·IB(투자은행)·트레이딩·리서치</span>다. 은행의 금융영업 카드와 연결한다.</p>
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/sales-eg05-finance" target="_blank" class="job-link-card">
+    <div class="job-link-icon">📈</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">금융 영업 — 직종 상세 카드 EG-05</div>
+      <div class="job-link-title">증권 영업 — 고객의 자산을 시장과 연결하는 사람</div>
+      <div class="job-link-desc">개인·법인 고객에게 주식·투자신탁·채권·랩 계좌를 제안. <strong style="color:var(--text-sub);">자격증(증권외무원 1종) 취득이 업무의 전제 조건.</strong> 성과주의·노르마 문화를 이해한 뒤 지원해야 하는 업계.</div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">증권외무원 1종 필수</span>
+        <span class="job-link-tag">노르마 문화</span>
+        <span class="job-link-tag">고객 자산 운용 제안</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+  <div class="info-box" style="margin-top:16px">
+    <div class="box-label">증권 업계 직종 상세</div>
+    <p><strong style="color:var(--text-sub);">리테일 영업:</strong> 개인 고객의 자산 운용 제안. 신졸의 대부분이 시작하는 포지션. 노르마·성과 압박이 강한 세계.<br><br>
+    <strong style="color:var(--text-sub);">IB(투자은행):</strong> IPO·사채·M&A 자문. 대형 종합증권의 성장 부문. 재무 모델링·DCF 분석 능력이 핵심.<br><br>
+    <strong style="color:var(--text-sub);">트레이딩·마켓:</strong> 채권·주식·파생상품의 자기 계정 거래. 이과·수리계 인재도 활약. 시장 동향 분석과 순간 판단력이 핵심.<br><br>
+    <strong style="color:var(--text-sub);">리서치 애널리스트:</strong> 상장 기업·산업 조사 레포트 작성. 투자 판단의 근거를 제공. 영어 능력과 전문 업종 지식이 평가됨.<br><br>
+    <span class="hl">온라인 증권(SBI·라쿠텐)은 IT·데이터 직종의 비중이 높아 금융 × IT 능력을 가진 인재에게 최적의 환경이다.</span></p>
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <div class="section-num">SECTION 04</div>
+  <div class="section-title">증권 업계 × 자기분석 키워드</div>
+  <div class="section-title-jp">自己分析キーワードとの接続</div>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">탐구심 <span class="keyword-name-jp">探求心</span></div>
+      <div class="keyword-desc">경제·금융 동향·기업 실적을 일상적으로 공부하는 자세. 리서치·IB에서는 담당 업종의 전문가 수준 지식이 필수. 일간지 경제면·결산 자료를 스스로 읽는 습관이 증권인의 기본.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">냉정함 <span class="keyword-name-jp">冷静さ</span></div>
+      <div class="keyword-desc">시장 급변·고객 자산 감소·노르마 압박 속에서도 흔들리지 않고 최적 판단을 내리는 능력. 트레이딩에서는 순간의 감정이 거액 손실로 이어지는 세계. 리테일에서는 고객 클레임에 침착하게 대응하는 힘.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">발신력 <span class="keyword-name-jp">発信力</span></div>
+      <div class="keyword-desc">복잡한 금융 상품의 가치를 고객에게 알기 쉽게 전달하는 능력. 투자신탁의 리스크·리턴 구조를 비전문가에게 납득시키는 설명력이 리테일 영업의 핵심 가치다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">책임감 <span class="keyword-name-jp">責任感</span></div>
+      <div class="keyword-desc">고객의 노후 자금·교육 자금을 맡는 무게. 잘못된 제안이 고객 인생에 영향을 미칠 수 있다는 긴장감을 유지하면서 최선의 제안을 계속하는 자세. 증권 업계에서 신뢰는 모든 것의 기반이다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <div class="section-num">SECTION 05</div>
+  <div class="section-title">기업 비교 & 리스트</div>
+  <div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+
+  <div class="company-group">
+    <div class="company-group-label">📊 대형 종합증권</div>
+    <div class="company-card primary">
+      <div class="company-type">종합증권 | 국내 1위</div>
+      <div class="company-name">노무라증권 <span class="company-name-jp">野村証券</span></div>
+      <div class="company-desc">평균연봉 약 1,087만 엔. 국내 최대 증권사. 리테일·IB·자산운용 전 분야를 망라. 해외 거점도 충실. 취준생 인기 금융 1위를 다투는 존재이지만 리테일의 노르마 문화도 강하다. IB·트레이딩을 목표로 하는 경우에도 초기 몇 년은 리테일 경험이 기본 경로.</div>
+      <div class="company-tags">
+        <span class="company-tag a">평균연봉 1,087만 엔</span>
+        <span class="company-tag">국내 증권 1위</span>
+        <span class="company-tag">IB·리테일 양축</span>
+      </div>
+    </div>
+    <div class="company-card primary">
+      <div class="company-type">종합증권 | 국내 2위</div>
+      <div class="company-name">다이와증권 <span class="company-name-jp">大和証券</span></div>
+      <div class="company-desc">평균연봉 약 870만 엔. 리테일 영업에서 "고객 본위" 철학을 일찍부터 추진. 노무라보다 상대적으로 노르마 문화가 완화됐다는 평가. 개인 고객에 대한 자산 운용 제안·NISA 대응을 강화 중. IB 부문도 성장 중.</div>
+      <div class="company-tags">
+        <span class="company-tag a">평균연봉 870만 엔</span>
+        <span class="company-tag">고객 본위 문화</span>
+      </div>
+    </div>
+    <div class="company-card">
+      <div class="company-type">종합증권 | 은행계</div>
+      <div class="company-name">SMBC닛코증권 <span class="company-name-jp">SMBC日興証券</span></div>
+      <div class="company-desc">미쓰이스미토모파이낸셜그룹 산하. 은행·신탁·증권의 그룹 시너지가 강점. 법인 고객 기반이 두텁고 IB·기업 금융 솔루션에서 강점. 리테일은 은행 창구와의 연계로 차별화. 그룹 내 이동 기회도 있어 커리어 폭이 넓음.</div>
+      <div class="company-tags">
+        <span class="company-tag a">SMFG 산하</span>
+        <span class="company-tag">은행 시너지</span>
+        <span class="company-tag">법인 IB 강점</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--online)">💻 온라인 증권</div>
+    <div class="company-card primary-o">
+      <div class="company-type o">온라인 | NISA 계좌 1위</div>
+      <div class="company-name">SBI증권 <span class="company-name-jp">SBI証券</span></div>
+      <div class="company-desc">NISA 계좌 수 업계 1위. 수수료 제로화를 선도하며 개인 투자자 시장을 석권. SBI그룹(금융·보험·은행)과의 시너지. IT·데이터 직종의 비중이 높아 금융 × IT 능력 있는 인재에게 최적. 핀테크·AI 투자도 적극적.</div>
+      <div class="company-tags">
+        <span class="company-tag o">NISA 계좌 1위</span>
+        <span class="company-tag">수수료 제로 선도</span>
+        <span class="company-tag">IT·데이터 직종</span>
+      </div>
+    </div>
+    <div class="company-card primary-o">
+      <div class="company-type o">온라인 | 라쿠텐 경제권</div>
+      <div class="company-name">라쿠텐증권 <span class="company-name-jp">楽天証券</span></div>
+      <div class="company-desc">라쿠텐그룹과의 포인트 연동으로 젊은 투자자 유입이 강점. NISA 계좌 개설 수 업계 최상위. 라쿠텐 경제권 전체와의 시너지가 차별화 포인트. SBI와 양강 구도를 형성. 마케팅·서비스 기획 직종에서 활약하는 문과 인재도 많음.</div>
+      <div class="company-tags">
+        <span class="company-tag o">라쿠텐 경제권</span>
+        <span class="company-tag">포인트 연동</span>
+        <span class="company-tag">젊은 투자자</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--intl)">🌐 외자계 투자은행</div>
+    <div class="company-card primary-i">
+      <div class="company-type i">외자계 IB | 세계 1위 IB</div>
+      <div class="company-name">골드만삭스재팬 <span class="company-name-jp">ゴールドマン・サックス</span></div>
+      <div class="company-desc">세계 최대 투자은행의 일본법인. M&A·ECM·DCM·트레이딩에서 일본 시장 최상위. 영어 면접 필수. 채용 난이도 일본 취업 전체 최상위급. 총보수(기본급+보너스)는 업계 최고 수준. 입사 후의 성과 평가도 가혹하며 이직률도 높다. 도전적인 금융 커리어를 원하는 최상위층의 선택지.</div>
+      <div class="company-tags">
+        <span class="company-tag i">세계 1위 IB</span>
+        <span class="company-tag">영어 면접 필수</span>
+        <span class="company-tag">채용 최최상위</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- S6 -->
+<div class="section" id="s6">
+  <div class="section-num">SECTION 06</div>
+  <div class="section-title">ES 대책</div>
+  <div class="section-title-jp">合格パターン·落とし穴</div>
+  <p>증권 ES의 최대 함정은 <span class="hl">"금융·경제에 관심이 있어서"만으로 끝나는 지원 동기</span>다. 은행·보험도 같은 이유를 말할 수 있다. <strong style="color:var(--text-sub);">"왜 증권인가 (은행·보험과의 차이), 왜 이 회사인가, 어떤 직종(리테일·IB·트레이딩)인가"</strong>를 말해야 한다.</p>
+  <div class="es-pattern">
+    <div class="es-pattern-label">✅ 합격 지원 동기 4단계</div>
+    <p>Step 1. 경제·자산운용에 관심을 갖게 된 구체적 원체험 제시 (가족의 투자 경험·경제 공부·인턴 등)<br>
+    Step 2. "왜 은행·보험이 아닌 증권인가" — 자본 시장을 통해 기업·개인의 가능성을 직접 연결하는 역할의 가치를 언어화<br>
+    Step 3. 왜 이 회사인가 — 리테일·IB·온라인·외자계 중 자신의 관심과 강점에 맞는 포지셔닝<br>
+    Step 4. 리테일·IB·트레이딩·리서치 중 어느 방향에서 어떤 전문가가 되고 싶은지 커리어 비전</p>
+  </div>
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">❌ 불합격 공통 실수</div>
+    <p><span class="hl-warn">실수 1:</span> 노르마·성과 압박의 현실을 모름 — 리테일 영업의 현실(노르마·이직률)을 이해하지 못하면 면접관에게 "금방 그만둘 것 같다"는 인상을 줌<br>
+    <span class="hl-warn">실수 2:</span> 왜 증권인지를 말하지 못함 — "금융에 관심이 있어서"는 은행·보험도 공통. 자본 시장 특유의 역할을 이해해야 함<br>
+    <span class="hl-warn">실수 3:</span> 외자계에 일본어만 어필 — 외자계 IB는 영어가 기본 전제. 어학 능력 없이는 서류 단계에서 탈락</p>
+  </div>
+</div>
+
+<!-- S7 -->
+<div class="section" id="s7">
+  <div class="section-num">SECTION 07</div>
+  <div class="section-title">면접 대책</div>
+  <div class="section-title-jp">面接対策 — 頻出質問</div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 01</div>
+    <h4>왜 은행이 아닌 증권인가?</h4>
+    <p><strong style="color:var(--text-sub);">좋은 답변:</strong> "은행은 융자로 기업을 지원하지만, 증권은 자본 시장을 통해 기업의 성장 자금을 직접 조달하고 기업 가치를 극대화하는 역할입니다. 더 다이나믹한 방법으로 기업·개인의 가능성에 기여하고 싶어서 증권을 선택했습니다."</p>
+  </div>
+  <div class="trend-card">
+    <div class="trend-num">Q 02</div>
+    <h4>노르마 미달 때 어떻게 하겠는가?</h4>
+    <p>리테일 증권 면접에서 반드시 나오는 질문. 압박 환경에서의 대응력을 본다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 방향:</strong> 목표 미달의 원인을 분석하고 행동을 수정하는 PDCA 자세. "고객의 이익을 최우선으로 하면서 장기 신뢰 관계를 쌓는 것이 결국 결과로 이어진다"는 신념을 말해야 한다.</p>
+  </div>
+  <div class="trend-card">
+    <div class="trend-num">Q 03</div>
+    <h4>신NISA·현재 경제 동향에 대해 어떻게 생각하는가?</h4>
+    <p>금융 업계 공통 질문. 자신의 견해를 논리적으로 말할 수 있어야 한다.</p>
+    <p><strong style="color:var(--text-sub);">준비:</strong> 신NISA 제도 개요·연간 한도·평생 한도를 정확히 이해. 일본 주가 동향·금리 상승 배경·엔화 동향 등 최신 경제 뉴스를 1주일에 1회는 정리해 자신의 언어로 말할 수 있도록 준비.</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> 업계 리포트 Vol.22 — 증권</p>
+  <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+  <p style="margin-top:8px;font-size:10px;">본 리포트의 정보는 각사 IR자료, 채용 페이지, 일본증권업협회 통계, OpenWork 등 공개 정보를 기반으로 구조화한 것입니다.</p>
+</div>
+</div>
+<script>
+function scrollTo(id){const el=document.getElementById(id);if(!el)return;const navH=document.querySelector('.section-nav').offsetHeight;const y=el.getBoundingClientRect().top+window.pageYOffset-navH-16;window.scrollTo({top:y,behavior:'smooth'})}
+const sections=['s1','s2','s3','s4','s5','s6','s7'];
+const navBtns=document.querySelectorAll('.nav-btn');
+function updateNav(){const navH=document.querySelector('.section-nav').offsetHeight;let current='s1';sections.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=navH+60)current=id});navBtns.forEach((btn,i)=>btn.classList.toggle('active',sections[i]===current))}
+window.addEventListener('scroll',updateNav);updateNav();
+</script>
+</body>
+</html>
