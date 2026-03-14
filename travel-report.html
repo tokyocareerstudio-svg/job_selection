@@ -257,5 +257,6 @@ const sections=['s1','s2','s3','s4','s5','s6','s7'];const navBtns=document.query
 function updateNav(){const navH=document.querySelector('.section-nav').offsetHeight;let current='s1';sections.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=navH+60)current=id});navBtns.forEach((btn,i)=>btn.classList.toggle('active',sections[i]===current))}
 window.addEventListener('scroll',updateNav);updateNav();
 </script>
+  <script src="global-nav.js"></script>
 </body>
 </html>
