@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>광고대리점 업계 리포트 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --surface-3: #22222e;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #fdcb6e;
+    --accent-soft: rgba(253,203,110,0.08);
+    --accent-border: rgba(253,203,110,0.22);
+    --warn: #f59e0b;
+    --warn-soft: rgba(245,158,11,0.06);
+    --warn-border: rgba(245,158,11,0.18);
+    --success: #34d399;
+    --success-soft: rgba(52,211,153,0.07);
+    --success-border: rgba(52,211,153,0.18);
+    --blue: #4a9eff;
+    --blue-soft: rgba(74,158,255,0.08);
+    --blue-border: rgba(74,158,255,0.18);
+    --digital: #a29bfe;
+    --digital-soft: rgba(162,155,254,0.08);
+    --digital-border: rgba(162,155,254,0.2);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Noto Sans JP',sans-serif; line-height:1.8; font-size:15px; -webkit-font-smoothing:antialiased; }
+  .container { max-width:760px; margin:0 auto; padding:0 24px 100px; }
+
+  .hero { padding:64px 24px 48px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(253,203,110,0.06) 0%, transparent 70%); pointer-events:none; }
+  .hero-inner { position:relative; max-width:760px; margin:0 auto; }
+  .hero-label { display:inline-block; font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-border); padding:4px 12px; border-radius:12px; margin-bottom:20px; text-transform:uppercase; }
+  .hero h1 { font-size:30px; font-weight:900; line-height:1.3; margin-bottom:10px; letter-spacing:-0.5px; }
+  .hero-sub { font-size:13px; color:var(--text-dim); line-height:1.9; margin-bottom:20px; max-width:560px; }
+  .hero-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .hero-tag { font-size:11px; padding:4px 12px; border-radius:100px; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); font-weight:500; }
+  .hero-tag.digital { background:var(--digital-soft); color:var(--digital); border-color:var(--digital-border); }
+
+  .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
+  .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+  .section-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-btn { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
+  .nav-btn:hover, .nav-btn.active { color:var(--accent); background:var(--accent-soft); }
+
+  .section { padding:44px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom:none; }
+  .section-num { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); opacity:0.7; margin-bottom:6px; text-transform:uppercase; }
+  .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
+  .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); margin-bottom:20px; }
+  .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section p:last-child { margin-bottom:0; }
+  .section h3 { font-size:14px; font-weight:700; color:var(--text-sub); margin:28px 0 12px; padding-left:10px; border-left:2px solid var(--accent); }
+  .section h3.digital { border-left-color:var(--digital); }
+
+  .info-box { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:16px 0; }
+  .info-box-accent { background:var(--accent-soft); border-color:var(--accent-border); border-left:3px solid var(--accent); }
+  .info-box-digital { background:var(--digital-soft); border-color:var(--digital-border); border-left:3px solid var(--digital); }
+  .info-box-warn { background:var(--warn-soft); border-color:var(--warn-border); border-left:3px solid var(--warn); }
+  .info-box-blue { background:var(--blue-soft); border-color:var(--blue-border); border-left:3px solid var(--blue); }
+  .info-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+  .box-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .box-label-warn { color:var(--warn); }
+  .box-label-digital { color:var(--digital); }
+  .hl { color:var(--accent); font-weight:600; }
+  .hl-digital { color:var(--digital); font-weight:600; }
+  .hl-warn { color:var(--warn); font-weight:600; }
+
+  .table-wrap { overflow-x:auto; margin:16px 0; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  thead { background:var(--surface-2); }
+  th { padding:10px 14px; text-align:left; font-weight:700; font-size:10px; letter-spacing:1px; color:var(--text-muted); border-bottom:1px solid var(--border); white-space:nowrap; text-transform:uppercase; }
+  td { padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-dim); vertical-align:top; line-height:1.7; }
+  tr:last-child td { border-bottom:none; }
+  td:first-child { font-weight:700; color:var(--text-sub); }
+
+  .trend-card { padding:20px 22px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:12px 0; }
+  .trend-num { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .trend-card h4 { font-size:14px; font-weight:700; margin-bottom:10px; color:var(--text); }
+  .trend-card p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:10px; }
+  .trend-card p:last-child { margin-bottom:0; }
+  .use-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:10px; font-weight:700; margin:6px 4px 4px 0; letter-spacing:1px; text-transform:uppercase; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); }
+
+  .company-group { margin:20px 0; }
+  .company-group-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--text-muted); margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--border); text-transform:uppercase; }
+  .company-card { padding:16px 18px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:8px; transition:border-color 0.2s; }
+  .company-card:hover { border-color:var(--border-hover); }
+  .company-card.primary { border-color:var(--accent-border); }
+  .company-card.primary-digital { border-color:var(--digital-border); }
+  .company-type { font-size:10px; font-weight:700; color:var(--accent); letter-spacing:1px; margin-bottom:4px; text-transform:uppercase; }
+  .company-type.digital { color:var(--digital); }
+  .company-name { font-size:15px; font-weight:700; color:var(--text); margin-bottom:6px; }
+  .company-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:12px; color:var(--text-muted); font-weight:400; margin-left:6px; }
+  .company-desc { font-size:12px; color:var(--text-dim); line-height:1.8; }
+  .company-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+  .company-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .company-tag.accent { background:var(--accent-soft); color:var(--accent); border-color:var(--accent-border); }
+  .company-tag.digital { background:var(--digital-soft); color:var(--digital); border-color:var(--digital-border); }
+
+  .job-link-card { display:flex; align-items:flex-start; gap:14px; padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; text-decoration:none; transition:all 0.2s; margin-bottom:8px; }
+  .job-link-card:hover { border-color:var(--accent-border); background:var(--accent-soft); }
+  .job-link-icon { font-size:24px; flex-shrink:0; margin-top:2px; }
+  .job-link-body { flex:1; }
+  .job-link-kicker { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:4px; text-transform:uppercase; }
+  .job-link-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .job-link-desc { font-size:12px; color:var(--text-dim); line-height:1.7; margin-bottom:8px; }
+  .job-link-tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .job-link-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .job-link-arrow { font-size:16px; color:var(--accent); flex-shrink:0; margin-top:4px; }
+
+  .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0; }
+  .keyword-card { padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .keyword-name { font-size:13px; font-weight:700; color:var(--accent); margin-bottom:4px; }
+  .keyword-name.digital { color:var(--digital); }
+  .keyword-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); font-weight:400; margin-left:4px; }
+  .keyword-desc { font-size:11px; color:var(--text-dim); line-height:1.7; }
+
+  .es-pattern { padding:16px 18px; background:var(--surface-2); border-radius:8px; margin:12px 0; }
+  .es-pattern-label { font-size:10px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:8px; text-transform:uppercase; }
+  .es-pattern p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+
+  .footer { padding:40px 0 60px; border-top:1px solid var(--border); margin-top:20px; text-align:center; }
+  .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; margin-bottom:0; }
+  .footer .brand { font-weight:700; color:var(--text-dim); }
+
+  @media (max-width:640px) { .keyword-grid { grid-template-columns:1fr; } .hero h1 { font-size:24px; } .section-title { font-size:18px; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">업계 리포트 Vol.07</div>
+    <h1>광고대리점 업계 완전 정리</h1>
+    <p class="hero-sub">
+      덴츠·하쿠호도의 과점 구조, 디지털 전환으로 재편되는 업계 지형,<br>
+      화려한 이미지 뒤의 현실까지 — 광고대리점을 구조부터 이해하는 한 페이지.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">종합대리점 vs 디지털</span>
+      <span class="hero-tag">덴츠·하쿠호도 과점</span>
+      <span class="hero-tag digital">디지털 전환 가속</span>
+      <span class="hero-tag">기획·프레젠 승부</span>
+      <span class="hero-tag">채용 난이도 최상위</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('s1')">01 업계전체상</button>
+    <button class="nav-btn" onclick="scrollTo('s2')">02 트렌드</button>
+    <button class="nav-btn" onclick="scrollTo('s3')">03 활약직종</button>
+    <button class="nav-btn" onclick="scrollTo('s4')">04 키워드</button>
+    <button class="nav-btn" onclick="scrollTo('s5')">05 기업리스트</button>
+    <button class="nav-btn" onclick="scrollTo('s6')">06 ES대책</button>
+    <button class="nav-btn" onclick="scrollTo('s7')">07 면접대책</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ════ S1 ════ -->
+<div class="section" id="s1">
+  <div class="section-num">SECTION 01</div>
+  <div class="section-title">업계 전체상</div>
+  <div class="section-title-jp">業界全体像 — 構造・ビジネスモデル・総合vs専門</div>
+
+  <div class="info-box info-box-accent">
+    <div class="box-label">한 줄 정의</div>
+    <p><span class="hl">광고주(기업)의 마케팅 과제를 듣고, 광고·PR·이벤트·디지털 등 다양한 수단을 조합해 "팔리는 구조"를 기획하고 실행하는 B2B 서비스 기업.</span><br>
+    단순히 "광고를 만드는 곳"이 아니라, 클라이언트의 사업 과제에 대한 종합 마케팅 솔루션을 제공하는 것이 현대 광고대리점의 본질이다.</p>
+  </div>
+
+  <p>일본 총 광고비 <span class="hl">약 7조 2,358억 엔</span>(2024년, 電通調査). 이 중 인터넷 광고가 약 3조 6,517억 엔(전체의 47.6%)으로 TV를 포함한 4대 매체 합산을 이미 추월했다. 광고 시장 자체는 성장하고 있지만, <span class="hl">TV 중심의 전통 수익 구조에서 디지털 중심으로의 전환</span>이 업계 재편의 핵심이다.</p>
+
+  <h3>광고대리점 업계의 3가지 분류</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>분류</th><th>특징</th><th>대표 기업</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>종합광고대리점</td>
+          <td>TV·신문·잡지·옥외광고 등 전통 매체를 기반으로 디지털까지 커버하는 원스톱 솔루션. 대기업 광고주와의 장기 계약이 수익 기반. 전략 기획부터 크리에이티브·미디어 바잉·이벤트까지 자사 내에서 처리</td>
+          <td>電通(덴츠), 博報堂(하쿠호도), ADKホールディングス</td>
+        </tr>
+        <tr>
+          <td>디지털 전문 대리점</td>
+          <td>인터넷 광고(검색·SNS·동영상·프로그래매틱)에 특화. 데이터 분석·퍼포먼스 마케팅이 강점. 인터넷 광고 시장 성장과 함께 급속히 존재감 확대. 종합대리점보다 젊은 조직 문화</td>
+          <td>サイバーエージェント(CyberAgent), 電通デジタル, セプテーニ, オプト</td>
+        </tr>
+        <tr>
+          <td>PR·이벤트·전문 에이전시</td>
+          <td>PR(퍼블릭 릴레이션)·이벤트 기획·프로모션·CR(기업 광고)에 특화. 종합대리점의 하청으로도 동작하지만 독자 강점을 가진 기업도 많다</td>
+          <td>電通PR, サニーサイドアップ, ベクトル(Vector)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>비즈니스 모델 — 광고대리점은 어떻게 돈을 버는가</h3>
+
+  <p>광고대리점의 수익 구조는 외부에서 보기에 불투명하게 느껴지기 쉬운데, 기본 구조를 이해해두면 업계 이해도가 크게 달라진다.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>수익 모델</th><th>구조</th><th>특징</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>미디어 커미션</td>
+          <td>광고주 대신 TV·신문 등 매체사에 광고를 구매(미디어 바잉)하고, 그 중에서 일정 비율(커미션)을 수익으로 얻는 구조. 전통적인 수익원</td>
+          <td>TV 광고비가 크면 클수록 커미션도 커지는 구조. TV 광고 전성기에 덴츠·하쿠호도가 압도적 규모로 성장한 이유. 디지털 전환으로 이 수익 비중이 축소 중</td>
+        </tr>
+        <tr>
+          <td>기획·크리에이티브 피</td>
+          <td>광고 전략 기획, CM 제작, 브랜드 컨설팅 등 크리에이티브 업무에 대한 용역비</td>
+          <td>"아이디어와 기획력"을 파는 수익원. 덴츠·하쿠호도가 단순 미디어 바잉을 넘어 마케팅 컨설팅 영역으로 확장하는 이유</td>
+        </tr>
+        <tr>
+          <td>디지털 광고 운용 수수료</td>
+          <td>구글·메타·라인 등 디지털 플랫폼에서의 광고 운용 대행 수수료. 운용 금액의 일정 비율 or 고정 월정액</td>
+          <td>인터넷 광고 시장 성장으로 이 수익이 급확대. 데이터 분석·퍼포먼스 최적화 능력이 차별화 요소. 사이버에이전트·셉테니 등 디지털 특화 대리점의 주력 수익원</td>
+        </tr>
+        <tr>
+          <td>이벤트·프로모션 제작비</td>
+          <td>이벤트 기획·운영, 점두 프로모션, 샘플링, 스포츠 스폰서십 관련 수익</td>
+          <td>코로나로 타격을 받았지만 회복 중. 온라인·오프라인 융합 이벤트 수요가 증가</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>업계 구조 — 덴츠·하쿠호도의 과점과 그 의미</h3>
+
+  <p>일본 광고 업계의 가장 큰 특징은 <span class="hl">덴츠(電通)와 하쿠호도(博報堂)의 압도적 과점 구조</span>다. 두 회사가 일본 광고 시장의 약 50~60%를 점유하며, 대기업 광고주의 대부분이 이 두 회사와 장기 독점 계약 관계에 있다.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>비교 항목</th><th>종합대리점 (덴츠·하쿠호도)</th><th>디지털 전문 대리점 (사이버에이전트 등)</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>주력 광고주</td>
+          <td>대기업 (자동차·음료·금융·통신 등). 수십 년 단위의 장기 계약</td>
+          <td>EC·게임·스타트업·인터넷 기업. 성과 연동 계약 多</td>
+        </tr>
+        <tr>
+          <td>주력 미디어</td>
+          <td>TV·신문·잡지·옥외 + 디지털 (원스톱)</td>
+          <td>구글·메타·틱톡·유튜브 등 디지털 특화</td>
+        </tr>
+        <tr>
+          <td>업무 스타일</td>
+          <td>장기 프로젝트·다부서 조율·접대 문화 잔존. 클라이언트 담당 AE가 전체를 총괄</td>
+          <td>단기 퍼포먼스 PDCA·데이터 기반 의사결정·스피드 중시</td>
+        </tr>
+        <tr>
+          <td>연봉·처우</td>
+          <td>업계 최상위. 덴츠 평균 1,200만엔대. 입사 난이도도 업계 최상위</td>
+          <td>사이버에이전트는 초임 504만엔으로 디지털 대리점 최상위. 성과 연동 폭이 큼</td>
+        </tr>
+        <tr>
+          <td>채용 난이도</td>
+          <td>일본 취업 시장 최상위급. 특히 덴츠는 인기·難度 모두 업계 1위</td>
+          <td>종합대리점보다 현실적이지만 경쟁률은 여전히 높음</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">채용 난이도 — 반드시 인식해야 할 현실</div>
+    <p>광고대리점, 특히 종합대리점(덴츠·하쿠호도)은 <span class="hl-warn">일본 취업 시장에서 가장 높은 채용 난이도 중 하나</span>로 알려져 있다. 인기 업계 중에서도 TO(채용 인원)가 극히 적으며, 덴츠의 경우 수천 명이 지원하는 선발에 수십 명 수준의 채용이다. 문과 최상위 대학 출신도 다수 떨어지는 전형이며, 단순히 "광고가 좋아서"만으로는 절대 통과되지 않는다.<br><br>
+    디지털 전문 대리점(사이버에이전트·셉테니 등)은 종합대리점보다 접근성이 현실적이지만, 여전히 경쟁률이 높다. <strong style="color:var(--text-sub);">지원 전에 "왜 광고대리점인가, 왜 이 회사인가"의 논리를 철저히 준비한 소수만이 통과한다는 것을 반드시 인식해야 한다.</strong></p>
+  </div>
+</div>
+
+<!-- ════ S2 ════ -->
+<div class="section" id="s2">
+  <div class="section-num">SECTION 02</div>
+  <div class="section-title">면접관이 체크하는 트렌드 3선</div>
+  <div class="section-title-jp">面接官がチェックするトレンド</div>
+
+  <p>"최근 광고 업계에서 주목하는 것이 있나요?" — 반드시 나오는 질문. <span class="hl">트렌드를 알면서도 자신이 지원하는 회사의 전략과 어떻게 연결되는지까지 말할 수 있어야</span> 차별화된다.</p>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 01</div>
+    <h4>인터넷 광고가 TV를 제치다 — 미디어 권력 이동의 완성</h4>
+    <p>2024년 인터넷 광고비가 약 3조 6,517억 엔으로 총 광고비의 <span class="hl">47.6%</span>를 차지해 4대 매체 합산을 압도하며 완전한 미디어 권력 이동이 완성됐다. 특히 동영상 광고가 전년비 123% 성장한 8,439억 엔으로 가장 빠른 성장을 보이고 있으며, 틱톡·유튜브 숏폼과 커넥티드TV(CTV)가 광고 시장을 재편하고 있다.</p>
+    <p>이 변화는 종합대리점에게 양날의 칼이다. TV 커미션 수익이 구조적으로 줄어드는 한편, 디지털 광고 운용·데이터 마케팅으로 사업 축을 이전할 수 있는 기회이기도 하다. 덴츠는 2020년부터 대규모 디지털 전환을 추진 중이며, 하쿠호도는 데이터 드리븐 마케팅 자회사를 강화하고 있다.</p>
+    <div class="use-tag">ES/면접 활용</div>
+    <p>"인터넷 광고가 TV를 추월한 지금, 광고대리점의 가치는 단순한 미디어 구매 대행에서 '소비자 데이터를 기반으로 한 마케팅 전략 설계'로 진화하고 있습니다. 저는 이 전환기에 디지털과 전통 매체를 통합하는 기획력을 발휘하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 02</div>
+    <h4>생성AI가 바꾸는 크리에이티브 제작 — "아이디어"의 가치 재정의</h4>
+    <p>생성AI의 보급으로 카피라이팅·이미지 생성·동영상 편집 등 크리에이티브 제작의 일부가 자동화되고 있다. 사이버에이전트는 AI를 활용한 광고 크리에이티브 자동 생성 시스템을 개발해 2024년 9월기 광고사업 영업이익이 전년비 21.3% 증가했다. 덴츠도 사내 생성AI 활용을 전사적으로 추진 중이다.</p>
+    <p>이 흐름은 <span class="hl">AI로 대체할 수 없는 것 — 소비자의 감정을 움직이는 인사이트 발굴, 브랜드 스토리 설계, 이해관계자를 설득하는 프레젠 능력 — 의 가치를 오히려 높이고 있다.</span> "AI가 크리에이티브를 만드는 시대에 광고인의 가치는 무엇인가"는 면접에서 반드시 자신의 관점으로 말할 수 있어야 한다.</p>
+    <div class="use-tag">ES/면접 활용</div>
+    <p>"생성AI의 보급으로 크리에이티브 제작의 효율은 극적으로 향상되지만, 소비자의 진짜 감정을 움직이는 인사이트 발굴과 브랜드 전략 설계는 여전히 인간만이 할 수 있는 영역입니다. 저는 데이터와 인간 감성 양쪽을 통합하는 기획력을 광고대리점에서 키우고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 03</div>
+    <h4>콘텐츠 마케팅과 인플루언서 경제 — 광고와 콘텐츠의 경계 소멸</h4>
+    <p>소비자가 광고를 의식적으로 스킵하는 시대에, <span class="hl">"광고처럼 보이지 않는 광고"</span> — 브랜디드 콘텐츠·인플루언서 마케팅·UGC(사용자 생성 콘텐츠) 활용 — 이 마케팅의 중심으로 이동하고 있다. 국내 인플루언서 마케팅 시장은 2024년 약 1,000억 엔 규모로 성장했다.</p>
+    <p>이 트렌드는 광고대리점의 역할을 재정의하고 있다. 단순히 "광고를 만들어 매체에 싣는" 대리점에서, <span class="hl-digital">"브랜드와 소비자의 접점 전체를 설계하는 마케팅 파트너"</span>로의 전환이 업계 전체에서 가속되고 있다. PR·이벤트·SNS 운용·인플루언서 조달을 통합 관리할 수 있는 대리점의 가치가 높아지고 있다.</p>
+    <div class="use-tag">ES/면접 활용</div>
+    <p>"광고와 콘텐츠의 경계가 없어지는 지금, 광고대리점의 역할은 '30초 CM을 만드는 것'에서 '브랜드와 소비자의 관계 전체를 설계하는 것'으로 확장되고 있습니다. 이 통합적인 마케팅 커뮤니케이션 설계에 도전하고 싶어서 이 업계를 선택했습니다."</p>
+  </div>
+</div>
+
+<!-- ════ S3 ════ -->
+<div class="section" id="s3">
+  <div class="section-num">SECTION 03</div>
+  <div class="section-title">이 업계에서 활약하는 직종</div>
+  <div class="section-title-jp">広告代理店業界で活躍する職種</div>
+
+  <p>광고대리점의 직종은 크게 <span class="hl">AE(어카운트 이그제큐티브, 영업 담당)와 크리에이티브 직종</span>으로 나뉜다. 신졸 일반 채용에서는 AE가 주류이며, 크리에이티브 직종은 별도 전형이 일반적이다.</p>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/sales-eg04-ad" target="_blank" class="job-link-card">
+    <div class="job-link-icon">📣</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">핵심 직종 — 직종 상세 카드 EG-04</div>
+      <div class="job-link-title">광고영업 (AE) — 기획과 실행을 총지휘하는 사령탑</div>
+      <div class="job-link-desc">
+        광고주의 마케팅 과제를 듣고 해결책을 기획·제안·실행하는 직종. <strong style="color:var(--text-sub);">혼자 기획하는 것이 아니라 크리에이티브·미디어·디지털 전문가 팀을 조율하는 "프로듀서"</strong> 역할. 컨페(경합 프레젠)에서 이기는 것이 매출로 직결된다.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">프레젠 승부</span>
+        <span class="job-link-tag">사내 팀 조율</span>
+        <span class="job-link-tag">클라이언트 밀착</span>
+        <span class="job-link-tag">체력전</span>
+        <span class="job-link-tag">아이디어+실행</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/creative-overview" target="_blank" class="job-link-card">
+    <div class="job-link-icon">🎨</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">크리에이티브 직종 — 직종 개요 카드</div>
+      <div class="job-link-title">크리에이티브 직종 — 광고를 "만드는" 사람들</div>
+      <div class="job-link-desc">
+        카피라이터·아트디렉터·크리에이티브 디렉터·플래너 등. <strong style="color:var(--text-sub);">학력보다 사고 프로세스와 제작에 대한 관심이 채용 기준.</strong> 일반 신졸 채용과 별도 전형인 경우가 많으며, 포트폴리오(작품집)가 필수.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">포트폴리오 필수</span>
+        <span class="job-link-tag">별도 전형</span>
+        <span class="job-link-tag">카피라이터·AD</span>
+        <span class="job-link-tag">실력주의</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <div class="info-box" style="margin-top:20px;">
+    <div class="box-label">광고대리점의 직종 구조</div>
+    <p>
+      <strong style="color:var(--text-sub);">AE (어카운트 이그제큐티브):</strong> 클라이언트 담당 영업. 과제 히어링 → 기획 → 사내 팀 조율 → 프레젠 → 실행 관리까지 전 과정을 총괄. 신졸 일반 채용의 주류.<br><br>
+      <strong style="color:var(--text-sub);">미디어 플래너:</strong> 광고를 어떤 매체에, 언제, 얼마의 예산으로 집행할지를 설계. TV·신문·디지털 등 각 미디어의 특성과 가격을 파악하고 있어야 함.<br><br>
+      <strong style="color:var(--text-sub);">디지털 마케터:</strong> 검색광고·SNS광고·프로그래매틱·SEO 등 디지털 특화 운용. 데이터 분석 능력이 핵심. 디지털 대리점에서는 이 포지션이 주력.<br><br>
+      <strong style="color:var(--text-sub);">PR 플래너:</strong> 기자 릴레이션·프레스 릴리스·위기 커뮤니케이션·이벤트 기획. "광고"가 아닌 "뉴스"로 브랜드 인지도를 높이는 역할.<br><br>
+      <span class="hl">신졸로 크리에이티브 직종(카피라이터·아트디렉터)에 직접 지원하는 것은 종합대리점에서 별도 전형이 일반적이며, 이 경우 일반 AE 전형보다 훨씬 선발 기준이 독특하다.</span>
+    </p>
+  </div>
+</div>
+
+<!-- ════ S4 ════ -->
+<div class="section" id="s4">
+  <div class="section-num">SECTION 04</div>
+  <div class="section-title">광고대리점 × 직종별 자기분석 키워드</div>
+  <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+  <p>광고대리점은 <span class="hl">사람·아이디어·관계를 동시에 관리하는 능력</span>이 핵심이다. 종합대리점 AE와 디지털 대리점 마케터는 요구하는 역량의 뉘앙스가 다르므로 구분해서 준비해야 한다.</p>
+
+  <h3>AE (광고영업) 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">기획력 <span class="keyword-name-jp">企画力</span></div>
+      <div class="keyword-desc">클라이언트의 막연한 과제를 구체적인 광고 전략으로 번역하는 능력. 컨페(경합 프레젠)에서 이기는 기획은 "아이디어의 신선함"보다 "과제와 해결책의 논리적 연결"에서 나온다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">발신력 <span class="keyword-name-jp">発信力</span></div>
+      <div class="keyword-desc">기획안을 클라이언트에게 설득력 있게 전달하는 프레젠 능력. 광고대리점에서 프레젠은 가장 중요한 비즈니스 스킬. "아이디어를 파는" 업종에서 발신력은 곧 매출로 직결된다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">조정력 <span class="keyword-name-jp">調整力</span></div>
+      <div class="keyword-desc">크리에이티브·미디어·디지털·PR 등 사내 전문가 팀을 하나의 방향으로 이끄는 능력. AE는 "만드는 사람"이 아니라 "팀을 조율하는 사람"이다. 다양한 전문가를 조율하는 힘이 AE의 핵심 가치.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">끈기 <span class="keyword-name-jp">粘り強さ</span></div>
+      <div class="keyword-desc">컨페에서 지더라도 다음 기회에 다시 도전하는 지속력. 클라이언트의 까다로운 수정 요청에도 흔들리지 않는 멘탈. 광고대리점이 체력전이라 불리는 이유는 이 끈기를 요구하기 때문이다.</div>
+    </div>
+  </div>
+
+  <h3 class="digital">디지털 마케터 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name digital">논리적사고력 <span class="keyword-name-jp">論理的思考力</span></div>
+      <div class="keyword-desc">CTR·CPA·ROAS 등 데이터를 분석해 "이 광고가 왜 효과적인가·비효과적인가"를 논리적으로 설명하는 능력. 퍼포먼스 마케팅에서 데이터 해석력은 차별화의 핵심.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name digital">도전정신 <span class="keyword-name-jp">挑戦精神</span></div>
+      <div class="keyword-desc">디지털 광고는 빠른 PDCA(가설→실행→검증→개선)가 일상이다. 실패를 두려워하지 않고 새로운 시도를 빠르게 반복하는 마인드셋. 알고리즘과 플랫폼 변화에 신속하게 적응하는 능력.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name digital">향상심 <span class="keyword-name-jp">向上心</span></div>
+      <div class="keyword-desc">구글·메타·틱톡 등 플랫폼의 기능과 알고리즘은 매월 업데이트된다. 최신 동향을 스스로 파악하고 흡수하는 학습 자세. "현상 유지"가 곧 퇴보인 업계.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name digital">통찰력 <span class="keyword-name-jp">洞察力</span></div>
+      <div class="keyword-desc">숫자 뒤에 있는 소비자 행동의 의미를 읽어내는 능력. CTR이 높은 광고가 왜 컨버전으로 이어지지 않는지 — 데이터 너머의 인간 행동 원리를 이해하는 힘.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S5 ════ -->
+<div class="section" id="s5">
+  <div class="section-num">SECTION 05</div>
+  <div class="section-title">기업 비교 & 리스트</div>
+  <div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+
+  <p>광고대리점은 <span class="hl">종합대리점과 디지털 대리점에서 업무 스타일·문화·연봉 구조가 완전히 다르다.</span> 어떤 광고의 어떤 역할을 하고 싶은지를 먼저 정하고 선택해야 한다.</p>
+
+  <!-- 종합대리점 -->
+  <div class="company-group">
+    <div class="company-group-label">📺 종합광고대리점</div>
+
+    <div class="company-card primary">
+      <div class="company-type">종합대리점 | 업계 압도적 1위</div>
+      <div class="company-name">電通 <span class="company-name-jp">덴츠</span></div>
+      <div class="company-desc">매출 약 1조 3,000억 엔(電通グループ 전체 2024). 일본 광고 시장 점유율 약 30%로 압도적 1위. 글로벌 전개도 강하며 해외 매출이 그룹 전체의 60% 이상. 평균연봉 약 1,200만 엔 이상으로 광고 업계 최고 수준. 채용 인원은 연간 수십 명으로 경쟁률은 일본 취업 시장 최상위급. TV·이벤트·스포츠·디지털까지 망라하는 완전 종합형.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">평균연봉 1,200만엔+</span>
+        <span class="company-tag">업계 점유율 30%</span>
+        <span class="company-tag">채용 최상위 난이도</span>
+        <span class="company-tag">글로벌 60%</span>
+      </div>
+    </div>
+
+    <div class="company-card primary">
+      <div class="company-type">종합대리점 | 업계 2위</div>
+      <div class="company-name">博報堂 <span class="company-name-jp">하쿠호도</span></div>
+      <div class="company-desc">매출 약 8,000억 엔(博報堂DYホールディングス 2024). 덴츠에 이은 업계 2위. "生活者発想(생활자 발상)"이라는 독자 철학으로 소비자 인사이트 중심의 크리에이티브 접근이 특징. 덴츠와 달리 복수 광고주의 경쟁 입찰에도 응하는 전략. 평균연봉 약 1,050만엔. 채용 난이도는 덴츠와 동급의 최상위.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">평균연봉 1,050만엔</span>
+        <span class="company-tag">생활자 발상 철학</span>
+        <span class="company-tag">채용 최상위 난이도</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">종합대리점 | 업계 3위</div>
+      <div class="company-name">ADKホールディングス</div>
+      <div class="company-desc">매출 약 2,400억 엔(2024). 덴츠·하쿠호도에 이은 업계 3위. 엔터테인먼트·스포츠·아니메 등 콘텐츠 마케팅에 강점. 상대적으로 독립계 광고주 비율이 높아 다양한 업종을 경험하기 쉬움. 채용 난이도는 1·2위보다 현실적이면서 종합대리점의 업무 환경을 경험할 수 있다.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">업계 3위</span>
+        <span class="company-tag">엔터·스포츠·아니메</span>
+        <span class="company-tag">1·2위보다 현실적</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 디지털 대리점 -->
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--digital);">💻 디지털·전문 대리점</div>
+
+    <div class="company-card primary-digital">
+      <div class="company-type digital">디지털 대리점 | 인터넷 광고 국내 톱</div>
+      <div class="company-name">サイバーエージェント <span class="company-name-jp">사이버에이전트</span></div>
+      <div class="company-desc">인터넷 광고사업 매출 약 4,300억 엔(2024). 평균연봉 약 913만엔. 인터넷 광고 국내 톱이면서 ABEMA·게임 사업도 병행하는 독특한 포지션. AI를 활용한 광고 크리에이티브 자동화로 수익성 향상. 초임 504만엔으로 디지털 대리점 최상위. 평균 연령 34세의 젊은 조직. 20대 자회사 사장 배출 등 빠른 성장 문화가 특징.</div>
+      <div class="company-tags">
+        <span class="company-tag digital">평균연봉 913만엔</span>
+        <span class="company-tag">초임 504만엔</span>
+        <span class="company-tag">인터넷 광고 국내 톱</span>
+        <span class="company-tag">AI 광고 자동화</span>
+      </div>
+    </div>
+
+    <div class="company-card primary-digital">
+      <div class="company-type digital">디지털 대리점 | 퍼포먼스 마케팅</div>
+      <div class="company-name">セプテーニホールディングス <span class="company-name-jp">셉테니</span></div>
+      <div class="company-desc">매출 약 1,600억 엔(2024). 덴츠그룹 산하의 디지털 전문 대리점. 검색광고·SNS광고·프로그래매틱 등 퍼포먼스 마케팅에 특화. 덴츠 그룹의 디지털 전환을 담당하는 역할로 그룹 내 시너지 있음. 디지털 마케터를 목표로 하는 지원자에게 덴츠·하쿠호도보다 현실적인 입구.</div>
+      <div class="company-tags">
+        <span class="company-tag digital">덴츠 그룹</span>
+        <span class="company-tag">퍼포먼스 마케팅</span>
+        <span class="company-tag">디지털 특화</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type digital">PR 전문 | 인플루언서 마케팅</div>
+      <div class="company-name">ベクトル <span class="company-name-jp">Vector</span></div>
+      <div class="company-desc">매출 약 720억 엔(2024). PR·인플루언서 마케팅 특화. 종합대리점이 강한 TV·대형 미디어 영역 대신, SNS·인플루언서·콘텐츠 마케팅으로 차별화. 채용 인원이 상대적으로 많고 접근성이 현실적. 신졸로 PR·SNS 마케팅을 전문적으로 배울 수 있는 환경.</div>
+      <div class="company-tags">
+        <span class="company-tag digital">PR·인플루언서 특화</span>
+        <span class="company-tag">SNS 마케팅</span>
+        <span class="company-tag">채용 접근성 높음</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type digital">디지털 대리점 | 전문 특화</div>
+      <div class="company-name">電通デジタル <span class="company-name-jp">덴츠 디지털</span></div>
+      <div class="company-desc">덴츠 그룹의 디지털 전문 자회사. 덴츠 본사의 대형 광고주에게 디지털 마케팅 서비스를 제공하는 포지션. 덴츠 본사의 브랜드력을 등에 업으면서 디지털 특화 업무에 집중할 수 있는 환경. 덴츠 본사보다 채용 접근성이 현실적.</div>
+      <div class="company-tags">
+        <span class="company-tag digital">덴츠 그룹</span>
+        <span class="company-tag">대형 광고주</span>
+        <span class="company-tag">본사보다 현실적</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S6 ════ -->
+<div class="section" id="s6">
+  <div class="section-num">SECTION 06</div>
+  <div class="section-title">ES 대책</div>
+  <div class="section-title-jp">合格パターン・落とし穴</div>
+
+  <p>광고대리점 ES의 최대 함정은 <span class="hl">"광고が好きだから" "クリエイティブな仕事がしたいから"</span>만으로 끝나는 지원 동기다. 광고대리점 지원자의 대다수가 이 함정에 빠진다. "광고를 만드는 것"에서 한 발 더 나아가 <strong style="color:var(--text-sub);">"클라이언트의 어떤 사업 과제를 어떻게 해결하たいのか"</strong>까지 말할 수 있어야 차별화된다.</p>
+
+  <h3>빈출 질문 TOP5</h3>
+
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 20px;">
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">① 학생시절 힘쓴 것</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">② 지원동기</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">③ 인상에 남은 광고/캠페인</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">④ 자기PR</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">⑤ 입사 후 하고 싶은 것</span>
+  </div>
+
+  <p>특히 광고업계 특유의 난이도는 <strong style="color:var(--text-sub);">③ "인상에 남은 광고/캠페인"</strong>이다. 단순히 "좋았다"로 끝내는 것이 아니라 <span class="hl">"왜 그 광고가 효과적인가를 마케터 시점에서 분석"</span>하고, "자신이 기획자라면 어�う발전시키겠는가"까지 말할 수 있어야 한다.</p>
+
+  <div class="es-pattern">
+    <div class="es-pattern-label">✅ 합격 패턴 — "과제 발견 → 해결 전략 → 크리에이티브 연결 → 이 회사"</div>
+    <p>
+      ① 특정 브랜드·기업의 마케팅 과제를 소비자 시점 + 데이터로 발견<br>
+      ② 그 과제를 해결하기 위한 크리에이티브/미디어 전략을 논리적으로 제안<br>
+      ③ 왜 그 해결책이 소비자의 감정에 닿는지 인사이트를 언어화<br>
+      ④ 이 회사의 강점(크리에이티브력/미디어 네트워크/디지털 기술)과 자신의 역할이 연결되는 포인트를 제시
+    </p>
+  </div>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">❌ 불합격 공통 실수</div>
+    <p>
+      <span class="hl-warn">실수 1:</span> "광고가 좋아서" "크리에이티브한 일을 하고 싶어서" — 지원자 대다수가 쓰는 이유. 마케팅 과제 해결의 관점이 없으면 기억에 남지 않음<br>
+      <span class="hl-warn">실수 2:</span> 종합대리점에 "디지털 마케팅을 하고 싶다"고만 씀 — 종합대리점의 강점인 통합 커뮤니케이션 설계에 대한 이해가 없음을 드러냄<br>
+      <span class="hl-warn">실수 3:</span> "인상에 남은 광고"에서 단순히 감정을 말함 — "감동했습니다"는 소비자 반응이지 기획자 시점이 아님. 왜 그 광고가 타겟에게 효과적인지를 분석해야 함
+    </p>
+  </div>
+
+  <h3>지원 동기 작성 프레임 (4 STEP)</h3>
+
+  <div class="info-box info-box-accent">
+    <p>
+      <strong style="color:var(--text-sub);">Step 1.</strong> 특정 광고/캠페인 사례에서 출발 — "이 광고는 왜 사람의 마음을 움직이는가"를 마케터 시점으로 분석<br>
+      <strong style="color:var(--text-sub);">Step 2.</strong> "광고대리점"이라는 업태의 가치를 언어화 — 단일 수단이 아닌 복수 수단을 조합해 클라이언트의 사업 과제를 해결하는 포지션<br>
+      <strong style="color:var(--text-sub);">Step 3.</strong> 종합 vs 디지털 중 왜 이 회사인가 — 크리에이티브 철학/디지털 기술/클라이언트 포트폴리오 중 하나를 축으로 구체화<br>
+      <strong style="color:var(--text-sub);">Step 4.</strong> AE vs 크리에이티브 vs 디지털 마케터 중 어떤 직종에서 어떤 역할을 하고 싶은지 제시
+    </p>
+  </div>
+
+  <h3>비교축 — "왜 덴츠가 아니라 하쿠호도인가?" / "왜 종합이 아니라 디지털인가?"</h3>
+
+  <div class="info-box">
+    <div class="box-label">종합대리점 간 차별화 (예: 하쿠호도 vs 덴츠)</div>
+    <p>"하쿠호도는 '生活者発想'이라는 소비자 인사이트를 기획의 출발점으로 삼는 철학에 공감합니다. 광고주視点ではなく消費者視点から課題を再定義するアプローチが、真の価値を生むと考えているからです。"</p>
+  </div>
+
+  <div class="info-box">
+    <div class="box-label">디지털 대리점 선택 차별화 (예: 사이버에이전트)</div>
+    <p>"デジタル広告市場が総広告費の47%を超えた今、データを武器にした広告効果の最大化こそが顧客への最大貢献だと考えています。サイバーエージェントのAI活用と媒体ネットワークは、その最前線で働ける環境です。"</p>
+  </div>
+</div>
+
+<!-- ════ S7 ════ -->
+<div class="section" id="s7">
+  <div class="section-num">SECTION 07</div>
+  <div class="section-title">면접 대책</div>
+  <div class="section-title-jp">面接対策 — 頻出質問・選考フロー</div>
+
+  <p>광고대리점 면접은 <span class="hl">기획력·발신력·소비자 인사이트</span>를 직접 시험하는 형식이 많다. 특히 종합대리점은 프레젠 과제나 광고 기획 과제가 전형에 포함되는 경우가 있어, 지원자의 "아이디어를 언어화하는 능력"이 직접 평가된다.</p>
+
+  <h3>전형 단계 구조</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>단계</th><th>종합대리점 (덴츠·하쿠호도)</th><th>디지털 대리점 (사이버에이전트 등)</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>서류·적성</td>
+          <td>ES + SPI. ES의 "인상에 남은 광고" "입사 후 하고 싶은 것"에서 지원자의 기획력·관점을 봄</td>
+          <td>ES + SPI. 디지털 마케팅 관련 지식·관심도를 묻는 항목이 있는 경우도</td>
+        </tr>
+        <tr>
+          <td>인턴</td>
+          <td>여름 인턴이 사실상 1차 선발. 인턴에서 실제 기획 과제를 제출하는 형식. 덴츠·하쿠호도는 인턴 미참가 시 정규 루트로만 지원해야 해서 불리</td>
+          <td>인턴→조기 내정 루트가 강해지는 중. 사이버에이전트는 인턴 평가가 합격에 크게 영향</td>
+        </tr>
+        <tr>
+          <td>필기 과제</td>
+          <td>광고 기획 과제("이 브랜드의 신규 캠페인을 기획하라" 등)를 제출하는 경우 多. 처음 접하면 어렵게 느껴지지만 사전 준비가 가능</td>
+          <td>디지털 광고 관련 분석 과제나 마케팅 플랜 작성이 포함되는 경우 있음</td>
+        </tr>
+        <tr>
+          <td>1차·2차 면접</td>
+          <td>가쿠치카·지원 동기 + "인상에 남은 광고" 깊이 파고들기. 기획 과제의 발표가 포함되는 경우도</td>
+          <td>마케팅 지식·디지털 광고 이해도 확인. 데이터 분석 관련 질문이 나오는 경우도</td>
+        </tr>
+        <tr>
+          <td>최종 면접</td>
+          <td>임원급. 인물·커리어 비전·입사 의향. "10년 후 이 업계에서 어�うなっていたいか"가 빈출</td>
+          <td>임원급. 성장 의욕·문화 적합성 확인이 중심</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>빈출 질문 & 답변 포인트</h3>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 01</div>
+    <h4>인상에 남은 광고/캠페인은 무엇인가? 왜인가?</h4>
+    <p><strong style="color:var(--text-sub);">나쁜 답변:</strong> "○○의 CM이 감동적이었습니다" — 소비자 반응을 말하는 것으로 그치면 감점. 기획자 시점이 없다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 구조:</strong><br>
+    ① 광고의 배경 — 어떤 브랜드의 어떤 과제가 있었는가<br>
+    ② 전략의 독창성 — 왜 그 크리에이티브·미디어 선택이 효과적인가<br>
+    ③ 타겟 인사이트 — 어떤 소비자 심리를 포착했는가<br>
+    ④ 결과 — 어떤 효과가 있었는가(매출/인지도/브랜ドイメージ)</p>
+    <p>가능하다면 최근 1~2년 내 일본의 실제 캠페인 사례를 준비하고, 자신이 관여한다면 어떻게 발전시키겠는지까지 이야기할 수 있으면 더 강하다.</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 02</div>
+    <h4>왜 광고대리점인가? 왜 (인하우스 마케팅이나 컨설팅이 아닌가)?</h4>
+    <p>광고대리점의 독자적 가치 — 복수 클라이언트의 다양한 과제를 경험할 수 있다는 점, 크리에이티브·미디어·디지털을 통합하는 솔루션을 제공할 수 있다는 점 — 을 말할 수 있어야 한다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 방향:</strong> "自社のブランドだけでなく、多様な業界・クライアントのマーケティング課題と向き合い続けることで、より速く・広く成長できる環境を求めています。広告代理店でしか積めない経験の幅が、将来の自分の価値につながると考えています。"</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 03</div>
+    <h4>TV 광고의 미래를 어떻게 생각하는가?</h4>
+    <p>종합대리점 면접에서 자주 나오는 질문. <span class="hl">TV 죽음론에 단순히 동조하면 감점.</span> 종합대리점의 기존 강점을 부정하는 답변은 피해야 한다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 방향:</strong> "テレビCMは規模と信頼性という観点でまだ強い媒体ですが、その価値はデジタルと組み合わせることで最大化されると考えています。テレビでブランド認知を作り、デジタルで購買行動を促す統合型のアプローチが今の勝ちパターンだと思います。"</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 04</div>
+    <h4>10년 후 이 업계·이 회사でどうなっていたいか?</h4>
+    <p>광고대리점 최종 면접에서 빈번히 나오는 질문. 단순한 커리어 비전보다 <span class="hl">"어떱게 클라이언트와 사회에 가치를 만들고 싶은가"</span>를 말하는 것이 평가받는다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 구조:</strong> 3~5년 내 AE로서 독립적으로 기획을 리드하는 상태 → 10년 후 특정 업종·마케팅 영역의 전문가로 클라이언트에게 없어서는 안 되는 파트너가 되는 그림. 막연한 "마케ターになりたい"보다 담당하고 싶은 업종·브랜드 카테고리까지 구체화하면 설득력이 높아진다.</p>
+  </div>
+
+  <div class="info-box info-box-digital">
+    <div class="box-label box-label-digital">광고 기획 과제 대책</div>
+    <p>종합대리점 전형에 포함되는 기획 과제의 일반적 형식:<br><br>
+      "○○ブランドの新規顧客獲得に向けた統合コミュニケーション施策を企画せよ (A4 2枚以内)"<br><br>
+      평가 기준: <span class="hl-digital">① 소비자 인사이트의 깊이 ② 크리에이티브 콘셉트의 독창성 ③ 미디어 전략의 논리성 ④ 발표의 설득력</span><br><br>
+      준비 방법: 평소에 광고를 소비자가 아닌 기획자 시점으로 분석하는 습관을 기를 것. "이 광고는 왜 이 매체를 선택했는가", "타겟은 누구인가", "어떤 인사이트를 포착하고 있는가"를 일상적으로 생각하는 트레이닝이 가장 효과적이다.
+    </p>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> 업계 리포트 Vol.07 — 광고대리점</p>
+  <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+  <p style="margin-top:8px;font-size:10px;">본 리포트의 정보는 電通「2024年 日本の広告費」, 각사 IR자료, 채용 페이지, OpenWork 등 공개 정보를 기반으로 구조화한 것입니다.</p>
+</div>
+
+</div>
+
+<script>
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  const y = el.getBoundingClientRect().top + window.pageYOffset - navH - 16;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7'];
+const navBtns = document.querySelectorAll('.nav-btn');
+function updateNav() {
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  let current = 's1';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= navH + 60) current = id;
+  });
+  navBtns.forEach((btn, i) => btn.classList.toggle('active', sections[i] === current));
+}
+window.addEventListener('scroll', updateNav);
+updateNav();
+</script>
+</body>
+</html>
