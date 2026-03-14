@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제약 업계 리포트 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #55efc4;
+    --accent-soft: rgba(85,239,196,0.08);
+    --accent-border: rgba(85,239,196,0.22);
+    --warn: #f59e0b;
+    --warn-soft: rgba(245,158,11,0.06);
+    --warn-border: rgba(245,158,11,0.18);
+    --foreign: #a29bfe;
+    --foreign-soft: rgba(162,155,254,0.08);
+    --foreign-border: rgba(162,155,254,0.2);
+    --otc: #fdcb6e;
+    --otc-soft: rgba(253,203,110,0.08);
+    --otc-border: rgba(253,203,110,0.2);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Noto Sans JP',sans-serif; line-height:1.8; font-size:15px; -webkit-font-smoothing:antialiased; }
+  .container { max-width:760px; margin:0 auto; padding:0 24px 100px; }
+  .hero { padding:64px 24px 48px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(85,239,196,0.06) 0%, transparent 70%); pointer-events:none; }
+  .hero-inner { position:relative; max-width:760px; margin:0 auto; }
+  .hero-label { display:inline-block; font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-border); padding:4px 12px; border-radius:12px; margin-bottom:20px; text-transform:uppercase; }
+  .hero h1 { font-size:30px; font-weight:900; line-height:1.3; margin-bottom:10px; letter-spacing:-0.5px; }
+  .hero-sub { font-size:13px; color:var(--text-dim); line-height:1.9; margin-bottom:20px; max-width:560px; }
+  .hero-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .hero-tag { font-size:11px; padding:4px 12px; border-radius:100px; font-weight:500; }
+  .hero-tag.a { background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); }
+  .hero-tag.f { background:var(--foreign-soft); color:var(--foreign); border:1px solid var(--foreign-border); }
+  .hero-tag.o { background:var(--otc-soft); color:var(--otc); border:1px solid var(--otc-border); }
+  .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
+  .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+  .section-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-btn { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
+  .nav-btn:hover, .nav-btn.active { color:var(--accent); background:var(--accent-soft); }
+  .section { padding:44px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom:none; }
+  .section-num { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); opacity:0.7; margin-bottom:6px; text-transform:uppercase; }
+  .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
+  .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); margin-bottom:20px; }
+  .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section p:last-child { margin-bottom:0; }
+  .section h3 { font-size:14px; font-weight:700; color:var(--text-sub); margin:28px 0 12px; padding-left:10px; border-left:2px solid var(--accent); }
+  .section h3.f { border-left-color:var(--foreign); }
+  .section h3.o { border-left-color:var(--otc); }
+  .info-box { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:16px 0; }
+  .info-box-accent { background:var(--accent-soft); border-color:var(--accent-border); border-left:3px solid var(--accent); }
+  .info-box-foreign { background:var(--foreign-soft); border-color:var(--foreign-border); border-left:3px solid var(--foreign); }
+  .info-box-warn { background:var(--warn-soft); border-color:var(--warn-border); border-left:3px solid var(--warn); }
+  .info-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+  .box-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .box-label-f { color:var(--foreign); }
+  .box-label-warn { color:var(--warn); }
+  .hl { color:var(--accent); font-weight:600; }
+  .hl-f { color:var(--foreign); font-weight:600; }
+  .hl-warn { color:var(--warn); font-weight:600; }
+  .table-wrap { overflow-x:auto; margin:16px 0; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  thead { background:var(--surface-2); }
+  th { padding:10px 14px; text-align:left; font-weight:700; font-size:10px; letter-spacing:1px; color:var(--text-muted); border-bottom:1px solid var(--border); white-space:nowrap; text-transform:uppercase; }
+  td { padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-dim); vertical-align:top; line-height:1.7; }
+  tr:last-child td { border-bottom:none; }
+  td:first-child { font-weight:700; color:var(--text-sub); }
+  .trend-card { padding:20px 22px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:12px 0; }
+  .trend-num { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .trend-card h4 { font-size:14px; font-weight:700; margin-bottom:10px; color:var(--text); }
+  .trend-card p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:10px; }
+  .trend-card p:last-child { margin-bottom:0; }
+  .use-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700; margin:6px 4px 4px 0; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); }
+  .use-tag-f { display:inline-block; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700; margin:6px 4px 4px 0; background:var(--foreign-soft); color:var(--foreign); border:1px solid var(--foreign-border); }
+  .company-group { margin:20px 0; }
+  .company-group-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--text-muted); margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--border); text-transform:uppercase; }
+  .company-card { padding:16px 18px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:8px; transition:border-color 0.2s; }
+  .company-card:hover { border-color:var(--border-hover); }
+  .company-card.primary { border-color:var(--accent-border); }
+  .company-card.primary-f { border-color:var(--foreign-border); }
+  .company-card.primary-o { border-color:var(--otc-border); }
+  .company-type { font-size:10px; font-weight:700; color:var(--accent); letter-spacing:1px; margin-bottom:4px; text-transform:uppercase; }
+  .company-type.f { color:var(--foreign); }
+  .company-type.o { color:var(--otc); }
+  .company-name { font-size:15px; font-weight:700; color:var(--text); margin-bottom:6px; }
+  .company-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:12px; color:var(--text-muted); font-weight:400; margin-left:6px; }
+  .company-desc { font-size:12px; color:var(--text-dim); line-height:1.8; }
+  .company-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+  .company-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .company-tag.a { background:var(--accent-soft); color:var(--accent); border-color:var(--accent-border); }
+  .company-tag.f { background:var(--foreign-soft); color:var(--foreign); border-color:var(--foreign-border); }
+  .company-tag.o { background:var(--otc-soft); color:var(--otc); border-color:var(--otc-border); }
+  .job-link-card { display:flex; align-items:flex-start; gap:14px; padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; text-decoration:none; transition:all 0.2s; margin-bottom:8px; }
+  .job-link-card:hover { border-color:var(--accent-border); background:var(--accent-soft); }
+  .job-link-icon { font-size:24px; flex-shrink:0; margin-top:2px; }
+  .job-link-body { flex:1; }
+  .job-link-kicker { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:4px; text-transform:uppercase; }
+  .job-link-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .job-link-desc { font-size:12px; color:var(--text-dim); line-height:1.7; margin-bottom:8px; }
+  .job-link-tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .job-link-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .job-link-arrow { font-size:16px; color:var(--accent); flex-shrink:0; margin-top:4px; }
+  .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0; }
+  .keyword-card { padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .keyword-name { font-size:13px; font-weight:700; color:var(--accent); margin-bottom:4px; }
+  .keyword-name.f { color:var(--foreign); }
+  .keyword-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); font-weight:400; margin-left:4px; }
+  .keyword-desc { font-size:11px; color:var(--text-dim); line-height:1.7; }
+  .es-pattern { padding:16px 18px; background:var(--surface-2); border-radius:8px; margin:12px 0; }
+  .es-pattern-label { font-size:10px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:8px; text-transform:uppercase; }
+  .es-pattern p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+  .footer { padding:40px 0 60px; border-top:1px solid var(--border); margin-top:20px; text-align:center; }
+  .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; }
+  .footer .brand { font-weight:700; color:var(--text-dim); }
+  @media (max-width:640px) { .keyword-grid { grid-template-columns:1fr; } .hero h1 { font-size:24px; } .section-title { font-size:18px; } }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">업계 리포트 Vol.15</div>
+    <h1>제약 업계 완전 정리</h1>
+    <p class="hero-sub">
+      다케다약품·아스텔라스 일본계 대형부터 파이저·노바티스 외자계까지.<br>
+      MR 직종의 현실, 일본계 vs 외자계 선택 기준을 한 페이지에.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag a">일본계 대형 제약</span>
+      <span class="hero-tag f">외자계 글로벌 제약</span>
+      <span class="hero-tag o">OTC·소비자 제약</span>
+      <span class="hero-tag a">MR·CRA·MSL 직종</span>
+      <span class="hero-tag a">문과·이과 양쪽 채용</span>
+    </div>
+  </div>
+</div>
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('s1')">01 업계전체상</button>
+    <button class="nav-btn" onclick="scrollTo('s2')">02 트렌드</button>
+    <button class="nav-btn" onclick="scrollTo('s3')">03 활약직종</button>
+    <button class="nav-btn" onclick="scrollTo('s4')">04 키워드</button>
+    <button class="nav-btn" onclick="scrollTo('s5')">05 기업리스트</button>
+    <button class="nav-btn" onclick="scrollTo('s6')">06 ES대책</button>
+    <button class="nav-btn" onclick="scrollTo('s7')">07 면접대책</button>
+  </div>
+</div>
+<div class="container">
+
+<!-- ════ S1 ════ -->
+<div class="section" id="s1">
+  <div class="section-num">SECTION 01</div>
+  <div class="section-title">업계 전체상</div>
+  <div class="section-title-jp">業界全体像 — 医薬品・日系vs外資・ビジネスモデル</div>
+  <div class="info-box info-box-accent">
+    <div class="box-label">한 줄 정의</div>
+    <p><span class="hl">의약품의 연구·개발·제조·판매를 담당하는 업계. 신약 1개 개발에 평균 10~15년·1,000억~3,000억 엔이 소요되는 극히 높은 진입 장벽과 특허 기간 내 독점적 이익이 공존하는 특수한 산업이다.</span><br>
+    일본은 세계 3위 의약품 시장으로, 일본계 대형 제약사와 글로벌 외자계가 공존하는 구도다.</p>
+  </div>
+  <p>일본 의약품 시장 규모 약 <span class="hl">11조 엔</span>(2024년). 고령화 사회를 배경으로 의약품 수요는 구조적으로 성장하고 있다. 한편 특허 만료 후의 제네릭(복제약) 전환과 정부의 약가 인하 정책이 제약 기업의 수익 압박 요인이 되고 있다.</p>
+
+  <h3>제약 업계의 3가지 분류</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>분류</th><th>특징</th><th>대표 기업</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>신약 전문<br>(에틱컬)</td>
+          <td>의사 처방이 필요한 전문 의약품(처방약). R&D 투자가 수익의 핵심. 특허 기간 중 독점적 이익. 글로벌 임상시험과 허가 취득이 필수</td>
+          <td>다케다약품공업, 아스텔라스제약, 다이이치산쿄, 파이저재팬, 노바티스재팬</td>
+        </tr>
+        <tr>
+          <td>OTC·소비자 제약</td>
+          <td>의사 처방 없이 구입 가능한 일반 의약품(OTC). 광고·브랜드력이 수익을 결정. 소비재 기업과의 경쟁도 있음</td>
+          <td>다이쇼제약, 로토제약, 고바야시제약, 타이세이제약</td>
+        </tr>
+        <tr>
+          <td>제네릭 전문</td>
+          <td>특허 만료 신약의 복제약 제조·판매. 정부의 제네릭 사용 촉진 정책으로 시장 성장 중. 저가격·생산 효율이 경쟁 핵심</td>
+          <td>사와이그룹홀딩스, 닛신제약, 다이이찌산쿄 에스파</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>비즈니스 모델 — 제약 회사는 어떻게 돈을 버는가</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>수익 모델</th><th>구조</th><th>특징</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>신약 특허 독점</td>
+          <td>특허 기간(20년, 실질 8~12년) 중 독점적으로 고가 판매. 전 세계 매출이 단일 제품에서 수천억~수조 엔에 달하는 경우도</td>
+          <td>블록버스터(연 매출 1조 엔 이상) 신약 1개가 회사 전체를 지탱. 특허 절벽(만료 시 매출 급감)이 최대 리스크</td>
+        </tr>
+        <tr>
+          <td>약가 제도</td>
+          <td>일본에서는 의약품 가격이 정부(후생노동성)에 의해 결정(약가 기준). 2년마다 약가 개정으로 가격이 인하되는 구조</td>
+          <td>안정 수익이지만 약가 인하로 수익성이 점진적 악화. 신약 개발과 글로벌 전개로 보완하는 것이 생존 전략</td>
+        </tr>
+        <tr>
+          <td>R&D 파이프라인</td>
+          <td>개발 중인 신약 후보(파이프라인) 수와 단계가 기업 가치를 결정. 라이선스 수출·도입, 공동 개발도 수익원</td>
+          <td>파이프라인 가치가 주가에 직결. 임상시험 실패·성공이 즉각 주가에 반영되는 산업</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>일본계 vs 외자계 — 어느 쪽을 선택할 것인가</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>비교 항목</th><th>일본계 대형 제약</th><th>외자계 글로벌 제약</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>언어 환경</td>
+          <td>일본어 중심. 해외 임상·파트너 업무에서 영어 필요하지만 사내는 기본적으로 일본어</td>
+          <td>영어가 사실상 사내 공용어. 글로벌 팀과의 보고·회의·문서가 모두 영어</td>
+        </tr>
+        <tr>
+          <td>MR 특징</td>
+          <td>폭넓은 질환 영역 담당. 전근 있음. 팀 문화 강함. 연공서열 요소 잔존</td>
+          <td>특정 질환 영역에 특화. 성과주의 강함. 연봉 높은 경향. 인원 구조조정 리스크도 있음</td>
+        </tr>
+        <tr>
+          <td>R&D 환경</td>
+          <td>일본 독자 신약 연구·임상 가능. 글로벌 임상 참여도 있지만 본사 주도</td>
+          <td>글로벌 R&D의 일부를 일본에서 담당. 세계 최첨단 연구와 직결되는 기회</td>
+        </tr>
+        <tr>
+          <td>안정성</td>
+          <td>블록버스터 의존도가 낮으면 안정. 대규모 구조조정 빈도는 외자보다 낮은 경향</td>
+          <td>글로벌 전략 변경으로 일본사업 축소·구조조정이 발생하는 경우 있음. 특히 MR 인원 삭감 사례 다수</td>
+        </tr>
+        <tr>
+          <td>연봉</td>
+          <td>다케다 평균 약 1,074만엔 등 업계 상위</td>
+          <td>외자계는 총보상(기본급+인센티브) 기준으로 일본계 상회하는 경우가 많음</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ════ S2 ════ -->
+<div class="section" id="s2">
+  <div class="section-num">SECTION 02</div>
+  <div class="section-title">면접관이 체크하는 트렌드 3선</div>
+  <div class="section-title-jp">面接官がチェックするトレンド</div>
+  <p>"최근 제약 업계에서 주목하는 것이 있나요?" — 반드시 나오는 질문. <span class="hl">단순한 신약 개발 동향뿐 아니라 산업 구조 변화와 지원 회사의 전략을 연결해서 말할 수 있어야</span> 차별화된다.</p>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 01</div>
+    <h4>항체의약품·세포 유전자 치료 — 제약 패러다임의 전환</h4>
+    <p>기존 저분자 화합물 의약품 중심에서 <span class="hl">바이오의약품·항체의약품·세포 유전자 치료제</span>로의 패러다임 전환이 가속되고 있다. 다케다약품은 희귀 질환·소화기계·종양 영역의 바이오 의약품에 집중 투자 중이다. 다이이치산쿄가 개발한 항체·약물 복합체(ADC) "엔허투"는 암 치료 분야에서 세계적으로 평가를 받으며 글로벌 블록버스터로 성장하고 있다.</p>
+    <p>이 전환은 MR의 역할도 바꾸고 있다. 바이오 의약품·세포 치료제는 기존 저분자 약보다 훨씬 복잡한 의학적 지식이 필요하며, <span class="hl">고도의 의학적 토론이 가능한 MSL(Medical Science Liaison)의 중요성이 급상승</span>하고 있다.</p>
+    <div class="use-tag">ES/면접 활용</div>
+    <p>"바이오의약품·ADC 등 차세대 치료 옵션의 등장으로 제약 업계의 과학적 복잡도가 급상승하고 있습니다. 더 깊은 의학 지식을 바탕으로 의료 현장에 기여하는 MR·MSL 역할에 매력을 느낍니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 02</div>
+    <h4>디지털 MR·오므니채널 전략 — MR의 역할 재정의</h4>
+    <p>코로나를 계기로 온라인 면담·e디테일·의료자 향 앱 등 디지털 채널이 제약 영업에 정착했다. <span class="hl">단순한 정보 전달 업무는 디지털로 대체되고, 대면 MR은 고도의 의학적 토론과 깊은 신뢰 관계 구축에 특화</span>하는 방향으로 역할이 재정의되고 있다.</p>
+    <p>이에 따라 MR 수는 2013년의 약 65,000명에서 2024년에는 약 50,000명 이하로 감소했다. 특히 외자계 제약사를 중심으로 MR 인원 삭감과 디지털 채널 강화가 진행되고 있다. MR을 목표로 하는 취준생은 이 변화를 이해한 뒤 "디지털 시대의 MR 가치"를 말할 수 있어야 한다.</p>
+    <div class="use-tag">ES/면접 활용</div>
+    <p>"디지털화로 MR 수는 줄고 있지만, 대면 MR만이 할 수 있는 깊은 신뢰 관계 구축과 고도의 의학적 토론의 가치는 오히려 높아지고 있습니다. 저는 디지털과 대면을 최적으로 조합하는 MR이 되고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 03</div>
+    <h4>글로벌 M&A와 신약 파이프라인 경쟁 — 일본 제약의 세계 진출</h4>
+    <p>다케다약품이 아일랜드 샤이어를 약 6조 2,000억 엔에 인수(2019년)한 이후, 일본 제약 기업의 글로벌 M&A가 본격화됐다. <span class="hl">국내 약가 인하 압력을 글로벌 시장에서 보완하는 전략</span>이 대형 일본 제약사의 공통 방향성이 되고 있다.</p>
+    <p>다이이치산쿄의 ADC 기술은 아스트라제네카와의 파트너십으로 글로벌 표준 치료가 됐다. 이 파트너십에서 발생하는 마일스톤 수입·로열티가 다이이치산쿄의 새로운 수익 모델이 됐다. "일본 제약사가 세계 의료에 기여하는" 방향성은 면접에서 강력한 지원 동기가 된다.</p>
+    <div class="use-tag">일본계 활용</div>
+    <div class="use-tag use-tag-f">외자계 활용</div>
+    <p>"일본 제약이 세계 의료에 기여하는 무대가 확대되고 있습니다. 이 흐름의 중심에서 일본의 기술을 세계 환자에게 전달하는 역할을 담당하고 싶습니다."</p>
+  </div>
+</div>
+
+<!-- ════ S3 ════ -->
+<div class="section" id="s3">
+  <div class="section-num">SECTION 03</div>
+  <div class="section-title">이 업계에서 활약하는 직종</div>
+  <div class="section-title-jp">製薬業界で活躍する職種</div>
+  <p>제약 업계는 <span class="hl">MR(영업)·CRA(임상개발모니터)·MSL(메디컬사이언스리에종)·R&D</span>가 주요 직종이다. 문과는 MR·마케팅이 주력이며, 이과는 R&D·CRA·MSL 경로도 있다.</p>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/sales-eg08-pharma" target="_blank" class="job-link-card">
+    <div class="job-link-icon">💊</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">핵심 직종 — 직종 상세 카드 EG-08</div>
+      <div class="job-link-title">MR (의약 정보 담당자) — 과학적 근거로 의료 현장을 지원하는 사람</div>
+      <div class="job-link-desc">
+        의사·약사에게 의약품 정보를 전달하는 전문 영업직. <strong style="color:var(--text-sub);">"팔 수 없는 영업"이 핵심 — 처방 결정은 의사이며 MR은 과학적 근거를 제공한다.</strong> 문과·이과 모두 채용. 입사 후 MR인정시험 합격 필수.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">문과·이과 모두</span>
+        <span class="job-link-tag">MR인정시험 필수</span>
+        <span class="job-link-tag">질환 영역 전문성</span>
+        <span class="job-link-tag">"팔 수 없는 영업"</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <div class="info-box" style="margin-top:20px;">
+    <div class="box-label">제약 업계 직종 구조 상세</div>
+    <p>
+      <strong style="color:var(--text-sub);">MR (Medical Representative):</strong> 의사·약사에 대한 의약품 정보 제공 영업. 질환 영역별(암·순환기·정신 등) 전문화. 문과도 입사 가능. 입사 후 3~6개월 집중 연수 + MR인정시험 취득이 필수.<br><br>
+      <strong style="color:var(--text-sub);">MSL (Medical Science Liaison):</strong> Key Opinion Leader(의료 전문가)와 고도의 의학적 토론을 통해 자사 제품의 의학적 가치를 전달. MR과 달리 영업 목표 없음. 이과·의학·약학 배경 필요. 바이오의약품 확대로 수요 급증.<br><br>
+      <strong style="color:var(--text-sub);">CRA (Clinical Research Associate):</strong> 신약 임상시험의 현장 모니터링·데이터 품질 관리. 의료기관 담당자와 협력하며 임상 프로토콜 준수를 확인. 이과·약학·간호 배경 강점.<br><br>
+      <strong style="color:var(--text-sub);">마케팅·상품기획:</strong> 의약품 브랜드 전략·MR 교육 자료 작성·메디컬 어페어즈. 수년간의 MR 경험 후 이동하는 것이 일반적.<br><br>
+      <span class="hl">OTC 기업(다이쇼·로토제약)은 일반 소비재 마케팅에 가까운 업무로, 광고·SNS·약국 판촉 등 문과 마케터가 초기부터 관여하기 쉬운 환경이다.</span>
+    </p>
+  </div>
+</div>
+
+<!-- ════ S4 ════ -->
+<div class="section" id="s4">
+  <div class="section-num">SECTION 04</div>
+  <div class="section-title">제약 업계 × 직종별 자기분석 키워드</div>
+  <div class="section-title-jp">自己分析キーワードとの接続</div>
+  <p>제약 업계는 <span class="hl">인간의 건강·생명에 직접 기여한다는 사명감</span>이 기본 전제다. 동시에 고도의 전문 지식 습득을 즐기는 자세와 의료 관계자와의 신뢰 관계 구축 능력이 동시에 요구된다.</p>
+
+  <h3>MR 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">향상심 <span class="keyword-name-jp">向上心</span></div>
+      <div class="keyword-desc">담당 질환의 병태생리·치료 가이드라인·최신 임상 데이터를 의사와 대등하게 토론할 수 있는 수준까지 공부하는 자세. MR인정시험 합격 후에도 끊임없이 새로운 의학 지식을 흡수하는 것이 전문가로서의 생명이다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">경청력 <span class="keyword-name-jp">傾聴力</span></div>
+      <div class="keyword-desc">의사의 처방 습관·환자 케이스에 대한 고민을 깊이 히어링하는 능력. "이 의사가 어떤 환자에게 어떤 가치를 필요로 하는가"를 이해하지 못하면 적절한 의약품 정보를 제공할 수 없다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">성실성 <span class="keyword-name-jp">誠実性</span></div>
+      <div class="keyword-desc">의약품은 환자의 생명에 직접 관여하는 제품이다. 부작용·금기 사항을 포함한 정확한 정보를 제공하는 의무가 MR에게 있다. 자사 제품의 단점도 정직하게 전달하는 성실함이 의사와의 장기 신뢰 관계를 만든다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">탐구심 <span class="keyword-name-jp">探求心</span></div>
+      <div class="keyword-desc">의학·약학의 최신 동향을 스스로 조사하고 이해하는 지적 호기심. 담당 질환의 병태생리를 이과 출신 의사와 대등하게 토론하기 위해 문과 출신 MR도 끊임없이 공부해야 하는 환경이다.</div>
+    </div>
+  </div>
+
+  <h3 class="f">외자계·MSL·CRA 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name f">논리적사고력 <span class="keyword-name-jp">論理的思考力</span></div>
+      <div class="keyword-desc">임상 데이터를 읽고 통계적 유의성·임상적 의의를 정확히 이해하는 능력. MSL이나 CRA는 의학적 토론의 논리 구성이 핵심 역량이다. 외자계는 글로벌 데이터를 영어로 이해하고 설명하는 능력도 요구된다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name f">주체성 <span class="keyword-name-jp">主体性</span></div>
+      <div class="keyword-desc">외자계 제약의 성과주의 문화에서는 지시를 기다리지 않고 자신의 담당 영역에서 스스로 과제를 발견하고 행동하는 자세가 필수. MR도 스스로 담당 병원의 처방 동향을 분석해 전략을 세우는 자기 주도성이 요구된다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name f">정확성 <span class="keyword-name-jp">正確性</span></div>
+      <div class="keyword-desc">CRA의 임상 데이터 모니터링에서 단 한 번의 기록 오류가 의약품 승인에 영향을 미친다. 프로토콜 준수·문서 정확성·이상 징후의 신속한 보고가 임상 업무의 생명이다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name f">관계구축력 <span class="keyword-name-jp">関係構築力</span></div>
+      <div class="keyword-desc">Key Opinion Leader 의사와 장기적 학술 관계를 쌓는 MSL의 핵심 역량. 단기적 영업 목표 없이 의학적 신뢰 관계를 쌓는 것이 MSL의 역할이며, 이를 위해 인간적 매력과 학술적 깊이 양쪽이 필요하다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S5 ════ -->
+<div class="section" id="s5">
+  <div class="section-num">SECTION 05</div>
+  <div class="section-title">기업 비교 & 리스트</div>
+  <div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+  <p>제약 업계는 <span class="hl">일본계 대형 + 외자계 상위 + OTC를 세트로 공략하는 전략</span>이 현실적이다. 각사의 치료 영역·기업 문화·MR 환경이 크게 다르므로 지원 전에 충분히 비교해야 한다.</p>
+
+  <!-- 일본계 대형 -->
+  <div class="company-group">
+    <div class="company-group-label">💊 일본계 대형 제약</div>
+    <div class="company-card primary">
+      <div class="company-type">일본계 | 글로벌 제약 19위</div>
+      <div class="company-name">다케다약품공업 <span class="company-name-jp">武田薬品工業</span></div>
+      <div class="company-desc">매출 약 4조 2,000억 엔(2024). 평균연봉 약 1,074만 엔. 일본 최대 제약사. 아일랜드 샤이어 인수로 글로벌 제약 19위권 진입. 희귀 질환·소화기·신경·종양 영역에 집중. 글로벌 임상·연구 기회 풍부. 외국인 CEO 체제로 글로벌 문화가 강함. 영어 사용 빈도 높음.</div>
+      <div class="company-tags">
+        <span class="company-tag a">평균연봉 1,074만 엔</span>
+        <span class="company-tag">글로벌 19위</span>
+        <span class="company-tag">희귀질환·종양</span>
+        <span class="company-tag">영어 빈도 높음</span>
+      </div>
+    </div>
+    <div class="company-card primary">
+      <div class="company-type">일본계 | 비뇨기·면역·종양</div>
+      <div class="company-name">아스텔라스제약 <span class="company-name-jp">アステラス製薬</span></div>
+      <div class="company-desc">매출 약 1조 5,000억 엔(2024). 평균연봉 약 1,004만 엔. 비뇨기·면역·종양·안과 영역에 집중. 세계 50개국 이상에 사업 전개. 글로벌 임상 비율이 높고 일본 제약사 중에서 가장 글로벌화된 기업 중 하나. 세포 유전자 치료 분야에도 투자 중.</div>
+      <div class="company-tags">
+        <span class="company-tag a">평균연봉 1,004만 엔</span>
+        <span class="company-tag">비뇨기·면역·종양</span>
+        <span class="company-tag">글로벌화 선도</span>
+      </div>
+    </div>
+    <div class="company-card primary">
+      <div class="company-type">일본계 | ADC 세계 표준</div>
+      <div class="company-name">다이이치산쿄 <span class="company-name-jp">第一三共</span></div>
+      <div class="company-desc">매출 약 1조 7,000억 엔(2024). 평균연봉 약 1,024만 엔. 항체·약물 복합체(ADC) 기술로 종양 분야에서 세계 표준이 됨. 아스트라제네카와의 파트너십으로 "엔허투"가 글로벌 블록버스터로 성장. 순환기·통증 분야도 강함. 최근 최고의 성장세를 보이는 일본 제약사.</div>
+      <div class="company-tags">
+        <span class="company-tag a">평균연봉 1,024만 엔</span>
+        <span class="company-tag">ADC 세계 표준</span>
+        <span class="company-tag">엔허투·AZ 파트너십</span>
+      </div>
+    </div>
+    <div class="company-card">
+      <div class="company-type">일본계 | 신경·인지·소화기</div>
+      <div class="company-name">에자이 <span class="company-name-jp">エーザイ</span></div>
+      <div class="company-desc">평균연봉 약 976만 엔. 알츠하이머 치료약 "레켐비(Leqembi)"가 세계 최초 승인을 받아 글로벌 주목. 신경과학·종양·소화기 영역에 집중. "인간의 건강과 평화가 실현된 세계"를 기업 이념으로 하는 독자적 문화. hhc(human health care) 철학이 유명.</div>
+      <div class="company-tags">
+        <span class="company-tag a">레켐비 알츠하이머</span>
+        <span class="company-tag">hhc 철학</span>
+        <span class="company-tag">신경과학 강점</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 외자계 -->
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--foreign);">🌍 외자계 글로벌 제약</div>
+    <div class="company-card primary-f">
+      <div class="company-type f">외자계 | 세계 1위 제약사</div>
+      <div class="company-name">파이저재팬 <span class="company-name-jp">ファイザー</span></div>
+      <div class="company-desc">세계 최대 제약사의 일본법인. 코로나 백신(코미나티)·팍스로비드로 세계적 존재감. 종양·희귀질환·신경·염증 영역. 성과주의 문화. 영어 업무 일상적. MR은 특정 질환 영역에 고도 특화. 인원 최적화(구조조정)가 주기적으로 발생하는 것도 현실.</div>
+      <div class="company-tags">
+        <span class="company-tag f">세계 1위 제약사</span>
+        <span class="company-tag">코로나 백신</span>
+        <span class="company-tag">성과주의 강함</span>
+      </div>
+    </div>
+    <div class="company-card primary-f">
+      <div class="company-type f">외자계 | 종양·면역 강자</div>
+      <div class="company-name">노바티스재팬 <span class="company-name-jp">ノバルティス</span></div>
+      <div class="company-desc">스위스 노바티스의 일본법인. 종양·면역·신경·심혈관 영역. 세포 유전자 치료(CAR-T 세포 치료) 분야 세계 선도. 세계 최첨단 연구 성과를 가장 빨리 일본 의료 현장에 전달하는 역할. MSL 인재 수요 강함. 연봉 수준 외자계 중 최상위급.</div>
+      <div class="company-tags">
+        <span class="company-tag f">CAR-T 세포 치료</span>
+        <span class="company-tag">MSL 수요 강함</span>
+        <span class="company-tag">연봉 최상위급</span>
+      </div>
+    </div>
+    <div class="company-card primary-f">
+      <div class="company-type f">외자계 | 종양·ADC 파트너</div>
+      <div class="company-name">아스트라제네카재팬 <span class="company-name-jp">アストラゼネカ</span></div>
+      <div class="company-desc">영국 AZ의 일본법인. 종양·순환기·신장·호흡기 영역. 다이이치산쿄와의 ADC 파트너십으로 종양 분야 세계 탑 수준. 일본 법인의 권한이 크고 비교적 의사 결정이 빠른 문화. 글로벌 개발 방향과 일본 의료 현장을 잇는 역할에 매력을 느끼는 인재에게.</div>
+      <div class="company-tags">
+        <span class="company-tag f">다이이치산쿄 파트너</span>
+        <span class="company-tag">종양 최상위</span>
+        <span class="company-tag">일본 법인 권한 큼</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- OTC -->
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--otc);">🏪 OTC·소비자 제약</div>
+    <div class="company-card primary-o">
+      <div class="company-type o">OTC | 국내 1위 제약사</div>
+      <div class="company-name">다이쇼제약 <span class="company-name-jp">大正製薬</span></div>
+      <div class="company-desc">평균연봉 약 739만 엔. 파브론·루루·리포비탄D 등 국내 최강 OTC 브랜드 보유. 일반 소비재에 가까운 마케팅·광고 전략. 비상장화(MBO)로 2024년 상장 폐지. 소비자에게 직접 닿는 헬스케어 브랜드 마케팅에 관심 있는 문과 지원자에게.</div>
+      <div class="company-tags">
+        <span class="company-tag o">파브론·리포비탄D</span>
+        <span class="company-tag">OTC 국내 1위</span>
+        <span class="company-tag">소비재 마케팅</span>
+      </div>
+    </div>
+    <div class="company-card primary-o">
+      <div class="company-type o">OTC | 눈·피부 특화</div>
+      <div class="company-name">로토제약 <span class="company-name-jp">ロート製薬</span></div>
+      <div class="company-desc">평균연봉 약 718만 엔. 로토V·스킨아쿠아·오베쥬 등 눈·피부 OTC 브랜드. 재생의료(세포의약품)·스킨케어·식품으로 사업 확장 중. 독특한 복업 허용 제도·사내 사업 제안 제도 등 혁신적 조직 문화가 특징. SNS·디지털 마케팅에 적극적으로 문과 마케터에게 매력적인 환경.</div>
+      <div class="company-tags">
+        <span class="company-tag o">로토V·스킨아쿠아</span>
+        <span class="company-tag">복업 허용 문화</span>
+        <span class="company-tag">재생의료 확장</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S6 ════ -->
+<div class="section" id="s6">
+  <div class="section-num">SECTION 06</div>
+  <div class="section-title">ES 대책</div>
+  <div class="section-title-jp">合格パターン·落とし穴</div>
+  <p>제약 ES의 최대 함정은 <span class="hl">"사람을 돕고 싶어서" "의료에 기여하고 싶어서"만으로 끝나는 지원 동기</span>다. 의료 종사자·NGO·보험 업계 지원자도 같은 표현을 쓴다. <strong style="color:var(--text-sub);">"왜 제약인가, 왜 MR이라는 직종인가"</strong>를 구체적으로 말해야 한다.</p>
+
+  <div class="es-pattern">
+    <div class="es-pattern-label">✅ MR 합격 지원 동기 4단계</div>
+    <p>
+      Step 1. 의료·제약에 관심을 갖게 된 원체험을 제시 (가족의 투병·아르바이트·특정 질환에 대한 관심 등)<br>
+      Step 2. "왜 의사·간호사가 아닌 제약사인가" — 신약 개발·의약품 정보 제공을 통해 더 많은 환자에게 영향을 미칠 수 있다는 스케일의 논리<br>
+      Step 3. "왜 이 회사인가" — 담당 질환 영역·기업 이념·파이프라인·일본계/외자계 선택의 이유를 구체적으로<br>
+      Step 4. MR로서 어떤 질환 영역에서 어떤 가치를 만들고 싶은지 커리어 비전
+    </p>
+  </div>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">❌ 불합격 공통 실수</div>
+    <p>
+      <span class="hl-warn">실수 1:</span> "사람을 돕고 싶어서 제약을 선택했습니다" — 의료·복지·보험 지원자 전원이 말하는 이유. 왜 MR이라는 직종인지의 구체성이 없음<br>
+      <span class="hl-warn">실수 2:</span> MR 수 감소 트렌드를 모름 — 디지털 MR 전환을 이해하지 못하고 "MR은 필요하다"とだけ말하면 업계 이해 부족이 드러남<br>
+      <span class="hl-warn">실수 3:</span> 외자계에 일본어만 어필 — 외자계는 영어 능력·글로벌 마인드셋이 기본 전제. "일본어가 강점"만을 말하면 외자계 지원의 논리가 약함
+    </p>
+  </div>
+</div>
+
+<!-- ════ S7 ════ -->
+<div class="section" id="s7">
+  <div class="section-num">SECTION 07</div>
+  <div class="section-title">면접 대책</div>
+  <div class="section-title-jp">面接対策 — 頻出質問·選考フロー</div>
+  <p>제약 면접은 <span class="hl">의료·제약 업계에 대한 진정한 관심·공부 의욕·윤리 의식</span>이 핵심이다. 특히 "팔 수 없는 영업인 MR을 왜 하고 싶은가"를 말할 수 있어야 한다.</p>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 01</div>
+    <h4>MR은 "팔 수 없는 영업"인데 왜 하고 싶은가?</h4>
+    <p>제약 면접에서 가장 중요한 질문. 일반 영업과 MR의 차이를 이해하고 있는지, MR의 본질적 가치를 말할 수 있는지를 본다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 방향:</strong> "MR의 가치는 '파는 것'이 아니라 '의사가 최적 처방 판단을 내릴 수 있도록 과학적 근거를 제공하는 것'입니다. 그 결과로 환자에게 적절한 치료가 이루어진다는 임팩트는 일반 영업에서는 느낄 수 없는 차원이라고 생각합니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 02</div>
+    <h4>어떤 질환 영역에 관심이 있는가? 왜인가?</h4>
+    <p>제약 면접에서 반드시 나오는 질문. <span class="hl">구체적인 질환 영역(암·당뇨·알츠하이머 등)과 그 이유를 말할 수 있어야 한다.</span></p>
+    <p><strong style="color:var(--text-sub);">준비 방법:</strong> 지원 회사가 주력으로 하는 질환 영역을 사전에 파악하고, 그 영역에 관심을 갖게 된 구체적 계기(원체험·공부·가족 경험 등)를 준비. 단순히 "이 회사의 강점 영역이라서"는 아첨처럼 들릴 수 있으므로 진정성 있는 이유를 연결해야 한다.</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 03</div>
+    <h4>MR 수가 감소하는 시대에 MR의 가치는 무엇이라고 생각하는가?</h4>
+    <p>최근 증가하고 있는 트렌드 질문. <span class="hl">디지털화를 이해한 뒤 MR의 존재 가치를 말해야 한다.</span></p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 방향:</strong> "디지털 채널로 단순한 정보 전달은 효율화되고 있지만, 의사가 복잡한 치료 판단을 내리는 순간에 필요한 깊은 의학적 토론과 신뢰 관계는 대면 MR만이 만들 수 있습니다. 저는 디지털을 도구로 활용하면서 대면에서는 이 고부가가치 역할에 집중하는 MR을 목표로 하고 있습니다."</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> 업계 리포트 Vol.15 — 제약</p>
+  <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+  <p style="margin-top:8px;font-size:10px;">본 리포트의 정보는 각사 IR자료, 채용 페이지, 일본제약공업협회 통계, OpenWork 등 공개 정보를 기반으로 구조화한 것입니다.</p>
+</div>
+</div>
+
+<script>
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  const y = el.getBoundingClientRect().top + window.pageYOffset - navH - 16;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7'];
+const navBtns = document.querySelectorAll('.nav-btn');
+function updateNav() {
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  let current = 's1';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= navH + 60) current = id;
+  });
+  navBtns.forEach((btn, i) => btn.classList.toggle('active', sections[i] === current));
+}
+window.addEventListener('scroll', updateNav);
+updateNav();
+</script>
+</body>
+</html>
