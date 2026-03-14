@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>음료메이커 업계 리포트 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #00b894;
+    --accent-soft: rgba(0,184,148,0.08);
+    --accent-border: rgba(0,184,148,0.22);
+    --warn: #f59e0b;
+    --warn-soft: rgba(245,158,11,0.06);
+    --warn-border: rgba(245,158,11,0.18);
+    --alcohol: #a29bfe;
+    --alcohol-soft: rgba(162,155,254,0.08);
+    --alcohol-border: rgba(162,155,254,0.2);
+    --foreign: #fd79a8;
+    --foreign-soft: rgba(253,121,168,0.08);
+    --foreign-border: rgba(253,121,168,0.2);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Noto Sans JP',sans-serif; line-height:1.8; font-size:15px; -webkit-font-smoothing:antialiased; }
+  .container { max-width:760px; margin:0 auto; padding:0 24px 100px; }
+
+  .hero { padding:64px 24px 48px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(0,184,148,0.06) 0%, transparent 70%); pointer-events:none; }
+  .hero-inner { position:relative; max-width:760px; margin:0 auto; }
+  .hero-label { display:inline-block; font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-border); padding:4px 12px; border-radius:12px; margin-bottom:20px; text-transform:uppercase; }
+  .hero h1 { font-size:30px; font-weight:900; line-height:1.3; margin-bottom:10px; letter-spacing:-0.5px; }
+  .hero-sub { font-size:13px; color:var(--text-dim); line-height:1.9; margin-bottom:20px; max-width:560px; }
+  .hero-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .hero-tag { font-size:11px; padding:4px 12px; border-radius:100px; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); font-weight:500; }
+  .hero-tag.al { background:var(--alcohol-soft); color:var(--alcohol); border-color:var(--alcohol-border); }
+  .hero-tag.fo { background:var(--foreign-soft); color:var(--foreign); border-color:var(--foreign-border); }
+
+  .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
+  .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+  .section-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-btn { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
+  .nav-btn:hover, .nav-btn.active { color:var(--accent); background:var(--accent-soft); }
+
+  .section { padding:44px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom:none; }
+  .section-num { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); opacity:0.7; margin-bottom:6px; text-transform:uppercase; }
+  .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
+  .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); margin-bottom:20px; }
+  .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section p:last-child { margin-bottom:0; }
+  .section h3 { font-size:14px; font-weight:700; color:var(--text-sub); margin:28px 0 12px; padding-left:10px; border-left:2px solid var(--accent); }
+  .section h3.al { border-left-color:var(--alcohol); }
+  .section h3.fo { border-left-color:var(--foreign); }
+
+  .info-box { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:16px 0; }
+  .info-box-accent { background:var(--accent-soft); border-color:var(--accent-border); border-left:3px solid var(--accent); }
+  .info-box-al { background:var(--alcohol-soft); border-color:var(--alcohol-border); border-left:3px solid var(--alcohol); }
+  .info-box-fo { background:var(--foreign-soft); border-color:var(--foreign-border); border-left:3px solid var(--foreign); }
+  .info-box-warn { background:var(--warn-soft); border-color:var(--warn-border); border-left:3px solid var(--warn); }
+  .info-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+  .box-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .box-label-al { color:var(--alcohol); }
+  .box-label-fo { color:var(--foreign); }
+  .box-label-warn { color:var(--warn); }
+  .hl { color:var(--accent); font-weight:600; }
+  .hl-al { color:var(--alcohol); font-weight:600; }
+  .hl-fo { color:var(--foreign); font-weight:600; }
+  .hl-warn { color:var(--warn); font-weight:600; }
+
+  .table-wrap { overflow-x:auto; margin:16px 0; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  thead { background:var(--surface-2); }
+  th { padding:10px 14px; text-align:left; font-weight:700; font-size:10px; letter-spacing:1px; color:var(--text-muted); border-bottom:1px solid var(--border); white-space:nowrap; text-transform:uppercase; }
+  td { padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-dim); vertical-align:top; line-height:1.7; }
+  tr:last-child td { border-bottom:none; }
+  td:first-child { font-weight:700; color:var(--text-sub); }
+
+  .trend-card { padding:20px 22px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:12px 0; }
+  .trend-num { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .trend-card h4 { font-size:14px; font-weight:700; margin-bottom:10px; color:var(--text); }
+  .trend-card p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:10px; }
+  .trend-card p:last-child { margin-bottom:0; }
+  .use-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700; margin:6px 4px 4px 0; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); }
+
+  .company-group { margin:20px 0; }
+  .company-group-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--text-muted); margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--border); text-transform:uppercase; }
+  .company-card { padding:16px 18px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:8px; transition:border-color 0.2s; }
+  .company-card:hover { border-color:var(--border-hover); }
+  .company-card.primary { border-color:var(--accent-border); }
+  .company-card.primary-al { border-color:var(--alcohol-border); }
+  .company-card.primary-fo { border-color:var(--foreign-border); }
+  .company-type { font-size:10px; font-weight:700; color:var(--accent); letter-spacing:1px; margin-bottom:4px; text-transform:uppercase; }
+  .company-type.al { color:var(--alcohol); }
+  .company-type.fo { color:var(--foreign); }
+  .company-name { font-size:15px; font-weight:700; color:var(--text); margin-bottom:6px; }
+  .company-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:12px; color:var(--text-muted); font-weight:400; margin-left:6px; }
+  .company-desc { font-size:12px; color:var(--text-dim); line-height:1.8; }
+  .company-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+  .company-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .company-tag.a { background:var(--accent-soft); color:var(--accent); border-color:var(--accent-border); }
+  .company-tag.al { background:var(--alcohol-soft); color:var(--alcohol); border-color:var(--alcohol-border); }
+  .company-tag.fo { background:var(--foreign-soft); color:var(--foreign); border-color:var(--foreign-border); }
+
+  .job-link-card { display:flex; align-items:flex-start; gap:14px; padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; text-decoration:none; transition:all 0.2s; margin-bottom:8px; }
+  .job-link-card:hover { border-color:var(--accent-border); background:var(--accent-soft); }
+  .job-link-icon { font-size:24px; flex-shrink:0; margin-top:2px; }
+  .job-link-body { flex:1; }
+  .job-link-kicker { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:4px; text-transform:uppercase; }
+  .job-link-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .job-link-desc { font-size:12px; color:var(--text-dim); line-height:1.7; margin-bottom:8px; }
+  .job-link-tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .job-link-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .job-link-arrow { font-size:16px; color:var(--accent); flex-shrink:0; margin-top:4px; }
+
+  .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0; }
+  .keyword-card { padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .keyword-name { font-size:13px; font-weight:700; color:var(--accent); margin-bottom:4px; }
+  .keyword-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); font-weight:400; margin-left:4px; }
+  .keyword-desc { font-size:11px; color:var(--text-dim); line-height:1.7; }
+
+  .es-pattern { padding:16px 18px; background:var(--surface-2); border-radius:8px; margin:12px 0; }
+  .es-pattern-label { font-size:10px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:8px; text-transform:uppercase; }
+  .es-pattern p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+
+  .footer { padding:40px 0 60px; border-top:1px solid var(--border); margin-top:20px; text-align:center; }
+  .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; }
+  .footer .brand { font-weight:700; color:var(--text-dim); }
+
+  @media (max-width:640px) { .keyword-grid { grid-template-columns:1fr; } .hero h1 { font-size:24px; } .section-title { font-size:18px; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">업계 리포트 Vol.11</div>
+    <h1>음료메이커 업계 완전 정리</h1>
+    <p class="hero-sub">
+      아사히·기린·산토리·코카콜라재팬 — 일본인의 식탁을 지탱하는 음료메이커.<br>
+      무알코올·건강·프리미엄화로 재편되는 업계 지형을 한 페이지에.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">청량음료·주류 양축</span>
+      <span class="hero-tag al">주류·맥주 대형 3사</span>
+      <span class="hero-tag fo">외자계 코카콜라</span>
+      <span class="hero-tag">마케팅 직접 채용</span>
+      <span class="hero-tag">건강·무알코올 트렌드</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('s1')">01 업계전체상</button>
+    <button class="nav-btn" onclick="scrollTo('s2')">02 트렌드</button>
+    <button class="nav-btn" onclick="scrollTo('s3')">03 활약직종</button>
+    <button class="nav-btn" onclick="scrollTo('s4')">04 키워드</button>
+    <button class="nav-btn" onclick="scrollTo('s5')">05 기업리스트</button>
+    <button class="nav-btn" onclick="scrollTo('s6')">06 ES대책</button>
+    <button class="nav-btn" onclick="scrollTo('s7')">07 면접대책</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ════ S1 ════ -->
+<div class="section" id="s1">
+  <div class="section-num">SECTION 01</div>
+  <div class="section-title">업계 전체상</div>
+  <div class="section-title-jp">業界全体像 — 清涼飲料・酒類・ビジネスモデル</div>
+
+  <div class="info-box info-box-accent">
+    <div class="box-label">한 줄 정의</div>
+    <p><span class="hl">음료를 제조·판매하는 업계. 청량음료(차·커피·주스·탄산)와 주류(맥주·RTD·와인·위스키)로 나뉘며, 일본 음료 시장 전체 규모는 약 5조 엔 이상.</span> 소비자의 일상과 직접 닿는 업계이며, 마케팅과 영업이 핵심 직능이다. 저출산·건강 의식 고조·무알코올 트렌드가 업계 구조를 재편하고 있다.</p>
+  </div>
+
+  <h3>음료 업계의 3가지 분류</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>분류</th><th>특징</th><th>대표 기업</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>청량음료 전문</td>
+          <td>차·커피·스포츠음료·과즙·탄산 등 비알코올 음료 전문. 자동판매기·편의점·슈퍼가 주요 채널. 브랜드력과 상품 회전율이 수익의 핵심</td>
+          <td>코카콜라재팬, 이토엔, 대냇코, 야쿠르트</td>
+        </tr>
+        <tr>
+          <td>주류 전문 / 종합음료</td>
+          <td>맥주·발포주·RTD(레디투드링크)·위스키·와인 등. 최근 청량음료로 사업 확장해 "종합음료"화 진행 중. 주류 광고 규제 강화로 마케팅 전략이 복잡화</td>
+          <td>아사히그룹홀딩스, 기린홀딩스, 산토리홀딩스, 삿포로홀딩스</td>
+        </tr>
+        <tr>
+          <td>외자계·특화</td>
+          <td>글로벌 브랜드의 일본법인 또는 특정 카테고리 특화. 영어 업무 환경. 글로벌 마케팅 전략을 일본에 적용하는 역할</td>
+          <td>코카콜라재팬, 레드불재팬, 모나쉬재팬(하이네켄)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>비즈니스 모델 — 음료회사는 어떻게 돈을 버는가</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>수익 모델</th><th>구조</th><th>특징</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>브랜드 판매<br>(소매·편의점)</td>
+          <td>편의점·슈퍼·드러그스토어 등 소매점에 납품. 소매 영업이 "진열 위치·페이스 확보"를 교섭하는 핵심 역할</td>
+          <td>브랜드 인지도·점두 진열이 직접 매출로 이어지는 구조. 신상품 출시 주기가 빠름</td>
+        </tr>
+        <tr>
+          <td>자동판매기<br>(벤딩머신)</td>
+          <td>일본 전국 약 230만 대의 자동판매기 네트워크가 음료 업계의 독자 강점. 설치·관리·보충까지 자사 운영</td>
+          <td>코카콜라재팬·산토리 등은 자판기 네트워크 자체가 진입 장벽. 날씨·계절에 따른 수요 최적화가 핵심</td>
+        </tr>
+        <tr>
+          <td>외식·업무용<br>(B2B)</td>
+          <td>레스토랑·호텔·사무실 등 업무용 납품. 계약 단위가 크고 장기 관계. 맥주 메이커의 생맥주 설비 제공이 대표적</td>
+          <td>코로나 이후 외식 회복으로 업무용 맥주 수요 급회복. B2B 영업이 안정 수익의 기반</td>
+        </tr>
+        <tr>
+          <td>프리미엄화<br>(고부가가치)</td>
+          <td>통상 가격대를 벗어난 프리미엄 라인(위스키·크래프트 맥주·고급 차 등)으로 단가 인상. 수량보다 단가를 높이는 전략</td>
+          <td>산토리 야마자키·히비키 등 일본 위스키의 세계적 붐. 코카콜라의 조이 티어 등 프리미엄 음료 확장</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>소비재 리포트와 어떻게 다른가</h3>
+
+  <div class="info-box info-box-accent">
+    <div class="box-label">음료메이커만의 특징 3가지</div>
+    <p>
+      <span class="hl">① 자동판매기 채널이 존재한다:</span> 화장품·생활용품에는 없는 독자 채널. 자판기 설치·운영·상품 교체가 영업의 핵심 업무 중 하나다. 날씨·계절·입지를 읽는 영업 스킬이 요구된다.<br><br>
+      <span class="hl">② 주류 사업의 규제와 복잡성:</span> 주류는 광고 규제·미성년자 보호·면허 요건 등 음료보다 훨씬 복잡한 법규를 이해해야 한다. 주류 전문 영업은 이자카야·음식점과의 관계 구축이 핵심.<br><br>
+      <span class="hl">③ 신상품 회전이 극히 빠르다:</span> 음료 업계는 연간 수백 개의 신상품이 출시되고 대부분이 3개월 이내에 종료된다. 히트 상품을 만드는 상품 기획 능력과, 빠른 PDCA가 음료 마케팅의 특징이다.
+    </p>
+  </div>
+</div>
+
+<!-- ════ S2 ════ -->
+<div class="section" id="s2">
+  <div class="section-num">SECTION 02</div>
+  <div class="section-title">면접관이 체크하는 트렌드 3선</div>
+  <div class="section-title-jp">面接官がチェックするトレンド</div>
+
+  <p>"최근 음료 업계에서 주목하는 것이 있나요?" — 반드시 나오는 질문. <span class="hl">트렌드를 알면서 자신이 지원하는 회사의 브랜드·전략과 연결해서 말할 수 있어야</span> 차별화된다.</p>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 01</div>
+    <h4>무알코올·저알코올 붐 — 음주 인구 감소와 새로운 시장 창출</h4>
+    <p>젊은 세대를 중심으로 음주를 하지 않는 "소버 큐리어스(술을 굳이 마시지 않는)" 트렌드가 세계적으로 확산되고 있다. 일본에서도 <span class="hl">20~30대의 음주율이 지속적으로 하락</span>하면서, 주류 메이커들이 무알코올·저알코올 카테고리를 전략적으로 강화하고 있다.</p>
+    <p>아사히 드라이제로·기린 제로이치·산토리 올프리 등 기존 주력 브랜드의 무알코올 버전 출시가 잇따르고 있다. 단순히 "알코올을 뺀" 상품이 아니라 맛·향·체험을 추구하는 프리미엄 무알코올 카테고리가 성장 중이다.</p>
+    <div class="use-tag">주류계 ES/면접 활용</div>
+    <p>"음주 인구 감소는 위기가 아니라 무알코올·저알코올이라는 새로운 음료 카테고리를 창출하는 기회입니다. 저는 이 전환기에 브랜드의 새로운 가치를 제안하는 마케팅에 기여하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 02</div>
+    <h4>건강·기능성 음료의 성장 — 건강 의식 고조가 바꾸는 소비 행동</h4>
+    <p>코로나 이후 건강 의식이 급상승하면서 <span class="hl">기능성 표시 식품·특정 보건용 식품(특보) 음료의 수요가 구조적으로 성장</span>하고 있다. 이토엔의 오이오차·야쿠르트1000·기린의 파이로겐 함유 기능성 음료 등이 시장을 견인하고 있다.</p>
+    <p>단순 갈증 해소에서 "몸에 좋다"는 가치를 소비자에게 전달하는 마케팅이 중심으로 이동했다. 프로테인 음료·미네랄 워터 프리미엄화·식물성 대안 음료(귀리 밀크 등)도 새로운 성장 카테고리로 부상하고 있다.</p>
+    <div class="use-tag">ES/면접 활용</div>
+    <p>"건강 의식의 고조로 음료는 단순한 '마시는 것'에서 '건강을 관리하는 수단'으로 진화하고 있습니다. 기능성 성분과 소비자 인사이트를 연결하는 상품 기획에 관심이 있습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 03</div>
+    <h4>일본 위스키의 세계적 붐과 프리미엄화 전략</h4>
+    <p>산토리 야마자키·히비키·니카 위스키 등 일본 위스키가 세계 주류 품평회에서 잇달아 수상하면서 <span class="hl">글로벌 프리미엄 위스키 시장에서 일본 브랜드의 존재감이 급상승</span>했다. 야마자키 25년 등 고급 라인은 수십만 엔의 가격에도 품귀 현상이 계속되고 있다.</p>
+    <p>이 붐은 단순한 위스키 인기를 넘어 음료업계 전체의 "프리미엄화 전략"에 영향을 주고 있다. 기린은 클래프트 맥주 브랜드 스프링밸리를 육성 중이며, 아사히도 프리미엄 맥주 라인을 강화하고 있다. "수량보다 단가"를 높이는 전략이 업계 전체로 확산 중이다.</p>
+    <div class="use-tag">주류계 ES/면접 활용</div>
+    <p>"일본 위스키의 세계적 평가는 일본의 장인 정신과 기후·원료가 만들어낸 고유한 가치가 세계에서 인정받은 것입니다. 이 프리미엄 가치를 글로벌로 더욱 발신하는 역할에 도전하고 싶습니다."</p>
+  </div>
+</div>
+
+<!-- ════ S3 ════ -->
+<div class="section" id="s3">
+  <div class="section-num">SECTION 03</div>
+  <div class="section-title">이 업계에서 활약하는 직종</div>
+  <div class="section-title-jp">飲料メーカー業界で活躍する職種</div>
+
+  <p>음료메이커는 <span class="hl">마케팅·영업이 핵심 직능</span>이다. 소비재 리포트와 겹치는 부분이 있지만 음료 특유의 "자판기 영업·루트 영업·거래처 교섭"의 비중이 높다.</p>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/sales-eg01-maker" target="_blank" class="job-link-card">
+    <div class="job-link-icon">🥤</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">핵심 직종 — 직종 상세 카드 EG-01</div>
+      <div class="job-link-title">메이커 영업 — 매장 선반과 자판기를 확보하는 사람</div>
+      <div class="job-link-desc">
+        편의점·슈퍼·음식점 담당 루트 영업. <strong style="color:var(--text-sub);">매장 진열 위치·페이스 확보·자판기 설치 교섭</strong>이 핵심 미션. 날씨·계절·입지를 읽는 영업 스킬이 차별화. 마케팅 이동의 전형적 경로이기도 하다.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">루트 영업</span>
+        <span class="job-link-tag">자판기 설치 교섭</span>
+        <span class="job-link-tag">매장 진열 확보</span>
+        <span class="job-link-tag">마케팅 이동 경로</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/kikaku-kk03-marketing" target="_blank" class="job-link-card">
+    <div class="job-link-icon">📊</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">마케팅 직종 — 직종 상세 카드 KK-03</div>
+      <div class="job-link-title">마케팅 — 음료 브랜드를 "마시게 만드는" 사람</div>
+      <div class="job-link-desc">
+        소비자 인사이트 발굴·상품 콘셉트 개발·광고·SNS·캠페인 기획까지. 음료는 <strong style="color:var(--text-sub);">신상품 회전이 매우 빠르고 히트 상품 하나가 브랜드 전체를 바꾸는</strong> 업계. 소비자 트렌드를 빠르게 포착하는 감도가 요구된다.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">신상품 기획</span>
+        <span class="job-link-tag">빠른 PDCA</span>
+        <span class="job-link-tag">소비자 인사이트</span>
+        <span class="job-link-tag">SNS·광고 캠페인</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <div class="info-box" style="margin-top:20px;">
+    <div class="box-label">음료메이커 직종 구조 상세</div>
+    <p>
+      <strong style="color:var(--text-sub);">루트 영업 (소매·외식·자판기):</strong> 편의점·슈퍼 담당 영업(소매)과 이자카야·레스토랑 담당 영업(외식), 자판기 설치·운영(벤딩)으로 세분화. 신졸의 대부분이 여기서 시작. 특히 자판기 영업은 음료 업계 고유의 루트.<br><br>
+      <strong style="color:var(--text-sub);">마케팅·상품기획:</strong> 소비자 조사→콘셉트 개발→광고 기획→출시까지. 음료는 신상품 사이클이 빨라 마케터가 1년에 여러 브랜드를 담당하는 경우도 있음. 영업 경험 후 이동하는 경우가 일반적이지만, 신졸 직접 채용도 일부 있음.<br><br>
+      <strong style="color:var(--text-sub);">물류·SCM:</strong> 원료 조달·생산 계획·물류 최적화. 음료는 중량이 있어 물류 효율이 수익에 직결. 자판기 보충 루트 최적화 등 음료 업계 특유의 물류 과제가 있음.<br><br>
+      <span class="hl">주류 회사의 영업은 주류 판매 면허 요건과 광고 규제를 이해해야 하는 전문성이 있어, 청량음료 영업보다 복잡한 지식이 필요하다.</span>
+    </p>
+  </div>
+</div>
+
+<!-- ════ S4 ════ -->
+<div class="section" id="s4">
+  <div class="section-num">SECTION 04</div>
+  <div class="section-title">음료메이커 × 직종별 자기분석 키워드</div>
+  <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+  <p>음료메이커는 <span class="hl">소비자의 일상에 깊이 관여한다는 사명감</span>과 동시에, 빠른 시장 변화에 기민하게 대응하는 능력이 요구된다.</p>
+
+  <h3>영업 (루트·소매·자판기) 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">적극성 <span class="keyword-name-jp">積極性</span></div>
+      <div class="keyword-desc">편의점 바이어에게 신상품의 진열을 먼저 제안하고, 자판기 설치를 위해 입지를 발굴하는 선제적 영업 자세. "요청이 올 때까지 기다리는" 음료 영업은 경쟁에서 뒤처진다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">관계구축력 <span class="keyword-name-jp">関係構築力</span></div>
+      <div class="keyword-desc">소매점 점장·바이어와의 장기 신뢰 관계가 진열 위치를 결정한다. "이 담당자가 오면 좋은 제안을 해준다"는 신뢰를 쌓는 꾸준함이 루트 영업의 핵심 경쟁력.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">발신력 <span class="keyword-name-jp">発信力</span></div>
+      <div class="keyword-desc">신상품의 가치를 소매점 바이어에게 설득력 있게 전달하는 프레젠 능력. 판매 데이터·소비자 조사를 활용해 "이 상품을 진열하면 이런 이익이 된다"를 논리적으로 말하는 힘.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">자기관리능력 <span class="keyword-name-jp">自己管理能力</span></div>
+      <div class="keyword-desc">루트 영업은 하루 수십 개 거래처를 돌며 납기·재고·자판기 상태를 동시에 관리한다. 다수의 업무를 동시에 처리하는 멀티태스킹 능력과 자기 스케줄 관리가 성과를 결정.</div>
+    </div>
+  </div>
+
+  <h3>마케팅·상품기획 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">통찰력 <span class="keyword-name-jp">洞察力</span></div>
+      <div class="keyword-desc">소비자가 "말하지 않는 니즈" — 건강에 좋으면서도 맛있고, 부담 없이 마실 수 있으며, 기분도 좋아지는 — 를 데이터와 정성 조사에서 발굴하는 힘. 음료 히트 상품은 항상 새로운 인사이트에서 시작된다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">창조력 <span class="keyword-name-jp">創造力</span></div>
+      <div class="keyword-desc">편의점 냉장 코너에서 소비자의 손이 가는 이름·패키지·캐치카피를 발상하는 능력. 음료는 "마시기 전의 이미지"가 구매를 결정하기 때문에, 브랜드 비주얼과 언어의 창조력이 직접 매출로 이어진다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">향상심 <span class="keyword-name-jp">向上心</span></div>
+      <div class="keyword-desc">음료 업계는 신상품 사이클이 매우 빠르다. 소비자 트렌드·경쟁사 동향·해외 음료 시장을 항상 공부하고 새로운 아이디어를 흡수하는 자세. "어제의 히트는 오늘의 오래된 상품"이 되는 업계.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">논리적사고력 <span class="keyword-name-jp">論理的思考力</span></div>
+      <div class="keyword-desc">신상품 출시 후 판매 데이터·SNS 반응·소비자 조사를 분석해 "왜 팔리는가·왜 안 팔리는가"를 빠르게 판단하는 능력. 감각+데이터의 조합이 음료 마케팅의 경쟁력이 된다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S5 ════ -->
+<div class="section" id="s5">
+  <div class="section-num">SECTION 05</div>
+  <div class="section-title">기업 비교 & 리스트</div>
+  <div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+
+  <p>음료메이커는 <span class="hl">청량음료 전문·주류 종합·외자계</span>의 세 축으로 지원 전략을 짜는 것이 현실적이다. 같은 "음료"라도 채용 문화·업무 스타일이 크게 다르다.</p>
+
+  <!-- 주류·종합음료 대형 3사 -->
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--alcohol);">🍺 주류·종합음료 대형 3사</div>
+
+    <div class="company-card primary-al">
+      <div class="company-type al">종합음료 | 맥주 국내 1위</div>
+      <div class="company-name">아사히그룹홀딩스 <span class="company-name-jp">アサヒグループホールディングス</span></div>
+      <div class="company-desc">매출 약 2조 7,000억엔(2024). 평균연봉 약 826만엔. 아사히 슈퍼드라이로 맥주 국내 점유율 1위. 유럽 맥주 브랜드(그롤쉬·페로니·필스너우르켈) 인수로 글로벌 전개 강화. 무알코올 라인 충실. 식음료(카루피스·와다칸) 사업도 병행. 글로벌 주재 기회 풍부.</div>
+      <div class="company-tags">
+        <span class="company-tag al">맥주 국내 1위</span>
+        <span class="company-tag">글로벌 맥주 M&A</span>
+        <span class="company-tag">평균연봉 826만엔</span>
+      </div>
+    </div>
+
+    <div class="company-card primary-al">
+      <div class="company-type al">종합음료 | 발효·헬스케어 강점</div>
+      <div class="company-name">기린홀딩스 <span class="company-name-jp">キリンホールディングス</span></div>
+      <div class="company-desc">매출 약 2조 1,000억엔(2024). 평균연봉 약 937만엔. 이치방시보리 맥주·기린 레몬으로 유명. 독자 발효 기술을 활용한 건강·기능성 음료 사업이 성장 중(파이로겐 함유 기능성 음료). 호주 라이온·미얀마 맥주 등 아시아·오세아니아 전개. 음료 업계 평균연봉 최상위급.</div>
+      <div class="company-tags">
+        <span class="company-tag al">평균연봉 937만엔</span>
+        <span class="company-tag">발효 기술 강점</span>
+        <span class="company-tag">기능성 음료 성장</span>
+      </div>
+    </div>
+
+    <div class="company-card primary-al">
+      <div class="company-type al">종합음료 | 위스키·RTD 강자</div>
+      <div class="company-name">산토리홀딩스 <span class="company-name-jp">サントリーホールディングス</span></div>
+      <div class="company-desc">매출 약 2조 9,000억엔(2024). 비상장이므로 연봉 비공개이나 업계 최상위급으로 알려짐. 야마자키·히비키·가쿠 위스키로 세계 최고 수준. 짐빔(미국) 인수로 글로벌 위스키 강자. 산토리 천연수·이에몬 등 청량음료도 강함. 비상장 특유의 장기 경영 시점과 도전 문화. 채용 인원이 음료 업계 최소 수준으로 난이도 최상위.</div>
+      <div class="company-tags">
+        <span class="company-tag al">야마자키·히비키</span>
+        <span class="company-tag">짐빔 모회사</span>
+        <span class="company-tag">비상장·채용 난이도 최상위</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type al">맥주 | 삿포로·에비스</div>
+      <div class="company-name">삿포로홀딩스 <span class="company-name-jp">サッポロホールディングス</span></div>
+      <div class="company-desc">평균연봉 약 761만엔. 삿포로 클래식·에비스 프리미엄 맥주로 인지도 높음. 포게이저(미국 크래프트 맥주) 인수로 북미 사업 강화. 부동산 사업(삿포로라이온 계열)도 보유하는 독특한 복합 경영. 대형 3사 대비 채용 접근성 현실적.</div>
+      <div class="company-tags">
+        <span class="company-tag al">에비스·삿포로</span>
+        <span class="company-tag">북미 크래프트 맥주</span>
+        <span class="company-tag">대형 3사보다 접근적</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 청량음료 -->
+  <div class="company-group">
+    <div class="company-group-label">🍵 청량음료·특화</div>
+
+    <div class="company-card primary">
+      <div class="company-type">청량음료 | 차 전문 국내 1위</div>
+      <div class="company-name">이토엔 <span class="company-name-jp">伊藤園</span></div>
+      <div class="company-desc">평균연봉 약 674만엔. 오이오차로 녹차 음료 국내 압도적 1위. 차 농가에서 직접 계약 재배하는 수직 통합 모델. 건강 소비자 트렌드와 직결된 강점. 자판기 네트워크 전국 규모. 해외 전개(미국·호주)도 진행 중.</div>
+      <div class="company-tags">
+        <span class="company-tag a">녹차 음료 국내 1위</span>
+        <span class="company-tag">수직 통합 모델</span>
+        <span class="company-tag">자판기 네트워크</span>
+      </div>
+    </div>
+
+    <div class="company-card primary">
+      <div class="company-type">유산균 음료 | 야쿠르트</div>
+      <div class="company-name">야쿠르트 본샤 <span class="company-name-jp">ヤクルト本社</span></div>
+      <div class="company-desc">평균연봉 약 720만엔. 야쿠르트1000의 대히트로 수면·면역 기능성 음료 시장을 개척. 전국 야쿠르트 레이디 판매망이라는 독자 직판 채널이 강점. 아시아·중남미 해외 매출 비율 약 50%+. 유산균 연구에서 세계 최상위급.</div>
+      <div class="company-tags">
+        <span class="company-tag a">야쿠르트1000 대히트</span>
+        <span class="company-tag">직판 채널</span>
+        <span class="company-tag">해외 매출 50%+</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">청량음료 | 자판기 최강</div>
+      <div class="company-name">다이도드링코홀딩스 <span class="company-name-jp">ダイドードリンコホールディングス</span></div>
+      <div class="company-desc">평균연봉 약 642만엔. 자판기 전문 음료회사로 매출의 약 80%가 자판기 채널. 커피 음료 특화. 자판기 설치·운영·상품 개발의 일체화가 독자 강점. 규모는 대형 음료사보다 작지만 자판기 영업을 깊이 배울 수 있는 환경.</div>
+      <div class="company-tags">
+        <span class="company-tag a">자판기 매출 80%</span>
+        <span class="company-tag">커피 음료 특화</span>
+        <span class="company-tag">자판기 전문</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 외자계 -->
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--foreign);">🌍 외자계</div>
+
+    <div class="company-card primary-fo">
+      <div class="company-type fo">외자계 | 글로벌 음료 1위</div>
+      <div class="company-name">코카콜라재팬 <span class="company-name-jp">コカ・コーラ ジャパン</span></div>
+      <div class="company-desc">글로벌 최대 음료 기업의 일본법인. 코카콜라·조지아·아쿠아리우스·이루로하스 등 다양한 브랜드 포트폴리오. 일본은 글로벌에서 가장 중요한 시장 중 하나. 영어 업무 환경. 글로벌 마케팅 전략을 일본에 적용하는 역할. 자판기 네트워크 일본 최대규모. 채용 인원 적고 난이도 높음.</div>
+      <div class="company-tags">
+        <span class="company-tag fo">글로벌 음료 1위</span>
+        <span class="company-tag">영어 업무 환경</span>
+        <span class="company-tag">자판기 일본 최대</span>
+        <span class="company-tag">채용 난이도 높음</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S6 ════ -->
+<div class="section" id="s6">
+  <div class="section-num">SECTION 06</div>
+  <div class="section-title">ES 대책</div>
+  <div class="section-title-jp">合格パターン·落とし穴</div>
+
+  <p>음료메이커 ES의 최대 함정은 <span class="hl">"이 음료가 좋아서"만으로 끝나는 지원 동기</span>다. 소비재 리포트와 동일한 구조이지만, 음료 특유의 포인트가 있다. <strong style="color:var(--text-sub);">"왜 음료인가"</strong> — 식품·화장품이 아닌 음료라는 카테고리를 선택한 이유를 말할 수 있어야 한다.</p>
+
+  <h3>빈출 질문 TOP5</h3>
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 20px;">
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">① 학생시절 힘쓴 것</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">② 지원동기</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">③ 관심 있는 브랜드/상품</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">④ 신상품 아이디어</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">⑤ 입사 후 하고 싶은 것</span>
+  </div>
+
+  <p>음료 업계에서 특히 어려운 것은 <strong style="color:var(--text-sub);">④ "신상품 아이디어"</strong> 질문이다. "이런 음료가 있으면 좋겠다"는 수준이 아니라 <span class="hl">타겟·콘셉트·채널·가격대·경쟁 포지셔닝까지 4P 프레임으로 설계</span>할 수 있어야 한다.</p>
+
+  <div class="es-pattern">
+    <div class="es-pattern-label">✅ 합격 지원 동기 4단계</div>
+    <p>
+      Step 1. 소비자로서 특정 음료 브랜드를 통해 발견한 인사이트(강점·개선 가능성·미개척 소비자층)를 구체적으로 제시<br>
+      Step 2. 왜 식품·화장품이 아닌 "음료"인가 — "매일 반복 구매되는 소비재 중에서도 건강·기분·생활 습관과 가장 직결되는 카테고리" 등 음료 특유의 가치를 언어화<br>
+      Step 3. 왜 이 회사인가 — 브랜드 철학·기술 강점·채널 전략 중 하나를 축으로 구체화<br>
+      Step 4. 어떤 직종(영업·마케팅·상품기획)에서 어떤 역할을 하고 싶은지 커리어 비전으로 마무리
+    </p>
+  </div>
+
+  <div class="es-pattern">
+    <div class="es-pattern-label">✅ 신상품 아이디어 답변 프레임</div>
+    <p>
+      ① 타겟: 누구를 위한 음료인가 (연령·성별·라이프스타일·소비 장면)<br>
+      ② 인사이트: 그 타겟이 지금 가진 불만·미충족 니즈는 무엇인가<br>
+      ③ 콘셉트: 어떤 가치를 제공하는가 (맛·건강·편의성·감성)<br>
+      ④ 채널·가격: 어디서 얼마에 파는가 (편의점·자판기·EC·가격대)<br>
+      ⑤ 차별화: 경쟁 상품과 어떻게 다른가
+    </p>
+  </div>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">❌ 불합격 공통 실수</div>
+    <p>
+      <span class="hl-warn">실수 1:</span> "이 음료가 좋아서" — 소비자 체험은 입구일 뿐. 마케터·영업으로서 무엇을 실현하고 싶은지가 없으면 약함<br>
+      <span class="hl-warn">실수 2:</span> 주류 회사에 "술을 마시지 않아서 걱정이다" — 음주 여부는 상관없지만, 주류 사업의 가치와 미래를 언어화할 수 있어야 함<br>
+      <span class="hl-warn">실수 3:</span> 신상품 아이디어가 이미 존재하는 상품 — 사전에 지원 회사의 상품 라인업을 철저히 조사해야 함. "이미 있는 상품"을 제안하면 기업 연구 부족이 드러남
+    </p>
+  </div>
+</div>
+
+<!-- ════ S7 ════ -->
+<div class="section" id="s7">
+  <div class="section-num">SECTION 07</div>
+  <div class="section-title">면접 대책</div>
+  <div class="section-title-jp">面接対策 — 頻出質問·選考フロー</div>
+
+  <p>음료메이커 면접은 <span class="hl">상품 이해·소비자 인사이트·신상품 발상력</span>이 핵심이다. 특히 지원 회사의 상품을 실제로 마시고 경쟁사와 비교한 경험을 말할 수 있어야 한다.</p>
+
+  <h3>전형 단계 구조</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>단계</th><th>내용</th><th>포인트</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>서류·적성</td>
+          <td>ES + SPI3. 상품 이해도·지원 동기의 구체성이 핵심. 신상품 아이디어 기재를 요구하는 경우 多</td>
+          <td>지원 회사의 상품 라인업을 전부 파악하고, 경쟁사와의 차이를 말할 수 있는 수준까지 준비해야 함</td>
+        </tr>
+        <tr>
+          <td>인턴</td>
+          <td>1~3일 업무 체험 인턴. 영업 동행·마케팅 케이스 스터디가 일반적. 조기 선발 루트가 강해지는 중</td>
+          <td>인턴에서 실제 영업 현장을 체험하는 것이 면접에서 구체적인 이야기를 만드는 데 직결됨</td>
+        </tr>
+        <tr>
+          <td>1차 면접</td>
+          <td>인사담당자. 가쿠치카·지원 동기 + 관심 상품·신상품 아이디어</td>
+          <td>"당사의 어떤 상품이 좋은가·왜 좋은가"를 마케터 시점으로 분석해 말할 수 있어야 함</td>
+        </tr>
+        <tr>
+          <td>2차 면접</td>
+          <td>현장 마케팅·영업 담당자. 업계 이해도 확인. 신상품 기획 발표 과제가 있는 경우도</td>
+          <td>트렌드(무알코올·건강·프리미엄)와 자신의 커리어를 연결하는 논리가 중요</td>
+        </tr>
+        <tr>
+          <td>최종 면접</td>
+          <td>임원급. 인물·커리어 비전·입사 의향 확인</td>
+          <td>"10년 후 어떤 마케터·영업이 되고 싶은가"와 함께 "이 회사의 어떤 브랜드에서 어떤 가치를 만들고 싶은가"까지 구체화해야 함</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>빈출 질문 & 답변 포인트</h3>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 01</div>
+    <h4>당사의 어떤 상품이 좋은가? 개선하고 싶은 점은?</h4>
+    <p>음료 면접에서 가장 중요한 질문 중 하나. <span class="hl">소비자로서의 체험 + 마케터 시점의 분석</span>을 동시에 보여야 한다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 구조:</strong> "○○ 브랜드는 [타겟] [장면]에서 [가치]를 제공하는 상품이라고 이해하고 있습니다. 소비자로서 특히 [구체적 강점]을 높이 평가합니다. 한편 [경쟁사 상품]과 비교했을 때 [개선 가능성]이 있다고 느끼며, 이 점에서 [마케터 관점의 제안]이 가능하다고 생각합니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 02</div>
+    <h4>지금 시장에 없는 새로운 음료를 기획한다면?</h4>
+    <p>신상품 아이디어 질문. 면접 직전에 단순한 아이디어를 말하면 탈락이다. <span class="hl">사전에 4P 프레임으로 준비해두어야 한다.</span></p>
+    <p><strong style="color:var(--text-sub);">준비 방법:</strong> 편의점 음료 코너를 꼼꼼히 관찰하고 "어떤 소비자·장면이 커버되지 않고 있는가"를 발견하는 훈련. 특히 무알코올·건강·프리미엄·시니어 타겟 등 현재 성장하는 카테고리와 공백 영역의 교차점에서 아이디어를 발굴하면 설득력이 높아진다.</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 03</div>
+    <h4>(주류계) 왜 주류 회사인가? 음주를 하지 않아도 괜찮은가?</h4>
+    <p>주류 회사 면접에서 종종 나오는 질문. 음주 여부 자체는 채용에 영향을 주지 않는다. 하지만 주류 사업의 가치를 이해하고 있는지는 평가된다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 방향:</strong> "음주 여부와 관계없이, 주류는 인간의 커뮤니케이션·축제·일상의 즐거움과 깊이 연결된 카테고리라고 생각합니다. 무알코올 카테고리의 성장도 포함해, 사람들의 '특별한 순간'을 음료로 만드는 역할에 매력을 느낍니다."</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> 업계 리포트 Vol.11 — 음료메이커</p>
+  <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+  <p style="margin-top:8px;font-size:10px;">본 리포트의 정보는 각사 IR자료, 채용 페이지, 일본음료협회 통계, OpenWork 등 공개 정보를 기반으로 구조화한 것입니다.</p>
+</div>
+</div>
+
+<script>
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  const y = el.getBoundingClientRect().top + window.pageYOffset - navH - 16;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7'];
+const navBtns = document.querySelectorAll('.nav-btn');
+function updateNav() {
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  let current = 's1';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= navH + 60) current = id;
+  });
+  navBtns.forEach((btn, i) => btn.classList.toggle('active', sections[i] === current));
+}
+window.addEventListener('scroll', updateNav);
+updateNav();
+</script>
+</body>
+</html>
