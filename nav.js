@@ -13,6 +13,7 @@
 
   const TOC = [
     { id: "intro", label: "🗺️ 직종 대분류 맵", file: "map-lv1.html", children: [] },
+    { id: "industry", label: "📋 업계 리포트 라이브러리", file: "industry-index.html", children: [] },
     { id: "sales", label: "📊 영업", file: "sales-overview.html", children: [
         { label: "메이커 영업",   file: "sales-eg01-maker.html" },
         { label: "IT영업",        file: "sales-eg02-it.html" },
