@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>게임 업계 리포트 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #6c5ce7;
+    --accent-soft: rgba(108,92,231,0.09);
+    --accent-border: rgba(108,92,231,0.25);
+    --warn: #f59e0b;
+    --warn-soft: rgba(245,158,11,0.07);
+    --warn-border: rgba(245,158,11,0.2);
+    --mobile: #00b894;
+    --mobile-soft: rgba(0,184,148,0.08);
+    --mobile-border: rgba(0,184,148,0.2);
+    --red: #e17055;
+    --red-soft: rgba(225,112,85,0.08);
+    --red-border: rgba(225,112,85,0.22);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Noto Sans JP',sans-serif; line-height:1.8; font-size:15px; -webkit-font-smoothing:antialiased; }
+  .container { max-width:760px; margin:0 auto; padding:0 24px 100px; }
+
+  .hero { padding:64px 24px 48px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(108,92,231,0.07) 0%, transparent 70%); pointer-events:none; }
+  .hero-inner { position:relative; max-width:760px; margin:0 auto; }
+  .hero-label { display:inline-block; font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-border); padding:4px 12px; border-radius:12px; margin-bottom:20px; text-transform:uppercase; }
+  .hero h1 { font-size:30px; font-weight:900; line-height:1.3; margin-bottom:10px; letter-spacing:-0.5px; }
+  .hero-sub { font-size:13px; color:var(--text-dim); line-height:1.9; margin-bottom:20px; max-width:560px; }
+  .hero-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .hero-tag { font-size:11px; padding:4px 12px; border-radius:100px; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); font-weight:500; }
+  .hero-tag.mobile { background:var(--mobile-soft); color:var(--mobile); border-color:var(--mobile-border); }
+  .hero-tag.warn { background:var(--warn-soft); color:var(--warn); border-color:var(--warn-border); }
+
+  .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
+  .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+  .section-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-btn { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
+  .nav-btn:hover, .nav-btn.active { color:var(--accent); background:var(--accent-soft); }
+
+  .section { padding:44px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom:none; }
+  .section-num { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); opacity:0.7; margin-bottom:6px; text-transform:uppercase; }
+  .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
+  .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); margin-bottom:20px; }
+  .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section p:last-child { margin-bottom:0; }
+  .section h3 { font-size:14px; font-weight:700; color:var(--text-sub); margin:28px 0 12px; padding-left:10px; border-left:2px solid var(--accent); }
+  .section h3.mobile { border-left-color:var(--mobile); }
+  .section h3.warn { border-left-color:var(--warn); }
+
+  .info-box { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:16px 0; }
+  .info-box-accent { background:var(--accent-soft); border-color:var(--accent-border); border-left:3px solid var(--accent); }
+  .info-box-mobile { background:var(--mobile-soft); border-color:var(--mobile-border); border-left:3px solid var(--mobile); }
+  .info-box-warn { background:var(--warn-soft); border-color:var(--warn-border); border-left:3px solid var(--warn); }
+  .info-box-red { background:var(--red-soft); border-color:var(--red-border); border-left:3px solid var(--red); }
+  .info-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+  .box-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .box-label-warn { color:var(--warn); }
+  .box-label-mobile { color:var(--mobile); }
+  .box-label-red { color:var(--red); }
+  .hl { color:var(--accent); font-weight:600; }
+  .hl-mobile { color:var(--mobile); font-weight:600; }
+  .hl-warn { color:var(--warn); font-weight:600; }
+  .hl-red { color:var(--red); font-weight:600; }
+
+  .table-wrap { overflow-x:auto; margin:16px 0; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  thead { background:var(--surface-2); }
+  th { padding:10px 14px; text-align:left; font-weight:700; font-size:10px; letter-spacing:1px; color:var(--text-muted); border-bottom:1px solid var(--border); white-space:nowrap; text-transform:uppercase; }
+  td { padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-dim); vertical-align:top; line-height:1.7; }
+  tr:last-child td { border-bottom:none; }
+  td:first-child { font-weight:700; color:var(--text-sub); }
+
+  .trend-card { padding:20px 22px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:12px 0; }
+  .trend-num { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .trend-card h4 { font-size:14px; font-weight:700; margin-bottom:10px; color:var(--text); }
+  .trend-card p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:10px; }
+  .trend-card p:last-child { margin-bottom:0; }
+  .use-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700; margin:6px 4px 4px 0; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); }
+
+  .company-group { margin:20px 0; }
+  .company-group-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--text-muted); margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--border); text-transform:uppercase; }
+  .company-card { padding:16px 18px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:8px; transition:border-color 0.2s; }
+  .company-card:hover { border-color:var(--border-hover); }
+  .company-card.primary { border-color:var(--accent-border); }
+  .company-card.primary-m { border-color:var(--mobile-border); }
+  .company-type { font-size:10px; font-weight:700; color:var(--accent); letter-spacing:1px; margin-bottom:4px; text-transform:uppercase; }
+  .company-type.mobile { color:var(--mobile); }
+  .company-name { font-size:15px; font-weight:700; color:var(--text); margin-bottom:6px; }
+  .company-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:12px; color:var(--text-muted); font-weight:400; margin-left:6px; }
+  .company-desc { font-size:12px; color:var(--text-dim); line-height:1.8; }
+  .company-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+  .company-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .company-tag.a { background:var(--accent-soft); color:var(--accent); border-color:var(--accent-border); }
+  .company-tag.m { background:var(--mobile-soft); color:var(--mobile); border-color:var(--mobile-border); }
+  .company-tag.w { background:var(--warn-soft); color:var(--warn); border-color:var(--warn-border); }
+
+  .job-link-card { display:flex; align-items:flex-start; gap:14px; padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; text-decoration:none; transition:all 0.2s; margin-bottom:8px; }
+  .job-link-card:hover { border-color:var(--accent-border); background:var(--accent-soft); }
+  .job-link-icon { font-size:24px; flex-shrink:0; margin-top:2px; }
+  .job-link-body { flex:1; }
+  .job-link-kicker { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:4px; text-transform:uppercase; }
+  .job-link-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .job-link-desc { font-size:12px; color:var(--text-dim); line-height:1.7; margin-bottom:8px; }
+  .job-link-tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .job-link-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .job-link-arrow { font-size:16px; color:var(--accent); flex-shrink:0; margin-top:4px; }
+
+  .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0; }
+  .keyword-card { padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .keyword-name { font-size:13px; font-weight:700; color:var(--accent); margin-bottom:4px; }
+  .keyword-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); font-weight:400; margin-left:4px; }
+  .keyword-desc { font-size:11px; color:var(--text-dim); line-height:1.7; }
+
+  .es-pattern { padding:16px 18px; background:var(--surface-2); border-radius:8px; margin:12px 0; }
+  .es-pattern-label { font-size:10px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:8px; text-transform:uppercase; }
+  .es-pattern p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+
+  .reality-box { padding:20px 22px; background:var(--surface); border:1px solid var(--red-border); border-left:3px solid var(--red); border-radius:10px; margin:12px 0; }
+  .reality-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--red); margin-bottom:8px; text-transform:uppercase; }
+  .reality-box h4 { font-size:13px; font-weight:700; color:var(--text-sub); margin-bottom:8px; }
+  .reality-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+
+  .footer { padding:40px 0 60px; border-top:1px solid var(--border); margin-top:20px; text-align:center; }
+  .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; margin-bottom:0; }
+  .footer .brand { font-weight:700; color:var(--text-dim); }
+
+  @media (max-width:640px) { .keyword-grid { grid-template-columns:1fr; } .hero h1 { font-size:24px; } .section-title { font-size:18px; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">업계 리포트 Vol.10</div>
+    <h1>게임 업계 완전 정리</h1>
+    <p class="hero-sub">
+      닌텐도·소니·반다이남코 대형 퍼블리셔부터 사이게임스·구미 모바일 강자까지.<br>
+      "꿈의 직장"의 화려한 이면과 냉혹한 현실을 한 페이지에.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">콘솔·PC·모바일 3분류</span>
+      <span class="hero-tag">플래너·프로그래머·아티스트</span>
+      <span class="hero-tag mobile">모바일 강자 현실 공략</span>
+      <span class="hero-tag warn">입사 후 현실 직시 필수</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('s1')">01 업계전체상</button>
+    <button class="nav-btn" onclick="scrollTo('s2')">02 트렌드</button>
+    <button class="nav-btn" onclick="scrollTo('s3')">03 활약직종</button>
+    <button class="nav-btn" onclick="scrollTo('s4')">04 키워드</button>
+    <button class="nav-btn" onclick="scrollTo('s5')">05 기업리스트</button>
+    <button class="nav-btn" onclick="scrollTo('s6')">06 ES대책</button>
+    <button class="nav-btn" onclick="scrollTo('s7')">07 면접대책</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ════ S1 ════ -->
+<div class="section" id="s1">
+  <div class="section-num">SECTION 01</div>
+  <div class="section-title">업계 전체상</div>
+  <div class="section-title-jp">業界全体像 — 構造・ビジネスモデル・採用の現実</div>
+
+  <div class="info-box info-box-accent">
+    <div class="box-label">한 줄 정의</div>
+    <p><span class="hl">콘솔·PC·모바일 플랫폼에서 게임 소프트웨어를 기획·개발·운영·판매하는 업계. 일본은 세계 3위 게임 시장이자 닌텐도·소니 등 글로벌 IP를 보유한 게임 강국이다.</span><br>
+    동시에 일본 취업 시장에서 채용 경쟁률이 가장 높은 업계 중 하나이며, 입사 후에도 가혹한 노동 환경과 프로젝트 불확실성에 직면하는 업계이기도 하다.</p>
+  </div>
+
+  <p>일본 게임 시장 규모 약 <span class="hl">2조 1,000억 엔</span>(2024년). 모바일이 전체의 약 55%를 차지하며, 콘솔·PC가 나머지를 구성한다. 세계 시장에서는 닌텐도 스위치·소니 플레이스테이션·반다이남코의 글로벌 IP가 일본 게임 업계의 강점이다.</p>
+
+  <h3>게임 업계의 3가지 분류</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>분류</th><th>특징</th><th>대표 기업</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>콘솔·PC<br>(패키지·서비스)</td>
+          <td>닌텐도·소니 플랫폼 또는 PC용 게임 개발. 수년 단위의 개발 사이클. 패키지 판매 + 서비스형(DLC·구독)으로 수익 다각화. 글로벌 IP 브랜드가 핵심 자산</td>
+          <td>닌텐도, 소니인터랙티브엔터테인먼트, 캡콤, 스퀘어에닉스, 코나미, 코에이테크모</td>
+        </tr>
+        <tr>
+          <td>모바일<br>(소셜·스마트폰)</td>
+          <td>스마트폰용 게임 개발·운영. 가챠(뽑기) 과금 중심의 수익 구조. 빠른 PDCA와 데이터 기반 운영이 핵심. 국내 시장 포화로 글로벌 전개 가속</td>
+          <td>사이게임스, 구미, KLab, mixi(몬스터스트라이크), DeNA, GREE</td>
+        </tr>
+        <tr>
+          <td>종합·퍼블리셔</td>
+          <td>자사 개발과 외부 개발사 퍼블리싱을 병행. 콘솔·모바일 양쪽을 커버. IP 관리·판매·마케팅까지 담당</td>
+          <td>반다이남코엔터테인먼트, 세가, 스퀘어에닉스</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>비즈니스 모델 — 게임 회사는 어떻게 돈을 버는가</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>수익 모델</th><th>내용</th><th>주요 기업</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>패키지 판매</td>
+          <td>1개당 7,000~9,000엔의 소프트웨어 판매. 개발비 수십억~수백억엔을 회수하는 구조. 히트작 하나로 수천억엔 규모의 수익이 나오지만, 실패하면 회사 존폐 위기도</td>
+          <td>닌텐도, 캡콤, 스퀘어에닉스</td>
+        </tr>
+        <tr>
+          <td>가챠·인앱 결제</td>
+          <td>무료 다운로드 후 캐릭터·아이템 뽑기 과금. 소수의 헤비 유저(고래)가 매출의 대부분을 담당. 운영 기간이 길수록 누적 매출 증가</td>
+          <td>사이게임스, 구미, KLab, mixi</td>
+        </tr>
+        <tr>
+          <td>구독·서비스</td>
+          <td>월정액으로 게임 이용권 제공. 닌텐도 온라인·PlayStation Plus 등. 안정적 반복 수익 구조로 이행 중</td>
+          <td>닌텐도, 소니인터랙티브엔터테인먼트</td>
+        </tr>
+        <tr>
+          <td>IP 라이선스</td>
+          <td>인기 IP(캐릭터·세계관)를 다른 회사에 라이선스하거나 굿즈·애니·영화로 확장. 게임 자체를 넘어 IP 경제권을 구축하는 전략</td>
+          <td>반다이남코, 닌텐도, 캡콤</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="warn">채용 난이도와 입사 후 현실 — 지원 전에 반드시 읽을 것</h3>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">채용 난이도 — 일본 취업 시장 최상위급</div>
+    <p>게임 업계는 <span class="hl-warn">인기 대비 채용 인원이 극히 적은 업계</span>다. 닌텐도·소니인터랙티브엔터테인먼트·사이게임스는 수천~수만 명이 지원하는 자리에 수십 명을 채용하는 구조다. 특히 게임플래너(기획) 직종은 채용 인원이 한 자릿수인 경우도 있으며, 이공계 출신의 프로그래머도 경쟁이 치열하다.<br><br>
+    포트폴리오(자작 게임·기획서·제작물)가 실질적인 제1관문이며, 일반 ES로만 지원하는 방식은 통하지 않는다. <strong style="color:var(--text-sub);">게임 업계를 목표로 한다면 재학 중부터 꾸준히 작품을 만들고 있어야 한다.</strong></p>
+  </div>
+
+  <div class="reality-box">
+    <div class="reality-label">⚠️ 입사 후 현실 — 화려한 이미지의 뒤편</div>
+    <h4>① 크런치(집중 개발 기간) 문화가 여전히 존재한다</h4>
+    <p>출시 전 수개월~1년에 걸친 집중 개발 기간(크런치)에는 잔업 100~200시간이 일상이 되는 프로젝트가 지금도 존재한다. 업계 전체로 개선 중이지만, 특히 콘솔 대작 개발에서는 구조적으로 해소되기 어려운 부분이 있다. "좋아하니까 버틸 수 있다"가 아니라 "이 노동 환경에서 지속적으로 일할 수 있는가"를 냉정하게 판단해야 한다.</p>
+    <h4 style="margin-top:14px;">② 프로젝트 중단·IP 종료의 리스크</h4>
+    <p>몇 년을 개발한 타이틀이 출시 전에 갑자기 중단되거나, 서비스 중인 게임이 수익 악화로 종료되는 일은 게임 업계에서 드물지 않다. 자신이 수년간 매달린 작업이 "없었던 일"이 되는 경험이 반복될 수 있다. 이 현실에 대한 멘탈 준비가 없으면 번아웃으로 이어진다.</p>
+    <h4 style="margin-top:14px;">③ 직종에 따라 커리어 이동성이 낮다</h4>
+    <p>게임 업계는 직종이 세분화(플래너·프로그래머·아티스트·사운드·QA 등)되어 있어 한번 특정 직종으로 입사하면 다른 직종으로 이동하기 어렵다. 특히 게임플래너는 "게임 회사의 기획" 경험이 다른 업계로 이전하기 어렵기 때문에, 게임 업계 내부에 커리어가 갇히는 케이스가 많다.</p>
+    <h4 style="margin-top:14px;">④ 연봉 성장이 느린 기업이 많다</h4>
+    <p>닌텐도·소니인터랙티브엔터테인먼트·사이게임스 등 상위 기업은 연봉이 높지만, 중소 개발사는 연봉 400~500만엔대에서 성장이 정체되는 케이스도 많다. "게임이 좋아서" 저연봉을 감수하는 인재가 많기 때문에 시장 전체의 임금 수준이 IT 업계 대비 낮게 형성되는 구조적 문제가 있다.</p>
+  </div>
+</div>
+
+<!-- ════ S2 ════ -->
+<div class="section" id="s2">
+  <div class="section-num">SECTION 02</div>
+  <div class="section-title">면접관이 체크하는 트렌드 3선</div>
+  <div class="section-title-jp">面接官がチェックするトレンド</div>
+
+  <p>"최근 게임 업계에서 주목하는 것이 있나요?" — 반드시 나오는 질문. <span class="hl">단순히 "이 게임이 재미있다"가 아니라 업계 구조 변화를 이해한 관점으로 말해야</span> 차별화된다.</p>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 01</div>
+    <h4>글로벌화 가속 — 일본 게임의 세계 공략과 해외 IP 침공</h4>
+    <p>일본 국내 게임 시장이 포화 상태에 가까워지면서, <span class="hl">국내 주요 게임사의 글로벌 전개가 전략의 핵심</span>이 되고 있다. 카프콤의 몬스터헌터·드래곤즈도그마, 반다이남코의 엘든링, 스퀘어에닉스의 파이널판타지 시리즈는 해외 매출 비율이 국내를 초과했다. 사이게임스는 글로벌 버전을 처음부터 동시 출시하는 전략으로 전환했다.</p>
+    <p>반대로 중국·한국·미국 게임사의 일본 시장 침투도 가속되고 있다. 호요버스(원신·붕괴)·넥슨재팬·넷마블이 일본 모바일 시장에서 점유율을 확대하고 있으며, 일본 게임사와의 경쟁이 심화되고 있다.</p>
+    <div class="use-tag">ES/면접 활용</div>
+    <p>"일본 게임의 글로벌 경쟁력의 핵심은 세계 어디에도 없는 IP와 세계관의 깊이입니다. 저는 일본 게임의 강점을 세계에 전달하는 역할을 담당하고 싶어서 이 업계를 선택했습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 02</div>
+    <h4>생성AI의 게임 개발 침투 — 효율화와 창조성의 긴장</h4>
+    <p>생성AI가 게임 개발 현장에 급속히 침투하고 있다. <span class="hl">배경 아트·NPC 대사·사운드 효과의 AI 생성이 이미 실용화</span>되어 있으며, 코드 생성·버그 자동 수정도 활용이 진행되고 있다. 개발 효율화로 인한 비용 절감 효과는 크지만, 동시에 "AI로 대체 가능한 작업을 담당하는 직종"의 수요 감소 우려도 현실화되고 있다.</p>
+    <p>특히 아티스트(2D·3D 그래픽) 직종은 AI 생성과 직접 경쟁 관계에 있어, 인간만이 할 수 있는 "디렉션 능력"과 "AI를 도구로 사용하는 능력" 양쪽이 요구되는 방향으로 변화하고 있다.</p>
+    <div class="use-tag">ES/면접 활용</div>
+    <p>"생성AI는 반복 작업의 효율을 높이지만, 플레이어의 감정을 움직이는 게임 체험의 설계는 여전히 인간의 창조력이 핵심입니다. AI를 도구로 활용하면서 창조적 가치를 높이는 방향에서 기여하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 03</div>
+    <h4>구독·서비스형 전환 — 패키지 일회성에서 반복 수익으로</h4>
+    <p>게임 업계 전체가 <span class="hl">패키지 판매(일회성 수익)에서 구독·서비스형(반복 수익)으로 수익 구조를 전환</span>하는 흐름이 가속되고 있다. 닌텐도 온라인(월정액), PlayStation Plus(월정액), Xbox Game Pass 등 구독 서비스가 시장의 중심으로 이동 중이다. 게임 자체의 무료화 + 서비스·아이템 판매라는 모델도 콘솔 분야로 확산되고 있다.</p>
+    <p>이 전환은 개발자에게 "출시 후 운영·업데이트"의 중요성을 높이고 있다. 출시가 "끝"이 아니라 "시작"이 되면서, 플래너·프로그래머에게도 장기 운영 시점의 기획·설계 능력이 요구된다.</p>
+    <div class="use-tag">ES/면접 활용</div>
+    <p>"구독·서비스형 전환으로 게임은 '파는 것'에서 '지속적으로 즐기게 하는 것'으로 바뀌었습니다. 플레이어와 장기적인 관계를 쌓는 게임 설계에 관심이 있습니다."</p>
+  </div>
+</div>
+
+<!-- ════ S3 ════ -->
+<div class="section" id="s3">
+  <div class="section-num">SECTION 03</div>
+  <div class="section-title">이 업계에서 활약하는 직종</div>
+  <div class="section-title-jp">ゲーム業界で活躍する職種</div>
+
+  <p>게임 업계의 직종은 <span class="hl">크리에이티브계(플래너·아티스트·사운드)와 엔지니어계(프로그래머)로 크게 나뉜다.</span> 문과 출신은 주로 플래너·프로듀서·마케팅 경로가 있으며, 이공계는 프로그래머가 주력 경로다. 직종에 따라 채용 전형과 평가 기준이 완전히 다르다.</p>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/kikaku-kk02-planning" target="_blank" class="job-link-card">
+    <div class="job-link-icon">🎮</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">기획 직종 — 직종 상세 카드 KK-02</div>
+      <div class="job-link-title">게임 플래너 — 게임의 재미를 설계하는 사람</div>
+      <div class="job-link-desc">
+        게임의 규칙·레벨 설계·UI/UX·수익 구조·이벤트 기획까지 게임 체험 전체를 설계하는 직종. <strong style="color:var(--text-sub);">채용 인원이 가장 적고 경쟁이 가장 치열한 직종.</strong> 자작 게임이나 기획서 포트폴리오 없이는 서류에서 탈락한다.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">채용 인원 극소</span>
+        <span class="job-link-tag">포트폴리오 필수</span>
+        <span class="job-link-tag">문과 가능</span>
+        <span class="job-link-tag">레벨·UI·수익 설계</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/creative-overview" target="_blank" class="job-link-card">
+    <div class="job-link-icon">🎨</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">크리에이티브 직종 — 직종 개요 카드</div>
+      <div class="job-link-title">게임 아티스트 / UI 디자이너 — 게임의 세계를 시각화하는 사람</div>
+      <div class="job-link-desc">
+        2D 일러스트·3D 모델링·배경·이펙트·UI 디자인 등 게임의 비주얼 전체를 담당. <strong style="color:var(--text-sub);">포트폴리오(작품집)가 전부.</strong> 학력·전공보다 "이것을 만들 수 있는가"가 유일한 평가 기준.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">포트폴리오가 전부</span>
+        <span class="job-link-tag">2D·3D·UI·이펙트</span>
+        <span class="job-link-tag">전공 무관</span>
+        <span class="job-link-tag">AI 대체 리스크 있음</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <div class="info-box" style="margin-top:20px;">
+    <div class="box-label">게임 업계 직종 전체 구조</div>
+    <p>
+      <strong style="color:var(--text-sub);">게임 플래너:</strong> 게임 설계의 총책임자. 레벨 디자인·밸런스·UI·수익 설계 등 "재미"를 수치와 구조로 만드는 역할. 신졸 채용 인원이 가장 적어 경쟁률 최상위. 문과도 지원 가능하지만 자작 게임·기획서가 필수.<br><br>
+      <strong style="color:var(--text-sub);">게임 프로그래머:</strong> 게임 엔진(Unity·Unreal Engine) 기반 개발. 이공계 중심. C++·C# 실력이 직접 평가됨. 이공계 중에서도 게임 개발 경험·GitHub 포트폴리오가 있어야 경쟁력이 있다.<br><br>
+      <strong style="color:var(--text-sub);">게임 아티스트:</strong> 2D 일러스트·3D 모델링·배경·UI·이펙트 등. 포트폴리오 중심 전형. 미대·전문학교 출신이 많지만 독학도 포트폴리오로 승부 가능.<br><br>
+      <strong style="color:var(--text-sub);">게임 프로듀서·디렉터:</strong> 보통 신졸 직접 채용 없음. 플래너 or 프로그래머로 수 년 경험 후 이동하는 것이 일반적.<br><br>
+      <strong style="color:var(--text-sub);">마케팅·운영:</strong> 유저 분석·캠페인 기획·SNS 운용·이벤트 기획. 문과 출신이 비교적 현실적으로 진입할 수 있는 경로. 다만 "게임이 좋다"만으로는 부족하고 데이터 분석 능력이 요구된다.<br><br>
+      <span class="hl">중요: 게임 업계에서 "비즈니스 직종(영업·인사·경리)"으로 입사하는 경우도 있지만 이 경우 실제 게임 개발에는 관여하지 않는다는 점을 사전에 확인해야 한다.</span>
+    </p>
+  </div>
+</div>
+
+<!-- ════ S4 ════ -->
+<div class="section" id="s4">
+  <div class="section-num">SECTION 04</div>
+  <div class="section-title">게임 업계 × 직종별 자기분석 키워드</div>
+  <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+  <p>게임 업계는 <span class="hl">스킬·포트폴리오·열정이 동시에 요구되는 업계</span>다. "게임이 좋아서"는 전제일 뿐이며, 구체적으로 "어떤 게임을 어떻게 만들고 싶은가"를 언어화해야 한다.</p>
+
+  <h3>게임 플래너 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">탐구심 <span class="keyword-name-jp">探求心</span></div>
+      <div class="keyword-desc">"왜 이 게임은 재미있는가"를 구조적으로 분석하는 능력. 게임의 재미를 감각이 아닌 구조로 이해하는 힘이 플래너의 핵심. 다양한 장르의 게임을 플레이하며 메커니즘을 해부하는 습관이 있어야 한다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">기획력 <span class="keyword-name-jp">企画力</span></div>
+      <div class="keyword-desc">막연한 "재미있을 것 같다"를 구체적인 게임 시스템·수치·레벨 구성으로 번역하는 능력. 아이디어를 기획서(스펙 문서)로 정확하게 언어화하고 팀에 전달하는 힘. 이것이 없으면 플래너의 역할을 할 수 없다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">끈기 <span class="keyword-name-jp">粘り強さ</span></div>
+      <div class="keyword-desc">수년에 걸친 개발 기간, 크런치, 프로젝트 중단의 리스크가 있는 환경에서 계속 만들어나가는 지속력. "완성할 때까지 포기하지 않는다"는 자세가 게임 개발의 가장 중요한 자질 중 하나다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">공감력 <span class="keyword-name-jp">共感力</span></div>
+      <div class="keyword-desc">타겟 플레이어가 "어떤 순간에 재미를 느끼는가" "어디서 좌절하는가"를 플레이어 시점으로 상상하는 능력. 자기만족의 게임이 아닌 "플레이어를 위한 게임"을 만드는 출발점.</div>
+    </div>
+  </div>
+
+  <h3 class="mobile">게임 프로그래머 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">논리적사고력 <span class="keyword-name-jp">論理的思考力</span></div>
+      <div class="keyword-desc">버그의 원인을 데이터와 로직으로 추적해 해결하는 능력. 복잡한 게임 시스템의 처리 순서·데이터 구조를 설계하는 힘. "왜 이렇게 움직이는가"를 코드 레벨에서 이해하는 정확성.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">향상심 <span class="keyword-name-jp">向上心</span></div>
+      <div class="keyword-desc">게임 엔진·프로그래밍 언어·렌더링 기술은 매년 진화한다. 최신 기술을 스스로 학습하고 실무에 적용하는 능력. "현재 할 수 있는 것"에 만족하지 않고 계속 성장하는 자세.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">협조성 <span class="keyword-name-jp">協調性</span></div>
+      <div class="keyword-desc">게임 개발은 플래너·아티스트·사운드·QA와의 긴밀한 협업이 필수다. "코드만 잘 짜는 사람"이 아닌 팀 전체의 목표를 이해하고 다른 직종의 언어로 소통할 수 있는 프로그래머가 평가받는다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">책임감 <span class="keyword-name-jp">責任感</span></div>
+      <div class="keyword-desc">자신이 담당한 시스템의 버그가 수백만 유저의 플레이 체험에 직접 영향을 미친다. 납기·품질 양쪽을 지키는 자세. 특히 라이브 운영 게임에서는 장애 대응의 신속성·정확성이 직접 요구된다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S5 ════ -->
+<div class="section" id="s5">
+  <div class="section-num">SECTION 05</div>
+  <div class="section-title">기업 비교 & 리스트</div>
+  <div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+
+  <p><span class="hl">대형 퍼블리셔 + 모바일 강자를 세트로 공략하는 전략</span>이 현실적이다. 닌텐도·소니인터랙티브엔터테인먼트는 난이도 최상위지만, 사이게임스·캡콤·반다이남코 등도 충분히 높은 경쟁률임을 인식해야 한다.</p>
+
+  <!-- 대형 퍼블리셔 -->
+  <div class="company-group">
+    <div class="company-group-label">🎮 대형 콘솔·퍼블리셔</div>
+
+    <div class="company-card primary">
+      <div class="company-type">콘솔 | 세계적 IP | 채용 최상위</div>
+      <div class="company-name">닌텐도 <span class="company-name-jp">任天堂</span></div>
+      <div class="company-desc">평균연봉 약 893만엔. 마리오·젤다·포켓몬 등 세계 최강 IP 보유. 하드웨어·소프트웨어 수직 통합 전략. 닌텐도 스위치 후속기(닌텐도 스위치 2) 출시 예정으로 개발 최고조. 채용 인원 수십 명 수준의 극소 채용. 일본 게임 업계 최고 인기로 경쟁률은 수백 대 일. 교토 본사.</div>
+      <div class="company-tags">
+        <span class="company-tag a">평균연봉 893만엔</span>
+        <span class="company-tag">세계 최강 IP</span>
+        <span class="company-tag">채용 경쟁률 최상위</span>
+        <span class="company-tag">교토 본사</span>
+      </div>
+    </div>
+
+    <div class="company-card primary">
+      <div class="company-type">콘솔 | PlayStation | 글로벌</div>
+      <div class="company-name">소니인터랙티브엔터테인먼트 <span class="company-name-jp">Sony Interactive Entertainment</span></div>
+      <div class="company-desc">PlayStation 플랫폼 운영 + 자사 스튜디오 개발. 전 세계 개발 스튜디오를 보유한 글로벌 게임 기업. 고다 IP(갓오브워·스파이더맨·호라이즌 등) 다수 보유. 도쿄·샌마테오(미국) 거점. 영어 업무 빈번. 채용 난이도 최상위.</div>
+      <div class="company-tags">
+        <span class="company-tag a">PlayStation 플랫폼</span>
+        <span class="company-tag">글로벌 스튜디오</span>
+        <span class="company-tag">영어 업무 빈번</span>
+      </div>
+    </div>
+
+    <div class="company-card primary">
+      <div class="company-type">퍼블리셔 | IP 최대 보유</div>
+      <div class="company-name">반다이남코엔터테인먼트 <span class="company-name-jp">バンダイナムコエンターテインメント</span></div>
+      <div class="company-desc">평균연봉 약 817만엔. 엘든링·테일즈오브·건담·아이돌마스터 등 IP 폭넓음. 반다이남코홀딩스 산하로 완구·애니·영화까지 IP 경제권이 강점. 대작 콘솔과 모바일 양쪽을 전개. 상대적으로 채용 인원이 많아 대형 퍼블리셔 중 접근성이 현실적.</div>
+      <div class="company-tags">
+        <span class="company-tag a">평균연봉 817만엔</span>
+        <span class="company-tag">엘든링·건담 IP</span>
+        <span class="company-tag">대형 퍼블리셔 중 접근성 높음</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">콘솔·PC | 액션·호러</div>
+      <div class="company-name">캡콤 <span class="company-name-jp">カプコン</span></div>
+      <div class="company-desc">평균연봉 약 717만엔. 몬스터헌터·바이오하자드·데빌메이크라이 등 글로벌 IP. 해외 매출 비율 80% 이상. RE엔진이라는 독자 게임 엔진 보유. 오사카 본사. 연봉은 업계 상위보다 낮지만 글로벌 IP 개발 환경은 최상위.</div>
+      <div class="company-tags">
+        <span class="company-tag a">해외 매출 80%+</span>
+        <span class="company-tag">몬헌·바이오하자드</span>
+        <span class="company-tag">독자 RE엔진</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">콘솔·모바일 | RPG</div>
+      <div class="company-name">스퀘어에닉스 <span class="company-name-jp">スクウェア・エニックス</span></div>
+      <div class="company-desc">평균연봉 약 773만엔. 파이널판타지·드래곤퀘스트·킹덤하츠 등 일본 RPG의 대명사 IP 보유. 최근 대작 개발비 증가에 따른 수익성 과제를 안고 있으며 구조 재편 진행 중. 콘솔 대작과 모바일을 병행 전개. 블록체인 게임 등 새로운 시도도 적극적.</div>
+      <div class="company-tags">
+        <span class="company-tag a">FF·DQ IP</span>
+        <span class="company-tag">구조 재편 중</span>
+        <span class="company-tag">신규 분야 도전</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">콘솔·모바일 | 역사·전략</div>
+      <div class="company-name">코에이테크모 <span class="company-name-jp">コーエーテクモ</span></div>
+      <div class="company-desc">평균연봉 약 754만엔. 삼국지·노부나가의야망·닌자가이덴·워리어즈 시리즈. 역사 시뮬레이션 분야 세계 강자. 게임 업계 중 워라밸이 비교적 양호하다는 평가. 요코하마·도쿄 거점. 닌텐도에 이어 닌텐도 IP 협업 타이틀도 다수.</div>
+      <div class="company-tags">
+        <span class="company-tag a">평균연봉 754만엔</span>
+        <span class="company-tag">삼국지·노부나가</span>
+        <span class="company-tag">워라밸 비교적 양호</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">콘솔·모바일 | 스포츠·음악</div>
+      <div class="company-name">코나미 <span class="company-name-jp">コナミグループ</span></div>
+      <div class="company-desc">eFootball(구 위닝일레븐)·유희왕·메탈기어 등 IP 보유. 최근 게임 이외에도 스포츠 클럽 운영·피트니스 사업에도 주력하는 독특한 포지션. 게임 사업의 모바일 전환을 진행 중. 기업 문화에 대해 다양한 평가가 있어 입사 전 OB·OG 방문 필수.</div>
+      <div class="company-tags">
+        <span class="company-tag a">eFootball·유희왕</span>
+        <span class="company-tag">스포츠·피트니스 병행</span>
+        <span class="company-tag">OB 방문 필수</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">콘솔·모바일 | 세가 IP</div>
+      <div class="company-name">세가 <span class="company-name-jp">セガ</span></div>
+      <div class="company-desc">소닉·용과같이·페르소나·뿌요뿌요 등 다채로운 IP. 아틀러스·풀게임스와 그룹을 형성. 최근 클라우드 게임·PC 게임 전개 강화. 세가사미홀딩스 산하. 게임 외에 오락 기계·카지노 사업도 전개하는 독특한 복합 기업.</div>
+      <div class="company-tags">
+        <span class="company-tag a">소닉·용과같이·페르소나</span>
+        <span class="company-tag">아틀러스 계열</span>
+        <span class="company-tag">복합 엔터테인먼트</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 모바일 강자 -->
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--mobile);">📱 모바일 강자 — 현실 공략 존</div>
+
+    <div class="company-card primary-m">
+      <div class="company-type mobile">모바일 | 업계 최고 연봉</div>
+      <div class="company-name">사이게임스 <span class="company-name-jp">サイゲームス</span></div>
+      <div class="company-desc">평균연봉 약 977만엔으로 게임 업계 최상위. 그란블루판타지·프린세스커넥트·우마무스메 등 대형 타이틀 연속 히트. 콘솔 대작(그란블루판타지리링크)에도 진출. 고연봉이지만 채용 난이도도 게임 업계 최상위급. 신주쿠 본사. 복리후생이 업계 최고 수준으로 유명.</div>
+      <div class="company-tags">
+        <span class="company-tag m">평균연봉 977만엔</span>
+        <span class="company-tag">우마무스메 히트</span>
+        <span class="company-tag">복리후생 최상위</span>
+        <span class="company-tag">채용 난이도 최상위</span>
+      </div>
+    </div>
+
+    <div class="company-card primary-m">
+      <div class="company-type mobile">모바일 | 스트리트파이터형 성과</div>
+      <div class="company-name">구미 <span class="company-name-jp">gumi</span></div>
+      <div class="company-desc">파이널판타지 브레이브엑스비어스·나인솔스 등 모바일 RPG. 싱가포르·캐나다 등 해외 거점 강화 중. 글로벌 동시 출시 전략. 모바일 게임에서 글로벌 경험을 원하는 지원자에게 현실적인 선택지.</div>
+      <div class="company-tags">
+        <span class="company-tag m">글로벌 동시 출시</span>
+        <span class="company-tag">해외 거점 강화</span>
+      </div>
+    </div>
+
+    <div class="company-card primary-m">
+      <div class="company-type mobile">모바일 | 축구·스포츠</div>
+      <div class="company-name">KLab <span class="company-name-jp">KLab</span></div>
+      <div class="company-desc">캡틴츠바사·블리치 등 인기 IP 모바일 게임. 애니 IP와의 연계가 강점. 아시아·중동 시장에 적극 전개. 중소 규모의 모바일 회사 중 상장 기업으로 재무 안정성 있음.</div>
+      <div class="company-tags">
+        <span class="company-tag m">캡틴츠바사 IP</span>
+        <span class="company-tag">아시아·중동 전개</span>
+        <span class="company-tag">상장 기업</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type mobile">모바일 | 몬스터스트라이크</div>
+      <div class="company-name">mixi <span class="company-name-jp">MIXI</span></div>
+      <div class="company-desc">몬스터스트라이크(몬스트)로 모바일 게임 시장을 개척한 SNS→게임 전환 성공 사례. 몬스트의 장기 운영으로 안정 수익 기반 확보. 스포츠 사업(FC도쿄 운영)도 병행. 게임 이외에도 폭넓은 사업 전개에 관심 있는 지원자에게.</div>
+      <div class="company-tags">
+        <span class="company-tag m">몬스터스트라이크</span>
+        <span class="company-tag">FC도쿄 운영</span>
+        <span class="company-tag">사업 다각화</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S6 ════ -->
+<div class="section" id="s6">
+  <div class="section-num">SECTION 06</div>
+  <div class="section-title">ES 대책</div>
+  <div class="section-title-jp">合格パターン·落とし穴</div>
+
+  <p>게임 업계 ES의 최대 함정은 <span class="hl">"게임이 좋아서"만으로 끝나는 지원 동기</span>다. 게임 회사의 면접관은 전원이 게임을 누구보다 좋아하는 사람이다. "좋아한다"는 것은 전제이지 동기가 아니다. <strong style="color:var(--text-sub);">"어떤 게임을 어떻게 만들고 싶은가"</strong>가 핵심이다.</p>
+
+  <h3>직종별 전형의 차이</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>직종</th><th>가장 중요한 것</th><th>ES 포인트</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>게임 플래너</td>
+          <td>자작 게임·기획서 포트폴리오</td>
+          <td>"이런 게임을 만들고 싶어서 이런 것을 이미 만들었다"는 행동력. 기획서가 없으면 서류 탈락이 일반적</td>
+        </tr>
+        <tr>
+          <td>게임 프로그래머</td>
+          <td>GitHub·기술 포트폴리오</td>
+          <td>Unity·Unreal Engine 실제 개발 경험. 게임 잼 참가·자작 게임 공개 이력. 코딩 테스트가 전형에 포함됨</td>
+        </tr>
+        <tr>
+          <td>게임 아티스트</td>
+          <td>작품 포트폴리오 품질</td>
+          <td>학력·전공 무관. 포트폴리오 1장으로 합격·불합격이 결정되는 세계. 지원 회사의 그림체·스타일에 맞는 작품을 준비해야 함</td>
+        </tr>
+        <tr>
+          <td>마케팅·운영</td>
+          <td>데이터 분석력·게임 이해도</td>
+          <td>유저 행동 데이터 분석·A/B 테스트·게임 KPI(DAU·ARPU 등) 이해도를 어필. "게임이 좋다"가 아닌 "게임 유저를 데이터로 이해한다"는 시각 필요</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="es-pattern">
+    <div class="es-pattern-label">✅ 게임 플래너 합격 패턴</div>
+    <p>
+      Step 1. 자작 게임·기획서를 실제로 만들어 제출 — 없으면 지원 자체가 성립하지 않는 경우가 대부분<br>
+      Step 2. "왜 이 게임을 만들고 싶었는가" — 참고한 게임의 메커니즘·문제의식·개선하고 싶었던 점을 구체적으로 제시<br>
+      Step 3. 왜 이 회사인가 — 이 회사의 어떤 IP·기술·문화에서 자신이 만들고 싶은 게임에 가까워질 수 있는지를 연결<br>
+      Step 4. 입사 후 어떤 플래너가 되고 싶은지 — 레벨 디자인·수익 설계·세계관 구축 중 어느 방향에서 전문성을 높이고 싶은지
+    </p>
+  </div>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">❌ 불합격 공통 실수</div>
+    <p>
+      <span class="hl-warn">실수 1:</span> "어릴 때부터 게임을 좋아해서" — 전원이 그렇다. 동기가 아님<br>
+      <span class="hl-warn">실수 2:</span> 플래너 지원에 포트폴리오 없음 — 기획서 하나 없이 "플래너가 되고 싶다"고만 쓰면 열의와 실력 양쪽에서 탈락<br>
+      <span class="hl-warn">실수 3:</span> 지원 회사의 게임을 거의 모름 — "어떤 게임이 좋은가" "당사의 타이틀 중 가장 관심 있는 것은"이라는 질문에 대답하지 못하면 즉시 탈락. 지원 회사의 주요 타이틀을 실제로 플레이해야 한다<br>
+      <span class="hl-warn">실수 4:</span> 현실을 무시한 "꿈의 직장" 지원 — 크런치·프로젝트 중단·저연봉 등 업계의 현실을 이해하지 못하면 "이 사람은 금방 그만둘 것 같다"는 평가로 이어짐
+    </p>
+  </div>
+</div>
+
+<!-- ════ S7 ════ -->
+<div class="section" id="s7">
+  <div class="section-num">SECTION 07</div>
+  <div class="section-title">면접 대책</div>
+  <div class="section-title-jp">面接対策 — 頻出質問·選考フロー</div>
+
+  <p>게임 업계 면접은 <span class="hl">게임에 대한 깊이 있는 이해 + 자신이 만들고 싶은 것의 구체성 + 업계의 현실을 받아들이는 멘탈</span>이 핵심이다. 특히 "어떤 게임이 좋은가", "이 게임의 어디가 좋은가"를 구체적으로 말할 수 있어야 한다.</p>
+
+  <h3>전형 단계 구조</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>단계</th><th>내용</th><th>포인트</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>포트폴리오 제출</td>
+          <td>플래너는 기획서·자작 게임. 아티스트는 작품집. 프로그래머는 GitHub·기술 포트폴리오. 서류 전형 전에 제출을 요구하는 경우가 많음</td>
+          <td>이 단계가 사실상 제1관문. 포트폴리오 품질이 낮으면 ES 내용과 무관하게 탈락</td>
+        </tr>
+        <tr>
+          <td>필기·코딩 테스트</td>
+          <td>프로그래머는 코딩 테스트 필수. 플래너는 게임 기획 과제(A4 1~2장으로 기획서 작성)를 요구하는 경우 多</td>
+          <td>기획 과제는 "이미 있는 게임의 개선안" or "신규 게임 기획" 형식. 사전에 비슷한 과제를 연습해두어야 한다</td>
+        </tr>
+        <tr>
+          <td>1차 면접</td>
+          <td>현장 담당자. 포트폴리오 내용을 깊이 파고듦 + 게임 이해도 확인. 프로그래머는 기술 면접 포함</td>
+          <td>"왜 이 게임 시스템을 선택했는가" "이 기획의 가장 어려운 점은 무엇인가"를 말할 수 있어야 함</td>
+        </tr>
+        <tr>
+          <td>2차~최종 면접</td>
+          <td>시니어·임원급. 커리어 비전·업계 현실에 대한 이해·입사 의향 확인. "크런치는 괜찮은가" "프로젝트가 중단되면 어떻게 할 것인가"가 빈출</td>
+          <td>업계의 힘든 현실을 알면서도 "그것을 포함해서 이 업계에서 일하고 싶다"는 자세를 보여야 함. "대비책"을 말하면 오히려 역효과</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>빈출 질문 & 답변 포인트</h3>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 01</div>
+    <h4>가장 인상에 남은 게임은? 왜 그 게임인가?</h4>
+    <p>게임 업계 면접에서 반드시 나오는 질문. "재미있었다"로 끝나면 탈락이다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 구조:</strong><br>
+    ① 그 게임의 어떤 메커니즘·시스템이 인상적이었는가<br>
+    ② 왜 그 설계가 플레이어의 감정을 움직이는가 — 구조적으로 분석<br>
+    ③ 자신이 플래너·프로그래머라면 어떻게 더 발전시키고 싶은가<br><br>
+    지원하는 회사의 타이틀을 언급하는 것이 기본. 전혀 무관한 게임만 말하면 "우리 게임에 관심이 없다"는 신호가 된다.</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 02</div>
+    <h4>크런치나 프로젝트 중단에 대해 어떻게 생각하는가?</h4>
+    <p>최종 면접에서 빈번히 나오는 질문. <span class="hl">업계의 현실을 이해하고 있는지, 그것을 포함해서 이 업계에서 일할 각오가 있는지를 보는 질문이다.</span></p>
+    <p><strong style="color:var(--text-sub);">나쁜 답변:</strong> "크런치는 없어져야 한다고 생각합니다" — 면접관 앞에서 업계 구조를 비판하는 것은 역효과.<br>
+    <strong style="color:var(--text-sub);">좋은 답변 방향:</strong> "크런치는 개인적으로는 회피하고 싶지만, 그것이 존재하는 이유 — 개발의 불확실성·품질에 대한 집착 — 는 이해하고 있습니다. 그 환경 속에서도 지속적으로 일할 수 있는 자기 관리와, 중단 리스크를 최소화하기 위한 기획·개발 과정의 개선에 기여하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 03</div>
+    <h4>어떤 게임을 만들고 싶은가? 10년 후 어떤 개발자가 되고 싶은가?</h4>
+    <p>게임 업계에서 커리어 비전은 <span class="hl">구체적인 게임 타이틀·장르·체험 가치와 연결되어야</span> 한다. "좋은 게임을 만들고 싶다"는 답변은 비전이 없다는 인상을 준다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 구조:</strong> "저는 [오픈월드 RPG / 대전 액션 / 퍼즐] 장르에서 [플레이어가 ○○을 느낄 수 있는 체험]을 설계하는 플래너가 되고 싶습니다. 10년 후에는 한 타이틀을 처음부터 끝까지 디렉션할 수 있는 경험과 판단력을 갖추는 것이 목표입니다."</p>
+  </div>
+
+  <div class="info-box info-box-red">
+    <div class="box-label box-label-red">게임 업계를 목표로 하는 사람에게</div>
+    <p>
+      게임 업계는 "꿈의 직장"인 동시에 일본 취업 시장에서 가장 냉혹한 현실이 기다리는 업계 중 하나다. 채용 난이도는 최상위이며, 입사 후에도 크런치·프로젝트 중단·커리어 이동성 제약이라는 현실이 있다.<br><br>
+      그럼에도 이 업계를 선택하는 이유가 <span class="hl-red">"어릴 때부터 좋아했으니까"가 아니라 "자신의 손으로 이런 게임을 만들고 플레이어에게 이런 체험을 전달하고 싶다"는 구체적 비전</span>에서 나오는 사람만이 합격하고, 장기적으로 살아남을 수 있다.<br><br>
+      지금 당장 포트폴리오가 없다면, 게임 잼에 참가하거나 Unity로 미니 게임을 하나 만드는 것부터 시작해야 한다. 그 행동 없이 게임 업계 지원은 성립하지 않는다.
+    </p>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> 업계 리포트 Vol.10 — 게임 업계</p>
+  <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+  <p style="margin-top:8px;font-size:10px;">본 리포트의 정보는 각사 IR자료, 채용 페이지, 일본온라인게임협회(JOGA) 통계, OpenWork 등 공개 정보를 기반으로 구조화한 것입니다.</p>
+</div>
+
+</div>
+
+<script>
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  const y = el.getBoundingClientRect().top + window.pageYOffset - navH - 16;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7'];
+const navBtns = document.querySelectorAll('.nav-btn');
+function updateNav() {
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  let current = 's1';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= navH + 60) current = id;
+  });
+  navBtns.forEach((btn, i) => btn.classList.toggle('active', sections[i] === current));
+}
+window.addEventListener('scroll', updateNav);
+updateNav();
+</script>
+</body>
+</html>
