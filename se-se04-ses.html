@@ -85,6 +85,31 @@
         쉽게 말하면: <span class="hl">"고용은 A사, 실제 일은 B사에서"</span>라는 구조. 이 구조가 장점이 되기도 하고 리스크가 되기도 한다.
       </p>
     </div>
+    <div class="info-box">
+      <h4>일본 IT업계 구조 속 SES의 위치</h4>
+      <p>
+        일본 IT 프로젝트는 <span class="hl">다단계 하청(多重下請け) 구조</span>로 운영되는 경우가 많다.<br><br>
+        <strong>1차(元請け)</strong> — 대형 SIer (NTT데이터, 후지쯔, NEC 등). 고객기업과 직접 계약<br>
+        <strong>2차(2次請け)</strong> — 중형 SIer. 1차로부터 공정 일부를 수주<br>
+        <strong>3차 이하(3次以下)</strong> — 대부분의 SES 기업이 여기에 위치<br><br>
+        SES 엔지니어는 이 피라미드 어딘가의 현장에 파견되어 일하게 된다. <span class="hl">어느 계층의 프로젝트에 들어가느냐</span>가 담당 업무 내용, 급여 수준, 기술 성장 기회를 크게 좌우한다.
+      </p>
+    </div>
+    <div class="info-box">
+      <h4>SES 엔지니어의 하루 (인프라 엔지니어 2년차 예시)</h4>
+      <p>
+        09:00 고객사 직행. 현장 팀 슬랙 확인<br>
+        09:30 서버·네트워크 구성 변경 작업 (사전 설계서 확인 → 작업 실시 → 증적 취득)<br>
+        11:00 장애 대응 — 전날 발생한 로그 이상 원인 분석<br>
+        12:00 점심<br>
+        13:00 고객사 담당자와 진행 상황 공유 미팅<br>
+        14:00 설계서 업데이트 작업 (변경 이력 반영)<br>
+        16:00 자격증 공부 (AWS SAA — 퇴근 후 1시간)를 위한 내용 사전 정리<br>
+        17:30 SES 소속 회사 팀장에게 일일 보고 (슬랙 메시지)<br>
+        18:00 직귀. 카페에서 AWS 공부 1시간<br><br>
+        <span class="hl">핵심: 일상적인 보고 대상(고객사)과 고용 관계(SES 기업)가 다르다</span>는 구조를 항상 의식해야 한다.
+      </p>
+    </div>
   </div>
 
   <div class="section" id="s2">
@@ -93,6 +118,36 @@
     <div class="section-title-jp">SES企業の種類</div>
 
     <p>같은 "SES"라도 회사의 질에 따라 경험이 천차만별이다. <span class="hl">모든 SES가 나쁜 것은 아니지만, 골라야 한다.</span></p>
+
+    <table class="compare-table">
+      <thead><tr><th>유형</th><th>특징</th><th>배치 경향</th><th>판단 포인트</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="row-label">1차 원청 중심 SES</td>
+          <td>대형 SIer로부터 직접 수주. 단가가 높고 상류 공정 참여 기회 있음</td>
+          <td>설계·구축·테스트 각 공정에 골고루 배치</td>
+          <td>단가·이직률·연수 제도를 확인. 가장 좋은 유형</td>
+        </tr>
+        <tr>
+          <td class="row-label">2차 이하 다단계형</td>
+          <td>중소 SES 다수가 여기에 해당. 하청 작업(테스트·운용 감시) 중심</td>
+          <td>테스트·단순 작업 비중 높음. 기술 성장이 제한적</td>
+          <td>프로젝트 내용·배치 폴리시를 면접에서 반드시 확인</td>
+        </tr>
+        <tr>
+          <td class="row-label">자사 개발+SES 병행형</td>
+          <td>자사 서비스나 수주 개발도 보유. SES에서 자사 개발으로의 이동 경로 있음</td>
+          <td>실적에 따라 자사 개발에 이동 가능</td>
+          <td>자사 개발 비율·이동 조건을 확인</td>
+        </tr>
+        <tr>
+          <td class="row-label">대량채용 회전형</td>
+          <td>매년 수백 명 이상 채용. 이직률이 극히 높음. 현장 방치가 많음</td>
+          <td>채용 후 즉시 현장 배치. 연수 없음</td>
+          <td>이직률·평균 재직 기간을 반드시 확인. 피하는 것이 좋음</td>
+        </tr>
+      </tbody>
+    </table>
 
     <div class="info-box">
       <h4>양질의 SES 기업의 특징</h4>
@@ -129,6 +184,19 @@
       <div class="strength-item"><div class="strength-rank">02</div><div class="strength-body"><h4>다양한 업계/기술을 경험할 수 있다</h4><p>프로젝트마다 업계(금융, 제조, 유통 등)와 기술이 다르다. 여러 현장을 거치면서 "자기한테 맞는 분야"를 찾을 수 있다는 장점. 이 경험을 바탕으로 이직할 때 강점이 될 수도.</p></div></div>
       <div class="strength-item"><div class="strength-rank">03</div><div class="strength-body"><h4>실무 경험을 빠르게 쌓을 수 있다</h4><p>SIer 신입은 연수만 몇 개월이지만, SES는 상대적으로 빠르게 현장에 투입된다. 단, 어떤 현장에 배치되느냐에 따라 경험의 질이 크게 달라짐.</p></div></div>
       <div class="strength-item"><div class="strength-rank">04</div><div class="strength-body"><h4>이직의 발판으로 활용 가능</h4><p>SES에서 2-3년 실무 경험 + 자격증을 쌓으면, SIer나 사내SE, Web계로 이직하는 루트가 열린다. "SES를 최종 목적지가 아니라 경유지로 사용하겠다"는 전략.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">05</div><div class="strength-body"><h4>거주지 근처 현장 배치 가능성</h4><p>SIer는 전근이 있는 경우가 많지만 SES는 통근 범위 내 현장에 배치되는 경우가 많다. 도시부에서 집 근처 현장에 배정되면 워라밸 면에서 좋을 수 있다.</p></div></div>
+    </div>
+    <div class="info-box">
+      <h4>SES를 발판으로 성공한 커리어 패턴</h4>
+      <p>
+        <strong>패턴 1: SES 인프라 → AWS 자격증 취득 → 클라우드 전문 SIer 이직</strong><br>
+        온프레미스 운용 감시 현장 2년 → LPIC·AWS SAA 취득 → 클라우드 엔지니어로 연봉 150만 엔 상승 이직<br><br>
+        <strong>패턴 2: SES 개발 → 포트폴리오 작성 → Web계 스타트업 이직</strong><br>
+        SES에서 Java 개발 경험 2년 → 개인 앱 개발·Github 정비 → 프론트엔드 엔지니어로 내정<br><br>
+        <strong>패턴 3: SES 테스트 → 품질관리 전문가 → 대기업 QA 이직</strong><br>
+        단순 테스트라도 JSTQB 자격 취득·품질관리 프로세스 이해로 대기업 QA 포지션에 이직<br><br>
+        공통점: <span class="hl">수동적으로 있지 않고, 현장에서 적극적으로 배우고 자격증으로 가시화했다.</span>
+      </p>
     </div>
   </div>
 
@@ -165,6 +233,17 @@
         <strong>⑦ 자사 개발 사업이 있는가?</strong> — SES만 하는 회사보다 자사 사업도 있는 회사가 커리어 선택지가 넓음
       </p>
     </div>
+    <table class="compare-table">
+      <thead><tr><th>항목</th><th>좋은 SES 기업</th><th>주의해야 할 SES 기업</th></tr></thead>
+      <tbody>
+        <tr><td class="row-label">배치 결정</td><td>희망 히어링 후 조율해서 결정</td><td>"빈 현장에 넣는" 방식</td></tr>
+        <tr><td class="row-label">연수 제도</td><td>입사 연수 + 자격증 지원 + 자격 수당</td><td>연수 거의 없음. 현장 직행</td></tr>
+        <tr><td class="row-label">커리어 상담</td><td>분기 1회 이상 면담. 다음 커리어 계획</td><td>배치 후 방치. 불만 있으면 스스로 연락해야 함</td></tr>
+        <tr><td class="row-label">프로젝트 내용</td><td>설계·구축·테스트 균형있게 경험</td><td>테스트·운용 감시만 반복</td></tr>
+        <tr><td class="row-label">이직률</td><td>3년 이내 이직률 30% 이하</td><td>1~2년 이내 이직률 50% 이상</td></tr>
+        <tr><td class="row-label">1차 프로젝트 비율</td><td>50% 이상</td><td>거의 없음 또는 불명확</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="section" id="s6">
@@ -175,15 +254,42 @@
     <p>SES를 선택했다면, <span class="hl">"여기에 오래 있겠다"가 아니라 "여기를 발판으로 어디로 갈 것인가"</span>를 처음부터 설계해야 한다.</p>
 
     <div class="career-timeline">
-      <div class="career-step"><div class="career-year">입사 직후</div><div class="career-role">목표를 세운다</div><div class="career-desc">"2-3년 이내에 어떤 기술/자격증을 쌓고, 어디로 이직할 것인가"를 구체적으로 계획. SES를 "경유지"로 사용하겠다는 전략적 마인드셋이 핵심.</div></div>
-      <div class="career-step"><div class="career-year">1-2년차</div><div class="career-role">현장에서 기술을 흡수 + 자격증 취득</div><div class="career-desc">배치된 현장에서 가능한 한 많은 것을 배우면서, 동시에 자격증(LPIC, CCNA, AWS SAA, 기본정보기술자 등)을 취득. 이 자격증이 다음 현장/이직의 무기가 됨.</div></div>
-      <div class="career-step"><div class="career-year">2-3년차</div><div class="career-role">현장 변경 요청 or 이직 준비</div><div class="career-desc">기술이 쌓이지 않는 현장이라면 적극적으로 변경 요청. 동시에 이직 시장의 상황을 파악. 자격증 + 실무 경험이 갖춰지면 SIer, 사내SE, Web계 등으로의 이직 기회가 열림.</div></div>
+      <div class="career-step"><div class="career-year">입사 직후</div><div class="career-role">목표를 세운다</div><div class="career-desc">"2-3년 이내에 어떤 기술/자격증을 쌓고, 어디로 이직할 것인가"를 구체적으로 계획. SES를 "경유지"로 사용하겠다는 전략적 마인드셋이 핵심. 배치된 현장의 담당 업무(인프라/개발/테스트)에 따라 목표 자격증도 달라진다.</div></div>
+      <div class="career-step"><div class="career-year">1-2년차</div><div class="career-role">현장에서 기술을 흡수 + 자격증 취득</div><div class="career-desc">배치된 현장에서 가능한 한 많은 것을 배우면서, 동시에 자격증(LPIC, CCNA, AWS SAA, 기본정보기술자 등)을 취득. 이 자격증이 다음 현장/이직의 무기가 됨. 현장에서 의문이 생기면 적극적으로 선배에게 물어보고 기술 노트를 정리하는 습관이 중요하다.</div></div>
+      <div class="career-step"><div class="career-year">2-3년차</div><div class="career-role">현장 변경 요청 or 이직 준비</div><div class="career-desc">기술이 쌓이지 않는 현장이라면 적극적으로 변경 요청. 동시에 이직 시장의 상황을 파악. 자격증 + 실무 경험이 갖춰지면 SIer, 사내SE, Web계 등으로의 이직 기회가 열린다. 이 시기에 이직 에이전트에 등록해 시장 가치를 파악해 두는 것이 중요하다.</div></div>
       <div class="career-step"><div class="career-year">3년차 이후</div><div class="career-role">다음 스텝으로 이동</div><div class="career-desc">
         <strong>이직A: SIer (원청)</strong> — SES에서의 실무 경험을 살려 상류공정으로.<br>
         <strong>이직B: 사내SE</strong> — 자사 시스템 관리. 안정적이고 워라밸 좋은 경우 많음.<br>
         <strong>이직C: Web계</strong> — 기술력이 충분하면. 포트폴리오 준비 필요.<br>
         <strong>이직D: 프리랜서</strong> — SES 경험이 있으면 프리랜서로 독립하는 루트도. 단가가 올라갈 수 있음.
       </div></div>
+    </div>
+
+    <div class="info-box info-box-accent">
+      <h4>직종별 목표 자격증 로드맵</h4>
+      <p>
+        <strong>인프라 엔지니어 방향</strong><br>
+        입사 1년: 基本情報技術者 또는 LPIC Level1<br>
+        2년차: AWS SAA(Solutions Architect Associate) 또는 CCNA<br>
+        3년차: AWS SAP 또는 CCNP → 클라우드 전문 SIer·클라우드 컨설 이직<br><br>
+        <strong>개발 엔지니어 방향</strong><br>
+        입사 1년: 基本情報技術者 + 사용 언어(Java/Python) 기초 강화<br>
+        2년차: 應用情報技術者 + 포트폴리오(GitHub) 정비<br>
+        3년차: Web계 스타트업·사내SE 이직<br><br>
+        <strong>테스트·QA 방향 (현장이 테스트만인 경우)</strong><br>
+        입사 1년: JSTQB Foundation Level 취득<br>
+        2년차: 自動化テスト(Selenium, Playwright) 독학 + JSTQB Advanced<br>
+        3년차: 大手IT企業 QA 포지션으로 이직. 의외로 수요가 있는 분야
+      </p>
+    </div>
+    <div class="info-box">
+      <h4>SES 경험자가 이직 시장에서 어떻게 평가되는가</h4>
+      <p>
+        SES 경험자의 이직 시장 평가는 <span class="hl">자격증·포트폴리오·프로젝트 내용의 조합</span>으로 결정된다.<br><br>
+        <strong>높이 평가되는 패턴</strong>: 다양한 현장 경험(금융·제조·유통 등) + 자격증 복수 취득 + "단순 작업 외에 이런 기여를 했다"는 구체 실적<br><br>
+        <strong>평가가 낮은 패턴</strong>: 3년간 테스트만, 자격증 없음, 포트폴리오 없음 → "SES에서 오래 있었지만 스킬이 불명확"<br><br>
+        핵심: SES 재직 중에 <span class="hl">가시적인 스킬 증거(자격증·포트폴리오·실적)를 반드시 쌓아야 한다.</span> 이것이 없으면 이직 시장에서의 선택지가 좁아진다.
+      </p>
     </div>
   </div>
 
@@ -230,6 +336,19 @@
         — 장기적 커리어 계획 없이 "일단 취직"만 생각하는 경우<br><br>
         <span class="hl-warn">핵심 메시지: SES 자체가 나쁜 것이 아니라, "모르고 들어가는 것"과 "계획 없이 머무는 것"이 위험하다.</span>
       </p>
+    </div>
+
+    <div class="info-box">
+      <h4>SES와 IT취활에서 자기분석 키워드 연결</h4>
+      <p>SES를 선택하는 경우에도, IT엔지니어 지망 ES·면접에서 연결해야 할 자기분석 키워드가 있다.</p>
+    </div>
+    <div class="keyword-grid">
+      <div class="keyword-card"><div class="kw-name">탐구심·학습력</div><div class="kw-desc">기술 트렌드가 빠른 IT업계에서 "계속 배우는 것이 즐겁다"는 기질이 가장 중요한 기초 역량. 새로운 언어·기술를 스스로 공부하는 자율 학습력이 SES 현장에서도 이직 시장에서도 가치가 된다.</div></div>
+      <div class="keyword-card"><div class="kw-name">논리적 사고력</div><div class="kw-desc">시스템 장애 원인 분석, 설계서 작성, 버그 해결 등 IT 업무의 대부분은 "왜 이렇게 됐는가"를 논리적으로 추적하는 힘. 문과 출신도 이 강점을 IT 현장에 연결하는 방향으로 어필 가능하다.</div></div>
+      <div class="keyword-card"><div class="kw-name">꼼꼼함·책임감</div><div class="kw-desc">테스트나 운용 감시처럼 단순해 보이는 작업도 누락이 있으면 시스템 장애로 이어진다. "작은 것도 정확하게, 끝까지 책임진다"는 자세가 IT 현장에서 신뢰받는 엔지니어의 기반이다.</div></div>
+      <div class="keyword-card"><div class="kw-name">적응력·유연성</div><div class="kw-desc">SES는 프로젝트마다 팀원·기술·업계가 바뀐다. 새로운 환경에 빠르게 적응해 성과를 내는 유연성이 SES에서 가장 활약하는 사람의 특성이다.</div></div>
+      <div class="keyword-card"><div class="kw-name">주체성·자기관리력</div><div class="kw-desc">SES는 회사의 관리가 느슨한 구조. 자기 커리어를 스스로 설계하고 실행하는 주체성이 없으면 현장에 방치된다. 반대로 주체적으로 움직이는 사람에게는 큰 자유도가 무기가 된다.</div></div>
+      <div class="keyword-card"><div class="kw-name">커뮤니케이션력</div><div class="kw-desc">SES 엔지니어는 고객사·SES 기업 양쪽의 관계자와 커뮤니케이션해야 한다. 기술 내용을 비기술자에게 알기 쉽게 설명하는 힘, 요건을 정확히 히어링하는 힘이 현장에서 평가받는다.</div></div>
     </div>
   </div>
 

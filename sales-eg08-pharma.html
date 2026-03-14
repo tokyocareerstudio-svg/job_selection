@@ -3,77 +3,486 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MR(製薬영업) 상세 카드 | Tokyo Career Studio</title>
-<style>  :root { --bg:#0a0a0f; --surface:#141419; --surface-2:#1c1c24; --border:#2a2a35; --border-hover:#3a3a48; --text:#e8e8ed; --text-sub:#c0c0d0; --text-dim:#8888a0; --text-muted:#555568; --accent:#0ea5e9; --accent-soft:rgba(14,165,233,0.08); --accent-border:rgba(14,165,233,0.18); }
-  *{margin:0;padding:0;box-sizing:border-box}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}.container{max-width:760px;margin:0 auto;padding:0 24px 100px}.hero{padding:56px 24px 40px;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 0%,rgba(14,165,233,0.05) 0%,transparent 70%)}.hero-inner{position:relative;z-index:1;max-width:760px;margin:0 auto}.hero-breadcrumb{font-size:11px;color:var(--text-muted);margin-bottom:16px}.hero-breadcrumb a{color:var(--accent);text-decoration:none}.hero-breadcrumb span{margin:0 6px}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);padding:5px 14px;border-radius:16px;margin-bottom:20px}.hero-icon{width:64px;height:64px;border-radius:14px;background:var(--accent-soft);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--accent);font-family:'Noto Sans JP',sans-serif;font-weight:700;margin:0 auto 20px}.hero h1{font-size:30px;font-weight:900;margin-bottom:6px}.hero .title-jp{font-family:'Noto Sans JP',sans-serif;font-size:14px;color:var(--text-muted);margin-bottom:4px}.hero .title-en{font-size:12px;color:var(--text-muted);margin-bottom:20px}.hero-tags{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:20px}.hero-tag{font-size:11px;padding:4px 12px;border-radius:12px;background:var(--accent-soft);color:var(--accent);font-weight:500;border:1px solid var(--accent-border)}.hero-summary{font-size:13px;color:var(--text-dim);max-width:540px;margin:0 auto;line-height:1.9}
-  .section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0}.section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}.section-nav-inner::-webkit-scrollbar{display:none}.nav-item{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap}.nav-item:hover,.nav-item.active{color:var(--accent);background:var(--accent-soft)}
-  .section{padding:40px 0;border-bottom:1px solid rgba(255,255,255,0.03)}.section:last-child{border-bottom:none}.section-number{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);opacity:0.6;margin-bottom:6px}.section-title{font-size:20px;font-weight:800;margin-bottom:4px}.section-title-jp{font-family:'Noto Sans JP',sans-serif;font-size:12px;color:var(--text-muted);margin-bottom:20px}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px}.section p:last-child{margin-bottom:0}.hl{color:var(--accent);font-weight:600}.hl-warn{color:#ef4444;font-weight:600}
-  .info-box{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0}.info-box-accent{border-left:3px solid var(--accent);background:var(--accent-soft);border-color:var(--accent-border);border-left-color:var(--accent)}.info-box h4{font-size:13px;font-weight:700;margin-bottom:8px}.info-box p{font-size:12px;color:var(--text-dim);line-height:1.8}
-  .qa-list{display:flex;flex-direction:column;gap:8px;margin:16px 0}.qa-item{padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.2s}.qa-item:hover{border-color:var(--border-hover)}.qa-question{font-size:13px;font-weight:600;display:flex;align-items:flex-start;gap:10px}.qa-q-mark{color:var(--accent);font-weight:800;font-size:14px;flex-shrink:0;opacity:0.7}.qa-answer{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--text-dim);line-height:1.8;padding-left:24px}.qa-item.open .qa-answer{display:block}
-  .warn-box{padding:18px 20px;background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.12);border-left:3px solid #ef4444;border-radius:10px;margin:14px 0}.warn-box h4{font-size:13px;font-weight:700;color:#ef4444;margin-bottom:6px}.warn-box p{font-size:12px;color:var(--text-dim);line-height:1.8}
-  .keyword-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.keyword-card{padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px}.keyword-card .kw-name{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:6px}.keyword-card .kw-desc{font-size:11px;color:var(--text-dim);line-height:1.7}
-  .footer{text-align:center;padding-top:40px;margin-top:20px;border-top:1px solid var(--border)}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8}.footer .brand{font-weight:700;color:var(--text-dim)}
-  @media(max-width:640px){.hero h1{font-size:24px}.section-title{font-size:18px}.keyword-grid{grid-template-columns:1fr}.hero{padding:40px 20px 32px}}
+<title>MR(医薬情報担当者) 상세 카드 | Tokyo Career Studio</title>
+<style>
+  :root {
+    --bg:#0a0a0f; --surface:#141419; --surface-2:#1c1c24; --surface-3:#22222e;
+    --border:#2a2a35; --border-hover:#3a3a48; --text:#e8e8ed; --text-sub:#c0c0d0;
+    --text-dim:#8888a0; --text-muted:#555568;
+    --accent:#0ea5e9; --accent-soft:rgba(14,165,233,0.08); --accent-border:rgba(14,165,233,0.18);
+    --accent-blue:#4a9eff;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Noto Sans JP',sans-serif; line-height:1.8; min-height:100vh; -webkit-font-smoothing:antialiased; }
+  .container { max-width:760px; margin:0 auto; padding:0 24px 100px; }
+  .hero { padding:56px 24px 40px; text-align:center; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background:radial-gradient(ellipse at 50% 0%, rgba(14,165,233,0.05) 0%, transparent 70%); }
+  .hero-inner { position:relative; z-index:1; max-width:760px; margin:0 auto; }
+  .hero-breadcrumb { font-size:11px; color:var(--text-muted); margin-bottom:16px; }
+  .hero-breadcrumb a { color:var(--accent); text-decoration:none; }
+  .hero-breadcrumb span { margin:0 6px; }
+  .hero-label { display:inline-block; font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-border); padding:5px 14px; border-radius:16px; margin-bottom:20px; }
+  .hero-icon { width:64px; height:64px; border-radius:14px; background:var(--accent-soft); border:1px solid var(--accent-border); display:flex; align-items:center; justify-content:center; font-size:20px; color:var(--accent); font-family:'Noto Sans JP',sans-serif; font-weight:700; margin:0 auto 20px; }
+  .hero h1 { font-size:30px; font-weight:900; margin-bottom:6px; letter-spacing:-0.5px; }
+  .hero .title-jp { font-family:'Noto Sans JP',sans-serif; font-size:14px; color:var(--text-muted); margin-bottom:4px; }
+  .hero .title-en { font-size:12px; color:var(--text-muted); margin-bottom:20px; }
+  .hero-tags { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+  .hero-tag { font-size:11px; padding:4px 12px; border-radius:12px; background:var(--accent-soft); color:var(--accent); font-weight:500; border:1px solid var(--accent-border); }
+  .hero-summary { font-size:13px; color:var(--text-dim); max-width:540px; margin:0 auto; line-height:1.9; }
+  .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
+  .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; -ms-overflow-style:none; }
+  .section-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-item { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
+  .nav-item:hover, .nav-item.active { color:var(--accent); background:var(--accent-soft); }
+  .section { padding:40px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom:none; }
+  .section-number { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); opacity:0.6; margin-bottom:6px; }
+  .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
+  .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:12px; color:var(--text-muted); margin-bottom:20px; }
+  .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section p:last-child { margin-bottom:0; }
+  .hl { color:var(--accent); font-weight:600; }
+  .hl-blue { color:var(--accent-blue); font-weight:600; }
+  .hl-warn { color:#ef4444; font-weight:600; }
+  .info-box { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:16px 0; }
+  .info-box-accent { border-left:3px solid var(--accent); background:var(--accent-soft); border-color:var(--accent-border); border-left-color:var(--accent); }
+  .info-box h4 { font-size:13px; font-weight:700; margin-bottom:8px; color:var(--text); }
+  .info-box p, .info-box li { font-size:12px; color:var(--text-dim); line-height:1.8; }
+  .compare-table { width:100%; border-collapse:collapse; margin:16px 0; font-size:12px; }
+  .compare-table th { text-align:left; padding:10px 14px; background:var(--surface-2); color:var(--text-dim); font-weight:600; font-size:11px; letter-spacing:0.5px; border-bottom:1px solid var(--border); }
+  .compare-table td { padding:10px 14px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-sub); vertical-align:top; line-height:1.7; }
+  .compare-table tr:last-child td { border-bottom:none; }
+  .compare-table .row-label { font-weight:600; color:var(--accent); white-space:nowrap; width:120px; }
+  .strength-grid { display:flex; flex-direction:column; gap:10px; margin:16px 0; }
+  .strength-item { display:flex; gap:14px; padding:16px 18px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .strength-rank { font-size:22px; font-weight:900; color:var(--accent); opacity:0.4; width:30px; flex-shrink:0; text-align:center; line-height:1; padding-top:2px; }
+  .strength-body h4 { font-size:14px; font-weight:700; margin-bottom:4px; }
+  .strength-body p { font-size:12px; color:var(--text-dim); line-height:1.7; }
+  .career-timeline { position:relative; margin:20px 0; padding-left:28px; }
+  .career-timeline::before { content:''; position:absolute; left:8px; top:4px; bottom:4px; width:2px; background:linear-gradient(180deg, var(--accent) 0%, rgba(14,165,233,0.1) 100%); border-radius:1px; }
+  .career-step { position:relative; padding:14px 0; }
+  .career-step::before { content:''; position:absolute; left:-24px; top:20px; width:10px; height:10px; border-radius:50%; background:var(--bg); border:2px solid var(--accent); }
+  .career-year { font-size:11px; font-weight:700; color:var(--accent); margin-bottom:4px; }
+  .career-role { font-size:14px; font-weight:700; margin-bottom:4px; }
+  .career-desc { font-size:12px; color:var(--text-dim); line-height:1.7; }
+  .qa-list { display:flex; flex-direction:column; gap:8px; margin:16px 0; }
+  .qa-item { padding:16px 18px; background:var(--surface); border:1px solid var(--border); border-radius:10px; cursor:pointer; transition:all 0.2s; }
+  .qa-item:hover { border-color:var(--border-hover); }
+  .qa-question { font-size:13px; font-weight:600; color:var(--text); display:flex; align-items:flex-start; gap:10px; }
+  .qa-q-mark { color:var(--accent); font-weight:800; font-size:14px; flex-shrink:0; opacity:0.7; }
+  .qa-answer { display:none; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); font-size:12px; color:var(--text-dim); line-height:1.8; padding-left:24px; }
+  .qa-item.open .qa-answer { display:block; }
+  .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
+  .keyword-card { padding:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .keyword-card .kw-name { font-size:14px; font-weight:700; color:var(--accent); margin-bottom:6px; }
+  .keyword-card .kw-desc { font-size:11px; color:var(--text-dim); line-height:1.7; }
+  .warn-box { padding:18px 20px; background:rgba(239,68,68,0.04); border:1px solid rgba(239,68,68,0.12); border-left:3px solid #ef4444; border-radius:10px; margin:14px 0; }
+  .warn-box h4 { font-size:13px; font-weight:700; color:#ef4444; margin-bottom:6px; }
+  .warn-box p { font-size:12px; color:var(--text-dim); line-height:1.8; }
+  .footer { text-align:center; padding-top:40px; margin-top:20px; border-top:1px solid var(--border); }
+  .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; }
+  .footer .brand { font-weight:700; color:var(--text-dim); }
+  @media (max-width:640px) { .hero h1 { font-size:24px; } .section-title { font-size:18px; } .keyword-grid { grid-template-columns:1fr; } .hero { padding:40px 20px 32px; } .compare-table { font-size:11px; } .compare-table th, .compare-table td { padding:8px 10px; } }
 </style>
 </head>
 <body>
 
-<div class="hero"><div class="hero-inner">
-    <div class="hero-breadcrumb"><a href="#">직종 대분류 맵</a><span>›</span><a href="#">영업 개요</a><span>›</span>MR</div>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-breadcrumb">
+      <a href="map-lv1.html">직종 대분류 맵</a><span>›</span><a href="sales-overview.html">영업 개요</a><span>›</span>MR
+    </div>
     <div class="hero-label">직종 상세 카드 — 영업 EG-08</div>
     <div class="hero-icon">MR</div>
-    <h1>MR (製薬영업)</h1>
-    <div class="title-jp">MR（医薬情報担当者）</div>
-    <div class="title-en">Medical Representative — Industry Detail Card</div>
-    <div class="hero-tags"><span class="hero-tag">"파는" 영업이 아닌 "정보 제공"</span><span class="hero-tag">의사가 고객</span><span class="hero-tag">이과+문과 양쪽</span><span class="hero-tag">업계 축소 트렌드</span></div>
-    <p class="hero-summary">MR이란, 제약 회사에서 의사/약사에게 자사 약의 효능/부작용 등 정보를 제공하는 직종.<br>일반 영업과의 결정적 차이: "이거 사세요"라고 할 수 없다. 약의 처방 결정은 의사가 하기 때문에,<br>MR은 "정확한 정보를 제공해서 의사의 치료 판단을 돕는" 역할이다.</p>
-</div></div>
-
-<div class="section-nav"><div class="section-nav-inner">
-    <button class="nav-item active" onclick="scrollToSection('s1')">01 정의</button>
-    <button class="nav-item" onclick="scrollToSection('s2')">02 하루</button>
-    <button class="nav-item" onclick="scrollToSection('s3')">03 채용</button>
-    <button class="nav-item" onclick="scrollToSection('s4')">04 면접</button>
-    <button class="nav-item" onclick="scrollToSection('s5')">05 주의점</button>
-</div></div>
-
-<div class="container">
-  <div class="section" id="s1"><div class="section-number">SECTION 01</div><div class="section-title">MR이란</div><div class="section-title-jp">MRとは</div>
-    <p>한마디로 말하면, <span class="hl">제약 회사의 "의약 정보 담당자."</span> 의사/약사를 정기적으로 방문해서, 자사가 만든 약의 효능, 용법, 부작용, 최신 임상 데이터 등을 정확하게 전달하는 역할이다.</p>
-    <p>일반 영업과의 가장 큰 차이: <span class="hl">"판매"가 아니라 "정보 제공"이라는 점.</span> 약의 처방을 결정하는 것은 의사이고, MR은 의사가 적절한 처방 판단을 내릴 수 있도록 과학적 근거에 기반한 정보를 제공한다. 법적으로도 MR이 "이 약을 써주세요"라고 직접 요청하는 것은 금지되어 있다.</p>
-    <p>대표 기업: 武田薬品, アステラス製薬, 第一三共, エーザイ, 大塚製薬(일본계), ファイザー, ノバルティス, ロシュ, アストラゼネカ(외자계).</p>
-
-    <div class="info-box info-box-accent"><h4>3가지 포인트</h4><p><strong>① 의학/약학 지식이 업무에 직결</strong> — 약의 작용 메커니즘, 임상시험 데이터, 부작용 정보 등을 의사에게 설명해야 하므로 고도의 과학적 지식이 필요. 입사 후 MR인정시험(MR認定試験)에 합격해야 하고, 배속된 질환 영역(암, 당뇨, 심혈관 등)의 전문 지식을 계속 업데이트해야 한다.<br><br><strong>② 이과도 문과도 채용된다</strong> — "약학이나 생물학 전공이어야 하는 거 아니야?"라고 생각하기 쉽지만, MR은 문과 출신도 채용하는 기업이 많다. 입사 후 연수에서 의학/약학 기초를 배우는 구조. 물론 이과(약학/생물/화학) 전공이면 지식적으로 유리.<br><br><strong>③ 업계 축소 트렌드</strong> — 솔직하게 말해야 할 현실: 일본의 MR 수는 줄어들고 있다. 디지털 채널(온라인 세미나, eディテール 등)의 도입으로 "의사를 직접 방문하는" MR의 수요가 감소. 대형 제약사를 중심으로 MR 인원 삭감이 진행 중. 이 트렌드를 이해한 위에서 지원할 것.</p></div></div>
-
-  <div class="section" id="s2"><div class="section-number">SECTION 02</div><div class="section-title">MR의 하루</div><div class="section-title-jp">MRの一日</div>
-    <div class="info-box"><h4>종합병원 담당 MR 3년차 예시</h4><p>08:30 자택에서 직행(直行). 차(사용차)로 담당 병원으로 이동. MR은 회사에 출근하지 않고 병원으로 직접 가는 "직행직귀(直行直帰)"가 기본.<br>09:00 종합병원 도착. 약제부에서 자사 약의 재고/처방 상황 확인<br>09:30 의사 면회(面会) — 외래 진료 전후의 짧은 시간에 면담. 자사 신약의 임상 데이터를 설명, 질문에 대응<br>11:00 다음 병원으로 이동<br>11:30 개업의(開業医/クリニック) 방문 — 처방 상황 확인, 신약 정보 제공<br>12:30 점심<br>13:30 오후 방문 — 약국 방문, 의사 면회 2건<br>16:00 차 안에서 활동 기록 입력(CRM), 다음 방문 준비<br>17:00 사내 온라인 미팅 — 팀 보고, 최신 임상 데이터 공유<br>18:00 직귀(直帰). 자택에서 내일 준비, 의학 논문 읽기</p></div></div>
-
-  <div class="section" id="s3"><div class="section-number">SECTION 03</div><div class="section-title">채용의 특징</div><div class="section-title-jp">採用の特徴</div>
-    <div class="info-box"><h4>신졸 채용</h4><p>대형 제약사(일본계/외자계)에서 MR 직종으로 신졸을 별도 채용. 전형: ES → 웹테스트 → 면접 2-3회. 이과(약학/생물) 전공이 유리하지만 문과도 채용. 입사 후 3-6개월간 집중 연수(의학/약학 기초, MR인정시험 대비, 제품 지식)가 있고, 연수 수료 후 담당 에리어에 배속.<br><br><strong>근무지:</strong> 담당 에리어(지역)에 따라 일본 전국 배치. 전근(転勤) 있음. 도시부뿐 아니라 지방 배치도 흔함. 사용차(営業車)로 이동하므로 운전면허 필수인 경우가 대부분.</p></div></div>
-
-  <div class="section" id="s4"><div class="section-number">SECTION 04</div><div class="section-title">면접 Q&A</div><div class="section-title-jp">面接のポイント</div>
-    <div class="qa-list">
-      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>왜 MR인가? 일반 영업이 아니라?</span></div><div class="qa-answer">"단순히 파는 것이 아니라, 과학적 근거에 기반한 정보를 전달해서 의료에 기여하는 것"에 매력을 느낀다는 방향. "사람의 건강/생명에 관련된 일을 하고 싶다"는 가치관+."과학적 지식을 활용하는 영업"이라는 MR 특유의 가치를 설명.</div></div>
-      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>MR 수가 줄어드는 트렌드를 어떻게 생각하나?</span></div><div class="qa-answer">업계 이해를 확인하는 질문. "디지털화로 단순 정보 전달의 역할은 줄어들겠지만, 의사와의 깊은 관계 구축이나 고도의 의학적 디스커션은 대면 MR만이 할 수 있는 가치"라는 방향. 현실을 이해하면서도 MR의 존재 가치를 설명.</div></div>
-      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>전근(지방 배치)이 가능한가?</span></div><div class="qa-answer">MR은 일본 전국 배치. 도시부를 희망해도 지방에 갈 수 있다. "어디서든 담당 에리어의 의사와 신뢰 관계를 구축하겠다"는 자세.</div></div>
-      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>의학/약학 지식이 없는데 괜찮은가? (문과 지원자)</span></div><div class="qa-answer">"입사 후 연수에서 배우는 구조라고 이해하고 있고, 새로운 분야를 빠르게 배우는 의욕이 있다"는 방향. 학생 시절에 전공 외 분야를 독학한 경험이 있으면 강력한 뒷받침. "배울 의욕"을 행동으로 보여주는 것이 핵심.</div></div>
-      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>우리 회사의 주력 제품을 아는가?</span></div><div class="qa-answer">제약사 면접의 기본. 지원 기업의 주력 약(어떤 질환에 쓰이는 약인지)을 최소 2-3개는 알고 가야 한다. 회사 HP, IR자료에서 확인. "이 약이 환자에게 어떤 가치를 제공하는가"까지 말할 수 있으면 좋음.</div></div>
-    </div></div>
-
-  <div class="section" id="s5"><div class="section-number">SECTION 05</div><div class="section-title">주의점</div><div class="section-title-jp">落とし穴</div>
-    <div class="warn-box"><h4>함정 1: MR 인원 삭감 트렌드를 모르는 것</h4><p>일본 MR 수는 2013년 약 6.5만 명에서 계속 감소 중. 디지털화, 의료비 억제 정책, 약가 인하 등 MR을 둘러싼 환경은 어렵다. "MR이 되면 안정적"이라는 시대는 끝났다. 이 트렌드를 이해한 위에서 "그래도 MR을 하고 싶은 이유"를 가지고 있어야 한다.</p></div>
-    <div class="warn-box"><h4>함정 2: "영업이니까 팔면 되겠지"라는 생각</h4><p>MR은 "파는" 영업이 아니다. 의사에게 과학적 근거에 기반한 정보를 정확하게 전달하는 것이 미션. "매출 올리기 위해 적극적으로 추천하겠다"는 자세는 오히려 마이너스. 윤리성과 과학적 정확성이 이 직종의 근본.</p></div>
-    <div class="warn-box"><h4>함정 3: 직행직귀의 자기 관리</h4><p>MR은 회사에 출근하지 않고 병원으로 직접 가는 "직행직귀"가 기본. 자유도가 높은 반면, 자기 관리를 못 하면 "아침에 늦게 일어나도 아무도 모른다"는 함정. 자율적으로 계획을 세우고 실행하는 자기 관리 능력이 필수.</p></div>
-    <div class="warn-box"><h4>함정 4: 운전면허가 없으면 안 된다</h4><p>MR은 사용차(営業車)로 병원 사이를 이동한다. 운전면허 없이는 업무가 불가능한 경우가 대부분. 면허가 없으면 입사까지 반드시 취득할 것. 면접에서 확인당하는 경우도 있다.</p></div></div>
+    <h1>MR (医薬情報担当者)</h1>
+    <div class="title-jp">MR（Medical Representative）</div>
+    <div class="title-en">Pharmaceutical Sales Representative — Industry Detail Card</div>
+    <div class="hero-tags">
+      <span class="hero-tag">정보 제공형 영업</span>
+      <span class="hero-tag">의사·약사가 고객</span>
+      <span class="hero-tag">이과·문과 모두</span>
+      <span class="hero-tag">전문 지식 필수</span>
+    </div>
+    <p class="hero-summary">
+      MR이란 제약 회사에서 의사·약사에게 자사 의약품의 효능·부작용·임상 데이터를 정확하게 전달하는 직종.<br>
+      "파는" 영업이 아니라 "정보로 의료를 지원한다"는 것이 본질.<br>
+      처방 결정권은 의사에게 있으며, MR은 그 판단을 돕는 과학적 파트너 역할이다.
+    </p>
+  </div>
 </div>
 
-<div class="footer"><p><span class="brand">Tokyo Career Studio</span> 직종 상세 카드 — 영업 EG-08 — MR(製薬영업)</p><p style="margin-top:8px;font-size:10px;">영업 개요 카드(레벨2) | 직종 대분류 맵(레벨1)도 함께 참고</p></div>
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-item active" onclick="scrollToSection('s1')">01 정의</button>
+    <button class="nav-item" onclick="scrollToSection('s2')">02 업무 세분화</button>
+    <button class="nav-item" onclick="scrollToSection('s3')">03 역량</button>
+    <button class="nav-item" onclick="scrollToSection('s4')">04 커리어패스</button>
+    <button class="nav-item" onclick="scrollToSection('s5')">05 ES포인트</button>
+    <button class="nav-item" onclick="scrollToSection('s6')">06 후카보리</button>
+    <button class="nav-item" onclick="scrollToSection('s7')">07 키워드</button>
+    <button class="nav-item" onclick="scrollToSection('s8')">08 주의점</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">MR이란 무엇인가</div>
+    <div class="section-title-jp">MRとは何か</div>
+    <p>한마디로 말하면, <span class="hl">제약 회사에서 의사·약사에게 의약품 정보를 정확하게 전달하는 의약 정보 담당자</span>다. Medical Representative의 약자로, 일본에서는 약 5만 명이 종사하는 전문 영업직이다.</p>
+    <p>일반 영업과의 결정적 차이는 <span class="hl">"팔 수 없다"는 점</span>이다. 약의 처방을 결정하는 것은 의사이며, MR이 "이 약을 써주세요"라고 직접 권유하는 것은 법적으로 제한된다. MR의 역할은 자사 의약품의 효능·용법·부작용·최신 임상 데이터를 과학적 근거에 기반해 전달하고, 의사가 적절한 처방 판단을 내릴 수 있도록 돕는 것이다.</p>
+    <p>주요 기업: 武田薬品工業, アステラス製薬, 第一三共, エーザイ, 大塚製薬 (일본계), ファイザー, ノバルティス, ロシュ, アストラゼネカ (외자계).</p>
+    <div class="info-box info-box-accent">
+      <h4>MR을 이해하는 3가지 핵심</h4>
+      <p>
+        <strong>① 질환 영역 전문성</strong> — MR은 담당 질환 영역(암·당뇨·심혈관·정신 등)에 따라 나뉜다. 해당 질환의 병태생리, 치료 가이드라인, 경쟁 약 비교까지 의사와 대등하게 대화할 수 있는 수준의 전문 지식이 필요하다. 입사 후 MR인정시험(MR認定試験) 합격이 필수.<br><br>
+        <strong>② 문과·이과 모두 채용</strong> — "약학부나 이과 전공만 가능한 것 아냐?"라는 오해가 있지만, 대형 제약사 신졸 채용에서는 문과도 대거 채용한다. 입사 후 3~6개월 집중 연수로 의학·약학 기초를 배우는 구조. 이과(약학·생물·화학) 전공은 지식적으로 유리하지만, 문과여도 학습 의욕이 있으면 충분히 활약 가능.<br><br>
+        <strong>③ 업계 구조 변화</strong> — 디지털 채널(온라인 세미나, e디테일)의 확산으로 단순 정보 전달 역할은 줄고 있다. 한편으로 고도의 의학적 토론이나 깊은 신뢰 관계 구축은 대면 MR만의 가치로 재평가되고 있다. 변화를 이해하고 "디지털과 공존하는 MR"을 지향하는 시각이 요구된다.
+      </p>
+    </div>
+    <div class="info-box">
+      <h4>일본계 vs 외자계 제약사: MR의 차이</h4>
+      <p>
+        <strong>일본계 대형 제약사</strong>: 폭넓은 질환 영역을 다루며 전근(転勤)이 있다. 팀 문화가 강하고 연공서열 요소가 남아 있다. 인원 규모가 크고 신졸 채용도 많다.<br><br>
+        <strong>외자계 제약사</strong>: 특정 질환 영역에 특화된 경우가 많다. 성과주의 색채가 강하고 연봉 수준이 높은 편. 영어 능력이 플러스. 인원 규모는 작지만 전문성이 높은 환경.
+      </p>
+    </div>
+  </div>
+
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">MR 업무의 세분화</div>
+    <div class="section-title-jp">MR業務の全体像</div>
+    <p>MR의 일은 "병원을 방문해서 의사를 만나는 것"만이 아니다. <span class="hl">담당 의료기관의 규모와 유형에 따라 하는 일이 크게 달라진다.</span></p>
+
+    <table class="compare-table">
+      <thead>
+        <tr><th>담당 유형</th><th>주요 방문처</th><th>활동 특징</th><th>요구 능력</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-label">대학병원·종합병원 담당</td>
+          <td>대형 의료기관, 전문의</td>
+          <td>담당 의사 수가 많고 복잡한 약물 치료가 대상. 의사 면회 시간이 짧고 정보의 밀도가 중요</td>
+          <td>고도의 의학 지식, 논문 설명 능력, 시간 효율적 커뮤니케이션</td>
+        </tr>
+        <tr>
+          <td class="row-label">개업의 담당 (クリニック)</td>
+          <td>내과·소아과·정신과 클리닉</td>
+          <td>원장 1인과의 장기 신뢰 관계가 핵심. 처방 패턴을 파악하고 정기적으로 방문</td>
+          <td>관계구축력, 지역 의료 이해, 꼼꼼한 방문 관리</td>
+        </tr>
+        <tr>
+          <td class="row-label">약국 담당</td>
+          <td>조제약국, 드럭스토어</td>
+          <td>약사에게 부작용 정보·복약 지도 포인트를 전달. 재고 관리도 수반</td>
+          <td>약사와의 커뮤니케이션, 약학 지식, 재고 데이터 분석</td>
+        </tr>
+        <tr>
+          <td class="row-label">KOL 활동</td>
+          <td>학회, 연구회, 세미나</td>
+          <td>오피니언 리더(著名한 의사)와의 관계 구축. 학술 이벤트 기획·운영도 담당</td>
+          <td>고도의 의학 지식, 학술 커뮤니케이션, 기획·조정력</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box">
+      <h4>MR의 하루 (종합병원 담당 3년차 예시)</h4>
+      <p>
+        08:30 자택에서 직행. 사용차로 담당 병원으로 이동 (MR은 직행직귀가 기본)<br>
+        09:00 병원 도착. 약제부에서 자사 약 처방 상황·재고 확인<br>
+        09:30 의사 면회 — 외래 진료 전후 5~10분. 최신 임상 데이터 설명, 질문 대응<br>
+        11:00 다음 병원으로 이동<br>
+        11:30 클리닉 방문 — 원장과 처방 경향 확인, 새 약 정보 제공<br>
+        12:30 점심 (이동 중 또는 약국 방문)<br>
+        13:30 오후 방문 3건 — 약사 면담, 의사 면회<br>
+        16:00 차 안에서 CRM 입력, 다음 방문 준비<br>
+        17:00 사내 온라인 미팅 — 팀 보고, 최신 임상 데이터 공유<br>
+        18:00 직귀. 의학 논문 또는 자사 제품 자료 학습
+      </p>
+    </div>
+    <div class="info-box">
+      <h4>담당 질환 영역별 MR의 특징</h4>
+      <p>
+        MR은 담당 질환 영역에 따라 요구 지식과 방문처의 성격이 크게 달라진다.
+      </p>
+      <table class="compare-table" style="margin-top:12px;">
+        <thead><tr><th>질환 영역</th><th>주요 방문처</th><th>전문 지식 수준</th><th>특징</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">암 영역 (Oncology)</td><td>암 센터, 대학병원 종양내과</td><td>극히 높음</td><td>외자계에 많음. 논문 독해·학술 토론이 필수. 전문 MR의 엘리트 영역</td></tr>
+          <tr><td class="row-label">당뇨·대사</td><td>내과 클리닉, 종합병원 내분비과</td><td>높음</td><td>환자 수가 많아 처방 기회도 많다. 문과 신졸도 상대적으로 진입하기 쉬운 영역</td></tr>
+          <tr><td class="row-label">정신신경 (CNS)</td><td>정신과, 신경과</td><td>높음</td><td>의사와의 장기 신뢰 관계가 핵심. 처방 데이터 분석 능력 필요</td></tr>
+          <tr><td class="row-label">순환기</td><td>심장혈관외과, 심장내과</td><td>매우 높음</td><td>의료기기와 함께 다루는 경우도. 고도의 의학 지식 필요</td></tr>
+          <tr><td class="row-label">소아·희귀질환</td><td>소아과, 희귀질환 전문 병원</td><td>매우 높음</td><td>환자 수가 적어 1건 1건의 처방이 중요. 의사와의 밀도 높은 파트너십</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">MR에게 요구되는 역량</div>
+    <div class="section-title-jp">MRに求められる力</div>
+    <p>일반 영업과 달리 MR은 <span class="hl">"과학적 지식"과 "인간적 신뢰"를 동시에 가져야 한다</span>는 점이 특징이다. 의사는 바쁘고 지식이 풍부하다. 그 상대에게 "이 MR은 만날 가치가 있다"고 느끼게 만드는 것이 핵심이다.</p>
+    <div class="strength-grid">
+      <div class="strength-item">
+        <div class="strength-rank">01</div>
+        <div class="strength-body">
+          <h4>의학·약학 학습력 — 평생 배우는 직종</h4>
+          <p>담당 질환 영역의 최신 가이드라인, 임상시험 결과, 경쟁 약과의 비교를 항상 업데이트해야 한다. 입사 후 MR인정시험 합격은 최저선. 의사가 학술 질문을 해올 때 즉시 대응할 수 있는 수준이 요구된다. "계속 배우는 것이 즐거운가"가 이 직종의 적합도와 직결된다.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">02</div>
+        <div class="strength-body">
+          <h4>신뢰 구축력 — 바쁜 의사에게 선택받는 힘</h4>
+          <p>의사는 하루에 수십 명의 환자를 보는 가운데 MR을 맞이한다. 짧은 시간 안에 "이 MR의 말은 신뢰할 수 있다"고 느끼게 하는 힘. 정보의 정확성, 약속 이행, 부작용 정보도 솔직하게 전달하는 윤리성이 장기 관계의 기반이 된다.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">03</div>
+        <div class="strength-body">
+          <h4>경청력과 니즈 파악 — 의사의 고민을 듣는 힘</h4>
+          <p>의사가 현재 어떤 환자를 많이 보고 있는지, 기존 약에 어떤 불만이 있는지를 대화 속에서 캐치하는 능력. "오늘은 이 정보를 전달한다"는 일방통행이 아니라, 의사의 현장 과제에서 출발해 정보를 제공하는 것이 고품질 디테일(面談)이다.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">04</div>
+        <div class="strength-body">
+          <h4>자기 관리력 — 혼자서 움직이는 직종</h4>
+          <p>MR은 직행직귀가 기본이며, 누가 관리해주지 않는다. 방문 계획 수립, 정보 수집, 보고서 작성을 스스로 관리해야 한다. 자유도가 높은 만큼, 자기 관리가 부족하면 성과가 나오지 않는 구조. "자율적으로 계획을 세우고 실행하는 힘"이 필수 기반이다.</p>
+        </div>
+      </div>
+      <div class="strength-item">
+        <div class="strength-rank">05</div>
+        <div class="strength-body">
+          <h4>윤리관 — 의약품을 다루는 직종의 책임</h4>
+          <p>MR이 부정확한 정보를 전달하면 환자의 생명에 영향을 줄 수 있다. 매출 압박이 있어도 과장 표현이나 허위 정보를 전달하지 않는 윤리성이 이 직종의 근본이다. 업계 자율 규정(公正競争規約)을 이해하고 준수하는 것이 전제.</p>
+        </div>
+      </div>
+    </div>
+    <div class="info-box">
+      <h4>MR에게 필요한 역량: 문과 vs 이과 출신 비교</h4>
+      <p>MR은 문과·이과 모두 채용하지만, 각각의 강점과 보완해야 할 부분이 다르다.</p>
+      <table class="compare-table" style="margin-top:12px;">
+        <thead><tr><th>항목</th><th>이과(약학·생물·화학 등) 출신</th><th>문과 출신</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">의학·약학 지식</td><td>기초 있음. 습득 속도가 빠르다</td><td>처음부터 배워야 함. 입사 후 집중 연수 필수</td></tr>
+          <tr><td class="row-label">임상 데이터 이해</td><td>논문 독해·통계 이해에 유리</td><td>통계 기초를 별도로 학습해야 하는 경우 있음</td></tr>
+          <tr><td class="row-label">커뮤니케이션</td><td>개인차 있음</td><td>인문계 특유의 표현력·공감력을 활용 가능</td></tr>
+          <tr><td class="row-label">MR인정시험</td><td>비교적 통과하기 쉬운 경향</td><td>노력이 필요하지만 합격률에 큰 차이는 없음</td></tr>
+          <tr><td class="row-label">면접 어필 포인트</td><td>전문성의 기반을 강조</td><td>"배우는 힘"과 "과거 독학 경험"을 반드시 증거로 제시할 것</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">커리어패스</div>
+    <div class="section-title-jp">MRのキャリアパス</div>
+    <p>MR은 <span class="hl">전문성을 깊게 쌓을수록 선택지가 넓어지는 직종</span>이다. 영업 현장에서 출발해 매니지먼트·의학부·MSL 등 다양한 방향으로 이어진다.</p>
+    <div class="career-timeline">
+      <div class="career-step">
+        <div class="career-year">1년차</div>
+        <div class="career-role">MR인정시험 합격 + 현장 데뷔</div>
+        <div class="career-desc">입사 후 3~6개월 연수(의학·약학 기초, 제품 지식, 디테일 실습). MR인정시험 합격 후 담당 에리어에 배속. 처음에는 선배 동행. 방문 준비·기록·보고의 반복으로 기초 체력을 만드는 시기.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">2~3년차</div>
+        <div class="career-role">단독 방문 + 담당 에리어 구축</div>
+        <div class="career-desc">혼자서 의사·약사와의 관계를 구축하기 시작한다. 처방 데이터를 분석하고, 어떤 의사에게 어떤 정보가 필요한지 전략적으로 생각하게 된다. 이 시기에 "질환 영역의 전문가"로서의 정체성이 만들어진다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">4~6년차</div>
+        <div class="career-role">시니어 MR + 리더 역할</div>
+        <div class="career-desc">주요 병원이나 KOL(오피니언 리더)을 담당. 신입 MR의 동행 지도 역할도 맡는다. 이 시기에 커리어 갈림길이 보이기 시작한다. 매니지먼트 방향인지, 전문성을 더 깊게 파는 방향인지.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">7년차 이후</div>
+        <div class="career-role">여기서 방향이 나뉜다</div>
+        <div class="career-desc">
+          <strong>길A: 영업 매니지먼트</strong> — 팀장·소장(所長)으로 MR 팀을 관리. 예산 관리, 팀 육성, 전략 수립.<br>
+          <strong>길B: 의학부(MSL)</strong> — Medical Science Liaison. 학술적 관점에서 의사·연구자와 관계를 구축. 논문 발표, 학회 활동 지원. 고도의 의학 지식을 활용.<br>
+          <strong>길C: 본사 부문</strong> — 마케팅, 製品企画, 医薬情報部門, 薬事 등으로 이동. 현장 경험을 살려 제품 전략을 만드는 역할.<br>
+          <strong>길D: 이직</strong> — 타사 MR, CRO(임상시험 수탁), 医療機器メーカー 등으로의 이직도 활발.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">ES 작성 포인트</div>
+    <div class="section-title-jp">MR志望のES攻略</div>
+    <p>MR 지망 ES에서 관통해야 할 메시지는: <span class="hl">"나는 과학적 지식을 바탕으로 의료 현장에 신뢰받는 파트너가 될 수 있는 사람이다."</span></p>
+    <div class="info-box info-box-accent">
+      <h4>지망동기 4단계 구조</h4>
+      <p>
+        ① <strong>의료·헬스케어 분야에 끌린 계기</strong> — 직접 경험(가족의 투병, 병원 아르바이트, 봉사활동 등)이 있으면 강하다. "사람의 건강에 기여하고 싶다"는 가치관의 출발점을 구체적으로.<br>
+        ② <strong>왜 "MR"인가</strong> — 의사·연구자·간호사·CRO 등 의료 관련 직종은 많다. 그 중에서 "정보를 통해 의사의 처방 판단을 지원하는" MR의 역할에 매력을 느끼는 이유를 명확하게.<br>
+        ③ <strong>이 회사를 선택한 이유</strong> — 해당 기업의 강점 질환 영역, 파이프라인(개발 중 약), 기업 이념과 자신의 가치관의 접점을 구체적으로.<br>
+        ④ <strong>자신이 기여할 수 있는 것</strong> — 의학 학습력, 신뢰 구축력, 자기 관리력 등을 자기 경험으로 뒷받침.
+      </p>
+    </div>
+    <div class="info-box">
+      <h4>문과 지원자가 반드시 넘어야 할 벽</h4>
+      <p>
+        문과 지원자가 MR을 지망할 때, 면접관이 가장 먼저 생각하는 것은 <span class="hl">"이 사람이 의학 지식을 배울 수 있을까?"</span>다. 이 우려를 불식시키기 위해 ES 단계에서 "배우는 힘"을 구체적으로 보여야 한다.<br><br>
+        <strong>효과적인 접근</strong>: 전공 외 분야를 독학으로 습득한 경험, 자격증 취득 과정, 어학 학습 등 "낯선 분야를 계획적으로 배운" 에피소드. "MR인정시험에 대해 이미 조사했고, 어떤 내용인지 파악하고 있다"는 사전 준비도 플러스.
+      </p>
+    </div>
+    <div class="info-box">
+      <h4>일본계 vs 외자계: ES 톤의 차이</h4>
+      <p>
+        <strong>일본계 대형 제약사</strong>: "팀으로 조직에 기여하는 자세", "장기적인 관계 구축", "일본의 의료에 공헌"이라는 키워드가 맞는다. 안정성과 성실성을 어필.<br><br>
+        <strong>외자계 제약사</strong>: "성과에 대한 집착", "글로벌 시각", "특정 질환 영역에서의 전문성 추구"를 전면에 내세우는 것이 효과적. 영어 능력이 있으면 적극적으로 어필.
+      </p>
+    </div>
+    <div class="info-box">
+      <h4>기업 연구에서 반드시 확인할 것</h4>
+      <p>
+        <strong>주력 제품과 담당 질환 영역</strong> — 지원 기업이 어떤 약을 어떤 환자에게 제공하는지. 최소 대표 제품 2~3개는 알고 가야 한다.<br><br>
+        <strong>파이프라인(開発品目)</strong> — 현재 임상시험 중인 약. "이 회사가 5년 후에 어떤 약을 출시하려고 하는가"를 알면 면접에서 깊이 있는 대화가 가능.<br><br>
+        <strong>IR자료</strong> — 사업별 매출 비중, 해외 전략, MR 인원 추이 등 경영의 큰 그림을 이해.
+      </p>
+    </div>
+  </div>
+
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">면접에서 자주 파고드는 질문</div>
+    <div class="section-title-jp">面接で掘り下げられるポイント</div>
+    <p>MR 면접은 <span class="hl">"의료 현장의 현실을 이해하고 있는가"와 "윤리관"을 집중적으로 확인</span>한다.</p>
+    <div class="qa-list">
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>왜 일반 영업이 아니라 MR인가?</span></div>
+        <div class="qa-answer">"단순히 파는 것이 아니라, 과학적 근거에 기반한 정보로 의사의 치료 판단을 지원한다"는 MR 특유의 가치를 명확하게. "매출 목표만을 쫓는 영업보다, 의료 현장에 진짜 필요한 정보를 전달하는 역할에 더 의미를 느낀다"는 방향. 자신이 의료·생명 분야에 끌리게 된 구체적 계기를 덧붙이면 설득력이 높아진다.</div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>MR 수가 줄어드는 트렌드를 어떻게 보는가?</span></div>
+        <div class="qa-answer">업계 이해를 확인하는 질문. 모른 척하면 즉시 마이너스. "디지털화로 단순 정보 전달의 역할은 변화하고 있지만, 의사와의 신뢰 관계 구축이나 고도의 의학적 디스커션은 대면 MR이 가장 잘 할 수 있는 영역"이라는 방향. "변화를 인식하고 있으며, 그래서 전문성을 높이겠다"는 자세를 보여줄 것.</div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>의사에게 거절당했을 때 어떻게 하겠는가?</span></div>
+        <div class="qa-answer">멘탈 강도와 대응 유연성을 보는 질문. "거절을 분석해서 다음 접근을 바꾼다"는 방향. 예를 들어 "왜 이 의사가 만남을 거부하는지(시간 부족? 경쟁사 선호?) 원인을 분석하고, 시간대를 바꾸거나 약사를 통해 간접적으로 관계를 만드는 방법을 시도한다." 포기하지 않으면서도 무리하게 밀어붙이지 않는 유연함이 포인트.</div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>자사 약에 부작용이 있다는 것을 어떻게 의사에게 전달하겠는가?</span></div>
+        <div class="qa-answer">윤리관을 직접 보는 핵심 질문. "부작용 정보는 의사가 처방 판단을 내리기 위해 반드시 필요한 정보이므로, 솔직하고 정확하게 전달하는 것이 MR의 의무"라는 답이 정해. 매출을 위해 부정적 정보를 숨기거나 희석시키려는 자세는 즉시 탈락. "정보의 정확성이 의사의 신뢰로 이어지고, 그게 장기적인 관계의 기반"이라는 시각을 보여줄 것.</div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>우리 회사의 주력 제품에 대해 아는 대로 말해달라.</span></div>
+        <div class="qa-answer">기업 연구의 깊이를 재는 직구. HP의 제품 소개 페이지만 읽은 것과, IR자료나 학술 정보까지 본 것은 바로 차이가 난다. "어떤 질환에 쓰이는 약인지, 기존 약과 비교해 어떤 특징이 있는지, 어떤 환자에게 특히 유효한지"까지 설명할 수 있으면 강력하다. 완벽하게 몰라도 "여기까지 조사했고, 이 부분은 입사 후 더 배우고 싶다"는 자세를 보여줄 것.</div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>직행직귀 환경에서 자기 관리를 어떻게 하겠는가?</span></div>
+        <div class="qa-answer">MR 특유의 자기 관리 능력을 확인하는 질문. "회사에 출근하지 않고, 아무도 지켜보지 않는 환경에서도 계획을 세우고 실행할 수 있는가"를 본다. 학생 시절에 자율적으로 관리해야 했던 경험(장기 인턴, 개인 프로젝트, 연구 등)을 구체적으로 들어 뒷받침할 것.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 연결</div>
+    <div class="section-title-jp">自己分析キーワードとの接続</div>
+    <p>MR과 잘 연결되는 자기분석 키워드와, 그것이 이 직종에서 구체적으로 어떤 역할을 하는지 정리했다. <span class="hl">"이 강점이 MR에서 어떻게 발휘되는가"까지 설명할 수 있어야 한다.</span></p>
+    <div class="keyword-grid">
+      <div class="keyword-card">
+        <div class="kw-name">탐구심</div>
+        <div class="kw-desc">최신 임상 데이터나 의학 지식을 스스로 배우고 업데이트하는 힘. "새로운 것을 배우는 것이 즐겁다"는 기질이 MR에서 가장 직접적으로 발휘된다. 一生勉強の職種.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">신뢰구축력</div>
+        <div class="kw-desc">바쁜 의사에게 "이 MR의 말은 믿을 수 있다"고 느끼게 하는 힘. 정확한 정보 전달과 약속 이행의 반복으로 쌓인다. 관계의 깊이가 처방 품질로 이어진다.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">윤리관·성실성</div>
+        <div class="kw-desc">부작용 정보도 솔직하게, 과장하지 않고 정확하게 전달하는 자세. 단기 매출보다 장기 신뢰를 선택하는 윤리성. MR에서 가장 중요한 가치관이다.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">경청력</div>
+        <div class="kw-desc">의사가 현재 어떤 환자를 보고, 어떤 과제를 가지고 있는지를 대화 속에서 파악하는 힘. 일방적 정보 제공이 아니라 의사의 니즈에서 출발하는 디테일을 만든다.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">자율성·주체성</div>
+        <div class="kw-desc">직행직귀로 혼자 움직이는 MR에게 자율적으로 계획을 세우고 실행하는 힘은 필수 기반. 누가 관리해주지 않는 환경에서 오히려 발휘되는 사람에게 맞는 직종이다.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">향상심</div>
+        <div class="kw-desc">의학은 계속 발전한다. 오늘 배운 것이 2년 후에는 구식이 될 수 있다. "현재에 만족하지 않고 계속 성장하고 싶다"는 기질이 MR 커리어와 잘 맞는다.</div>
+      </div>
+    </div>
+    <div class="info-box">
+      <h4>ES 연결 예시 (MR 지망동기)</h4>
+      <p>
+        "할머니가 복수의 약을 복용하는 과정에서, 주치의와 MR이 약의 정보를 공유하며 처방을 조정하는 장면을 가까이서 보았습니다. '정확한 정보가 환자의 치료를 바꾼다'는 것을 실감했고, 의료 현장에서 신뢰받는 정보 파트너로 일하고 싶다고 생각하게 됐습니다(<strong>탐구심·윤리관</strong>). 대학에서는 전공과 무관한 분야를 독학으로 공부해 자격증을 취득한 경험이 있어, MR인정시험 합격과 질환 영역의 지식 습득에 자신이 있습니다(<strong>향상심·학습력</strong>). 귀사의 암 영역 파이프라인에 관심을 가지고 있으며, 전문 MR로서 종양 전문의와 신뢰 관계를 쌓아가고 싶습니다."
+      </p>
+    </div>
+  </div>
+
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">MR志望の落とし穴</div>
+    <p>MR 지망자가 자주 저지르는 실수와 오해를 정리했다. 지원 전에 반드시 확인할 것.</p>
+    <div class="warn-box">
+      <h4>함정 1: "의료·제약업계이니까 안정적"이라는 착각</h4>
+      <p>제약 업계는 약가 인하 정책, 오리지널 약 특허 만료 후 제네릭 약 확산, 디지털화에 의한 MR 역할 변화 등 구조적 변화 속에 있다. 일본 MR 수는 2013년 약 6.5만 명에서 계속 감소 중. "제약사 = 안정"이라는 시대 인식은 업데이트가 필요하다. 이 변화를 이해하고 "그래도 MR이고 싶은 이유"를 가져야 한다.</p>
+    </div>
+    <div class="warn-box">
+      <h4>함정 2: "영업이니까 적극적으로 밀어붙이면 된다"는 오해</h4>
+      <p>MR에서 "영업력"은 공격적인 설득이 아니다. 의사에게 근거 없는 정보나 과장된 효능을 전달하는 것은 의료 윤리 위반이며, 신뢰를 한 번에 잃는 행동이다. "믿을 수 있는 정보를 제공하는 파트너"로 포지션을 잡는 것이 장기적으로 처방과 연결된다. 면접에서 "적극적 영업"을 어필하는 것은 오히려 역효과.</p>
+    </div>
+    <div class="warn-box">
+      <h4>함정 3: 직행직귀의 현실을 모르고 지원</h4>
+      <p>MR은 회사에 출근하지 않고 병원으로 직행하는 것이 기본이다. 자유도가 높은 반면, 외로운 업무 환경이기도 하다. 팀원과 직접 만나는 기회가 적고, 고독하게 결과를 만들어야 한다. "사무실에서 동료와 활기차게 일하는 이미지"와는 다르다. 자기 관리와 자율적 동기 부여가 필수임을 이해하고 지원할 것.</p>
+    </div>
+    <div class="warn-box">
+      <h4>함정 4: 운전면허 미취득</h4>
+      <p>MR은 사용차(営業車)로 병원 사이를 이동한다. 운전면허가 없으면 업무가 성립하지 않는 경우가 대부분이다. 면접에서 확인당하는 항목이기도 하다. 취득하지 않은 경우 내정까지 반드시 취득 완료할 것.</p>
+    </div>
+    <div class="warn-box">
+      <h4>함정 5: 지방 배치 리스크를 모르는 것</h4>
+      <p>MR은 담당 에리어(지역)에 배치되며 전근이 있다. 대형 병원은 도시부에 집중되어 있지만, 지방의 거점 도시에도 중요한 의료기관이 있다. 신졸 배치에서 희망과 다른 지역에 가는 경우도 있다. 도시부 근무만을 강하게 희망하는 경우, 면접에서 대응 방식을 신중하게 준비해야 한다.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 직종 상세 카드 — 영업 EG-08 — MR(医薬情報担当者)</p>
+    <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+    <p style="margin-top:8px; font-size:10px;">영업 개요 카드(레벨2) | 직종 대분류 맵(레벨1)도 함께 참고</p>
+  </div>
+
+</div>
 
 <script>
-function scrollToSection(id){const el=document.getElementById(id);if(el){const navHeight=document.querySelector('.section-nav').offsetHeight;const y=el.getBoundingClientRect().top+window.pageYOffset-navHeight-12;window.scrollTo({top:y,behavior:'smooth'})}}
-const sections=['s1','s2','s3','s4','s5'];const navItems=document.querySelectorAll('.nav-item');
-function updateActiveNav(){const navHeight=document.querySelector('.section-nav').offsetHeight;let current='';sections.forEach(id=>{const el=document.getElementById(id);if(el){const rect=el.getBoundingClientRect();if(rect.top<=navHeight+60)current=id}});navItems.forEach((item,i)=>{if(sections[i]===current)item.classList.add('active');else item.classList.remove('active')})}
-window.addEventListener('scroll',updateActiveNav);updateActiveNav();
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const navHeight = document.querySelector('.section-nav').offsetHeight;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+const navItems = document.querySelectorAll('.nav-item');
+function updateActiveNav() {
+  const navHeight = document.querySelector('.section-nav').offsetHeight;
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { const rect = el.getBoundingClientRect(); if (rect.top <= navHeight + 60) current = id; }
+  });
+  navItems.forEach((item, i) => {
+    if (sections[i] === current) item.classList.add('active');
+    else item.classList.remove('active');
+  });
+}
+window.addEventListener('scroll', updateActiveNav);
+updateActiveNav();
 </script>
 <script src="nav.js"></script>
 </body>

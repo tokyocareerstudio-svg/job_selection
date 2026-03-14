@@ -4,38 +4,107 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>부동산영업 상세 카드 | Tokyo Career Studio</title>
-<style>  :root { --bg:#0a0a0f; --surface:#141419; --surface-2:#1c1c24; --border:#2a2a35; --border-hover:#3a3a48; --text:#e8e8ed; --text-sub:#c0c0d0; --text-dim:#8888a0; --text-muted:#555568; --accent:#10b981; --accent-soft:rgba(16,185,129,0.08); --accent-border:rgba(16,185,129,0.18); }
-  *{margin:0;padding:0;box-sizing:border-box}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;min-height:100vh;-webkit-font-smoothing:antialiased}.container{max-width:760px;margin:0 auto;padding:0 24px 100px}
-  .hero{padding:56px 24px 40px;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}.hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 0%,rgba(16,185,129,0.05) 0%,transparent 70%)}.hero-inner{position:relative;z-index:1;max-width:760px;margin:0 auto}.hero-breadcrumb{font-size:11px;color:var(--text-muted);margin-bottom:16px}.hero-breadcrumb a{color:var(--accent);text-decoration:none}.hero-breadcrumb span{margin:0 6px}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);padding:5px 14px;border-radius:16px;margin-bottom:20px}.hero-icon{width:64px;height:64px;border-radius:14px;background:var(--accent-soft);border:1px solid var(--accent-border);display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--accent);font-family:'Noto Sans JP',sans-serif;font-weight:700;margin:0 auto 20px}.hero h1{font-size:30px;font-weight:900;margin-bottom:6px}.hero .title-jp{font-family:'Noto Sans JP',sans-serif;font-size:14px;color:var(--text-muted);margin-bottom:4px}.hero .title-en{font-size:12px;color:var(--text-muted);margin-bottom:20px}.hero-tags{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:20px}.hero-tag{font-size:11px;padding:4px 12px;border-radius:12px;background:var(--accent-soft);color:var(--accent);font-weight:500;border:1px solid var(--accent-border)}.hero-summary{font-size:13px;color:var(--text-dim);max-width:540px;margin:0 auto;line-height:1.9}
-  .section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0}.section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}.section-nav-inner::-webkit-scrollbar{display:none}.nav-item{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap}.nav-item:hover,.nav-item.active{color:var(--accent);background:var(--accent-soft)}
-  .section{padding:40px 0;border-bottom:1px solid rgba(255,255,255,0.03)}.section:last-child{border-bottom:none}.section-number{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);opacity:0.6;margin-bottom:6px}.section-title{font-size:20px;font-weight:800;margin-bottom:4px}.section-title-jp{font-family:'Noto Sans JP',sans-serif;font-size:12px;color:var(--text-muted);margin-bottom:20px}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px}.section p:last-child{margin-bottom:0}.hl{color:var(--accent);font-weight:600}.hl-warn{color:#ef4444;font-weight:600}
-  .info-box{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0}.info-box-accent{border-left:3px solid var(--accent);background:var(--accent-soft);border-color:var(--accent-border);border-left-color:var(--accent)}.info-box h4{font-size:13px;font-weight:700;margin-bottom:8px}.info-box p{font-size:12px;color:var(--text-dim);line-height:1.8}
-  .compare-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:12px}.compare-table th{text-align:left;padding:10px 14px;background:var(--surface-2);color:var(--text-dim);font-weight:600;font-size:11px;border-bottom:1px solid var(--border)}.compare-table td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-sub);vertical-align:top;line-height:1.7}.compare-table tr:last-child td{border-bottom:none}.compare-table .row-label{font-weight:600;color:var(--accent);white-space:nowrap;width:120px}
-  .qa-list{display:flex;flex-direction:column;gap:8px;margin:16px 0}.qa-item{padding:16px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.2s}.qa-item:hover{border-color:var(--border-hover)}.qa-question{font-size:13px;font-weight:600;display:flex;align-items:flex-start;gap:10px}.qa-q-mark{color:var(--accent);font-weight:800;font-size:14px;flex-shrink:0;opacity:0.7}.qa-answer{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--text-dim);line-height:1.8;padding-left:24px}.qa-item.open .qa-answer{display:block}
-  .warn-box{padding:18px 20px;background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.12);border-left:3px solid #ef4444;border-radius:10px;margin:14px 0}.warn-box h4{font-size:13px;font-weight:700;color:#ef4444;margin-bottom:6px}.warn-box p{font-size:12px;color:var(--text-dim);line-height:1.8}
-  .keyword-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.keyword-card{padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px}.keyword-card .kw-name{font-size:14px;font-weight:700;color:var(--accent);margin-bottom:6px}.keyword-card .kw-desc{font-size:11px;color:var(--text-dim);line-height:1.7}
-  .footer{text-align:center;padding-top:40px;margin-top:20px;border-top:1px solid var(--border)}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8}.footer .brand{font-weight:700;color:var(--text-dim)}
-  @media(max-width:640px){.hero h1{font-size:24px}.section-title{font-size:18px}.keyword-grid{grid-template-columns:1fr}.hero{padding:40px 20px 32px}.compare-table{font-size:11px}}
+<style>
+  :root {
+    --bg:#0a0a0f; --surface:#141419; --surface-2:#1c1c24; --surface-3:#22222e;
+    --border:#2a2a35; --border-hover:#3a3a48; --text:#e8e8ed; --text-sub:#c0c0d0;
+    --text-dim:#8888a0; --text-muted:#555568;
+    --accent:#ec4899; --accent-soft:rgba(236,72,153,0.08); --accent-border:rgba(236,72,153,0.18);
+    --accent-blue:#4a9eff;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Noto Sans JP',sans-serif; line-height:1.8; min-height:100vh; -webkit-font-smoothing:antialiased; }
+  .container { max-width:760px; margin:0 auto; padding:0 24px 100px; }
+  .hero { padding:56px 24px 40px; text-align:center; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background:radial-gradient(ellipse at 50% 0%, rgba(236,72,153,0.05) 0%, transparent 70%); }
+  .hero-inner { position:relative; z-index:1; max-width:760px; margin:0 auto; }
+  .hero-breadcrumb { font-size:11px; color:var(--text-muted); margin-bottom:16px; }
+  .hero-breadcrumb a { color:var(--accent); text-decoration:none; }
+  .hero-breadcrumb span { margin:0 6px; }
+  .hero-label { display:inline-block; font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-border); padding:5px 14px; border-radius:16px; margin-bottom:20px; }
+  .hero-icon { width:64px; height:64px; border-radius:14px; background:var(--accent-soft); border:1px solid var(--accent-border); display:flex; align-items:center; justify-content:center; font-size:22px; color:var(--accent); font-family:'Noto Sans JP',sans-serif; font-weight:700; margin:0 auto 20px; }
+  .hero h1 { font-size:30px; font-weight:900; margin-bottom:6px; letter-spacing:-0.5px; }
+  .hero .title-jp { font-family:'Noto Sans JP',sans-serif; font-size:14px; color:var(--text-muted); margin-bottom:4px; }
+  .hero .title-en { font-size:12px; color:var(--text-muted); margin-bottom:20px; }
+  .hero-tags { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-bottom:20px; }
+  .hero-tag { font-size:11px; padding:4px 12px; border-radius:12px; background:var(--accent-soft); color:var(--accent); font-weight:500; border:1px solid var(--accent-border); }
+  .hero-summary { font-size:13px; color:var(--text-dim); max-width:540px; margin:0 auto; line-height:1.9; }
+  .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
+  .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+  .section-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-item { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
+  .nav-item:hover, .nav-item.active { color:var(--accent); background:var(--accent-soft); }
+  .section { padding:40px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom:none; }
+  .section-number { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); opacity:0.6; margin-bottom:6px; }
+  .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
+  .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:12px; color:var(--text-muted); margin-bottom:20px; }
+  .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section p:last-child { margin-bottom:0; }
+  .hl { color:var(--accent); font-weight:600; }
+  .hl-blue { color:var(--accent-blue); font-weight:600; }
+  .hl-warn { color:#ef4444; font-weight:600; }
+  .info-box { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:16px 0; }
+  .info-box-accent { border-left:3px solid var(--accent); background:var(--accent-soft); border-color:var(--accent-border); border-left-color:var(--accent); }
+  .info-box h4 { font-size:13px; font-weight:700; margin-bottom:8px; color:var(--text); }
+  .info-box p, .info-box li { font-size:12px; color:var(--text-dim); line-height:1.8; }
+  .compare-table { width:100%; border-collapse:collapse; margin:16px 0; font-size:12px; }
+  .compare-table th { text-align:left; padding:10px 14px; background:var(--surface-2); color:var(--text-dim); font-weight:600; font-size:11px; border-bottom:1px solid var(--border); }
+  .compare-table td { padding:10px 14px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-sub); vertical-align:top; line-height:1.7; }
+  .compare-table tr:last-child td { border-bottom:none; }
+  .compare-table .row-label { font-weight:600; color:var(--accent); white-space:nowrap; width:130px; }
+  .strength-grid { display:flex; flex-direction:column; gap:10px; margin:16px 0; }
+  .strength-item { display:flex; gap:14px; padding:16px 18px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .strength-rank { font-size:22px; font-weight:900; color:var(--accent); opacity:0.4; width:30px; flex-shrink:0; text-align:center; line-height:1; padding-top:2px; }
+  .strength-body h4 { font-size:14px; font-weight:700; margin-bottom:4px; }
+  .strength-body p { font-size:12px; color:var(--text-dim); line-height:1.7; }
+  .career-timeline { position:relative; margin:20px 0; padding-left:28px; }
+  .career-timeline::before { content:''; position:absolute; left:8px; top:4px; bottom:4px; width:2px; background:linear-gradient(180deg, var(--accent) 0%, rgba(236,72,153,0.1) 100%); border-radius:1px; }
+  .career-step { position:relative; padding:14px 0; }
+  .career-step::before { content:''; position:absolute; left:-24px; top:20px; width:10px; height:10px; border-radius:50%; background:var(--bg); border:2px solid var(--accent); }
+  .career-year { font-size:11px; font-weight:700; color:var(--accent); margin-bottom:4px; }
+  .career-role { font-size:14px; font-weight:700; margin-bottom:4px; }
+  .career-desc { font-size:12px; color:var(--text-dim); line-height:1.7; }
+  .qa-list { display:flex; flex-direction:column; gap:8px; margin:16px 0; }
+  .qa-item { padding:16px 18px; background:var(--surface); border:1px solid var(--border); border-radius:10px; cursor:pointer; transition:all 0.2s; }
+  .qa-item:hover { border-color:var(--border-hover); }
+  .qa-question { font-size:13px; font-weight:600; color:var(--text); display:flex; align-items:flex-start; gap:10px; }
+  .qa-q-mark { color:var(--accent); font-weight:800; font-size:14px; flex-shrink:0; opacity:0.7; }
+  .qa-answer { display:none; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); font-size:12px; color:var(--text-dim); line-height:1.8; padding-left:24px; }
+  .qa-item.open .qa-answer { display:block; }
+  .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
+  .keyword-card { padding:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .keyword-card .kw-name { font-size:14px; font-weight:700; color:var(--accent); margin-bottom:6px; }
+  .keyword-card .kw-desc { font-size:11px; color:var(--text-dim); line-height:1.7; }
+  .warn-box { padding:18px 20px; background:rgba(239,68,68,0.04); border:1px solid rgba(239,68,68,0.12); border-left:3px solid #ef4444; border-radius:10px; margin:14px 0; }
+  .warn-box h4 { font-size:13px; font-weight:700; color:#ef4444; margin-bottom:6px; }
+  .warn-box p { font-size:12px; color:var(--text-dim); line-height:1.8; }
+  .footer { text-align:center; padding-top:40px; margin-top:20px; border-top:1px solid var(--border); }
+  .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; }
+  .footer .brand { font-weight:700; color:var(--text-dim); }
+  @media (max-width:640px) { .hero h1 { font-size:24px; } .section-title { font-size:18px; } .keyword-grid { grid-template-columns:1fr; } .hero { padding:40px 20px 32px; } .compare-table { font-size:11px; } .compare-table th, .compare-table td { padding:8px 10px; } }
 </style>
 </head>
 <body>
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="hero-breadcrumb"><a href="#">직종 대분류 맵</a><span>›</span><a href="#">영업 개요</a><span>›</span>부동산영업</div>
+    <div class="hero-breadcrumb">
+      <a href="map-lv1.html">직종 대분류 맵</a><span>›</span><a href="sales-overview.html">영업 개요</a><span>›</span>부동산영업
+    </div>
     <div class="hero-label">직종 상세 카드 — 영업 EG-06</div>
     <div class="hero-icon">不</div>
     <h1>부동산영업</h1>
-    <div class="title-jp">不動産営業</div>
+    <div class="title-jp">不動産営業職</div>
     <div class="title-en">Real Estate Sales — Industry Detail Card</div>
     <div class="hero-tags">
       <span class="hero-tag">개인 고객(BtoC) 중심</span>
       <span class="hero-tag">인센티브형 급여</span>
       <span class="hero-tag">토일 근무 기본</span>
-      <span class="hero-tag">체력+정신력</span>
+      <span class="hero-tag">체력·정신력</span>
     </div>
     <p class="hero-summary">
-      집/맨션/토지 등 부동산을 고객에게 판매하거나, 임대 중개를 하는 영업 직종.<br>
+      집·맨션·토지 등 부동산을 고객에게 판매하거나 임대를 중개하는 영업 직종.<br>
       "인생에서 가장 큰 쇼핑"을 돕는 보람이 있는 반면, 업계 특유의 하드함도 있다.<br>
       이 카드에서는 부동산영업의 현실을 솔직하게 정리했다.
     </p>
@@ -47,8 +116,8 @@
     <button class="nav-item active" onclick="scrollToSection('s1')">01 정의</button>
     <button class="nav-item" onclick="scrollToSection('s2')">02 세분화</button>
     <button class="nav-item" onclick="scrollToSection('s3')">03 역량</button>
-    <button class="nav-item" onclick="scrollToSection('s4')">04 커리어</button>
-    <button class="nav-item" onclick="scrollToSection('s5')">05 ES/면접</button>
+    <button class="nav-item" onclick="scrollToSection('s4')">04 커리어패스</button>
+    <button class="nav-item" onclick="scrollToSection('s5')">05 ES포인트</button>
     <button class="nav-item" onclick="scrollToSection('s6')">06 후카보리</button>
     <button class="nav-item" onclick="scrollToSection('s7')">07 키워드</button>
     <button class="nav-item" onclick="scrollToSection('s8')">08 주의점</button>
@@ -61,117 +130,204 @@
     <div class="section-number">SECTION 01</div>
     <div class="section-title">부동산영업이란</div>
     <div class="section-title-jp">不動産営業とは</div>
-
-    <p>한마디로 말하면, <span class="hl">집이나 맨션, 토지 같은 부동산을 고객에게 판매하거나, 임대를 중개하는 영업</span>이다. 다른 영업 직종과의 가장 큰 차이: <span class="hl">상품 단가가 수천만 엔-수억 엔</span>이라는 것. "인생에서 가장 큰 결정"을 돕는 일이기 때문에, 고객과의 신뢰 관계가 극도로 중요하다.</p>
-
-    <p>일본 부동산업계의 대표 기업: 三井不動産リアルティ, 住友不動産販売, 野村不動産, 東急リバブル, オープンハウス 등. 디벨로퍼(개발)와 중개/판매는 다른 포지션이라는 점에 주의.</p>
-
+    <p>한마디로 말하면, <span class="hl">집·맨션·토지·오피스 등 부동산을 고객에게 판매하거나 임대를 중개하는 영업</span>이다. 다른 영업 직종과의 가장 큰 차이: 상품 단가가 수천만~수억 엔이라는 것. "인생에서 가장 큰 결정"을 돕는 일이기 때문에 고객과의 신뢰 관계가 극도로 중요하다.</p>
+    <p>일본 부동산업계 대표 기업: 三井不動産リアルティ, 住友不動産販売, 野村不動産, 東急リバブル, オープンハウス. 디벨로퍼(개발·건설)와 중개·판매는 다른 포지션이라는 점에 주의가 필요하다.</p>
+    <div class="info-box info-box-accent">
+      <h4>부동산영업을 이해하는 3가지 포인트</h4>
+      <p><strong>① 상품 단가가 극히 높다</strong> — 신축 맨션 1채는 수천만~1억 엔 이상. 중고 주택도 수천만 엔대. 고객에게는 평생에 한두 번의 결정이다. 이 무게감 속에서 고객의 결정을 돕는 것이 부동산영업의 본질이다.<br><br><strong>② 토일이 피크</strong> — 고객(개인)이 집을 보러 오는 것은 토일. 영업 담당자는 토일이 가장 바쁜 날이고 평일에 쉬는 구조다. "토일에 쉬고 싶다"면 이 업계는 맞지 않는다는 것을 지원 전에 명확히 해야 한다.<br><br><strong>③ 인센티브형 급여</strong> — 기본급+판매 실적에 따른 인센티브가 일반적. 성과를 내면 20대에 연봉 1,000만 엔 이상도 가능. 반대로 성과가 없으면 급여가 낮아지는 구조다. 안정적 급여를 원한다면 갭이 크다는 것을 각오해야 한다.</p>
+    </div>
     <div class="info-box">
       <h4>부동산영업의 하루 (맨션 판매 2년차 예시)</h4>
-      <p>09:30 출근. 오늘 내방(来場) 예정 고객 정보 확인, 물건 자료 준비<br>10:00 모델룸 개장 준비<br>10:30 고객 응대 — 맨션 안내, 간취(間取り/방 배치) 설명, 주변 환경 안내. 1조당 1-2시간<br>12:30 점심<br>13:30 전화 영업 — 자료 청구한 고객에게 내방 유도 전화<br>15:00 고객 응대 2조째. 자금 계획(주택 대출) 상담까지 포함<br>17:00 계약 서류 준비 / 근저당(抵当権) 관련 은행 연락<br>18:30 팀 미팅 — 이번 주 성과/다음 주 내방 예약 상황 공유<br>19:30 퇴근 (토일은 고객 대응이 길어지면 20시 넘기도)</p>
+      <p>09:30 출근. 오늘 내방(来場) 예정 고객 정보 확인, 물건 자료 준비<br>10:00 모델룸 개장 준비<br>10:30 고객 응대 — 맨션 안내, 방 배치(間取り) 설명, 주변 환경 안내. 1팀당 1~2시간<br>12:30 점심<br>13:30 전화 영업 — 자료 청구 고객에게 내방 유도 전화<br>15:00 고객 응대 2팀째. 주택 대출(住宅ローン) 상담까지 포함<br>17:30 계약 서류 준비, 은행 연락<br>18:30 팀 미팅 — 이번 주 성과·내방 예약 상황 공유<br>19:30 퇴근 (토일은 20시 넘기도)</p>
     </div>
-
-    <div class="warn-box">
+    <div class="info-box">
       <h4>솔직히 말하면: 부동산영업의 현실</h4>
-      <p>
-        <strong>토일/공휴일 근무가 기본이다.</strong> 고객(개인)이 집을 보러 오는 것은 토일. 영업 담당자는 토일이 가장 바쁜 날이고, 평일에 쉬는 구조. "토일에 쉬고 싶다"면 이 업계는 맞지 않다.<br><br>
-        <strong>인센티브(성과급) 비중이 큰 급여 구조.</strong> 기본급+인센티브(판매 실적에 따른 보너스)가 일반적. 팔면 많이 벌고 못 팔면 적게 번다. 안정적 급여를 원한다면 갭이 클 수 있다.<br><br>
-        <strong>"노르마"의 프레셔가 강하다.</strong> 월간/분기 판매 목표(ノルマ)가 주어지고, 달성하지 못하면 프레셔가 크다. 정신적으로 강하지 않으면 버티기 어렵다는 평가가 업계에서도 일반적.<br><br>
-        그 대신, <span class="hl">고객의 "인생에서 가장 큰 결정"을 도왔을 때의 감사</span>는 다른 어떤 영업에서도 맛볼 수 없는 보람이다. 그리고 성과를 내면 20대부터 연봉 1000만 엔 이상도 가능한 업계.
-      </p>
+      <p><strong>보람이 큰 이유</strong>: 고객이 "이 집을 사겠습니다"라고 결정하는 순간, 그리고 입주 후 "정말 좋은 집을 소개해줘서 감사합니다"라는 말을 들을 때의 충실감은 다른 영업에서는 맛보기 어렵다. "인생에서 가장 큰 결정"을 함께한 파트너로 기억된다.<br><br><strong>하드한 이유</strong>: 토일 근무·노르마·캔슬의 프레셔, 수천만 엔 결정을 내리지 못하는 고객을 기다리는 인내. 이 업계의 이직률이 높은 것은 사실이다. "보람"과 "하드함" 양쪽이 공존하는 직종이라는 것을 이해하고 지원해야 한다.</p>
     </div>
   </div>
 
   <div class="section" id="s2">
     <div class="section-number">SECTION 02</div>
-    <div class="section-title">세분화</div>
+    <div class="section-title">부동산영업의 세분화</div>
     <div class="section-title-jp">不動産営業の分類</div>
-
+    <p>"부동산영업"이라고 한 묶음으로 말하지만, <span class="hl">무엇을 파는지·누구한테 파는지에 따라 일하는 방식이 크게 다르다.</span></p>
     <table class="compare-table">
       <thead><tr><th>유형</th><th>무엇을 하나</th><th>고객</th><th>특징</th></tr></thead>
       <tbody>
-        <tr><td class="row-label">맨션 판매</td><td>신축 맨션의 모델룸에서 고객에게 판매</td><td>개인(주택 구매자)</td><td>부동산영업의 대표. 내방 고객 대응+전화 영업. 단가 높음</td></tr>
-        <tr><td class="row-label">중고 매매 중개</td><td>중고 맨션/주택의 매수자와 매도자를 연결</td><td>개인</td><td>물건 조사+고객 매칭. 중개 수수료가 수입원</td></tr>
-        <tr><td class="row-label">임대 중개</td><td>임대 물건을 소개, 계약 체결까지</td><td>개인</td><td>회전이 빠르고 건당 단가가 낮음. 수량으로 승부</td></tr>
-        <tr><td class="row-label">법인 영업(BtoB)</td><td>기업에 오피스/상업 시설/투자 물건을 제안</td><td>법인</td><td>단가 극히 높음. 개인 대상보다 전문성 요구. 디벨로퍼에 많음</td></tr>
-        <tr><td class="row-label">토지 활용 제안</td><td>토지 소유자에게 "이 토지를 어떻게 활용할 것인가" 제안</td><td>토지 소유자(개인/법인)</td><td>맨션 건설, 주차장 운영 등. 컨설팅 색채 강함</td></tr>
+        <tr><td class="row-label">신축 맨션 판매</td><td>신축 맨션을 모델룸에서 판매</td><td>개인 (주택 구매자)</td><td>내방 고객 대응+전화 영업. 인센티브 비중 큼</td></tr>
+        <tr><td class="row-label">중고 매매 중개</td><td>중고 맨션·주택의 매수자·매도자 연결</td><td>개인</td><td>물건 조사+고객 매칭. 중개 수수료가 수입원</td></tr>
+        <tr><td class="row-label">임대 중개</td><td>임대 물건 소개, 계약 체결까지</td><td>개인</td><td>회전이 빠르고 건당 단가 낮음. 수량으로 승부</td></tr>
+        <tr><td class="row-label">법인 영업 (BtoB)</td><td>오피스·상업시설·투자 물건 제안</td><td>법인</td><td>단가 극히 높음. 고도의 전문성 요구. 디벨로퍼에 많음</td></tr>
+        <tr><td class="row-label">토지 활용 제안</td><td>토지 소유자에게 활용 방안 컨설팅</td><td>토지 소유자</td><td>맨션 건설·주차장 운영 등. 컨설팅 색채 강함</td></tr>
       </tbody>
     </table>
+    <div class="info-box">
+      <h4>신졸에게 현실적인 진입 루트</h4>
+      <p>신졸이 가장 진입하기 쉬운 것은 <strong>신축 맨션 판매</strong>와 <strong>임대 중개</strong>다. 법인 영업이나 대형 투자 물건은 경력직 채용이 많고 신졸 배치는 드물다. 신졸로 들어가 현장에서 실적을 쌓은 뒤 법인 부문이나 디벨로퍼로 이동하는 루트가 현실적인 경로다.</p>
+    </div>
   </div>
 
   <div class="section" id="s3">
     <div class="section-number">SECTION 03</div>
-    <div class="section-title">역량</div>
+    <div class="section-title">부동산영업에서 요구되는 역량</div>
     <div class="section-title-jp">不動産営業に求められる力</div>
-
-    <p><span class="hl">"신뢰 구축 + 정신적 강함 + 부동산 지식"</span>의 조합.</p>
-
-    <div class="info-box info-box-accent"><h4>핵심 역량</h4><p><strong>신뢰 구축력</strong> — 수천만 엔의 결정을 하는 고객이 "이 사람에게 맡겨도 괜찮다"고 느끼게 하는 힘. 부동산은 상품 차별화가 어렵고, "누구한테 사느냐"가 결정을 좌우하는 경우가 많다.<br><br><strong>정신적 강함</strong> — 노르마 프레셔, 계약 직전 캔슬, 장기간 결정하지 않는 고객. 스트레스 내성이 이 업계 생존의 기본.<br><br><strong>부동산 지식</strong> — 주택 대출(ローン), 세금(不動産取得税, 固定資産税), 등기(登記), 건축법규 등. 입사 후 宅地建物取引士(택건사) 자격 취득이 사실상 필수. 이건 입사 후에 회사 지원으로 취득하는 것이 일반적이니 신졸 시점에서는 없어도 OK.<br><br><strong>체력</strong> — 토일 종일 고객 대응, 물건 안내(차로 이동), 평일도 전화 영업. 체력이 없으면 물리적으로 버티기 어렵다.</p></div>
+    <p>부동산영업에서 살아남기 위해 필요한 것은 <span class="hl">"신뢰 구축력 + 정신적 강함 + 전문 지식"의 조합</span>이다.</p>
+    <div class="strength-grid">
+      <div class="strength-item"><div class="strength-rank">01</div><div class="strength-body"><h4>신뢰 구축력 — 수천만 엔의 결정을 맡기게 하는 힘</h4><p>부동산은 상품 차별화가 어렵고 "누구한테 사느냐"가 결정을 좌우하는 경우가 많다. 고객의 라이프스타일·가족 구성·자금 상황을 경청하고 "이 사람에게 맡겨도 괜찮다"고 느끼게 하는 힘이 핵심이다.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">02</div><div class="strength-body"><h4>정신적 강함 — 노르마·캔슬·장기 교섭을 버티는 힘</h4><p>월간 판매 목표(ノルマ) 압박, 계약 직전 고객 캔슬, 수개월에 걸친 의사결정 과정. 이 스트레스를 견디면서도 다음 고객에게 긍정적으로 대응할 수 있는 멘탈이 이 업계 생존의 기본이다.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">03</div><div class="strength-body"><h4>전문 지식 — 宅建士, 주택 대출, 세금, 법규</h4><p>주택 대출(住宅ローン), 부동산 취득세·고정자산세, 등기(登記), 건축기준법 등 광범위한 지식이 필요하다. 宅地建物取引士(택건사) 자격은 입사 후 취득하는 것이 일반적이지만 신졸 시점에 이미 취득해 있으면 채용에서 강점이 된다.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">04</div><div class="strength-body"><h4>체력 — 토일 종일 고객 대응을 버티는 기초 체력</h4><p>토일 종일 고객 응대, 차로 물건 안내, 평일에도 전화 영업. 몸이 자본인 직종이다. "체력에는 자신 있다"는 구체적 근거(스포츠 경험 등)를 ES에서 어필하면 플러스가 된다.</p></div></div>
+      <div class="strength-item"><div class="strength-rank">05</div><div class="strength-body"><h4>수치 감각 — 자금 계획과 수익 시뮬레이션</h4><p>주택 대출 시뮬레이션, 투자 물건의 수익률 계산, 세금 계산 등 숫자를 다루는 장면이 많다. 문과여도 기초적인 금융·세무 지식을 배우려는 의지가 필요하다.</p></div></div>
+    </div>
+    <div class="info-box">
+      <h4>부동산영업 유형별 환경 비교</h4>
+      <table class="compare-table" style="margin-top:8px;">
+        <thead><tr><th>유형</th><th>연봉 수준 (신졸 3년차 기준)</th><th>노르마 강도</th><th>워라밸</th><th>전문 지식</th></tr></thead>
+        <tbody>
+          <tr><td class="row-label">신축 맨션 판매</td><td>500~800만 엔</td><td>강함</td><td>토일 근무 기본</td><td>주택 대출·등기</td></tr>
+          <tr><td class="row-label">중고 매매 중개</td><td>450~700만 엔</td><td>중간</td><td>토일 근무 있음</td><td>물건 조사·등기·법규</td></tr>
+          <tr><td class="row-label">임대 중개</td><td>350~500만 엔</td><td>중간</td><td>繁忙期에 집중</td><td>임대차계약 지식</td></tr>
+          <tr><td class="row-label">법인 영업</td><td>600~1,000만 엔+</td><td>강함</td><td>들쭉날쭉</td><td>투자 분석·세무·법무</td></tr>
+          <tr><td class="row-label">토지 활용 제안</td><td>500~900만 엔</td><td>중간~강함</td><td>비교적 안정</td><td>건축기준법·세금 전반</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <div class="section" id="s4">
     <div class="section-number">SECTION 04</div>
     <div class="section-title">커리어패스</div>
-    <div class="section-title-jp">キャリアパス</div>
-
-    <div class="info-box"><h4>전형적 루트</h4><p><strong>1-3년차</strong>: 현장 영업. 내방 고객 대응, 전화 영업. 택건사 자격 취득.<br><strong>4-6년차</strong>: 팀 리더. 후배 지도+자기 실적. 탑 영업이면 연봉 급상승.<br><strong>7년차 이후</strong>: 영업 소장(所長/점장급), 본사 기획(상품기획/마케팅), 디벨로퍼(개발 사업)로 이동, 또는 독립(부동산 중개 회사 설립).</p></div>
+    <div class="section-title-jp">不動産営業のキャリアパス</div>
+    <p>부동산영업은 <span class="hl">성과를 내면 빠른 출세와 고수입이 가능한 업계</span>다. 다른 업계보다 능력주의 색채가 강하다.</p>
+    <div class="career-timeline">
+      <div class="career-step">
+        <div class="career-year">1~2년차</div>
+        <div class="career-role">현장 영업 + 택건사 취득</div>
+        <div class="career-desc">내방 고객 응대, 전화 영업, 계약 서류 작성을 배운다. 宅地建物取引士(택건사) 자격 취득이 첫 목표. 매달 노르마에 쫓기면서 "영업 기초 체력"을 만드는 시기.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">3~5년차</div>
+        <div class="career-role">톱 영업사원 or 팀 리더</div>
+        <div class="career-desc">실적을 내면 인센티브로 연봉이 급상승한다. 이 시기에 연봉 800만~1,200만 엔에 도달하는 사람도 있다. 또는 팀 리더가 되어 후배 지도를 병행하는 길로 갈린다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">6~10년차</div>
+        <div class="career-role">소장(所長/지점장급) or 본사 이동</div>
+        <div class="career-desc">영업 소장이 되어 팀 관리. 또는 본사의 상품기획·마케팅·사업기획 부문으로 이동해 현장 경험을 살려 전략을 만드는 역할로 전환한다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">이후 방향</div>
+        <div class="career-role">다양한 갈림길</div>
+        <div class="career-desc"><strong>길A: 디벨로퍼</strong> — 개발·건설 사업으로 이동. 더 큰 스케일의 프로젝트를 담당.<br><strong>길B: 독립</strong> — 부동산 중개 회사 설립. 실력과 인맥이 쌓이면 현실적인 선택지.<br><strong>길C: 투자 분야</strong> — 부동산 펀드, 리츠(REIT), 투자 자문 등으로 이동.</div>
+      </div>
+    </div>
   </div>
 
   <div class="section" id="s5">
     <div class="section-number">SECTION 05</div>
     <div class="section-title">ES 작성 포인트</div>
-    <div class="section-title-jp">ES攻略</div>
-
-    <div class="info-box info-box-accent"><h4>지망동기의 핵심</h4><p>① "인생의 가장 큰 결정"을 돕는 것에 보람을 느끼는 이유<br>② 성과가 직접적으로 보상에 연결되는 환경에서 성장하고 싶다는 의지<br>③ 이 회사의 물건/사업 영역에 대한 이해<br>④ 체력/정신력을 뒷받침하는 구체적 에피소드</p></div>
+    <div class="section-title-jp">不動産営業志望のES攻略</div>
+    <p>부동산영업 ES의 핵심 메시지: <span class="hl">"나는 인생에서 가장 큰 결정을 하는 고객에게 전문 지식과 신뢰로 최선의 선택을 돕고 싶다."</span></p>
+    <div class="info-box info-box-accent">
+      <h4>지망동기 4단계 구조</h4>
+      <p>① <strong>부동산·주거에 관심을 가진 계기</strong> — 구체적 에피소드(이사 경험, 부모님의 주택 구입 과정을 가까이서 본 경험, 인테리어 관심 등)<br>② <strong>왜 영업(판매·중개)인가</strong> — 설계·시공이 아니라 "고객의 결정을 돕는 영업"에 매력을 느끼는 이유<br>③ <strong>토일 근무·인센티브 구조에 대한 명확한 이해</strong> — 피하지 않고 포지티브하게 받아들이는 자세<br>④ <strong>이 회사가 다루는 물건·사업 영역에 대한 이해</strong> — 신축 맨션인지, 중고 중개인지, 법인 대상인지를 구체적으로</p>
+    </div>
+    <div class="info-box">
+      <h4>"높은 인센티브가 목표"를 동기로 써도 되는가?</h4>
+      <p>부동산업계는 성과주의 문화가 강하기 때문에 "성과가 직접 보상으로 돌아오는 환경에서 자신을 시험하고 싶다"는 표현은 마이너스가 아닌 경우가 많다. 다만 "돈만 목적"으로 읽히면 역효과. "고객에게 가치를 제공하고 그 결과로 정당하게 평가받고 싶다"는 구조로 표현하는 것이 좋다.</p>
+    </div>
+    <div class="info-box">
+      <h4>체력·정신력을 어필하는 방법</h4>
+      <p>부동산영업은 체력·정신력을 확인하는 경우가 많다. 가쿠치카(학생 시절 노력)에서 "힘든 상황에서도 포기하지 않고 해낸 경험"을 구체적으로. 스포츠 경험, 장기 인턴, 노르마가 있는 아르바이트(음식점·영업계) 등이 효과적이다.</p>
+    </div>
+    <div class="info-box">
+      <h4>가쿠치카 선택 포인트 — 부동산영업 면접관이 보는 것</h4>
+      <p>
+        부동산영업 면접에서 가쿠치카는 <span class="hl">신뢰 구축력·수치 목표 달성·정신적 강함·체력</span>을 증명하는 소재를 골라야 한다.<br><br>
+        <strong>효과적인 소재</strong><br>
+        — 수치 목표가 있는 아르바이트 (음식점·판매직의 일매출 달성, 영업 인턴의 접촉 건수) → 노르마 환경에 익숙하다는 증거<br>
+        — 스포츠·서클의 장기 노력 경험 → 체력·정신력의 근거<br>
+        — 고객 대응 경험 (접객 아르바이트, CS 인턴) → 신뢰 구축력의 근거<br>
+        — 자격증 독학 취득 경험 → 전문 지식 습득 의지의 근거<br><br>
+        <strong>피하는 것이 좋은 소재</strong><br>
+        — 단순 반복 작업의 아르바이트 (성과·목표가 없는 것)<br>
+        — 개인 활동 중심 (팀·고객과의 관계가 보이지 않는 것)<br>
+        — 토일 쉬는 것을 전제로 한 활동 에피소드 (부동산 영업의 토일 근무와 충돌)
+      </p>
+    </div>
+    <div class="info-box">
+      <h4>기업 연구에서 반드시 확인할 것</h4>
+      <p><strong>취급 물건 유형과 가격대</strong> — 어느 에리어·어떤 고객층 대상인지. 실제로 모델룸 방문 또는 포털 사이트(SUUMO, HOME'S)에서 물건을 조사한 경험이 있으면 면접에서 강력한 무기가 된다.<br><br><strong>디벨로퍼인지 중개·판매인지</strong> — 같은 "부동산회사"라도 사업 형태가 전혀 다르다. 반드시 구분하고 지원할 것.</p>
+    </div>
   </div>
 
   <div class="section" id="s6">
     <div class="section-number">SECTION 06</div>
     <div class="section-title">면접에서 자주 파고드는 질문</div>
-    <div class="section-title-jp">面接のポイント</div>
-
+    <div class="section-title-jp">面接で掘り下げられるポイント</div>
+    <p>부동산영업 면접에서는 <span class="hl">"현실을 이해하고 있는가"와 "멘탈 강도"를 집중적으로 확인</span>한다.</p>
     <div class="qa-list">
-      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>왜 부동산업계인가?</span></div><div class="qa-answer">"의식주의 '주'에 관련된 인생의 가장 큰 결정을 돕고 싶다", "성과가 숫자로 명확히 보이는 환경에서 자기를 시험하고 싶다"가 기본 방향. "높은 인센티브" 자체를 동기로 말해도 부동산업계에서는 마이너스가 아닌 경우가 많다(성과주의 문화).</div></div>
-      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>토일/공휴일 근무와 노르마에 대해 어떻게 생각하나?</span></div><div class="qa-answer">부동산 면접의 현실 확인 질문. "이해하고 있다"가 최소 조건. "고객이 가장 필요로 하는 시간에 함께 있는 것이 이 직종의 가치"라는 방향. 노르마에 대해서는 "목표가 명확한 환경에서 자기 성장을 측정할 수 있다"는 포지티브 자세.</div></div>
-      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>고액 상품을 다루는 것에 대해 어떻게 생각하나?</span></div><div class="qa-answer">"금액이 크기 때문에 책임도 크지만, 그만큼 고객에게 끼치는 영향이 크고 보람도 크다"는 방향. "고객의 인생을 좌우할 수 있다"는 책임감을 이해하고 있는 것이 포인트.</div></div>
-      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>스트레스 해소법은?</span></div><div class="qa-answer">부동산/금융 영업에서 자주 나오는 질문. 정신적 부하가 큰 업계이므로 "스트레스 관리 능력"을 확인. 구체적 방법(운동, 취미 등)을 말하면서 "프레셔 속에서도 자기 관리를 할 수 있다"는 것을 보여줄 것.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>왜 부동산영업인가?</span></div><div class="qa-answer">"의식주의 '주'에 관련된 인생의 가장 큰 결정을 돕고 싶다", "성과가 숫자로 명확히 보이는 환경에서 자기를 시험하고 싶다"가 기본 방향. "높은 인센티브" 자체를 동기로 말해도 부동산업계에서는 마이너스가 아닌 경우가 많다. 다만 "고객에게 가치를 제공한 결과로 정당하게 평가받고 싶다"는 구조로 표현할 것.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>토일 근무와 노르마에 대해 어떻게 생각하나?</span></div><div class="qa-answer">부동산 면접의 현실 확인 질문. "이해하고 있다"가 최소 조건. "고객이 집을 보러 오는 토일에 함께할 수 있는 것이 이 직종의 가치"라는 방향. 노르마에 대해서는 "목표가 명확한 환경에서 자기 성장을 측정할 수 있다"는 포지티브 자세. 과거 아르바이트에서 목표를 설정하고 달성한 경험이 있으면 구체적으로 연결.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>고객이 계약 직전에 취소하면 어떻게 하겠는가?</span></div><div class="qa-answer">멘탈 강도와 리커버리 능력을 보는 질문. "낙담은 하겠지만 왜 취소했는지 원인을 분석해 다음에 연결하겠다"는 방향. 아르바이트나 동아리에서 노력이 결실을 맺지 못했을 때 어떻게 대처했는지를 구체적으로 연결하면 설득력이 높아진다.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>수천만 엔의 상품을 파는 것에 부담감은 없나?</span></div><div class="qa-answer">"금액이 크기 때문에 책임도 크지만 그만큼 고객에게 끼치는 영향이 크고 보람도 크다"는 방향. "부담감의 크기보다 그 책임감을 동기로 바꿀 수 있는가"라는 자세를 보여주는 것이 중요하다.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>우리 회사가 다루는 물건의 특징을 아는가?</span></div><div class="qa-answer">기업 연구의 깊이를 재는 직구. 신축 맨션이라면 어느 에리어·가격대·타겟 고객층인지, 중개라면 강점 에리어·물건 유형을 파악하고 있어야 한다. 실제로 모델룸을 방문했거나 홈페이지에서 물건을 조사했다면 구체적으로 말할 것. "이 물건을 팔고 싶다"는 열의를 보여주는 것이 효과적이다.</div></div>
+      <div class="qa-item" onclick="this.classList.toggle('open')"><div class="qa-question"><span class="qa-q-mark">Q</span><span>5년 후 어떤 부동산 영업사원이 되고 싶은가?</span></div><div class="qa-answer">커리어 의지와 구체성을 보는 질문. "5년 후에 톱 영업사원으로 팀에서 가장 많은 실적을 내고 싶다"는 방향도 좋지만, 더 효과적인 것은 "5년 후에 고객으로부터 '부동산 일이라면 이 사람'이라고 지명받는 존재가 되고 싶다"처럼 고객 관점으로 표현하는 것이다.</div></div>
     </div>
   </div>
 
   <div class="section" id="s7">
     <div class="section-number">SECTION 07</div>
-    <div class="section-title">자기분석 키워드</div>
-    <div class="section-title-jp">キーワード</div>
-
+    <div class="section-title">자기분석 키워드 연결</div>
+    <div class="section-title-jp">自己分析キーワードとの接続</div>
+    <p>부동산영업과 잘 연결되는 자기분석 키워드. <span class="hl">"강점이 이 직종에서 어떻게 발휘되는가"까지 설명할 것.</span></p>
     <div class="keyword-grid">
-      <div class="keyword-card"><div class="kw-name">도전정신</div><div class="kw-desc">고액 상품+노르마+성과급. "안전한 길보다 자기를 시험하는 환경"을 선택하는 자세.</div></div>
-      <div class="keyword-card"><div class="kw-name">끈기</div><div class="kw-desc">부동산 구매는 결정까지 수개월 걸리는 경우도. 고객이 결정할 때까지 포기하지 않고 따라가는 힘.</div></div>
-      <div class="keyword-card"><div class="kw-name">경청력</div><div class="kw-desc">"고객이 진짜 원하는 것"은 말로 표현하지 않는 경우가 많다. 가족 구성, 라이프스타일, 장래 계획까지 깊이 들어서 최적의 물건을 제안.</div></div>
-      <div class="keyword-card"><div class="kw-name">책임감</div><div class="kw-desc">수천만 엔의 거래를 중개하는 무게. "내 한마디가 고객의 인생을 바꿀 수 있다"는 자각.</div></div>
+      <div class="keyword-card"><div class="kw-name">신뢰 구축력</div><div class="kw-desc">수천만 엔의 결정을 맡기게 하는 힘. "이 사람에게 맡겨도 괜찮다"는 신뢰는 경청·성실·전문 지식의 조합으로 만들어진다.</div></div>
+      <div class="keyword-card"><div class="kw-name">정신적 강함</div><div class="kw-desc">노르마 압박·캔슬·장기 교섭을 버티는 멘탈. "부동산영업을 오래 할 수 있는가"는 거의 이 요소로 결정된다.</div></div>
+      <div class="keyword-card"><div class="kw-name">향상심·성장욕</div><div class="kw-desc">성과가 직접 보상으로 돌아오는 환경에서 자기를 계속 시험하고 싶다는 기질. 인센티브 구조와 잘 맞는 사람의 가장 중요한 자질.</div></div>
+      <div class="keyword-card"><div class="kw-name">경청력</div><div class="kw-desc">고객의 라이프스타일·가족 계획·자금 상황·막연한 불안을 들어내는 힘. "어떤 집을 원하는지"보다 "어떤 삶을 원하는지"를 파악하는 것이 최선의 물건 제안으로 이어진다.</div></div>
+      <div class="keyword-card"><div class="kw-name">책임감</div><div class="kw-desc">고객의 인생에서 가장 큰 결정에 관여한다는 무게감. "내가 제안한 집에서 고객이 행복하게 살고 있다"는 책임을 끝까지 지는 자세.</div></div>
+      <div class="keyword-card"><div class="kw-name">체력·행동력</div><div class="kw-desc">토일 종일 고객 응대, 물건 안내, 전화 영업. 몸이 자본인 직종. 행동량이 그대로 결과로 이어지는 구조다.</div></div>
+    </div>
+    <div class="info-box">
+      <h4>ES 연결 예시 (부동산영업 지망동기)</h4>
+      <p>"부모님이 주택을 구입하는 과정을 가까이서 지켜보며, 담당 영업사원의 한마디 한마디가 가족의 결정에 얼마나 큰 영향을 미치는지를 실감했습니다(<strong>관심의 계기</strong>). 사람의 인생에서 가장 큰 결정을 함께 만드는 일의 무게감과 보람을 직접 경험하고 싶어 부동산영업을 지망합니다(<strong>지망이유</strong>). 대학 시절 음식점 아르바이트에서 월간 매출 목표를 가지고 일했고, 목표가 있는 환경이 오히려 집중력을 높여준다는 것을 알았습니다(<strong>인센티브 구조에 맞는 근거</strong>)."</p>
     </div>
   </div>
 
   <div class="section" id="s8">
     <div class="section-number">SECTION 08</div>
-    <div class="section-title">주의점</div>
-    <div class="section-title-jp">落とし穴</div>
-
-    <div class="warn-box"><h4>함정 1: "부동산 = 블랙"이라는 선입견만으로 피하는 것</h4><p>부동산 업계에 대한 부정적 이미지가 있는 것은 사실이지만, 회사에 따라 근무 환경이 크게 다르다. 대기업 디벨로퍼와 중소 중개회사는 전혀 다른 환경. "업계 전체"를 이미지로 판단하지 말고 개별 기업을 확인할 것.</p></div>
-    <div class="warn-box"><h4>함정 2: "인센티브가 높으니까"만 보고 들어가는 것</h4><p>인센티브가 높다는 것은 "기본급이 낮을 수 있다"는 뜻이기도 하다. 못 팔면 수입이 크게 줄어든다. 인센티브의 구조(비율, 기준)를 면접에서 확인할 것.</p></div>
-    <div class="warn-box"><h4>함정 3: 이직률의 현실</h4><p>부동산 영업은 이직률이 높은 직종 중 하나. 노르마 프레셔, 토일 근무, 장시간 노동 등으로 3년 이내에 이직하는 사람이 많다. "자기가 이 환경에서 버틸 수 있는가"를 정직하게 생각할 것.</p></div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">不動産営業の落とし穴</div>
+    <p>지원 전에 반드시 알아두어야 할 현실을 솔직하게 정리했다.</p>
+    <div class="warn-box"><h4>함정 1: 토일 근무·평일 휴무의 현실을 모르는 것</h4><p>부동산영업은 고객이 오는 토일이 피크다. 영업 담당자는 토일 근무·평일 휴무가 기본 구조다. "가족이나 친구와 토일을 함께 보내고 싶다"면 지원 전에 진지하게 생각해야 한다. 이 라이프스타일 갭을 모른 채 입사하면 이른 이직으로 이어지는 경우가 많다.</p></div>
+    <div class="warn-box"><h4>함정 2: 노르마의 프레셔를 과소평가</h4><p>매월 판매 목표(ノルマ)가 주어지고 달성하지 못하면 프레셔가 크다. 업계 이직률이 높은 이유 중 하나다. "목표가 있으면 오히려 동기 부여된다"는 사람과 "프레셔에 약하다"는 사람에서 결과가 크게 갈리는 직종이다. 자기 성향을 솔직하게 점검할 것.</p></div>
+    <div class="warn-box"><h4>함정 3: 택건사 자격을 "나중에"라고 미루기</h4><p>宅地建物取引士(택건사) 자격은 부동산영업의 사실상 필수 자격이다. 입사 후 취득하는 것이 일반적이지만 신졸 시점에 이미 취득해 있으면 채용에서 강점이 된다. 지원 중에 공부를 시작했다는 것만으로도 플러스가 될 수 있다.</p></div>
+    <div class="warn-box"><h4>함정 4: 디벨로퍼와 중개·판매를 혼동</h4><p>부동산업계에는 "디벨로퍼(토지 취득·개발·건설을 하는 회사)"와 "중개·판매(개발된 물건을 파는 회사)"가 있다. 三井不動産는 디벨로퍼이고 三井不動産リアルティは중개·판매다. 이 차이를 이해하지 않으면 지원 기업을 잘못 고르게 된다. 기업 연구에서 반드시 확인할 것.</p></div>
+    <div class="warn-box"><h4>함정 5: 이직률 높은 업계의 현실을 직시할 것</h4><p>부동산영업은 이직률이 높은 업계다. "3년 내 이직"이 드물지 않은 세계다. 이것이 나쁜 것만은 아니고, 부동산영업 출신은 이직 시장에서 평가받는 경우도 있다. 다만 "안정적으로 한 회사에 오래 다니고 싶다"는 가치관이라면 현실과 갭이 있을 수 있다는 점을 지원 전에 인식해야 한다.</p></div>
   </div>
 
   <div class="footer">
     <p><span class="brand">Tokyo Career Studio</span> 직종 상세 카드 — 영업 EG-06 — 부동산영업</p>
-    <p style="margin-top:8px;font-size:10px;">영업 개요 카드(레벨2) | 직종 대분류 맵(레벨1)도 함께 참고</p>
+    <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+    <p style="margin-top:8px; font-size:10px;">영업 개요 카드(레벨2) | 직종 대분류 맵(레벨1)도 함께 참고</p>
   </div>
+
 </div>
 
 <script>
-function scrollToSection(id){const el=document.getElementById(id);if(el){const navHeight=document.querySelector('.section-nav').offsetHeight;const y=el.getBoundingClientRect().top+window.pageYOffset-navHeight-12;window.scrollTo({top:y,behavior:'smooth'})}}
-const sections=['s1','s2','s3','s4','s5','s6','s7','s8'];const navItems=document.querySelectorAll('.nav-item');
-function updateActiveNav(){const navHeight=document.querySelector('.section-nav').offsetHeight;let current='';sections.forEach(id=>{const el=document.getElementById(id);if(el){const rect=el.getBoundingClientRect();if(rect.top<=navHeight+60)current=id}});navItems.forEach((item,i)=>{if(sections[i]===current)item.classList.add('active');else item.classList.remove('active')})}
-window.addEventListener('scroll',updateActiveNav);updateActiveNav();
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) { const navHeight = document.querySelector('.section-nav').offsetHeight; const y = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 12; window.scrollTo({ top: y, behavior: 'smooth' }); }
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+const navItems = document.querySelectorAll('.nav-item');
+function updateActiveNav() {
+  const navHeight = document.querySelector('.section-nav').offsetHeight; let current = '';
+  sections.forEach(id => { const el = document.getElementById(id); if (el) { const rect = el.getBoundingClientRect(); if (rect.top <= navHeight + 60) current = id; } });
+  navItems.forEach((item, i) => { if (sections[i] === current) item.classList.add('active'); else item.classList.remove('active'); });
+}
+window.addEventListener('scroll', updateActiveNav); updateActiveNav();
 </script>
 <script src="nav.js"></script>
 </body>
