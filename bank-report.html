@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>은행 업계 리포트 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #74b9ff;
+    --accent-soft: rgba(116,185,255,0.08);
+    --accent-border: rgba(116,185,255,0.22);
+    --warn: #f59e0b;
+    --warn-soft: rgba(245,158,11,0.06);
+    --warn-border: rgba(245,158,11,0.18);
+    --success: #34d399;
+    --success-soft: rgba(52,211,153,0.07);
+    --success-border: rgba(52,211,153,0.18);
+    --regional: #55efc4;
+    --regional-soft: rgba(85,239,196,0.07);
+    --regional-border: rgba(85,239,196,0.2);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Noto Sans JP',sans-serif; line-height:1.8; font-size:15px; -webkit-font-smoothing:antialiased; }
+  .container { max-width:760px; margin:0 auto; padding:0 24px 100px; }
+
+  .hero { padding:64px 24px 48px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(116,185,255,0.06) 0%, transparent 70%); pointer-events:none; }
+  .hero-inner { position:relative; max-width:760px; margin:0 auto; }
+  .hero-label { display:inline-block; font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-border); padding:4px 12px; border-radius:12px; margin-bottom:20px; text-transform:uppercase; }
+  .hero h1 { font-size:30px; font-weight:900; line-height:1.3; margin-bottom:10px; letter-spacing:-0.5px; }
+  .hero-sub { font-size:13px; color:var(--text-dim); line-height:1.9; margin-bottom:20px; max-width:560px; }
+  .hero-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .hero-tag { font-size:11px; padding:4px 12px; border-radius:100px; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); font-weight:500; }
+  .hero-tag.regional { background:var(--regional-soft); color:var(--regional); border-color:var(--regional-border); }
+
+  .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
+  .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+  .section-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-btn { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
+  .nav-btn:hover, .nav-btn.active { color:var(--accent); background:var(--accent-soft); }
+
+  .section { padding:44px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom:none; }
+  .section-num { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); opacity:0.7; margin-bottom:6px; text-transform:uppercase; }
+  .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
+  .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); margin-bottom:20px; }
+  .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section p:last-child { margin-bottom:0; }
+  .section h3 { font-size:14px; font-weight:700; color:var(--text-sub); margin:28px 0 12px; padding-left:10px; border-left:2px solid var(--accent); }
+  .section h3.regional { border-left-color:var(--regional); }
+
+  .info-box { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:16px 0; }
+  .info-box-accent { background:var(--accent-soft); border-color:var(--accent-border); border-left:3px solid var(--accent); }
+  .info-box-regional { background:var(--regional-soft); border-color:var(--regional-border); border-left:3px solid var(--regional); }
+  .info-box-warn { background:var(--warn-soft); border-color:var(--warn-border); border-left:3px solid var(--warn); }
+  .info-box-success { background:var(--success-soft); border-color:var(--success-border); border-left:3px solid var(--success); }
+  .info-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+  .box-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .box-label-regional { color:var(--regional); }
+  .box-label-warn { color:var(--warn); }
+  .box-label-success { color:var(--success); }
+  .hl { color:var(--accent); font-weight:600; }
+  .hl-regional { color:var(--regional); font-weight:600; }
+  .hl-warn { color:var(--warn); font-weight:600; }
+
+  .table-wrap { overflow-x:auto; margin:16px 0; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  thead { background:var(--surface-2); }
+  th { padding:10px 14px; text-align:left; font-weight:700; font-size:10px; letter-spacing:1px; color:var(--text-muted); border-bottom:1px solid var(--border); white-space:nowrap; text-transform:uppercase; }
+  td { padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-dim); vertical-align:top; line-height:1.7; }
+  tr:last-child td { border-bottom:none; }
+  td:first-child { font-weight:700; color:var(--text-sub); }
+
+  .trend-card { padding:20px 22px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:12px 0; }
+  .trend-num { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .trend-card h4 { font-size:14px; font-weight:700; margin-bottom:10px; color:var(--text); }
+  .trend-card p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:10px; }
+  .trend-card p:last-child { margin-bottom:0; }
+  .use-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:10px; font-weight:700; margin:6px 4px 4px 0; letter-spacing:1px; text-transform:uppercase; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); }
+  .use-tag-r { background:var(--regional-soft); color:var(--regional); border:1px solid var(--regional-border); }
+
+  .company-group { margin:20px 0; }
+  .company-group-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--text-muted); margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--border); text-transform:uppercase; }
+  .company-card { padding:16px 18px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:8px; transition:border-color 0.2s; }
+  .company-card:hover { border-color:var(--border-hover); }
+  .company-card.primary { border-color:var(--accent-border); }
+  .company-card.primary-r { border-color:var(--regional-border); }
+  .company-type { font-size:10px; font-weight:700; color:var(--accent); letter-spacing:1px; margin-bottom:4px; text-transform:uppercase; }
+  .company-type.regional { color:var(--regional); }
+  .company-name { font-size:15px; font-weight:700; color:var(--text); margin-bottom:6px; }
+  .company-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:12px; color:var(--text-muted); font-weight:400; margin-left:6px; }
+  .company-desc { font-size:12px; color:var(--text-dim); line-height:1.8; }
+  .company-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+  .company-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .company-tag.m { background:var(--accent-soft); color:var(--accent); border-color:var(--accent-border); }
+  .company-tag.r { background:var(--regional-soft); color:var(--regional); border-color:var(--regional-border); }
+
+  .job-link-card { display:flex; align-items:flex-start; gap:14px; padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; text-decoration:none; transition:all 0.2s; margin-bottom:8px; }
+  .job-link-card:hover { border-color:var(--accent-border); background:var(--accent-soft); }
+  .job-link-icon { font-size:24px; flex-shrink:0; margin-top:2px; }
+  .job-link-body { flex:1; }
+  .job-link-kicker { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:4px; text-transform:uppercase; }
+  .job-link-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .job-link-desc { font-size:12px; color:var(--text-dim); line-height:1.7; margin-bottom:8px; }
+  .job-link-tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .job-link-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .job-link-arrow { font-size:16px; color:var(--accent); flex-shrink:0; margin-top:4px; }
+
+  .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0; }
+  .keyword-card { padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .keyword-name { font-size:13px; font-weight:700; color:var(--accent); margin-bottom:4px; }
+  .keyword-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); font-weight:400; margin-left:4px; }
+  .keyword-desc { font-size:11px; color:var(--text-dim); line-height:1.7; }
+
+  .es-pattern { padding:16px 18px; background:var(--surface-2); border-radius:8px; margin:12px 0; }
+  .es-pattern-label { font-size:10px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:8px; text-transform:uppercase; }
+  .es-pattern p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+
+  .footer { padding:40px 0 60px; border-top:1px solid var(--border); margin-top:20px; text-align:center; }
+  .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; margin-bottom:0; }
+  .footer .brand { font-weight:700; color:var(--text-dim); }
+
+  @media (max-width:640px) { .keyword-grid { grid-template-columns:1fr; } .hero h1 { font-size:24px; } .section-title { font-size:18px; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">업계 리포트 Vol.08</div>
+    <h1>은행 업계 완전 정리</h1>
+    <p class="hero-sub">
+      메가뱅크 3그룹의 구조와 글로벌 전략부터,<br>
+      요즘 취준생이 주목하는 지역은행의 현실까지 — 은행 업계를 한 페이지에 완전 정리.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">메가뱅크 3그룹</span>
+      <span class="hero-tag regional">지역은행 현실 공략</span>
+      <span class="hero-tag">금리 상승 수혜</span>
+      <span class="hero-tag">리테일·법인·마켓</span>
+      <span class="hero-tag">자격증 필수</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('s1')">01 업계전체상</button>
+    <button class="nav-btn" onclick="scrollTo('s2')">02 트렌드</button>
+    <button class="nav-btn" onclick="scrollTo('s3')">03 활약직종</button>
+    <button class="nav-btn" onclick="scrollTo('s4')">04 키워드</button>
+    <button class="nav-btn" onclick="scrollTo('s5')">05 기업리스트</button>
+    <button class="nav-btn" onclick="scrollTo('s6')">06 ES대책</button>
+    <button class="nav-btn" onclick="scrollTo('s7')">07 면접대책</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ════ S1 ════ -->
+<div class="section" id="s1">
+  <div class="section-num">SECTION 01</div>
+  <div class="section-title">업계 전체상</div>
+  <div class="section-title-jp">業界全体像 — メガバンク・地方銀行・ビジネスモデル</div>
+
+  <div class="info-box info-box-accent">
+    <div class="box-label">한 줄 정의</div>
+    <p><span class="hl">예금을 모아 대출하고 그 금리 차익(利鞘)으로 수익을 얻는 "금융 인프라 기업." 메가뱅크는 글로벌 투자은행·마켓 사업으로 확장 중이며, 지역은행은 지역 경제를 지탱하는 중소기업 금융이 핵심이다.</span></p>
+  </div>
+
+  <p>일본 은행 업계는 크게 <span class="hl">3대 메가뱅크 그룹</span>과 <span class="hl-regional">지방은행·제2지방은행</span>으로 나뉜다. 2024년부터 일본은행의 금리 인상이 시작되면서, 수십 년 만의 금리 환경 변화로 은행 업계 전체가 구조적 호황기에 들어서고 있다.</p>
+
+  <h3>메가뱅크 3그룹 구조</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>그룹명</th><th>중핵 은행</th><th>총자산</th><th>특징</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>三菱UFJフィナンシャル・グループ (MUFG)</td>
+          <td>三菱UFJ銀行</td>
+          <td>약 412조엔<br><span style="font-size:10px;color:var(--text-muted);">(2025.3, 세계 5위)</span></td>
+          <td>일본 최대. 글로벌 전개 가장 적극적. 미국 MUFG Union Bank·태국 방콕은행 등 해외 네트워크 최강. 투자은행·마켓 사업 강함</td>
+        </tr>
+        <tr>
+          <td>三井住友フィナンシャルグループ (SMFG)</td>
+          <td>三井住友銀行</td>
+          <td>약 290조엔<br><span style="font-size:10px;color:var(--text-muted);">(2025.3)</span></td>
+          <td>수익성 메가뱅크 최상위. "규모보다 수익"의 경영 철학. 아시아 사업 강화 중. 카드·リース·証券과의 그룹 시너지 풍부</td>
+        </tr>
+        <tr>
+          <td>みずほフィナンシャルグループ</td>
+          <td>みずほ銀行</td>
+          <td>약 258조엔<br><span style="font-size:10px;color:var(--text-muted);">(2025.3)</span></td>
+          <td>후지·다이이치간교·흥업의 3행 합병 역사. IT 투자·시스템 안정화에 주력. 산업조사 및 리서치 부문이 업계 유수. DX 전략 적극적</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>지역은행 구조</h3>
+
+  <p>지역은행(地方銀行)은 특정 지역을 영업 기반으로 하는 은행이다. 전국에 약 100행 이상 존재하며, 지역 중소기업·개인에 대한 금융 서비스가 핵심이다. <span class="hl-regional">인구 감소·저금리 시대를 거쳐 광역 합병이 진행되어 현재는 "규모가 큰 지역은행 그룹"이 부각되는 구도</span>다.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>분류</th><th>특징</th><th>대표</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>제1지방은행<br>(地方銀行)</td>
+          <td>각 도도부현의 대표 은행. 지역 경제와 중소기업 금융의 중심. 전국지방銀行協会 가맹. 행수 62행</td>
+          <td>横浜銀行, 千葉銀行, 福岡銀行, 静岡銀行 등</td>
+        </tr>
+        <tr>
+          <td>제2지방은행<br>(第二地方銀行)</td>
+          <td>상호저축은행에서 전환된 은행. 제1지방은행보다 규모가 작고 지역 밀착도가 더 높은 경향. 제二地銀協加盟. 행수 38행</td>
+          <td>東日本銀行(横浜FG), 千葉興業銀行 등</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>비즈니스 모델 — 은행은 어떻게 돈을 버는가</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>수익 모델</th><th>내용</th><th>메가뱅크</th><th>지역은행</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>資金利益<br>(금리 차익)</td>
+          <td>예금 금리보다 높은 금리로 대출해 그 차익(利鞘)을 얻음. 은행 수익의 근간</td>
+          <td>전체 수익의 50~60%</td>
+          <td>전체 수익의 70~80%로 의존도 높음</td>
+        </tr>
+        <tr>
+          <td>役務利益<br>(수수료 수익)</td>
+          <td>송금·외환·投信판매·法인 컨설팅·M&A 자문 수수료 등</td>
+          <td>수수료 수익 확대에 적극적. 투자은행 사업이 성장 엔진</td>
+          <td>투자신탁 판매·相続 컨설팅 등으로 확대 중</td>
+        </tr>
+        <tr>
+          <td>市場売買益<br>(마켓 수익)</td>
+          <td>채권·주식·외환 트레이딩으로 수익 창출</td>
+          <td>마켓 부문이 중요한 수익 축. 특히 MUFG·SMBC</td>
+          <td>비중 낮음. 주로 국채 운용</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>메가뱅크 vs 지역은행 — 어디를 선택할 것인가</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>비교 항목</th><th>메가뱅크</th><th>지역은행</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>업무 규모</td>
+          <td>글로벌 기업·대기업의 대규모 딜. 수백억~수조엔 규모의 프로젝트</td>
+          <td>지역 중소기업·개인. 수백만~수억엔 규모의 지역 밀착 금융</td>
+        </tr>
+        <tr>
+          <td>전근·이동</td>
+          <td>전국·해외 전근 빈번. 5~10년마다 지역 이동. 해외 주재 기회 있음</td>
+          <td>원칙 지역 내 이동. 생활 거점을 안정적으로 유지 가능</td>
+        </tr>
+        <tr>
+          <td>커리어 폭</td>
+          <td>리테일→法人→マーケット→投資銀行까지 광범위. 부서 이동으로 전문성 쌓기 가능</td>
+          <td>리테일·法人이 중심. 専門分野は絞られるが地域に深く関与できる</td>
+        </tr>
+        <tr>
+          <td>연봉</td>
+          <td>업계 최상위. MUFG·SMBC 평균 800만엔대 이상</td>
+          <td>메가뱅크보다 낮지만 지역 내 상위 수준. 橫浜FG·千葉銀行 등 상위행은 700만엔대</td>
+        </tr>
+        <tr>
+          <td>채용 난이도</td>
+          <td>일본 취업 시장 최상위급. 특히 総合職은 상위 대학 출신이 대다수</td>
+          <td>메가뱅크보다 현실적. 지역별 경쟁률 다양</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">채용 난이도 — 반드시 인식해야 할 현실</div>
+    <p>메가뱅크 総合職은 <span class="hl-warn">일본 취업 시장 최상위급 난이도</span>다. 특히 MUFG·SMBC는 유명 대학 출신도 다수 탈락하는 전형이며, 외국인 채용 비율이 낮고 일본어 능력과 SPI 모두 최고 수준이 요구된다.<br><br>
+    <span class="hl-regional">최근 취준생 사이에서 지역은행을 제1지망으로 설정하는 경향이 늘고 있다.</span> 메가뱅크에만 집중했다가 전멸하는 케이스가 많고, 지역은행도 시가총액 1조엔을 넘는 준메가급 그룹이 등장하면서 처우·안정성 면에서 매력이 높아지고 있다. <strong style="color:var(--text-sub);">메가뱅크 1~2사 + 지역은행 3~4사를 세트로 공략하는 전략이 현실적이다.</strong></p>
+  </div>
+</div>
+
+<!-- ════ S2 ════ -->
+<div class="section" id="s2">
+  <div class="section-num">SECTION 02</div>
+  <div class="section-title">면접관이 체크하는 트렌드 3선</div>
+  <div class="section-title-jp">面接官がチェックするトレンド</div>
+
+  <p>"최근 은행 업계에서 주목하는 것이 있나요?" — 반드시 나오는 질문. <span class="hl">메가뱅크와 지역은행에서 트렌드의 영향이 다르게 나타난다</span>는 것을 이해하고, 지원하는 은행에 맞게 연결해서 말해야 한다.</p>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 01</div>
+    <h4>금리 상승 시대의 도래 — 수십 년 만의 구조적 환경 변화</h4>
+    <p>일본은행이 2024년 3월 마이너스 금리 정책을 해제하고 이후 단계적 금리 인상을 진행하면서, <span class="hl">수십 년간 지속된 제로금리·마이너스 금리 시대가 종언</span>을 고했다. 이는 은행 업계 전체에 구조적 호재다. 예금 금리와 대출 금리의 차이(利鞘)가 확대되면서 資金利益が大幅に改善している。</p>
+    <p>메가뱅크의 2025년 3월기 純利益はMUFG 약 1조 5,000억엔, SMBC 약 1조엔, 미즈호 약 7,500억엔으로 모두 과거 최고 수준을 경신했다. 지역은행도 금리 상승의 직접 수혜를 받고 있으며, 橫浜FG·千葉銀行 등 상위 지역은행의 시가총액이 1조엔대로 급성장했다.</p>
+    <div>
+      <span class="use-tag">메가뱅크 활용</span>
+      <span class="use-tag-r">지역은행 활용</span>
+    </div>
+    <p>"금리 상승은 은행 본업의 収益性が回復する転換点です。貸出金利と預金金利の差が広がる中、優良企業への融資や資産運用提案の質をいかに高めるかが競争力の核心になると考えています。"</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 02</div>
+    <h4>金融DX·デジタルバンキング — "창구"에서 "앱"으로의 전환</h4>
+    <p>스마트폰 뱅킹의 보급과 フィンテック 기업의 참여로, 은행의 전통적인 창구 중심 비즈니스 모델이 근본적으로 재편되고 있다. <span class="hl">메가뱅크는 지점·창구 수를 대폭 축소하고 디지털 채널에 투자를 집중</span>하는 방향으로 전환 중이다. 미즈호는 2024년까지 창구 수를 절반으로 줄이는 계획을 추진했으며, MUFG도 디지털 인재 채용을 대폭 확대하고 있다.</p>
+    <p>지역은행에서는 <span class="hl-regional">광역 합병 후 시스템 통합과 공동 플랫폼 구축이 DX의 핵심 과제</span>다. 교토FG는 독자 디지털 전략으로 전국적으로 주목받고 있으며, 지역 스타트업 지원·지역 과제 해결형 금융으로의 전환이 지역은행 DX의 방향성이다.</p>
+    <div>
+      <span class="use-tag">메가뱅크 활용</span>
+      <span class="use-tag-r">지역은행 활용</span>
+    </div>
+    <p>메가뱅크: "デジタルバンキングへの移行は、銀行員の役割を『窓口での事務処理』から『高度な金融コンサルティング』へシフトさせる機会です。"<br>
+    지역은행: "地域銀行のDXは、システム効率化だけでなく、地域企業のデジタル化を伴走支援する新たな価値創造の機会だと考えています。"</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 03</div>
+    <h4>지역 창생·중소기업 지원 — 지역은행의 새로운 존재 이유</h4>
+    <p>인구 감소와 산업 공동화가 진행되는 지방에서, <span class="hl-regional">지역은행이 단순 금융 기관을 넘어 지역 경제의 "에코시스템 설계자"로 역할을 확장</span>하는 움직임이 가속되고 있다. 후쿠오카FG는 스타트업 지원 프로그램을 운영하며 규슈 경제의 허브를 목표로 하고 있고, 横浜FG는 탈炭素·ESG 경영 지원을 지역 기업에 제공하고 있다.</p>
+    <p>政府도 地域金融機関에 의한 중소기업 사업 재생·M&A 지원을 강력히 추진하고 있어, 지역은행의 担당자가 기업의 경영 과제에 깊이 관여하는 "경영 파트너형" 금융의 수요가 높아지고 있다.</p>
+    <div>
+      <span class="use-tag-r">지역은행 활용</span>
+    </div>
+    <p>"地域銀行は融資を超えて、地域企業の事業承継・M&A・DX支援まで担う存在になりつつあります。お金を動かすだけでなく、地域の産業基盤そのものを守り育てる仕事に魅力を感じています。"</p>
+  </div>
+</div>
+
+<!-- ════ S3 ════ -->
+<div class="section" id="s3">
+  <div class="section-num">SECTION 03</div>
+  <div class="section-title">이 업계에서 활약하는 직종</div>
+  <div class="section-title-jp">銀行業界で活躍する職種</div>
+
+  <p>은행의 직종은 크게 <span class="hl">리테일(개인·중소기업 창구 영업), 법인(대기업·중견기업 담당), 마켓(트레이딩·운용), IT·デジタル</span>으로 나뉜다. 신졸 総合職은 대부분 리테일 또는 法人 영업에서 시작한다.</p>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/sales-eg05-finance" target="_blank" class="job-link-card">
+    <div class="job-link-icon">🏦</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">핵심 직종 — 직종 상세 카드 EG-05</div>
+      <div class="job-link-title">금융영업 — "돈"이라는 눈에 보이지 않는 상품을 파는 사람</div>
+      <div class="job-link-desc">
+        은행이면 대출·예금, 증권이면 주식·채권, 보험이면 보험 상품을 개인·기업 고객에게 제안하는 직종. <strong style="color:var(--text-sub);">신뢰가 전부인 업계 — "이 사람을 믿을 수 있는가"로 모든 것이 결정된다.</strong> 입사 후 자격증 공부가 끝없이 이어진다는 현실도 반드시 이해할 것.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">신뢰가 전부</span>
+        <span class="job-link-tag">자격증 필수</span>
+        <span class="job-link-tag">리테일·법인 분기</span>
+        <span class="job-link-tag">공부를 싫어하면 힘든 업계</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <div class="info-box" style="margin-top:20px;">
+    <div class="box-label">은행 직종 구조 상세</div>
+    <p>
+      <strong style="color:var(--text-sub);">리테일 (個人·中小企業):</strong> 개인 고객의 예금·대출·자산운용 제안. 중소기업에 대한 運転資金·設備資金 融資. 신졸의 대부분이 여기서 시작. 지역은행은 이 부문이 전체 업무의 중심.<br><br>
+      <strong style="color:var(--text-sub);">법인·ホールセール:</strong> 대기업·중견기업의 자금 조달·M&A자문·海外進出支援. 메가뱅크의 核心 수익원. 리테일 경험 후 이동하는 경우가 많음.<br><br>
+      <strong style="color:var(--text-sub);">마켓 (트레이딩·운용):</strong> 채권·주식·외환 트레이딩. 이과·수리계 인재도 많음. 메가뱅크에서만 존재하는 실질적 포지션. 지원 시 별도 어필 필요.<br><br>
+      <strong style="color:var(--text-sub);">IT·デジタル:</strong> 뱅킹 시스템 개발·핀테크 협업·디지털 전략 기획. 메가뱅크는 IT 인재 채용을 대폭 확대 중. 지역은행도 DX 추진 인재 수요 증가.<br><br>
+      <span class="hl">지역은행 지원자는 "리테일 + 法人 융자" 양쪽에서 어떤 역할을 하고 싶은지를 구체적으로 준비해야 한다.</span>
+    </p>
+  </div>
+</div>
+
+<!-- ════ S4 ════ -->
+<div class="section" id="s4">
+  <div class="section-num">SECTION 04</div>
+  <div class="section-title">은행 × 직종별 자기분석 키워드</div>
+  <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+  <p>은행은 <span class="hl">신뢰·성실성·꼼꼼함이 기본 전제</span>이며, 메가뱅크와 지역은행에서 강점이 발휘되는 맥락이 다르다.</p>
+
+  <h3>리테일 영업에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">경청력 <span class="keyword-name-jp">傾聴力</span></div>
+      <div class="keyword-desc">고객의 라이프플랜(결혼·주택·교육·노후)을 히어링하고 잠재 니즈를 파악하는 능력. "말하지 않는 불안"을 읽어내는 힘이 금융 리테일의 핵심. 신뢰 관계는 경청에서 시작된다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">성실성 <span class="keyword-name-jp">誠実性</span></div>
+      <div class="keyword-desc">고객의 소중한 자산을 맡는 은행에서 "이 사람을 믿을 수 있는가"가 전부다. 약속 이행·정확한 설명·불리한 정보도 전달하는 정직함이 장기 신뢰 관계의 기반.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">책임감 <span class="keyword-name-jp">責任感</span></div>
+      <div class="keyword-desc">자격증 취득·법령 준수·고객 자산 관리까지 "실수가 허용되지 않는" 업계의 기본 자세. 자격증 취득 의무, 연도 목표 달성 등 은행 고유의 요구에 끝까지 임하는 힘.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">향상심 <span class="keyword-name-jp">向上心</span></div>
+      <div class="keyword-desc">FP·은행業務検定·証券外務員 등 자격증 취득이 끊임없이 요구되는 업계에서 학습을 즐기는 자세. 금리·경제·시장 동향을 일상적으로 공부하는 습관이 필수.</div>
+    </div>
+  </div>
+
+  <h3>법인 영업에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">통찰력 <span class="keyword-name-jp">洞察力</span></div>
+      <div class="keyword-desc">기업의 재무제표와 사업 계획을 분석해 "이 회사의 진짜 과제는 무엇인가"를 파악하는 힘. 법인 담당에게 재무분석 능력은 기본 중의 기본이며 이 능력이 信頼を生む。</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">조정력 <span class="keyword-name-jp">調整力</span></div>
+      <div class="keyword-desc">기업의 사장·CFO와의 관계 구축부터 사내 審査部門과의 조정까지 다층 이해관계자를 동시에 관리하는 능력. 대출 심사를 통과시키기 위해 사내를 설득하는 힘이 法人営業의 핵심.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">논리적사고력 <span class="keyword-name-jp">論理的思考力</span></div>
+      <div class="keyword-desc">기업의 사업 계획을 분석하고 "왜 이 융자가 적절한가"를 심사부문에 설명하는 능력. M&A·자금 조달 제안에서 재무 모델링과 논리 구성이 요구된다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">주체성 <span class="keyword-name-jp">主体性</span></div>
+      <div class="keyword-desc">담당 기업의 경영 과제를 스스로 파악하고 먼저 제안하는 자세. "요청이 올 때까지 기다리는" 법인 영업은 거래처를 빼앗긴다. 선제적으로 가치를 만드는 능력.</div>
+    </div>
+  </div>
+
+  <h3 class="regional">지역은행 특유의 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">공헌의식 <span class="keyword-name-jp">貢献意識</span></div>
+      <div class="keyword-desc">지역은행에서 가장 중요한 축. "이 지역에서 살아가는 사람들과 기업의 생활을 지탱하고 싶다"는 진정성 있는 동기. 메가뱅크와 달리 자신의 기여가 지역에 직접 가시화된다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">협조성 <span class="keyword-name-jp">協調性</span></div>
+      <div class="keyword-desc">지역은행은 지역 내에서 오랜 기간 사람들과 관계를 맺는 세계. 팀으로 지역을 지탱하는 자세와 동료와의 장기 협업 능력이 조직 문화에 맞는 인재 요건이다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">관계구축력 <span class="keyword-name-jp">関係構築力</span></div>
+      <div class="keyword-desc">지역은행의 담당 거래처는 수십 년 단위의 장기 관계. "어릴 때부터 아는 은행 담당자"를 만들어가는 힘. 꾸준한 방문·약속 이행·지역 행사 참여가 관계의 기반.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">냉정함 <span class="keyword-name-jp">冷静さ</span></div>
+      <div class="keyword-desc">거래처 기업의 경영 위기·불량 채권 처리 등 어려운 상황에서도 감정에 흔들리지 않고 최적 해결책을 찾는 힘. 지역은행의 法人担당은 거래처의 경영 재건까지 관여하는 경우가 있다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S5 ════ -->
+<div class="section" id="s5">
+  <div class="section-num">SECTION 05</div>
+  <div class="section-title">기업 비교 & 리스트</div>
+  <div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+
+  <p><span class="hl">메가뱅크 1~2사 + 지역은행 3~4사를 세트로 공략하는 전략이 현실적이다.</span> 특히 시가총액 5,000억~1조엔대의 지역은행 상위 그룹은 처우·안정성·성장성 면에서 메가뱅크에 뒤지지 않는 수준으로 올라왔다.</p>
+
+  <!-- 메가뱅크 -->
+  <div class="company-group">
+    <div class="company-group-label">🏛️ 메가뱅크 3그룹</div>
+
+    <div class="company-card primary">
+      <div class="company-type">메가뱅크 | 국내 최대 · 글로벌 최강</div>
+      <div class="company-name">三菱UFJフィナンシャル・グループ <span class="company-name-jp">MUFG</span></div>
+      <div class="company-desc">총자산 약 412조엔으로 일본 최대이자 세계 5위 규모. 순이익 약 1조 5,000억엔(2025.3, 과거 최고). 글로벌 네트워크 최강으로 해외 주재 기회 가장 풍부. 투자은행·마켓·신탁·カード까지 그룹 내 폭넓은 커리어 경로. 채용 難度 최상위.</div>
+      <div class="company-tags">
+        <span class="company-tag m">총자산 세계 5위</span>
+        <span class="company-tag">순이익 1.5조엔</span>
+        <span class="company-tag">글로벌 네트워크 최강</span>
+        <span class="company-tag">채용 최상위</span>
+      </div>
+    </div>
+
+    <div class="company-card primary">
+      <div class="company-type">메가뱅크 | 수익성 최상위</div>
+      <div class="company-name">三井住友フィナンシャルグループ <span class="company-name-jp">SMBC</span></div>
+      <div class="company-desc">순이익 약 1조엔(2025.3). "규모보다 수익"의 경영 철학으로 메가뱅크 중 수익성 최상위. 아시아 사업 강화 중. 카드(三井住友カード)·리스(SMFL)·증권과의 그룹 시너지 풍부. 법인 영업의 강도가 높고 성과주의 색채 강함.</div>
+      <div class="company-tags">
+        <span class="company-tag m">수익성 메가뱅크 1위</span>
+        <span class="company-tag">순이익 1조엔</span>
+        <span class="company-tag">아시아 강화</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">메가뱅크 | IT·리서치 강점</div>
+      <div class="company-name">みずほフィナンシャルグループ</div>
+      <div class="company-desc">순이익 약 7,500억엔(2025.3). 3행 합병의 역사를 거쳐 시스템 안정화에 주력 중. 산업조사·리서치 부문이 업계 유수. DX 전략 적극 추진. 법인 고객 기반이 탄탄하며 IT인재 채용 확대. 메가뱅크 중 가장 채용 접근성이 현실적이라는 평도 있음.</div>
+      <div class="company-tags">
+        <span class="company-tag m">리서치 업계 최강</span>
+        <span class="company-tag">DX 투자 적극</span>
+        <span class="company-tag">3행 합병 역사</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 지역은행 현실 공략 존 -->
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--regional);">🌏 지역은행 현실 공략 존</div>
+
+    <div class="company-card primary-r">
+      <div class="company-type regional">지역은행 시가총액 1위 | 수도권</div>
+      <div class="company-name">コンコルディア・フィナンシャルグループ <span class="company-name-jp">横浜FG</span></div>
+      <div class="company-desc">시가총액 약 1조 4,000억엔으로 지역은행 1위. 横浜銀行·東日本銀行을 산하에 보유. 수도권·神奈川을 지반으로 神奈川県 경제의 핵심 파트너. 총자산 약 18조엔의 거대 지역은행 그룹. 탈탄소·ESG 지원 등 선진적 法人 컨설팅. 취준생 인기 지역은행 1위.</div>
+      <div class="company-tags">
+        <span class="company-tag r">시가총액 지역은행 1위</span>
+        <span class="company-tag">신가와·수도권 지반</span>
+        <span class="company-tag">총자산 18조엔</span>
+      </div>
+    </div>
+
+    <div class="company-card primary-r">
+      <div class="company-type regional">지역은행 시가총액 2위급 | 수도권</div>
+      <div class="company-name">千葉銀行</div>
+      <div class="company-desc">시가총액 약 1조 463억엔. 千葉県 내 대출 점유율 1위의 압도적 지역 기반. 武蔵野銀行·横浜銀行 등과 "TSUBASAアライアンス"를 형성해 광역 서비스 제공. 인터넷 뱅킹·デジタル전략에도 적극적. 千葉県의 성장하는 인구·경제를 배경으로 안정적 사업 기반.</div>
+      <div class="company-tags">
+        <span class="company-tag r">千葉県 점유율 1위</span>
+        <span class="company-tag">TSUBASAアライアンス</span>
+        <span class="company-tag">시가총액 1조엔대</span>
+      </div>
+    </div>
+
+    <div class="company-card primary-r">
+      <div class="company-type regional">지역은행 인기 1위 | 규슈</div>
+      <div class="company-name">ふくおかフィナンシャルグループ <span class="company-name-jp">福岡FG</span></div>
+      <div class="company-desc">시가총액 약 7,435억엔. 福岡銀行·熊本銀行·十八親和銀行을 산하에 보유하며 규슈 전역을 커버. 福岡市의 스타트업·IT 산업 집积을 배경으로 성장성 높음. 스타트업 지원 프로그램·이노베이션 지원 등 지역은행 중 가장 진취적인 전략. 취준생 인기가 특히 높음.</div>
+      <div class="company-tags">
+        <span class="company-tag r">규슈 전역 커버</span>
+        <span class="company-tag">스타트업 지원 선도</span>
+        <span class="company-tag">취준생 인기 최상위</span>
+      </div>
+    </div>
+
+    <div class="company-card primary-r">
+      <div class="company-type regional">지역은행 3위급 | 정적·수도권</div>
+      <div class="company-name">しずおかフィナンシャルグループ <span class="company-name-jp">静岡FG</span></div>
+      <div class="company-desc">시가총액 약 9,548억엔. 静岡銀行·清水銀行을 산하에 보유. 静岡県·神奈川西部의 제조업·관광업 중심 기업 기반이 강고. 안정적 수익 기반과 높은 자기자본 비율로 재무 건전성 업계 최상위급. 수도권에 인접해 취업·생활 환경도 양호.</div>
+      <div class="company-tags">
+        <span class="company-tag r">시가총액 9,500억엔</span>
+        <span class="company-tag">재무 건전성 최상위</span>
+        <span class="company-tag">제조업 기업 기반</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type regional">지역은행 | 관동 광역 커버</div>
+      <div class="company-name">めぶきフィナンシャルグループ</div>
+      <div class="company-desc">시가총액 약 7,077억엔. 常陽銀行(茨城)·足利銀行(栃木)를 산하에 보유. 北関東·南東北을 폭넓게 커버하는 관동 광역 지역은행 그룹. 합병 후 시너지 창출 중. 이바라키·도치기의 제조업·농업 중심 기업 기반. 수도권 접근성도 있음.</div>
+      <div class="company-tags">
+        <span class="company-tag r">北関東 광역 커버</span>
+        <span class="company-tag">常陽·足利 합병</span>
+        <span class="company-tag">시가총액 7,000억엔대</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type regional">주목 지역은행 | 독자 디지털 전략</div>
+      <div class="company-name">京都フィナンシャルグループ <span class="company-name-jp">京都FG</span></div>
+      <div class="company-desc">京都銀行·南都銀行을 산하에 보유. 최근 독자적인 디지털 전략과 스타트업 지원으로 지역은행 업계에서 가장 주목받는 그룹 중 하나. 교토의 전통 기업·첨단 기술기업 양쪽과의 깊은 관계가 강점. 시가총액 급상승으로 지역은행 상위 진입 중. 혁신적인 지역 금융의 모델로 취준생 관심도 상승 중.</div>
+      <div class="company-tags">
+        <span class="company-tag r">디지털 전략 선도</span>
+        <span class="company-tag">교토 전통·첨단 기업</span>
+        <span class="company-tag">시가총액 급상승</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S6 ════ -->
+<div class="section" id="s6">
+  <div class="section-num">SECTION 06</div>
+  <div class="section-title">ES 대책</div>
+  <div class="section-title-jp">合格パターン·落とし穴</div>
+
+  <p>은행 ES의 최대 함정은 <span class="hl">"安定しているから" "社会に貢献したいから"만으로 끝나는 지원 동기</span>다. 은행 지원자의 대다수가 이 표현을 쓰기 때문에 기억에 남지 않는다. <strong style="color:var(--text-sub);">"어떤 고객의 어떤 과제를 어떻게 해결하고 싶은가"</strong>가 메가뱅크와 지역은행 모두에서 핵심이다.</p>
+
+  <h3>빈출 질문 TOP5</h3>
+
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 20px;">
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">① 학생시절 힘쓴 것</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">② 지원동기</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">③ 입사 후 하고 싶은 것</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">④ 자기PR</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">⑤ 왜 은행인가 (증권·보험이 아닌 이유)</span>
+  </div>
+
+  <div class="es-pattern">
+    <div class="es-pattern-label">✅ 메가뱅크 합격 지원 동기 4단계</div>
+    <p>
+      Step 1. 글로벌 금융·M&A·기업 성장 지원 등 "메가뱅크만이 할 수 있는 규모의 임팩트"를 구체적으로 제시<br>
+      Step 2. 자신의 원체험(아르바이트·인턴·경험)에서 "금융의 힘으로 과제를 해결하고 싶다"는 동기를 연결<br>
+      Step 3. 왜 이 메가뱅크인가 — 글로벌 네트워크/수익성 철학/그룹 시너지 중 하나를 축으로 차별화<br>
+      Step 4. 리테일→法人→マーケット 중 어디에서 어떤 역할을 하고 싶은지 커리어 비전으로 마무리
+    </p>
+  </div>
+
+  <div class="es-pattern">
+    <div class="es-pattern-label">✅ 지역은행 합격 지원 동기 4단계</div>
+    <p>
+      Step 1. "이 지역에서 살고 싶다" or "이 지역의 경제를 지탱하고 싶다"는 지역 밀착 동기를 원체험으로 제시<br>
+      Step 2. 지역 중소기업·개인 고객에 대한 금융 지원이 지역 경제 전체에 미치는 임팩트를 언어화<br>
+      Step 3. 왜 메가뱅크가 아닌 지역은행인가 — "지역 내에서 고객과 장기 관계를 쌓고 싶다" "자신의 기여가 지역에 직접 보이는 환경을 원한다"를 적극적으로 언어화<br>
+      Step 4. 리테일 영업·中小企業融資·事業承継支援 등 구체적 역할 제시
+    </p>
+  </div>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">❌ 불합격 공통 실수</div>
+    <p>
+      <span class="hl-warn">실수 1:</span> "安定しているから銀行を選びました" — 은행 면접관이 가장 싫어하는 답변. 금융업 자체에 대한 관심이 없음을 드러냄<br>
+      <span class="hl-warn">실수 2:</span> 지역은행에 "グローバルな仕事をしたい"고 씀 — 지역은행의 업무 특성에 대한 이해 부족. 지역 밀착을 긍정적으로 선택하는 논리가 없으면 탈락<br>
+      <span class="hl-warn">실수 3:</span> "なぜ銀行か"에서 증권·보험과의 차이를 말하지 못함 — 은행은 융자(수동적 지원)이 가능한 반면 증권·보험은 투자상품 판매가 중심이라는 구조적 차이를 이해하고 있어야 함
+    </p>
+  </div>
+</div>
+
+<!-- ════ S7 ════ -->
+<div class="section" id="s7">
+  <div class="section-num">SECTION 07</div>
+  <div class="section-title">면접 대책</div>
+  <div class="section-title-jp">面接対策 — 頻出質問·選考フロー</div>
+
+  <p>은행 면접은 <span class="hl">성실성·신뢰감·논리 구성</span>이 핵심이다. 특히 금융 업계는 "이 사람에게 소중한 자산을 맡길 수 있는가"라는 시점에서 면접관이 지원자를 보고 있음을 항상 의식해야 한다.</p>
+
+  <h3>전형 단계 구조</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>단계</th><th>메가뱅크</th><th>지역은행</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>서류·적성</td>
+          <td>ES + SPI3(언어·비언어·성격). 비언어 기준이 높음. 일부는 英語 시험 병행</td>
+          <td>ES + SPI or 독자 필기시험. 메가뱅크보다 기준 현실적</td>
+        </tr>
+        <tr>
+          <td>인턴</td>
+          <td>여름·겨울 인턴. 조기 선발 루트가 강해지는 중. 특히 MUFG·SMBC는 인턴 참가가 有利</td>
+          <td>인턴→説明会→座談会 참가가 호감도 형성에 직결. 지역은행은 "이 지역을 선택한 이유"를 인턴에서 어필하는 것이 효과적</td>
+        </tr>
+        <tr>
+          <td>1차 면접</td>
+          <td>인사담당자. 가쿠치카·지원 동기 + 금융 업계 이해도 확인</td>
+          <td>인사담당자 or 현장 직원. 지역 정착 의향·지원 동기의 진정성을 봄</td>
+        </tr>
+        <tr>
+          <td>2차 면접</td>
+          <td>부장급. 커리어 비전·金融知識을 깊이 파고듦. 왜 메가뱅크인가의 논리 확인</td>
+          <td>지점장·부부장급. "왜 이 지역은행인가"의 구체성을 봄</td>
+        </tr>
+        <tr>
+          <td>최종 면접</td>
+          <td>임원급. 인물·인성·입사 의향 확인. "10년 후 어떤 뱅커가 되고 싶은가"가 빈출</td>
+          <td>임원급. 지역 정착 의향과 長期的 비전 확인이 중심</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>빈출 질문 & 답변 포인트</h3>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 01</div>
+    <h4>왜 은행인가? 왜 증권·보험이 아닌가?</h4>
+    <p>금융 업계 면접에서 반드시 나오는 질문. 은행·증권·보험의 구조적 차이를 이해하고 있어야 한다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 방향:</strong> "銀行は融資という形で、お客様の夢や事業に対して能動的に資金を提供できます。証券や保険は既存の商品を販売する側面が強いのに対し、銀行はお客様の状況に合わせてオーダーメイドの解決策を設計できる点に魅力を感じています。"</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 02</div>
+    <h4>(지역은행) 왜 메가뱅크가 아니라 우리 은행인가?</h4>
+    <p>지역은행 면접에서 <span class="hl">반드시 나오는 가장 중요한 질문.</span> "메가뱅크에 떨어졌으니까"라는 인상을 주면 즉시 탈락이다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 방향:</strong> "메가뱅크는 규모는 크지만 고객 한 명 한 명과 장기적으로 깊은 관계를 쌓는 것은 구조적으로 어렵습니다. 저는 [이 지역]에서 살아가는 人들과 기업의 과제에 직접 관여하고, 자신의 기여가 지역에 직접 가시화되는 환경에서 일하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 03</div>
+    <h4>10년 후 어떤 뱅커가 되고 싶은가?</h4>
+    <p>은행 最終面接에서 빈번히 나오는 질문. 단순한 커리어 비전보다 <span class="hl">"어떤 고객에게 어떤 가치를 제공하는 뱅커가 되고 싶은가"</span>를 말해야 한다.</p>
+    <p><strong style="color:var(--text-sub);">메가뱅크 예시:</strong> "우선 리테일로 금융의 기초 체력을 쌓고, 法人 영업에서 기업 재무 전반을 지원하는 경험을 쌓고 싶습니다. 10년 후에는 특정 업종(예: 제조·IT)에서 자금 조달·M&A까지 일관 지원할 수 있는 専門性을 가진 뱅커가 목표입니다."</p>
+    <p><strong style="color:var(--text-sub);">지역은행 예시:</strong> "지역 중소기업의 経営パートナーとして、融資にとどまらず事業承継・海外展開・デジタル化まで伴走できる担当者になりたいと考えています。"</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 04</div>
+    <h4>금리 상승이 은행 업계에 어떤 영향을 미친다고 생각하는가?</h4>
+    <p>최근 면접에서 증가 중인 현실적 질문. 단순히 "수익이 늘어난다"만 말하면 표면적이다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 방향:</strong> "金利上昇は資金利益の改善という追い風をもたらす一方、変動金利の住宅ローンを持つ個人顧客の返済負担増加や、資金調達コストが上昇する中小企業への影響も考える必要があります。銀行として顧客に寄り添ったアドバイスの重要性がより高まる環境だと捉えています。"</p>
+  </div>
+
+  <div class="info-box info-box-regional">
+    <div class="box-label box-label-regional">지역은행 면접 특별 포인트</div>
+    <p>
+      <span class="hl-regional">지역 정착 의향은 가장 중요한 평가 기준이다.</span> "卒業後もこの地域に住み続けたいか" "なぜこの地域を選んだか"는 반드시 물어본다. 단순히 "이 은행이 좋아서"가 아니라 지역 자체에 대한 애착·관심을 진정성 있게 말할 수 있어야 한다.<br><br>
+      또한 지역은행은 은행 내부 분위기·지점 문화와의 적합성도 중요하게 본다. <strong style="color:var(--text-sub);">OB·OG 방문이나 인턴에서 현장 직원과 직접 대화하는 것이 합격 확률을 크게 높인다.</strong>
+    </p>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> 업계 리포트 Vol.08 — 은행 (銀行業界)</p>
+  <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+  <p style="margin-top:8px;font-size:10px;">본 리포트의 정보는 각사 IR자료, 채용 페이지, 일본은행 통계, OpenWork 등 공개 정보를 기반으로 구조화한 것입니다.</p>
+</div>
+
+</div>
+
+<script>
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  const y = el.getBoundingClientRect().top + window.pageYOffset - navH - 16;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7'];
+const navBtns = document.querySelectorAll('.nav-btn');
+function updateNav() {
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  let current = 's1';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= navH + 60) current = id;
+  });
+  navBtns.forEach((btn, i) => btn.classList.toggle('active', sections[i] === current));
+}
+window.addEventListener('scroll', updateNav);
+updateNav();
+</script>
+</body>
+</html>
