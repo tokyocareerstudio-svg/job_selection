@@ -6,9 +6,9 @@
   const BASE = 'https://job-selection.vercel.app';
 
   const NAV_ITEMS = [
+    { label: '진단 테스트',     file: 'career-test.html',    icon: '🧭' },
     { label: '직종 라이브러리', file: 'map-lv1.html',        icon: '🗺️' },
     { label: '업계 리포트',     file: 'industry-index.html', icon: '📋' },
-    { label: '진단 테스트',     file: 'career-test.html',    icon: '🧭' },
   ];
 
   // 현재 파일명 감지
