@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>소비재/화장품 업계 리포트 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --surface-3: #22222e;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #fd79a8;
+    --accent-soft: rgba(253,121,168,0.08);
+    --accent-border: rgba(253,121,168,0.2);
+    --warn: #f59e0b;
+    --warn-soft: rgba(245,158,11,0.06);
+    --warn-border: rgba(245,158,11,0.18);
+    --success: #34d399;
+    --success-soft: rgba(52,211,153,0.07);
+    --success-border: rgba(52,211,153,0.18);
+    --blue: #4a9eff;
+    --blue-soft: rgba(74,158,255,0.08);
+    --blue-border: rgba(74,158,255,0.18);
+    --foreign: #a29bfe;
+    --foreign-soft: rgba(162,155,254,0.08);
+    --foreign-border: rgba(162,155,254,0.2);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Noto Sans JP',sans-serif; line-height:1.8; font-size:15px; -webkit-font-smoothing:antialiased; }
+  .container { max-width:760px; margin:0 auto; padding:0 24px 100px; }
+
+  .hero { padding:64px 24px 48px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(253,121,168,0.06) 0%, transparent 70%); pointer-events:none; }
+  .hero-inner { position:relative; max-width:760px; margin:0 auto; }
+  .hero-label { display:inline-block; font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-border); padding:4px 12px; border-radius:12px; margin-bottom:20px; text-transform:uppercase; }
+  .hero h1 { font-size:30px; font-weight:900; line-height:1.3; margin-bottom:10px; letter-spacing:-0.5px; }
+  .hero-sub { font-size:13px; color:var(--text-dim); line-height:1.9; margin-bottom:20px; max-width:560px; }
+  .hero-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .hero-tag { font-size:11px; padding:4px 12px; border-radius:100px; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); font-weight:500; }
+  .hero-tag.foreign { background:var(--foreign-soft); color:var(--foreign); border-color:var(--foreign-border); }
+
+  .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
+  .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+  .section-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-btn { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
+  .nav-btn:hover, .nav-btn.active { color:var(--accent); background:var(--accent-soft); }
+
+  .section { padding:44px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom:none; }
+  .section-num { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); opacity:0.7; margin-bottom:6px; text-transform:uppercase; }
+  .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
+  .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); margin-bottom:20px; }
+  .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section p:last-child { margin-bottom:0; }
+  .section h3 { font-size:14px; font-weight:700; color:var(--text-sub); margin:28px 0 12px; padding-left:10px; border-left:2px solid var(--accent); }
+  .section h3.foreign { border-left-color:var(--foreign); }
+
+  .info-box { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:16px 0; }
+  .info-box-accent { background:var(--accent-soft); border-color:var(--accent-border); border-left:3px solid var(--accent); }
+  .info-box-foreign { background:var(--foreign-soft); border-color:var(--foreign-border); border-left:3px solid var(--foreign); }
+  .info-box-warn { background:var(--warn-soft); border-color:var(--warn-border); border-left:3px solid var(--warn); }
+  .info-box-blue { background:var(--blue-soft); border-color:var(--blue-border); border-left:3px solid var(--blue); }
+  .info-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+  .box-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .box-label-foreign { color:var(--foreign); }
+  .box-label-warn { color:var(--warn); }
+  .box-label-blue { color:var(--blue); }
+  .hl { color:var(--accent); font-weight:600; }
+  .hl-foreign { color:var(--foreign); font-weight:600; }
+  .hl-warn { color:var(--warn); font-weight:600; }
+  .hl-blue { color:var(--blue); font-weight:600; }
+
+  .table-wrap { overflow-x:auto; margin:16px 0; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  thead { background:var(--surface-2); }
+  th { padding:10px 14px; text-align:left; font-weight:700; font-size:10px; letter-spacing:1px; color:var(--text-muted); border-bottom:1px solid var(--border); white-space:nowrap; text-transform:uppercase; }
+  td { padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-dim); vertical-align:top; line-height:1.7; }
+  tr:last-child td { border-bottom:none; }
+  td:first-child { font-weight:700; color:var(--text-sub); }
+
+  .trend-card { padding:20px 22px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:12px 0; }
+  .trend-num { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .trend-card h4 { font-size:14px; font-weight:700; margin-bottom:10px; color:var(--text); }
+  .trend-card p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:10px; }
+  .trend-card p:last-child { margin-bottom:0; }
+  .use-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:10px; font-weight:700; margin:6px 4px 4px 0; letter-spacing:1px; text-transform:uppercase; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); }
+
+  .company-group { margin:20px 0; }
+  .company-group-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--text-muted); margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--border); text-transform:uppercase; }
+  .company-card { padding:16px 18px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:8px; transition:border-color 0.2s; }
+  .company-card:hover { border-color:var(--border-hover); }
+  .company-card.primary { border-color:var(--accent-border); }
+  .company-card.primary-foreign { border-color:var(--foreign-border); }
+  .company-type { font-size:10px; font-weight:700; color:var(--accent); letter-spacing:1px; margin-bottom:4px; text-transform:uppercase; }
+  .company-type.foreign { color:var(--foreign); }
+  .company-name { font-size:15px; font-weight:700; color:var(--text); margin-bottom:6px; }
+  .company-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:12px; color:var(--text-muted); font-weight:400; margin-left:6px; }
+  .company-desc { font-size:12px; color:var(--text-dim); line-height:1.8; }
+  .company-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+  .company-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .company-tag.accent { background:var(--accent-soft); color:var(--accent); border-color:var(--accent-border); }
+  .company-tag.foreign { background:var(--foreign-soft); color:var(--foreign); border-color:var(--foreign-border); }
+
+  .job-link-card { display:flex; align-items:flex-start; gap:14px; padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; text-decoration:none; transition:all 0.2s; margin-bottom:8px; }
+  .job-link-card:hover { border-color:var(--accent-border); background:var(--accent-soft); }
+  .job-link-icon { font-size:24px; flex-shrink:0; margin-top:2px; }
+  .job-link-body { flex:1; }
+  .job-link-kicker { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:4px; text-transform:uppercase; }
+  .job-link-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .job-link-desc { font-size:12px; color:var(--text-dim); line-height:1.7; margin-bottom:8px; }
+  .job-link-tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .job-link-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .job-link-arrow { font-size:16px; color:var(--accent); flex-shrink:0; margin-top:4px; }
+
+  .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0; }
+  .keyword-card { padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .keyword-name { font-size:13px; font-weight:700; color:var(--accent); margin-bottom:4px; }
+  .keyword-name.foreign { color:var(--foreign); }
+  .keyword-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); font-weight:400; margin-left:4px; }
+  .keyword-desc { font-size:11px; color:var(--text-dim); line-height:1.7; }
+
+  .es-pattern { padding:16px 18px; background:var(--surface-2); border-radius:8px; margin:12px 0; }
+  .es-pattern-label { font-size:10px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:8px; text-transform:uppercase; }
+  .es-pattern p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+
+  .footer { padding:40px 0 60px; border-top:1px solid var(--border); margin-top:20px; text-align:center; }
+  .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; margin-bottom:0; }
+  .footer .brand { font-weight:700; color:var(--text-dim); }
+
+  @media (max-width:640px) { .keyword-grid { grid-template-columns:1fr; } .hero h1 { font-size:24px; } .section-title { font-size:18px; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">업계 리포트 Vol.06</div>
+    <h1>소비재/화장품 업계 완전 정리</h1>
+    <p class="hero-sub">
+      일본계 화장품 브랜드, 외자계 소비재 대기업, 생활용품 메이커까지.<br>
+      신졸 마케팅 직접 채용이 가장 활발한 업계를 한 페이지에 완전 정리.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">마케팅 직접 채용</span>
+      <span class="hero-tag">브랜드 경영자형 커리어</span>
+      <span class="hero-tag foreign">외자계 영어 환경</span>
+      <span class="hero-tag">소비자 인사이트 중심</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('s1')">01 업계전체상</button>
+    <button class="nav-btn" onclick="scrollTo('s2')">02 트렌드</button>
+    <button class="nav-btn" onclick="scrollTo('s3')">03 활약직종</button>
+    <button class="nav-btn" onclick="scrollTo('s4')">04 키워드</button>
+    <button class="nav-btn" onclick="scrollTo('s5')">05 기업리스트</button>
+    <button class="nav-btn" onclick="scrollTo('s6')">06 ES대책</button>
+    <button class="nav-btn" onclick="scrollTo('s7')">07 면접대책</button>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ════ S1 ════ -->
+<div class="section" id="s1">
+  <div class="section-num">SECTION 01</div>
+  <div class="section-title">업계 전체상</div>
+  <div class="section-title-jp">業界全体像 — 3分類・ビジネスモデル・日系vs外資</div>
+
+  <div class="info-box info-box-accent">
+    <div class="box-label">한 줄 정의</div>
+    <p><span class="hl">소비자의 일상과 직접 닿는 화장품·생활용품·소비재를 기획·제조·판매하는 업계. 신졸 마케팅 직접 채용이 전 업종 중 가장 활발하며, "브랜드 경영자"형 커리어가 가능한 몇 안 되는 업계다.</span></p>
+  </div>
+
+  <p>일본 화장품 시장 규모 약 <span class="hl">2조 6,000억 엔</span>(2024년). 생활용품을 포함한 소비재 전체로는 약 <span class="hl">15조 엔</span> 이상의 거대 시장이다. 코로나 이후 인바운드 수요 회복과 글로벌 뷰티 트렌드의 영향으로 화장품 시장이 구조적으로 성장하고 있으며, 외자계 대기업의 일본 사업 강화도 가속되고 있다.</p>
+
+  <h3>소비재/화장품 업계의 3가지 분류</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>분류</th><th>특징</th><th>대표 기업</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>일본계 화장품</td>
+          <td>일본 기술력과 브랜드 아이덴티티가 강점. 고기능 성분·섬세한 제형 기술로 글로벌 프레스티지 시장 진출 중. 기능성·안전성 기반의 "J뷰티" 포지셔닝을 글로벌로 강화</td>
+          <td>시세이도(資生堂), 카오(花王), 코세(コーセー), 폴라오르비스(ポーラ・オルビス), 맨담(マンダム)</td>
+        </tr>
+        <tr>
+          <td>외자계 소비재/뷰티</td>
+          <td>글로벌 브랜드 포트폴리오와 마케팅 노하우가 강점. 일본법인은 글로벌 전략의 실행 거점. 영어 업무 환경이 일상적이며, 로컬 일본계보다 직무급·성과주의 색채가 강함</td>
+          <td>P&G Japan, 로레알재팬(ロレアルジャパン), 유니레버재팬(ユニリーバ・ジャパン)</td>
+        </tr>
+        <tr>
+          <td>소비재/생활용품</td>
+          <td>세제·위생용품·의약품 등 소비자의 일상을 지탱하는 제품군. 마케팅 투자가 크고 브랜드력이 매출에 직결. 인구 감소를 아세안·중국 진출로 보완하는 글로벌화 가속</td>
+          <td>유니참(ユニ・チャーム), 코바야시제약(小林製薬), 라이온(ライオン), 카오(花王)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>비즈니스 모델 — 소비재/화장품은 어떻게 돈을 버는가</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>수익 모델</th><th>구조</th><th>특징</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>브랜드 판매</td>
+          <td>소비자가 브랜드 이름·이미지로 제품을 반복 구매. 광고·매장 프로모션·SNS로 브랜드 인지도를 유지하고 리피트를 만드는 구조</td>
+          <td>소비재 비즈니스의 핵심. 한번 자리잡은 브랜드는 수십 년 안정 수익을 낳는다. 아리엘(P&G), 메리ット(카오), 로레알파리 등 브랜드 자체가 최대 자산</td>
+        </tr>
+        <tr>
+          <td>카테고리 전략</td>
+          <td>화장수·유액·파운데이션·선케어 등 뷰티 루틴의 전 단계를 자사 브랜드로 커버해 1인당 구매액(LTV)을 최대화</td>
+          <td>시세이도 SHISEIDO 라인, 카오 KANEBO, 코세 COSME DECORTÉ 등 고가 라인이 수익성 핵심. 카테고리 내 번들 판매로 객단가 상승</td>
+        </tr>
+        <tr>
+          <td>D2C/EC 전환</td>
+          <td>백화점·약국·슈퍼 등 오프라인 채널 의존에서 자사 EC·정기구독·SNS 직판으로 이전. 소비자 데이터를 직접 획득해 마케팅 정밀도를 높이는 전략</td>
+          <td>코바야시제약의 정기구독 모델, 폴라오르비스의 D2C 전략이 선도. 마진율 개선과 고객 데이터 축적 양쪽을 동시 실현. EC 비율 확대가 업계 전체 트렌드</td>
+        </tr>
+        <tr>
+          <td>인바운드/글로벌</td>
+          <td>방일 외국인 관광객의 화장품 구매(인바운드)와 아시아 시장 수출·현지 생산. 중국·한국·동남아시아가 주요 시장</td>
+          <td>2024년 인바운드 소비 약 8.1조 엔 사상 최고. 화장품은 방일 여행자 최인기 쇼핑 카테고리. 시세이도·카오·코세 모두 아시아 매출 비율 급상승</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>일본계 vs 외자계 — 어디를 선택할 것인가</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>비교 항목</th><th>일본계 (시세이도·카오·코세 등)</th><th>외자계 (P&G·로레알·유니레버)</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>언어 환경</td>
+          <td>일본어 중심. 해외 출장·주재 시 영어 필요하지만 사내는 일본어</td>
+          <td>영어가 사실상 업무 언어. 글로벌 팀과의 미팅·문서·프레젠이 영어로 진행</td>
+        </tr>
+        <tr>
+          <td>마케팅 스타일</td>
+          <td>브랜드 아이덴티티 중시, 장기적 브랜드 육성. 광고·PR·이벤트 등 오프라인 채널 비중 높음</td>
+          <td>데이터 드리븐 마케팅, ROI 중심 의사결정. 글로벌 캠페인을 로컬에 적응하는 역할이 핵심</td>
+        </tr>
+        <tr>
+          <td>커리어 패스</td>
+          <td>연공서열 잔재가 있으나 직무급 전환 중. 사내 이동으로 여러 브랜드·직종을 경험하는 경로</td>
+          <td>Up-or-Out적 성과주의. 성과를 내면 빠른 승진. 글로벌 이동(해외법인 전근)도 현실적</td>
+        </tr>
+        <tr>
+          <td>신졸 입사 후 배치</td>
+          <td>영업 배치가 많음(특히 카오·코세). 마케팅 직접 배치는 소수지만 존재</td>
+          <td>마케팅·영업 어시스턴트으로 초기부터 브랜드 업무에 관여. 브랜드 매니저 트랙이 명확</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">채용 난이도 — 반드시 인식해야 할 현실</div>
+    <p>소비재/화장품 업계는 <span class="hl-warn">인기 대비 TO(채용 인원)가 극히 적은 업계</span>다. 시세이도·카오·코세 등 일본계 상위 기업도 전체 신졸 채용이 수십~100명 전후로, 지원자 수 대비 경쟁률이 매우 높다.<br><br>
+    특히 외자계(P&G·로레알·유니레버)는 <span class="hl-warn">일본 취업 시장 전체에서 손꼽히는 극악의 난이도</span>로 알려져 있다. P&G 마케팅 트랙은 일본 최상위 대학 출신도 다수 떨어지는 전형이며, 로레알·유니레버도 그에 준하는 경쟁률이다. "인기 브랜드이기 때문에" 지원하는 것만으로는 절대 통과되지 않는다. <strong style="color:var(--text-sub);">브랜드 P&L 사고·데이터 기반 마케팅 능력·명확한 커리어 비전</strong>을 준비한 소수의 지원자만이 통과한다.</p>
+  </div>
+</div>
+
+<!-- ════ S2 ════ -->
+<div class="section" id="s2">
+  <div class="section-num">SECTION 02</div>
+  <div class="section-title">면접관이 체크하는 트렌드 3선</div>
+  <div class="section-title-jp">面接官がチェックするトレンド</div>
+
+  <p>"최근 소비재/화장품 업계에서 주목하는 것이 있나요?" — 반드시 나오는 질문. <span class="hl">자신이 지원하는 회사의 브랜드·제품과 트렌드를 연결해서 말할 수 있어야</span> 차별화된다.</p>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 01</div>
+    <h4>글로벌 뷰티 트렌드와 "J뷰티" 재정의 — 일본 화장품의 아시아 전략 전환</h4>
+    <p>한국 화장품이 세계 시장을 석권하는 가운데, 일본 화장품 메이커는 <span class="hl">"J뷰티"의 재정의</span>로 반격에 나서고 있다. 시세이도는 "피부과학"을 축으로 한 기능성 스킨케어에서 세계 프레스티지 시장을 공략. 카오는 "ダメージケア(손상 케어)" 기술을 중심으로 헤어케어 글로벌 전개를 강화하고 있다.</p>
+    <p>한편 틱톡 바이럴·소용량 고회전·성분 투명성 등 글로벌 SNS 뷰티 트렌드를 일본 기업이 학습해 역으로 적용하는 움직임도 가속되고 있다. 코세는 SNS 네이티브 브랜드를 신설해 Z세대를 공략 중이며, 폴라오르비스는 D2C와 정기구독으로 고객 데이터를 직접 축적하는 전략을 전사 차원에서 추진 중이다.</p>
+    <p><strong style="color:var(--text-sub);">왜 중요한가:</strong> 글로벌 뷰티 시장의 트렌드 변화와 일본 기업의 전략 전환을 이해하고, "이 회사의 브랜드 전략에서 자신이 어떤 역할을 하고 싶은가"를 연결해서 말할 수 있어야 한다.</p>
+    <div class="use-tag">일본계 ES/면접 활용</div>
+    <p>"グローバルビューティートレンドを深く理解し、貴社のブランド戦略を新たなデジタル・SNSチャネルで加速させる役割を担いたいと考えています。"</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 02</div>
+    <h4>인바운드 수요 급확대 — 방일 외국인이 바꾸는 화장품 소비 지형</h4>
+    <p>2024년 방일 외국인 수 약 3,687만 명, 인바운드 소비 약 8.1조 엔으로 모두 사상 최고를 기록했다. 화장품은 방일 여행자의 쇼핑 1위 카테고리로, <span class="hl">드러그스토어·백화점 면세 카운터에서 화장품 매출이 폭발적으로 증가</span>하고 있다.</p>
+    <p>방일 외국인이 드러그스토어에서 화장품을 대량 구매하는 현상이 SNS 콘텐츠로 확산되면서, 카오·코세·코바야시제약 등의 제품이 아시아 전역에서 재발견되는 역유입 효과가 발생하고 있다. 유니참의 기저귀·생리용품은 중국·동남아시아 관광객의 필수 쇼핑 아이템으로 자리잡았다.</p>
+    <div class="use-tag">ES/면접 활용</div>
+    <p>"インバウンド需要の拡大は、日本ブランドが世界で再評価される絶好の機会です。アジア市場向けのコミュニケーション戦略の立案に積極的に貢献していきたいと考えています。"</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 03</div>
+    <h4>サステナビリティ × 소비재 — 용기·성분·공급망의 전면 재검토</h4>
+    <p>Z세대를 중심으로 <span class="hl">환경·윤리 소비에 대한 의식이 급상승</span>하면서, 소비재 기업의 ESG 대응이 브랜드 가치에 직결되는 구조가 형성되고 있다. 유니레버는 2025년까지 플라스틱 포장 절반 감축 목표를 공표. 카오는 재충전식 용기 시스템(Smart Holder)을 일본 전국으로 확대 중이다.</p>
+    <p>성분 면에서도 크루얼티 프리(동물 실험 금지)·비건 인증·천연 유래 성분을 명기하는 투명성 요구가 높아지고 있다. 코세는 2023년 일본 화장품 대기업 최초로 전 제품의 크루얼티 프리 인증 취득을 공표. P&G는 "We See Equal" 등 소셜 임팩트 마케팅으로 브랜드 호감도를 구축하고 있다.</p>
+    <div class="use-tag">ES/면접 활용</div>
+    <p>"サステナビリティへの対応はコスト要因ではなく、Z世代の支持を獲得するブランド資産への投資です。貴社の○○の取り組みは、長期的なブランドロイヤリティを構築する上で非常に重要な差別化要因だと考えています。"</p>
+  </div>
+</div>
+
+<!-- ════ S3 ════ -->
+<div class="section" id="s3">
+  <div class="section-num">SECTION 03</div>
+  <div class="section-title">이 업계에서 활약하는 직종</div>
+  <div class="section-title-jp">消費財/化粧品業界で活躍する職種</div>
+
+  <p>소비재/화장품 업계는 <span class="hl">문과 출신이 가장 활발하게 활약하는 업계</span> 중 하나다. 마케팅·영업·기획이 핵심이며, 이공계는 R&D·품질관리 경로가 있다. 특히 마케팅 직접 채용은 전 업종 중에서도 이 업계가 가장 활발하다.</p>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/kikaku-kk03-marketing" target="_blank" class="job-link-card">
+    <div class="job-link-icon">💄</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">핵심 직종 — 직종 상세 카드 KK-03</div>
+      <div class="job-link-title">마케팅 — 소비재의 "브랜드 경영자"</div>
+      <div class="job-link-desc">
+        소비재 메이커에서의 마케팅은 단순 광고 제작이 아니다. <strong style="color:var(--text-sub);">STP 전략·4P 설계·소비자 인사이트 발굴·브랜드 P&L 관리</strong>까지 담당하는 "브랜드의 경영자" 역할. 신졸 직접 채용이 가장 활발한 직종이며, 분석력과 크리에이티브 양쪽이 요구된다.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">신졸 직접 채용 있음</span>
+        <span class="job-link-tag">STP·4P 전략</span>
+        <span class="job-link-tag">브랜드 P&L 관리</span>
+        <span class="job-link-tag">소비자 인사이트</span>
+        <span class="job-link-tag">분석+크리에이티브</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/sales-eg01-maker" target="_blank" class="job-link-card">
+    <div class="job-link-icon">🏪</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">문과 기본 루트 — 직종 상세 카드 EG-01</div>
+      <div class="job-link-title">메이커 영업 — 매장에서 팔리게 만드는 사람</div>
+      <div class="job-link-desc">
+        소비재 메이커의 영업은 소매점(드러그스토어·슈퍼·백화점)을 거래처로 <strong style="color:var(--text-sub);">납품 교섭·매장 진열 확보·인스토어 프로모션</strong>을 담당한다. "棚を取る(매장 선반을 확보한다)"이 핵심 미션. 마케팅 이동의 전형적 경로이기도 하다.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">드러그스토어·슈퍼 거래처</span>
+        <span class="job-link-tag">매장 진열 교섭</span>
+        <span class="job-link-tag">마케팅 이동 경로</span>
+        <span class="job-link-tag">소비자 접점 최전선</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/kikaku-kk02-planning" target="_blank" class="job-link-card">
+    <div class="job-link-icon">🎯</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">기획직 — 직종 상세 카드 KK-02</div>
+      <div class="job-link-title">상품기획 — 새로운 히트 상품을 만드는 사람</div>
+      <div class="job-link-desc">
+        소비재 메이커에서 신졸이 <strong style="color:var(--text-sub);">상품기획에 직접 배치되는 몇 안 되는 업계</strong>. 소비자 조사→콘셉트 개발→R&D 연계→패키지 디자인→출시까지 전 과정을 관리. 마케팅과 경계가 모호해 세트로 이해해야 한다.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">신졸 직접 배치 희귀</span>
+        <span class="job-link-tag">소비자 조사→출시</span>
+        <span class="job-link-tag">R&D 연계</span>
+        <span class="job-link-tag">패키지·네이밍</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <div class="info-box" style="margin-top:20px;">
+    <div class="box-label">외자계 소비재의 직종 구조</div>
+    <p>
+      P&G·로레알·유니레버 등 외자계는 신졸 채용 시 <strong style="color:var(--text-sub);">직종별 트랙 채용</strong>을 실시하는 경우가 많다.<br><br>
+      <span class="hl">마케팅 트랙:</span> 브랜드 어시스턴트→브랜드 매니저→마케팅 디렉터. 성과에 따라 2~3년에 한 단계씩 빠르게 승진.<br>
+      <span class="hl">영업(Key Account) 트랙:</span> 대형 소매점(이온·세븐일레븐·마쓰모토키요시 등) 담당. 수백억 엔 규모의 계약을 관리하는 고부가가치 포지션.<br>
+      <span class="hl">파이낸스/오퍼레이션 트랙:</span> 브랜드 P&L 관리·SCM 최적화 등 비즈니스 분석 경로.<br><br>
+      마케팅 트랙은 경쟁률이 매우 높지만, 영업·파이낸스 트랙은 상대적으로 현실적인 입구다. 입사 후 트랙 이동도 가능.
+    </p>
+  </div>
+</div>
+
+<!-- ════ S4 ════ -->
+<div class="section" id="s4">
+  <div class="section-num">SECTION 04</div>
+  <div class="section-title">소비재/화장품 × 직종별 자기분석 키워드</div>
+  <div class="section-title-jp">自己分析キーワードとの接続</div>
+
+  <p>소비재/화장품 업계는 <span class="hl">소비자 인사이트를 얼마나 깊이 이해하고 언어화할 수 있는가</span>가 채용의 핵심이다. "분석력"과 "크리에이티브" 양쪽을 강점으로 어필할 수 있는 사람이 평가받는다.</p>
+
+  <h3>마케팅·상품기획 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">통찰력 <span class="keyword-name-jp">洞察力</span></div>
+      <div class="keyword-desc">소비자가 "말하지 않는 니즈"를 데이터와 관찰에서 찾아내는 힘. "이 제품이 왜 팔리는가"의 표면적 이유 너머를 읽는 능력이 히트 상품 개발의 출발점이다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">창조력 <span class="keyword-name-jp">創造力</span></div>
+      <div class="keyword-desc">소비자의 마음을 움직이는 브랜드 스토리·광고 컨셉·패키지 디자인을 발상하는 능력. 데이터로 검증한 인사이트를 "크리에이티브로 실행"하는 힘.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">기획력 <span class="keyword-name-jp">企画力</span></div>
+      <div class="keyword-desc">소비자 조사 결과를 구체적인 상품 콘셉트로 번역하고, 출시 전략을 설계하는 능력. 마케팅에서는 "팔리는 구조를 0에서 설계하는" 기획력이 브랜드 P&L에 직결된다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">공감력 <span class="keyword-name-jp">共感力</span></div>
+      <div class="keyword-desc">타겟 소비자의 감정·생활 맥락에 공감하는 능력. "이 브랜드를 사용하ている 사람의 일상"을 정서적으로 이해하지 못하면, 표면적인 광고밖에 만들 수 없다.</div>
+    </div>
+  </div>
+
+  <h3>영업 (소비재 메이커) 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">견인력 <span class="keyword-name-jp">牽引力</span></div>
+      <div class="keyword-desc">소매점 담당자에게 "이 상품을 좋은 위치에 진열하게 하는" 교섭력·설득력. 데이터로 판매 예측을 제시하고 소매점의 이익에 연결하는 논리가 핵심.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">조정력 <span class="keyword-name-jp">調整力</span></div>
+      <div class="keyword-desc">소매점 요구와 사내 마케팅팀·물류팀 사이를 조율하는 능력. "棚を取る(매장 선반 확보)" 위해 사내에서 프로모션 예산을 확보하고 재고를 조정하는 멀티 이해관계자 관리.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">발신력 <span class="keyword-name-jp">発信力</span></div>
+      <div class="keyword-desc">자사 제품의 가치를 소매점 바이어에게 설득력 있게 전달하는 능력. 데이터를 활용한 프레젠테이션 스킬. 외자계 영업에서는 영어 프레젠도 일상적.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">적극성 <span class="keyword-name-jp">積極性</span></div>
+      <div class="keyword-desc">"새로운 진열 제안을 먼저 들고 간다"는 선제적 영업 자세. 기다리는 것이 아니라 자발적으로 기회를 만드는 능력이 소비재 영업의 성과 차이를 만든다.</div>
+    </div>
+  </div>
+
+  <h3 class="foreign">외자계 소비재에서 특히 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name foreign">논리적사고력 <span class="keyword-name-jp">論理的思考力</span></div>
+      <div class="keyword-desc">P&G·로레알·유니레버는 데이터 기반 의사결정이 철저하다. "왜 이 캠페인에 예산을 투입하는가"를 ROI로 논리화하는 능력이 브랜드 매니저의 일상 업무.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name foreign">주체성 <span class="keyword-name-jp">主体性</span></div>
+      <div class="keyword-desc">외자계 소비재는 초기부터 브랜드 P&L의 일부를 담당하는 경우가 많다. "시켜주기를 기다리는" 자세는 외자계 문화와 맞지 않는다. 자발적으로 과제를 발견하고 해결을 주도하는 자세가 필수.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name foreign">상황파악력 <span class="keyword-name-jp">状況把握力</span></div>
+      <div class="keyword-desc">글로벌 팀·로컬 팀·에이전시 사이에서 일본 시장의 특수성을 글로벌에 전달하고, 글로벌 전략을 일본에 적합화하는 "번역자" 역할. 다국적 환경에서의 상황 읽기 능력.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name foreign">도전정신 <span class="keyword-name-jp">挑戦精神</span></div>
+      <div class="keyword-desc">외자계의 Up-or-Out 문화에서 "현상 유지"는 도태를 의미한다. 더 높은 성과 목표에 자발적으로 도전하는 마인드셋. "실패해도 배우고 다음에 반영"하는 빠른 PDCA.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S5 ════ -->
+<div class="section" id="s5">
+  <div class="section-num">SECTION 05</div>
+  <div class="section-title">기업 비교 & 리스트</div>
+  <div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+
+  <p>소비재/화장품 업계는 일본계와 외자계에서 <span class="hl">커리어 패스와 업무 스타일이 완전히 다르다.</span> "어떤 환경에서 어떤 역할을 하고 싶은가"로 선택해야 한다.</p>
+
+  <!-- 일본계 화장품 -->
+  <div class="company-group">
+    <div class="company-group-label">💄 일본계 화장품 브랜드</div>
+
+    <div class="company-card primary">
+      <div class="company-type">일본계 화장품 | 글로벌 프레스티지 전략</div>
+      <div class="company-name">시세이도 <span class="company-name-jp">資生堂</span></div>
+      <div class="company-desc">매출 약 9,720억 엔(2024). 평균연봉 약 757만엔. 일본 화장품 최대 기업. SHISEIDO·クレ・ド・ポー・ボーテ·NARS 등 다층 브랜드 포트폴리오. "피부과학"을 기반으로 한 글로벌 프레스티지 전략. 아시아 매출 비율 약 30%+로 한국·중국 시장이 핵심. 마케팅 직접 채용 있음. 현재 구조조정으로 수익성 회복에 집중 중.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">매출 9,720억엔</span>
+        <span class="company-tag">글로벌 프레스티지</span>
+        <span class="company-tag">아시아 전략 핵심</span>
+        <span class="company-tag">마케팅 직접 채용</span>
+      </div>
+    </div>
+
+    <div class="company-card primary">
+      <div class="company-type">화장품+생활용품 | 연구개발형</div>
+      <div class="company-name">카오 <span class="company-name-jp">花王</span></div>
+      <div class="company-desc">매출 약 1조 5,330억 엔(2024). 평균연봉 약 825만엔. 화장품(KANEBO·Curél·소피나)과 생활용품(아타크·메리트·비오레) 양쪽을 보유한 일본 유일의 종합 소비재 기업. 연구개발비 비율이 업계 최상위로 기술 기반 제품 개발이 강점. 신졸은 영업 배치 후 마케팅 이동이 일반적. ESG·사회공헌 활동도 업계 선도.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">매출 1.5조엔</span>
+        <span class="company-tag">화장품+생활용품</span>
+        <span class="company-tag">R&D 투자 최상위</span>
+        <span class="company-tag">평균연봉 825만엔</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">일본계 화장품 | 백화점·직영 강점</div>
+      <div class="company-name">코세 <span class="company-name-jp">コーセー</span></div>
+      <div class="company-desc">매출 약 3,350억 엔(2024). 평균연봉 약 696만엔. COSME DECORTÉ·雪肌精·JILL STUART 등 다양한 가격대 브랜드 보유. 백화점 카운터 판매에서 강점. 일본 화장품 최초 전 제품 크루얼티 프리 인증 취득. 마케팅 채용에 적극적이며 브랜드별 담당제로 조기에 브랜드 업무를 경험할 수 있다.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">크루얼티 프리 인증</span>
+        <span class="company-tag">백화점 채널 강점</span>
+        <span class="company-tag">브랜드별 담당제</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">일본계 화장품 | D2C·구독 선도</div>
+      <div class="company-name">폴라오르비스 <span class="company-name-jp">ポーラ・オルビス HD</span></div>
+      <div class="company-desc">매출 약 1,860억 엔(2024). 평균연봉 약 749만엔. POLA·ORBIS·THREE 등 복수 브랜드를 D2C·직판 채널로 운영. 정기구독 모델과 소비자 데이터 직접 축적 전략이 업계 선도. 소규모이지만 마케팅 인재 육성에 적극적.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">D2C 선도</span>
+        <span class="company-tag">정기구독 모델</span>
+        <span class="company-tag">소비자 데이터 축적</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">일본계 화장품 | 남성 그루밍 특화</div>
+      <div class="company-name">맨담 <span class="company-name-jp">マンダム</span></div>
+      <div class="company-desc">매출 약 730억 엔(2024). 평균연봉 약 659만엔. ギャツビー·LucidoL 등 남성 헤어·스킨케어 브랜드로 아시아 높은 점유율. 인도네시아·태국·필리핀 등 동남아시아에서 압도적 존재감. 채용 인원이 적고 조기에 브랜드 업무를 경험할 수 있는 환경. 글로벌 경험을 원하는 지원자에게 추천.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">동남아시아 압도적</span>
+        <span class="company-tag">남성 그루밍 특화</span>
+        <span class="company-tag">소규모 조기 경험</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 외자계 -->
+  <div class="company-group">
+    <div class="company-group-label" style="color:var(--foreign);">🌍 외자계 소비재/뷰티</div>
+
+    <div class="company-card primary-foreign">
+      <div class="company-type foreign">외자계 | 마케팅 사관학교</div>
+      <div class="company-name">P&G Japan <span class="company-name-jp">プロクター・アンド・ギャンブル</span></div>
+      <div class="company-desc">아리엘·팬틴·SK-II·吉列 등 글로벌 브랜드를 보유. "마케팅 사관학교"로 불리며 이곳 출신 마케터가 업계 전체에 분산. 전원이 회사 내에서 성장하는 문화(Build from Within). 마케팅·영업·파이낸스·SCM 각 트랙별로 채용. 입사 1~2년차에 브랜드 P&L의 일부를 담당하는 실전 문화. 영어 업무 일상적. 채용 필터 매우 높음.</div>
+      <div class="company-tags">
+        <span class="company-tag foreign">마케팅 사관학교</span>
+        <span class="company-tag">SK-II 보유</span>
+        <span class="company-tag">영어 필수</span>
+        <span class="company-tag">채용 필터 최상위</span>
+      </div>
+    </div>
+
+    <div class="company-card primary-foreign">
+      <div class="company-type foreign">외자계 | 글로벌 뷰티 1위</div>
+      <div class="company-name">로레알재팬 <span class="company-name-jp">ロレアルジャパン</span></div>
+      <div class="company-desc">세계 최대 화장품 그룹의 일본법인. 로레알파리·랑콤·키엘·슈에무라·NYX 등 광범위한 브랜드 포트폴리오. 마케팅·디지털·영업 등 각 직종별로 채용. "Beauty Tech" 전략으로 AI 스킨 분석·AR 메이크업 체험 등 테크 투자 적극적. 다양성·평등에 앞장서는 기업 문화. 영어 필수이며 글로벌 이동 기회 풍부.</div>
+      <div class="company-tags">
+        <span class="company-tag foreign">세계 화장품 1위</span>
+        <span class="company-tag">Beauty Tech 선도</span>
+        <span class="company-tag">다양성 문화</span>
+        <span class="company-tag">글로벌 이동 기회</span>
+      </div>
+    </div>
+
+    <div class="company-card primary-foreign">
+      <div class="company-type foreign">외자계 | 목적 경영 선도</div>
+      <div class="company-name">유니레버재팬 <span class="company-name-jp">ユニリーバ・ジャパン</span></div>
+      <div class="company-desc">럭스·도브·AXE·립톤 등 400개 이상 글로벌 브랜드를 보유. "Unilever Sustainable Living Plan"으로 ESG 경영의 글로벌 선도기업. 일본법인은 비교적 소규모이기 때문에 초기부터 광범위한 업무를 경험 가능. 워크라이프 밸런스와 플렉시블 워킹을 업계 선도. 채용 인원이 적어 경쟁률은 높지만 접근성은 P&G보다 상대적으로 현실적.</div>
+      <div class="company-tags">
+        <span class="company-tag foreign">ESG 선도기업</span>
+        <span class="company-tag">400개 글로벌 브랜드</span>
+        <span class="company-tag">워라밸 업계 선도</span>
+        <span class="company-tag">P&G보다 접근성 현실적</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 소비재/생활용품 -->
+  <div class="company-group">
+    <div class="company-group-label">🧴 소비재/생활용품</div>
+
+    <div class="company-card primary">
+      <div class="company-type">소비재 | 아세안 압도적 점유율</div>
+      <div class="company-name">유니참 <span class="company-name-jp">ユニ・チャーム</span></div>
+      <div class="company-desc">매출 약 9,790억 엔(2024). 평균연봉 약 879만엔. 생리용품·기저귀·마스크·펫케어. 아세안·중국에서 압도적 시장 점유율. 해외 매출 비율 약 70%+로 국내 소비재 기업 중 최고 수준의 글로벌 기업. "NOLA&DOLA" 미션으로 아시아 소비자의 생활 개선이 명확한 비전. 마케팅·영업·글로벌 SCM 모두 폭넓은 직종에서 경험을 쌓을 수 있다.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">해외 매출 70%+</span>
+        <span class="company-tag">아세안 압도적</span>
+        <span class="company-tag">평균연봉 879만엔</span>
+      </div>
+    </div>
+
+    <div class="company-card primary">
+      <div class="company-type">소비재/제약 | 아이디어 상품 창출 기업</div>
+      <div class="company-name">코바야시제약 <span class="company-name-jp">小林製薬</span></div>
+      <div class="company-desc">매출 약 1,760억 엔(2024). 평균연봉 약 706만엔. 브레スケア·아세스·캔페쿄 등 독특한 이름의 히트 상품을 연속 창출. "あったらいいな"(있으면 좋겠다)는 소비자 인사이트에서 출발하는 상품 개발 철학이 독특. 마케팅·상품기획에서 아이디어와 소비자 시점을 중시하는 문화. 신졸도 조기에 브랜드 담당을 맡는 케이스 있음. 오사카 본사.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">아이디어 상품 창출</span>
+        <span class="company-tag">"あったらいいな" 철학</span>
+        <span class="company-tag">조기 브랜드 담당</span>
+      </div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-type">소비재/생활용품 | 구강케어·세탁</div>
+      <div class="company-name">라이온 <span class="company-name-jp">ライオン</span></div>
+      <div class="company-desc">매출 약 3,950억 엔(2024). 평균연봉 약 773만엔. 구강케어(CLINICA·システマ)·세탁(토탑·나노옥스)·주방세제(차암) 등 생활 밀착 브랜드. 아시아(중국·한국·대만·태국) 사업 강화 중. 마케팅·영업 양쪽에 신졸 채용 적극적. "더 좋은 습관을 만들어, 더 좋은 인생을"이라는 Purpose로 제품 개발.</div>
+      <div class="company-tags">
+        <span class="company-tag accent">구강케어 국내 1위</span>
+        <span class="company-tag">아시아 사업 강화</span>
+        <span class="company-tag">마케팅 채용 적극적</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S6 ════ -->
+<div class="section" id="s6">
+  <div class="section-num">SECTION 06</div>
+  <div class="section-title">ES 대책</div>
+  <div class="section-title-jp">合格パターン・落とし穴</div>
+
+  <p>소비재/화장품 업계 ES의 최대 함정은 <span class="hl">"이 브랜드가 좋아서"만으로 끝나는 지원 동기</span>다. 소비자로서의 체험은 입구일 뿐이며, "어떤 마케터/영업으로 이 업계에서 무엇을 만들고 싶은가"까지 말할 수 있어야 한다.</p>
+
+  <h3>빈출 질문 TOP5</h3>
+
+  <div style="display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 20px;">
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">① 학생시절 힘쓴 것</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">② 지원동기</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">③ 관심 있는 브랜드/제품</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">④ 자기PR</span>
+    <span style="font-size:11px;padding:4px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);">⑤ 입사 후 하고 싶은 것</span>
+  </div>
+
+  <p>특히 소비재 특유의 난이도는 <strong style="color:var(--text-sub);">③ "관심 있는 브랜드/제품"</strong>과 <strong style="color:var(--text-sub);">⑤ "입사 후 하고 싶은 것"</strong>의 조합이다. "이 제품이 좋다"에서 출발해 <span class="hl">"마케터로서 어떤 과제를 어떻게 해결하고 싶은가"</span>까지 이어지는 논리가 핵심이다.</p>
+
+  <div class="es-pattern">
+    <div class="es-pattern-label">✅ 일본계 화장품 합격 패턴</div>
+    <p>
+      ① 지원 기업의 특정 브랜드를 실제로 사용하고, 소비자로서 발견한 인사이트(좋은 점/개선 가능성/미개척 유저)를 구체적으로 제시<br>
+      ② 그 인사이트를 해결하면 어떤 새로운 가치가 생기는지를 마케터 시점으로 제안<br>
+      ③ 글로벌 뷰티 트렌드와의 비교 시각에서 이 회사의 강점/기회를 언어화<br>
+      ④ 자신이 어떤 직종(마케팅/영업/상품기획)에서 어떤 역할을 하고 싶은지 제시
+    </p>
+  </div>
+
+  <div class="es-pattern">
+    <div class="es-pattern-label">✅ 외자계 소비재 합격 패턴</div>
+    <p>
+      ① 수치와 데이터로 뒷받침된 마케팅 또는 영업 에피소드를 제시 — "어떤 성과를 냈는가"가 핵심<br>
+      ② 글로벌 마케팅 트렌드(디지털·SNS·지속가능성)에 대한 이해를 보여줌<br>
+      ③ "왜 일본계가 아닌 외자계인가"를 적극적으로 언어화 — 영어 환경·빠른 승진·글로벌 이동 등<br>
+      ④ 브랜드 P&L 사고("이 캠페인에 예산을 투입하면 매출 ROI가 어떻게 되는가")를 어느 수준까지 이해하고 있는지 보여줌
+    </p>
+  </div>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">❌ 불합격 공통 실수</div>
+    <p>
+      <span class="hl-warn">실수 1:</span> "이 브랜드의 제품이 좋아서 지원했습니다" — 소비자 체험은 입구일 뿐. 마케터·영업으로서 "이 회사에서 무엇을 실현하고 싶은가"가 없으면 약함<br>
+      <span class="hl-warn">실수 2:</span> "화장품에 관심이 많습니다" — 생활용품·의약품까지 아우르는 기업(카오·라이온·코바야시제약)에서는 화장품만 어필하면 사업 이해 부족이 드러남<br>
+      <span class="hl-warn">실수 3 (외자계):</span> "영어를 살리고 싶어서" — 언어는 도구일 뿐. 브랜드 마케팅에서 어떤 성과를 내고 싶은가의 본질이 없으면 감점
+    </p>
+  </div>
+
+
+</div>
+
+<!-- ════ S7 ════ -->
+<div class="section" id="s7">
+  <div class="section-num">SECTION 07</div>
+  <div class="section-title">면접 대책</div>
+  <div class="section-title-jp">面接対策 — 頻出質問・選考フロー</div>
+
+  <p>소비재/화장품 업계 면접은 <span class="hl">소비자 인사이트 깊이 + 브랜드 이해 + 마케터 사고력</span>의 3축이 핵심이다. 특히 외자계는 케이스 인터뷰 형식이나 과제 제출이 있는 경우가 많다.</p>
+
+  <h3>전형 단계 구조</h3>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>단계</th><th>일본계 (시세이도·카오·코세 등)</th><th>외자계 (P&G·로레알·유니레버)</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>서류·적성</td>
+          <td>ES + SPI3. 브랜드 이해도·지원 동기의 구체성이 핵심</td>
+          <td>ES + 영문 이력서(CV) 병행하는 경우 多. 일부는 SPI 없이 영어 소검사</td>
+        </tr>
+        <tr>
+          <td>인턴</td>
+          <td>1~2일 오픈캠퍼스 or 3~5일 업무 체험 인턴. 조기 선발 루트 강해지는 중</td>
+          <td>여름 인턴(2~4주)이 사실상 채용 전형의 일부. P&G는 인턴→오퍼 비율이 매우 높음</td>
+        </tr>
+        <tr>
+          <td>1차 면접</td>
+          <td>인사담당자. 가쿠치카·자기PR + 관심 브랜드·지원 동기</td>
+          <td>HR + 마케팅 담당자. 영어 면접 포함되는 경우 多. 케이스/과제 제출 있는 경우도</td>
+        </tr>
+        <tr>
+          <td>2차 면접</td>
+          <td>현장 마케팅·영업 담당자. 브랜드 지식 깊이 확인. 과제 발표 형식도</td>
+          <td>브랜드 매니저 or 마케팅 디렉터. 브랜드 분석 프레젠테이션 과제가 많음</td>
+        </tr>
+        <tr>
+          <td>최종 면접</td>
+          <td>임원급. 인물·커리어 비전·입사 의향 확인</td>
+          <td>General Manager or Country Manager 레벨. 영어로 진행되는 경우 多</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>빈출 질문 & 답변 포인트</h3>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 01</div>
+    <h4>당사의 어떤 브랜드/제품에 관심이 있는가? 그 이유는?</h4>
+    <p><strong style="color:var(--text-sub);">나쁜 답변:</strong> "○○를 오래 사용하고 있어서 좋아합니다" — 소비자 체험만으로 끝나면 감점. 마케터 시점이 없다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 구조:</strong> 브랜드 체험 → 소비자로서 발견한 강점/개선 가능성 → 이 브랜드가 어�んな 소비자 인사이트를 포착하ているか → 자신이 마케터로서 어떤 가치를 만들고 싶은가.</p>
+
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 02</div>
+    <h4>이 브랜드의 현재 과제는 무엇이라고 생각하는가? 어떻게 해결할 것인가?</h4>
+    <p>마케팅 직종 지원자에게 자주 나오는 질문. 브랜드 분석력과 마케팅 사고력을 직접 시험한다.</p>
+    <p><strong style="color:var(--text-sub);">준비 방법:</strong> ① 지원 기업의 연간보고서·IR 자료에서 해당 브랜드의 매출 추이 확인 ② SNS·소비자 리뷰로 현재 이미지 파악 ③ 경쟁 브랜드(국내외 경쟁사)와의 비교 ④ STP·4P 프레임으로 개선 방향 정리. 5분 프레젠테이션 형식으로 준비해두면 어느 면접에도 대응 가능.</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 03</div>
+    <h4>왜 일본계(or 외자계)인가? 왜 이 회사인가?</h4>
+    <p>일본계와 외자계를 모두 지원하는 경우 반드시 나오는 비교 질문.</p>
+    <p><strong style="color:var(--text-sub);">일본계 지원 시 좋은 답변:</strong> "일본계 화장품 메이커의 강점은 기술력에 기반한 브랜드의 깊이에 있습니다. 외자계의 스피드감보다, 오랜 시간 쌓아온 브랜드 자산을 더욱 세계에 알리る役割에 매력을 느낍니다. 특히 貴社의 [구체적 브랜드]는 [이유]로 아시아 시장での可能性が高いと考えています。"</p>
+    <p><strong style="color:var(--text-sub);">외자계 지원 시 좋은 답변:</strong> "외자계에서는 초기부터 브랜드 P&L에 직접 관여하고, 데이터로 가설를 검증하는 마케팅 스타일에 매력을 느낍니다. 글로벌 팀과 로컬 시장을 잇는 브릿지 역할을 조기에 담당하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 04</div>
+    <h4>(외자계) 영어로 자기소개 해주세요 / 이 브랜드의 글로벌 전략을 어떻게 생각하는가?</h4>
+    <p>외자계 면접에서 빈번히 나오는 형식. <span class="hl">영어 실력보다 사고의 논리성이 더 중요하게 평가된다.</span> 유창하지 않아도 논리적으로 말하면 충분히 통과한다.</p>
+    <p><strong style="color:var(--text-sub);">준비 방법:</strong> ① 1분 자기소개(영어)를 암기가 아닌 키워드로 준비 ② 지원 기업의 글로벌 전략 보고서(Annual Report)를 영어로 읽고 핵심 포인트 정리 ③ "자신이 글로벌 팀에 어떤 가치를 가져올 수 있는가"를 영어로 말하는 연습.</p>
+  </div>
+
+  <div class="info-box info-box-foreign">
+    <div class="box-label box-label-foreign">외자계 과제 전형 대책</div>
+    <p>P&G·로레알·유니레버는 면접 전 또는 면접 중 <strong style="color:var(--text-sub);">브랜드 분석 과제</strong>를 제출하는 경우가 많다. 일반적인 형식:<br><br>
+      "당사의 ○○ 브랜드의 일본 시장에서의 과제를 분석하고, 마케팅 전략을 제안하라 (A4 1~2페이지 또는 슬라이드 5장 이내)"<br><br>
+      평가 기준: <span class="hl-foreign">① 소비자 인사이트 깊이 ② 데이터·수치에 기반한 근거 ③ 제안의 실현 가능성 ④ 논리 구성의 명확성</span><br><br>
+    </p>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> 업계 리포트 Vol.06 — 소비재/화장품</p>
+  <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+  <p style="margin-top:8px;font-size:10px;">본 리포트의 정보는 각사 IR자료, 채용 페이지, 일본화장품공업연합회 통계, OpenWork 등 공개 정보를 기반으로 구조화한 것입니다.</p>
+</div>
+
+</div>
+
+<script>
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  const y = el.getBoundingClientRect().top + window.pageYOffset - navH - 16;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7'];
+const navBtns = document.querySelectorAll('.nav-btn');
+function updateNav() {
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  let current = 's1';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= navH + 60) current = id;
+  });
+  navBtns.forEach((btn, i) => btn.classList.toggle('active', sections[i] === current));
+}
+window.addEventListener('scroll', updateNav);
+updateNav();
+</script>
+</body>
+</html>
