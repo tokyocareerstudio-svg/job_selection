@@ -1375,7 +1375,7 @@ const Q3_ITEMS = [
   { id:'q3_4', text:'아이디어를 구체적인 계획으로 만든다', example:'아이디어를 실행 가능하게 정리한다고 함', competency:['企画力','実行力'] },
   { id:'q3_5', text:'계획을 세우고 일정을 체계적으로 관리한다', example:'팀 일정 관리를 자연스럽게 맡는다고 함', competency:['自己管理能力','企画力'] },
   { id:'q3_6', text:'어떤 상황에서도 끝까지 해낸다', example:'포기하지 않는다고 주변에서 말함', competency:['粘り強さ','責任感'] },
-  { id:'q3_7', text:'포스터·영상·일러스트 등 시각 표현물을 직접 만드는 것이 즐겁다', example:'디자인·영상 편집·그림 그리기 등 크리에이티브 작업을 즐긴다고 함', competency:['創造力','実行力'] },
+  { id:'q3_7', text:'아이디어를 눈에 보이는 형태로 만들어내는 것을 좋아한다', example:'기획안·디자인·영상·발표자료 등 결과물 만들기를 즐긴다고 함', competency:['創造力','実行力'] },
   { id:'q3_8', text:'팀을 이끌고 방향을 제시한다', example:'자연스럽게 리더 역할을 맡게 된다고 함', competency:['牽引力','実行力'] },
   { id:'q3_9', text:'주변 상황을 빠르게 파악하고 대응한다', example:'눈치가 빠르다, 상황 판단이 빠르다고 함', competency:['状況把握力','冷静さ'] },
   { id:'q3_10', text:'자신의 생각을 명확하게 전달한다', example:'설명을 잘한다, 말이 명확하다고 함', competency:['発信力','論理的思考力'] },
@@ -1815,16 +1815,18 @@ function applyHardFilters(jobScores) {
   }
 
   // 크리에이티브 특별 진입 조건
-  const hasCreativeQ3 = state.q3.includes('q3_7');
+  // q4_5(크리에이티브 결과물 만들기 선택) 필수
+  // + IT 배경 없음 + 데이터·숫자가 힘들다(q5a_1) 선택 시 크리에이티브 개방
+  // → 데이터 시각화·대시보드 등 IT 맥락 오분류 방지
   const hasCreativeQ4 = state.q4.includes('q4_5');
-  // ② 강화: q3_7 AND q4_5 둘 다 선택해야 열림 (하나만으론 부족)
-  if (!hasCreativeQ3 || !hasCreativeQ4) {
+  const hasDataWeak   = state.q5a.includes('q5a_1'); // 숫자·데이터 힘들다
+  const creativeOk    = hasCreativeQ4 && !hasIT && !hasEngineering;
+  if (!creativeOk) {
     filtered['크리에이티브'] = 0;
   }
-  // ③ IT 프로필이면 창조력 높아도 크리에이티브 억제 → SE/IT·기획 방향으로 보정
-  if (hasIT && filtered['크리에이티브'] > 0) {
-    filtered['크리에이티브'] = filtered['크리에이티브'] * 0.3;
-    filtered['SE/IT']    = (filtered['SE/IT'] || 0) + 1.5;
+  // IT 프로필이면 창조력 높아도 크리에이티브 억제 → SE/IT·기획 방향으로 보정
+  if (hasIT && filtered['SE/IT'] !== undefined) {
+    filtered['SE/IT']     = (filtered['SE/IT'] || 0) + 1.5;
     filtered['기획/관리'] = (filtered['기획/관리'] || 0) + 1;
   }
 
