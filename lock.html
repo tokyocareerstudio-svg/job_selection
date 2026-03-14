@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tokyo Career Studio | 일본취업 직종 가이드북</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --border: #1e1e28;
+    --accent: #4a9eff;
+    --accent-soft: rgba(74,158,255,0.08);
+    --accent-border: rgba(74,158,255,0.2);
+    --text: #e8e8ed;
+    --text-dim: #8888a0;
+    --text-muted: #44445a;
+    --error: #ef4444;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 배경 그라디언트 */
+  body::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(74,158,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .gate {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+
+  .logo-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid var(--accent-border);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 28px;
+  }
+
+  .book-cover {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 40px 32px 36px;
+    margin-bottom: 0;
+  }
+
+  .book-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .book-title {
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: -0.3px;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+
+  .book-subtitle {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-bottom: 32px;
+    line-height: 1.7;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 28px 0;
+  }
+
+  .pw-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    text-align: left;
+  }
+
+  .pw-wrap {
+    position: relative;
+    margin-bottom: 16px;
+  }
+
+  .pw-input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 13px 48px 13px 16px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+    letter-spacing: 2px;
+  }
+  .pw-input:focus { border-color: var(--accent); }
+  .pw-input.error { border-color: var(--error); }
+  .pw-input::placeholder { letter-spacing: 0; color: var(--text-muted); }
+
+  .pw-toggle {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 16px;
+    padding: 4px;
+    line-height: 1;
+  }
+  .pw-toggle:hover { color: var(--text-dim); }
+
+  .pw-error {
+    font-size: 11px;
+    color: var(--error);
+    text-align: left;
+    margin-top: -10px;
+    margin-bottom: 14px;
+    min-height: 16px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .pw-error.show { opacity: 1; }
+
+  .enter-btn {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+  .enter-btn:hover { background: #3a8eef; transform: translateY(-1px); }
+  .enter-btn:active { transform: translateY(0); }
+  .enter-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  .book-meta {
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .meta-item strong { color: var(--text-dim); }
+
+  .footer-note {
+    margin-top: 24px;
+    font-size: 10px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  /* shake 애니메이션 */
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+  }
+  .shake { animation: shake 0.35s ease; }
+</style>
+</head>
+<body>
+
+<div class="gate">
+  <div class="logo-badge">Tokyo Career Studio</div>
+
+  <div class="book-cover">
+    <span class="book-icon">📚</span>
+    <div class="book-title">일본취업<br>직종 가이드북</div>
+    <div class="book-subtitle">
+      일본 신졸·경력 취업을 위한<br>
+      직종별 완전 분석 가이드
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="pw-label">액세스 코드</div>
+    <div class="pw-wrap">
+      <input
+        class="pw-input"
+        id="pw"
+        type="password"
+        placeholder="비밀번호를 입력하세요"
+        autocomplete="off"
+        onkeydown="if(event.key==='Enter') tryEnter()"
+      >
+      <button class="pw-toggle" onclick="togglePw()" id="pw-eye">👁</button>
+    </div>
+    <div class="pw-error" id="pw-error">비밀번호가 올바르지 않습니다.</div>
+
+    <button class="enter-btn" onclick="tryEnter()" id="enter-btn">
+      가이드북 열기 →
+    </button>
+
+    <div class="book-meta">
+      <div class="meta-item">🗂️ <strong>9</strong> 직종 대분류</div>
+      <div class="meta-item">📄 <strong>43</strong> 페이지</div>
+      <div class="meta-item">🎯 <strong>33</strong> 직종 상세</div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    Tokyo Career Studio © 2025 · 무단 배포 금지
+  </div>
+</div>
+
+<script>
+  // =============================================
+  // 비밀번호 설정 — 여기만 바꾸면 됩니다
+  const PASSWORD = "tcs2025";
+  // =============================================
+
+  const SESSION_KEY = "tcs_auth";
+  const REDIRECT_KEY = "tcs_redirect";
+
+  // 이미 인증된 경우 바로 진입
+  if (sessionStorage.getItem(SESSION_KEY) === "ok") {
+    const dest = sessionStorage.getItem(REDIRECT_KEY) || "map-lv1.html";
+    sessionStorage.removeItem(REDIRECT_KEY);
+    location.replace(dest);
+  }
+
+  function tryEnter() {
+    const val = document.getElementById("pw").value;
+    const errEl = document.getElementById("pw-error");
+    const input = document.getElementById("pw");
+
+    if (val === PASSWORD) {
+      sessionStorage.setItem(SESSION_KEY, "ok");
+      document.getElementById("enter-btn").textContent = "로딩 중...";
+      document.getElementById("enter-btn").disabled = true;
+      const dest = sessionStorage.getItem(REDIRECT_KEY) || "map-lv1.html";
+      sessionStorage.removeItem(REDIRECT_KEY);
+      setTimeout(() => location.replace(dest), 300);
+    } else {
+      input.classList.add("error", "shake");
+      errEl.classList.add("show");
+      setTimeout(() => {
+        input.classList.remove("shake");
+        input.classList.remove("error");
+      }, 500);
+      input.value = "";
+      input.focus();
+    }
+  }
+
+  function togglePw() {
+    const input = document.getElementById("pw");
+    const eye = document.getElementById("pw-eye");
+    if (input.type === "password") {
+      input.type = "text";
+      eye.textContent = "🙈";
+    } else {
+      input.type = "password";
+      eye.textContent = "👁";
+    }
+  }
+
+  document.getElementById("pw").addEventListener("input", () => {
+    document.getElementById("pw-error").classList.remove("show");
+  });
+</script>
+
+</body>
+</html>

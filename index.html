@@ -3,318 +3,518 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tokyo Career Studio | 일본취업 직종 가이드북</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<title>Tokyo Career Studio | 일본취업 직종·업계 라이브러리</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
   :root {
-    --bg: #0a0a0f;
-    --surface: #141419;
-    --border: #1e1e28;
+    --bg: #07070d;
+    --surface: #0f0f16;
+    --surface-2: #161620;
+    --border: #1e1e2a;
+    --border-2: #2a2a38;
+    --text: #eeeef5;
+    --text-sub: #b0b0c8;
+    --text-dim: #6e6e88;
+    --text-muted: #3e3e54;
     --accent: #4a9eff;
     --accent-soft: rgba(74,158,255,0.08);
     --accent-border: rgba(74,158,255,0.2);
-    --text: #e8e8ed;
-    --text-dim: #8888a0;
-    --text-muted: #44445a;
-    --error: #ef4444;
   }
-
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Noto Sans KR', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    position: relative;
-    overflow: hidden;
+    font-family: 'Noto Sans KR','Noto Sans JP',sans-serif;
+    line-height: 1.7;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
 
-  /* 배경 그라디언트 */
-  body::before {
-    content: '';
-    position: absolute;
-    top: -40%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(ellipse, rgba(74,158,255,0.06) 0%, transparent 70%);
-    pointer-events: none;
+  /* ── 배경 ── */
+  .bg-glow {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 10%, rgba(74,158,255,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(162,155,254,0.04) 0%, transparent 60%);
   }
 
-  .gate {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
+  /* ── 레이아웃 ── */
+  .page { position: relative; z-index: 1; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 28px; }
+
+  /* ── 헤더 ── */
+  .site-header {
+    padding: 22px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .site-header .container {
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .header-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    color: var(--text-dim); text-transform: uppercase; text-decoration: none;
+    transition: color 0.2s;
+  }
+  .header-logo:hover { color: var(--text-sub); }
+  .header-logo span { color: #555570; }
+  .header-cta {
+    font-size: 12px; font-weight: 600; color: var(--text-dim);
+    text-decoration: none; padding: 6px 14px;
+    border: 1px solid var(--border-2); border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .header-cta:hover { color: var(--text); border-color: rgba(255,255,255,0.2); }
+
+  /* ── 히어로 ── */
+  .hero {
+    padding: 100px 0 80px;
     text-align: center;
   }
-
-  .logo-badge {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent);
-    background: var(--accent-soft);
-    border: 1px solid var(--accent-border);
-    padding: 6px 16px;
-    border-radius: 20px;
+  .hero-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    color: var(--text-muted); text-transform: uppercase;
     margin-bottom: 28px;
   }
+  .hero-label::before, .hero-label::after {
+    content: ''; display: block; width: 28px; height: 1px; background: var(--border-2);
+  }
+  .hero h1 {
+    font-size: clamp(34px, 5.5vw, 58px);
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1.12;
+    margin-bottom: 24px;
+    color: var(--text);
+  }
+  .hero h1 .line2 {
+    display: block;
+    background: linear-gradient(120deg, #a29bfe 0%, #74b9ff 40%, #55efc4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-desc {
+    font-size: 16px; color: var(--text-dim);
+    max-width: 480px; margin: 0 auto 48px;
+    line-height: 1.85;
+  }
 
-  .book-cover {
+  /* 통계 */
+  .hero-stats {
+    display: flex; justify-content: center; gap: 48px;
+    flex-wrap: wrap; margin-bottom: 60px;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 32px; font-weight: 700; color: var(--text);
+    line-height: 1; margin-bottom: 6px;
+  }
+  .stat-num span { font-size: 20px; color: var(--text-dim); }
+  .stat-label { font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ── 섹션 카드 ── */
+  .section-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 100px;
+  }
+
+  .section-card {
+    position: relative;
+    padding: 32px 28px 28px;
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 40px 32px 36px;
-    margin-bottom: 0;
+    border-radius: 18px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
   }
-
-  .book-icon {
-    font-size: 48px;
-    margin-bottom: 20px;
-    display: block;
+  .section-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    opacity: 0; transition: opacity 0.25s;
   }
+  .section-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.1);
+    background: var(--surface-2);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .section-card:hover::before { opacity: 1; }
 
-  .book-title {
-    font-size: 22px;
-    font-weight: 900;
-    letter-spacing: -0.3px;
-    margin-bottom: 8px;
+  /* 각 카드 색상 */
+  .card-test  { --c: #4a9eff; --cs: rgba(74,158,255,0.08); --cb: rgba(74,158,255,0.2); }
+  .card-industry { --c: #a29bfe; --cs: rgba(162,155,254,0.08); --cb: rgba(162,155,254,0.2); }
+  .card-job   { --c: #55efc4; --cs: rgba(85,239,196,0.08); --cb: rgba(85,239,196,0.2); }
+
+  .section-card::before { background: var(--c); }
+
+  .card-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    color: var(--c); text-transform: uppercase;
+    background: var(--cs); border: 1px solid var(--cb);
+    padding: 4px 10px; border-radius: 20px;
+    margin-bottom: 20px; width: fit-content;
+  }
+  .card-icon { font-size: 28px; margin-bottom: 14px; line-height: 1; }
+  .card-title {
+    font-size: 18px; font-weight: 800; color: var(--text);
+    margin-bottom: 10px; letter-spacing: -0.3px;
     line-height: 1.3;
   }
-
-  .book-subtitle {
-    font-size: 12px;
-    color: var(--text-dim);
-    margin-bottom: 32px;
-    line-height: 1.7;
+  .card-desc {
+    font-size: 12px; color: var(--text-dim);
+    line-height: 1.8; flex: 1; margin-bottom: 20px;
   }
-
-  .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 28px 0;
+  .card-meta {
+    display: flex; align-items: center; justify-content: space-between;
   }
-
-  .pw-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-dim);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    text-align: left;
+  .card-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+  .card-tag {
+    font-size: 10px; padding: 2px 8px; border-radius: 6px;
+    border: 1px solid var(--border-2); color: var(--text-muted);
   }
-
-  .pw-wrap {
-    position: relative;
-    margin-bottom: 16px;
-  }
-
-  .pw-input {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 13px 48px 13px 16px;
-    color: var(--text);
-    font-size: 14px;
-    font-family: inherit;
-    outline: none;
-    transition: border-color 0.2s;
-    letter-spacing: 2px;
-  }
-  .pw-input:focus { border-color: var(--accent); }
-  .pw-input.error { border-color: var(--error); }
-  .pw-input::placeholder { letter-spacing: 0; color: var(--text-muted); }
-
-  .pw-toggle {
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--text-muted);
-    font-size: 16px;
-    padding: 4px;
-    line-height: 1;
-  }
-  .pw-toggle:hover { color: var(--text-dim); }
-
-  .pw-error {
-    font-size: 11px;
-    color: var(--error);
-    text-align: left;
-    margin-top: -10px;
-    margin-bottom: 14px;
-    min-height: 16px;
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-  .pw-error.show { opacity: 1; }
-
-  .enter-btn {
-    width: 100%;
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    padding: 14px;
-    font-size: 14px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
+  .card-arrow {
+    font-size: 16px; color: var(--c);
+    opacity: 0; transform: translateX(-4px);
     transition: all 0.2s;
-    letter-spacing: 0.5px;
   }
-  .enter-btn:hover { background: #3a8eef; transform: translateY(-1px); }
-  .enter-btn:active { transform: translateY(0); }
-  .enter-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .section-card:hover .card-arrow { opacity: 1; transform: translateX(0); }
 
-  .book-meta {
-    margin-top: 28px;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+  /* 무료/유료 배지 */
+  .card-free {
+    font-size: 10px; font-weight: 700; color: #55efc4;
+    background: rgba(85,239,196,0.08); border: 1px solid rgba(85,239,196,0.2);
+    padding: 2px 8px; border-radius: 6px; margin-left: auto;
   }
-  .meta-item {
-    font-size: 11px;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .meta-item strong { color: var(--text-dim); }
-
-  .footer-note {
-    margin-top: 24px;
-    font-size: 10px;
-    color: var(--text-muted);
-    line-height: 1.8;
+  .card-paid {
+    font-size: 10px; font-weight: 700; color: var(--text-muted);
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    padding: 2px 8px; border-radius: 6px; margin-left: auto;
   }
 
-  /* shake 애니메이션 */
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    20% { transform: translateX(-8px); }
-    40% { transform: translateX(8px); }
-    60% { transform: translateX(-4px); }
-    80% { transform: translateX(4px); }
+  /* ── 소개 섹션 ── */
+  .about-section {
+    padding: 80px 0 100px;
+    border-top: 1px solid var(--border);
+    text-align: center;
   }
-  .shake { animation: shake 0.35s ease; }
+  .about-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 3px;
+    color: var(--text-muted); text-transform: uppercase; margin-bottom: 16px;
+  }
+  .about-title {
+    font-size: clamp(22px, 3vw, 30px); font-weight: 800;
+    color: var(--text); margin-bottom: 16px; letter-spacing: -0.5px;
+  }
+  .about-desc {
+    font-size: 14px; color: var(--text-dim); max-width: 520px;
+    margin: 0 auto 40px; line-height: 1.9;
+  }
+  .about-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 28px;
+    background: var(--accent);
+    color: #fff; font-size: 14px; font-weight: 700;
+    border-radius: 12px; text-decoration: none;
+    transition: all 0.2s; letter-spacing: 0.3px;
+  }
+  .about-cta:hover { background: #6aadff; transform: translateY(-2px); }
+
+  /* ── 모달 (global-nav.js와 독립된 인증) ── */
+  #lp-modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 99999;
+    background: rgba(0,0,0,0.72); backdrop-filter: blur(6px);
+    align-items: center; justify-content: center; padding: 24px;
+  }
+  #lp-modal-overlay.open { display: flex; }
+  #lp-modal {
+    background: #141419; border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 36px 32px 28px;
+    width: 100%; max-width: 400px; text-align: center;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+    animation: lp-in 0.22s ease;
+  }
+  @keyframes lp-in {
+    from { opacity:0; transform: scale(0.94) translateY(8px); }
+    to   { opacity:1; transform: scale(1) translateY(0); }
+  }
+  #lp-modal .lm-icon  { font-size: 32px; margin-bottom: 14px; }
+  #lp-modal .lm-title { font-size: 17px; font-weight: 800; color: #e8e8ed; margin-bottom: 8px; }
+  #lp-modal .lm-desc  { font-size: 12px; color: #8888a0; line-height: 1.7; margin-bottom: 20px; }
+  #lp-modal .lm-dest  {
+    display: inline-block; font-size: 11px; font-weight: 600;
+    color: #a29bfe; background: rgba(162,155,254,0.08);
+    border: 1px solid rgba(162,155,254,0.2);
+    padding: 4px 14px; border-radius: 20px; margin-bottom: 20px;
+  }
+  #lp-modal .lm-input {
+    width: 100%; padding: 12px 16px; background: #0a0a0f;
+    border: 1px solid #2a2a35; border-radius: 10px;
+    color: #e8e8ed; font-size: 15px; font-family: inherit;
+    text-align: center; letter-spacing: 3px; outline: none;
+    transition: border-color 0.2s; margin-bottom: 8px;
+  }
+  #lp-modal .lm-input:focus { border-color: rgba(162,155,254,0.5); }
+  #lp-modal .lm-input.shake { animation: lm-shake 0.4s ease; }
+  @keyframes lm-shake {
+    0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)}
+    40%{transform:translateX(6px)}   60%{transform:translateX(-4px)} 80%{transform:translateX(4px)}
+  }
+  #lp-modal .lm-error {
+    font-size: 11px; color: #e17055; margin-bottom: 14px;
+    min-height: 16px; opacity: 0; transition: opacity 0.2s;
+  }
+  #lp-modal .lm-error.show { opacity: 1; }
+  #lp-modal .lm-btn {
+    width: 100%; padding: 12px; background: #a29bfe; color: #fff;
+    border: none; border-radius: 10px; font-size: 14px; font-weight: 700;
+    font-family: inherit; cursor: pointer; transition: all 0.2s; margin-bottom: 10px;
+  }
+  #lp-modal .lm-btn:hover    { background: #b8b3ff; }
+  #lp-modal .lm-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  #lp-modal .lm-cancel {
+    font-size: 12px; color: #555568; cursor: pointer;
+    background: none; border: none; font-family: inherit; padding: 4px 8px;
+    transition: color 0.2s;
+  }
+  #lp-modal .lm-cancel:hover { color: #8888a0; }
+
+  /* ── 푸터 ── */
+  .site-footer {
+    padding: 32px 0; border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .site-footer p { font-size: 11px; color: var(--text-muted); line-height: 1.8; }
+
+  /* ── 반응형 ── */
+  @media (max-width: 768px) {
+    .section-cards { grid-template-columns: 1fr; gap: 12px; }
+    .hero { padding: 72px 0 60px; }
+    .hero-stats { gap: 28px; }
+    .stat-num { font-size: 26px; }
+  }
+  @media (max-width: 480px) {
+    .hero h1 { letter-spacing: -1px; }
+    .container { padding: 0 18px; }
+  }
 </style>
 </head>
 <body>
+<div class="bg-glow"></div>
+<div class="page">
 
-<div class="gate">
-  <div class="logo-badge">Tokyo Career Studio</div>
-
-  <div class="book-cover">
-    <span class="book-icon">📚</span>
-    <div class="book-title">일본취업<br>직종 가이드북</div>
-    <div class="book-subtitle">
-      일본 신졸·경력 취업을 위한<br>
-      직종별 완전 분석 가이드
+  <!-- 헤더 -->
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="header-logo">Tokyo <span>Career Studio</span></a>
+      <a href="https://tokyocareerstudio.com" target="_blank" class="header-cta">상담 신청 →</a>
     </div>
+  </header>
 
-    <div class="divider"></div>
+  <!-- 히어로 -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-label">Japan Career Library</div>
+      <h1>
+        일본 취업,<br>
+        <span class="line2">직종과 업계부터 시작하자</span>
+      </h1>
+      <p class="hero-desc">
+        어떤 직종이 나에게 맞는지 모른 채 지원서를 쓰는 건<br>
+        지도 없이 길을 찾는 것과 같다.
+      </p>
 
-    <div class="pw-label">액세스 코드</div>
-    <div class="pw-wrap">
-      <input
-        class="pw-input"
-        id="pw"
-        type="password"
-        placeholder="비밀번호를 입력하세요"
-        autocomplete="off"
-        onkeydown="if(event.key==='Enter') tryEnter()"
-      >
-      <button class="pw-toggle" onclick="togglePw()" id="pw-eye">👁</button>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">7<span>년+</span></div>
+          <div class="stat-label">Japan Career Consulting</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">2,000<span>+</span></div>
+          <div class="stat-label">Consulting Sessions</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">25<span>개</span></div>
+          <div class="stat-label">Industry Reports</div>
+        </div>
+      </div>
+
+      <!-- 섹션 카드 3개 -->
+      <div class="section-cards">
+
+        <!-- 진단 테스트 (무료) -->
+        <div class="section-card card-test" onclick="location.href='career-test.html'">
+          <div class="card-badge">🧭 Step 01</div>
+          <div class="card-icon">🧭</div>
+          <div class="card-title">커리어 나침반<br>진단 테스트</div>
+          <div class="card-desc">
+            성향·강점·가치관 분석으로<br>
+            나에게 맞는 직종과 업계를<br>
+            10분 안에 찾아드립니다.
+          </div>
+          <div class="card-meta">
+            <div class="card-tags">
+              <span class="card-tag">10분</span>
+              <span class="card-tag">직종 매칭</span>
+            </div>
+            <span class="card-free">무료</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+
+        <!-- 업계 리포트 (유료) -->
+        <div class="section-card card-industry" id="card-industry">
+          <div class="card-badge">📋 Step 02</div>
+          <div class="card-icon">📋</div>
+          <div class="card-title">업계 리포트<br>라이브러리</div>
+          <div class="card-desc">
+            25개 업계의 구조·트렌드·<br>
+            주요 기업·ES대책·면접 전략을<br>
+            한 페이지에 완전 정리.
+          </div>
+          <div class="card-meta">
+            <div class="card-tags">
+              <span class="card-tag">25개 업계</span>
+              <span class="card-tag">7섹션</span>
+            </div>
+            <span class="card-paid">수강생 전용</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+
+        <!-- 직종 라이브러리 (유료) -->
+        <div class="section-card card-job" id="card-job">
+          <div class="card-badge">🗺️ Step 03</div>
+          <div class="card-icon">🗺️</div>
+          <div class="card-title">직종 라이브러리<br>대분류 맵</div>
+          <div class="card-desc">
+            영업·SE·기획·물류·시공관리 등<br>
+            9대 직종 40+ 카드로<br>
+            커리어 경로를 설계하세요.
+          </div>
+          <div class="card-meta">
+            <div class="card-tags">
+              <span class="card-tag">9대 직종</span>
+              <span class="card-tag">40+ 카드</span>
+            </div>
+            <span class="card-paid">수강생 전용</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+
+      </div>
     </div>
-    <div class="pw-error" id="pw-error">비밀번호가 올바르지 않습니다.</div>
+  </section>
 
-    <button class="enter-btn" onclick="tryEnter()" id="enter-btn">
-      가이드북 열기 →
-    </button>
-
-    <div class="book-meta">
-      <div class="meta-item">🗂️ <strong>9</strong> 직종 대분류</div>
-      <div class="meta-item">📄 <strong>43</strong> 페이지</div>
-      <div class="meta-item">🎯 <strong>33</strong> 직종 상세</div>
+  <!-- 소개 섹션 -->
+  <section class="about-section">
+    <div class="container">
+      <div class="about-label">About Tokyo Career Studio</div>
+      <div class="about-title">일본 취업 전문 1:1 컨설팅</div>
+      <p class="about-desc">
+        7년+의 현장 경험과 2,000+ 컨설팅을 통해 쌓은 데이터를<br>
+        이 라이브러리에 담았습니다.<br>
+        더 깊은 지원이 필요하다면 1:1 상담을 신청하세요.
+      </p>
+      <a href="https://tokyocareerstudio.com" target="_blank" class="about-cta">
+        1:1 상담 신청하기 →
+      </a>
     </div>
-  </div>
+  </section>
 
-  <div class="footer-note">
-    Tokyo Career Studio © 2025 · 무단 배포 금지
+  <!-- 푸터 -->
+  <footer class="site-footer">
+    <p>© Tokyo Career Studio — Japan Career Library</p>
+    <p style="margin-top:4px">일본 신졸 취업 직종·업계 매칭 서비스</p>
+  </footer>
+
+</div>
+
+<!-- 인증 모달 -->
+<div id="lp-modal-overlay">
+  <div id="lp-modal">
+    <div class="lm-icon">🔐</div>
+    <div class="lm-title">수강생 전용 컨텐츠</div>
+    <div class="lm-desc">Tokyo Career Studio 수강생 전용 라이브러리입니다.<br>받으신 비밀번호를 입력해 주세요.</div>
+    <div class="lm-dest" id="lp-dest-label"></div>
+    <input class="lm-input" id="lp-pw-input" type="password" placeholder="비밀번호 입력">
+    <div class="lm-error" id="lp-pw-error">비밀번호가 올바르지 않습니다</div>
+    <button class="lm-btn" id="lp-pw-btn">입장하기</button>
+    <button class="lm-cancel" id="lp-pw-cancel">닫기</button>
   </div>
 </div>
 
 <script>
-  // =============================================
-  // 비밀번호 설정 — 여기만 바꾸면 됩니다
-  const PASSWORD = "tcs2025";
-  // =============================================
+const SESSION_KEY = 'tcs_auth';
+const PASSWORD    = 'tcs2025';
+const isAuthed    = () => sessionStorage.getItem(SESSION_KEY) === 'ok';
 
-  const SESSION_KEY = "tcs_auth";
-  const REDIRECT_KEY = "tcs_redirect";
+let pendingDest = '';
 
-  // 이미 인증된 경우 바로 진입
-  if (sessionStorage.getItem(SESSION_KEY) === "ok") {
-    const dest = sessionStorage.getItem(REDIRECT_KEY) || "map-lv1.html";
-    sessionStorage.removeItem(REDIRECT_KEY);
-    location.replace(dest);
+function openModal(dest, label) {
+  pendingDest = dest;
+  document.getElementById('lp-dest-label').textContent = label;
+  const input = document.getElementById('lp-pw-input');
+  const err   = document.getElementById('lp-pw-error');
+  input.value = '';
+  input.classList.remove('shake');
+  err.classList.remove('show');
+  document.getElementById('lp-modal-overlay').classList.add('open');
+  setTimeout(() => input.focus(), 120);
+}
+
+function tryEnter() {
+  const input = document.getElementById('lp-pw-input');
+  const err   = document.getElementById('lp-pw-error');
+  const btn   = document.getElementById('lp-pw-btn');
+  if (input.value.trim() === PASSWORD) {
+    sessionStorage.setItem(SESSION_KEY, 'ok');
+    btn.textContent = '✓ 인증됨';
+    btn.disabled = true;
+    setTimeout(() => { location.href = pendingDest; }, 300);
+  } else {
+    err.classList.add('show');
+    input.classList.add('shake');
+    input.select();
+    setTimeout(() => input.classList.remove('shake'), 500);
   }
+}
 
-  function tryEnter() {
-    const val = document.getElementById("pw").value;
-    const errEl = document.getElementById("pw-error");
-    const input = document.getElementById("pw");
+// 업계 리포트 카드
+document.getElementById('card-industry').addEventListener('click', () => {
+  if (isAuthed()) location.href = 'industry-index.html';
+  else openModal('industry-index.html', '업계 리포트 라이브러리');
+});
 
-    if (val === PASSWORD) {
-      sessionStorage.setItem(SESSION_KEY, "ok");
-      document.getElementById("enter-btn").textContent = "로딩 중...";
-      document.getElementById("enter-btn").disabled = true;
-      const dest = sessionStorage.getItem(REDIRECT_KEY) || "map-lv1.html";
-      sessionStorage.removeItem(REDIRECT_KEY);
-      setTimeout(() => location.replace(dest), 300);
-    } else {
-      input.classList.add("error", "shake");
-      errEl.classList.add("show");
-      setTimeout(() => {
-        input.classList.remove("shake");
-        input.classList.remove("error");
-      }, 500);
-      input.value = "";
-      input.focus();
-    }
-  }
+// 직종 라이브러리 카드
+document.getElementById('card-job').addEventListener('click', () => {
+  if (isAuthed()) location.href = 'map-lv1.html';
+  else openModal('map-lv1.html', '직종 라이브러리');
+});
 
-  function togglePw() {
-    const input = document.getElementById("pw");
-    const eye = document.getElementById("pw-eye");
-    if (input.type === "password") {
-      input.type = "text";
-      eye.textContent = "🙈";
-    } else {
-      input.type = "password";
-      eye.textContent = "👁";
-    }
-  }
-
-  document.getElementById("pw").addEventListener("input", () => {
-    document.getElementById("pw-error").classList.remove("show");
-  });
+// 모달 이벤트
+document.getElementById('lp-pw-btn').addEventListener('click', tryEnter);
+document.getElementById('lp-pw-cancel').addEventListener('click', () => {
+  document.getElementById('lp-modal-overlay').classList.remove('open');
+});
+document.getElementById('lp-pw-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') tryEnter();
+});
+document.getElementById('lp-modal-overlay').addEventListener('click', e => {
+  if (e.target.id === 'lp-modal-overlay')
+    document.getElementById('lp-modal-overlay').classList.remove('open');
+});
 </script>
 
 </body>

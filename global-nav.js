@@ -146,7 +146,7 @@
 
   const logo = document.createElement('a');
   logo.className = 'gn-logo';
-  logo.href = 'career-test.html';
+  logo.href = 'index.html';
   logo.innerHTML = 'Tokyo <span>Career Studio</span>';
   inner.appendChild(logo);
 
