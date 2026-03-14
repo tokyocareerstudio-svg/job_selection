@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>통신 업계 리포트 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f; --surface: #141419; --surface-2: #1c1c24;
+    --border: #2a2a35; --border-hover: #3a3a48;
+    --text: #e8e8ed; --text-sub: #c0c0d0; --text-dim: #8888a0; --text-muted: #555568;
+    --accent: #4a9eff; --accent-soft: rgba(74,158,255,0.08); --accent-border: rgba(74,158,255,0.22);
+    --kddi: #fd9f00; --kddi-soft: rgba(253,159,0,0.08); --kddi-border: rgba(253,159,0,0.22);
+    --sb: #ff6b6b; --sb-soft: rgba(255,107,107,0.08); --sb-border: rgba(255,107,107,0.2);
+    --warn: #f59e0b; --warn-soft: rgba(245,158,11,0.06); --warn-border: rgba(245,158,11,0.18);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Noto Sans JP',sans-serif; line-height:1.8; font-size:15px; -webkit-font-smoothing:antialiased; }
+  .container { max-width:760px; margin:0 auto; padding:0 24px 100px; }
+  .hero { padding:64px 24px 48px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(74,158,255,0.06) 0%, transparent 70%); pointer-events:none; }
+  .hero-inner { position:relative; max-width:760px; margin:0 auto; }
+  .hero-label { display:inline-block; font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-border); padding:4px 12px; border-radius:12px; margin-bottom:20px; text-transform:uppercase; }
+  .hero h1 { font-size:30px; font-weight:900; line-height:1.3; margin-bottom:10px; letter-spacing:-0.5px; }
+  .hero-sub { font-size:13px; color:var(--text-dim); line-height:1.9; margin-bottom:20px; max-width:560px; }
+  .hero-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .hero-tag { font-size:11px; padding:4px 12px; border-radius:100px; font-weight:500; }
+  .hero-tag.a { background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); }
+  .hero-tag.k { background:var(--kddi-soft); color:var(--kddi); border:1px solid var(--kddi-border); }
+  .hero-tag.s { background:var(--sb-soft); color:var(--sb); border:1px solid var(--sb-border); }
+  .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
+  .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+  .section-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-btn { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
+  .nav-btn:hover, .nav-btn.active { color:var(--accent); background:var(--accent-soft); }
+  .section { padding:44px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom:none; }
+  .section-num { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); opacity:0.7; margin-bottom:6px; text-transform:uppercase; }
+  .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
+  .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); margin-bottom:20px; }
+  .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section p:last-child { margin-bottom:0; }
+  .section h3 { font-size:14px; font-weight:700; color:var(--text-sub); margin:28px 0 12px; padding-left:10px; border-left:2px solid var(--accent); }
+  .section h3.k { border-left-color:var(--kddi); }
+  .section h3.s { border-left-color:var(--sb); }
+  .info-box { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:16px 0; }
+  .info-box-accent { background:var(--accent-soft); border-color:var(--accent-border); border-left:3px solid var(--accent); }
+  .info-box-warn { background:var(--warn-soft); border-color:var(--warn-border); border-left:3px solid var(--warn); }
+  .info-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+  .box-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .box-label-warn { color:var(--warn); }
+  .hl { color:var(--accent); font-weight:600; }
+  .hl-k { color:var(--kddi); font-weight:600; }
+  .hl-s { color:var(--sb); font-weight:600; }
+  .hl-warn { color:var(--warn); font-weight:600; }
+  .table-wrap { overflow-x:auto; margin:16px 0; border:1px solid var(--border); border-radius:10px; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  thead { background:var(--surface-2); }
+  th { padding:10px 14px; text-align:left; font-weight:700; font-size:10px; letter-spacing:1px; color:var(--text-muted); border-bottom:1px solid var(--border); white-space:nowrap; text-transform:uppercase; }
+  td { padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-dim); vertical-align:top; line-height:1.7; }
+  tr:last-child td { border-bottom:none; }
+  td:first-child { font-weight:700; color:var(--text-sub); }
+  .trend-card { padding:20px 22px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:12px 0; }
+  .trend-num { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .trend-card h4 { font-size:14px; font-weight:700; margin-bottom:10px; color:var(--text); }
+  .trend-card p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:10px; }
+  .trend-card p:last-child { margin-bottom:0; }
+  .use-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700; margin:6px 4px 4px 0; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); }
+  .company-group { margin:20px 0; }
+  .company-group-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--text-muted); margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--border); text-transform:uppercase; }
+  .company-card { padding:16px 18px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin-bottom:8px; transition:border-color 0.2s; }
+  .company-card:hover { border-color:var(--border-hover); }
+  .company-card.primary { border-color:var(--accent-border); }
+  .company-card.primary-k { border-color:var(--kddi-border); }
+  .company-card.primary-s { border-color:var(--sb-border); }
+  .company-type { font-size:10px; font-weight:700; color:var(--accent); letter-spacing:1px; margin-bottom:4px; text-transform:uppercase; }
+  .company-type.k { color:var(--kddi); }
+  .company-type.s { color:var(--sb); }
+  .company-name { font-size:15px; font-weight:700; color:var(--text); margin-bottom:6px; }
+  .company-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:12px; color:var(--text-muted); font-weight:400; margin-left:6px; }
+  .company-desc { font-size:12px; color:var(--text-dim); line-height:1.8; }
+  .company-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:8px; }
+  .company-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .company-tag.a { background:var(--accent-soft); color:var(--accent); border-color:var(--accent-border); }
+  .company-tag.k { background:var(--kddi-soft); color:var(--kddi); border-color:var(--kddi-border); }
+  .company-tag.s { background:var(--sb-soft); color:var(--sb); border-color:var(--sb-border); }
+  .job-link-card { display:flex; align-items:flex-start; gap:14px; padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; text-decoration:none; transition:all 0.2s; margin-bottom:8px; }
+  .job-link-card:hover { border-color:var(--accent-border); background:var(--accent-soft); }
+  .job-link-icon { font-size:24px; flex-shrink:0; margin-top:2px; }
+  .job-link-body { flex:1; }
+  .job-link-kicker { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:4px; text-transform:uppercase; }
+  .job-link-title { font-size:14px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .job-link-desc { font-size:12px; color:var(--text-dim); line-height:1.7; margin-bottom:8px; }
+  .job-link-tags { display:flex; flex-wrap:wrap; gap:4px; }
+  .job-link-tag { font-size:10px; padding:2px 8px; border-radius:6px; background:var(--surface-2); color:var(--text-muted); border:1px solid var(--border); }
+  .job-link-arrow { font-size:16px; color:var(--accent); flex-shrink:0; margin-top:4px; }
+  .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:16px 0; }
+  .keyword-card { padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .keyword-name { font-size:13px; font-weight:700; color:var(--accent); margin-bottom:4px; }
+  .keyword-name-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); font-weight:400; margin-left:4px; }
+  .keyword-desc { font-size:11px; color:var(--text-dim); line-height:1.7; }
+  .es-pattern { padding:16px 18px; background:var(--surface-2); border-radius:8px; margin:12px 0; }
+  .es-pattern-label { font-size:10px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:8px; text-transform:uppercase; }
+  .es-pattern p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+  .footer { padding:40px 0 60px; border-top:1px solid var(--border); margin-top:20px; text-align:center; }
+  .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; }
+  .footer .brand { font-weight:700; color:var(--text-dim); }
+  @media (max-width:640px) { .keyword-grid { grid-template-columns:1fr; } .hero h1 { font-size:24px; } .section-title { font-size:18px; } }
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">업계 리포트 Vol.20</div>
+    <h1>통신 업계 완전 정리</h1>
+    <p class="hero-sub">
+      NTT도코모·KDDI·소프트뱅크 대형 3사부터 NTT그룹 인프라까지.<br>
+      5G·AI·DX가 재편하는 통신 업계를 한 페이지에.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag a">NTT도코모 — 국내 1위</span>
+      <span class="hero-tag k">KDDI — 위성·IoT 강자</span>
+      <span class="hero-tag s">소프트뱅크 — AI 선도</span>
+      <span class="hero-tag a">5G·통신 인프라</span>
+      <span class="hero-tag a">비통신 사업 확장</span>
+    </div>
+  </div>
+</div>
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <button class="nav-btn active" onclick="scrollTo('s1')">01 업계전체상</button>
+    <button class="nav-btn" onclick="scrollTo('s2')">02 트렌드</button>
+    <button class="nav-btn" onclick="scrollTo('s3')">03 활약직종</button>
+    <button class="nav-btn" onclick="scrollTo('s4')">04 키워드</button>
+    <button class="nav-btn" onclick="scrollTo('s5')">05 기업리스트</button>
+    <button class="nav-btn" onclick="scrollTo('s6')">06 ES대책</button>
+    <button class="nav-btn" onclick="scrollTo('s7')">07 면접대책</button>
+  </div>
+</div>
+<div class="container">
+
+<!-- ════ S1 ════ -->
+<div class="section" id="s1">
+  <div class="section-num">SECTION 01</div>
+  <div class="section-title">업계 전체상</div>
+  <div class="section-title-jp">業界全体像 — 大手3社・NTTグループ・ビジネスモデル</div>
+  <div class="info-box info-box-accent">
+    <div class="box-label">한 줄 정의</div>
+    <p><span class="hl">모바일·인터넷·기업 통신 인프라를 제공하는 업계. 일본 통신 시장 규모 약 12조 엔. NTT도코모·KDDI·소프트뱅크가 국내 시장을 과점하는 구도 아래, 각사는 통신 수익의 정체를 보완하기 위해 금융·미디어·AI·IoT로 빠르게 사업을 확장하고 있다.</span></p>
+  </div>
+
+  <p>일본 모바일 통신 시장은 <span class="hl">도코모·KDDI·소프트뱅크의 대형 3사 + 라쿠텐모바일(제4통신사)</span>로 구성된다. 2023~2024년의 정부 주도 요금 인하 정책으로 모바일 ARPU(가입자당 평균 수익)가 하락하면서, 각사는 통신 외 사업(금융·미디어·AI·DX 솔루션)으로 수익 다각화를 가속하고 있다.</p>
+
+  <h3>통신 업계의 구조</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>분류</th><th>특징</th><th>대표 기업</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>대형 통신 3사<br>(MNO)</td>
+          <td>자사 기지국 네트워크를 보유하는 이동통신사업자. 모바일·광대역·기업통신을 일괄 제공. 수천만 가입자 기반이 최대 자산</td>
+          <td>NTT도코모, KDDI(au), 소프트뱅크</td>
+        </tr>
+        <tr>
+          <td>NTT그룹</td>
+          <td>NTT(지주)를 정점으로 도코모·NTT동일본·NTT서일본·NTT데이터·NTT커뮤니케이션즈가 계열. 국내 최대 통신·IT 그룹</td>
+          <td>NTT(지주), NTT도코모, NTT데이터, NTT동일본</td>
+        </tr>
+        <tr>
+          <td>MVNO·격안심</td>
+          <td>대형 3사의 네트워크를 빌려 저가 요금으로 서비스 제공. 라쿠텐모바일은 자사 기지국도 보유(MNO)</td>
+          <td>라쿠텐모바일, IIJ모바일, 미네오</td>
+        </tr>
+        <tr>
+          <td>통신 장비·기술</td>
+          <td>기지국 설비·광케이블·라우터 등 통신 인프라를 제조·납품. 통신사의 설비 투자에 연동한 수익</td>
+          <td>NEC, 후지쓰, 에릭슨재팬, 노키아재팬</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>비즈니스 모델 — 통신회사는 어떻게 돈을 버는가</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>수익 모델</th><th>구조</th><th>현재 상황</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>통신 서비스 수수료</td>
+          <td>모바일·광대역 월정액 요금. 수천만 가입자의 반복 수익이 안정적 현금 흐름의 기반</td>
+          <td>정부 요금 인하 압력으로 ARPU 하락 경향. 데이터 사용량 증가로 고용량 플랜 전환 촉진 중</td>
+        </tr>
+        <tr>
+          <td>법인·DX 솔루션</td>
+          <td>기업에 전용선·클라우드·IoT·사이버보안 솔루션을 제공. 단순 회선 판매에서 DX 컨설팅으로 고도화</td>
+          <td>통신 3사 모두 법인 DX 사업을 성장 엔진으로 위치. NTT데이터·KDDI의 법인 사업이 특히 확대</td>
+        </tr>
+        <tr>
+          <td>금융·미디어 사업</td>
+          <td>페이페이(소프트뱅크)·au PAY(KDDI)·d포인트(도코모) 등 핀테크·포인트 경제권 구축</td>
+          <td>수천만 가입자 기반을 금융·쇼핑·미디어로 확장하는 "경제권" 전략이 각사의 핵심 성장 전략</td>
+        </tr>
+        <tr>
+          <td>AI·클라우드</td>
+          <td>통신 인프라 위에서 AI·클라우드·엣지컴퓨팅 서비스 제공. 법인 고객의 DX 수요가 수익원</td>
+          <td>소프트뱅크의 AI 인프라 투자·KDDI의 위성 통신(스타링크 파트너십)이 주목받는 분야</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>대형 3사 포지션 비교</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>비교 항목</th><th>NTT도코모</th><th>KDDI (au)</th><th>소프트뱅크</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>모바일 점유율</td>
+          <td>약 35% — 국내 1위</td>
+          <td>약 27%</td>
+          <td>약 25%</td>
+        </tr>
+        <tr>
+          <td>경제권 전략</td>
+          <td>d포인트·도코모 금융·아마존 제휴</td>
+          <td>au PAY·Ponta·스마트밸류 전략</td>
+          <td>페이페이·야후·라인 경제권 (Z홀딩스 통합)</td>
+        </tr>
+        <tr>
+          <td>성장 축</td>
+          <td>NTT그룹과 연계한 법인 DX·글로벌 통신</td>
+          <td>위성통신(스타링크)·IoT·해저케이블</td>
+          <td>AI 인프라 투자·손정의 비전펀드</td>
+        </tr>
+        <tr>
+          <td>평균 연봉</td>
+          <td>약 835만 엔</td>
+          <td>약 835만 엔</td>
+          <td>약 832만 엔</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ════ S2 ════ -->
+<div class="section" id="s2">
+  <div class="section-num">SECTION 02</div>
+  <div class="section-title">면접관이 체크하는 트렌드 3선</div>
+  <div class="section-title-jp">面接官がチェックするトレンド</div>
+  <p>"최근 통신 업계에서 주목하는 것이 있나요?" — <span class="hl">5G·AI·경제권 전략 중 지원 회사의 강점과 연결해서 말해야</span> 차별화된다.</p>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 01</div>
+    <h4>5G·6G 인프라와 산업 DX — "통신" 을 넘어 "플랫폼"으로</h4>
+    <p>5G의 본격 보급으로 통신 업계의 역할이 단순한 회선 제공에서 <span class="hl">산업 DX의 기반 인프라 제공자</span>로 전환되고 있다. 공장의 스마트화(스마트 팩토리)·자율주행·원격 의료·스마트 시티 등 5G의 저지연·고용량 특성이 만드는 새로운 서비스 영역이 급속히 확대되고 있다. 한편 이미 6G의 표준화가 국제 표준화 단체에서 논의되기 시작했으며, NTT는 2030년 6G 상용화를 목표로 연구 개발을 추진 중이다.</p>
+    <div class="use-tag">전 통신사 활용</div>
+    <p>"5G는 스마트폰 통신의 고속화에 그치지 않고 산업 인프라 자체를 재정의하는 기술입니다. 통신 인프라를 기반으로 기업의 DX를 지원하는 역할에서 기여하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 02</div>
+    <h4>AI 인프라 투자 경쟁 — 소프트뱅크·NTT의 국가급 투자</h4>
+    <p>손정의가 이끄는 소프트뱅크는 일본 국내에 <span class="hl-s">AI 데이터센터·반도체 설계 회사 암(ARM)·AI 인프라에 총 수조 엔 규모의 투자</span>를 표명했다. NTT도 독자 AI 모델 "쓰즈미"를 개발해 기업의 AI 도입을 지원하는 전략을 추진하고 있다. KDDI는 스타링크(스페이스X)와 파트너십을 맺어 위성 통신과 지상 네트워크를 통합하는 실험적 서비스를 전개하고 있다.</p>
+    <p>이 AI 투자 경쟁은 통신 업계의 인재 요건을 바꾸고 있다. AI·데이터 분석·클라우드 기술을 이해하는 엔지니어뿐 아니라, AI 서비스를 기업 고객에게 제안할 수 있는 비즈니스 인재의 수요도 급증하고 있다.</p>
+    <div class="use-tag">소프트뱅크 활용</div>
+    <div class="use-tag">NTT 활용</div>
+    <p>"일본의 AI 인프라 정비는 국가 경쟁력에 직결되는 과제입니다. 통신 네트워크와 AI를 연결하는 플랫폼 구축에 기여하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">TREND 03</div>
+    <h4>경제권 전쟁 — 페이페이 vs au PAY vs d포인트</h4>
+    <p>통신 3사는 모두 자사 통신 가입자 기반을 활용해 <span class="hl">금융·쇼핑·미디어를 통합한 "경제권"을 구축하는 전략</span>을 추진하고 있다. 소프트뱅크는 야후재팬·라인·페이페이를 통합한 LYNA그룹과의 시너지로 일본 최대 인터넷 경제권을 형성하고 있다. KDDI는 au PAY·Ponta·마루이 제휴로 금융·유통까지 커버하는 "au 경제권"을 확장 중이다.</p>
+    <p>이 경제권 전략은 새로운 직종 수요를 창출하고 있다. 데이터 분석·마케팅 자동화·핀테크 서비스 기획 등 IT×금융×통신의 교차점에서 일할 수 있는 인재가 통신 각사에서 강하게 요구되고 있다.</p>
+    <div class="use-tag">소프트뱅크 활용</div>
+    <div class="use-tag">KDDI 활용</div>
+    <p>"통신 인프라 위에서 금융·쇼핑·미디어를 통합하는 경제권 전략은 산업 경계를 초월한 새로운 가치 창출입니다. 이 교차점에서 사용자 체험을 설계하는 역할에 기여하고 싶습니다."</p>
+  </div>
+</div>
+
+<!-- ════ S3 ════ -->
+<div class="section" id="s3">
+  <div class="section-num">SECTION 03</div>
+  <div class="section-title">이 업계에서 활약하는 직종</div>
+  <div class="section-title-jp">通信業界で活躍する職種</div>
+  <p>통신 업계는 <span class="hl">법인 영업·IT 엔지니어·서비스 기획·마케팅</span>이 문과·이과 양쪽의 핵심 경로다. "통신회사 = 스마트폰 판매"라는 이미지와 달리, 본부 직종은 DX 솔루션 기획·AI 서비스 개발·법인 영업이 중심이다.</p>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/sales-eg02-it" target="_blank" class="job-link-card">
+    <div class="job-link-icon">📡</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">IT·통신 영업 — 직종 상세 카드 EG-02</div>
+      <div class="job-link-title">IT·통신 영업 — 기업의 DX를 통신으로 지원하는 사람</div>
+      <div class="job-link-desc">
+        법인 고객에게 회선·클라우드·IoT·AI 솔루션을 제안하는 B2B 영업. <strong style="color:var(--text-sub);">단순 회선 판매에서 DX 컨설팅으로 진화 중인 통신 법인 영업의 현실.</strong> 기술 이해력과 제안 능력의 조합이 차별화 포인트.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">법인 DX 영업</span>
+        <span class="job-link-tag">IT 이해력 필요</span>
+        <span class="job-link-tag">클라우드·IoT·AI</span>
+        <span class="job-link-tag">문과 가능</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <a href="https://tokyocareerstudio-jobselection.netlify.app/se-overview" target="_blank" class="job-link-card">
+    <div class="job-link-icon">🛜</div>
+    <div class="job-link-body">
+      <div class="job-link-kicker">SE·통신 엔지니어 — 직종 개요 카드</div>
+      <div class="job-link-title">통신 엔지니어 — 네트워크 인프라를 설계·운용하는 사람</div>
+      <div class="job-link-desc">
+        기지국 설계·네트워크 구축·사이버보안·클라우드 인프라 운용까지. <strong style="color:var(--text-sub);">5G·AI 투자 확대로 통신 엔지니어의 수요가 구조적으로 성장 중.</strong> 이공계 전공이 유리하지만 문과도 인프라 기획 직종으로 진입 가능.
+      </div>
+      <div class="job-link-tags">
+        <span class="job-link-tag">네트워크 설계·운용</span>
+        <span class="job-link-tag">5G·클라우드</span>
+        <span class="job-link-tag">사이버보안</span>
+        <span class="job-link-tag">이공계 유리</span>
+      </div>
+    </div>
+    <div class="job-link-arrow">→</div>
+  </a>
+
+  <div class="info-box" style="margin-top:20px;">
+    <div class="box-label">통신 업계 직종 구조 상세</div>
+    <p>
+      <strong style="color:var(--text-sub);">법인 영업 (엔터프라이즈 영업):</strong> 중소기업~대기업에 통신 회선·클라우드·DX 솔루션을 제안. 단순 회선 판매에서 IT 컨설팅으로 진화 중. 문과 신졸의 주력 진입 경로.<br><br>
+      <strong style="color:var(--text-sub);">서비스 기획·사업 개발:</strong> 5G 활용 서비스·AI 솔루션·경제권 서비스의 기획. 비즈니스와 기술 양쪽의 이해가 필요한 포지션. 수년 영업 경험 후 이동하는 경우가 많음.<br><br>
+      <strong style="color:var(--text-sub);">네트워크 엔지니어:</strong> 기지국 설계·IP 네트워크 구축·5G 인프라 운용. 이공계(정보·전기·통신)가 중심. 국가 자격(네트워크 스페셜리스트 등) 취득이 커리어를 결정.<br><br>
+      <strong style="color:var(--text-sub);">데이터 분석·마케팅:</strong> 수천만 가입자 데이터를 활용한 마케팅 최적화·경제권 확장 기획. 데이터 사이언스 능력이 점점 요구됨.<br><br>
+      <span class="hl">통신 각사는 "통신회사"보다 "IT·DX 기업"으로의 전환을 표방하고 있어, IT 기술·AI·데이터에 대한 관심이 채용에서 점점 중시되고 있다.</span>
+    </p>
+  </div>
+</div>
+
+<!-- ════ S4 ════ -->
+<div class="section" id="s4">
+  <div class="section-num">SECTION 04</div>
+  <div class="section-title">통신 업계 × 직종별 자기분석 키워드</div>
+  <div class="section-title-jp">自己分析キーワードとの接続</div>
+  <p>통신 업계는 <span class="hl">사회 인프라에 대한 사명감 + IT·디지털에 대한 탐구심 + 변화 속도에 대응하는 주체성</span>이 기본 전제다.</p>
+
+  <h3>법인 영업·서비스 기획 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">탐구심 <span class="keyword-name-jp">探求心</span></div>
+      <div class="keyword-desc">5G·AI·IoT·클라우드 기술의 진화를 항상 추적하면서 고객 과제에 어떻게 응용할 수 있는지를 스스로 공부하는 자세. "통신 기술이 어떻게 세상을 바꾸는가"를 일상적으로 탐구하는 지적 호기심이 통신 업계에서의 성장을 결정한다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">논리적사고력 <span class="keyword-name-jp">論理的思考力</span></div>
+      <div class="keyword-desc">법인 DX 영업에서 고객의 업무 과제를 분석하고 "왜 이 솔루션이 최적인가"를 명확하게 제안하는 능력. 네트워크·클라우드·AI의 기술 구조를 비전문가에게도 알기 쉽게 설명하는 번역 능력이 핵심.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">주체성 <span class="keyword-name-jp">主体性</span></div>
+      <div class="keyword-desc">통신 각사는 "통신회사"에서 "IT·DX 기업"으로 변혁 중이다. 그 변혁의 속도를 따라가고 새로운 서비스를 스스로 기획하는 자기 주도성이 평가된다. 지시를 기다리지 않고 "이런 서비스는 어떨까"를 제안하는 자세.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">공헌의식 <span class="keyword-name-jp">貢献意識</span></div>
+      <div class="keyword-desc">통신 네트워크는 재해 시에도 끊기지 않아야 하는 사회 인프라다. "자신이 지원하는 네트워크 위에서 수천만 명의 생활이 이루어지고 있다"는 사명감이 통신 엔지니어·기획자의 정체성 핵심이다.</div>
+    </div>
+  </div>
+
+  <h3 class="k">엔지니어·인프라 포지션에서 빛나는 키워드</h3>
+  <div class="keyword-grid">
+    <div class="keyword-card">
+      <div class="keyword-name">정확성 <span class="keyword-name-jp">正確性</span></div>
+      <div class="keyword-desc">통신 인프라의 설정 오류는 수천만 명의 통신 장애로 이어진다. 네트워크 설계·기지국 파라미터 설정·장애 대응에서 한 글자의 오류도 허용되지 않는 정밀도. 이 환경에서 체크리스트·이중 확인을 습관화하는 꼼꼼함이 생명이다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">향상심 <span class="keyword-name-jp">向上心</span></div>
+      <div class="keyword-desc">통신 기술(4G→5G→6G, IP·광·위성)은 수년마다 세대가 바뀐다. 최신 기술을 스스로 학습하고 자격 취득(네트워크 스페셜리스트·AWS·Azure)으로 전문성을 증명하는 계속 성장의 자세. 기술 습득을 즐기는 엔지니어 마인드.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">냉정함 <span class="keyword-name-jp">冷静さ</span></div>
+      <div class="keyword-desc">대규모 통신 장애 발생 시 수천만 명의 가입자 영향을 최소화하기 위해 원인 특정·복구 작업·외부 커뮤니케이션을 동시에 진행하는 압박 상황에서 침착함을 유지하는 능력. 인프라 장애 대응에서 패닉은 허용되지 않는다.</div>
+    </div>
+    <div class="keyword-card">
+      <div class="keyword-name">협조성 <span class="keyword-name-jp">協調性</span></div>
+      <div class="keyword-desc">대규모 네트워크 구축·5G 기지국 전개 프로젝트는 설계·조달·시공·운용의 각 팀이 협력해야만 성립한다. 다른 부서·외부 벤더와 원활하게 소통하며 프로젝트를 전진시키는 팀 플레이 능력이 통신 인프라 업무의 핵심이다.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S5 ════ -->
+<div class="section" id="s5">
+  <div class="section-num">SECTION 05</div>
+  <div class="section-title">기업 비교 & 리스트</div>
+  <div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+  <p>통신 업계는 <span class="hl">대형 3사 모두 연봉·안정성이 높은 수준이지만, 강점 분야(AI·경제권·IoT·인프라)와 기업 문화가 다르다.</span> 지원 전에 각사의 전략 방향을 이해하고 "왜 이 회사인가"를 말할 수 있어야 한다.</p>
+
+  <!-- 대형 3사 -->
+  <div class="company-group">
+    <div class="company-group-label">📡 대형 통신 3사</div>
+    <div class="company-card primary">
+      <div class="company-type">NTT 그룹 | 국내 모바일 1위</div>
+      <div class="company-name">NTT도코모 <span class="company-name-jp">NTTドコモ</span></div>
+      <div class="company-desc">평균연봉 약 835만 엔. 국내 모바일 가입자 수 1위(약 8,500만 회선). NTT(지주)의 완전 자회사. d포인트·d카드·도코모 금융·아마존 파트너십으로 경제권 확장 중. NTT그룹의 글로벌 통신·AI 전략과 연계한 법인 DX 사업을 확대. 안정성과 규모감 양쪽을 원하는 지원자에게.</div>
+      <div class="company-tags">
+        <span class="company-tag a">모바일 국내 1위</span>
+        <span class="company-tag">NTT그룹 연계</span>
+        <span class="company-tag">평균연봉 835만 엔</span>
+      </div>
+    </div>
+    <div class="company-card primary-k">
+      <div class="company-type k">KDDI | 위성·IoT 강자</div>
+      <div class="company-name">KDDI <span class="company-name-jp">KDDI（au）</span></div>
+      <div class="company-desc">평균연봉 약 835만 엔. au 브랜드로 이동통신 국내 2위. 스타링크(스페이스X)와의 위성 통신 파트너십이 세계적으로 주목받음. au PAY·Ponta 포인트로 금융·유통 경제권 구축. IoT 사업(스마트 미터·농업·모빌리티)에서 두각. 해저케이블 사업으로 국제 통신 인프라도 보유.</div>
+      <div class="company-tags">
+        <span class="company-tag k">위성통신 스타링크 파트너</span>
+        <span class="company-tag">IoT 강자</span>
+        <span class="company-tag">해저케이블</span>
+      </div>
+    </div>
+    <div class="company-card primary-s">
+      <div class="company-type s">소프트뱅크 | AI 선도</div>
+      <div class="company-name">소프트뱅크 <span class="company-name-jp">ソフトバンク</span></div>
+      <div class="company-desc">평균연봉 약 832만 엔. 손정의 회장의 AI·반도체(ARM) 전략으로 업계에서 가장 공격적인 투자 스탠스. 야후재팬·라인·페이페이를 통합한 LYNA그룹과 함께 일본 최대 인터넷 경제권 형성. 주당 근무 4일제 도입 등 독자적인 근무 방식 개혁으로 유명.</div>
+      <div class="company-tags">
+        <span class="company-tag s">AI·ARM 전략 선도</span>
+        <span class="company-tag">LYNA그룹 연계</span>
+        <span class="company-tag">주4일 근무 도입</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NTT그룹 -->
+  <div class="company-group">
+    <div class="company-group-label">🌐 NTT그룹</div>
+    <div class="company-card primary">
+      <div class="company-type">NTT그룹 지주 | 글로벌 통신</div>
+      <div class="company-name">NTT(지주) <span class="company-name-jp">日本電信電話（NTT）</span></div>
+      <div class="company-desc">매출 약 13조 엔(NTT그룹 연결). NTT도코모·NTT데이터·NTT동일본·NTT서일본을 산하에 둔 일본 최대 통신·IT 그룹. 독자 AI 모델 "쓰즈미" 개발·차세대 광통신 기술(IOWN) 연구로 2030년 6G 대응에 대비. 지주사이므로 직접 채용은 적지만 그룹 각사에서 폭넓은 기회.</div>
+      <div class="company-tags">
+        <span class="company-tag a">매출 13조 엔 그룹</span>
+        <span class="company-tag">AI모델 쓰즈미</span>
+        <span class="company-tag">6G 연구 선도</span>
+      </div>
+    </div>
+    <div class="company-card">
+      <div class="company-type">NTT그룹 | IT·DX 특화</div>
+      <div class="company-name">NTT데이터그룹 <span class="company-name-jp">NTTデータグループ</span></div>
+      <div class="company-desc">매출 약 4조 6,000억 엔(2024). 평균연봉 약 751만 엔. 통신 이상으로 IT·DX 솔루션 전문 기업. 금융·공공·제조·통신 분야의 대규모 시스템 구축. 해외 IT 서비스(미국·유럽)도 적극 전개. 별도 리포트(SIer)에서 상세 분석.</div>
+      <div class="company-tags">
+        <span class="company-tag a">IT·DX 솔루션</span>
+        <span class="company-tag">금융·공공 시스템</span>
+        <span class="company-tag">SIer 리포트 참조</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 신흥 -->
+  <div class="company-group">
+    <div class="company-group-label">🚀 신흥 통신·MVNO</div>
+    <div class="company-card">
+      <div class="company-type">제4통신사 | 격안심·핀테크</div>
+      <div class="company-name">라쿠텐모바일 <span class="company-name-jp">楽天モバイル</span></div>
+      <div class="company-desc">2020년 제4의 MNO(자사 기지국 보유 통신사)로 참입. 완전 가상화 네트워크(vRAN)를 세계 최초로 대규모 전개. 라쿠텐그룹(쇼핑·금융·여행)과의 경제권 시너지가 전략의 핵심. 아직 수익화 단계이지만 기술 도전·글로벌 전개(독일 등)에 적극적. 스타트업 정신이 강한 문화.</div>
+      <div class="company-tags">
+        <span class="company-tag">제4 MNO</span>
+        <span class="company-tag">vRAN 세계 선도</span>
+        <span class="company-tag">라쿠텐 경제권</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ S6 ════ -->
+<div class="section" id="s6">
+  <div class="section-num">SECTION 06</div>
+  <div class="section-title">ES 대책</div>
+  <div class="section-title-jp">合格パターン·落とし穴</div>
+  <p>통신 ES의 최대 함정은 <span class="hl">"안정적이고 대기업이라서"만으로 끝나는 지원 동기</span>다. 통신 3사는 모두 안정적인 대기업이지만, 각사가 추구하는 전략 방향(AI·위성·경제권)이 다르다. <strong style="color:var(--text-sub);">"왜 통신업계인가, 왜 이 회사인가"</strong>의 2단 논리가 필수다.</p>
+
+  <div class="es-pattern">
+    <div class="es-pattern-label">✅ 합격 지원 동기 4단계</div>
+    <p>
+      Step 1. 통신 인프라·5G·AI 경제권 등 구체적인 관심 분야를 원체험·공부 경험과 연결해 제시<br>
+      Step 2. "왜 통신업계인가" — 사회 인프라를 담당하는 포지션에서 광범위한 산업·생활에 동시에 임팩트를 줄 수 있다는 논리<br>
+      Step 3. 왜 이 회사인가 — NTT도코모(안정·그룹 규모)·KDDI(위성·IoT)·소프트뱅크(AI·경제권) 중 자신의 관심과 가장 합치하는 전략 방향을 구체적으로 연결<br>
+      Step 4. 법인 영업·서비스 기획·엔지니어 중 어느 방향에서 어떤 가치를 만들고 싶은지 커리어 비전
+    </p>
+  </div>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">❌ 불합격 공통 실수</div>
+    <p>
+      <span class="hl-warn">실수 1:</span> "대기업으로 안정적이라서" — 통신사의 안정성은 전제이지 동기가 아님. 왜 이 회사의 이 전략 방향인지가 없으면 탈락<br>
+      <span class="hl-warn">실수 2:</span> 3사의 차이를 모름 — "도코모·KDDI·소프트뱅크 중 왜 우리 회사인가"는 반드시 나오는 질문. 각사의 전략 차이를 말할 수 없으면 즉시 탈락<br>
+      <span class="hl-warn">실수 3:</span> "스마트폰 판매를 하고 싶다" — 통신 대형사의 본부 채용에서 스마트폰 판매 업무는 대리점 담당. 법인 영업·DX 기획·엔지니어링이 본부 직종의 핵심임을 이해해야 함
+    </p>
+  </div>
+</div>
+
+<!-- ════ S7 ════ -->
+<div class="section" id="s7">
+  <div class="section-num">SECTION 07</div>
+  <div class="section-title">면접 대책</div>
+  <div class="section-title-jp">面接対策 — 頻出質問·選考フロー</div>
+  <p>통신 면접은 <span class="hl">IT·통신 기술에 대한 관심의 깊이 + 각사 전략의 이해 + "통신을 넘어 어떤 가치를 만들고 싶은가"의 비전</span>이 핵심이다.</p>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 01</div>
+    <h4>NTT도코모 / KDDI / 소프트뱅크 중 왜 우리 회사인가?</h4>
+    <p>통신 면접에서 반드시 나오는 가장 중요한 질문. 3사의 차이를 말할 수 없으면 즉시 탈락이다.</p>
+    <p><strong style="color:var(--text-sub);">준비 포인트:</strong> 도코모 → "NTT그룹의 규모와 기술 기반을 살린 법인 DX·글로벌 통신". KDDI → "위성통신·IoT 등 새로운 통신 인프라의 최전선". 소프트뱅크 → "AI·경제권 전략으로 통신을 넘어 산업 자체를 재정의하는 도전". 각사가 무엇을 강점으로 하는지를 구체적으로 말할 수 있어야 한다.</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 02</div>
+    <h4>통신 업계의 과제는 무엇이라고 생각하는가?</h4>
+    <p>업계 이해도를 보는 질문. <span class="hl">요금 인하 압력·5G 투자 회수·비통신 사업 확장</span>의 3가지 구조적 과제를 이해하고 있어야 한다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 방향:</strong> "정부 요금 인하 정책으로 통신 수익이 구조적으로 압박을 받는 가운데, 각사는 5G 투자를 회수하면서 동시에 AI·금융·DX로 수익 다각화를 실현해야 하는 이중 과제를 안고 있습니다. 이 전환기에 비통신 사업에서 새로운 가치를 창출하는 역할에 기여하고 싶습니다."</p>
+  </div>
+
+  <div class="trend-card">
+    <div class="trend-num">Q 03</div>
+    <h4>5G·AI를 활용해 어떤 서비스를 만들고 싶은가?</h4>
+    <p>서비스 기획·사업 개발 지원자에게 빈번히 나오는 질문. <span class="hl">기술 특성(저지연·고용량·다수 동시 접속)과 구체적인 사용 장면을 연결해서 말해야</span> 한다.</p>
+    <p><strong style="color:var(--text-sub);">좋은 답변 구조:</strong> "5G의 저지연 특성을 활용해 [원격 의료/스마트 공장/자율주행] 분야에서 [구체적 서비스]를 실현하고 싶습니다. 특히 [이 회사의 강점]을 활용하면 [어떤 차별화가 가능한지]를 [원체험/공부]에서 생각하게 됐습니다."</p>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> 업계 리포트 Vol.20 — 통신</p>
+  <p>직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계 기반자료</p>
+  <p style="margin-top:8px;font-size:10px;">본 리포트의 정보는 각사 IR자료, 채용 페이지, 총무성 통신통계, OpenWork 등 공개 정보를 기반으로 구조화한 것입니다.</p>
+</div>
+</div>
+<script>
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  const y = el.getBoundingClientRect().top + window.pageYOffset - navH - 16;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7'];
+const navBtns = document.querySelectorAll('.nav-btn');
+function updateNav() {
+  const navH = document.querySelector('.section-nav').offsetHeight;
+  let current = 's1';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= navH + 60) current = id;
+  });
+  navBtns.forEach((btn, i) => btn.classList.toggle('active', sections[i] === current));
+}
+window.addEventListener('scroll', updateNav);
+updateNav();
+</script>
+</body>
+</html>
