@@ -2033,8 +2033,67 @@ function computeResult() {
     companyDesc = '안정성과 성장 가능성을 동시에 추구합니다.';
   }
 
-  // 선택한 업계 정보
-  const selectedInds = state.selectedIndustries.map(id => INDUSTRY_DB.find(i => i.id === id)).filter(Boolean);
+  // 업계 자동 추천 — 직종 점수 + 4축 + Q5 필터 기반 상위 3개 선정
+  function getRecommendedIndustries(topJobs, axisAvg) {
+    const noForeignLang = state.q5a.includes('q5a_6');
+    const noOvertime    = state.q5b.includes('q5b_10');
+    const noCompetition = state.q5b.includes('q5b_7');
+    const hasEnglish    = state.profile.includes('english') || state.profile.includes('overseas');
+    const envScore      = axisAvg['환경'] || 50;
+    const cultureScore  = axisAvg['문화'] || 50;
+
+    // 직종과 맞는 업계 필터
+    let candidates = INDUSTRY_DB.filter(ind =>
+      topJobs.some(job => ind.jobs.includes(job))
+    );
+
+    // 소거 필터 적용
+    if (noForeignLang) {
+      candidates = candidates.filter(ind =>
+        ind.global !== '필수' && !ind.warnings.includes('외국어필수')
+      );
+    }
+    if (noOvertime) {
+      candidates = candidates.filter(ind =>
+        !ind.warnings.some(w => w.includes('야근많음'))
+      );
+    }
+    if (noCompetition) {
+      candidates = candidates.filter(ind =>
+        !ind.warnings.some(w => w.includes('경쟁강함'))
+      );
+    }
+
+    // 점수 산정: 직종 매칭 수 + 문화 적합도 + 글로벌 선호
+    const scored = candidates.map(ind => {
+      let score = 0;
+      // 직종 매칭 수 (상위 직종일수록 가중)
+      topJobs.forEach((job, i) => {
+        if (ind.jobs.includes(job)) score += (3 - i) * 2;
+      });
+      // 문화 적합도
+      const isStable   = ind.culture.some(c => ['안정','체계','장기고용'].includes(c));
+      const isGrowth   = ind.culture.some(c => ['성장','스피드','자율','도전'].includes(c));
+      if (cultureScore > 55 && isStable)   score += 2;
+      if (cultureScore < 45 && isGrowth)   score += 2;
+      if (envScore < 45 && isGrowth)        score += 1;
+      if (envScore > 55 && isStable)        score += 1;
+      // 글로벌 선호
+      if (hasEnglish && (ind.global === '높음' || ind.global === '필수')) score += 2;
+      if (!hasEnglish && ind.global === '낮음') score += 1;
+      return { ind, score };
+    });
+
+    return scored
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3)
+      .map(s => s.ind);
+  }
+
+  // 선택한 업계 정보 (유저가 선택했으면 사용, 없으면 자동 추천)
+  const selectedInds = state.selectedIndustries.length > 0
+    ? state.selectedIndustries.map(id => INDUSTRY_DB.find(i => i.id === id)).filter(Boolean)
+    : getRecommendedIndustries(topJobs, axisAvg);
 
   // 결과 렌더링
   renderResult(topJobs, axisAvg, compScores, filteredScores, companyType, companyDesc, selectedInds);
@@ -2042,192 +2101,17 @@ function computeResult() {
 }
 
 function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType, companyDesc, selectedInds) {
-  const primaryJob = topJobs[0];
-  const profile = JOB_PROFILES[primaryJob];
 
-  // Hero 섹션
-  document.getElementById('result-hero').innerHTML = `
-    <div class="result-hero-label">진단 결과</div>
-    <div class="result-job-title">${profile?.emoji || ''} ${profile?.label || primaryJob}</div>
-    <div class="result-company-type">추천 기업 유형 · ${companyType}</div>
-    <div class="result-tags">
-      ${topJobs.map((j, i) => `<span class="result-tag">${i===0?'1순위':i===1?'2순위':'3순위'} ${JOB_PROFILES[j]?.label||j}</span>`).join('')}
-      ${state.profile.includes('english') ? '<span class="result-tag">영어 가능</span>' : ''}
-      ${state.profile.includes('engineering') ? '<span class="result-tag">이공계</span>' : ''}
-    </div>
-  `;
+  const isAutoRecommend = state.selectedIndustries.length === 0;
 
-  // 4축 분석
-  const axisLabels = {
-    환경: { a: '도전/성장', b: '안정/지속' },
-    업무: { a: '개인성과', b: '팀협업' },
-    문화: { a: '자율/수평', b: '체계/구조' },
-    커리어: { a: '스페셜리스트', b: '제너럴리스트' }
-  };
+  // ── 역량 레벨 변환 (상중하) ──
+  function compLevel(score, maxScore) {
+    const pct = maxScore > 0 ? score / maxScore : 0;
+    if (pct >= 0.75) return { label:'상', color:'#55efc4', bg:'rgba(85,239,196,0.1)',  border:'rgba(85,239,196,0.25)' };
+    if (pct >= 0.45) return { label:'중', color:'#fdcb6e', bg:'rgba(253,203,110,0.1)', border:'rgba(253,203,110,0.25)' };
+    return               { label:'하', color:'#8888a0', bg:'rgba(136,136,160,0.08)', border:'rgba(136,136,160,0.2)' };
+  }
 
-  const axisHTML = Object.entries(axisAvg).map(([axis, val]) => {
-    const labels = axisLabels[axis] || { a: 'A', b: 'B' };
-    const side = val < 50 ? labels.a : labels.b;
-    return `
-      <div class="axis-result">
-        <div class="axis-result-header">
-          <span class="axis-result-name">${axis}</span>
-          <span class="axis-result-val">${side} 성향 (${val}%)</span>
-        </div>
-        <div class="axis-result-track">
-          <div class="axis-result-fill" style="width:${val}%"></div>
-        </div>
-        <div class="axis-result-labels">
-          <span>${labels.a}</span>
-          <span>${labels.b}</span>
-        </div>
-      </div>
-    `;
-  }).join('');
-
-  // ── 컨설턴트용 상세 데이터 ──
-  // 직종 전체 점수 순위
-  const allJobScores = Object.entries(filteredScores)
-    .sort((a,b) => b[1]-a[1]);
-
-  // Q3 선택 텍스트
-  const q3Selected = state.q3.map(id => {
-    const item = Q3_ITEMS.find(i => i.id === id);
-    return item ? item.text : id;
-  });
-
-  // Q4 선택 텍스트
-  const q4Selected = state.q4.map(id => {
-    const item = Q4_ITEMS.find(i => i.id === id);
-    return item ? item.text : id;
-  });
-
-  // Q5A 소거 텍스트
-  const q5aSelected = state.q5a.map(id => {
-    const item = Q5A_ITEMS.find(i => i.id === id);
-    return item ? item.text : id;
-  });
-
-  // Q5B 단점 텍스트
-  const q5bSelected = state.q5b.map(id => {
-    const item = Q5B_ITEMS.find(i => i.id === id);
-    return item ? item.text : id;
-  });
-
-  // 프로필 텍스트
-  const profileMap = {
-    engineering: '이공계 전공',
-    it: 'IT/CS 전공 또는 개발 경험',
-    english: '영어 비즈니스 레벨 이상',
-    overseas: '해외 거주·유학 경험',
-    none: '해당 없음 (문과 계열)'
-  };
-  const profileSelected = state.profile.map(p => profileMap[p] || p);
-
-  // 컨설턴트용 HTML
-  const consultHTML = `
-    <div id="consult-detail" style="display:none;">
-      <div style="padding:20px 22px;background:rgba(74,158,255,0.04);border:1px solid var(--accent-border);border-radius:10px;margin-bottom:28px;">
-        <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:16px;text-transform:uppercase;">상세 데이터</div>
-
-        <!-- 프로필 -->
-        <div style="margin-bottom:18px;">
-          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">📋 기본 프로필</div>
-          ${profileSelected.length > 0
-            ? profileSelected.map(p => `<span style="display:inline-block;font-size:11px;padding:3px 10px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text-dim);margin:2px 3px 2px 0;">${p}</span>`).join('')
-            : '<span style="font-size:11px;color:var(--text-muted);">선택 없음</span>'
-          }
-        </div>
-
-        <!-- 4축 원점수 -->
-        <div style="margin-bottom:18px;">
-          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">📊 4축 성향 점수</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-            ${Object.entries(axisAvg).map(([axis, val]) => {
-              const labels = axisLabels[axis] || { a:'A', b:'B' };
-              const side = val < 40 ? `강한 ${labels.a}` : val > 60 ? `강한 ${labels.b}` : val < 50 ? `${labels.a} 경향` : `${labels.b} 경향`;
-              return `<div style="padding:10px 12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;">
-                <div style="font-size:10px;color:var(--text-muted);margin-bottom:3px;">${axis}</div>
-                <div style="font-size:12px;font-weight:700;color:var(--text-sub);">${side}</div>
-                <div style="font-size:10px;color:var(--accent);margin-top:1px;">${val}%</div>
-              </div>`;
-            }).join('')}
-          </div>
-        </div>
-
-        <!-- Q3 강점 선택 -->
-        <div style="margin-bottom:18px;">
-          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">💪 무의식적 강점 (Q3 선택)</div>
-          ${q3Selected.length > 0
-            ? q3Selected.map(t => `<div style="font-size:12px;color:var(--text-dim);padding:6px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:4px;">· ${t}</div>`).join('')
-            : '<span style="font-size:11px;color:var(--text-muted);">건너뜀</span>'
-          }
-        </div>
-
-        <!-- Q4 적성 선택 -->
-        <div style="margin-bottom:18px;">
-          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">🎯 자연스러운 적성 (Q4 선택)</div>
-          ${q4Selected.length > 0
-            ? q4Selected.map(t => `<div style="font-size:12px;color:var(--text-dim);padding:6px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:4px;">· ${t}</div>`).join('')
-            : '<span style="font-size:11px;color:var(--text-muted);">건너뜀</span>'
-          }
-        </div>
-
-        <!-- Q5A 소거 -->
-        <div style="margin-bottom:18px;">
-          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">🚫 직종 소거 필터 (Q5A 선택)</div>
-          ${q5aSelected.length > 0
-            ? q5aSelected.map(t => `<div style="font-size:12px;color:#f59e0b;padding:6px 10px;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);border-radius:6px;margin-bottom:4px;">· ${t}</div>`).join('')
-            : '<span style="font-size:11px;color:var(--text-muted);">선택 없음</span>'
-          }
-        </div>
-
-        <!-- Q5B 기업문화 단점 -->
-        <div style="margin-bottom:18px;">
-          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">⚠️ 나의 단점 / 기업문화 매칭 (Q5B 선택)</div>
-          ${q5bSelected.length > 0
-            ? q5bSelected.map(t => `<div style="font-size:12px;color:var(--text-dim);padding:6px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:4px;">· ${t}</div>`).join('')
-            : '<span style="font-size:11px;color:var(--text-muted);">선택 없음</span>'
-          }
-        </div>
-
-        <!-- 선택한 업계 -->
-        <div style="margin-bottom:18px;">
-          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">🏢 관심 업계 (선택)</div>
-          ${state.selectedIndustries.length > 0
-            ? state.selectedIndustries.map(id => {
-                const ind = INDUSTRY_DB.find(i => i.id === id);
-                return ind ? `<span style="display:inline-block;font-size:11px;padding:3px 10px;background:var(--accent-soft);border:1px solid var(--accent-border);border-radius:6px;color:var(--accent);margin:2px 3px 2px 0;">${ind.name}</span>` : '';
-              }).join('')
-            : '<span style="font-size:11px;color:var(--text-muted);">선택 없음</span>'
-          }
-        </div>
-
-        <!-- 직종 전체 점수 순위 -->
-        <div>
-          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">📈 직종 적합도 전체 순위</div>
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            ${allJobScores.map(([job, score], i) => {
-              const p = JOB_PROFILES[job];
-              const maxScore = allJobScores[0][1] || 1;
-              const pct = maxScore > 0 ? Math.round(score/maxScore*100) : 0;
-              return `<div style="display:flex;align-items:center;gap:10px;">
-                <span style="font-size:10px;color:var(--text-muted);width:16px;text-align:right;flex-shrink:0;">${i+1}</span>
-                <span style="font-size:12px;color:${i===0?'var(--accent)':'var(--text-dim)'};font-weight:${i===0?'700':'400'};width:90px;flex-shrink:0;">${p?.label || job}</span>
-                <div style="flex:1;height:3px;background:var(--surface-2);border-radius:2px;overflow:hidden;">
-                  <div style="height:100%;width:${pct}%;background:${i===0?'var(--accent)':'var(--border-hover)'};border-radius:2px;"></div>
-                </div>
-                <span style="font-size:10px;color:var(--text-muted);width:32px;text-align:right;flex-shrink:0;">${pct}%</span>
-              </div>`;
-            }).join('')}
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-
-  // 역량 점수 상위 5개
-  // 역량 한국어-일본어 매핑 + 설명
   const COMP_INFO = {
     '論理的思考力': { ko:'논리적사고력', desc:'체계적으로 분석하고 판단하는 힘' },
     '洞察力':       { ko:'통찰력',       desc:'본질을 파악하고 핵심을 간파하는 힘' },
@@ -2249,121 +2133,275 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
     '責任感':       { ko:'책임감',       desc:'맡은 업무와 역할에 끝까지 책임지는 자세' },
   };
 
-  const topComps = Object.entries(compScores)
-    .sort((a,b) => b[1]-a[1])
-    .slice(0, 5);
+  // 직종별 다음 액션
+  const JOB_ACTION = {
+    '영업':       '법인·개인영업 직종 카드 → 담당 업계별 ES 포인트 확인',
+    'SE/IT':      'SE/IT 직종 카드 → SIer·웹·인프라 중 자신에게 맞는 경로 선택',
+    '기술계':     '기술계 직종 카드 → 기계·생산관리·R&D 세분류 확인',
+    '기획/관리':  '기획·마케팅 직종 카드 → 사무관리·기획·마케팅 경로 분기 확인',
+    '컨설팅':     '컨설팅 직종 카드 → 전략·IT컨설팅 중 지향점 확인',
+    '물류/SCM':   '물류·SCM 직종 카드 → SCM·포워더·무역 중 관심 분야 확인',
+    '판매/서비스':'판매·서비스 직종 카드 → 소매·호텔·F&B 환경 차이 확인',
+    '시공관리':   '시공관리 직종 카드 → 건축·토목·설비 중 전공과 맞는 경로 확인',
+    '크리에이티브':'크리에이티브 직종 카드 → UI/UX·광고·그래픽 세분류 확인',
+  };
 
-  const maxCompScore = topComps[0]?.[1] || 1;
+  // 업계별 ES 포인트
+  const IND_POINT = {
+    'it_sier':            'PM·상류공정을 목표로 자격증(응용정보·기본정보) 준비',
+    'it_web':             '자사 서비스 지원은 "왜 이 서비스인가"가 ES의 핵심',
+    'it_software':        '도메인(HR·물류·금융 등) 전문성이 장기 차별화 포인트',
+    'it_xtech':           '어떤 산업×IT 조합인지를 ES에서 구체적으로 말해야 함',
+    'it_general_consul':  '케이스 면접 준비 + IT·DX 기초 지식 병행 필수',
+    'it_thinktank':       '조사·리서치 경험(논문·데이터 분석)이 직결 어필 포인트',
+    'maker_electric':     '이공계는 전공 연구와의 연결, 문과는 글로벌 영업 각오',
+    'maker_auto':         'CASE 키워드(자율주행·EV·커넥티드)로 업계 관심 표현',
+    'maker_pharma':       'MR은 문과도 가능 — MR인정시험 합격이 입사 후 첫 관문',
+    'maker_food':         '루트영업 경험(아르바이트 포함)이 ES에서 강력한 어필',
+    'maker_apparel':      '지원 브랜드 실제 방문 후 구체적 감상·개선 제안 필수',
+    'media_ad':           'AE는 기획·프레젠 능력, 크리에이티브는 포트폴리오가 핵심',
+    'media_tv':           '채용 극소 — OB·OG 방문·인턴십 병행 필수',
+    'media_game':         '기획직은 자신이 만들고 싶은 게임을 구체적으로 말해야 함',
+    'sogo_shosha':        '해외 주재·어학·비즈니스 구상력 3가지를 ES에서 동시 어필',
+    'senmon_shosha':      '담당 업종(기계·화학·식품 등) 전문성이 경쟁력',
+    'finance_megabank':   '순환근무 각오 + 재무·회계 기초지식 준비',
+    'finance_securities': '신NISA·금리 동향을 자신의 언어로 말할 수 있어야 함',
+    'finance_nonlife_ins':'기후변화·자연재해 리스크를 업계 과제로 말할 수 있어야 함',
+    'finance_life_ins':   '생보 영업의 노르마 문화를 이해하고 지원해야 함',
+    'hr_sogosha':         '인재소개·파견의 비즈니스 모델 차이 이해가 필수',
+    'service_retail':     '점포 배치 각오 + 택건 자격 취득 목표 설정',
+    'infra_telecom':      '5G·AI 서비스 관심도를 지원 회사 전략과 연결',
+    'infra_realestate':   '디벨로퍼 vs 주택영업 선택이 커리어 방향을 결정',
+    'infra_construction': '시공관리기사 자격 취득 의향이 채용의 전제',
+    'infra_logistics':    '물류 2024년 문제·DX를 이해한 뒤 지원',
+  };
 
-  const compHTML = topComps.map(([name, score]) => {
-    const info = COMP_INFO[name] || { ko: name, desc: '' };
+  const primaryJob = topJobs[0];
+  const profile    = JOB_PROFILES[primaryJob];
+
+  // ── Hero ──
+  document.getElementById('result-hero').innerHTML = `
+    <div class="result-hero-label">진단 결과</div>
+    <div class="result-job-title">${profile?.emoji || ''} ${profile?.label || primaryJob}</div>
+    <div class="result-company-type">추천 기업 유형 · ${companyType}</div>
+    <div class="result-tags">
+      ${topJobs.map((j, i) => `<span class="result-tag">${i===0?'1순위':i===1?'2순위':'3순위'} ${JOB_PROFILES[j]?.label||j}</span>`).join('')}
+      ${state.profile.includes('english') ? '<span class="result-tag">영어 가능</span>' : ''}
+      ${state.profile.includes('engineering') ? '<span class="result-tag">이공계</span>' : ''}
+    </div>
+  `;
+
+  // ── 4축 ──
+  const axisLabels = {
+    환경:   { a:'도전/성장', b:'안정/지속' },
+    업무:   { a:'개인성과', b:'팀협업' },
+    문화:   { a:'자율/수평', b:'체계/구조' },
+    커리어: { a:'스페셜리스트', b:'제너럴리스트' }
+  };
+  const axisHTML = Object.entries(axisAvg).map(([axis, val]) => {
+    const labels = axisLabels[axis] || { a:'A', b:'B' };
+    const isLeft = val < 50;
+    const strength = Math.abs(val - 50);
+    const tendency = strength > 20 ? '강한 ' : strength > 8 ? '' : '중립에 가까운 ';
+    const side = isLeft ? `${tendency}${labels.a}` : `${tendency}${labels.b}`;
     return `
-      <div class="comp-bar-item" style="align-items:flex-start;flex-direction:column;gap:6px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:6px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;width:100%;">
-          <div>
-            <span style="font-size:13px;font-weight:700;color:var(--text-sub);">${info.ko}</span>
-            <span style="font-size:11px;color:var(--text-muted);margin-left:6px;font-family:'Noto Sans JP',sans-serif;">${name}</span>
-          </div>
-          <span style="font-size:11px;color:var(--accent);font-weight:600;">${Math.round(score/maxCompScore*100)}%</span>
+      <div class="axis-result">
+        <div class="axis-result-header">
+          <span class="axis-result-name">${axis}</span>
+          <span class="axis-result-val" style="color:var(--text-sub);font-weight:600;">${side} 성향</span>
         </div>
-        <div style="font-size:11px;color:var(--text-muted);line-height:1.5;">${info.desc}</div>
-        <div style="width:100%;height:3px;background:var(--surface-2);border-radius:2px;overflow:hidden;">
-          <div style="height:100%;width:${Math.round(score/maxCompScore*100)}%;background:var(--accent);border-radius:2px;"></div>
-        </div>
-      </div>
-    `;
+        <div class="axis-result-track"><div class="axis-result-fill" style="width:${val}%"></div></div>
+        <div class="axis-result-labels"><span>${labels.a}</span><span>${labels.b}</span></div>
+      </div>`;
   }).join('');
 
-  // 업계 결과
-  const industryHTML = selectedInds.length > 0 ? selectedInds.map((ind, i) => {
-    const warnMsg = [];
-    if (ind.warnings.includes('야근많음')) warnMsg.push('⚠ 야근이 많은 편입니다');
-    if (ind.warnings.some(w=>w.includes('경쟁'))) warnMsg.push('⚠ 경쟁이 강한 문화입니다');
-
+  // ── 역량 (상중하) ──
+  const topComps     = Object.entries(compScores).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const maxCompScore = topComps[0]?.[1] || 1;
+  const compHTML = topComps.map(([name, score], ci) => {
+    const info = COMP_INFO[name] || { ko:name, desc:'' };
+    const lv   = compLevel(score, maxCompScore);
+    const isTop = ci === 0;
     return `
-      <div class="industry-result-card ${i===0?'primary':''}">
-        <div class="industry-rank-badge rank-${i+1}">${i+1}</div>
-        <div class="industry-result-body">
-          <div class="industry-result-name">${ind.name}</div>
-          <div class="industry-result-desc">
-            ${ind.biz.join(' · ')} · ${ind.culture.slice(0,2).join(' · ')} · 글로벌 ${ind.global}
+      <div style="display:flex;align-items:center;gap:14px;padding:14px 16px;
+        background:${isTop?'rgba(74,158,255,0.05)':'var(--surface)'};
+        border:1px solid ${isTop?'rgba(74,158,255,0.2)':'var(--border)'};
+        border-radius:10px;margin-bottom:6px;">
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+            <span style="font-size:13px;font-weight:700;color:${isTop?'var(--text)':'var(--text-sub)'};">${info.ko}</span>
+            ${isTop?'<span style="font-size:9px;padding:1px 6px;background:var(--accent-soft);color:var(--accent);border-radius:4px;font-weight:700;">최상위</span>':''}
           </div>
-          ${warnMsg.map(w => `<div class="industry-result-warn">${w}</div>`).join('')}
+          <div style="font-size:11px;color:var(--text-muted);line-height:1.5;">${info.desc}</div>
+        </div>
+        <div style="text-align:center;flex-shrink:0;">
+          <div style="font-size:16px;font-weight:800;color:${lv.color};
+            background:${lv.bg};border:1px solid ${lv.border};
+            padding:4px 14px;border-radius:8px;letter-spacing:1px;">${lv.label}</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  // ── 직종 액션 ──
+  const jobDetailHTML = topJobs.map((job, i) => {
+    const p      = JOB_PROFILES[job];
+    const action = JOB_ACTION[job] || '해당 직종 라이브러리 카드를 확인하세요';
+    const rc = ['#4a9eff','#a29bfe','#55efc4'][i];
+    const ra = [i===0?'74,158,255':i===1?'162,155,254':'85,239,196'][0];
+    return `
+      <div style="padding:16px 18px;background:var(--surface);border:1px solid var(--border);
+        border-left:3px solid ${rc};border-radius:10px;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span style="font-size:10px;font-weight:700;color:${rc};padding:2px 8px;border-radius:4px;background:rgba(${i===0?'74,158,255':i===1?'162,155,254':'85,239,196'},0.1);">${i+1}순위</span>
+          <span style="font-size:14px;font-weight:700;color:var(--text);">${p?.emoji||''} ${p?.label||job}</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-dim);line-height:1.7;margin-bottom:8px;">
+          ${p ? `핵심 역량: ${(p.core||[]).map(c=>COMP_INFO[c]?.ko||c).join(' · ')}` : ''}
+        </div>
+        <div style="font-size:12px;color:var(--accent);padding:8px 12px;background:var(--accent-soft);border-radius:6px;">
+          📌 다음 액션: ${action}
+        </div>
+      </div>`;
+  }).join('');
+
+  // ── 업계 상세 ──
+  const industryHTML = selectedInds.length > 0 ? `
+    ${isAutoRecommend?`<div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;padding:8px 12px;background:var(--surface);border-radius:6px;">🤖 직종 적합도·성향·Q5 필터를 종합해 자동 추천한 업계입니다</div>`:''}
+    ${selectedInds.map((ind,i) => {
+      const rc = ['#4a9eff','#a29bfe','#55efc4'][i];
+      const point = IND_POINT[ind.id] || '해당 업계 리포트에서 ES·면접 전략을 확인하세요';
+      const warns = [];
+      if (ind.warnings.includes('야근많음')) warns.push('야근 많음');
+      if (ind.warnings.some(w=>w.includes('경쟁'))) warns.push('경쟁 강함');
+      return `
+        <div style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);
+          border-left:3px solid ${rc};border-radius:10px;margin-bottom:10px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <span style="font-size:10px;font-weight:700;color:${rc};padding:2px 8px;border-radius:4px;background:rgba(${i===0?'74,158,255':i===1?'162,155,254':'85,239,196'},0.1);">${i+1}순위</span>
+            <span style="font-size:15px;font-weight:700;color:var(--text);">${ind.name}</span>
+            ${warns.map(w=>`<span style="font-size:10px;color:#f59e0b;padding:2px 6px;background:rgba(245,158,11,0.08);border-radius:4px;">${w}</span>`).join('')}
+          </div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.7;margin-bottom:10px;">${ind.desc||''}</div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;">
+            ${ind.biz.map(b=>`<span style="font-size:10px;padding:2px 8px;border:1px solid var(--border);border-radius:4px;color:var(--text-muted);">${b}</span>`).join('')}
+            ${ind.culture.slice(0,3).map(c=>`<span style="font-size:10px;padding:2px 8px;border:1px solid var(--border);border-radius:4px;color:var(--text-muted);">${c}</span>`).join('')}
+            <span style="font-size:10px;padding:2px 8px;border:1px solid var(--border);border-radius:4px;color:var(--text-muted);">글로벌 ${ind.global}</span>
+          </div>
+          <div style="font-size:12px;color:#a29bfe;padding:8px 12px;background:rgba(162,155,254,0.06);border-radius:6px;">
+            📌 ES 포인트: ${point}
+          </div>
+        </div>`;
+    }).join('')}
+  ` : '<p style="color:var(--text-dim);font-size:13px;">업계 데이터를 불러오는 중입니다.</p>';
+
+  // ── 컨설턴트용 상세 ──
+  const allJobScores  = Object.entries(filteredScores).sort((a,b)=>b[1]-a[1]);
+  const q3Selected    = state.q3.map(id  => Q3_ITEMS.find(i=>i.id===id)?.text  || id);
+  const q4Selected    = state.q4.map(id  => Q4_ITEMS.find(i=>i.id===id)?.text  || id);
+  const q5aSelected   = state.q5a.map(id => Q5A_ITEMS.find(i=>i.id===id)?.text || id);
+  const q5bSelected   = state.q5b.map(id => Q5B_ITEMS.find(i=>i.id===id)?.text || id);
+  const profileMap2   = { engineering:'이공계 전공', it:'IT/CS 전공 또는 개발 경험', english:'영어 비즈니스 레벨 이상', overseas:'해외 거주·유학 경험', none:'해당 없음 (문과 계열)' };
+  const profileSelected = state.profile.map(p => profileMap2[p] || p);
+
+  const consultHTML = `
+    <div id="consult-detail" style="display:none;">
+      <div style="padding:20px 22px;background:rgba(74,158,255,0.04);border:1px solid var(--accent-border);border-radius:10px;margin-bottom:28px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:16px;text-transform:uppercase;">상세 데이터</div>
+        <div style="margin-bottom:14px;"><div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">📋 기본 프로필</div>${profileSelected.map(p=>`<span style="display:inline-block;font-size:11px;padding:3px 10px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text-dim);margin:2px 3px 2px 0;">${p}</span>`).join('')||'<span style="font-size:11px;color:var(--text-muted);">선택 없음</span>'}</div>
+        <div style="margin-bottom:14px;"><div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">💪 무의식적 강점 (Q3)</div>${q3Selected.map(t=>`<div style="font-size:12px;color:var(--text-dim);padding:5px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:3px;">· ${t}</div>`).join('')||'<span style="font-size:11px;color:var(--text-muted);">건너뜀</span>'}</div>
+        <div style="margin-bottom:14px;"><div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">🎯 자연스러운 적성 (Q4)</div>${q4Selected.map(t=>`<div style="font-size:12px;color:var(--text-dim);padding:5px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:3px;">· ${t}</div>`).join('')||'<span style="font-size:11px;color:var(--text-muted);">건너뜀</span>'}</div>
+        <div style="margin-bottom:14px;"><div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">🚫 직종 소거 (Q5A)</div>${q5aSelected.map(t=>`<div style="font-size:12px;color:#f59e0b;padding:5px 10px;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);border-radius:6px;margin-bottom:3px;">· ${t}</div>`).join('')||'<span style="font-size:11px;color:var(--text-muted);">선택 없음</span>'}</div>
+        <div style="margin-bottom:14px;"><div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">⚠️ 기업문화 매칭 (Q5B)</div>${q5bSelected.map(t=>`<div style="font-size:12px;color:var(--text-dim);padding:5px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:3px;">· ${t}</div>`).join('')||'<span style="font-size:11px;color:var(--text-muted);">선택 없음</span>'}</div>
+        <div><div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">📈 직종 적합도 전체 순위</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">${allJobScores.map(([job,score],i)=>{const p=JOB_PROFILES[job];const pct=allJobScores[0][1]>0?Math.round(score/allJobScores[0][1]*100):0;return`<div style="display:flex;align-items:center;gap:10px;"><span style="font-size:10px;color:var(--text-muted);width:16px;text-align:right;">${i+1}</span><span style="font-size:12px;color:${i===0?'var(--accent)':'var(--text-dim)'};font-weight:${i===0?'700':'400'};width:90px;">${p?.label||job}</span><div style="flex:1;height:3px;background:var(--surface-2);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:${i===0?'var(--accent)':'var(--border-hover)'};border-radius:2px;"></div></div><span style="font-size:10px;color:var(--text-muted);width:28px;text-align:right;">${pct}%</span></div>`}).join('')}</div>
         </div>
       </div>
-    `;
-  }).join('') : '<p style="color:var(--text3);font-size:13px;">업계 선택을 건너뛰었습니다.</p>';
+    </div>`;
 
-  // 전체 결과 바디
+  // ── result-body ──
   document.getElementById('result-body').innerHTML = `
 
-    <!-- 컨설턴트용 토글 버튼 -->
+    <!-- ★ 핵심 추천 박스 -->
+    <div style="padding:24px;background:linear-gradient(135deg,rgba(74,158,255,0.08) 0%,rgba(162,155,254,0.08) 100%);border:1px solid rgba(162,155,254,0.2);border-radius:14px;margin-bottom:28px;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#a29bfe;margin-bottom:18px;text-transform:uppercase;">✦ 나에게 맞는 추천 결과</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.06);">🗂️ 추천 직종</div>
+          ${topJobs.map((job,i)=>{const p=JOB_PROFILES[job];const c=['#4a9eff','#a29bfe','#55efc4'][i];return`<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;margin-bottom:5px;"><span style="font-size:10px;font-weight:700;color:${c};min-width:28px;">${i+1}순위</span><span style="font-size:13px;font-weight:700;color:var(--text);">${p?.emoji||''} ${p?.label||job}</span></div>`;}).join('')}
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.06);">🏢 추천 업계 <span style="font-size:9px;color:var(--text-muted);font-weight:400;">${isAutoRecommend?'자동 추천':'직접 선택'}</span></div>
+          ${selectedInds.map((ind,i)=>{const c=['#4a9eff','#a29bfe','#55efc4'][i];return`<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;margin-bottom:5px;"><span style="font-size:10px;font-weight:700;color:${c};min-width:28px;">${i+1}순위</span><span style="font-size:13px;font-weight:700;color:var(--text);">${ind.name}</span></div>`;}).join('')}
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:10px 14px;background:rgba(255,255,255,0.03);border-radius:8px;">
+        <div style="font-size:11px;color:var(--text-muted);line-height:1.7;">추천 기업 유형 · <strong style="color:var(--text-sub);">${companyType}</strong><br>${companyDesc}</div>
+      </div>
+    </div>
+
+    <!-- 컨설턴트 토글 -->
     <div style="margin-bottom:28px;">
-      <button onclick="document.getElementById('consult-detail').style.display = document.getElementById('consult-detail').style.display === 'none' ? 'block' : 'none'; this.textContent = this.textContent.includes('펼치기') ? '📋 상세 데이터 접기 ↑' : '📋 상세 데이터 펼치기 ↓';"
+      <button onclick="document.getElementById('consult-detail').style.display=document.getElementById('consult-detail').style.display==='none'?'block':'none';this.textContent=this.textContent.includes('펼치기')?'📋 상세 데이터 접기 ↑':'📋 상세 데이터 펼치기 ↓';"
         style="width:100%;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text-dim);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-align:left;transition:all 0.2s;"
         onmouseover="this.style.borderColor='var(--accent-border)';this.style.color='var(--accent)'"
         onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-dim)'"
-      >
-        📋 상세 데이터 펼치기 ↓
-      </button>
+      >📋 상세 데이터 펼치기 ↓</button>
       ${consultHTML}
     </div>
 
+    <!-- 4축 성향 -->
     <div class="result-section">
       <div class="result-section-title">커리어 성향 분석 (4축)</div>
       ${axisHTML}
     </div>
 
+    <!-- 핵심 역량 (상중하) -->
     <div class="result-section">
       <div class="result-section-title">핵심 역량 프로파일</div>
-      <div class="competency-bars">${compHTML}</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;padding:8px 12px;background:var(--surface);border-radius:6px;">상 = 두드러지는 역량 / 중 = 보통 수준 / 하 = 상대적으로 낮은 역량 (절대 평가가 아닌 응답 패턴 기반)</div>
+      ${compHTML}
     </div>
 
+    <!-- 추천 직종 상세 & 액션 -->
     <div class="result-section">
-      <div class="result-section-title">선택한 업계</div>
-      <div class="industry-result-list">${industryHTML}</div>
+      <div class="result-section-title">추천 직종 상세 & 다음 액션</div>
+      ${jobDetailHTML}
     </div>
 
+    <!-- 추천 업계 상세 & ES 포인트 -->
     <div class="result-section">
-      <div class="result-section-title">직종 라이브러리 — 심화 학습</div>
-      <div style="padding:20px 22px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;">
-        <div style="display:flex;align-items:flex-start;gap:14px;">
-          <div style="font-size:24px;flex-shrink:0;">🔒</div>
-          <div style="flex:1;">
-            <div style="font-size:13px;font-weight:700;color:var(--text-sub);margin-bottom:4px;">직종 라이브러리 — 유료 콘텐츠</div>
-            <div style="font-size:12px;color:var(--text-dim);line-height:1.8;margin-bottom:14px;">
-              9개 직종 × 3레벨 카드. 직종 정의부터 ES/면접 포인트까지.<br>
-              ${topJobs.map((job, i) => {
-                const p = JOB_PROFILES[job];
-                return `<strong style="color:var(--text-sub);">${p?.label || job}</strong> 포함`;
-              }).join(' · ')} 전 직종 접근 가능.
-            </div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <a href="https://tokyocareerstudio.com/library" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--accent);color:#fff;border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">
-                라이브러리 구매하기 →
-              </a>
-              <a href="https://job-selection.vercel.app/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:transparent;color:var(--text-dim);border:1px solid var(--border);border-radius:8px;font-size:12px;font-weight:600;text-decoration:none;">
-                미리보기 (lv1 맵)
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style="padding:12px 16px;background:var(--accent-soft);border:1px solid var(--accent-border);border-radius:8px;">
-        <div style="font-size:11px;color:var(--accent);line-height:1.7;">
-          💡 이미 구매하셨나요? 
-          <a href="https://job-selection.vercel.app/" target="_blank" style="color:var(--accent);font-weight:600;text-decoration:underline;">라이브러리 입장하기 →</a>
-        </div>
-      </div>
+      <div class="result-section-title">추천 업계 상세 & ES 포인트</div>
+      ${industryHTML}
     </div>
 
+    <!-- 라이브러리 -->
+    <div class="result-section">
+      <div class="result-section-title">심화 학습 — 라이브러리</div>
+      <a href="industry-index.html" target="_blank" class="library-link-section" style="margin-bottom:8px;">
+        <div class="library-link-body">
+          <div class="library-link-kicker">INDUSTRY LIBRARY</div>
+          <div class="library-link-title">📋 업계 리포트 라이브러리 — 25개 업계</div>
+          <div class="library-link-desc">추천 업계의 구조·트렌드·기업·ES대책을 한 페이지에서 확인</div>
+        </div>
+        <div class="library-link-arrow">→</div>
+      </a>
+      <a href="map-lv1.html" target="_blank" class="library-link-section">
+        <div class="library-link-body">
+          <div class="library-link-kicker">JOB TYPE LIBRARY</div>
+          <div class="library-link-title">🗺️ 직종 라이브러리 — 9대 직종 40+ 카드</div>
+          <div class="library-link-desc">추천 직종의 업무·커리어 경로·ES 포인트 상세 분석</div>
+        </div>
+        <div class="library-link-arrow">→</div>
+      </a>
+    </div>
+
+    <!-- 다음 단계 -->
     <div class="result-section">
       <div class="result-section-title">다음 단계</div>
       <div style="padding:20px 22px;background:var(--surface);border:1px solid var(--border);border-radius:10px;">
         <p style="font-size:13px;color:var(--text-dim);line-height:2.0;margin-bottom:16px;">
-          ${companyDesc}<br><br>
-          Tokyo Career Studio의 1:1 PT 상담에서 이 결과를 바탕으로<br>
-          <strong style="color:var(--text-sub);">구체적인 기업 리스트와 ES 전략</strong>까지 함께 설계해드립니다.
+          이 진단 결과를 바탕으로 Tokyo Career Studio의 1:1 PT 상담에서<br>
+          <strong style="color:var(--text-sub);">구체적인 기업 리스트 · ES 전략 · 면접 대비</strong>까지 함께 설계해드립니다.
         </p>
         <div style="display:flex;gap:6px;flex-wrap:wrap;">
           <span style="font-size:11px;padding:4px 10px;border-radius:100px;border:1px solid var(--border);color:var(--text-muted);">직종별 ES 전략</span>
