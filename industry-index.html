@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>업계 리포트 라이브러리 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #08080e;
+    --surface: #111118;
+    --surface-2: #18181f;
+    --border: #252530;
+    --text: #eeeef5;
+    --text-sub: #b8b8cc;
+    --text-dim: #76768a;
+    --text-muted: #44445a;
+
+    /* 카테고리별 색상 */
+    --c-it:     #4a9eff;
+    --c-mfg:    #00b894;
+    --c-finance: #e17055;
+    --c-service: #fd79a8;
+    --c-life:   #a29bfe;
+    --c-trade:  #fdcb6e;
+    --c-infra:  #74b9ff;
+    --c-media:  #ff6b9d;
+    --c-hr:     #55efc4;
+    --c-real:   #f0a500;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif;
+    line-height: 1.7;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* ── 배경 장식 ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 15% 20%, rgba(74,158,255,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 35% at 85% 70%, rgba(253,121,168,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 50% 50%, rgba(162,155,254,0.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrap { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 28px 100px; }
+
+  /* ── 헤더 ── */
+  .site-header {
+    padding: 28px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+    margin-bottom: 60px;
+  }
+  .site-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .site-logo span { color: var(--text-sub); }
+  .header-badge {
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: rgba(162,155,254,0.1);
+    color: #a29bfe;
+    border: 1px solid rgba(162,155,254,0.2);
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  /* ── 히어로 ── */
+  .hero {
+    text-align: center;
+    padding: 0 0 72px;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow::before, .hero-eyebrow::after {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--border);
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, #a29bfe 0%, #fd79a8 50%, #fdcb6e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-desc {
+    font-size: 15px;
+    color: var(--text-dim);
+    max-width: 520px;
+    margin: 0 auto 36px;
+    line-height: 1.9;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    text-align: center;
+  }
+  .hero-stat-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .hero-stat-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── 검색 / 필터 ── */
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+  .search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+  }
+  .search-wrap svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+  .search-input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 13px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input::placeholder { color: var(--text-muted); }
+  .search-input:focus { border-color: rgba(162,155,254,0.4); }
+
+  .filter-btns { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-btn {
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-dim);
+    font-family: inherit;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+  }
+  .filter-btn:hover { color: var(--text); border-color: rgba(255,255,255,0.15); }
+  .filter-btn.active { color: var(--text); background: var(--surface-2); border-color: rgba(255,255,255,0.2); }
+
+  /* ── 섹션 그룹 ── */
+  .section-group { margin-bottom: 52px; }
+  .section-group[data-hidden] { display: none; }
+
+  .group-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .group-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .group-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .group-count {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-left: auto;
+  }
+  .group-divider {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    margin-left: 4px;
+  }
+
+  /* ── 카드 그리드 ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+
+  .report-card {
+    display: flex;
+    flex-direction: column;
+    padding: 18px 20px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    text-decoration: none;
+    transition: all 0.22s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .report-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    opacity: 0;
+    transition: opacity 0.22s;
+  }
+  .report-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255,255,255,0.1);
+    background: var(--surface-2);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+  .report-card:hover::before { opacity: 1; }
+
+  .report-card[data-hidden] { display: none; }
+
+  .card-emoji {
+    font-size: 22px;
+    margin-bottom: 12px;
+    line-height: 1;
+  }
+  .card-vol {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .card-subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    flex: 1;
+    margin-bottom: 14px;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .card-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-weight: 500;
+    border: 1px solid;
+  }
+  .card-arrow {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    opacity: 0;
+  }
+  .report-card:hover .card-arrow {
+    opacity: 1;
+    background: rgba(255,255,255,0.08);
+    color: var(--text);
+  }
+
+  /* no result */
+  .no-result {
+    display: none;
+    text-align: center;
+    padding: 80px 0;
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+  .no-result.visible { display: block; }
+
+  /* ── 하단 ── */
+  .footer {
+    text-align: center;
+    padding: 48px 0 40px;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+  .footer p { font-size: 11px; color: var(--text-muted); line-height: 1.9; }
+  .footer .brand { font-weight: 700; color: var(--text-dim); }
+
+  @media (max-width: 640px) {
+    .card-grid { grid-template-columns: 1fr 1fr; }
+    .hero h1 { letter-spacing: -0.8px; }
+    .hero-stats { gap: 20px; }
+    .site-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
+  @media (max-width: 400px) {
+    .card-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- 헤더 -->
+  <header class="site-header">
+    <a href="https://tokyocareerstudio-jobselection.netlify.app/" class="site-logo">
+      Tokyo <span>Career Studio</span>
+    </a>
+    <span class="header-badge">INDUSTRY LIBRARY</span>
+  </header>
+
+  <!-- 히어로 -->
+  <section class="hero">
+    <div class="hero-eyebrow">업계 리포트 라이브러리</div>
+    <h1>일본 취업,<br><em>업계를 알면 길이 보인다</em></h1>
+    <p class="hero-desc">
+      25개 업계의 구조·트렌드·직종·기업·ES대책을<br>
+      한 페이지로 압축한 Tokyo Career Studio 독점 컨텐츠.
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">25</div>
+        <div class="hero-stat-label">업계 리포트</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">7</div>
+        <div class="hero-stat-label">섹션 / 리포트</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">150+</div>
+        <div class="hero-stat-label">기업 분석</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 필터 바 -->
+  <div class="filter-bar">
+    <div class="search-wrap">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input class="search-input" type="text" placeholder="업계명으로 검색..." id="searchInput" oninput="filterCards()" autocomplete="off">
+    </div>
+    <div class="filter-btns">
+      <button class="filter-btn active" onclick="filterByGroup('all', this)">전체</button>
+      <button class="filter-btn" onclick="filterByGroup('it', this)">IT·인터넷</button>
+      <button class="filter-btn" onclick="filterByGroup('mfg', this)">제조·소재</button>
+      <button class="filter-btn" onclick="filterByGroup('finance', this)">금융</button>
+      <button class="filter-btn" onclick="filterByGroup('service', this)">서비스·유통</button>
+      <button class="filter-btn" onclick="filterByGroup('infra', this)">인프라</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- 그룹 1: IT·인터넷·통신 -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="section-group" data-group="it">
+    <div class="group-header">
+      <div class="group-icon" style="background:rgba(74,158,255,0.12)">💻</div>
+      <span class="group-title">IT · 인터넷 · 통신</span>
+      <div class="group-divider"></div>
+      <span class="group-count">3개</span>
+    </div>
+    <div class="card-grid">
+
+      <a href="sier-report.html" class="report-card" data-group="it" data-name="SIer 시스템 인티그레이터 IT">
+        <div class="card-emoji">🖥️</div>
+        <div class="card-vol">Vol.01</div>
+        <div class="card-title">SIer</div>
+        <div class="card-subtitle">후지쓰·NEC·NTT데이터·히타치<br>시스템 수주·개발·운영</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-it);border-color:rgba(74,158,255,0.25);background:rgba(74,158,255,0.07)">SE·PG</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">IT영업</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="internet-report.html" class="report-card" data-group="it" data-name="인터넷 웹 야후 라쿠텐 메르카리 DeNA 사이버에이전트">
+        <div class="card-emoji">🌐</div>
+        <div class="card-vol">Vol.03</div>
+        <div class="card-title">인터넷·웹</div>
+        <div class="card-subtitle">야후재팬·라쿠텐·메르카리<br>EC·광고·플랫폼</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-it);border-color:rgba(74,158,255,0.25);background:rgba(74,158,255,0.07)">IT기획</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">SE·마케팅</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="telecom-report.html" class="report-card" data-group="it" data-name="통신 NTT도코모 KDDI 소프트뱅크 5G AI">
+        <div class="card-emoji">📡</div>
+        <div class="card-vol">Vol.20</div>
+        <div class="card-title">통신</div>
+        <div class="card-subtitle">NTT도코모·KDDI·소프트뱅크<br>5G·AI·경제권 전략</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-it);border-color:rgba(74,158,255,0.25);background:rgba(74,158,255,0.07)">법인영업</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">NW엔지니어</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- 그룹 2: 제조·소재 -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="section-group" data-group="mfg">
+    <div class="group-header">
+      <div class="group-icon" style="background:rgba(0,184,148,0.12)">🏭</div>
+      <span class="group-title">제조 · 소재 · 게임</span>
+      <div class="group-divider"></div>
+      <span class="group-count">6개</span>
+    </div>
+    <div class="card-grid">
+
+      <a href="electric-maker-report.html" class="report-card" data-group="mfg" data-name="전기메이커 소니 파나소닉 히타치 미쓰비시전기">
+        <div class="card-emoji">⚡</div>
+        <div class="card-vol">Vol.04</div>
+        <div class="card-title">전기메이커</div>
+        <div class="card-subtitle">소니·파나소닉·히타치·미쓰비시전기<br>EV·반도체·에너지</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-mfg);border-color:rgba(0,184,148,0.25);background:rgba(0,184,148,0.07)">이공계</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">메이커영업</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="car-maker-report.html" class="report-card" data-group="mfg" data-name="자동차메이커 도요타 혼다 닛산 마쓰다 EV">
+        <div class="card-emoji">🚗</div>
+        <div class="card-vol">Vol.05</div>
+        <div class="card-title">자동차메이커</div>
+        <div class="card-subtitle">도요타·혼다·닛산·마쓰다<br>EV전환·자율주행</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-mfg);border-color:rgba(0,184,148,0.25);background:rgba(0,184,148,0.07)">이공계</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">글로벌</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="consumer-report.html" class="report-card" data-group="mfg" data-name="소비재 화장품 P&G 유니레버 시세이도 카오 코세">
+        <div class="card-emoji">🧴</div>
+        <div class="card-vol">Vol.06</div>
+        <div class="card-title">소비재·화장품</div>
+        <div class="card-subtitle">P&G·유니레버·시세이도·카오<br>브랜드·마케팅</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-mfg);border-color:rgba(0,184,148,0.25);background:rgba(0,184,148,0.07)">마케팅</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">외자계</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="beverage-report.html" class="report-card" data-group="mfg" data-name="음료메이커 아사히 기린 산토리 이토엔 코카콜라">
+        <div class="card-emoji">🍺</div>
+        <div class="card-vol">Vol.11</div>
+        <div class="card-title">음료메이커</div>
+        <div class="card-subtitle">아사히·기린·산토리·이토엔<br>주류·청량음료·무알코올</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-mfg);border-color:rgba(0,184,148,0.25);background:rgba(0,184,148,0.07)">마케팅</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">루트영업</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="material-report.html" class="report-card" data-group="mfg" data-name="소재메이커 철강 화학 닛폰제철 신에쓰화학 도레이">
+        <div class="card-emoji">⚗️</div>
+        <div class="card-vol">Vol.12</div>
+        <div class="card-title">소재메이커</div>
+        <div class="card-subtitle">닛폰제철·신에쓰화학·도레이<br>철강·화학·탈탄소</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-mfg);border-color:rgba(0,184,148,0.25);background:rgba(0,184,148,0.07)">이공계</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">기술영업</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="pharma-report.html" class="report-card" data-group="mfg" data-name="제약 MR 다케다 아스텔라스 파이저 노바티스">
+        <div class="card-emoji">💊</div>
+        <div class="card-vol">Vol.15</div>
+        <div class="card-title">제약</div>
+        <div class="card-subtitle">다케다·아스텔라스·파이저·노바티스<br>MR·CRA·MSL</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-mfg);border-color:rgba(0,184,148,0.25);background:rgba(0,184,148,0.07)">MR</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">일본계·외자계</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="game-report.html" class="report-card" data-group="mfg" data-name="게임 닌텐도 소니 사이게임스 반다이남코 캡콤">
+        <div class="card-emoji">🎮</div>
+        <div class="card-vol">Vol.10</div>
+        <div class="card-title">게임</div>
+        <div class="card-subtitle">닌텐도·소니IE·사이게임스<br>플래너·프로그래머·아티스트</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-mfg);border-color:rgba(0,184,148,0.25);background:rgba(0,184,148,0.07)">게임기획</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">포트폴리오</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- 그룹 3: 종합상사·광고·미디어 -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="section-group" data-group="service">
+    <div class="group-header">
+      <div class="group-icon" style="background:rgba(253,203,110,0.12)">🌏</div>
+      <span class="group-title">상사 · 광고 · 컨설팅</span>
+      <div class="group-divider"></div>
+      <span class="group-count">3개</span>
+    </div>
+    <div class="card-grid">
+
+      <a href="trading-report.html" class="report-card" data-group="service" data-name="상사 종합상사 미쓰비시 미쓰이 이토추 스미토모 마루베니">
+        <div class="card-emoji">🌍</div>
+        <div class="card-vol">Vol.09</div>
+        <div class="card-title">종합·전문상사</div>
+        <div class="card-subtitle">미쓰비시·미쓰이·이토추·스미토모<br>자원·무역·투자</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-trade);border-color:rgba(253,203,110,0.25);background:rgba(253,203,110,0.07)">무역영업</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">글로벌</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="ad-agency-report.html" class="report-card" data-group="service" data-name="광고대리점 덴츠 하쿠호도 사이버에이전트">
+        <div class="card-emoji">📢</div>
+        <div class="card-vol">Vol.07</div>
+        <div class="card-title">광고대리점</div>
+        <div class="card-subtitle">덴츠·하쿠호도·사이버에이전트<br>AE·크리에이티브·데지털</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-trade);border-color:rgba(253,203,110,0.25);background:rgba(253,203,110,0.07)">AE영업</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">크리에이티브</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="consulting-report.html" class="report-card" data-group="service" data-name="컨설팅 맥킨지 BCG 딜로이트 PwC 액센추어 전략 IT">
+        <div class="card-emoji">📊</div>
+        <div class="card-vol">Vol.02</div>
+        <div class="card-title">컨설팅</div>
+        <div class="card-subtitle">맥킨지·BCG·딜로이트·액센추어<br>전략·IT·BPR</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-trade);border-color:rgba(253,203,110,0.25);background:rgba(253,203,110,0.07)">전략컨설팅</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">IT컨설팅</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- 그룹 4: 금융 -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="section-group" data-group="finance">
+    <div class="group-header">
+      <div class="group-icon" style="background:rgba(225,112,85,0.12)">💰</div>
+      <span class="group-title">금융</span>
+      <div class="group-divider"></div>
+      <span class="group-count">3개</span>
+    </div>
+    <div class="card-grid">
+
+      <a href="bank-report.html" class="report-card" data-group="finance" data-name="은행 미쓰비시UFJ 미즈호 SMBC 지방은행 메가뱅크">
+        <div class="card-emoji">🏦</div>
+        <div class="card-vol">Vol.08</div>
+        <div class="card-title">은행</div>
+        <div class="card-subtitle">미쓰비시UFJ·미즈호·SMBC<br>메가뱅크·지역은행</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-finance);border-color:rgba(225,112,85,0.25);background:rgba(225,112,85,0.07)">리테일영업</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">법인금융</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="securities-report.html" class="report-card" data-group="finance" data-name="증권 노무라 다이와 SBI 라쿠텐 골드만삭스 신NISA">
+        <div class="card-emoji">📈</div>
+        <div class="card-vol">Vol.22</div>
+        <div class="card-title">증권</div>
+        <div class="card-subtitle">노무라·다이와·SBI·골드만삭스<br>신NISA·IB·트레이딩</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-finance);border-color:rgba(225,112,85,0.25);background:rgba(225,112,85,0.07)">리테일영업</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">IB</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="insurance-report.html" class="report-card" data-group="finance" data-name="보험 손해보험 생명보험 도쿄해상 손보재팬 니혼생명">
+        <div class="card-emoji">🛡️</div>
+        <div class="card-vol">Vol.23</div>
+        <div class="card-title">보험</div>
+        <div class="card-subtitle">도쿄해상·손보재팬·니혼생명<br>손해보험·생명보험·인슈어테크</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-finance);border-color:rgba(225,112,85,0.25);background:rgba(225,112,85,0.07)">손해보험</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">생명보험</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- 그룹 5: 서비스·유통·HR -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="section-group" data-group="service">
+    <div class="group-header">
+      <div class="group-icon" style="background:rgba(253,121,168,0.1)">🛍️</div>
+      <span class="group-title">서비스 · 유통 · HR</span>
+      <div class="group-divider"></div>
+      <span class="group-count">7개</span>
+    </div>
+    <div class="card-grid">
+
+      <a href="retail-report.html" class="report-card" data-group="service" data-name="소매유통 편의점 슈퍼 유니클로 백화점 EC 세븐일레븐 이온">
+        <div class="card-emoji">🏪</div>
+        <div class="card-vol">Vol.13</div>
+        <div class="card-title">소매유통</div>
+        <div class="card-subtitle">세븐일레븐·이온·유니클로<br>편의점·SPA·EC</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-service);border-color:rgba(253,121,168,0.25);background:rgba(253,121,168,0.07)">점포운영</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">MD·바이어</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="apparel-report.html" class="report-card" data-group="service" data-name="아파렐 패션 패스트리테일링 빔스 유나이티드애로우즈 SPA">
+        <div class="card-emoji">👗</div>
+        <div class="card-vol">Vol.21</div>
+        <div class="card-title">아파렐</div>
+        <div class="card-subtitle">패스트리테일링·빔스·유나이티드애로우즈<br>SPA·셀렉트숍</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-service);border-color:rgba(253,121,168,0.25);background:rgba(253,121,168,0.07)">판매</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">MD·바이어</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="hr-report.html" class="report-card" data-group="service" data-name="HR 인재 리쿠르트 퍼솔 마이나비 SmartHR 파견 인재소개">
+        <div class="card-emoji">🤝</div>
+        <div class="card-vol">Vol.17</div>
+        <div class="card-title">HR·인재</div>
+        <div class="card-subtitle">리쿠르트·퍼솔·마이나비·SmartHR<br>인재소개·파견·HR테크</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-service);border-color:rgba(253,121,168,0.25);background:rgba(253,121,168,0.07)">RA·CA</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">HR테크</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="hotel-report.html" class="report-card" data-group="service" data-name="호텔 관광 제국호텔 호시노리조트 메리어트 힐튼 인바운드">
+        <div class="card-emoji">🏨</div>
+        <div class="card-vol">Vol.18</div>
+        <div class="card-title">호텔·관광</div>
+        <div class="card-subtitle">제국호텔·호시노리조트·메리어트<br>인바운드·럭셔리화</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-service);border-color:rgba(253,121,168,0.25);background:rgba(253,121,168,0.07)">호텔리어</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">어학 강점</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="foodservice-report.html" class="report-card" data-group="service" data-name="외식 맥도날드 스카이락 스타벅스 코메다 이자카야 레스토랑">
+        <div class="card-emoji">🍜</div>
+        <div class="card-vol">Vol.24</div>
+        <div class="card-title">외식</div>
+        <div class="card-subtitle">맥도날드·스카이락·스타벅스<br>패스트푸드·카페·이자카야</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-service);border-color:rgba(253,121,168,0.25);background:rgba(253,121,168,0.07)">점포운영</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">상품기획</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="travel-report.html" class="report-card" data-group="service" data-name="여행 JTB HIS 인바운드 OTA 자란닷컴 Klook">
+        <div class="card-emoji">✈️</div>
+        <div class="card-vol">Vol.25</div>
+        <div class="card-title">여행</div>
+        <div class="card-subtitle">JTB·HIS·Klook·자란닷컴<br>인바운드·OTA·지역창생</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-service);border-color:rgba(253,121,168,0.25);background:rgba(253,121,168,0.07)">여행상담</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">인바운드</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="realestate-report.html" class="report-card" data-group="service" data-name="부동산 미쓰이부동산 미쓰비시지쇼 오픈하우스 디벨로퍼">
+        <div class="card-emoji">🏙️</div>
+        <div class="card-vol">Vol.16</div>
+        <div class="card-title">부동산</div>
+        <div class="card-subtitle">미쓰이부동산·미쓰비시지쇼<br>디벨로퍼·주택영업·중개</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-service);border-color:rgba(253,121,168,0.25);background:rgba(253,121,168,0.07)">택건</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">사업기획</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!-- 그룹 6: 인프라·물류·건설 -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="section-group" data-group="infra">
+    <div class="group-header">
+      <div class="group-icon" style="background:rgba(116,185,255,0.1)">🚢</div>
+      <span class="group-title">인프라 · 물류 · 건설</span>
+      <div class="group-divider"></div>
+      <span class="group-count">3개</span>
+    </div>
+    <div class="card-grid">
+
+      <a href="logistics-report.html" class="report-card" data-group="infra" data-name="물류 야마토 사가와 NX 킨테쓰월드 해운 상선미쓰이">
+        <div class="card-emoji">📦</div>
+        <div class="card-vol">Vol.14</div>
+        <div class="card-title">물류</div>
+        <div class="card-subtitle">야마토·NX그룹·킨테쓰월드<br>3PL·국제물류·해운</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-infra);border-color:rgba(116,185,255,0.25);background:rgba(116,185,255,0.07)">SCM</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">국제물류</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="construction-report.html" class="report-card" data-group="infra" data-name="건설 가지마 다이세이 시미즈 다케나카 오바야시 제네컨">
+        <div class="card-emoji">🏗️</div>
+        <div class="card-vol">Vol.19</div>
+        <div class="card-title">건설</div>
+        <div class="card-subtitle">가지마·다이세이·시미즈·다케나카<br>슈퍼제네컨·토목</div>
+        <div class="card-tags">
+          <span class="card-tag" style="color:var(--c-infra);border-color:rgba(116,185,255,0.25);background:rgba(116,185,255,0.07)">시공관리</span>
+          <span class="card-tag" style="color:var(--text-muted);border-color:var(--border);background:transparent">이공계</span>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="pharma-report.html" class="report-card" data-group="infra" data-name="제약 MR">
+        <!-- 중복 방지용 더미 - 실제 표시 안 됨 -->
+      </a>
+
+    </div>
+  </div>
+
+  <!-- no result -->
+  <div class="no-result" id="noResult">
+    <p>🔍 검색 결과가 없습니다.</p>
+    <p style="margin-top:6px;font-size:12px;color:var(--text-muted)">다른 키워드로 검색해보세요.</p>
+  </div>
+
+  <!-- 푸터 -->
+  <footer class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 업계 리포트 라이브러리 — 총 25개 업계</p>
+    <p style="margin-top:4px">직종으로 시보리 → 업계로 확장 → 기업 선택의 3단계 커리어 설계</p>
+    <p style="margin-top:8px;font-size:10px;color:var(--text-muted)">본 라이브러리의 모든 컨텐츠는 Tokyo Career Studio의 독점 자료입니다.</p>
+  </footer>
+
+</div>
+
+<script>
+// ── 색상 인라인 적용 (카드별 accent)
+const colorMap = {
+  'it': '#4a9eff',
+  'mfg': '#00b894',
+  'service': '#fd79a8',
+  'finance': '#e17055',
+  'infra': '#74b9ff',
+};
+document.querySelectorAll('.report-card').forEach(card => {
+  const g = card.dataset.group;
+  if (!g || !colorMap[g]) return;
+  const c = colorMap[g];
+  card.style.setProperty('--card-accent', c);
+  const before = card.querySelector('::before');
+  // gradient top border via JS
+  card.addEventListener('mouseenter', () => {
+    card.style.borderColor = c + '44';
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.borderColor = '';
+  });
+  // top border
+  const bar = document.createElement('div');
+  bar.style.cssText = `position:absolute;top:0;left:0;right:0;height:2px;background:${c};border-radius:14px 14px 0 0;opacity:0;transition:opacity 0.2s`;
+  card.appendChild(bar);
+  card.addEventListener('mouseenter', () => { bar.style.opacity = '1'; });
+  card.addEventListener('mouseleave', () => { bar.style.opacity = '0'; });
+});
+
+// ── 검색
+function filterCards() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  let anyVisible = false;
+
+  document.querySelectorAll('.report-card').forEach(card => {
+    const name = (card.dataset.name || '').toLowerCase();
+    const title = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
+    const match = !q || name.includes(q) || title.includes(q);
+    card.toggleAttribute('data-hidden', !match);
+    if (match) anyVisible = true;
+  });
+
+  // 빈 그룹 숨기기
+  document.querySelectorAll('.section-group').forEach(group => {
+    const visibles = group.querySelectorAll('.report-card:not([data-hidden])');
+    group.toggleAttribute('data-hidden', visibles.length === 0);
+  });
+
+  document.getElementById('noResult').classList.toggle('visible', !anyVisible);
+}
+
+// ── 그룹 필터
+function filterByGroup(group, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('searchInput').value = '';
+
+  document.querySelectorAll('.report-card').forEach(card => {
+    const match = group === 'all' || card.dataset.group === group;
+    card.toggleAttribute('data-hidden', !match);
+  });
+  document.querySelectorAll('.section-group').forEach(group => {
+    const visibles = group.querySelectorAll('.report-card:not([data-hidden])');
+    group.toggleAttribute('data-hidden', visibles.length === 0);
+  });
+
+  document.getElementById('noResult').classList.remove('visible');
+}
+
+// ── 더미 카드 제거 (pharma 중복)
+document.querySelectorAll('.report-card').forEach(card => {
+  if (!card.querySelector('.card-title')?.textContent.trim()) {
+    card.remove();
+  }
+});
+</script>
+</body>
+</html>
