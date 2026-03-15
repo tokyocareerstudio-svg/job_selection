@@ -1732,7 +1732,13 @@ function toggleQ5(track, idx) {
 }
 
 function submitQ5() {
-  computeAndShowIndustry();
+  // 업계 선택 화면 생략 — 자동 추천으로 바로 결과 계산
+  const compScores = computeCompetencyScores();
+  const jobScores  = computeJobScores(compScores);
+  const filtered   = applyHardFilters(jobScores);
+  const topJobs    = getTopJobs(filtered, 2);
+  state.result     = { compScores, jobScores, filteredScores: filtered, topJobs };
+  computeResult();
 }
 
 // ══════════════════════════════════════
@@ -2053,7 +2059,7 @@ function computeResult() {
 
     return scored
       .sort((a, b) => b.score - a.score)
-      .slice(0, 3)
+      .slice(0, 5)
       .map(s => s.ind);
   }
 
@@ -2219,7 +2225,7 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
       <div style="padding:16px 18px;background:var(--surface);border:1px solid var(--border);
         border-left:3px solid ${rc};border-radius:10px;margin-bottom:8px;">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
-          <span style="font-size:10px;font-weight:700;color:${rc};padding:2px 8px;border-radius:4px;background:rgba(${i===0?'74,158,255':i===1?'162,155,254':'85,239,196'},0.1);">${i+1}순위</span>
+          <span style="font-size:10px;font-weight:700;color:${rc};padding:2px 8px;border-radius:4px;background:rgba(${rbg},0.1);">${i+1}순위</span>
           <span style="font-size:14px;font-weight:700;color:var(--text);">${p?.emoji||''} ${p?.label||job}</span>
         </div>
         <div style="font-size:12px;color:var(--text-dim);line-height:1.7;margin-bottom:8px;">
@@ -2235,16 +2241,17 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
   const industryHTML = selectedInds.length > 0 ? `
     ${isAutoRecommend?`<div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;padding:8px 12px;background:var(--surface);border-radius:6px;">🤖 직종 적합도·성향·Q5 필터를 종합해 자동 추천한 업계입니다</div>`:''}
     ${selectedInds.map((ind,i) => {
-      const rc = ['#4a9eff','#a29bfe','#55efc4'][i];
+      const rc = ['#4a9eff','#a29bfe','#55efc4','#fdcb6e','#fd79a8'][i];
       const point = IND_POINT[ind.id] || '해당 업계 리포트에서 ES·면접 전략을 확인하세요';
       const warns = [];
       if (ind.warnings.includes('야근많음')) warns.push('야근 많음');
       if (ind.warnings.some(w=>w.includes('경쟁'))) warns.push('경쟁 강함');
+      const rbg = ['74,158,255','162,155,254','85,239,196','253,203,110','253,121,168'][i];
       return `
         <div style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);
           border-left:3px solid ${rc};border-radius:10px;margin-bottom:10px;">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-            <span style="font-size:10px;font-weight:700;color:${rc};padding:2px 8px;border-radius:4px;background:rgba(${i===0?'74,158,255':i===1?'162,155,254':'85,239,196'},0.1);">${i+1}순위</span>
+            <span style="font-size:10px;font-weight:700;color:${rc};padding:2px 8px;border-radius:4px;background:rgba(${rbg},0.1);">${i+1}순위</span>
             <span style="font-size:15px;font-weight:700;color:var(--text);">${ind.name}</span>
             ${warns.map(w=>`<span style="font-size:10px;color:#f59e0b;padding:2px 6px;background:rgba(245,158,11,0.08);border-radius:4px;">${w}</span>`).join('')}
           </div>
@@ -2298,7 +2305,7 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
         </div>
         <div>
           <div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.06);">🏢 추천 업계 <span style="font-size:9px;color:var(--text-muted);font-weight:400;">${isAutoRecommend?'자동 추천':'직접 선택'}</span></div>
-          ${selectedInds.map((ind,i)=>{const c=['#4a9eff','#a29bfe','#55efc4'][i];return`<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;margin-bottom:5px;"><span style="font-size:10px;font-weight:700;color:${c};min-width:28px;">${i+1}순위</span><span style="font-size:13px;font-weight:700;color:var(--text);">${ind.name}</span></div>`;}).join('')}
+          ${selectedInds.map((ind,i)=>{const c=['#4a9eff','#a29bfe','#55efc4','#fdcb6e','#fd79a8'][i];return`<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;margin-bottom:5px;"><span style="font-size:10px;font-weight:700;color:${c};min-width:28px;">${i+1}순위</span><span style="font-size:13px;font-weight:700;color:var(--text);">${ind.name}</span></div>`;}).join('')}
         </div>
       </div>
       <div style="margin-top:14px;padding:10px 14px;background:rgba(255,255,255,0.03);border-radius:8px;">
