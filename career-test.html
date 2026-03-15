@@ -1513,8 +1513,15 @@ let state = {
 // 유틸
 // ══════════════════════════════════════
 function goScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active');
+    s.style.display = 'none';
+  });
+  const target = document.getElementById(id);
+  if (target) {
+    target.classList.add('active');
+    target.style.display = '';
+  }
   window.scrollTo(0, 0);
 }
 
@@ -1752,13 +1759,17 @@ function toggleQ5(track, idx) {
 }
 
 function submitQ5() {
-  // 업계 선택 화면 생략 — 자동 추천으로 바로 결과 계산
-  const compScores = computeCompetencyScores();
-  const jobScores  = computeJobScores(compScores);
-  const filtered   = applyHardFilters(jobScores);
-  const topJobs    = getTopJobs(filtered, 2);
-  state.result     = { compScores, jobScores, filteredScores: filtered, topJobs };
-  computeResult();
+  try {
+    const compScores = computeCompetencyScores();
+    const jobScores  = computeJobScores(compScores);
+    const filtered   = applyHardFilters(jobScores);
+    const topJobs    = getTopJobs(filtered, 2);
+    state.result     = { compScores, jobScores, filteredScores: filtered, topJobs };
+    computeResult();
+  } catch(e) {
+    console.error('submitQ5 오류:', e);
+    alert('결과 계산 중 오류가 발생했습니다: ' + e.message);
+  }
 }
 
 // ══════════════════════════════════════
