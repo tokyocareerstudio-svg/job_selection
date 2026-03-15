@@ -165,17 +165,7 @@
   </div>
 </div>
 
-<div class="section-nav">
-  <div class="section-nav-inner">
-    <button class="nav-btn active" onclick="scrollTo('s1')">01 업계전체상</button>
-    <button class="nav-btn" onclick="scrollTo('s2')">02 트렌드</button>
-    <button class="nav-btn" onclick="scrollTo('s3')">03 활약직종</button>
-    <button class="nav-btn" onclick="scrollTo('s4')">04 키워드</button>
-    <button class="nav-btn" onclick="scrollTo('s5')">05 기업리스트</button>
-    <button class="nav-btn" onclick="scrollTo('s6')">06 ES대책</button>
-    <button class="nav-btn" onclick="scrollTo('s7')">07 면접대책</button>
-  </div>
-</div>
+
 
 <div class="container">
 
@@ -702,26 +692,7 @@
 </div>
 
 <script>
-function scrollTo(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const navH = document.querySelector('.section-nav').offsetHeight;
-  const y = el.getBoundingClientRect().top + window.pageYOffset - navH - 16;
-  window.scrollTo({ top: y, behavior: 'smooth' });
-}
-const sections = ['s1','s2','s3','s4','s5','s6','s7'];
-const navBtns = document.querySelectorAll('.nav-btn');
-function updateNav() {
-  const navH = document.querySelector('.section-nav').offsetHeight;
-  let current = 's1';
-  sections.forEach(id => {
-    const el = document.getElementById(id);
-    if (el && el.getBoundingClientRect().top <= navH + 60) current = id;
-  });
-  navBtns.forEach((btn, i) => btn.classList.toggle('active', sections[i] === current));
-}
-window.addEventListener('scroll', updateNav);
-updateNav();
+
 </script>
   <script src="global-nav.js"></script>
 </body>

@@ -131,18 +131,7 @@
   </div>
 </div>
 
-<div class="section-nav">
-  <div class="section-nav-inner">
-    <button class="nav-item active" onclick="scrollToSection('s1')">01 정의</button>
-    <button class="nav-item" onclick="scrollToSection('s2')">02 호텔·관광·브라이달 비교</button>
-    <button class="nav-item" onclick="scrollToSection('s3')">03 커리어패스</button>
-    <button class="nav-item" onclick="scrollToSection('s4')">04 맞는 사람</button>
-    <button class="nav-item" onclick="scrollToSection('s5')">05 ES포인트</button>
-    <button class="nav-item" onclick="scrollToSection('s6')">06 후카보리</button>
-    <button class="nav-item" onclick="scrollToSection('s7')">07 기업연구</button>
-    <button class="nav-item" onclick="scrollToSection('s8')">08 주의점</button>
-  </div>
-</div>
+
 
 <div class="container">
 
@@ -410,20 +399,7 @@
   </div>
 </div>
 
-<script>
-function scrollToSection(id) {
-  const el = document.getElementById(id);
-  if(el){const h=document.querySelector('.section-nav').offsetHeight;window.scrollTo({top:el.getBoundingClientRect().top+window.pageYOffset-h-12,behavior:'smooth'});}
-}
-const sections=['s1','s2','s3','s4','s5','s6','s7','s8'];
-const navItems=document.querySelectorAll('.nav-item');
-function updateNav(){
-  const h=document.querySelector('.section-nav').offsetHeight;let cur='';
-  sections.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=h+60)cur=id;});
-  navItems.forEach((item,i)=>{item.classList.toggle('active',sections[i]===cur);});
-}
-window.addEventListener('scroll',updateNav);updateNav();
-</script>
+
 <script src="nav.js"></script>
   <script src="global-nav.js"></script>
 </body>

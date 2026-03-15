@@ -275,4 +275,127 @@
     });
   }
 
+
+
+  // 대상 페이지 판별 — 섹션이 있는 리포트·직종 카드 파일
+  const isSectionPage =
+    /(-report|-overview|-eg\d|-se\d|-gi\d|-kk\d|-scm\d|-sv\d|-sk\d|-cr\d|-con\d)/.test(currentFile) ||
+    currentFile.match(/^(sales|se|tech|kikaku|logistics|service|sekou|creative|consul)-/);
+
+  if (!isSectionPage) return;
+
+  // DOM 로드 후 섹션 수집
+  window.addEventListener('DOMContentLoaded', () => {
+    const sections = [];
+    for (let i = 1; i <= 9; i++) {
+      const el = document.getElementById('s' + i);
+      if (!el) break;
+      const titleEl = el.querySelector('.section-title');
+      const label = titleEl ? titleEl.textContent.trim() : 'S' + i;
+      sections.push({ id: 's' + i, label });
+    }
+    if (sections.length < 2) return;
+
+    // ── 탭바 CSS ──
+    const css = document.createElement('style');
+    css.textContent = `
+      #tcs-section-tabs {
+        position: sticky;
+        top: 48px; /* global-nav 높이 */
+        z-index: 9998;
+        background: rgba(8,8,14,0.92);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+        font-family: 'Noto Sans KR','Noto Sans JP',sans-serif;
+      }
+      #tcs-section-tabs .stabs-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+        gap: 2px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        height: 40px;
+        align-items: center;
+      }
+      #tcs-section-tabs .stabs-inner::-webkit-scrollbar { display: none; }
+      #tcs-section-tabs .stab {
+        flex-shrink: 0;
+        padding: 5px 12px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 500;
+        color: #44445a;
+        cursor: pointer;
+        border: none;
+        background: none;
+        font-family: inherit;
+        transition: all 0.18s;
+        white-space: nowrap;
+      }
+      #tcs-section-tabs .stab:hover { color: #b8b8cc; background: rgba(255,255,255,0.04); }
+      #tcs-section-tabs .stab.active { color: #e8e8ed; background: rgba(255,255,255,0.07); }
+    `;
+    document.head.appendChild(css);
+
+    // ── 탭바 DOM ──
+    const tabBar = document.createElement('div');
+    tabBar.id = 'tcs-section-tabs';
+    const inner = document.createElement('div');
+    inner.className = 'stabs-inner';
+
+    sections.forEach(sec => {
+      const btn = document.createElement('button');
+      btn.className = 'stab';
+      btn.textContent = sec.label;
+      btn.dataset.secId = sec.id;
+      btn.addEventListener('click', () => {
+        const el = document.getElementById(sec.id);
+        if (!el) return;
+        const gnav  = document.getElementById('tcs-gnav');
+        const stabs = document.getElementById('tcs-section-tabs');
+        const offset = (gnav?.offsetHeight || 48) + (stabs?.offsetHeight || 40) + 8;
+        window.scrollTo({
+          top: el.getBoundingClientRect().top + window.pageYOffset - offset,
+          behavior: 'smooth'
+        });
+      });
+      inner.appendChild(btn);
+    });
+
+    tabBar.appendChild(inner);
+
+    // global-nav 바로 뒤에 삽입
+    const gnav = document.getElementById('tcs-gnav');
+    if (gnav && gnav.nextSibling) {
+      gnav.parentNode.insertBefore(tabBar, gnav.nextSibling);
+    } else {
+      document.body.insertBefore(tabBar, document.body.children[1]);
+    }
+
+    // ── 스크롤 시 현재 섹션 활성화 ──
+    function updateActivetab() {
+      const offset = 48 + 40 + 40;
+      let current = sections[0].id;
+      sections.forEach(sec => {
+        const el = document.getElementById(sec.id);
+        if (el && el.getBoundingClientRect().top <= offset) current = sec.id;
+      });
+      inner.querySelectorAll('.stab').forEach(btn => {
+        const active = btn.dataset.secId === current;
+        btn.classList.toggle('active', active);
+        // 활성 탭 자동 스크롤 (탭바 내)
+        if (active) {
+          btn.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActivetab, { passive: true });
+    updateActivetab();
+  });
+
+
 })();
