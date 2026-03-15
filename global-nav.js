@@ -16,13 +16,6 @@
 
   const currentFile = location.pathname.split('/').pop() || 'index.html';
 
-  // 유료 페이지 판별 — 개별 리포트·직종 카드만 막음
-  // industry-index, map-lv1은 목록 페이지라 자유 열람
-  const PAID = [
-    /-report\.html$/,
-    /^(sales|se|tech|kikaku|logistics|service|sekou|creative|consul)-(eg|se|gi|kk|scm|sv|sk|cr|con|overview)/,
-  ];
-  const isPaidPage = PAID.some(p => p.test(currentFile));
 
   // ── 스타일 ──────────────────────────────────────────
   const css = document.createElement('style');
@@ -213,11 +206,6 @@
   overlay.addEventListener('click', e => {
     if (e.target === overlay) overlay.classList.remove('open');
   });
-
-  // ── 직접 URL 접근 방어 ──────────────────────────────
-  if (isPaidPage && !isAuthed()) {
-    window.addEventListener('DOMContentLoaded', () => openModal(currentFile));
-  }
 
   // ── 섹션 탭바 ────────────────────────────────────────
   const isSectionPage =
