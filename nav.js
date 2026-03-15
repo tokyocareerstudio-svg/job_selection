@@ -139,15 +139,6 @@
     "IT컨설팅": "consul-con02-it.html",
   };
 
-  // ===== 인증 가드 =====
-  const _curFile = location.pathname.split("/").pop() || "";
-  if (_curFile !== "index.html" && _curFile !== "") {
-    if (sessionStorage.getItem("tcs_auth") !== "ok") {
-      sessionStorage.setItem("tcs_redirect", _curFile);
-      location.replace("index.html");
-    }
-  }
-
   const currentFile = location.pathname.split("/").pop() || "index.html";
 
   // 플랫 페이지 리스트 (catLabel 포함)
