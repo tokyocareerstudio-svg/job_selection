@@ -205,6 +205,9 @@
     setTimeout(() => input.focus(), 120);
   }
 
+  // nav.js 사이드바에서도 호출 가능하도록 전역 노출
+  window._tcsOpenModal = openModal;
+
   function tryEnter() {
     const input = document.getElementById('tcs-m-input');
     const err   = document.getElementById('tcs-m-error');
