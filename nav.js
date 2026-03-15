@@ -12,8 +12,40 @@
 (function () {
 
   const TOC = [
-    { id: "intro", label: "🗺️ 직종 대분류 맵", file: "map-lv1.html", children: [] },
-    { id: "industry", label: "📋 업계 리포트 라이브러리", file: "industry-index.html", children: [] },
+    { id: "intro",    label: "🗺️ 직종 대분류 맵",        file: "map-lv1.html",        children: [] },
+    { id: "industry", label: "📋 업계 리포트 라이브러리", file: "industry-index.html", children: [
+      { label: "── IT·인터넷·통신",    file: "industry-index.html", isHeader: true },
+      { label: "SIer",                 file: "sier-report.html" },
+      { label: "인터넷·웹",            file: "internet-report.html" },
+      { label: "통신",                 file: "telecom-report.html" },
+      { label: "── 제조·소재·게임",    file: "industry-index.html", isHeader: true },
+      { label: "전기메이커",           file: "electric-maker-report.html" },
+      { label: "자동차메이커",         file: "car-maker-report.html" },
+      { label: "소비재·화장품",        file: "consumer-report.html" },
+      { label: "음료메이커",           file: "beverage-report.html" },
+      { label: "소재메이커",           file: "material-report.html" },
+      { label: "제약",                 file: "pharma-report.html" },
+      { label: "게임",                 file: "game-report.html" },
+      { label: "── 상사·광고·컨설팅", file: "industry-index.html", isHeader: true },
+      { label: "종합·전문상사",        file: "trading-report.html" },
+      { label: "광고대리점",           file: "ad-agency-report.html" },
+      { label: "컨설팅",              file: "consulting-report.html" },
+      { label: "── 금융",             file: "industry-index.html", isHeader: true },
+      { label: "은행",                 file: "bank-report.html" },
+      { label: "증권",                 file: "securities-report.html" },
+      { label: "보험",                 file: "insurance-report.html" },
+      { label: "── 서비스·유통·HR",   file: "industry-index.html", isHeader: true },
+      { label: "소매유통",             file: "retail-report.html" },
+      { label: "아파렐",              file: "apparel-report.html" },
+      { label: "HR·인재",             file: "hr-report.html" },
+      { label: "호텔·관광",           file: "hotel-report.html" },
+      { label: "외식",                 file: "foodservice-report.html" },
+      { label: "여행",                 file: "travel-report.html" },
+      { label: "부동산",               file: "realestate-report.html" },
+      { label: "── 인프라·물류·건설", file: "industry-index.html", isHeader: true },
+      { label: "물류",                 file: "logistics-report.html" },
+      { label: "건설",                 file: "construction-report.html" },
+    ]},
     { id: "sales", label: "📊 영업", file: "sales-overview.html", children: [
         { label: "메이커 영업",   file: "sales-eg01-maker.html" },
         { label: "IT영업",        file: "sales-eg02-it.html" },
@@ -290,7 +322,11 @@
           </div>
           <div class="tcs-children">`;
         ch.children.forEach(c => {
-          html += `<a class="tcs-item ${c.file === currentFile ? "active" : ""}" href="${c.file}">${c.label}</a>`;
+          if (c.isHeader) {
+            html += `<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--nav-muted);padding:10px 4px 4px;text-transform:uppercase;opacity:0.6;">${c.label.replace('── ','')}</div>`;
+          } else {
+            html += `<a class="tcs-item ${c.file === currentFile ? "active" : ""}" href="${c.file}">${c.label}</a>`;
+          }
         });
         html += `</div></div>`;
       }
