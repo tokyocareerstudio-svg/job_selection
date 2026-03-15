@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<script>
+// 인증 가드 — 미인증 시 콘텐츠 즉시 숨김 (모달 뜨기 전까지)
+if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+  document.documentElement.style.visibility = 'hidden';
+}
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>소재메이커 업계 리포트 | Tokyo Career Studio</title>

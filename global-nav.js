@@ -187,6 +187,7 @@
     const btn   = document.getElementById('tcs-m-btn');
     if (input.value.trim() === PASSWORD) {
       sessionStorage.setItem(SESSION_KEY, 'ok');
+      document.documentElement.style.visibility = '';
       btn.textContent = '✓ 입장 중...';
       btn.disabled = true;
       overlay.classList.remove('open');
@@ -214,8 +215,15 @@
     /^map-lv1\.html$/,
     /^industry-index\.html$/,
   ];
-  if (PAID_PAGES.some(p => p.test(currentFile)) && !isAuthed()) {
-    window.addEventListener('DOMContentLoaded', () => openModal(currentFile));
+  if (PAID_PAGES.some(p => p.test(currentFile))) {
+    if (isAuthed()) {
+      // 인증됨 → 즉시 표시
+      document.documentElement.style.visibility = '';
+    } else {
+      // 미인증 → 모달 표시 후 인증 시 표시
+      document.documentElement.style.visibility = 'hidden';
+      document.addEventListener('DOMContentLoaded', () => openModal(currentFile));
+    }
   }
 
   // ── 섹션 탭바 ────────────────────────────────────────
