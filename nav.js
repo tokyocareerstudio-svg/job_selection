@@ -213,13 +213,13 @@
     .tcs-logo-title { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--nav-accent); text-transform: uppercase; }
     .tcs-logo-sub { font-size: 11px; font-weight: 600; color: var(--nav-text); margin-top: 4px; line-height: 1.4; }
     .tcs-logo-home { font-size: 9px; color: var(--nav-muted); margin-top: 5px; letter-spacing: 0.5px; }
-    .tcs-toc { flex: 1; overflow-y: auto; padding: 8px 0 80px; scrollbar-width: thin; scrollbar-color: var(--nav-border) transparent; }
+    .tcs-toc { flex: 1; overflow-y: auto; padding: 8px 4px 80px; scrollbar-width: thin; scrollbar-color: var(--nav-border) transparent; }
     .tcs-toc::-webkit-scrollbar { width: 4px; }
     .tcs-toc::-webkit-scrollbar-thumb { background: var(--nav-border); border-radius: 2px; }
     .tcs-ch { margin: 2px 0; }
     .tcs-ch-header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 8px 16px; cursor: pointer; border-radius: 6px; margin: 0 6px;
+      padding: 8px 16px; cursor: pointer; border-radius: 6px; margin: 0 8px;
       transition: background 0.15s; text-decoration: none; color: var(--nav-text);
       font-size: 12px; font-weight: 600; gap: 8px;
     }
@@ -231,7 +231,7 @@
     .tcs-ch.open .tcs-children { display: block; }
     .tcs-item {
       display: block; padding: 8px 16px; font-size: 12px; color: var(--nav-muted);
-      text-decoration: none; border-radius: 6px; margin: 1px 6px;
+      text-decoration: none; border-radius: 6px; margin: 1px 8px;
       transition: all 0.15s;
     }
     /* 탭 버튼 */
