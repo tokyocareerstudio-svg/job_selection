@@ -1,12 +1,11 @@
 {
   "cleanUrls": false,
   "trailingSlash": false,
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
-      ]
-    }
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" }
+  ],
+  "routes": [
+    { "src": "/(?!index\\.html)(.*)\\.html", "dest": "/$1.html" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }
