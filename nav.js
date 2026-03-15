@@ -433,7 +433,7 @@
     if (!dest || dest === '#') return;
     const SESSION_KEY = 'tcs_auth';
     if (sessionStorage.getItem(SESSION_KEY) === 'ok') return;
-    const PAID = [/-report\.html$/, /^(sales|se|tech|kikaku|logistics|service|sekou|creative|consul)-(eg|se|gi|kk|scm|sv|sk|cr|con|overview)/, /^map-lv1\.html$/, /^industry-index\.html$/];
+    const PAID = [/-report\.html$/, /^(sales|se|tech|kikaku|logistics|service|sekou|creative|consul)-(eg|se|gi|kk|scm|sv|sk|cr|con|overview)/];
     if (!PAID.some(p => p.test(dest))) return;
     e.preventDefault();
     if (typeof window._tcsOpenModal === 'function') window._tcsOpenModal(dest);

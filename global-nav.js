@@ -16,12 +16,11 @@
 
   const currentFile = location.pathname.split('/').pop() || 'index.html';
 
-  // 유료 페이지 판별
+  // 유료 페이지 판별 — 개별 리포트·직종 카드만 막음
+  // industry-index, map-lv1은 목록 페이지라 자유 열람
   const PAID = [
     /-report\.html$/,
     /^(sales|se|tech|kikaku|logistics|service|sekou|creative|consul)-(eg|se|gi|kk|scm|sv|sk|cr|con|overview)/,
-    /^map-lv1\.html$/,
-    /^industry-index\.html$/,
   ];
   const isPaidPage = PAID.some(p => p.test(currentFile));
 
