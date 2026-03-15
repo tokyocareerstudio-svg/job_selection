@@ -1009,48 +1009,68 @@
 <div id="app">
 
   <!-- ══ 인트로 스크린 ══ -->
-  <div id="screen-intro" class="screen active">
-    <div class="intro-bg"></div>
-    <div class="intro-grid"></div>
-    <div class="intro-inner">
-      <div class="intro-label">Tokyo Career Studio</div>
-      <h1 class="intro-title">나의 커리어 나침반 찾기</h1>
-      <p class="intro-desc">
-        7년간 3,000명의 상담 데이터를 기반으로 설계된<br>
-        일본 신졸 취활 직종·업계 매칭 진단 서비스
+  <div id="screen-intro" class="screen active" style="display:flex;flex-direction:column;min-height:100vh;background:var(--bg);position:relative;overflow:hidden;">
+    <!-- 배경 글로우 -->
+    <div style="position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 15%,rgba(74,158,255,0.07) 0%,transparent 60%),radial-gradient(ellipse 50% 35% at 80% 75%,rgba(85,239,196,0.05) 0%,transparent 60%);pointer-events:none;z-index:0;"></div>
+
+    <!-- 헤더 -->
+    <div style="position:relative;z-index:1;max-width:1100px;width:100%;margin:0 auto;padding:24px 28px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #252530;">
+      <a href="index.html" style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;color:#76768a;text-transform:uppercase;text-decoration:none;">Tokyo <span style="color:#b8b8cc;">Career Studio</span></a>
+      <span style="font-size:10px;padding:3px 10px;border-radius:100px;background:rgba(74,158,255,0.1);color:#4a9eff;border:1px solid rgba(74,158,255,0.2);font-weight:600;letter-spacing:1px;">CAREER DIAGNOSIS</span>
+    </div>
+
+    <!-- 히어로 -->
+    <div style="position:relative;z-index:1;max-width:1100px;width:100%;margin:0 auto;padding:64px 28px 56px;text-align:center;">
+      <!-- eyebrow -->
+      <div style="display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:3px;color:#44445a;text-transform:uppercase;margin-bottom:24px;">
+        <span style="display:block;width:24px;height:1px;background:#252530;"></span>
+        커리어 나침반 진단
+        <span style="display:block;width:24px;height:1px;background:#252530;"></span>
+      </div>
+      <!-- 타이틀 -->
+      <h1 style="font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:-1.5px;line-height:1.15;margin-bottom:20px;color:#eeeef5;">
+        나에게 맞는 직종<br>
+        <em style="font-style:normal;background:linear-gradient(135deg,#4a9eff 0%,#55efc4 60%,#a29bfe 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">10분이면 찾을 수 있습니다</em>
+      </h1>
+      <!-- desc -->
+      <p style="font-size:15px;color:#76768a;max-width:480px;margin:0 auto 40px;line-height:1.9;">
+        성향·강점·가치관을 분석해<br>직종·업계·기업 유형까지 한번에 추천해드립니다.
       </p>
-      <div class="intro-stats">
-        <div class="stat-item">
-          <div class="stat-num">20</div>
-          <div class="stat-label">성향 진단 문항</div>
+      <!-- 통계 -->
+      <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;margin-bottom:48px;">
+        <div style="text-align:center;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:#eeeef5;line-height:1;margin-bottom:6px;">20<span style="font-size:16px;color:#76768a;">문항</span></div>
+          <div style="font-size:11px;color:#44445a;letter-spacing:1px;text-transform:uppercase;">성향 진단</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">9</div>
-          <div class="stat-label">직종 카테고리</div>
+        <div style="text-align:center;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:#eeeef5;line-height:1;margin-bottom:6px;">9<span style="font-size:16px;color:#76768a;">개</span></div>
+          <div style="font-size:11px;color:#44445a;letter-spacing:1px;text-transform:uppercase;">직종 카테고리</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">50</div>
-          <div class="stat-label">업계 데이터베이스</div>
+        <div style="text-align:center;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:#eeeef5;line-height:1;margin-bottom:6px;">50<span style="font-size:16px;color:#76768a;">개</span></div>
+          <div style="font-size:11px;color:#44445a;letter-spacing:1px;text-transform:uppercase;">업계 데이터</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:#eeeef5;line-height:1;margin-bottom:6px;">10<span style="font-size:16px;color:#76768a;">분</span></div>
+          <div style="font-size:11px;color:#44445a;letter-spacing:1px;text-transform:uppercase;">소요 시간</div>
         </div>
       </div>
-      <div class="intro-steps">
-        <span class="step-pill">성향 진단</span>
-        <span class="step-arrow">→</span>
-        <span class="step-pill">강점 선택</span>
-        <span class="step-arrow">→</span>
-        <span class="step-pill">약점 필터</span>
-        <span class="step-arrow">→</span>
-        <span class="step-pill">업계 선택</span>
-        <span class="step-arrow">→</span>
-        <span class="step-pill">결과 확인</span>
+      <!-- 진행 스텝 -->
+      <div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:40px;">
+        <span style="font-size:11px;padding:6px 14px;border-radius:100px;background:#111118;border:1px solid #252530;color:#b8b8cc;font-weight:500;">성향 진단</span>
+        <span style="color:#44445a;font-size:12px;">→</span>
+        <span style="font-size:11px;padding:6px 14px;border-radius:100px;background:#111118;border:1px solid #252530;color:#b8b8cc;font-weight:500;">강점 선택</span>
+        <span style="color:#44445a;font-size:12px;">→</span>
+        <span style="font-size:11px;padding:6px 14px;border-radius:100px;background:#111118;border:1px solid #252530;color:#b8b8cc;font-weight:500;">약점 필터</span>
+        <span style="color:#44445a;font-size:12px;">→</span>
+        <span style="font-size:11px;padding:6px 14px;border-radius:100px;background:#111118;border:1px solid #252530;color:#b8b8cc;font-weight:500;">결과 확인</span>
       </div>
-      <button class="btn btn-primary" onclick="startTest()">
+      <!-- CTA -->
+      <button onclick="startTest()" style="display:inline-flex;align-items:center;gap:8px;padding:16px 36px;background:#4a9eff;color:#fff;font-size:15px;font-weight:700;border-radius:12px;border:none;cursor:pointer;font-family:inherit;transition:background 0.2s;" onmouseover="this.style.background='#6aadff'" onmouseout="this.style.background='#4a9eff'">
         진단 시작하기
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <p style="font-size:12px;color:var(--text3);margin-top:12px;">약 10분 소요 · 저장 없음 · 무료</p>
+      <p style="font-size:12px;color:#44445a;margin-top:14px;">무료 · 저장 없음 · 약 10분</p>
     </div>
   </div>
 
