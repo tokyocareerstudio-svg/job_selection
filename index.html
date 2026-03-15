@@ -502,6 +502,11 @@ function tcsEnter() {
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && document.getElementById('tcs-gate').style.display === 'flex') tcsEnter();
+  if (e.key === 'Escape') document.getElementById('tcs-gate').style.display = 'none';
+});
+document.getElementById('tcs-gate').addEventListener('click', e => {
+  if (e.target === document.getElementById('tcs-gate'))
+    document.getElementById('tcs-gate').style.display = 'none';
 });
 
 // 카드 클릭 → 목적지 저장 후 이동 (가드가 index로 튕기면 모달 표시)
