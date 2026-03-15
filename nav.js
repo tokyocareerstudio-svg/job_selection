@@ -46,7 +46,7 @@
       { label: "물류",                 file: "logistics-report.html" },
       { label: "건설",                 file: "construction-report.html" },
     ]},
-    { id: "sales", label: "📊 영업", file: "sales-overview.html", children: [
+    { id: "sales", label: "영업", file: "sales-overview.html", children: [
         { label: "메이커 영업",   file: "sales-eg01-maker.html" },
         { label: "IT영업",        file: "sales-eg02-it.html" },
         { label: "상사 영업",     file: "sales-eg03-trading.html" },
@@ -56,44 +56,44 @@
         { label: "인재/HR 영업",  file: "sales-eg07-hr.html" },
         { label: "MR 제약영업",   file: "sales-eg08-pharma.html" },
     ]},
-    { id: "se", label: "💻 SE/IT엔지니어", file: "se-overview.html", children: [
+    { id: "se", label: "SE/IT엔지니어", file: "se-overview.html", children: [
         { label: "SIer SE",         file: "se-se01-sier.html" },
         { label: "Web계 엔지니어",  file: "se-se02-web.html" },
         { label: "인프라 엔지니어", file: "se-se03-infra.html" },
         { label: "SES 엔지니어",    file: "se-se04-ses.html" },
     ]},
-    { id: "tech", label: "⚙️ 기술계 종합직", file: "tech-overview.html", children: [
+    { id: "tech", label: "기술계 종합직", file: "tech-overview.html", children: [
         { label: "기계/전기 엔지니어", file: "tech-gi01-mech.html" },
         { label: "생산관리·품질관리",  file: "tech-gi02-production.html" },
         { label: "연구개발 (R&D)",     file: "tech-gi03-rd.html" },
     ]},
-    { id: "kikaku", label: "💡 기획/관리 계열", file: "kikaku-overview.html", children: [
+    { id: "kikaku", label: "기획/관리 계열", file: "kikaku-overview.html", children: [
         { label: "사무/관리",       file: "kikaku-kk01-admin.html" },
         { label: "기획",            file: "kikaku-kk02-planning.html" },
         { label: "마케팅",          file: "kikaku-kk03-marketing.html" },
         { label: "부동산·사업기획", file: "kikaku-kk04-realestate.html" },
     ]},
-    { id: "logistics", label: "🚛 물류·SCM", file: "logistics-overview.html", children: [
+    { id: "logistics", label: "물류·SCM", file: "logistics-overview.html", children: [
         { label: "메이커·유통 SCM", file: "logistics-scm01-maker.html" },
         { label: "3PL·포워더",      file: "logistics-scm02-3pl.html" },
         { label: "무역·조달·구매",  file: "logistics-scm03-trade.html" },
     ]},
-    { id: "service", label: "🛍️ 판매·서비스", file: "service-overview.html", children: [
+    { id: "service", label: "판매·서비스", file: "service-overview.html", children: [
         { label: "소매 판매",          file: "service-sv01-retail.html" },
         { label: "호텔·관광·브라이달", file: "service-sv02-hotel.html" },
         { label: "음식·F&B 서비스",    file: "service-sv03-fb.html" },
     ]},
-    { id: "sekou", label: "🏗️ 시공관리", file: "sekou-overview.html", children: [
+    { id: "sekou", label: "시공관리", file: "sekou-overview.html", children: [
         { label: "건축 시공관리", file: "sekou-sk01-arch.html" },
         { label: "토목 시공관리", file: "sekou-sk02-civil.html" },
         { label: "설비 시공관리", file: "sekou-sk03-facility.html" },
     ]},
-    { id: "creative", label: "🎨 크리에이티브", file: "creative-overview.html", children: [
+    { id: "creative", label: "크리에이티브", file: "creative-overview.html", children: [
         { label: "UI/UX 디자인",          file: "creative-cr01-uiux.html" },
         { label: "광고·엔터 크리에이티브", file: "creative-cr02-ad.html" },
         { label: "그래픽·비주얼 디자인",  file: "creative-cr03-graphic.html" },
     ]},
-    { id: "consul", label: "🎯 컨설턴트", file: "consul-overview.html", children: [
+    { id: "consul", label: "컨설턴트", file: "consul-overview.html", children: [
         { label: "전략·종합 컨설팅", file: "consul-con01-strategy.html" },
         { label: "IT컨설팅",         file: "consul-con02-it.html" },
     ]},
