@@ -207,6 +207,17 @@
     if (e.target === overlay) overlay.classList.remove('open');
   });
 
+  // ── 직접 URL 접근 방어 ──────────────────────────────
+  const PAID_PAGES = [
+    /-report\.html$/,
+    /^(sales|se|tech|kikaku|logistics|service|sekou|creative|consul)-(eg|se|gi|kk|scm|sv|sk|cr|con|overview)/,
+    /^map-lv1\.html$/,
+    /^industry-index\.html$/,
+  ];
+  if (PAID_PAGES.some(p => p.test(currentFile)) && !isAuthed()) {
+    window.addEventListener('DOMContentLoaded', () => openModal(currentFile));
+  }
+
   // ── 섹션 탭바 ────────────────────────────────────────
   const isSectionPage =
     /(-report|-overview|-eg\d|-se\d|-gi\d|-kk\d|-scm\d|-sv\d|-sk\d|-cr\d|-con\d)/.test(currentFile) ||
