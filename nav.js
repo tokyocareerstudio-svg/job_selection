@@ -297,42 +297,81 @@
   document.head.appendChild(style);
 
   // ===== HTML 빌드 =====
+// ===== HTML 빌드 =====
   function buildSidebar() {
-    let html = `<div id="tcs-sidebar">
-      <a class="tcs-logo" href="index.html">
-        <div class="tcs-logo-title">Tokyo Career Studio</div>
-        <div class="tcs-logo-sub">일본취업 직종 가이드북</div>
-        <div class="tcs-logo-home">← 홈으로</div>
-      </a>
-      <nav class="tcs-toc">`;
+    // 현재 페이지가 업계 탭인지 직종 탭인지 판별
+    const isIndustryPage = currentFile.endsWith('-report.html') ||
+      currentFile === 'industry-index.html';
+    const activeTab = isIndustryPage ? 'industry' : 'job';
 
-    TOC.forEach(ch => {
+    // ── 업계 리포트 목록 ──
+    const industryTOC = TOC.find(t => t.id === 'industry');
+    let industryHtml = '';
+    if (industryTOC) {
+      // 인덱스 링크
+      industryHtml += `<a class="tcs-item ${currentFile === 'industry-index.html' ? 'active' : ''}" href="industry-index.html" style="font-weight:600;margin-bottom:4px;">전체 목록</a>`;
+      industryTOC.children.forEach(c => {
+        if (c.isHeader) {
+          industryHtml += `<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--nav-muted);padding:10px 4px 4px;text-transform:uppercase;opacity:0.6;">${c.label.replace('── ','')}</div>`;
+        } else {
+          industryHtml += `<a class="tcs-item ${c.file === currentFile ? 'active' : ''}" href="${c.file}">${c.label}</a>`;
+        }
+      });
+    }
+
+    // ── 직종 라이브러리 목록 ──
+    const jobTOCs = TOC.filter(t => !['intro','industry'].includes(t.id));
+    let jobHtml = '';
+    // 맵 링크
+    jobHtml += `<a class="tcs-item ${currentFile === 'map-lv1.html' ? 'active' : ''}" href="map-lv1.html" style="font-weight:600;margin-bottom:4px;">직종 대분류 맵</a>`;
+    jobTOCs.forEach(ch => {
       const isChActive = ch.file === currentFile;
       const hasActiveChild = ch.children.some(c => c.file === currentFile);
       const isOpen = isChActive || hasActiveChild;
-      if (ch.children.length === 0) {
-        html += `<div class="tcs-ch ${isOpen ? "open" : ""}">
-          <a class="tcs-ch-header ${isChActive ? "active" : ""}" href="${ch.file}"><span>${ch.label}</span></a>
-        </div>`;
-      } else {
-        html += `<div class="tcs-ch ${isOpen ? "open" : ""}">
-          <div class="tcs-ch-header ${isChActive ? "active" : ""}" onclick="tcsCh(this)">
-            <a href="${ch.file}" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none;flex:1">${ch.label}</a>
-            <span class="tcs-ch-toggle">▶</span>
-          </div>
-          <div class="tcs-children">`;
-        ch.children.forEach(c => {
-          if (c.isHeader) {
-            html += `<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--nav-muted);padding:10px 4px 4px;text-transform:uppercase;opacity:0.6;">${c.label.replace('── ','')}</div>`;
-          } else {
-            html += `<a class="tcs-item ${c.file === currentFile ? "active" : ""}" href="${c.file}">${c.label}</a>`;
-          }
-        });
-        html += `</div></div>`;
-      }
+      jobHtml += `<div class="tcs-ch ${isOpen ? 'open' : ''}">
+        <div class="tcs-ch-header ${isChActive ? 'active' : ''}" onclick="tcsCh(this)">
+          <a href="${ch.file}" onclick="event.stopPropagation()" style="color:inherit;text-decoration:none;flex:1">${ch.label}</a>
+          <span class="tcs-ch-toggle">▶</span>
+        </div>
+        <div class="tcs-children">`;
+      ch.children.forEach(c => {
+        jobHtml += `<a class="tcs-item ${c.file === currentFile ? 'active' : ''}" href="${c.file}">${c.label}</a>`;
+      });
+      jobHtml += `</div></div>`;
     });
-    html += `</nav></div>`;
-    return html;
+
+    return `<div id="tcs-sidebar">
+      <a class="tcs-logo" href="index.html">
+        <div class="tcs-logo-title">Tokyo Career Studio</div>
+        <div class="tcs-logo-sub">일본취업 직종·업계 가이드</div>
+        <div class="tcs-logo-home">← 홈으로</div>
+      </a>
+
+      <!-- 탭 -->
+      <div id="tcs-tabs" style="display:flex;gap:4px;padding:10px 12px 0;border-bottom:1px solid var(--nav-border);">
+        <button id="tcs-tab-industry"
+          onclick="tcsShowTab('industry')"
+          style="flex:1;padding:7px 4px;border-radius:8px 8px 0 0;border:none;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.18s;
+          background:${activeTab==='industry'?'var(--nav-active)':'transparent'};
+          color:${activeTab==='industry'?'var(--nav-accent)':'var(--nav-muted)'};">
+          📋 업계
+        </button>
+        <button id="tcs-tab-job"
+          onclick="tcsShowTab('job')"
+          style="flex:1;padding:7px 4px;border-radius:8px 8px 0 0;border:none;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.18s;
+          background:${activeTab==='job'?'var(--nav-active)':'transparent'};
+          color:${activeTab==='job'?'var(--nav-accent)':'var(--nav-muted)'};">
+          🗺️ 직종
+        </button>
+      </div>
+
+      <nav class="tcs-toc" id="tcs-toc-industry" style="display:${activeTab==='industry'?'block':'none'}">
+        ${industryHtml}
+      </nav>
+      <nav class="tcs-toc" id="tcs-toc-job" style="display:${activeTab==='job'?'block':'none'}">
+        ${jobHtml}
+      </nav>
+    </div>`;
   }
 
   function buildTopbar() {
