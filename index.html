@@ -447,7 +447,16 @@
 
 <!-- 인증 모달 -->
 <script>
-// 카드 클릭 → 해당 페이지로 바로 이동 (인증은 global-nav 모달이 담당)
+// 인증된 상태로 돌아온 경우 redirect 처리
+if (sessionStorage.getItem('tcs_auth') === 'ok') {
+  const dest = sessionStorage.getItem('tcs_redirect');
+  if (dest && dest !== 'index.html') {
+    sessionStorage.removeItem('tcs_redirect');
+    location.replace(dest);
+  }
+}
+
+// 카드 클릭 → 해당 페이지로 이동 (가드 스크립트가 인증 체크)
 document.getElementById('card-industry').addEventListener('click', () => {
   location.href = 'industry-index.html';
 });

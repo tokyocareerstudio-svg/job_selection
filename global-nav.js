@@ -187,7 +187,6 @@
     const btn   = document.getElementById('tcs-m-btn');
     if (input.value.trim() === PASSWORD) {
       sessionStorage.setItem(SESSION_KEY, 'ok');
-      document.documentElement.style.visibility = '';
       btn.textContent = '✓ 입장 중...';
       btn.disabled = true;
       overlay.classList.remove('open');
@@ -207,24 +206,6 @@
   overlay.addEventListener('click', e => {
     if (e.target === overlay) overlay.classList.remove('open');
   });
-
-  // ── 직접 URL 접근 방어 ──────────────────────────────
-  const PAID_PAGES = [
-    /-report\.html$/,
-    /^(sales|se|tech|kikaku|logistics|service|sekou|creative|consul)-(eg|se|gi|kk|scm|sv|sk|cr|con|overview)/,
-    /^map-lv1\.html$/,
-    /^industry-index\.html$/,
-  ];
-  if (PAID_PAGES.some(p => p.test(currentFile))) {
-    if (isAuthed()) {
-      // 인증됨 → 즉시 표시
-      document.documentElement.style.visibility = '';
-    } else {
-      // 미인증 → 모달 표시 후 인증 시 표시
-      document.documentElement.style.visibility = 'hidden';
-      document.addEventListener('DOMContentLoaded', () => openModal(currentFile));
-    }
-  }
 
   // ── 섹션 탭바 ────────────────────────────────────────
   const isSectionPage =
