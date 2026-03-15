@@ -425,36 +425,6 @@
   document.body.insertAdjacentHTML("beforeend", buildPager());
   document.body.classList.add("tcs-ready");
 
-  // ===== 사이드바 링크 인증 인터셉트 =====
-  // 미인증 상태에서 유료 콘텐츠 클릭 시 global-nav 모달 호출
-  document.addEventListener('click', e => {
-    const link = e.target.closest('.tcs-item, .tcs-ch-header a, .tcs-pager-btn');
-    if (!link) return;
-    const dest = link.getAttribute('href');
-    if (!dest || dest === '#') return;
-
-    const SESSION_KEY = 'tcs_auth';
-    const isAuthed = () => sessionStorage.getItem(SESSION_KEY) === 'ok';
-    if (isAuthed()) return; // 인증됐으면 그냥 이동
-
-    // 유료 콘텐츠 파일 판별
-    const PAID = [
-      /-report\.html$/,
-      /^(sales|se|tech|kikaku|logistics|service|sekou|creative|consul)-(eg|se|gi|kk|scm|sv|sk|cr|con|overview)/,
-      /^map-lv1\.html$/,
-      /^industry-index\.html$/,
-    ];
-    if (!PAID.some(p => p.test(dest))) return; // 무료 페이지면 통과
-
-    e.preventDefault();
-    // global-nav.js의 openModal이 있으면 호출, 없으면 직접 이동
-    if (typeof window._tcsOpenModal === 'function') {
-      const label = link.textContent.trim().slice(0, 20) || dest;
-      window._tcsOpenModal(dest, label);
-    } else {
-      location.href = dest;
-    }
-  });
 
   // ===== 읽은 페이지 추적 =====
   const VISITED_KEY = "tcs_visited";

@@ -421,6 +421,22 @@
     </div>
   </section>
 
+<!-- 수강생 입장 폼 -->
+<div id="lp-login" style="max-width:400px;margin:0 auto 40px;padding:0 24px;text-align:center;">
+  <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:#555568;text-transform:uppercase;margin-bottom:16px;">수강생 전용 라이브러리 입장</div>
+  <div style="display:flex;gap:8px;">
+    <input id="lp-pw-input" type="password" placeholder="비밀번호 입력"
+      style="flex:1;padding:12px 16px;background:#0f0f16;border:1px solid #252530;border-radius:10px;color:#eeeef5;font-size:14px;font-family:inherit;outline:none;text-align:center;letter-spacing:3px;transition:border-color 0.2s;"
+      onfocus="this.style.borderColor='rgba(162,155,254,0.5)'"
+      onblur="this.style.borderColor='#252530'">
+    <button id="lp-pw-btn"
+      style="padding:12px 20px;background:#a29bfe;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background 0.2s;"
+      onmouseover="this.style.background='#b8b3ff'"
+      onmouseout="this.style.background='#a29bfe'">입장하기</button>
+  </div>
+  <div id="lp-pw-error" style="font-size:11px;color:#e17055;margin-top:8px;min-height:16px;opacity:0;transition:opacity 0.2s;">비밀번호가 올바르지 않습니다</div>
+</div>
+
   <!-- 소개 섹션 -->
   <section class="about-section">
     <div class="container">
@@ -446,36 +462,16 @@
 </div>
 
 <!-- 인증 모달 -->
-<div id="lp-modal-overlay">
-  <div id="lp-modal">
-    <div class="lm-icon">🔐</div>
-    <div class="lm-title">수강생 전용 컨텐츠</div>
-    <div class="lm-desc">Tokyo Career Studio 수강생 전용 라이브러리입니다.<br>받으신 비밀번호를 입력해 주세요.</div>
-    <div class="lm-dest" id="lp-dest-label"></div>
-    <input class="lm-input" id="lp-pw-input" type="password" placeholder="비밀번호 입력">
-    <div class="lm-error" id="lp-pw-error">비밀번호가 올바르지 않습니다</div>
-    <button class="lm-btn" id="lp-pw-btn">입장하기</button>
-    <button class="lm-cancel" id="lp-pw-cancel">닫기</button>
-  </div>
-</div>
-
 <script>
-const SESSION_KEY = 'tcs_auth';
-const PASSWORD    = 'tcs2025';
-const isAuthed    = () => sessionStorage.getItem(SESSION_KEY) === 'ok';
+const AUTH_KEY  = 'tcs_auth';
+const PASSWORD  = 'tcs2025';
+const isAuthed  = () => localStorage.getItem(AUTH_KEY) === 'ok';
 
-let pendingDest = '';
-
-function openModal(dest, label) {
-  pendingDest = dest;
-  document.getElementById('lp-dest-label').textContent = label;
-  const input = document.getElementById('lp-pw-input');
-  const err   = document.getElementById('lp-pw-error');
-  input.value = '';
-  input.classList.remove('shake');
-  err.classList.remove('show');
-  document.getElementById('lp-modal-overlay').classList.add('open');
-  setTimeout(() => input.focus(), 120);
+// 이미 인증됐으면 redirect 저장된 곳으로 or industry-index
+if (isAuthed()) {
+  const dest = localStorage.getItem('tcs_redirect') || 'industry-index.html';
+  localStorage.removeItem('tcs_redirect');
+  location.replace(dest);
 }
 
 function tryEnter() {
@@ -483,10 +479,12 @@ function tryEnter() {
   const err   = document.getElementById('lp-pw-error');
   const btn   = document.getElementById('lp-pw-btn');
   if (input.value.trim() === PASSWORD) {
-    sessionStorage.setItem(SESSION_KEY, 'ok');
+    localStorage.setItem(AUTH_KEY, 'ok');
     btn.textContent = '✓ 인증됨';
     btn.disabled = true;
-    setTimeout(() => { location.href = pendingDest; }, 300);
+    const dest = localStorage.getItem('tcs_redirect') || 'industry-index.html';
+    localStorage.removeItem('tcs_redirect');
+    setTimeout(() => location.href = dest, 300);
   } else {
     err.classList.add('show');
     input.classList.add('shake');
@@ -495,29 +493,21 @@ function tryEnter() {
   }
 }
 
-// 업계 리포트 카드
+// 카드 클릭 — 인증 여부 관계없이 비밀번호 입력 유도
 document.getElementById('card-industry').addEventListener('click', () => {
-  if (isAuthed()) location.href = 'industry-index.html';
-  else openModal('industry-index.html', '업계 리포트 라이브러리');
+  localStorage.setItem('tcs_redirect', 'industry-index.html');
+  document.getElementById('lp-pw-input').focus();
+  document.getElementById('lp-pw-input').scrollIntoView({ behavior: 'smooth' });
 });
-
-// 직종 라이브러리 카드
 document.getElementById('card-job').addEventListener('click', () => {
-  if (isAuthed()) location.href = 'map-lv1.html';
-  else openModal('map-lv1.html', '직종 라이브러리');
+  localStorage.setItem('tcs_redirect', 'map-lv1.html');
+  document.getElementById('lp-pw-input').focus();
+  document.getElementById('lp-pw-input').scrollIntoView({ behavior: 'smooth' });
 });
 
-// 모달 이벤트
 document.getElementById('lp-pw-btn').addEventListener('click', tryEnter);
-document.getElementById('lp-pw-cancel').addEventListener('click', () => {
-  document.getElementById('lp-modal-overlay').classList.remove('open');
-});
 document.getElementById('lp-pw-input').addEventListener('keydown', e => {
   if (e.key === 'Enter') tryEnter();
-});
-document.getElementById('lp-modal-overlay').addEventListener('click', e => {
-  if (e.target.id === 'lp-modal-overlay')
-    document.getElementById('lp-modal-overlay').classList.remove('open');
 });
 </script>
 
