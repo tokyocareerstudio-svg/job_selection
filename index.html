@@ -473,11 +473,11 @@ function tryEnter() {
   const btn   = document.getElementById('lp-pw-btn');
   if (input.value.trim() === PASSWORD) {
     localStorage.setItem(AUTH_KEY, 'ok');
-    btn.textContent = '✓ 인증됨';
-    btn.disabled = true;
     const dest = localStorage.getItem('tcs_redirect') || 'industry-index.html';
     localStorage.removeItem('tcs_redirect');
-    setTimeout(() => location.href = dest, 300);
+    btn.textContent = '✓ 입장 중...';
+    btn.disabled = true;
+    location.href = dest;
   } else {
     err.classList.add('show');
     input.classList.add('shake');
