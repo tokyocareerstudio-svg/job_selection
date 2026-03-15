@@ -1813,12 +1813,13 @@ function applyHardFilters(jobScores) {
 
   // Q5A 소거
   if (state.q5a.includes('q5a_1')) {
-    filtered['SE/IT'] = filtered['SE/IT'] * 0.3;
-    filtered['기술계'] = 0;
+    filtered['SE/IT']    = filtered['SE/IT'] * 0.3;
+    filtered['기술계']   = 0;
+    filtered['물류/SCM'] = filtered['물류/SCM'] * 0.3; // SCM은 데이터·수치 관리 직종
   }
   if (state.q5a.includes('q5a_2')) {
-    filtered['영업'] = filtered['영업'] * 0.4;
-    filtered['판매/서비스'] = filtered['판매/서비스'] * 0.4;
+    filtered['영업']       = filtered['영업'] * 0.15;       // 0.4 → 0.15 강화
+    filtered['판매/서비스'] = filtered['판매/서비스'] * 0.15;
   }
   if (state.q5a.includes('q5a_4')) {
     filtered['판매/서비스'] = 0;
