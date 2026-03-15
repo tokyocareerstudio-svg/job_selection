@@ -12,7 +12,7 @@
 (function () {
 
   const TOC = [
-    { id: "intro",    label: "🗺️ 직종 대분류 맵",        file: "map-lv1.html",        children: [] },
+    { id: "intro",    label: "전체 목록",        file: "map-lv1.html",        children: [] },
     { id: "industry", label: "📋 업계 리포트 라이브러리", file: "industry-index.html", children: [
       { label: "── IT·인터넷·통신",    file: "industry-index.html", isHeader: true },
       { label: "SIer",                 file: "sier-report.html" },
@@ -342,7 +342,7 @@
     const jobTOCs = TOC.filter(t => !['intro','industry'].includes(t.id));
     let jobHtml = '';
     // 맵 링크
-    jobHtml += `<a class="tcs-item ${currentFile === 'map-lv1.html' ? 'active' : ''}" href="map-lv1.html" style="font-weight:600;margin-bottom:4px;">직종 대분류 맵</a>`;
+    jobHtml += `<a class="tcs-item ${currentFile === 'map-lv1.html' ? 'active' : ''}" href="map-lv1.html" style="font-weight:600;margin-bottom:4px;">전체 목록</a>`;
     jobTOCs.forEach(ch => {
       const isChActive = ch.file === currentFile;
       const hasActiveChild = ch.children.some(c => c.file === currentFile);
