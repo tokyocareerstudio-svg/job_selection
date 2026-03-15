@@ -446,21 +446,71 @@
 </div>
 
 <!-- 인증 모달 -->
+<div id="tcs-gate" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px;">
+  <div style="background:#141419;border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:36px 32px 28px;width:100%;max-width:380px;text-align:center;">
+    <div style="font-size:32px;margin-bottom:14px;">🔐</div>
+    <div style="font-size:17px;font-weight:800;color:#e8e8ed;margin-bottom:8px;">수강생 전용 라이브러리</div>
+    <div style="font-size:12px;color:#8888a0;line-height:1.7;margin-bottom:20px;">Tokyo Career Studio 수강생 전용 콘텐츠입니다.<br>받으신 비밀번호를 입력해 주세요.</div>
+    <input id="tcs-pw" type="password" placeholder="비밀번호 입력"
+      style="width:100%;padding:12px 16px;background:#0a0a0f;border:1px solid #2a2a35;border-radius:10px;color:#e8e8ed;font-size:15px;font-family:inherit;text-align:center;letter-spacing:3px;outline:none;margin-bottom:8px;"
+      onfocus="this.style.borderColor='rgba(162,155,254,0.5)'"
+      onblur="this.style.borderColor='#2a2a35'">
+    <div id="tcs-pw-err" style="font-size:11px;color:#e17055;min-height:16px;margin-bottom:12px;opacity:0;">비밀번호가 올바르지 않습니다</div>
+    <button id="tcs-pw-btn" onclick="tcsEnter()"
+      style="width:100%;padding:12px;background:#a29bfe;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;">입장하기</button>
+  </div>
+</div>
+
 <script>
-// 인증된 상태로 돌아온 경우 redirect 처리
-if (sessionStorage.getItem('tcs_auth') === 'ok') {
-  const dest = sessionStorage.getItem('tcs_redirect');
-  if (dest && dest !== 'index.html') {
+const TCS_KEY = 'tcs_auth';
+const TCS_PW  = 'tcs2025';
+
+// 이미 인증됐으면 redirect 또는 숨기기
+(function() {
+  if (sessionStorage.getItem(TCS_KEY) === 'ok') {
+    const dest = sessionStorage.getItem('tcs_redirect');
+    if (dest) {
+      sessionStorage.removeItem('tcs_redirect');
+      location.replace(dest);
+    }
+    return;
+  }
+  // 미인증이고 redirect 목적지 있으면 모달 표시
+  if (sessionStorage.getItem('tcs_redirect')) {
+    document.getElementById('tcs-gate').style.display = 'flex';
+    setTimeout(() => document.getElementById('tcs-pw').focus(), 100);
+  }
+})();
+
+function tcsEnter() {
+  const pw  = document.getElementById('tcs-pw').value.trim();
+  const err = document.getElementById('tcs-pw-err');
+  const btn = document.getElementById('tcs-pw-btn');
+  if (pw === TCS_PW) {
+    sessionStorage.setItem(TCS_KEY, 'ok');
+    btn.textContent = '✓ 입장 중...';
+    btn.disabled = true;
+    const dest = sessionStorage.getItem('tcs_redirect') || 'industry-index.html';
     sessionStorage.removeItem('tcs_redirect');
     location.replace(dest);
+  } else {
+    err.style.opacity = '1';
+    document.getElementById('tcs-pw').select();
+    setTimeout(() => err.style.opacity = '0', 2000);
   }
 }
 
-// 카드 클릭 → 해당 페이지로 이동 (가드 스크립트가 인증 체크)
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('tcs-gate').style.display === 'flex') tcsEnter();
+});
+
+// 카드 클릭 → 목적지 저장 후 이동 (가드가 index로 튕기면 모달 표시)
 document.getElementById('card-industry').addEventListener('click', () => {
+  sessionStorage.setItem('tcs_redirect', 'industry-index.html');
   location.href = 'industry-index.html';
 });
 document.getElementById('card-job').addEventListener('click', () => {
+  sessionStorage.setItem('tcs_redirect', 'map-lv1.html');
   location.href = 'map-lv1.html';
 });
 </script>

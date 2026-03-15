@@ -17,10 +17,12 @@
 <html lang="ko">
 <head>
 <script>
-if (sessionStorage.getItem('tcs_auth') !== 'ok') {
-  sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop());
-  location.replace('index.html');
-}
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'industry-index.html');
+    location.replace('index.html');
+  }
+})();
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

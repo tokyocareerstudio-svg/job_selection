@@ -3,10 +3,12 @@
 <html lang="ko">
 <head>
 <script>
-if (sessionStorage.getItem('tcs_auth') !== 'ok') {
-  sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop());
-  location.replace('index.html');
-}
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'industry-index.html');
+    location.replace('index.html');
+  }
+})();
 </script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
