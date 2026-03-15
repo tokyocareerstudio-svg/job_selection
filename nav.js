@@ -230,10 +230,18 @@
     .tcs-children { display: none; padding: 2px 0 4px 28px; }
     .tcs-ch.open .tcs-children { display: block; }
     .tcs-item {
-      display: block; padding: 6px 12px; font-size: 11px; color: var(--nav-muted);
-      text-decoration: none; border-radius: 5px; margin: 1px 6px 1px 0;
-      transition: all 0.15s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      display: block; padding: 8px 16px; font-size: 12px; color: var(--nav-muted);
+      text-decoration: none; border-radius: 6px; margin: 1px 6px;
+      transition: all 0.15s;
     }
+    /* 탭 버튼 */
+    .tcs-tab-btn {
+      flex: 1; padding: 8px 4px; border-radius: 8px; border: none;
+      font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit;
+      transition: all 0.18s; color: var(--nav-muted); background: transparent;
+    }
+    .tcs-tab-btn.active { background: var(--nav-active); color: var(--nav-accent); }
+    .tcs-tab-btn:hover:not(.active) { color: var(--nav-text); }
     .tcs-item:hover { background: var(--nav-hover); color: var(--nav-text); }
     .tcs-item.active { background: var(--nav-active); color: var(--nav-accent); font-weight: 600; }
     .tcs-item.visited::after { content: '✓'; margin-left: auto; font-size: 9px; color: var(--nav-muted); opacity: 0.6; padding-left: 4px; }
@@ -348,20 +356,12 @@
       </a>
 
       <!-- 탭 -->
-      <div id="tcs-tabs" style="display:flex;gap:4px;padding:10px 12px 0;border-bottom:1px solid var(--nav-border);">
-        <button id="tcs-tab-industry"
-          onclick="tcsShowTab('industry')"
-          style="flex:1;padding:7px 4px;border-radius:8px 8px 0 0;border:none;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.18s;
-          background:${activeTab==='industry'?'var(--nav-active)':'transparent'};
-          color:${activeTab==='industry'?'var(--nav-accent)':'var(--nav-muted)'};">
-          📋 업계
+      <div id="tcs-tabs" style="display:flex;gap:4px;padding:10px 10px 8px;border-bottom:1px solid var(--nav-border);">
+        <button id="tcs-tab-industry" class="tcs-tab-btn ${activeTab==='industry'?'active':''}"
+          onclick="tcsShowTab('industry')">📋 업계
         </button>
-        <button id="tcs-tab-job"
-          onclick="tcsShowTab('job')"
-          style="flex:1;padding:7px 4px;border-radius:8px 8px 0 0;border:none;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.18s;
-          background:${activeTab==='job'?'var(--nav-active)':'transparent'};
-          color:${activeTab==='job'?'var(--nav-accent)':'var(--nav-muted)'};">
-          🗺️ 직종
+        <button id="tcs-tab-job" class="tcs-tab-btn ${activeTab==='job'?'active':''}"
+          onclick="tcsShowTab('job')">🗺️ 직종
         </button>
       </div>
 
