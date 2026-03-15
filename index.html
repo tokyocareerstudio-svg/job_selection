@@ -421,22 +421,6 @@
     </div>
   </section>
 
-<!-- 수강생 입장 폼 -->
-<div id="lp-login" style="max-width:400px;margin:0 auto 40px;padding:0 24px;text-align:center;">
-  <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:#555568;text-transform:uppercase;margin-bottom:16px;">수강생 전용 라이브러리 입장</div>
-  <div style="display:flex;gap:8px;">
-    <input id="lp-pw-input" type="password" placeholder="비밀번호 입력"
-      style="flex:1;padding:12px 16px;background:#0f0f16;border:1px solid #252530;border-radius:10px;color:#eeeef5;font-size:14px;font-family:inherit;outline:none;text-align:center;letter-spacing:3px;transition:border-color 0.2s;"
-      onfocus="this.style.borderColor='rgba(162,155,254,0.5)'"
-      onblur="this.style.borderColor='#252530'">
-    <button id="lp-pw-btn"
-      style="padding:12px 20px;background:#a29bfe;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background 0.2s;"
-      onmouseover="this.style.background='#b8b3ff'"
-      onmouseout="this.style.background='#a29bfe'">입장하기</button>
-  </div>
-  <div id="lp-pw-error" style="font-size:11px;color:#e17055;margin-top:8px;min-height:16px;opacity:0;transition:opacity 0.2s;">비밀번호가 올바르지 않습니다</div>
-</div>
-
   <!-- 소개 섹션 -->
   <section class="about-section">
     <div class="container">
@@ -463,44 +447,12 @@
 
 <!-- 인증 모달 -->
 <script>
-const AUTH_KEY  = 'tcs_auth';
-const PASSWORD  = 'tcs2025';
-const isAuthed  = () => localStorage.getItem(AUTH_KEY) === 'ok';
-
-function tryEnter() {
-  const input = document.getElementById('lp-pw-input');
-  const err   = document.getElementById('lp-pw-error');
-  const btn   = document.getElementById('lp-pw-btn');
-  if (input.value.trim() === PASSWORD) {
-    localStorage.setItem(AUTH_KEY, 'ok');
-    const dest = localStorage.getItem('tcs_redirect') || 'industry-index.html';
-    localStorage.removeItem('tcs_redirect');
-    btn.textContent = '✓ 입장 중...';
-    btn.disabled = true;
-    location.href = dest;
-  } else {
-    err.classList.add('show');
-    input.classList.add('shake');
-    input.select();
-    setTimeout(() => input.classList.remove('shake'), 500);
-  }
-}
-
-// 카드 클릭 → redirect 목적지 저장 + 폼 포커스
+// 카드 클릭 → 해당 페이지로 바로 이동 (인증은 global-nav 모달이 담당)
 document.getElementById('card-industry').addEventListener('click', () => {
-  localStorage.setItem('tcs_redirect', 'industry-index.html');
-  document.getElementById('lp-pw-input').focus();
-  document.getElementById('lp-login').scrollIntoView({ behavior: 'smooth' });
+  location.href = 'industry-index.html';
 });
 document.getElementById('card-job').addEventListener('click', () => {
-  localStorage.setItem('tcs_redirect', 'map-lv1.html');
-  document.getElementById('lp-pw-input').focus();
-  document.getElementById('lp-login').scrollIntoView({ behavior: 'smooth' });
-});
-
-document.getElementById('lp-pw-btn').addEventListener('click', tryEnter);
-document.getElementById('lp-pw-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') tryEnter();
+  location.href = 'map-lv1.html';
 });
 </script>
 

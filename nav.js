@@ -425,6 +425,21 @@
   document.body.insertAdjacentHTML("beforeend", buildPager());
   document.body.classList.add("tcs-ready");
 
+  // 사이드바 링크 — 미인증 시 모달 호출
+  document.addEventListener('click', e => {
+    const link = e.target.closest('.tcs-item, .tcs-ch-header a, .tcs-pager-btn');
+    if (!link) return;
+    const dest = link.getAttribute('href');
+    if (!dest || dest === '#') return;
+    const SESSION_KEY = 'tcs_auth';
+    if (sessionStorage.getItem(SESSION_KEY) === 'ok') return;
+    const PAID = [/-report\.html$/, /^(sales|se|tech|kikaku|logistics|service|sekou|creative|consul)-(eg|se|gi|kk|scm|sv|sk|cr|con|overview)/, /^map-lv1\.html$/, /^industry-index\.html$/];
+    if (!PAID.some(p => p.test(dest))) return;
+    e.preventDefault();
+    if (typeof window._tcsOpenModal === 'function') window._tcsOpenModal(dest);
+    else location.href = dest;
+  });
+
 
   // ===== 읽은 페이지 추적 =====
   const VISITED_KEY = "tcs_visited";
