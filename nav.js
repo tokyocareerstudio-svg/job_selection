@@ -307,14 +307,34 @@
     const industryTOC = TOC.find(t => t.id === 'industry');
     let industryHtml = '';
     if (industryTOC) {
-      // 인덱스 링크
       industryHtml += `<a class="tcs-item ${currentFile === 'industry-index.html' ? 'active' : ''}" href="industry-index.html" style="font-weight:600;margin-bottom:4px;">전체 목록</a>`;
+
+      // isHeader 기준으로 카테고리 그룹 분리
+      const groups = [];
+      let currentGroup = null;
       industryTOC.children.forEach(c => {
         if (c.isHeader) {
-          industryHtml += `<div style="font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--nav-muted);padding:10px 4px 4px;text-transform:uppercase;opacity:0.6;">${c.label.replace('── ','')}</div>`;
-        } else {
-          industryHtml += `<a class="tcs-item ${c.file === currentFile ? 'active' : ''}" href="${c.file}">${c.label}</a>`;
+          currentGroup = { label: c.label.replace('── ', ''), items: [] };
+          groups.push(currentGroup);
+        } else if (currentGroup) {
+          currentGroup.items.push(c);
         }
+      });
+
+      // 각 그룹을 tcs-ch 접이식으로 렌더
+      groups.forEach(group => {
+        const hasActiveChild = group.items.some(c => c.file === currentFile);
+        const isOpen = hasActiveChild;
+        industryHtml += `<div class="tcs-ch ${isOpen ? 'open' : ''}">
+          <div class="tcs-ch-header ${isOpen ? 'active' : ''}" onclick="tcsCh(this)">
+            <span style="flex:1">${group.label}</span>
+            <span class="tcs-ch-toggle">▶</span>
+          </div>
+          <div class="tcs-children">`;
+        group.items.forEach(c => {
+          industryHtml += `<a class="tcs-item ${c.file === currentFile ? 'active' : ''}" href="${c.file}">${c.label}</a>`;
+        });
+        industryHtml += `</div></div>`;
       });
     }
 
