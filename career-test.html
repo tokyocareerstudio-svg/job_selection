@@ -2251,8 +2251,8 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
   const jobDetailHTML = topJobs.map((job, i) => {
     const p      = JOB_PROFILES[job];
     const action = JOB_ACTION[job] || '해당 직종 라이브러리 카드를 확인하세요';
-    const rc = ['#4a9eff','#a29bfe','#55efc4'][i];
-    const ra = [i===0?'74,158,255':i===1?'162,155,254':'85,239,196'][0];
+    const rc  = ['#4a9eff','#a29bfe','#55efc4'][i];
+    const rbg = ['74,158,255','162,155,254','85,239,196'][i];
     return `
       <div style="padding:16px 18px;background:var(--surface);border:1px solid var(--border);
         border-left:3px solid ${rc};border-radius:10px;margin-bottom:8px;">
