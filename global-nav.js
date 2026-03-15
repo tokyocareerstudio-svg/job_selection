@@ -202,6 +202,10 @@
   document.getElementById('tcs-m-btn').addEventListener('click', tryEnter);
   document.getElementById('tcs-m-input').addEventListener('keydown', e => {
     if (e.key === 'Enter') tryEnter();
+    if (e.key === 'Escape') overlay.classList.remove('open');
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') overlay.classList.remove('open');
   });
   overlay.addEventListener('click', e => {
     if (e.target === overlay) overlay.classList.remove('open');
