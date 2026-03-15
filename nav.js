@@ -480,6 +480,16 @@
 
   // ===== 토글 =====
   window.tcsCh = el => el.closest(".tcs-ch").classList.toggle("open");
+
+  window.tcsShowTab = function(tab) {
+    const indNav = document.getElementById('tcs-toc-industry');
+    const jobNav = document.getElementById('tcs-toc-job');
+    if (!indNav || !jobNav) return;
+    const currentlyShowing = indNav.style.display !== 'none' ? 'industry' : 'job';
+    if (tab === currentlyShowing) return;
+    if (tab === 'industry') location.href = 'industry-index.html';
+    else location.href = 'map-lv1.html';
+  };
   window.tcsToggleMobile = function () {
     const sb = document.getElementById("tcs-sidebar");
     if (sb.classList.contains("mobile-open")) { tcsCloseMobile(); }
