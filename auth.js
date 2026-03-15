@@ -1,13 +1,13 @@
-/**
- * Tokyo Career Studio — Auth Gate
- * 콘텐츠 페이지 최상단에서 호출
- * localStorage에 인증 기록 없으면 index.html로 리디렉트
- */
 (function () {
   const KEY = 'tcs_auth';
-  if (localStorage.getItem(KEY) !== 'ok') {
-    // 현재 URL을 저장해뒀다가 인증 후 돌아오도록
-    localStorage.setItem('tcs_redirect', location.pathname + location.search);
-    location.replace('index.html');
-  }
+  if (localStorage.getItem(KEY) === 'ok') return; // 인증됨 → 통과
+
+  // 현재 파일명만 저장 (절대경로 X)
+  const file = location.pathname.split('/').pop() || 'industry-index.html';
+  localStorage.setItem('tcs_redirect', file);
+
+  // index.html 기준 상대경로로 이동
+  const depth = location.pathname.split('/').length - 2;
+  const back  = depth > 0 ? '../'.repeat(depth) : '';
+  location.replace(back + 'index.html');
 })();

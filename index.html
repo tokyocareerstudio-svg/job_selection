@@ -467,13 +467,6 @@ const AUTH_KEY  = 'tcs_auth';
 const PASSWORD  = 'tcs2025';
 const isAuthed  = () => localStorage.getItem(AUTH_KEY) === 'ok';
 
-// 이미 인증됐으면 redirect 저장된 곳으로 or industry-index
-if (isAuthed()) {
-  const dest = localStorage.getItem('tcs_redirect') || 'industry-index.html';
-  localStorage.removeItem('tcs_redirect');
-  location.replace(dest);
-}
-
 function tryEnter() {
   const input = document.getElementById('lp-pw-input');
   const err   = document.getElementById('lp-pw-error');
@@ -493,16 +486,16 @@ function tryEnter() {
   }
 }
 
-// 카드 클릭 — 인증 여부 관계없이 비밀번호 입력 유도
+// 카드 클릭 → redirect 목적지 저장 + 폼 포커스
 document.getElementById('card-industry').addEventListener('click', () => {
   localStorage.setItem('tcs_redirect', 'industry-index.html');
   document.getElementById('lp-pw-input').focus();
-  document.getElementById('lp-pw-input').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('lp-login').scrollIntoView({ behavior: 'smooth' });
 });
 document.getElementById('card-job').addEventListener('click', () => {
   localStorage.setItem('tcs_redirect', 'map-lv1.html');
   document.getElementById('lp-pw-input').focus();
-  document.getElementById('lp-pw-input').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('lp-login').scrollIntoView({ behavior: 'smooth' });
 });
 
 document.getElementById('lp-pw-btn').addEventListener('click', tryEnter);
