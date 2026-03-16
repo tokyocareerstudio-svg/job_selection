@@ -1886,18 +1886,28 @@ function submitQ4() {
 // ══════════════════════════════════════
 function buildEpisode() {
   const grid = document.getElementById('ep-grid');
+  if (!grid) { console.error('ep-grid not found'); return; }
   grid.innerHTML = EPISODE_ITEMS.map((item, i) => `
-    <div class="choice-card" id="ep-${i}" onclick="toggleEpisode(${i})">
+    <div class="choice-card" data-ep-idx="${i}">
       <div class="choice-num">${item.type}</div>
       <div class="choice-text">${item.text}</div>
     </div>
   `).join('');
+  // 이벤트 위임
+  grid.onclick = function(e) {
+    const card = e.target.closest('.choice-card');
+    if (!card) return;
+    const idx = parseInt(card.dataset.epIdx);
+    if (isNaN(idx)) return;
+    toggleEpisode(idx, card);
+  };
 }
 
-function toggleEpisode(idx) {
+function toggleEpisode(idx, el) {
   const maxSelect = 3;
-  const el = document.getElementById(`ep-${idx}`);
   const item = EPISODE_ITEMS[idx];
+  if (!el) el = document.querySelector(`[data-ep-idx="${idx}"]`);
+  if (!el || !item) return;
   if (el.classList.contains('selected')) {
     el.classList.remove('selected');
     state.episode = state.episode.filter(id => id !== item.id);
