@@ -1533,7 +1533,7 @@ const AXIS_QUESTIONS = [
   { num:19, axis:'커리어', a:'"그건 쟤한테 물어봐"라고 불리는 특정 영역 전문가', b:'어떤 일이든 맡기면 해내는 올라운더' },
   { num:20, axis:'커리어', a:'하나를 깊게 파고드는 게 성격에 맞다', b:'다양한 분야를 넓게 공부하는 게 재미있다' },
   { num:21, axis:'업무', a:'고객사 담당자와 매일 미팅하며 관계를 쌓는 업무가 좋다', b:'데이터·시스템·리서치 등 사내에서 완결되는 업무가 맞다' },
-  { num:22, axis:'환경', a:'일본 국내에서 커리어를 완결하고 싶다. 해외 출장·주재는 없어도 괜찮다', b:'해외에서 일하는 경험을 꼭 하고 싶다. 글로벌 환경이 중요하다' },
+  { num:22, axis:'환경', a:'꼭 해외 경험이 필요하지는 않다. 일본 국내에서 충분히 성장할 수 있다', b:'해외에서 일하는 경험을 꼭 하고 싶다. 글로벌 환경이 중요하다' },
   { num:23, axis:'업무', a:'유형의 제품(모노즈쿠리)이 있는 산업이 매력적이다', b:'무형의 솔루션·서비스를 제공하는 일이 더 흥미롭다' }
 ];
 
@@ -2856,12 +2856,33 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
     const rbg = ['74,158,255','162,155,254','85,239,196'][ci];
     // 에피소드 연결 ES 힌트
     const matchEp = selectedEpisodes.find(ep => ep.competency.includes(name));
+    // 강점별 에피소드 예시 (매칭 에피소드가 없을 때)
+    const EP_EXAMPLE = {
+      '論理的思考力': '예) 데이터를 분석해서 문제의 원인을 특정하고, 해결책을 제시해 성과를 낸 경험',
+      '洞察力': '예) 다른 사람이 간과한 문제를 먼저 발견하고, 사전에 대응해서 트러블을 방지한 경험',
+      '創造力': '예) 기존에 없던 새로운 방식을 제안해서 팀의 성과나 효율이 개선된 경험',
+      '企画力': '예) 이벤트·프로젝트를 처음부터 기획하고 실행까지 이끌어낸 경험',
+      '冷静さ': '예) 예상치 못한 트러블 상황에서 당황하지 않고 우선순위를 정해 대응한 경험',
+      '積極性': '예) 아무도 나서지 않는 상황에서 자발적으로 손을 들어 역할을 맡은 경험',
+      '粘り強さ': '예) 몇 번이나 실패했지만 원인을 분석하고 방법을 바꿔가며 최종적으로 달성한 경험',
+      '実行力': '예) 계획을 세운 뒤 빠르게 실행에 옮겨서 기한 내에 확실한 결과를 낸 경험',
+      '自己管理能力': '예) 학업·아르바이트·동아리 등 여러 활동을 동시에 관리하며 모두 성과를 낸 경험',
+      '状況把握力': '예) 팀 분위기나 상황 변화를 빠르게 읽고, 그에 맞게 자신의 행동을 바꾼 경험',
+      '発信力': '예) 자신의 의견을 근거와 함께 명확하게 전달해서 팀의 방향을 바꾼 경험',
+      '傾聴力': '예) 상대방의 이야기를 끝까지 듣고 진짜 고민을 파악해서 행동을 바꾼 경험',
+      '共感力': '예) 상대의 입장에서 생각해서 맞춤 제안을 하고, 신뢰를 얻은 경험',
+      '牽引力': '예) 팀원의 의욕이 떨어졌을 때 방향을 제시하고 다시 움직이게 만든 경험',
+      '調整力': '예) 의견이 대립하는 멤버들 사이에서 공통점을 찾아 합의로 이끈 경험',
+      '柔軟性': '예) 계획이 틀어졌을 때 빠르게 방향을 전환해서 새로운 방식으로 성과를 낸 경험',
+      '協調性': '예) 팀 안에서 자신의 역할을 스스로 찾아서 전체 성과에 기여한 경험',
+      '責任感': '예) 자신의 실수를 인정하고 끝까지 책임지며 만회한 경험',
+    };
     const esHint = matchEp
       ? `<div style="margin-top:8px;padding:8px 12px;background:rgba(${rbg},0.06);border-radius:6px;font-size:11px;color:var(--text-dim);line-height:1.7;">
           <span style="color:${rc};font-weight:700;">ES 활용법:</span> ${matchEp.esHint}
         </div>`
       : `<div style="margin-top:8px;padding:8px 12px;background:var(--surface);border-radius:6px;font-size:11px;color:var(--text-muted);line-height:1.7;">
-          ES 활용법: 가쿠치카에서 이 강점이 자연스럽게 드러나는 에피소드를 중심에 놓으세요.
+          <span style="color:var(--text-sub);font-weight:600;">이런 에피소드를 배치하세요:</span><br>${EP_EXAMPLE[name] || '이 강점이 자연스럽게 드러나는 에피소드를 중심에 놓으세요.'}
         </div>`;
     // 후카보리 질문
     const fk = FUKABORI[name] || [];
@@ -2962,9 +2983,10 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
     const rc = ['#4a9eff','#a29bfe','#55efc4','#fdcb6e','#fd79a8'][i];
     const rbg = ['74,158,255','162,155,254','85,239,196','253,203,110','253,121,168'][i];
     const point = IND_POINT[ind.id] || '해당 업계 리포트에서 ES·면접 전략을 확인하세요';
-    const warns = [];
-    if (ind.warnings.includes('야근많음')) warns.push('야근 많음');
-    if (ind.warnings.some(w=>w.includes('경쟁'))) warns.push('경쟁 강함');
+    // 좋은 특성 태그 (문화 + BtoB/BtoC + 글로벌)
+    const goodTags = [...ind.culture, ...ind.biz, `글로벌 ${ind.global}`];
+    // 나쁜 특성 태그 (warnings 전체)
+    const WARN_LABEL = {'야근많음':'야근 많음','경쟁강함':'경쟁 강함','시프트근무':'시프트 근무','불규칙':'불규칙 생활','불특정다수':'불특정 다수 대응','급여수준':'급여 수준 낮음','의사결정느림':'의사결정 느림','보수적':'보수적 문화','성장속도느림':'성장 속도 느림','영업압박':'영업 노르마','장기프로젝트':'장기 프로젝트','현장중심':'현장 중심','멀티태스킹':'멀티태스킹 요구','시장축소':'시장 축소 추세','불확실성':'불확실성 높음','외국어필수':'외국어 필수','외국어우대(개발계필수)':'외국어 우대'};
     // 강점-업계 연결 근거
     const top1Name = top3Comps[0]?.[0];
     const strengthMatch = INDUSTRY_STRENGTH_MATCH[top1Name];
@@ -2978,13 +3000,13 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
           <span style="font-size:10px;font-weight:700;color:${rc};padding:2px 8px;border-radius:4px;background:rgba(${rbg},0.1);">${i+1}순위</span>
           <span style="font-size:15px;font-weight:700;color:var(--text);">${ind.name}</span>
-          ${warns.map(w=>`<span style="font-size:10px;color:#f59e0b;padding:2px 6px;background:rgba(245,158,11,0.08);border-radius:4px;">${w}</span>`).join('')}
         </div>
         <div style="font-size:12px;color:var(--text-dim);line-height:1.7;margin-bottom:10px;">${ind.desc||''}</div>
         ${matchHTML}
         <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;">
-          ${ind.biz.map(b=>`<span style="font-size:10px;padding:2px 8px;border:1px solid var(--border);border-radius:4px;color:var(--text-muted);">${b}</span>`).join('')}
-          ${ind.culture.slice(0,3).map(c=>`<span style="font-size:10px;padding:2px 8px;border:1px solid var(--border);border-radius:4px;color:var(--text-muted);">${c}</span>`).join('')}
+          ${goodTags.map(t=>`<span style="font-size:10px;padding:2px 8px;border:1px solid rgba(52,211,153,0.3);border-radius:4px;color:#34d399;background:rgba(52,211,153,0.06);">${t}</span>`).join('')}
+          ${(ind.warnings||[]).map(w=>`<span style="font-size:10px;padding:2px 8px;border:1px solid rgba(245,158,11,0.3);border-radius:4px;color:#f59e0b;background:rgba(245,158,11,0.06);">${WARN_LABEL[w]||w}</span>`).join('')}
+          ${ind.engineering?`<span style="font-size:10px;padding:2px 8px;border:1px solid var(--border);border-radius:4px;color:var(--text-muted);">${ind.engineering}</span>`:''}
         </div>
         <div style="font-size:12px;color:#a29bfe;padding:8px 12px;background:rgba(162,155,254,0.06);border-radius:6px;">📌 ES 포인트: ${point}</div>
       </div>`;
@@ -3012,11 +3034,35 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
   const top1Comp = top3Comps[0] ? COMP_INFO[top3Comps[0][0]]?.ko || top3Comps[0][0] : '핵심 강점';
   const top1CompJp = top3Comps[0] ? top3Comps[0][0] : '';
 
-  const actionItems = [
-    `<strong>① 자기PR 초안 작성:</strong> ${top1Comp}(${top1CompJp})을 축으로 에피소드를 정리해보세요. "나는 왜 이 강점이 자연스러운가?"를 30초 안에 말할 수 있어야 합니다.`,
-    `<strong>② 업계 비교:</strong> 추천 업계 TOP 3의 리포트를 읽고, 비즈니스 모델·수익구조·구하는 인재상의 차이를 노트에 메모하세요.`,
-    `<strong>③ "왜 이 직종?" 답변 준비:</strong> 이 결과를 근거로 "왜 ${profile?.label || '이 직종'}인가?" 질문에 대한 답변 초안을 만들어보세요.`
-  ];
+  // 상황별 맞춤 액션 아이템
+  const sitSelf = sit.selfAnalysis || '';
+  const sitEs = sit.esExp || '';
+  const job1Label = profile?.label || primaryJob;
+  const ind1Name = selectedInds[0]?.name || '추천 업계';
+
+  let actionItems = [];
+  if (sitSelf === 'zero' || sitSelf === 'start') {
+    // 자기분석 초기 단계
+    actionItems = [
+      `<strong>① 오늘 안에:</strong> 이 결과의 강점 TOP 3를 메모장에 옮기고, 각 강점이 드러난 경험을 1개씩 적어보세요. 완벽하지 않아도 됩니다. "대충 이런 거?"도 OK.`,
+      `<strong>② 이번 주 안에:</strong> ${ind1Name} 업계 리포트(이 사이트에 있음)를 읽고, "이 업계가 원하는 인재"와 "내 강점"이 겹치는 지점을 1개 찾아보세요.`,
+      `<strong>③ 다음 주까지:</strong> 가쿠치카 400자 초안을 1개 작성해보세요. 구조는 "과제 발견 → 내 행동 → 정량적 결과" 이 세 가지만 넣으면 됩니다.`,
+    ];
+  } else if (sitEs === 'none' || sitEs === 'few') {
+    // ES 작성 초기 단계
+    actionItems = [
+      `<strong>① 오늘 안에:</strong> 후카보리 예상 질문(위 강점 카드 참조)에 대한 답변을 각 30초 분량으로 말해보세요. 막히는 부분이 에피소드 보강이 필요한 곳입니다.`,
+      `<strong>② 이번 주 안에:</strong> ${job1Label} 직종 라이브러리 카드를 읽고, 이 직종에서 ES·면접에서 가장 많이 묻는 질문 3개를 정리하세요.`,
+      `<strong>③ 다음 주까지:</strong> 위 ES 빈출 실수(빨간 섹션)를 참고해서 기존 ES를 다시 읽어보고, "행동 → 결과"가 빠진 부분을 보강하세요.`,
+    ];
+  } else {
+    // ES 경험 있는 단계
+    actionItems = [
+      `<strong>① 오늘 안에:</strong> 이 결과와 기존 ES를 비교해보세요. ES에서 어필한 강점과 이 결과의 TOP 3가 일치하는지 확인. 불일치하면 ES 방향을 재검토하세요.`,
+      `<strong>② 이번 주 안에:</strong> 교차 검증 결과(자기 인식 vs 행동 패턴)에서 "숨은 강점"이 있다면, 그 강점을 살리는 에피소드를 새로 발굴해서 ES에 반영해보세요.`,
+      `<strong>③ 면접 전까지:</strong> 후카보리 예상 질문 전체를 소리 내어 답해보세요. 막히는 질문이 면접에서 가장 위험한 질문입니다. 답변 스크립트를 미리 준비하세요.`,
+    ];
+  }
 
   // ── 상세 데이터 (접이식) ──
   const profileMap2 = { engineering:'이공계 전공', it:'IT/CS 전공 또는 개발 경험', english:'영어 비즈니스 레벨 이상', overseas:'해외 거주·유학 경험', none:'해당 없음 (문과 계열)' };
