@@ -1005,200 +1005,116 @@
   }
 
   /* ══════════════════════════════════════ */
-  /* PDF 인쇄 전용 스타일                    */
+  /* PDF 전용 리포트                         */
   /* ══════════════════════════════════════ */
-
-  /* 인쇄 전용 헤더/푸터 — 화면에서는 숨김 */
+  #print-report { display: none; }
   .print-header, .print-footer { display: none; }
+  .pdf-save-btn { margin: -10px 0 20px; text-align: right; }
 
   @media print {
-    @page {
-      size: A4;
-      margin: 12mm 14mm 12mm 14mm;
+    @page { size: A4 portrait; margin: 10mm 12mm; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+    /* 화면 요소 전부 숨김 */
+    body > *:not(#print-report) { display: none !important; }
+    #app, nav, .header, .nav-bar { display: none !important; }
+
+    /* PDF 리포트만 표시 */
+    #print-report {
+      display: block !important;
+      font-family: 'Noto Sans KR', sans-serif;
+      color: #1a1a2e;
+      font-size: 9px;
+      line-height: 1.55;
     }
-
-    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
-
-    body {
-      background: #fff !important;
-      color: #1a1a2e !important;
-      font-size: 9px !important;
-      line-height: 1.5 !important;
-      min-height: auto !important;
-    }
-
-    /* 전체 구조 리셋 */
-    #app, .screen, .screen.active { display: block !important; min-height: auto !important; }
-
-    /* 화면 전용 요소 숨김 */
-    .header, .nav-bar, .intro-bg, .intro-grid,
-    #screen-intro, #screen-test, #screen-q3, #screen-q4,
-    #screen-episode, #screen-q5, #screen-situation, #screen-industry,
-    #tcs-gnav, .skip-link, .btn, button,
-    .library-link-section, #consult-detail,
-    [onclick*="copyCoupon"], [onclick*="consult-detail"],
-    .result-section:last-child a[href*="latpeed"] { display: none !important; }
-
-    /* 인쇄 전용 헤더 표시 */
     .print-header {
       display: flex !important;
-      align-items: center;
+      align-items: flex-end;
       justify-content: space-between;
-      padding: 0 0 8px 0;
-      border-bottom: 2px solid #1a1a2e;
-      margin-bottom: 14px;
+      border-bottom: 2.5px solid #1a1a2e;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
     }
-    .print-header-logo {
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      color: #1a1a2e;
-    }
-    .print-header-sub {
-      font-size: 8px;
-      color: #666;
-      letter-spacing: 1px;
-    }
-    .print-header-date {
-      font-size: 8px;
-      color: #888;
-      text-align: right;
-    }
-
-    /* 인쇄 전용 푸터 표시 */
     .print-footer {
       display: block !important;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 6px 14mm;
+      margin-top: 14px;
+      padding-top: 8px;
       border-top: 1px solid #ccc;
       font-size: 7px;
-      color: #888;
+      color: #999;
       text-align: center;
     }
 
-    /* 결과 화면 */
-    #screen-result { display: block !important; padding: 0 !important; }
+    /* 히어로 */
+    .pr-hero { margin-bottom: 14px; }
+    .pr-hero-title { font-size: 22px; font-weight: 900; color: #1a1a2e; margin-bottom: 2px; }
+    .pr-hero-sub { font-size: 10px; color: #555; margin-bottom: 6px; }
+    .pr-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+    .pr-tag { font-size: 7.5px; padding: 2px 8px; border-radius: 3px; background: #eef2ff; color: #3b5cc6; border: 1px solid #c7d4f0; }
 
-    .result-hero {
-      padding: 10px 0 8px !important;
-      border-bottom: 1px solid #ddd !important;
-      margin-bottom: 12px !important;
-    }
-    .result-hero-label {
-      font-size: 8px !important;
-      padding: 2px 8px !important;
-      background: #e8f0fe !important;
-      color: #1a5ccc !important;
-      border-color: #b0c4f0 !important;
-      margin-bottom: 6px !important;
-    }
-    .result-job-title {
-      font-size: 20px !important;
-      color: #1a1a2e !important;
-      margin-bottom: 4px !important;
-    }
-    .result-company-type {
-      font-size: 10px !important;
-      color: #555 !important;
-      margin-bottom: 8px !important;
-    }
-    .result-tag {
-      font-size: 8px !important;
-      padding: 2px 8px !important;
-      background: #f0f4ff !important;
-      color: #2a5caa !important;
-      border-color: #c0d4f0 !important;
+    /* 2단 레이아웃 */
+    .pr-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .pr-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+
+    /* 섹션 */
+    .pr-sec { margin-bottom: 10px; page-break-inside: avoid; }
+    .pr-sec-title {
+      font-size: 8px; font-weight: 700; letter-spacing: 2px; color: #3b5cc6;
+      text-transform: uppercase; margin-bottom: 6px; padding-bottom: 4px;
+      border-bottom: 1px solid #dde3f0;
     }
 
-    /* 섹션 공통 */
-    .result-section {
-      margin-bottom: 10px !important;
-      page-break-inside: avoid;
+    /* 4축 바 */
+    .pr-axis { margin-bottom: 5px; }
+    .pr-axis-row { display: flex; align-items: center; gap: 6px; }
+    .pr-axis-name { font-size: 8px; font-weight: 700; color: #333; min-width: 36px; }
+    .pr-axis-track { flex: 1; height: 5px; background: #e8ecf4; border-radius: 3px; position: relative; }
+    .pr-axis-fill { height: 100%; border-radius: 3px; background: #3b82f6; }
+    .pr-axis-labels { display: flex; justify-content: space-between; margin-top: 1px; }
+    .pr-axis-labels span { font-size: 6.5px; color: #999; }
+    .pr-axis-val { font-size: 7.5px; color: #555; min-width: 80px; text-align: right; }
+
+    /* 강점 카드 */
+    .pr-strength {
+      padding: 7px 10px; border-radius: 6px; border-left: 3px solid #3b82f6;
+      background: #f8f9fd; margin-bottom: 4px;
     }
-    .result-section-title {
-      font-size: 8px !important;
-      color: #555 !important;
-      margin-bottom: 6px !important;
-      padding-bottom: 4px !important;
-      border-bottom: 1px solid #ddd !important;
+    .pr-strength-header { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
+    .pr-strength-rank { font-size: 7px; font-weight: 700; color: #3b5cc6; }
+    .pr-strength-name { font-size: 10px; font-weight: 700; color: #1a1a2e; }
+    .pr-strength-jp { font-size: 8px; color: #888; }
+    .pr-strength-lv { font-size: 9px; font-weight: 800; padding: 1px 8px; border-radius: 3px; margin-left: auto; }
+    .pr-strength-desc { font-size: 8px; color: #555; }
+    .pr-strength-hint { font-size: 7.5px; color: #3b5cc6; margin-top: 3px; padding: 4px 8px; background: #eef2ff; border-radius: 4px; }
+
+    /* 직종 카드 */
+    .pr-job {
+      padding: 7px 10px; border-radius: 6px; background: #f8f9fd;
+      border-left: 3px solid #3b82f6; margin-bottom: 4px;
     }
+    .pr-job-name { font-size: 10px; font-weight: 700; color: #1a1a2e; margin-bottom: 2px; }
+    .pr-job-match { font-size: 7.5px; color: #555; }
 
-    /* 4축 */
-    .axis-result { margin-bottom: 4px !important; }
-    .axis-result-header { margin-bottom: 2px !important; }
-    .axis-result-name { font-size: 9px !important; color: #333 !important; }
-    .axis-result-val { font-size: 8px !important; color: #555 !important; }
-    .axis-result-track {
-      height: 4px !important;
-      background: #e8e8e8 !important;
-      border-radius: 2px !important;
+    /* 업계 카드 */
+    .pr-ind {
+      padding: 6px 8px; border-radius: 5px; background: #f8f9fd;
+      border-left: 2px solid #3b5cc6; margin-bottom: 3px;
     }
-    .axis-result-fill { background: #3b82f6 !important; }
-    .axis-result-labels span { font-size: 7px !important; color: #888 !important; }
+    .pr-ind-name { font-size: 9px; font-weight: 700; color: #1a1a2e; }
+    .pr-ind-point { font-size: 7.5px; color: #555; margin-top: 2px; }
 
-    /* 카드 공통 (강점, 직종, 업계) */
-    .result-section [style*="background:var(--surface)"],
-    .result-section [style*="background: var(--surface)"] {
-      background: #f8f9fc !important;
-      border-color: #ddd !important;
-    }
-    .result-section [style*="border-left:3px"] {
-      border-left-width: 3px !important;
-    }
+    /* 에피소드 */
+    .pr-ep { padding: 5px 8px; background: #f8f9fd; border-radius: 4px; margin-bottom: 3px; }
+    .pr-ep-type { font-size: 7px; font-weight: 700; color: #3b5cc6; }
+    .pr-ep-text { font-size: 8px; color: #333; }
+    .pr-ep-hint { font-size: 7px; color: #666; }
 
-    /* 텍스트 색상 오버라이드 */
-    [style*="color:var(--text)"] { color: #1a1a2e !important; }
-    [style*="color:var(--text-sub)"] { color: #333 !important; }
-    [style*="color:var(--text-dim)"] { color: #555 !important; }
-    [style*="color:var(--text-muted)"] { color: #888 !important; }
-    [style*="color:var(--accent)"] { color: #2a5caa !important; }
-    [style*="color:#a29bfe"] { color: #5b4fc4 !important; }
-    [style*="color:#4a9eff"] { color: #2a5caa !important; }
-    [style*="color:#55efc4"] { color: #1a8c6a !important; }
-    [style*="color:#f59e0b"] { color: #b07308 !important; }
+    /* 액션 */
+    .pr-action { padding: 5px 8px; border-bottom: 1px solid #eee; font-size: 8px; color: #333; line-height: 1.6; }
+    .pr-action strong { color: #3b5cc6; }
 
-    /* 배경 오버라이드 */
-    [style*="background:var(--surface-2)"],
-    [style*="background:var(--accent-soft)"],
-    [style*="background:rgba(74,158,255"],
-    [style*="background:rgba(162,155,254"],
-    [style*="background:rgba(85,239,196"],
-    [style*="background:rgba(245,158,11"] {
-      background: #f0f4ff !important;
-    }
-    [style*="background:linear-gradient"] { background: #f0f4ff !important; }
-
-    /* SEC 6 CTA 간소화 — 쿠폰/버튼 숨기고 텍스트만 */
-    .result-section:last-child [style*="border:1px dashed"] { display: none !important; }
-    .result-section:last-child a[style*="background:#a29bfe"] { display: none !important; }
-
-    /* 상세 데이터 접이식 숨김 */
-    [onclick*="consult-detail"] { display: none !important; }
-    #consult-detail { display: none !important; }
-
-    /* PDF 저장 버튼 숨김 */
-    .pdf-save-btn { display: none !important; }
-
-    /* 컨테이너 전폭 */
-    .container { max-width: 100% !important; padding: 0 !important; }
-
-    /* 폰트 사이즈 전체 축소 */
-    .result-section [style*="font-size:15px"] { font-size: 11px !important; }
-    .result-section [style*="font-size:14px"] { font-size: 10px !important; }
-    .result-section [style*="font-size:13px"] { font-size: 9px !important; }
-    .result-section [style*="font-size:12px"] { font-size: 8.5px !important; }
-    .result-section [style*="font-size:11px"] { font-size: 8px !important; }
-    .result-section [style*="font-size:10px"] { font-size: 7.5px !important; }
-
-    /* 패딩 축소 */
-    .result-section [style*="padding:18px 20px"] { padding: 8px 10px !important; }
-    .result-section [style*="padding:14px 16px"] { padding: 6px 8px !important; }
-    .result-section [style*="padding:24px"] { padding: 10px !important; }
-    .result-section [style*="margin-bottom:10px"] { margin-bottom: 4px !important; }
-    .result-section [style*="margin-bottom:8px"] { margin-bottom: 3px !important; }
+    /* MBTI */
+    .pr-mbti { padding: 6px 8px; background: #f5f0ff; border-radius: 4px; font-size: 7.5px; color: #5b4fc4; margin-top: 6px; border: 1px solid #e0d8f4; }
   }
 </style>
 </head>
@@ -3009,14 +2925,182 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
 }
 
 function savePDF() {
-  // 인쇄 날짜 설정
+  const { topJobs, compScores, filteredScores } = state.result;
   const now = new Date();
   const dateStr = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
-  const dateEl = document.getElementById('print-date');
-  if (dateEl) dateEl.textContent = `진단일: ${dateStr}`;
 
-  // 인쇄
-  window.print();
+  // 4축 평균
+  const axisGroups = { 환경:[], 업무:[], 문화:[], 커리어:[] };
+  Object.values(state.axisScores).forEach(({axis,val}) => { if(axisGroups[axis]) axisGroups[axis].push(val); });
+  const axisAvg = {};
+  Object.entries(axisGroups).forEach(([a,v]) => { axisAvg[a] = v.length ? Math.round(v.reduce((s,x)=>s+x,0)/v.length) : 50; });
+
+  const axisLabels = { 환경:{a:'도전/성장',b:'안정/지속'}, 업무:{a:'개인성과/프론트',b:'팀협업/백오피스'}, 문화:{a:'자율/수평',b:'체계/구조'}, 커리어:{a:'스페셜리스트',b:'제너럴리스트'} };
+
+  const COMP_INFO_PDF = {
+    '論理的思考力':'논리적사고력','洞察力':'통찰력','創造力':'창조력','企画力':'기획력',
+    '冷静さ':'냉정함','積極性':'적극성','粘り強さ':'끈기','実行力':'실행력',
+    '自己管理能力':'자기관리능력','状況把握力':'상황파악력','発信力':'발신력',
+    '傾聴力':'경청력','共感力':'공감력','牽引力':'견인력','調整力':'조정력',
+    '柔軟性':'유연성','協調性':'협조성','責任感':'책임감'
+  };
+
+  // 기업유형 결정
+  const envS = axisAvg['환경']||50, culS = axisAvg['문화']||50;
+  const hasEng = state.profile.includes('english')||state.profile.includes('overseas');
+  let companyType = '중견기업·성장형';
+  if(envS<35&&culS<35) companyType='스타트업·외자계';
+  else if(envS<45&&culS<45) companyType='메가벤처·성장기업';
+  else if(envS<55&&hasEng) companyType='글로벌 대기업';
+  else if(envS>=55&&culS>=55) companyType='JTC·안정형 대기업';
+
+  const primaryJob = topJobs[0];
+  const profile = JOB_PROFILES[primaryJob];
+
+  // 강점 TOP3
+  const topComps = Object.entries(compScores).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  const maxCS = topComps[0]?.[1]||1;
+
+  // 에피소드
+  const selEps = state.episode.map(id => EPISODE_ITEMS.find(i=>i.id===id)).filter(Boolean);
+
+  // 업계 추천 — 직종 매칭 기반 간단 로직
+  const recInds = INDUSTRY_DB.filter(ind => topJobs.some(j => ind.jobs.includes(j)))
+    .map(ind => {
+      let sc = 0;
+      topJobs.forEach((j,i) => { if(ind.jobs.includes(j)) sc += (3-i)*2; });
+      if(culS>55 && ind.culture.some(c=>['안정','체계','장기고용'].includes(c))) sc+=2;
+      if(culS<45 && ind.culture.some(c=>['성장','스피드','자율'].includes(c))) sc+=2;
+      return {ind, sc};
+    })
+    .sort((a,b) => b.sc - a.sc)
+    .slice(0,5)
+    .map(s => s.ind);
+
+  const IND_PT = {
+    'it_sier':'자격증(응용정보) 준비','it_web':'왜 이 서비스인가 ES 핵심','maker_auto':'CASE 키워드','maker_food':'루트영업 경험',
+    'finance_megabank':'순환근무 각오+재무지식','it_general_consul':'케이스면접+DX기초','media_ad':'기획·프레젠 능력',
+  };
+
+  // 4축 HTML
+  const axisHTML = Object.entries(axisAvg).map(([axis,val]) => {
+    const lb = axisLabels[axis]||{a:'A',b:'B'};
+    const str = Math.abs(val-50);
+    const tend = str>20?'강한 ':str>8?'':'중립 ';
+    const side = val<50?`${tend}${lb.a}`:`${tend}${lb.b}`;
+    return `<div class="pr-axis"><div class="pr-axis-row"><span class="pr-axis-name">${axis}</span><div class="pr-axis-track"><div class="pr-axis-fill" style="width:${val}%"></div></div><span class="pr-axis-val">${side}</span></div><div class="pr-axis-labels"><span>${lb.a}</span><span>${lb.b}</span></div></div>`;
+  }).join('');
+
+  // 강점 HTML
+  const strColors = ['#3b82f6','#7c5cc6','#10b981'];
+  const strHTML = topComps.map(([name,score],i) => {
+    const ko = COMP_INFO_PDF[name]||name;
+    const pct = maxCS>0?score/maxCS:0;
+    const lv = pct>=0.75?{l:'상',c:'#10b981',bg:'#ecfdf5'}:pct>=0.45?{l:'중',c:'#d97706',bg:'#fffbeb'}:{l:'하',c:'#888',bg:'#f5f5f5'};
+    const ep = selEps.find(e=>e.competency.includes(name));
+    return `<div class="pr-strength" style="border-left-color:${strColors[i]}"><div class="pr-strength-header"><span class="pr-strength-rank">${i+1}순위</span><span class="pr-strength-name">${ko}</span><span class="pr-strength-jp">${name}</span><span class="pr-strength-lv" style="color:${lv.c};background:${lv.bg}">${lv.l}</span></div>${ep?`<div class="pr-strength-hint">${ep.esHint}</div>`:''}</div>`;
+  }).join('');
+
+  // 직종 HTML
+  const jobHTML = topJobs.map((job,i) => {
+    const p = JOB_PROFILES[job];
+    const core = (p?.core||[]).map(c=>COMP_INFO_PDF[c]||c).join('·');
+    return `<div class="pr-job" style="border-left-color:${strColors[i]}"><div class="pr-job-name">${p?.emoji||''} ${p?.label||job}</div><div class="pr-job-match">핵심 역량: ${core}</div></div>`;
+  }).join('');
+
+  // 업계 HTML
+  const indHTML = recInds.slice(0,5).map((ind,i) => {
+    const pt = IND_PT[ind.id]||'업계 리포트에서 ES 전략 확인';
+    return `<div class="pr-ind"><div class="pr-ind-name">${i+1}. ${ind.name}</div><div class="pr-ind-point">${pt}</div></div>`;
+  }).join('');
+
+  // 에피소드 HTML
+  const epHTML = selEps.length>0 ? selEps.map(ep =>
+    `<div class="pr-ep"><span class="pr-ep-type">[${ep.type}]</span> <span class="pr-ep-text">${ep.text}</span><div class="pr-ep-hint">${ep.esHint}</div></div>`
+  ).join('') : '<div style="font-size:8px;color:#999;">에피소드 미선택</div>';
+
+  // 액션 아이템
+  const top1Ko = topComps[0]?COMP_INFO_PDF[topComps[0][0]]:'강점';
+  const actHTML = [
+    `<strong>① 자기PR 초안:</strong> ${top1Ko}을 축으로 에피소드 정리`,
+    `<strong>② 업계 비교:</strong> TOP 3 업계 리포트 읽고 차이점 메모`,
+    `<strong>③ 면접 준비:</strong> "왜 ${profile?.label||'이 직종'}?" 답변 초안 작성`
+  ].map(a=>`<div class="pr-action">${a}</div>`).join('');
+
+  // MBTI
+  const MBTI_SHORT = {
+    'INTJ':'전략적 사고·구조화에 강함','INTP':'분석력·논리적 사고가 자연스러움','ENTJ':'리더십·목표 달성 의지가 강함',
+    'ENTP':'아이디어 발상·토론에 강함','INFJ':'공감·통찰 기반 조율 능력','INFP':'가치관·의미 중시',
+    'ENFJ':'동기부여·팀 리딩 자연스러움','ENFP':'열정적·가능성을 잘 봄','ISTJ':'책임감·체계성 강함',
+    'ISFJ':'성실·배려심 자연스러움','ESTJ':'조직력·실행력 뛰어남','ESFJ':'협조성·커뮤니케이션 강함',
+    'ISTP':'문제해결·실용적 사고','ISFP':'감성·실행력 겸비','ESTP':'행동력·현장 감각','ESFP':'사교성·에너지 높음'
+  };
+  const mbtiHTML = state.mbti ? `<div class="pr-mbti">MBTI ${state.mbti} 참고: ${MBTI_SHORT[state.mbti]||''}</div>` : '';
+
+  // PDF div 생성
+  let el = document.getElementById('print-report');
+  if (!el) { el = document.createElement('div'); el.id='print-report'; document.body.appendChild(el); }
+
+  el.innerHTML = `
+    <div class="print-header">
+      <div>
+        <div style="font-size:14px;font-weight:800;letter-spacing:2px;color:#1a1a2e;">TOKYO CAREER STUDIO</div>
+        <div style="font-size:8px;color:#666;letter-spacing:1px;margin-top:2px;">커리어 DNA 진단 리포트</div>
+      </div>
+      <div style="font-size:8px;color:#999;text-align:right;">진단일: ${dateStr}<br>tokyocareerstudio.com</div>
+    </div>
+
+    <div class="pr-hero">
+      <div class="pr-hero-title">${profile?.emoji||''} ${profile?.label||primaryJob}</div>
+      <div class="pr-hero-sub">${companyType}</div>
+      <div class="pr-tags">
+        ${topJobs.map((j,i)=>`<span class="pr-tag">${i+1}순위 ${JOB_PROFILES[j]?.label||j}</span>`).join('')}
+        ${state.mbti?`<span class="pr-tag">${state.mbti}</span>`:''}
+        ${state.profile.includes('english')?'<span class="pr-tag">영어 가능</span>':''}
+        ${state.profile.includes('engineering')?'<span class="pr-tag">이공계</span>':''}
+      </div>
+    </div>
+
+    <div class="pr-grid-2">
+      <div class="pr-sec">
+        <div class="pr-sec-title">커리어 성향 (4축)</div>
+        ${axisHTML}
+        ${mbtiHTML}
+      </div>
+      <div class="pr-sec">
+        <div class="pr-sec-title">강점 프로파일 TOP 3</div>
+        ${strHTML}
+      </div>
+    </div>
+
+    <div class="pr-grid-2">
+      <div class="pr-sec">
+        <div class="pr-sec-title">추천 직종</div>
+        ${jobHTML}
+      </div>
+      <div class="pr-sec">
+        <div class="pr-sec-title">에피소드 유형 & ES 가이드</div>
+        ${epHTML}
+      </div>
+    </div>
+
+    <div class="pr-sec">
+      <div class="pr-sec-title">추천 업계 TOP 5</div>
+      <div class="pr-grid-3">${recInds.slice(0,3).map((ind,i)=>`<div class="pr-ind"><div class="pr-ind-name">${i+1}. ${ind.name}</div><div class="pr-ind-point">${IND_PT[ind.id]||'업계 리포트 참조'}</div></div>`).join('')}</div>
+      ${recInds.length>3?`<div class="pr-grid-2">${recInds.slice(3,5).map((ind,i)=>`<div class="pr-ind"><div class="pr-ind-name">${i+4}. ${ind.name}</div><div class="pr-ind-point">${IND_PT[ind.id]||'업계 리포트 참조'}</div></div>`).join('')}</div>`:''}
+    </div>
+
+    <div class="pr-sec">
+      <div class="pr-sec-title">Next Action</div>
+      ${actHTML}
+    </div>
+
+    <div class="print-footer">
+      Tokyo Career Studio | tokyocareerstudio.com | 1:1 컨설팅 문의: latpeed.com/stores/Gvk82
+    </div>
+  `;
+
+  setTimeout(() => window.print(), 100);
 }
 
 function copyCoupon() {
