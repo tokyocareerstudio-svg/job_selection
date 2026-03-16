@@ -3041,28 +3041,31 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
   const sitEs = sit.esExp || '';
   const job1Label = profile?.label || primaryJob;
   const ind1Name = selectedInds[0]?.name || '추천 업계';
+  const ind2Name = selectedInds[1]?.name || '';
+  const ind3Name = selectedInds[2]?.name || '';
+  const indListStr = [ind1Name, ind2Name, ind3Name].filter(Boolean).join(', ');
 
   let actionItems = [];
   if (sitSelf === 'zero' || sitSelf === 'start') {
     // 자기분석 초기 단계
     actionItems = [
-      `<strong>① 오늘 안에:</strong> 이 결과의 강점 TOP 3를 메모장에 옮기고, 각 강점이 드러난 경험을 1개씩 적어보세요. 완벽하지 않아도 됩니다. "대충 이런 거?"도 OK.`,
-      `<strong>② 이번 주 안에:</strong> ${ind1Name} 업계 리포트(이 사이트에 있음)를 읽고, "이 업계가 원하는 인재"와 "내 강점"이 겹치는 지점을 1개 찾아보세요.`,
-      `<strong>③ 다음 주까지:</strong> 가쿠치카 400자 초안을 1개 작성해보세요. 구조는 "과제 발견 → 내 행동 → 정량적 결과" 이 세 가지만 넣으면 됩니다.`,
+      `<strong>① 오늘 안에:</strong> 이 리포트의 추천 업계 TOP 3(${indListStr})의 <a href="industry-index.html" target="_blank" style="color:var(--accent);">업계 리포트</a>를 읽어보세요. 각 업계의 비즈니스 모델과 "구하는 인재상"을 비교하면 자기분석의 방향이 잡힙니다.`,
+      `<strong>② 이번 주 안에:</strong> 각 업계에서 관심 가는 기업을 1개씩 골라서, 그 기업의 채용 페이지(마이나비/리쿠나비)를 확인하세요. "모집 직종"과 "선고 플로우"를 메모해두면 나중에 ES 작성이 훨씬 수월해집니다.`,
+      `<strong>③ 다음 주까지:</strong> 강점 TOP 3가 "실제 경험"과 연결되는지 확인하세요. 위 후카보리 질문에 30초 이상 답할 수 있으면 OK. 막히면 그 강점에 대한 에피소드 발굴이 필요합니다.`,
     ];
   } else if (sitEs === 'none' || sitEs === 'few') {
     // ES 작성 초기 단계
     actionItems = [
-      `<strong>① 오늘 안에:</strong> 후카보리 예상 질문(위 강점 카드 참조)에 대한 답변을 각 30초 분량으로 말해보세요. 막히는 부분이 에피소드 보강이 필요한 곳입니다.`,
-      `<strong>② 이번 주 안에:</strong> ${job1Label} 직종 라이브러리 카드를 읽고, 이 직종에서 ES·면접에서 가장 많이 묻는 질문 3개를 정리하세요.`,
-      `<strong>③ 다음 주까지:</strong> 위 ES 빈출 실수(빨간 섹션)를 참고해서 기존 ES를 다시 읽어보고, "행동 → 결과"가 빠진 부분을 보강하세요.`,
+      `<strong>① 오늘 안에:</strong> 추천 업계 TOP 3(${indListStr})의 <a href="industry-index.html" target="_blank" style="color:var(--accent);">업계 리포트</a>에서 "ES 차별화 전략" 섹션을 확인하세요. 업계별로 ES에서 강조해야 하는 포인트가 다릅니다.`,
+      `<strong>② 이번 주 안에:</strong> 관심 기업 3개를 정해서 각 기업의 ES 설문 항목을 확인하세요(마이나비/원캐리어). 설문 항목을 미리 알면 "어떤 에피소드를 어디에 쓸지" 전략을 세울 수 있습니다.`,
+      `<strong>③ 다음 주까지:</strong> 위 ES 빈출 실수(빨간 섹션)를 체크리스트로 활용하세요. 기존에 쓴 ES가 있다면 "❌ 패턴"에 해당하는 부분을 "✅ 패턴"으로 고쳐보세요.`,
     ];
   } else {
     // ES 경험 있는 단계
     actionItems = [
-      `<strong>① 오늘 안에:</strong> 이 결과와 기존 ES를 비교해보세요. ES에서 어필한 강점과 이 결과의 TOP 3가 일치하는지 확인. 불일치하면 ES 방향을 재검토하세요.`,
-      `<strong>② 이번 주 안에:</strong> 교차 검증 결과(자기 인식 vs 행동 패턴)에서 "숨은 강점"이 있다면, 그 강점을 살리는 에피소드를 새로 발굴해서 ES에 반영해보세요.`,
-      `<strong>③ 면접 전까지:</strong> 후카보리 예상 질문 전체를 소리 내어 답해보세요. 막히는 질문이 면접에서 가장 위험한 질문입니다. 답변 스크립트를 미리 준비하세요.`,
+      `<strong>① 오늘 안에:</strong> 이 결과의 교차 검증(자기 인식 vs 행동 패턴)을 기존 ES와 대조해보세요. "숨은 강점"이 발견됐다면, 그 강점을 살리는 방향으로 ES를 보강할 수 있는지 검토하세요.`,
+      `<strong>② 이번 주 안에:</strong> 추천 업계 기업 중 아직 조사하지 않은 기업이 있다면, 그 기업의 IR 자료(결산 설명회 자료)를 확인하세요. "中期経営計画"의 키워드를 ES에 녹이면 기업 연구의 깊이가 달라집니다.`,
+      `<strong>③ 면접 전까지:</strong> 위 후카보리 예상 질문에 전부 소리 내어 답해보세요. 30초 안에 막힘없이 답할 수 없는 질문이 면접에서 가장 위험한 질문입니다. 답변 스크립트를 미리 준비하세요.`,
     ];
   }
 
