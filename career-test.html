@@ -2805,18 +2805,18 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
 function savePDF() {
   const { topJobs, compScores, filteredScores } = state.result;
   const now = new Date();
-  const dateStr = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
+  const ds = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
 
-  // 4축
-  const axG = { 환경:[], 업무:[], 문화:[], 커리어:[] };
-  Object.values(state.axisScores).forEach(({axis,val}) => { if(axG[axis]) axG[axis].push(val); });
-  const axA = {};
-  Object.entries(axG).forEach(([a,v]) => { axA[a] = v.length ? Math.round(v.reduce((s,x)=>s+x,0)/v.length) : 50; });
-  const axL = { 환경:{a:'도전/성장',b:'안정/지속'}, 업무:{a:'개인성과',b:'팀협업'}, 문화:{a:'자율/수평',b:'체계/구조'}, 커리어:{a:'스페셜리스트',b:'제너럴리스트'} };
+  // ── 데이터 준비 ──
+  const axG={환경:[],업무:[],문화:[],커리어:[]};
+  Object.values(state.axisScores).forEach(({axis,val})=>{if(axG[axis])axG[axis].push(val)});
+  const axA={};Object.entries(axG).forEach(([a,v])=>{axA[a]=v.length?Math.round(v.reduce((s,x)=>s+x,0)/v.length):50});
+  const axL={환경:{a:'도전/성장',b:'안정/지속'},업무:{a:'개인성과/프론트',b:'팀협업/백오피스'},문화:{a:'자율/수평',b:'체계/구조'},커리어:{a:'스페셜리스트',b:'제너럴리스트'}};
 
-  const CK = {'論理的思考力':'논리적사고력','洞察力':'통찰력','創造力':'창조력','企画力':'기획력','冷静さ':'냉정함','積極性':'적극성','粘り強さ':'끈기','実行力':'실행력','自己管理能力':'자기관리능력','状況把握力':'상황파악력','発信力':'발신력','傾聴力':'경청력','共感力':'공감력','牽引力':'견인력','調整力':'조정력','柔軟性':'유연성','協調性':'협조성','責任感':'책임감'};
+  const CK={'論理的思考力':'논리적사고력','洞察力':'통찰력','創造力':'창조력','企画力':'기획력','冷静さ':'냉정함','積極性':'적극성','粘り強さ':'끈기','実行力':'실행력','自己管理能力':'자기관리능력','状況把握力':'상황파악력','発信力':'발신력','傾聴力':'경청력','共感力':'공감력','牽引力':'견인력','調整力':'조정력','柔軟性':'유연성','協調性':'협조성','責任感':'책임감'};
+  const CD={'論理的思考力':'체계적으로 분석하고 판단하는 힘','洞察力':'본질을 파악하고 핵심을 간파하는 힘','創造力':'새로운 아이디어와 가치를 만들어내는 힘','企画力':'아이디어를 현실로 만드는 힘','冷静さ':'어려운 상황에서도 이성적으로 판단하는 힘','積極性':'자발적으로 행동하고 참여하는 자세','粘り強さ':'성과를 위해 끝까지 노력하는 자세','実行力':'계획을 신속하게 행동으로 옮기는 능력','自己管理能力':'자신의 상태와 일정을 컨트롤하는 능력','状況把握力':'주변 상황을 빠르게 인식하고 대응하는 능력','発信力':'생각을 논리적이고 정확하게 전달하는 능력','傾聴力':'상대의 말을 주의 깊게 듣고 이해하는 능력','共感力':'상대방의 입장에서 생각할 수 있는 능력','牽引力':'팀을 이끌고 목표 달성으로 이끄는 리더십','調整力':'이해관계가 다른 사람들 사이에서 합의점을 찾는 능력','柔軟性':'다양한 의견을 수용하고 적응하는 능력','協調性':'팀워크를 중시하고 함께 협력하는 자세','責任感':'맡은 업무와 역할에 끝까지 책임지는 자세'};
 
-  const envS=axA['환경']||50, culS=axA['문화']||50;
+  const envS=axA['환경']||50,culS=axA['문화']||50;
   const hE=state.profile.includes('english')||state.profile.includes('overseas');
   let cType='중견기업·성장형';
   if(envS<35&&culS<35)cType='스타트업·외자계';
@@ -2824,111 +2824,123 @@ function savePDF() {
   else if(envS<55&&hE)cType='글로벌 대기업';
   else if(envS>=55&&culS>=55)cType='JTC·안정형 대기업';
 
-  const pJ=topJobs[0], pf=JOB_PROFILES[pJ];
-  const tc=Object.entries(compScores).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  let cDesc='안정성과 성장 가능성을 동시에 추구합니다.';
+  if(envS<35&&culS<35)cDesc='도전적이고 자율적인 환경에서 빠르게 성장하는 것을 선호합니다.';
+  else if(envS<45&&culS<45)cDesc='성장하는 조직에서 팀과 함께 새로운 것을 만들어가는 것을 선호합니다.';
+  else if(envS<55&&hE)cDesc='체계 있는 대기업 환경에서 글로벌 무대를 지향합니다.';
+  else if(envS>=55&&culS>=55)cDesc='체계적인 환경에서 장기적 커리어를 쌓는 것을 선호합니다.';
+
+  const pJ=topJobs[0],pf=JOB_PROFILES[pJ];
+  const tc=Object.entries(compScores).sort((a,b)=>b[1]-a[1]).slice(0,5);
   const mx=tc[0]?.[1]||1;
   const eps=state.episode.map(id=>EPISODE_ITEMS.find(i=>i.id===id)).filter(Boolean);
-  const rI=INDUSTRY_DB.filter(ind=>topJobs.some(j=>ind.jobs.includes(j))).map(ind=>{let s=0;topJobs.forEach((j,i)=>{if(ind.jobs.includes(j))s+=(3-i)*2});if(culS>55&&ind.culture.some(c=>['안정','체계','장기고용'].includes(c)))s+=2;if(culS<45&&ind.culture.some(c=>['성장','스피드','자율'].includes(c)))s+=2;return{ind,s}}).sort((a,b)=>b.s-a.s).slice(0,5).map(s=>s.ind);
 
-  const MBTI_S={'INTJ':'전략적 사고·구조화','INTP':'분석력·논리적 사고','ENTJ':'리더십·목표 달성','ENTP':'아이디어·토론','INFJ':'공감·통찰 조율','INFP':'가치관·의미 중시','ENFJ':'동기부여·팀 리딩','ENFP':'열정·가능성','ISTJ':'책임감·체계성','ISFJ':'성실·배려심','ESTJ':'조직력·실행력','ESFJ':'협조성·소통','ISTP':'문제해결·실용','ISFP':'감성·실행력','ESTP':'행동력·현장감각','ESFP':'사교성·에너지'};
+  // 업계 추천
+  const noFL=state.q5a.includes('q5a_6'),noOT=state.q5b.includes('q5b_10'),noCo=state.q5b.includes('q5b_7');
+  let rCand=INDUSTRY_DB.filter(ind=>topJobs.some(j=>ind.jobs.includes(j)));
+  if(noFL)rCand=rCand.filter(i=>i.global!=='필수'&&!i.warnings.includes('외국어필수'));
+  if(noOT)rCand=rCand.filter(i=>!i.warnings.some(w=>w.includes('야근많음')));
+  if(noCo)rCand=rCand.filter(i=>!i.warnings.some(w=>w.includes('경쟁강함')));
+  const rI=rCand.map(ind=>{let s=0;topJobs.forEach((j,i)=>{if(ind.jobs.includes(j))s+=(3-i)*2});if(culS>55&&ind.culture.some(c=>['안정','체계','장기고용'].includes(c)))s+=2;if(culS<45&&ind.culture.some(c=>['성장','스피드','자율'].includes(c)))s+=2;if(hE&&(ind.global==='높음'||ind.global==='필수'))s+=2;return{ind,s}}).sort((a,b)=>b.s-a.s).slice(0,5).map(s=>s.ind);
 
-  // 축 바
-  const axisH = Object.entries(axA).map(([ax,v])=>{
-    const lb=axL[ax]||{a:'A',b:'B'};
-    const s=Math.abs(v-50);
-    const t=s>20?'강한 ':s>8?'':'중립 ';
-    const sd=v<50?`${t}${lb.a}`:`${t}${lb.b}`;
-    return `<div style="margin-bottom:6px"><div style="display:flex;align-items:center;gap:6px"><span style="font-size:9px;font-weight:700;color:#333;min-width:40px">${ax}</span><div style="flex:1;height:6px;background:#e5e7eb;border-radius:3px;overflow:hidden"><div style="height:100%;width:${v}%;background:#3b82f6;border-radius:3px"></div></div><span style="font-size:8px;color:#666;min-width:85px;text-align:right">${sd}</span></div><div style="display:flex;justify-content:space-between;padding-left:46px;margin-top:1px"><span style="font-size:6.5px;color:#aaa">${lb.a}</span><span style="font-size:6.5px;color:#aaa">${lb.b}</span></div></div>`;
-  }).join('');
+  // 소거 업계
+  const elim=INDUSTRY_DB.filter(ind=>!rI.some(r=>r.id===ind.id)).filter(ind=>{
+    if(noFL&&(ind.global==='필수'||ind.warnings.includes('외국어필수')))return true;
+    if(noOT&&ind.warnings.some(w=>w.includes('야근많음')))return true;
+    if(noCo&&ind.warnings.some(w=>w.includes('경쟁강함')))return true;
+    return false;
+  }).slice(0,3);
 
-  // 강점
+  // 부적합 직종
+  const allJS=Object.entries(filteredScores).sort((a,b)=>b[1]-a[1]);
+  const botJ=allJS.slice(-2).filter(([,s])=>s<allJS[0][1]*0.3);
+
+  const MBTI_C={'INTJ':'전략적 사고와 장기 계획 수립에 강합니다. 컨설팅·기획·R&D처럼 복잡한 문제를 구조화하는 직종에서 강점이 발현될 가능성이 높습니다.','INTP':'분석력과 논리적 사고가 자연스러운 유형입니다. 데이터 분석·SE·연구개발 등 깊이 파고드는 직종과 잘 맞는 경향이 있습니다.','ENTJ':'리더십과 목표 달성 의지가 강한 유형입니다. 영업 매니저·프로젝트 리더·경영기획 등 추진력이 요구되는 포지션에서 빛납니다.','ENTP':'아이디어 발상과 토론에 강한 유형입니다. 기획·마케팅·신규사업개발 등 창의적 문제해결이 요구되는 직종과 궁합이 좋습니다.','INFJ':'공감력과 통찰력을 기반으로 한 조율 능력이 뛰어납니다. 인사·교육·컨설팅 등 사람의 성장을 돕는 직종에서 강합니다.','INFP':'가치관과 의미를 중시하는 유형입니다. 크리에이티브·교육·CSR·콘텐츠 기획 등 자신의 신념과 일치하는 업무에서 몰입도가 높습니다.','ENFJ':'사람을 이끌고 동기부여하는 능력이 자연스럽습니다. 인재·교육·영업 매니저 등 팀과 함께 성과를 만드는 역할에서 강합니다.','ENFP':'열정적이고 가능성을 잘 보는 유형입니다. 마케팅·PR·기획·스타트업 등 새로운 도전이 있는 환경에서 에너지가 높아집니다.','ISTJ':'책임감과 체계성이 강한 유형입니다. 경리·품질관리·금융·인프라 등 정확성과 신뢰가 요구되는 직종에서 안정적으로 성과를 냅니다.','ISFJ':'성실함과 배려심이 자연스러운 유형입니다. 사무관리·보험·호텔·교육 등 안정적 환경에서 꾸준히 신뢰를 쌓는 커리어가 적합합니다.','ESTJ':'조직력과 실행력이 뛰어난 유형입니다. 영업·생산관리·은행·건설 등 명확한 목표와 체계가 있는 환경에서 높은 성과를 냅니다.','ESFJ':'협조성과 커뮤니케이션 능력이 강한 유형입니다. 인사·고객서비스·보험·판매 등 대인관계가 핵심인 직종에서 활약합니다.','ISTP':'문제해결 능력과 실용적 사고가 강한 유형입니다. SE·기술직·품질관리·시공관리 등 기술적 과제를 풀어가는 직종과 맞습니다.','ISFP':'감성과 실행력을 겸비한 유형입니다. 크리에이티브·디자인·서비스업·상품기획 등 자신의 감각을 살릴 수 있는 환경이 적합합니다.','ESTP':'행동력과 현장 감각이 뛰어난 유형입니다. 영업(신규)·이벤트기획·증권·스타트업 등 빠른 판단이 요구되는 환경에서 강합니다.','ESFP':'사교성과 에너지가 높은 유형입니다. 판매·서비스·PR·엔터테인먼트 등 사람과의 접점이 많고 활기찬 환경에서 맞습니다.'};
+
+  const JA={'영업':'법인·개인영업 직종 카드에서 담당 업계별 ES 포인트를 확인하세요','SE/IT':'SE/IT 직종 카드에서 SIer·웹·인프라 중 경로를 선택하세요','기술계':'기술계 직종 카드에서 기계·생산관리·R&D 세분류를 확인하세요','기획/관리':'기획·마케팅 직종 카드에서 사무관리·기획·마케팅 경로를 확인하세요','컨설팅':'컨설팅 직종 카드에서 전략·IT컨설팅 중 지향점을 확인하세요','물류/SCM':'물류·SCM 직종 카드에서 SCM·포워더·무역 중 관심 분야를 확인하세요','판매/서비스':'판매·서비스 직종 카드에서 소매·호텔·F&B 환경 차이를 확인하세요','시공관리':'시공관리 직종 카드에서 건축·토목·설비 중 경로를 확인하세요','크리에이티브':'크리에이티브 직종 카드에서 UI/UX·광고·그래픽 세분류를 확인하세요'};
+
+  // ── HTML 조각 생성 ──
   const sC=['#3b82f6','#7c3aed','#10b981'];
-  const strH = tc.map(([n,sc],i)=>{
-    const ko=CK[n]||n;
-    const p=mx>0?sc/mx:0;
-    const lv=p>=0.75?{l:'상',c:'#059669',bg:'#ecfdf5',bc:'#a7f3d0'}:p>=0.45?{l:'중',c:'#d97706',bg:'#fffbeb',bc:'#fde68a'}:{l:'하',c:'#9ca3af',bg:'#f3f4f6',bc:'#d1d5db'};
-    const ep=eps.find(e=>e.competency.includes(n));
-    return `<div style="padding:8px 10px;border-left:3px solid ${sC[i]};background:#f8fafc;border-radius:0 6px 6px 0;margin-bottom:5px"><div style="display:flex;align-items:center;gap:6px"><span style="font-size:7.5px;font-weight:700;color:${sC[i]}">${i+1}순위</span><span style="font-size:11px;font-weight:800;color:#1e293b">${ko}</span><span style="font-size:8px;color:#94a3b8">${n}</span><span style="margin-left:auto;font-size:10px;font-weight:800;color:${lv.c};background:${lv.bg};border:1px solid ${lv.bc};padding:1px 10px;border-radius:4px">${lv.l}</span></div>${ep?`<div style="font-size:7.5px;color:#3b82f6;margin-top:4px;padding:4px 8px;background:#eff6ff;border-radius:4px">ES 활용: ${ep.esHint}</div>`:''}</div>`;
-  }).join('');
+
+  // 4축
+  const axisH=Object.entries(axA).map(([ax,v])=>{const lb=axL[ax];const s=Math.abs(v-50);const t=s>20?'강한 ':s>8?'':'중립 ';const sd=v<50?`${t}${lb.a}`:`${t}${lb.b}`;return`<div style="margin-bottom:8px"><div style="display:flex;align-items:center;gap:8px"><span style="font-weight:700;color:#334155;min-width:44px">${ax}</span><div style="flex:1;height:7px;background:#e5e7eb;border-radius:4px;overflow:hidden"><div style="height:100%;width:${v}%;background:#3b82f6;border-radius:4px"></div></div><span style="color:#64748b;min-width:100px;text-align:right">${sd}</span></div><div style="display:flex;justify-content:space-between;padding-left:52px;margin-top:2px"><span style="font-size:7px;color:#aaa">${lb.a}</span><span style="font-size:7px;color:#aaa">${lb.b}</span></div></div>`}).join('');
+
+  // MBTI
+  const mbH=state.mbti&&MBTI_C[state.mbti]?`<div style="margin-top:10px;padding:8px 12px;background:#faf5ff;border:1px solid #e9d5ff;border-radius:6px"><div style="font-weight:700;color:#7c3aed;margin-bottom:3px">MBTI 참고 · ${state.mbti}</div><div style="color:#64748b;line-height:1.7">${MBTI_C[state.mbti]}</div></div>`:'';
+
+  // 강점 TOP5
+  const strH=tc.map(([n,sc],i)=>{const ko=CK[n]||n;const desc=CD[n]||'';const p=mx>0?sc/mx:0;const lv=p>=0.75?{l:'상',c:'#059669',bg:'#ecfdf5',bc:'#a7f3d0'}:p>=0.45?{l:'중',c:'#d97706',bg:'#fffbeb',bc:'#fde68a'}:{l:'하',c:'#9ca3af',bg:'#f3f4f6',bc:'#d1d5db'};const ep=eps.find(e=>e.competency.includes(n));const isTop=i<3;return`<div style="padding:10px 14px;border-left:3px solid ${sC[i%3]};background:#f8fafc;border-radius:0 8px 8px 0;margin-bottom:6px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:3px"><span style="font-size:8px;font-weight:700;color:${sC[i%3]}">${i+1}순위</span><span style="font-size:12px;font-weight:800;color:#1e293b">${ko}</span><span style="font-size:9px;color:#94a3b8">${n}</span><span style="margin-left:auto;font-size:11px;font-weight:800;color:${lv.c};background:${lv.bg};border:1px solid ${lv.bc};padding:2px 12px;border-radius:4px">${lv.l}</span></div><div style="color:#64748b;margin-bottom:4px">${desc}</div>${ep?`<div style="color:#3b82f6;margin-top:4px;padding:6px 10px;background:#eff6ff;border-radius:5px"><b>ES 활용:</b> ${ep.esHint}</div>`:isTop?`<div style="color:#94a3b8;margin-top:4px;padding:6px 10px;background:#f8fafc;border-radius:5px">가쿠치카에서 이 강점이 드러나는 에피소드를 중심에 놓으세요</div>`:''}</div>`}).join('');
 
   // 직종
-  const jobH = topJobs.map((j,i)=>{
-    const p=JOB_PROFILES[j];
-    const core=(p?.core||[]).map(c=>CK[c]||c).join(' · ');
-    return `<div style="padding:7px 10px;border-left:3px solid ${sC[i]};background:#f8fafc;border-radius:0 6px 6px 0;margin-bottom:4px"><div style="font-size:10.5px;font-weight:800;color:#1e293b">${p?.emoji||''} ${p?.label||j}</div><div style="font-size:7.5px;color:#64748b;margin-top:2px">핵심: ${core}</div></div>`;
-  }).join('');
+  const jobH=topJobs.map((j,i)=>{const p=JOB_PROFILES[j];const core=(p?.core||[]).map(c=>CK[c]||c).join(' · ');const sub=(p?.sub||[]).map(c=>CK[c]||c).join(' · ');const act=JA[j]||'직종 라이브러리에서 상세 확인';const tc3=tc.slice(0,3);const matched=(p?.core||[]).filter(c=>tc3.some(([n])=>n===c));return`<div style="padding:12px 14px;border-left:3px solid ${sC[i]};background:#f8fafc;border-radius:0 8px 8px 0;margin-bottom:8px"><div style="font-size:13px;font-weight:800;color:#1e293b;margin-bottom:4px">${p?.emoji||''} ${p?.label||j}</div><div style="color:#64748b;margin-bottom:4px">핵심 역량: ${core}</div>${sub?`<div style="color:#94a3b8;margin-bottom:4px">보조 역량: ${sub}</div>`:''} ${matched.length>0?`<div style="color:#3b82f6;font-size:9px;margin-bottom:6px">당신의 TOP3 강점 중 ${matched.length}개가 이 직종의 핵심 역량과 일치</div>`:''}<div style="padding:6px 10px;background:#eff6ff;border-radius:5px;color:#3b82f6"><b>다음 액션:</b> ${act}</div></div>`}).join('');
+
+  // 부적합 직종
+  const unfitH=botJ.length>0?`<div style="margin-top:8px;padding:10px 14px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px"><div style="font-weight:700;color:#d97706;margin-bottom:6px">상대적으로 맞지 않을 수 있는 직종</div>${botJ.map(([j])=>{const p=JOB_PROFILES[j];return`<div style="color:#92400e;padding:3px 0">${p?.emoji||''} ${p?.label||j} — 핵심 역량 매칭도 낮음</div>`}).join('')}</div>`:'';
 
   // 에피소드
-  const epH = eps.length>0 ? eps.map(ep=>`<div style="padding:5px 8px;background:#f8fafc;border-radius:4px;margin-bottom:3px;border-left:2px solid #7c3aed"><div style="font-size:7.5px"><span style="font-weight:700;color:#7c3aed">[${ep.type}]</span> <span style="color:#334155">${ep.text}</span></div><div style="font-size:7px;color:#64748b;margin-top:2px">${ep.esHint}</div></div>`).join('') : '<div style="font-size:8px;color:#94a3b8">에피소드 미선택 — 자기분석에서 발굴 필요</div>';
+  const epH=eps.length>0?eps.map(ep=>`<div style="padding:10px 14px;background:#f8fafc;border-left:2px solid #7c3aed;border-radius:0 8px 8px 0;margin-bottom:6px"><div style="margin-bottom:4px"><span style="font-weight:700;color:#7c3aed">[${ep.type}]</span> <span style="font-weight:600;color:#334155">${ep.text}</span></div><div style="color:#3b82f6;padding:6px 10px;background:#eff6ff;border-radius:5px"><b>ES 작성 구조:</b> ${ep.esHint}</div></div>`).join(''):`<div style="padding:10px 14px;background:#f8fafc;border-radius:8px;color:#94a3b8">에피소드를 선택하지 않았습니다. 자기분석을 통해 에피소드를 발굴하는 것이 다음 과제입니다.</div>`;
 
   // 업계
-  const indH = rI.map((ind,i)=>`<div style="padding:5px 8px;background:#f8fafc;border-radius:4px;margin-bottom:3px;border-left:2px solid #3b82f6"><span style="font-size:7.5px;font-weight:700;color:#3b82f6">${i+1}.</span> <span style="font-size:9px;font-weight:700;color:#1e293b">${ind.name}</span> <span style="font-size:7px;color:#94a3b8">${ind.biz.join('·')}</span></div>`).join('');
+  const indH=rI.map((ind,i)=>{const ws=[];if(ind.warnings.includes('야근많음'))ws.push('야근 많음');if(ind.warnings.some(w=>w.includes('경쟁')))ws.push('경쟁 강함');return`<div style="padding:10px 14px;border-left:3px solid ${sC[i%3]};background:#f8fafc;border-radius:0 8px 8px 0;margin-bottom:6px"><div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><span style="font-size:9px;font-weight:700;color:${sC[i%3]}">${i+1}순위</span><span style="font-size:12px;font-weight:800;color:#1e293b">${ind.name}</span>${ws.map(w=>`<span style="font-size:8px;color:#d97706;padding:1px 6px;background:#fffbeb;border-radius:3px">${w}</span>`).join('')}</div><div style="color:#64748b;line-height:1.7;margin-bottom:6px">${ind.desc||''}</div><div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px">${ind.biz.map(b=>`<span style="font-size:8px;padding:2px 8px;border:1px solid #e2e8f0;border-radius:4px;color:#64748b">${b}</span>`).join('')}${ind.culture.slice(0,3).map(c=>`<span style="font-size:8px;padding:2px 8px;border:1px solid #e2e8f0;border-radius:4px;color:#64748b">${c}</span>`).join('')}<span style="font-size:8px;padding:2px 8px;border:1px solid #e2e8f0;border-radius:4px;color:#64748b">글로벌 ${ind.global}</span></div></div>`}).join('');
+
+  // 소거 업계
+  const elimH=elim.length>0?`<div style="margin-top:10px;padding:12px 14px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px"><div style="font-weight:700;color:#d97706;margin-bottom:8px">당신의 성향과 맞지 않을 수 있는 업계</div>${elim.map(ind=>{const rs=[];if(noFL&&(ind.global==='필수'||ind.warnings.includes('외국어필수')))rs.push('외국어 환경 부담');if(noOT&&ind.warnings.some(w=>w.includes('야근많음')))rs.push('야근/불규칙');if(noCo&&ind.warnings.some(w=>w.includes('경쟁강함')))rs.push('경쟁/숫자 평가');return`<div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid #fef3c7"><span style="font-weight:600;color:#92400e;min-width:80px">${ind.name}</span><span style="color:#d97706">${rs.join(' / ')}</span></div>`}).join('')}<div style="color:#94a3b8;margin-top:6px">위 업계는 약점 필터 응답 기반으로 소거된 업계입니다. 관심이 있다면 업계 리포트에서 직접 확인해보세요.</div></div>`:'';
 
   // 액션
-  const t1=tc[0]?CK[tc[0][0]]:'강점';
-  const actH = [
-    `<b>① 자기PR 초안:</b> ${t1}을 축으로 에피소드 정리 → 30초 안에 말할 수 있도록`,
-    `<b>② 업계 비교:</b> 추천 업계 TOP 3 리포트 읽고 비즈니스 모델 차이 메모`,
-    `<b>③ 면접 준비:</b> "왜 ${pf?.label||'이 직종'}?" 답변 초안 작성`
-  ].map(a=>`<div style="padding:4px 0;border-bottom:1px solid #f1f5f9;font-size:8px;color:#334155;line-height:1.6">${a}</div>`).join('');
+  const t1=tc[0]?CK[tc[0][0]]:'강점';const t1j=tc[0]?tc[0][0]:'';
+  const sit=state.situation||{};
+  let ctaProd='1:1 PT 프로그램';
+  if(sit.selfAnalysis==='zero')ctaProd='부트캠프 (6회 과정)';
+  else if(sit.esExp==='many')ctaProd='ES 클리닉 또는 면접 클리닉';
 
-  const mbH = state.mbti ? `<div style="margin-top:8px;padding:5px 8px;background:#faf5ff;border:1px solid #e9d5ff;border-radius:4px;font-size:7.5px;color:#7c3aed"><b>MBTI ${state.mbti}</b> — ${MBTI_S[state.mbti]||''}</div>` : '';
-
-  // ── 새 창에 PDF 렌더링 ──
-  const w = window.open('','_blank');
+  // ── 새 창 렌더링 ──
+  const w=window.open('','_blank');
   w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title> </title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-  @page { size: A4 portrait; margin: 10mm 12mm 8mm 12mm; }
-  * { margin:0; padding:0; box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-  body { font-family:'Noto Sans KR',sans-serif; color:#1e293b; font-size:9px; line-height:1.5; background:#fff; }
-  .page { max-width:720px; margin:0 auto; }
-
-  .hdr { display:flex; align-items:flex-end; justify-content:space-between; border-bottom:2.5px solid #1e293b; padding-bottom:8px; margin-bottom:14px; }
-  .hdr-logo { font-size:14px; font-weight:900; letter-spacing:2px; color:#1e293b; }
-  .hdr-sub { font-size:8px; color:#64748b; letter-spacing:1px; margin-top:2px; }
-  .hdr-date { font-size:7.5px; color:#94a3b8; text-align:right; line-height:1.6; }
-
-  .hero { margin-bottom:14px; }
-  .hero-title { font-size:24px; font-weight:900; color:#1e293b; letter-spacing:-0.5px; }
-  .hero-sub { font-size:10px; color:#64748b; margin:2px 0 8px; }
-  .tags { display:flex; gap:4px; flex-wrap:wrap; }
-  .tag { font-size:7.5px; padding:2px 10px; border-radius:100px; background:#eff6ff; color:#2563eb; border:1px solid #bfdbfe; font-weight:500; }
-
-  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:12px; }
-
-  .sec-title { font-size:8px; font-weight:700; letter-spacing:2px; color:#3b82f6; text-transform:uppercase; margin-bottom:7px; padding-bottom:4px; border-bottom:1.5px solid #dbeafe; }
-
-  .ftr { margin-top:16px; padding-top:8px; border-top:1px solid #e2e8f0; text-align:center; font-size:7px; color:#94a3b8; }
-
-  @media screen {
-    body { padding:20px; background:#f1f5f9; }
-    .page { background:#fff; padding:32px; border-radius:12px; box-shadow:0 4px 24px rgba(0,0,0,0.08); }
-    .no-print { display:flex; flex-direction:column; align-items:center; gap:8px; margin:20px auto; max-width:720px; }
-    .no-print .btn-row { display:flex; gap:10px; }
-    .no-print button { padding:10px 24px; border-radius:8px; font-size:13px; font-weight:600; cursor:pointer; font-family:inherit; border:none; }
-    .btn-print { background:#3b82f6; color:#fff; }
-    .btn-close { background:#e2e8f0; color:#475569; }
-    .no-print .hint { font-size:11px; color:#94a3b8; text-align:center; line-height:1.6; }
-  }
-  @media print { .no-print { display:none !important; } }
+@page{size:A4 portrait;margin:12mm 14mm 10mm 14mm}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:'Noto Sans KR',sans-serif;color:#334155;font-size:9.5px;line-height:1.65;background:#fff}
+.page{max-width:680px;margin:0 auto}
+.hdr{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2.5px solid #1e293b;padding-bottom:10px;margin-bottom:18px}
+.hdr-logo{font-size:15px;font-weight:900;letter-spacing:2px;color:#1e293b}
+.hdr-sub{font-size:8.5px;color:#64748b;letter-spacing:1px;margin-top:3px}
+.hdr-r{font-size:8px;color:#94a3b8;text-align:right;line-height:1.6}
+.hero{margin-bottom:16px}
+.hero h1{font-size:26px;font-weight:900;color:#1e293b;letter-spacing:-0.5px}
+.hero-sub{font-size:11px;color:#64748b;margin:3px 0 6px}
+.hero-desc{font-size:9.5px;color:#475569;line-height:1.7;margin-bottom:8px}
+.tags{display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:8px;padding:3px 10px;border-radius:100px;background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;font-weight:500}
+.sec{margin-bottom:16px;page-break-inside:avoid}
+.sec-t{font-size:9px;font-weight:700;letter-spacing:2px;color:#3b82f6;text-transform:uppercase;margin-bottom:8px;padding-bottom:5px;border-bottom:1.5px solid #dbeafe}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.ftr{margin-top:20px;padding-top:10px;border-top:1px solid #e2e8f0;text-align:center;font-size:7.5px;color:#94a3b8;line-height:1.8}
+@media screen{
+  body{padding:20px;background:#f1f5f9}
+  .page{background:#fff;padding:36px;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.08)}
+  .no-print{display:flex;flex-direction:column;align-items:center;gap:8px;margin:20px auto;max-width:680px}
+  .no-print .row{display:flex;gap:10px}
+  .no-print button{padding:10px 24px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;border:none}
+  .bp{background:#3b82f6;color:#fff}.bc{background:#e2e8f0;color:#475569}
+  .no-print .hint{font-size:11px;color:#94a3b8;text-align:center;line-height:1.7}
+}
+@media print{.no-print{display:none!important}}
 </style></head><body>
 <div class="no-print">
-  <div class="btn-row">
-    <button class="btn-print" onclick="window.print()">PDF로 저장</button>
-    <button class="btn-close" onclick="window.close()">닫기</button>
-  </div>
-  <div class="hint">인쇄 설정에서 <b>"머리글과 바닥글"</b> 체크를 해제하면<br>상단·하단의 날짜/URL 표시가 사라집니다</div>
+  <div class="row"><button class="bp" onclick="window.print()">PDF로 저장</button><button class="bc" onclick="window.close()">닫기</button></div>
+  <div class="hint">인쇄 설정에서 <b>"머리글과 바닥글"</b> 체크 해제 권장</div>
 </div>
 <div class="page">
   <div class="hdr">
     <div><div class="hdr-logo">TOKYO CAREER STUDIO</div><div class="hdr-sub">커리어 DNA 진단 리포트</div></div>
-    <div class="hdr-date">진단일: ${dateStr}<br>tokyocareerstudio.com</div>
+    <div class="hdr-r">진단일: ${ds}<br>tokyocareerstudio.com</div>
   </div>
 
   <div class="hero">
-    <div class="hero-title">${pf?.emoji||''} ${pf?.label||pJ}</div>
+    <h1>${pf?.emoji||''} ${pf?.label||pJ}</h1>
     <div class="hero-sub">${cType}</div>
+    <div class="hero-desc">${cDesc}</div>
     <div class="tags">
       ${topJobs.map((j,i)=>`<span class="tag">${i+1}순위 ${JOB_PROFILES[j]?.label||j}</span>`).join('')}
       ${state.mbti?`<span class="tag">${state.mbti}</span>`:''}
@@ -2937,40 +2949,50 @@ function savePDF() {
     </div>
   </div>
 
-  <div class="grid2">
-    <div>
-      <div class="sec-title">커리어 성향 (4축)</div>
-      ${axisH}
-      ${mbH}
-    </div>
-    <div>
-      <div class="sec-title">강점 프로파일 TOP 3</div>
-      ${strH}
-    </div>
+  <div class="sec">
+    <div class="sec-t">커리어 성향 (4축)</div>
+    ${axisH}
+    ${mbH}
   </div>
 
-  <div class="grid2">
-    <div>
-      <div class="sec-title">추천 직종</div>
-      ${jobH}
-    </div>
-    <div>
-      <div class="sec-title">에피소드 유형 & ES 가이드</div>
-      ${epH}
-    </div>
+  <div class="sec">
+    <div class="sec-t">강점 프로파일 TOP 5</div>
+    ${strH}
   </div>
 
-  <div style="margin-bottom:12px">
-    <div class="sec-title">추천 업계 TOP 5</div>
+  <div class="sec">
+    <div class="sec-t">추천 직종 & 적합 근거</div>
+    ${jobH}
+    ${unfitH}
+  </div>
+
+  <div class="sec">
+    <div class="sec-t">에피소드 유형 & ES 가이드</div>
+    ${eps.length>0?`<div style="color:#475569;margin-bottom:8px">에피소드 유형: <b style="color:#7c3aed">${[...new Set(eps.map(e=>e.type))].join(' · ')}</b></div>`:''}
+    ${epH}
+  </div>
+
+  <div class="sec">
+    <div class="sec-t">추천 업계 TOP 5 & ES 포인트</div>
     ${indH}
+    ${elimH}
   </div>
 
-  <div>
-    <div class="sec-title">NEXT ACTION</div>
-    ${actH}
+  <div class="sec">
+    <div class="sec-t">NEXT ACTION</div>
+    <div style="padding:4px 0;border-bottom:1px solid #f1f5f9;line-height:1.8"><b style="color:#3b82f6">① 자기PR 초안:</b> ${t1}(${t1j})을 축으로 에피소드를 정리 — "나는 왜 이 강점이 자연스러운가?"를 30초 안에 말할 수 있어야 합니다</div>
+    <div style="padding:4px 0;border-bottom:1px solid #f1f5f9;line-height:1.8"><b style="color:#3b82f6">② 업계 비교:</b> 추천 업계 TOP 3의 리포트를 읽고 비즈니스 모델·수익구조·인재상 차이를 노트에 정리하세요</div>
+    <div style="padding:4px 0;border-bottom:1px solid #f1f5f9;line-height:1.8"><b style="color:#3b82f6">③ 면접 준비:</b> "왜 ${pf?.label||'이 직종'}인가?" 질문에 이 결과를 근거로 답변 초안을 작성하세요</div>
+    <div style="margin-top:10px;padding:12px 14px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;line-height:1.8">
+      <div style="font-weight:700;color:#1e40af;margin-bottom:4px">더 깊이 들어가고 싶다면? → ${ctaProd}</div>
+      <div style="color:#3b82f6">이 리포트는 자기분석의 출발점입니다. 실제 컨설팅에서는 8가지 가치관 검증, 에피소드 깊이 파기, ES 실전 작성까지 함께 진행합니다.</div>
+    </div>
   </div>
 
-  <div class="ftr">Tokyo Career Studio | tokyocareerstudio.com | 1:1 컨설팅 문의: latpeed.com/stores/Gvk82</div>
+  <div class="ftr">
+    Tokyo Career Studio | tokyocareerstudio.com<br>
+    1:1 컨설팅 문의: latpeed.com/stores/Gvk82 | 쿠폰 코드: TCS2025
+  </div>
 </div>
 </body></html>`);
   w.document.close();
