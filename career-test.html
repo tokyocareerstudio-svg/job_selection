@@ -1050,7 +1050,7 @@
           <div style="font-size:11px;color:#44445a;letter-spacing:1px;text-transform:uppercase;">업계 데이터</div>
         </div>
         <div style="text-align:center;">
-          <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:#eeeef5;line-height:1;margin-bottom:6px;">12<span style="font-size:16px;color:#76768a;">분</span></div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:#eeeef5;line-height:1;margin-bottom:6px;">15<span style="font-size:16px;color:#76768a;">분</span></div>
           <div style="font-size:11px;color:#44445a;letter-spacing:1px;text-transform:uppercase;">소요 시간</div>
         </div>
       </div>
@@ -1060,9 +1060,9 @@
         <span style="color:#44445a;font-size:12px;">→</span>
         <span style="font-size:11px;padding:6px 14px;border-radius:100px;background:#111118;border:1px solid #252530;color:#b8b8cc;font-weight:500;">강점·적성</span>
         <span style="color:#44445a;font-size:12px;">→</span>
-        <span style="font-size:11px;padding:6px 14px;border-radius:100px;background:#111118;border:1px solid #252530;color:#b8b8cc;font-weight:500;">에피소드</span>
+        <span style="font-size:11px;padding:6px 14px;border-radius:100px;background:#111118;border:1px solid #252530;color:#b8b8cc;font-weight:500;">상황 판단</span>
         <span style="color:#44445a;font-size:12px;">→</span>
-        <span style="font-size:11px;padding:6px 14px;border-radius:100px;background:#111118;border:1px solid #252530;color:#b8b8cc;font-weight:500;">약점 필터</span>
+        <span style="font-size:11px;padding:6px 14px;border-radius:100px;background:#111118;border:1px solid #252530;color:#b8b8cc;font-weight:500;">에피소드</span>
         <span style="color:#44445a;font-size:12px;">→</span>
         <span style="font-size:11px;padding:6px 14px;border-radius:100px;background:#111118;border:1px solid #252530;color:#b8b8cc;font-weight:500;">맞춤 리포트</span>
       </div>
@@ -1071,7 +1071,7 @@
         진단 시작하기
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <p style="font-size:12px;color:#44445a;margin-top:14px;">무료 · 저장 없음 · 약 12분</p>
+      <p style="font-size:12px;color:#44445a;margin-top:14px;">무료 · 저장 없음 · 약 15분</p>
     </div>
   </div>
 
@@ -1081,7 +1081,7 @@
       <div class="logo">TCS Career Compass</div>
       <div class="progress-wrap">
         <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
-        <div class="progress-label" id="progress-label">STEP 1 / 6</div>
+        <div class="progress-label" id="progress-label">STEP 1 / 7</div>
       </div>
     </div>
     <div class="question-screen">
@@ -1171,8 +1171,8 @@
     <div class="header">
       <div class="logo">TCS Career Compass</div>
       <div class="progress-wrap">
-        <div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div>
-        <div class="progress-label">STEP 2 / 6</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:28%"></div></div>
+        <div class="progress-label">STEP 2 / 7</div>
       </div>
     </div>
     <div class="question-screen">
@@ -1208,8 +1208,8 @@
     <div class="header">
       <div class="logo">TCS Career Compass</div>
       <div class="progress-wrap">
-        <div class="progress-bar"><div class="progress-fill" style="width:50%"></div></div>
-        <div class="progress-label">STEP 3 / 6</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:43%"></div></div>
+        <div class="progress-label">STEP 3 / 7</div>
       </div>
     </div>
     <div class="question-screen">
@@ -1240,18 +1240,37 @@
     </div>
   </div>
 
-  <!-- ══ STEP 4 에피소드 유형 스크린 ══ -->
-  <div id="screen-episode" class="screen">
+  <!-- ══ STEP 4 상황 판단 스크린 ══ -->
+  <div id="screen-scenario" class="screen">
     <div class="header">
       <div class="logo">TCS Career Compass</div>
       <div class="progress-wrap">
-        <div class="progress-bar"><div class="progress-fill" style="width:67%"></div></div>
-        <div class="progress-label">STEP 4 / 6</div>
+        <div class="progress-bar"><div class="progress-fill" id="scenario-fill" style="width:57%"></div></div>
+        <div class="progress-label">STEP 4 / 7 · <span id="scenario-progress">1 / 8</span></div>
       </div>
     </div>
     <div class="question-screen">
       <div class="container">
-        <p class="section-label">STEP 4 — 에피소드 유형</p>
+        <p class="section-label">STEP 4 — 상황 판단</p>
+        <h2 class="section-title" style="margin-bottom:6px;">실제 상황에서<br>당신은 어떻게 행동하나요?</h2>
+        <p class="section-desc" style="margin-bottom:24px;">정답은 없습니다. 자연스럽게 떠오르는 행동을 선택해주세요.<br>당신도 모르는 숨은 강점을 발견할 수 있습니다.</p>
+        <div id="scenario-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ STEP 5 에피소드 유형 스크린 ══ -->
+  <div id="screen-episode" class="screen">
+    <div class="header">
+      <div class="logo">TCS Career Compass</div>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" style="width:71%"></div></div>
+        <div class="progress-label">STEP 5 / 7</div>
+      </div>
+    </div>
+    <div class="question-screen">
+      <div class="container">
+        <p class="section-label">STEP 5 — 에피소드 유형</p>
         <h2 class="section-title">아래 상황 중<br>비슷한 경험이 있는 것을 골라주세요</h2>
         <p class="section-desc">ES(엔트리시트)와 면접에서 활용할 수 있는 에피소드의 방향성을 파악합니다.<br>정확히 같지 않아도 비슷한 경험이면 선택해주세요.</p>
         <div class="selection-limit">
@@ -1269,7 +1288,7 @@
     <div class="nav-bar">
       <div class="nav-info">에피소드 선택</div>
       <div class="nav-actions">
-        <button class="btn btn-ghost" onclick="goScreen('screen-q4')">← 이전</button>
+        <button class="btn btn-ghost" onclick="goScreen('screen-scenario'); buildScenario();">← 이전</button>
         <button class="btn btn-primary" onclick="submitEpisode()">다음 →</button>
       </div>
     </div>
@@ -1280,13 +1299,13 @@
     <div class="header">
       <div class="logo">TCS Career Compass</div>
       <div class="progress-wrap">
-        <div class="progress-bar"><div class="progress-fill" style="width:83%"></div></div>
-        <div class="progress-label">STEP 5 / 6</div>
+        <div class="progress-bar"><div class="progress-fill" style="width:86%"></div></div>
+        <div class="progress-label">STEP 6 / 7</div>
       </div>
     </div>
     <div class="question-screen">
       <div class="container">
-        <p class="section-label">STEP 5 — 약점 필터</p>
+        <p class="section-label">STEP 6 — 약점 필터</p>
         <h2 class="section-title">솔직히 힘들거나<br>오래 하면 지치는 것은?</h2>
         <p class="section-desc">진짜 치명적인 약점만 선택하세요.<br>약점을 아는 것이 더 잘 맞는 커리어로 가는 지름길입니다.</p>
 
@@ -1343,12 +1362,12 @@
       <div class="logo">TCS Career Compass</div>
       <div class="progress-wrap">
         <div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div>
-        <div class="progress-label">STEP 6 / 6</div>
+        <div class="progress-label">STEP 7 / 7</div>
       </div>
     </div>
     <div class="question-screen">
       <div class="container">
-        <p class="section-label">STEP 6 — 현재 상황</p>
+        <p class="section-label">STEP 7 — 현재 상황</p>
         <h2 class="section-title">마지막으로, 현재 취준 상태를<br>간단히 알려주세요</h2>
         <p class="section-desc">결과 리포트에서 당신의 상황에 맞는 맞춤 가이드를 제공하기 위한 질문입니다.</p>
 
@@ -1571,6 +1590,184 @@ const EPISODE_ITEMS = [
   { id:'ep_12', text:'여러 일을 동시에 진행하면서 일정을 관리한 경험', type:'관리형', esHint:'기획·관리 지망 ES에서 "복수 과제→우선순위→일정 관리→완수" 구조', competency:['自己管理能力','調整力','冷静さ'] }
 ];
 
+// ── 후카보리(深掘り) 질문 세트 ──
+const FUKABORI = {
+  '論理的思考力': [
+    '論理的に考えて結論を出した具体的な場面を教えてください',
+    'データや根拠をもとに判断した経験で、最も難しかったことは？',
+    '論理的に考えたつもりが、結果的に間違っていた経験はありますか？そこから何を学びましたか？'
+  ],
+  '洞察力': [
+    '周囲が見落としていた問題にいち早く気づいた経験を教えてください',
+    '物事の本質を見抜くために、普段どのような工夫をしていますか？',
+    '直感で「おかしい」と思ったことが実際に問題だった経験はありますか？'
+  ],
+  '創造力': [
+    '既存のやり方に疑問を持ち、新しい方法を提案した経験を教えてください',
+    'アイデアを出す際に意識していることはありますか？',
+    '自分のアイデアが採用されなかった経験はありますか？その時どうしましたか？'
+  ],
+  '企画力': [
+    'ゼロから企画を立てて実行した経験を教えてください',
+    '企画の中で最も苦労した部分は？どう乗り越えましたか？',
+    '計画通りにいかなかった時、どのように修正しましたか？'
+  ],
+  '冷静さ': [
+    '予想外のトラブルが起きた時、どのように対処しましたか？',
+    'プレッシャーのかかる場面で冷静さを保つために意識していることは？',
+    '焦りやすい場面で、あえて冷静に判断して成功した経験はありますか？'
+  ],
+  '積極性': [
+    '自分から率先して行動した経験を教えてください',
+    '「やらなくてもいいこと」を自ら進んでやった経験はありますか？',
+    '積極的に動いた結果、失敗した経験はありますか？そこから何を学びましたか？'
+  ],
+  '粘り強さ': [
+    '途中で諦めそうになったが、最後までやり遂げた経験を教えてください',
+    '目標達成までに最も長くかかった経験は？モチベーションをどう維持しましたか？',
+    '粘り強く取り組んだが結果が出なかった経験はありますか？どう受け止めましたか？'
+  ],
+  '実行力': [
+    '計画を立ててすぐに行動に移した経験を教えてください',
+    '実行する上で最も障害になったことは？どう克服しましたか？',
+    'スピードと質のバランスをどのように取っていますか？'
+  ],
+  '自己管理能力': [
+    '複数のタスクを同時に進めた経験で、どのように優先順位をつけましたか？',
+    'スケジュール管理で失敗した経験はありますか？そこから何を改善しましたか？',
+    '自分のコンディション管理で意識していることはありますか？'
+  ],
+  '状況把握力': [
+    '周囲の状況を素早く把握して行動を変えた経験を教えてください',
+    'チームの雰囲気が悪くなった時、どのように察知しましたか？',
+    '状況を読み間違えた経験はありますか？そこから何を学びましたか？'
+  ],
+  '発信力': [
+    '自分の意見を周囲に伝えて、物事を動かした経験を教えてください',
+    '意見が対立した場面で、相手を説得した方法は？',
+    '伝えたいことがうまく伝わらなかった経験はありますか？どう改善しましたか？'
+  ],
+  '傾聴力': [
+    '相手の話を丁寧に聞くことで、信頼関係が生まれた経験を教えてください',
+    '相手の言葉の裏にある本当の気持ちに気づいた経験はありますか？',
+    '聞き役に徹することで、チームにどのような影響がありましたか？'
+  ],
+  '共感力': [
+    '相手の立場に立って行動したことで、良い結果が生まれた経験を教えてください',
+    '共感することと同意することの違いを、どのように考えていますか？',
+    '自分とは全く異なる価値観の人と接した時、どのように対応しましたか？'
+  ],
+  '牽引力': [
+    'チームを率いて成果を出した経験を教えてください',
+    'メンバーのモチベーションが下がった時、どのように対処しましたか？',
+    'リーダーとして最も難しい判断をした経験は？'
+  ],
+  '調整力': [
+    '意見が対立するメンバー間で、合意点を見つけた経験を教えてください',
+    '調整がうまくいかなかった経験はありますか？何が原因でしたか？',
+    '利害関係が複雑な場面で、どのような優先順位で調整しましたか？'
+  ],
+  '柔軟性': [
+    '予定外の変更に柔軟に対応した経験を教えてください',
+    '自分の考えを変えた経験はありますか？何がきっかけでしたか？',
+    '「こだわるべきこと」と「柔軟に変えるべきこと」をどう判断していますか？'
+  ],
+  '協調性': [
+    'チームの中で自分の役割をどのように見つけていますか？',
+    'チームメンバーと意見が合わなかった時、どのように対応しましたか？',
+    '協調性を発揮した結果、チームの成果が上がった具体例を教えてください'
+  ],
+  '責任感': [
+    '困難な状況でも最後まで責任を果たした経験を教えてください',
+    '自分のミスが原因で問題が起きた時、どのように対処しましたか？',
+    '責任感が強すぎて、抱え込みすぎた経験はありますか？どう改善しましたか？'
+  ]
+};
+
+// ── 시나리오형 질문 (行動→役量 역추적) ──
+const SCENARIO_ITEMS = [
+  {
+    id: 'sc_1',
+    situation: '조별과제 발표가 3일 남았는데, 팀원 한 명이 맡은 파트를 거의 하지 않았다.',
+    choices: [
+      { text: '그 팀원에게 직접 사정을 물어보고 할 수 있는 역할을 다시 정한다', competency: ['傾聴力','調整力'] },
+      { text: '나머지 멤버끼리 역할을 재분배해서 일단 완성한다', competency: ['実行力','責任感'] },
+      { text: '팀 전체 미팅을 소집해서 진행 규칙을 다시 정한다', competency: ['牽引力','企画力'] },
+      { text: '교수에게 상황을 알리고 공정한 평가를 요청한다', competency: ['発信力','冷静さ'] }
+    ]
+  },
+  {
+    id: 'sc_2',
+    situation: '아르바이트에서 손님이 화를 내며 불만을 이야기하고 있다. 본인의 잘못은 아니다.',
+    choices: [
+      { text: '일단 끝까지 이야기를 듣고, 상대가 진정된 뒤 대응책을 제안한다', competency: ['傾聴力','共感力'] },
+      { text: '사실관계를 정리해서 침착하게 설명한다', competency: ['論理的思考力','冷静さ'] },
+      { text: '바로 점장에게 보고하고 함께 대응한다', competency: ['状況把握力','責任感'] },
+      { text: '사과 후 대안(할인·교환 등)을 즉시 제시한다', competency: ['実行力','積極性'] }
+    ]
+  },
+  {
+    id: 'sc_3',
+    situation: '동아리에서 새로운 이벤트를 기획하게 됐다. 예산은 한정되어 있고 시간은 2주뿐이다.',
+    choices: [
+      { text: '비슷한 이벤트 사례를 조사하고 데이터를 기반으로 계획을 세운다', competency: ['論理的思考力','洞察力'] },
+      { text: '기존에 없었던 새로운 콘셉트를 제안한다', competency: ['創造力','企画力'] },
+      { text: '멤버별 강점을 파악해서 역할을 배분하고 일정표를 만든다', competency: ['調整力','自己管理能力'] },
+      { text: '직접 나서서 협찬을 구하고 준비를 진행한다', competency: ['積極性','実行力'] }
+    ]
+  },
+  {
+    id: 'sc_4',
+    situation: '수업에서 그룹 토론 중, 두 팀원이 완전히 반대되는 의견을 주장하며 분위기가 경직됐다.',
+    choices: [
+      { text: '양쪽 의견의 공통점을 찾아서 절충안을 제시한다', competency: ['調整力','柔軟性'] },
+      { text: '각자 근거를 정리해서 발표하게 한 뒤 투표로 결정하자고 제안한다', competency: ['牽引力','企画力'] },
+      { text: '먼저 양쪽 이야기를 충분히 듣고 핵심 쟁점을 정리해준다', competency: ['傾聴力','洞察力'] },
+      { text: '분위기를 환기시킨 뒤 주제를 한 단계 좁혀서 다시 시작한다', competency: ['状況把握力','共感力'] }
+    ]
+  },
+  {
+    id: 'sc_5',
+    situation: '인턴 중 상사에게 "이 업무 프로세스를 개선해봐"라는 과제를 받았다. 기한은 1주일.',
+    choices: [
+      { text: '현재 프로세스를 단계별로 분석하고 병목을 찾아 개선안을 정리한다', competency: ['論理的思考力','洞察力'] },
+      { text: '관련 부서 담당자에게 직접 이야기를 듣고 현장의 불편함을 파악한다', competency: ['傾聴力','共感力'] },
+      { text: '다른 회사의 사례를 조사해서 벤치마킹 제안서를 만든다', competency: ['企画力','積極性'] },
+      { text: '작은 부분부터 바로 실행해보고, 효과를 측정한 뒤 보고한다', competency: ['実行力','粘り強さ'] }
+    ]
+  },
+  {
+    id: 'sc_6',
+    situation: '장기간 준비한 자격증 시험에서 불합격했다. 다음 시험까지 6개월이다.',
+    choices: [
+      { text: '불합격 원인을 분석하고 약점 중심으로 공부 계획을 다시 세운다', competency: ['論理的思考力','自己管理能力'] },
+      { text: '합격한 사람들에게 공부법을 물어보고 방법을 바꿔본다', competency: ['傾聴力','柔軟性'] },
+      { text: '좌절감을 인정하되, 다음 날부터 바로 공부를 재개한다', competency: ['粘り強さ','実行力'] },
+      { text: '이 자격증이 정말 필요한지 다시 생각해보고, 필요하다면 각오를 새로 한다', competency: ['洞察力','冷静さ'] }
+    ]
+  },
+  {
+    id: 'sc_7',
+    situation: '학교 축제 실행위원인데, 당일 비가 와서 야외 프로그램을 전면 변경해야 한다.',
+    choices: [
+      { text: '즉시 대안 장소를 확보하고 프로그램 순서를 재편성한다', competency: ['実行力','状況把握力'] },
+      { text: '멤버들을 모아 역할을 재배분하고 각자 움직이게 한다', competency: ['牽引力','調整力'] },
+      { text: '침착하게 가능한 옵션을 정리하고 최선의 방안을 선택한다', competency: ['冷静さ','論理的思考力'] },
+      { text: 'SNS로 참가자에게 변경 사항을 빠르게 안내한다', competency: ['発信力','積極性'] }
+    ]
+  },
+  {
+    id: 'sc_8',
+    situation: '유학 중 현지 학생 4명과 팀을 이뤘는데, 문화 차이로 작업 방식이 완전히 다르다.',
+    choices: [
+      { text: '각자의 작업 스타일을 존중하면서 공통 규칙만 최소한으로 정한다', competency: ['柔軟性','協調性'] },
+      { text: '먼저 각자가 편한 방식을 들어보고, 절충안을 만든다', competency: ['傾聴力','調整力'] },
+      { text: '효율적인 진행을 위해 일정표와 역할표를 만들어 공유한다', competency: ['企画力','自己管理能力'] },
+      { text: '적극적으로 자기 의견을 말하면서 팀의 방향을 리드한다', competency: ['発信力','牽引力'] }
+    ]
+  }
+];
+
 const Q5A_ITEMS = [
   { id:'q5a_1', text:'숫자나 데이터 다루는 게 너무 힘들다', eliminates:['SE','기술계','기획(데이터)'] },
   { id:'q5a_2', text:'모르는 사람에게 먼저 말 거는 게 부담스럽다', eliminates:['영업(신규)','판매/서비스','MR'] },
@@ -1682,6 +1879,7 @@ let state = {
   axisScores: {},
   q3: [],
   q4: [],
+  scenario: [],
   episode: [],
   q5a: [],
   q5b: [],
@@ -1712,7 +1910,7 @@ function startTest() {
 }
 
 function resetTest() {
-  state = { profile:[], mbti:'', axisScores:{}, q3:[], q4:[], episode:[], situation:{}, q5a:[], q5b:[], selectedIndustries:[], result:null };
+  state = { profile:[], mbti:'', axisScores:{}, q3:[], q4:[], scenario:[], episode:[], situation:{}, q5a:[], q5b:[], selectedIndustries:[], result:null };
 }
 
 // ══════════════════════════════════════
@@ -1868,7 +2066,7 @@ function updateDots(qKey, count, max) {
 
 function skipQ(qKey) {
   if (qKey === 'q3') { state.q3 = []; goScreen('screen-q4'); buildQ4(); }
-  else if (qKey === 'q4') { state.q4 = []; buildEpisode(); goScreen('screen-episode'); }
+  else if (qKey === 'q4') { state.q4 = []; buildScenario(); goScreen('screen-scenario'); }
   else if (qKey === 'q5') { state.q5a = []; state.q5b = []; buildSituation(); goScreen('screen-situation'); }
 }
 
@@ -1893,6 +2091,61 @@ function buildQ4() {
 
 function submitQ4() {
   document.getElementById('q4-warning').classList.remove('show');
+  buildScenario();
+  goScreen('screen-scenario');
+}
+
+// ══════════════════════════════════════
+// 시나리오형 질문 (STEP 4)
+// ══════════════════════════════════════
+let scenarioIdx = 0;
+
+function buildScenario() {
+  scenarioIdx = 0;
+  state.scenario = [];
+  renderScenarioQ(0);
+}
+
+function renderScenarioQ(idx) {
+  if (idx >= SCENARIO_ITEMS.length) { submitScenario(); return; }
+  scenarioIdx = idx;
+  const sc = SCENARIO_ITEMS[idx];
+  const container = document.getElementById('scenario-body');
+  container.innerHTML = `
+    <div style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:20px;">
+      <div style="font-size:10px;font-weight:700;color:var(--accent);letter-spacing:1px;margin-bottom:8px;">상황 ${idx+1} / ${SCENARIO_ITEMS.length}</div>
+      <div style="font-size:14px;font-weight:600;color:var(--text);line-height:1.8;">${sc.situation}</div>
+    </div>
+    <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;">당신이라면 어떻게 하겠습니까?</div>
+    <div style="display:flex;flex-direction:column;gap:8px;">
+      ${sc.choices.map((ch, ci) => `
+        <div class="choice-card" id="sc-${ci}" onclick="selectScenario(${idx}, ${ci})" style="padding:14px 18px;">
+          <div class="choice-text" style="font-size:13px;line-height:1.7;">${ch.text}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  document.getElementById('scenario-progress').textContent = `${idx+1} / ${SCENARIO_ITEMS.length}`;
+  // progress bar
+  const pct = Math.round(((idx) / SCENARIO_ITEMS.length) * 100);
+  const fill = document.getElementById('scenario-fill');
+  if (fill) fill.style.width = pct + '%';
+}
+
+function selectScenario(qIdx, choiceIdx) {
+  const sc = SCENARIO_ITEMS[qIdx];
+  const chosen = sc.choices[choiceIdx];
+  state.scenario.push({ questionId: sc.id, choiceIdx, competency: chosen.competency });
+  // 선택 시각 피드백
+  document.querySelectorAll('#scenario-body .choice-card').forEach((c,i) => {
+    if (i === choiceIdx) { c.classList.add('selected'); }
+    else { c.style.opacity = '0.4'; c.style.pointerEvents = 'none'; }
+  });
+  // 0.4초 후 다음 질문
+  setTimeout(() => renderScenarioQ(qIdx + 1), 400);
+}
+
+function submitScenario() {
   buildEpisode();
   goScreen('screen-episode');
 }
@@ -2011,18 +2264,24 @@ function submitSituation() {
 function computeCompetencyScores() {
   const scores = {};
 
-  // Q3 점수 누적 (강점 선택)
+  // Q3 점수 누적 (강점 선택 — 자기 인식)
   state.q3.forEach(id => {
     const item = Q3_ITEMS.find(i => i.id === id);
     if (!item) return;
     item.competency.forEach(c => { scores[c] = (scores[c] || 0) + 1; });
   });
 
-  // Q4 점수 누적 (적성 선택)
+  // Q4 점수 누적 (적성 선택 — 자기 인식)
   state.q4.forEach(id => {
     const item = Q4_ITEMS.find(i => i.id === id);
     if (!item) return;
     item.competency.forEach(c => { scores[c] = (scores[c] || 0) + 1; });
+  });
+
+  // 시나리오 역량 반영 (가중치 1.5 — 행동 기반이므로 자기 인식보다 높게)
+  state.scenario.forEach(entry => {
+    if (!entry.competency) return;
+    entry.competency.forEach(c => { scores[c] = (scores[c] || 0) + 1.5; });
   });
 
   // 에피소드 역량 보조 반영 (가중치 0.5)
@@ -2032,6 +2291,32 @@ function computeCompetencyScores() {
     item.competency.forEach(c => { scores[c] = (scores[c] || 0) + 0.5; });
   });
 
+  return scores;
+}
+
+// 자기 인식 전용 점수 (교차 검증용)
+function computeSelfAwarenessScores() {
+  const scores = {};
+  state.q3.forEach(id => {
+    const item = Q3_ITEMS.find(i => i.id === id);
+    if (!item) return;
+    item.competency.forEach(c => { scores[c] = (scores[c] || 0) + 1; });
+  });
+  state.q4.forEach(id => {
+    const item = Q4_ITEMS.find(i => i.id === id);
+    if (!item) return;
+    item.competency.forEach(c => { scores[c] = (scores[c] || 0) + 1; });
+  });
+  return scores;
+}
+
+// 행동 기반 전용 점수 (교차 검증용)
+function computeBehaviorScores() {
+  const scores = {};
+  state.scenario.forEach(entry => {
+    if (!entry.competency) return;
+    entry.competency.forEach(c => { scores[c] = (scores[c] || 0) + 1; });
+  });
   return scores;
 }
 
@@ -2510,6 +2795,16 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
   const maxCompScore = topComps[0]?.[1] || 1;
   const top3Comps = topComps.slice(0,3);
 
+  // ── 교차 검증 데이터 계산 ──
+  const selfScores = computeSelfAwarenessScores();
+  const behaviorScores = computeBehaviorScores();
+  const selfTop3 = Object.entries(selfScores).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([n])=>n);
+  const behTop3 = Object.entries(behaviorScores).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([n])=>n);
+  const matchedComps = selfTop3.filter(c => behTop3.includes(c));
+  const selfOnly = selfTop3.filter(c => !behTop3.includes(c));
+  const behOnly = behTop3.filter(c => !selfTop3.includes(c));
+  const hasCrossGap = state.scenario.length > 0 && (selfOnly.length > 0 || behOnly.length > 0);
+
   const strengthCardsHTML = top3Comps.map(([name, score], ci) => {
     const info = COMP_INFO[name] || { ko:name, desc:'' };
     const lv = compLevel(score, maxCompScore);
@@ -2524,6 +2819,13 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
       : `<div style="margin-top:8px;padding:8px 12px;background:var(--surface);border-radius:6px;font-size:11px;color:var(--text-muted);line-height:1.7;">
           ES 활용법: 가쿠치카에서 이 강점이 자연스럽게 드러나는 에피소드를 중심에 놓으세요.
         </div>`;
+    // 후카보리 질문
+    const fk = FUKABORI[name] || [];
+    const fukaboriHTML = fk.length > 0 ? `
+      <div style="margin-top:10px;padding:10px 12px;background:rgba(245,158,11,0.04);border:1px solid rgba(245,158,11,0.12);border-radius:8px;">
+        <div style="font-size:10px;font-weight:700;color:#f59e0b;margin-bottom:6px;">面接官の深掘り予想質問</div>
+        ${fk.map((q,qi) => `<div style="font-size:11px;color:var(--text-dim);line-height:1.8;padding:3px 0;${qi<fk.length-1?'border-bottom:1px solid rgba(245,158,11,0.08);':''}">Q${qi+1}. ${q}</div>`).join('')}
+      </div>` : '';
     return `
       <div style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-left:3px solid ${rc};border-radius:10px;margin-bottom:10px;">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
@@ -2534,6 +2836,7 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
         </div>
         <div style="font-size:12px;color:var(--text-dim);line-height:1.7;margin-bottom:4px;">${info.desc}</div>
         ${esHint}
+        ${fukaboriHTML}
       </div>`;
   }).join('');
 
@@ -2699,6 +3002,40 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
       </div>
       ${strengthCardsHTML}
     </div>
+
+    <!-- ★ 교차 검증: 자기 인식 vs 행동 패턴 -->
+    ${state.scenario.length > 0 ? `
+    <div class="result-section">
+      <div class="result-section-title">교차 검증 · 자기 인식 vs 행동 패턴</div>
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;padding:8px 12px;background:var(--surface);border-radius:6px;line-height:1.7;">
+        STEP 2~3(자기 선택)과 STEP 4(상황 판단)의 결과를 비교합니다. 두 결과가 일치할수록 강점에 대한 자기 인식이 정확합니다.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;">
+        <div style="padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;">
+          <div style="font-size:10px;font-weight:700;color:var(--accent);margin-bottom:8px;">🪞 자기 인식 TOP 3</div>
+          ${selfTop3.map((c,i) => `<div style="font-size:12px;color:var(--text-sub);padding:4px 0;${i<2?'border-bottom:1px solid var(--border);':''}">${i+1}. ${(COMP_INFO[c]||{ko:c}).ko} <span style="color:var(--text-muted);font-size:10px;">${c}</span></div>`).join('')}
+        </div>
+        <div style="padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;">
+          <div style="font-size:10px;font-weight:700;color:#a29bfe;margin-bottom:8px;">🎯 행동 패턴 TOP 3</div>
+          ${behTop3.map((c,i) => `<div style="font-size:12px;color:var(--text-sub);padding:4px 0;${i<2?'border-bottom:1px solid var(--border);':''}">${i+1}. ${(COMP_INFO[c]||{ko:c}).ko} <span style="color:var(--text-muted);font-size:10px;">${c}</span></div>`).join('')}
+        </div>
+      </div>
+      ${hasCrossGap ? `
+        <div style="padding:14px 16px;background:rgba(162,155,254,0.06);border:1px solid rgba(162,155,254,0.18);border-radius:10px;">
+          <div style="font-size:12px;font-weight:700;color:#a29bfe;margin-bottom:6px;">💡 분석 결과</div>
+          ${matchedComps.length > 0 ? `<div style="font-size:12px;color:var(--text-dim);line-height:1.8;margin-bottom:6px;"><span style="color:var(--success);font-weight:600;">일치하는 강점:</span> ${matchedComps.map(c=>(COMP_INFO[c]||{ko:c}).ko).join(', ')} — 자기 인식과 실제 행동이 일치합니다. 이 강점에 확신을 가지세요.</div>` : ''}
+          ${selfOnly.length > 0 ? `<div style="font-size:12px;color:var(--text-dim);line-height:1.8;margin-bottom:6px;"><span style="color:#f59e0b;font-weight:600;">자기 인식에만 있는 강점:</span> ${selfOnly.map(c=>(COMP_INFO[c]||{ko:c}).ko).join(', ')} — 스스로 강하다고 생각하지만 행동에서는 덜 나타납니다. 에피소드를 다시 점검해보세요.</div>` : ''}
+          ${behOnly.length > 0 ? `<div style="font-size:12px;color:var(--text-dim);line-height:1.8;"><span style="color:var(--accent);font-weight:600;">행동에서 발견된 숨은 강점:</span> ${behOnly.map(c=>(COMP_INFO[c]||{ko:c}).ko).join(', ')} — 자각하지 못했지만 실제 행동에서 자연스럽게 나타나는 강점입니다. ES에서 이 강점을 적극 활용하세요.</div>` : ''}
+          <div style="margin-top:10px;padding:8px 12px;background:rgba(162,155,254,0.04);border-radius:6px;font-size:11px;color:var(--text-muted);line-height:1.7;">이 차이가 무엇을 의미하는지, 1:1 PT에서 에피소드와 함께 깊이 파헤칠 수 있습니다.</div>
+        </div>
+      ` : `
+        <div style="padding:14px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:10px;">
+          <div style="font-size:12px;color:var(--success);font-weight:600;margin-bottom:4px;">✅ 자기 인식과 행동 패턴이 일치합니다</div>
+          <div style="font-size:12px;color:var(--text-dim);line-height:1.8;">당신이 생각하는 강점이 실제 행동에서도 동일하게 나타납니다. 이 강점을 ES의 축으로 삼으세요.</div>
+        </div>
+      `}
+    </div>
+    ` : ''}
 
     <!-- ★ SEC 3: 직종 적합도 -->
     <div class="result-section">
