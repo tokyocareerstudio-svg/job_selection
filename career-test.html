@@ -1889,14 +1889,20 @@ function buildEpisode() {
   const grid = document.getElementById('ep-grid');
   if (!grid) { console.error('ep-grid 요소를 찾을 수 없음'); return; }
   const html = EPISODE_ITEMS.map((item, i) => `
-    <div class="choice-card" id="ep-${i}" onclick="toggleChoice('ep', ${i}, 3)">
+    <div class="choice-card" id="ep-${i}" style="border:2px solid red;" onclick="console.log('ep 클릭:', ${i}); toggleChoice('ep', ${i}, 3)">
       <div class="choice-num">${item.type}</div>
       <div class="choice-text">${item.text}</div>
     </div>
   `).join('');
-  console.log('생성된 카드 수:', EPISODE_ITEMS.length, '첫 카드 HTML:', html.substring(0, 200));
   grid.innerHTML = html;
-  console.log('ep-grid innerHTML 설정 완료, 자식 수:', grid.children.length);
+  console.log('ep-grid 렌더링 완료, 자식 수:', grid.children.length);
+  // 직접 이벤트 리스너 추가 — onclick이 안 먹히는 경우 대비
+  grid.querySelectorAll('.choice-card').forEach((card, i) => {
+    card.addEventListener('click', function(e) {
+      console.log('addEventListener 클릭 감지:', i);
+      toggleChoice('ep', i, 3);
+    });
+  });
 }
 
 function skipEpisode() {
