@@ -1826,8 +1826,8 @@ function buildQ3() {
 }
 
 function toggleChoice(qKey, idx, maxSelect) {
-  const items = qKey === 'q3' ? Q3_ITEMS : qKey === 'q4' ? Q4_ITEMS : null;
-  const stateKey = qKey;
+  const items = qKey === 'q3' ? Q3_ITEMS : qKey === 'q4' ? Q4_ITEMS : qKey === 'ep' ? EPISODE_ITEMS : null;
+  const stateKey = qKey === 'ep' ? 'episode' : qKey;
   const card = document.getElementById(`${qKey}-${idx}`);
   const itemId = items[idx].id;
   const arr = state[stateKey];
@@ -1886,37 +1886,12 @@ function submitQ4() {
 // ══════════════════════════════════════
 function buildEpisode() {
   const grid = document.getElementById('ep-grid');
-  if (!grid) { console.error('ep-grid not found'); return; }
   grid.innerHTML = EPISODE_ITEMS.map((item, i) => `
-    <div class="choice-card" data-ep-idx="${i}">
+    <div class="choice-card" id="ep-${i}" onclick="toggleChoice('ep', ${i}, 3)">
       <div class="choice-num">${item.type}</div>
       <div class="choice-text">${item.text}</div>
     </div>
   `).join('');
-  // 이벤트 위임
-  grid.onclick = function(e) {
-    const card = e.target.closest('.choice-card');
-    if (!card) return;
-    const idx = parseInt(card.dataset.epIdx);
-    if (isNaN(idx)) return;
-    toggleEpisode(idx, card);
-  };
-}
-
-function toggleEpisode(idx, el) {
-  const maxSelect = 3;
-  const item = EPISODE_ITEMS[idx];
-  if (!el) el = document.querySelector(`[data-ep-idx="${idx}"]`);
-  if (!el || !item) return;
-  if (el.classList.contains('selected')) {
-    el.classList.remove('selected');
-    state.episode = state.episode.filter(id => id !== item.id);
-  } else {
-    if (state.episode.length >= maxSelect) return;
-    el.classList.add('selected');
-    state.episode.push(item.id);
-  }
-  updateDots('ep', state.episode.length, maxSelect);
 }
 
 function skipEpisode() {
