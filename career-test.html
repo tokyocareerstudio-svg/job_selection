@@ -1684,6 +1684,50 @@ const FUKABORI = {
   ]
 };
 
+// ── ES 빈출 실수 (강점별) ──
+const ES_MISTAKES = {
+  '論理的思考力': { mistake:'「論理的に考えることが得意です」と書くだけで、具体的にどう論理的だったか示さないパターン', fix:'「AとBの情報を比較し、○○という結論を導いた」のように、思考プロセスを見せる' },
+  '洞察力': { mistake:'「本質を見抜く力がある」と自己評価するだけで、実際に見抜いた結果が書かれていないパターン', fix:'「周囲がXと思っていた状況で、Yに気づき、結果Zが起きた」という具体エピソードで示す' },
+  '創造力': { mistake:'「アイデアマンです」で終わるパターン。アイデアの中身や実現プロセスが見えない', fix:'「既存のAに対してBという発想を加え、Cという形で実現した」と具体化する' },
+  '企画力': { mistake:'「企画を立てました」で終わり、企画の独自性や成果が不明なパターン', fix:'「課題Xに対してY案を立案し、Z人を巻き込んで実行、結果○○」まで書く' },
+  '冷静さ': { mistake:'「冷静に対処しました」だけで、何がどう冷静だったか伝わらないパターン', fix:'「パニックになりそうな状況で、まず○○を確認し、△△の順に対応した」とプロセスを示す' },
+  '積極性': { mistake:'「積極的に取り組みました」が口癖になっているが、受け身の行動を積極と言い換えているだけのパターン', fix:'「誰も手を挙げなかった中で自ら○○を提案し、実行した」と自発性を明示する' },
+  '粘り強さ': { mistake:'「諦めずに頑張りました」で精神論に終わるパターン。何をどう工夫したかが見えない', fix:'「X回失敗した後、原因をYと特定し、Zに変更して最終的に達成した」と改善プロセスを示す' },
+  '実行力': { mistake:'「すぐに行動しました」だけで、行動の質や結果が伝わらないパターン', fix:'「○日以内にAを完了し、その結果Bという成果につながった」とスピード×質×成果を示す' },
+  '自己管理能力': { mistake:'「スケジュール管理が得意です」とだけ書くパターン。誰でも書けてしまう', fix:'「A・B・Cの3つを同時並行し、優先度を○○基準で判断して全て期限内に完了」と具体化する' },
+  '状況把握力': { mistake:'「周りをよく見ています」で終わるパターン。観察しただけで行動が見えない', fix:'「○○の変化に気づき、即座にAの対応を取った結果、Bを防いだ」と気づき→行動→結果をつなげる' },
+  '発信力': { mistake:'「自分の意見をしっかり伝えました」だけで、相手がどう動いたかが書かれていないパターン', fix:'「○○を提案し、根拠としてXを示した結果、チームの方針がAからBに変わった」と影響まで書く' },
+  '傾聴力': { mistake:'「相手の話をよく聞きました」で終わるパターン。聞いただけでは評価されない', fix:'「相手の話からXという本音に気づき、それを踏まえてYの提案をした結果Zになった」と聞く→行動→結果をつなげる' },
+  '共感力': { mistake:'「相手の気持ちに寄り添いました」だけで具体性がないパターン', fix:'「Aさんが○○で困っていることに気づき、Bという形でサポートした結果、Cになった」と行動化する' },
+  '牽引力': { mistake:'「リーダーとしてチームをまとめました」で終わるパターン。何が難しかったかが見えない', fix:'「メンバーのモチベーションが下がった時にXを実施し、結果Yという成果を出した」と困難→打開を書く' },
+  '調整力': { mistake:'「みんなの意見をまとめました」で終わるパターン。調整プロセスが見えない', fix:'「AさんはX、BさんはYを主張する中、共通点Zを見出し、○○案にまとめた」とプロセスを書く' },
+  '柔軟性': { mistake:'「柔軟に対応しました」だけで、何をどう変えたかが不明なパターン', fix:'「当初Aの方針だったが、状況Bを受けてCに切り替え、結果Dになった」と変更判断を書く' },
+  '協調性': { mistake:'「チームワークを大切にしています」だけで個人の貢献が見えないパターン', fix:'「チームの中で自分はXの役割を担い、Yの場面で特にZの貢献をした」と自分の役割を明示する' },
+  '責任感': { mistake:'「責任感があります」と自己宣言するだけのパターン', fix:'「○○の問題が起きた時、自分のミスを認めた上でAの対策を取り、最終的にBまで持っていった」と行動で示す' }
+};
+
+// ── 業界×強み マッチング根拠 (1行) ──
+const INDUSTRY_STRENGTH_MATCH = {
+  '傾聴力': { industries:['service_hr','finance_life_ins','service_hotel','service_edu'], reason:'고객의 진짜 니즈를 파악하는 것이 비즈니스의 핵심인 업계' },
+  '論理的思考力': { industries:['it_sier','it_general_consul','it_thinktank','it_software'], reason:'복잡한 과제를 구조화하고 해결책을 설계하는 것이 핵심인 업계' },
+  '共感力': { industries:['service_hr','service_hotel','service_travel','service_edu'], reason:'상대방의 상황과 감정을 이해하고 맞춤 대응하는 것이 가치인 업계' },
+  '実行力': { industries:['infra_construction','service_logistics','maker_auto','service_food'], reason:'빠른 판단과 확실한 실행이 현장에서 직접 성과로 이어지는 업계' },
+  '牽引力': { industries:['it_strategy_consul','infra_general_trading','media_ad','it_general_consul'], reason:'프로젝트를 주도하고 팀을 이끄는 리더십이 핵심 역량인 업계' },
+  '調整力': { industries:['service_logistics','infra_general_trading','infra_specialist_trading','maker_electric'], reason:'다양한 이해관계자 사이에서 합의점을 찾는 것이 업무의 본질인 업계' },
+  '創造力': { industries:['media_ad','media_game','it_web','maker_cosmetics'], reason:'새로운 아이디어와 콘텐츠를 만들어내는 것이 경쟁력의 원천인 업계' },
+  '企画力': { industries:['media_ad','maker_consumer','it_web','maker_cosmetics'], reason:'시장 분석에서 상품 기획까지 기획력이 곧 매출을 좌우하는 업계' },
+  '粘り強さ': { industries:['maker_pharma','infra_construction','it_sier','maker_material'], reason:'장기 프로젝트를 끝까지 완수하는 인내력이 필수인 업계' },
+  '自己管理能力': { industries:['service_logistics','it_sier','finance_megabank','maker_auto'], reason:'복수 프로젝트를 동시에 관리하는 멀티태스킹이 일상인 업계' },
+  '洞察力': { industries:['it_strategy_consul','it_thinktank','finance_securities','it_general_consul'], reason:'데이터와 현상에서 본질을 읽어내는 분석력이 핵심인 업계' },
+  '発信力': { industries:['media_ad','it_strategy_consul','media_tv','media_publish'], reason:'아이디어를 설득력 있게 전달하는 프레젠 능력이 핵심 무기인 업계' },
+  '状況把握力': { industries:['service_retail','service_food','service_hotel','finance_nonlife_ins'], reason:'현장 상황을 빠르게 읽고 즉각 대응하는 것이 서비스 품질을 좌우하는 업계' },
+  '冷静さ': { industries:['finance_securities','finance_megabank','infra_electric_power','infra_aviation'], reason:'긴장감 있는 환경에서 냉정한 판단이 리스크 관리의 핵심인 업계' },
+  '積極性': { industries:['service_hr','finance_securities','media_ad','infra_general_trading'], reason:'자발적으로 기회를 만들고 도전하는 자세가 성과에 직결되는 업계' },
+  '柔軟性': { industries:['it_web','service_travel','maker_apparel','it_xtech'], reason:'변화가 빠르고 예측 불가능한 환경에서 유연하게 적응하는 것이 중요한 업계' },
+  '協調性': { industries:['maker_auto','maker_electric','infra_construction','it_sier'], reason:'대규모 팀 프로젝트에서 협업 능력이 성과의 전제조건인 업계' },
+  '責任感': { industries:['infra_electric_power','infra_gas','finance_megabank','infra_railway'], reason:'사회 인프라를 지탱하는 만큼 높은 책임감이 요구되는 업계' }
+};
+
 // ── 시나리오형 질문 (行動→役量 역추적) ──
 const SCENARIO_ITEMS = [
   {
@@ -2826,6 +2870,14 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
         <div style="font-size:10px;font-weight:700;color:#f59e0b;margin-bottom:6px;">面接官の深掘り予想質問</div>
         ${fk.map((q,qi) => `<div style="font-size:11px;color:var(--text-dim);line-height:1.8;padding:3px 0;${qi<fk.length-1?'border-bottom:1px solid rgba(245,158,11,0.08);':''}">Q${qi+1}. ${q}</div>`).join('')}
       </div>` : '';
+    // ES 빈출 실수
+    const esMistake = ES_MISTAKES[name];
+    const mistakeHTML = esMistake ? `
+      <div style="margin-top:10px;padding:10px 12px;background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.12);border-radius:8px;">
+        <div style="font-size:10px;font-weight:700;color:#ef4444;margin-bottom:6px;">ES 빈출 실수</div>
+        <div style="font-size:11px;color:var(--text-dim);line-height:1.8;margin-bottom:6px;">❌ ${esMistake.mistake}</div>
+        <div style="font-size:11px;color:var(--success);line-height:1.8;">✅ ${esMistake.fix}</div>
+      </div>` : '';
     return `
       <div style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-left:3px solid ${rc};border-radius:10px;margin-bottom:10px;">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
@@ -2836,6 +2888,7 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
         </div>
         <div style="font-size:12px;color:var(--text-dim);line-height:1.7;margin-bottom:4px;">${info.desc}</div>
         ${esHint}
+        ${mistakeHTML}
         ${fukaboriHTML}
       </div>`;
   }).join('');
@@ -2912,6 +2965,14 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
     const warns = [];
     if (ind.warnings.includes('야근많음')) warns.push('야근 많음');
     if (ind.warnings.some(w=>w.includes('경쟁'))) warns.push('경쟁 강함');
+    // 강점-업계 연결 근거
+    const top1Name = top3Comps[0]?.[0];
+    const strengthMatch = INDUSTRY_STRENGTH_MATCH[top1Name];
+    const hasMatch = strengthMatch && strengthMatch.industries.includes(ind.id);
+    const matchHTML = hasMatch ? `
+        <div style="font-size:11px;color:var(--accent);padding:8px 12px;background:var(--accent-soft);border-radius:6px;margin-bottom:8px;">
+          💡 당신의 <strong>${(COMP_INFO[top1Name]||{ko:top1Name}).ko}</strong> 강점과의 연결: ${strengthMatch.reason}
+        </div>` : '';
     return `
       <div style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-left:3px solid ${rc};border-radius:10px;margin-bottom:10px;">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
@@ -2920,6 +2981,7 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
           ${warns.map(w=>`<span style="font-size:10px;color:#f59e0b;padding:2px 6px;background:rgba(245,158,11,0.08);border-radius:4px;">${w}</span>`).join('')}
         </div>
         <div style="font-size:12px;color:var(--text-dim);line-height:1.7;margin-bottom:10px;">${ind.desc||''}</div>
+        ${matchHTML}
         <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;">
           ${ind.biz.map(b=>`<span style="font-size:10px;padding:2px 8px;border:1px solid var(--border);border-radius:4px;color:var(--text-muted);">${b}</span>`).join('')}
           ${ind.culture.slice(0,3).map(c=>`<span style="font-size:10px;padding:2px 8px;border:1px solid var(--border);border-radius:4px;color:var(--text-muted);">${c}</span>`).join('')}
