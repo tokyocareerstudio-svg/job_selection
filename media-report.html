@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>(function(){if(sessionStorage.getItem('tcs_auth')!=='ok'){sessionStorage.setItem('tcs_redirect',location.pathname.split('/').pop()||'industry-index.html');location.replace('index.html')}})();</script>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TV방송·출판 업계 리포트 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+  :root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--accent:#e84393;--accent-soft:rgba(232,67,147,0.08);--accent-border:rgba(232,67,147,0.22);--warn:#f59e0b;--warn-soft:rgba(245,158,11,0.06);--warn-border:rgba(245,158,11,0.18);--sub1:#6c5ce7;--sub1-soft:rgba(108,92,231,0.08);--sub1-border:rgba(108,92,231,0.2);--sub2:#00cec9;--sub2-soft:rgba(0,206,201,0.08);--sub2-border:rgba(0,206,201,0.2)}
+  *{margin:0;padding:0;box-sizing:border-box}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased}.container{max-width:760px;margin:0 auto;padding:0 24px 100px}
+  .hero{padding:64px 24px 48px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(232,67,147,0.06) 0%,transparent 70%);pointer-events:none}.hero-inner{position:relative;max-width:760px;margin:0 auto}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-border);padding:4px 12px;border-radius:12px;margin-bottom:20px;text-transform:uppercase}.hero h1{font-size:30px;font-weight:900;line-height:1.3;margin-bottom:10px}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:20px;max-width:560px}.hero-tags{display:flex;flex-wrap:wrap;gap:6px}.hero-tag{font-size:11px;padding:4px 12px;border-radius:100px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent-border);font-weight:500}.hero-tag.s1{background:var(--sub1-soft);color:var(--sub1);border-color:var(--sub1-border)}.hero-tag.s2{background:var(--sub2-soft);color:var(--sub2);border-color:var(--sub2-border)}
+  .hl{color:var(--accent);font-weight:600}.hl-s1{color:var(--sub1);font-weight:600}.hl-s2{color:var(--sub2);font-weight:600}.hl-warn{color:var(--warn);font-weight:600}
+  .section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0}.section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}.section-nav-inner::-webkit-scrollbar{display:none}.nav-btn{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap}.nav-btn:hover,.nav-btn.active{color:var(--accent);background:var(--accent-soft)}
+  .section{padding:44px 0;border-bottom:1px solid rgba(255,255,255,0.03)}.section:last-child{border-bottom:none}.section-num{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--accent);opacity:0.7;margin-bottom:6px;text-transform:uppercase}.section-title{font-size:20px;font-weight:800;margin-bottom:4px}.section-title-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px}.section p:last-child{margin-bottom:0}.section h3{font-size:14px;font-weight:700;color:var(--text-sub);margin:28px 0 12px;padding-left:10px;border-left:2px solid var(--accent)}.section h3.s1{border-left-color:var(--sub1)}.section h3.s2{border-left-color:var(--sub2)}
+  .info-box{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0}.info-box-accent{background:var(--accent-soft);border-color:var(--accent-border);border-left:3px solid var(--accent)}.info-box-warn{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn)}.info-box-s1{background:var(--sub1-soft);border-color:var(--sub1-border);border-left:3px solid var(--sub1)}.info-box-s2{background:var(--sub2-soft);border-color:var(--sub2-border);border-left:3px solid var(--sub2)}.info-box p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0}.box-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:6px;text-transform:uppercase}.box-label-s1{color:var(--sub1)}.box-label-s2{color:var(--sub2)}.box-label-warn{color:var(--warn)}
+  .table-wrap{overflow-x:auto;margin:16px 0}table{width:100%;border-collapse:collapse;font-size:12px}th{background:var(--surface-2);color:var(--text-dim);font-weight:600;padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);font-size:11px}td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-sub);font-size:12px;line-height:1.7}
+  .keyword-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.keyword-card{padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px}.keyword-card-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px}.keyword-card-jp{font-family:'Noto Sans JP';font-size:10px;color:var(--text-muted);margin-bottom:8px}.keyword-card p{font-size:11px;color:var(--text-dim);line-height:1.7;margin-bottom:0}
+  .company-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}.company-card{padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px}.company-card-name{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}.company-card-jp{font-family:'Noto Sans JP';font-size:10px;color:var(--text-muted);margin-bottom:6px}.company-card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}.company-card-tag{font-size:9px;padding:2px 8px;border-radius:100px;border:1px solid var(--border);color:var(--text-muted)}.company-card p{font-size:11px;color:var(--text-dim);line-height:1.7;margin-bottom:0}
+  .es-pattern{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:12px 0}.es-pattern-label{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--accent);margin-bottom:8px;text-transform:uppercase}.es-pattern p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0}
+  .footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8}.footer .brand{font-weight:700;color:var(--text-dim)}
+  @media(max-width:640px){.keyword-grid,.company-grid{grid-template-columns:1fr}.hero h1{font-size:24px}.section-title{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-inner">
+<div class="hero-label">업계 리포트 Vol.30</div>
+<h1>TV방송·출판 업계 완전 정리</h1>
+<p class="hero-sub">닛테레·후지TV·코단샤·슈에이샤 — 콘텐츠의 힘으로 시대를 만드는 미디어 업계.<br/>동영상 배신·IP 비즈니스·디지털 전환으로 재편되는 업계를 한 페이지에.</p>
+<div class="hero-tags">
+<span class="hero-tag">BtoC·BtoB 양축</span>
+<span class="hero-tag s1">채용 극소수·최고 경쟁률</span>
+<span class="hero-tag s2">IP 비즈니스 확대</span>
+<span class="hero-tag">크리에이티브 성향</span>
+</div>
+</div></div>
+
+<div class="section-nav"><div class="section-nav-inner">
+<button class="nav-btn active" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})">전체상</button>
+<button class="nav-btn" onclick="document.getElementById('s2').scrollIntoView({behavior:'smooth'})">트렌드</button>
+<button class="nav-btn" onclick="document.getElementById('s3').scrollIntoView({behavior:'smooth'})">직종</button>
+<button class="nav-btn" onclick="document.getElementById('s4').scrollIntoView({behavior:'smooth'})">자기분석</button>
+<button class="nav-btn" onclick="document.getElementById('s5').scrollIntoView({behavior:'smooth'})">기업비교</button>
+<button class="nav-btn" onclick="document.getElementById('s6').scrollIntoView({behavior:'smooth'})">ES대책</button>
+<button class="nav-btn" onclick="document.getElementById('s7').scrollIntoView({behavior:'smooth'})">면접대책</button>
+</div></div>
+
+<div class="container">
+
+<div class="section" id="s1">
+<div class="section-num">SECTION 01</div>
+<div class="section-title">업계 전체상</div>
+<div class="section-title-jp">業界全体像 — テレビ·出版のビジネスモデル</div>
+
+<div class="info-box info-box-accent">
+<div class="box-label">한 줄 정의</div>
+<p><span class="hl">콘텐츠(영상·활자·만화)를 기획·제작·유통하는 업계. TV 방송은 약 2.3조 엔, 출판은 약 1.6조 엔 규모.</span> 지상파 TV는 광고 수입 감소가 구조적 과제이지만, 배신(配信: 동영상 스트리밍)·IP 비즈니스(캐릭터·만화·영화화)로 수익원을 다변화 중이다. 출판사는 종이 잡지·서적의 시장 축소를 디지털(전자서적·웹툰)과 IP 전개로 돌파하고 있다.</p>
+<p>두 업계 모두 <span class="hl">"콘텐츠의 힘"이 기업 가치의 원천</span>이며, 기획력·발상력·트렌드 감도가 요구된다. 채용 인원이 극히 적고 경쟁률이 일본에서 가장 높은 업계 중 하나이다.</p>
+</div>
+
+<h3>TV 방송·출판 업태 비교</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>업태</th><th>특징</th><th>대표 기업</th><th>취준생 접근성</th></tr></thead>
+<tbody>
+<tr><td>키 스테이션(지상파)</td><td>자사 제작+편성. 광고 모델+배신. 채용 20~40명</td><td>닛테레, 후지TV, TBS, TV아사히, TV도쿄</td><td>★★★★★ (최고 난도)</td></tr>
+<tr><td>준키국·지방국</td><td>지역 밀착. 뉴스·지역 정보가 핵심</td><td>요미우리TV, MBS, CBCテレビ</td><td>★★★★☆</td></tr>
+<tr><td>대형 출판사</td><td>잡지+서적+만화+디지털. IP 비즈니스 핵심</td><td>코단샤, 슈에이샤, 쇼가쿠칸</td><td>★★★★★ (채용 10~20명)</td></tr>
+<tr><td>중견 출판사</td><td>특화 분야(비즈니스·학술·여성지)</td><td>닛게이BP, 다카라지마샤, KADOKAWA</td><td>★★★★☆</td></tr>
+<tr><td>동영상 배신·프로덕션</td><td>자사 배신 서비스, 제작 회사</td><td>U-NEXT, TVer, AOI TYO HD</td><td>★★★☆☆</td></tr>
+</tbody>
+</table></div>
+
+<div class="info-box info-box-warn">
+<div class="box-label box-label-warn">TV·출판 업계 입사 전 알아야 할 현실</div>
+<p>① <span class="hl-warn">채용 인원이 극도로 적다</span>. 키 스테이션은 연간 20~40명, 대형 출판사는 10~20명 수준. 경쟁률 100:1 이상이 보통이며, ES·필기·면접 모두 최고 수준의 준비가 필요하다.</p>
+<p>② <span class="hl-warn">야근·불규칙 근무가 일상</span>이다. TV 방송은 프로그램 제작·생방송·편집으로 심야·주말 근무가 빈번하며, 출판도 잡지 입고(入稿) 직전에는 철야가 일반적이다.</p>
+<p>③ <span class="hl-warn">TV는 광고 매출이 장기 감소 추세</span>. 디지털 광고에 밀리면서 구조 전환이 급무. 반면 배신(배신)·IP·이벤트 사업으로의 다변화가 진행 중이다.</p>
+<p>④ <span class="hl-warn">출판은 종이 시장 축소지만 디지털은 성장</span>. 전자서적(특히 만화)이 종이를 넘어서 전체 시장의 50%+를 차지하게 됐다. 만화 IP의 영화화·애니메이션화·머천다이징이 새로운 수익원.</p>
+</div>
+
+<h3 class="s1">미디어 업계의 밸류체인</h3>
+<div class="info-box info-box-s1">
+<div class="box-label box-label-s1">TV 방송</div>
+<p>기획(프로듀서) → 제작(디렉터·AD) → 편집·MA → 편성 → 방송·배신 → 광고 영업(스폰서 획득) → IP 전개(DVD·이벤트·굿즈)</p>
+</div>
+<div class="info-box info-box-s2">
+<div class="box-label box-label-s2">출판</div>
+<p>기획(편집자) → 작가·만화가와 콘텐츠 제작 → 편집·교정 → 인쇄·전자화 → 유통(서점·EC·전자서적 플랫폼) → IP 전개(영화화·애니화·머천다이징)</p>
+</div>
+</div>
+
+<div class="section" id="s2">
+<div class="section-num">SECTION 02</div>
+<div class="section-title">면접관이 체크하는 트렌드 3선</div>
+<div class="section-title-jp">面接官がチェックするトレンド</div>
+
+<h3>① 동영상 배신(OTT)과 콘텐츠 전쟁</h3>
+<p><span class="hl">Netflix·Amazon Prime·Disney+와의 경쟁 속에서 일본 TV국도 자사 배신 서비스를 강화</span> 중이다. 닛테레의 Hulu(일본), 후지TV의 FOD, 민방 공동의 TVer가 대표적. "지상파 × 배신"의 시너지를 어떻게 만들 것인가가 면접의 핵심 테마.</p>
+<div class="info-box"><p>핵심 수치: TVer의 월간 이용자 수는 3,500만+(2024). 일본 동영상 배신 시장은 약 6,000억 엔. Netflix 일본 회원 수 약 800만. 지상파의 "실시간 시청률" 지표에서 "총 도달(리치)" 지표로 업계의 평가 기준 자체가 변화 중.</p></div>
+
+<h3 class="s1">② IP(지적재산) 비즈니스의 폭발</h3>
+<p>ONE PIECE·귀멸의 칼날·SPY×FAMILY 등 <span class="hl-s1">만화·애니메이션 IP의 글로벌 전개가 일본 미디어의 최대 성장 엔진</span>이다. 코단샤는 만화 앱 "매거진 포켓"으로 디지털 매출을 확대하고, 슈에이샤는 "소년점프+" 앱으로 글로벌 독자를 확보 중. IP의 영화화·게임화·머천다이징·테마파크 전개까지 포함하면 하나의 IP가 수천억 엔의 가치를 만든다.</p>
+<div class="info-box info-box-s1"><p>핵심 수치: 일본 애니메이션 산업 시장은 약 2.9조 엔(2023, 해외 포함). 소년점프+ 해외 월간 이용자 수 1,500만+. 크런치롤(소니 산하) 유료 회원 1,300만+. "일본 콘텐츠 IP"는 반도체와 함께 일본의 최대 수출 자산으로 부상 중.</p></div>
+
+<h3 class="s2">③ 디지털 전환과 새로운 수익 모델</h3>
+<p>출판사의 <span class="hl-s2">전자서적 매출이 종이를 넘어서며</span>, 비즈니스 모델이 근본적으로 변화 중이다. 구독형(서브스크), 웹툰 플랫폼, 작가 직접 과금(note 등) 등 새로운 유통 채널이 등장. TV도 광고 모델에서 유료 배신·이벤트·커머스로 수익 다변화를 추진 중이다.</p>
+<div class="info-box info-box-s2"><p>전자서적 시장 규모: 약 6,600억 엔(2024). 전체 출판 시장의 약 50%를 돌파. 특히 만화의 전자화 비율이 80%+로 압도적. 종이 서적은 감소하지만 전자+IP 전개를 포함하면 출판사의 총 매출은 오히려 증가하는 기업도 있다(코단샤 등).</p></div>
+</div>
+
+<div class="section" id="s3">
+<div class="section-num">SECTION 03</div>
+<div class="section-title">이 업계에서 활약하는 직종</div>
+<div class="section-title-jp">テレビ·出版業界で活躍する職種</div>
+
+<h3>TV 프로듀서·디렉터</h3>
+<p>프로그램의 <span class="hl">기획·예산 관리·출연자 섭외(프로듀서), 현장 연출·편집 지시(디렉터)</span>를 담당한다. 입사 후 AD(아시스턴트 디렉터)로 시작해 현장 경험을 쌓는 것이 일반적.</p>
+<div class="info-box"><p>커리어 패스: AD(2~3년, 잡무·현장 보조) → 디렉터(연출) → 프로듀서(기획·경영). AD 시절은 체력적으로 가장 힘든 시기이며, 여기를 버틸 수 있는가가 면접에서 암묵적으로 평가된다.</p></div>
+
+<h3 class="s1">편집자 (출판)</h3>
+<p>작가·만화가와 함께 <span class="hl-s1">콘텐츠를 기획·제작하는 출판 업계의 꽃</span>. 만화 편집자는 작가의 스토리를 함께 만들고, 잡지 편집자는 특집 기획·인터뷰·레이아웃을 총괄한다. 문학 편집자는 작가 발굴에서 교정·출판까지.</p>
+<div class="info-box info-box-s1"><p>대형 출판사 편집자 채용은 연간 10~20명. 코단샤는 필기시험(작문·시사·교양)이 극도로 어려운 것으로 유명. "이 잡지·이 만화를 어떻게 발전시킬 것인가"라는 구체적 기획 제안이 면접에서 필수.</p></div>
+
+<h3 class="s2">영업·광고 영업</h3>
+<p>TV국의 <span class="hl-s2">스폰서 획득(광고 영업), 출판사의 광고 페이지 판매, 배신 서비스의 법인 제안</span> 등을 담당한다. 제작 부문에 비해 경쟁률이 상대적으로 낮으며, 수자 감각·대인 관계 능력이 핵심.</p>
+<div class="info-box info-box-s2"><p>TV국 영업은 광고 대리점(덴쓰·하쿠호도)과의 관계가 핵심. 출판사 영업은 서점 영업(신간 진열 제안)과 광고 영업이 있으며, 디지털 광고 영업 수요도 급증 중.</p></div>
+
+<h3>디지털·배신 사업</h3>
+<p>동영상 배신 플랫폼 운영, 웹 콘텐츠 기획, SNS 마케팅, 데이터 분석 등을 담당한다. TV국·출판사 모두 디지털 부문을 급속히 확대 중이며, IT/디지털 인재 수요가 높다.</p>
+<div class="info-box"><p>TVer·Hulu(닛테레)·FOD(후지) 등의 배신 사업 부문, 출판사의 전자서적·웹매거진 부문에서 PM·마케팅·데이터 분석 포지션이 증가 중. "미디어에 관심 있는 IT 인재"는 희소.</p></div>
+</div>
+
+<div class="section" id="s4">
+<div class="section-num">SECTION 04</div>
+<div class="section-title">TV방송·출판 × 자기분석 키워드</div>
+<div class="section-title-jp">自己分析キーワードとの接続</div>
+
+<div class="keyword-grid">
+<div class="keyword-card"><div class="keyword-card-title">기획력·발상력</div><div class="keyword-card-jp">企画力·発想力</div><p>"이런 프로그램(잡지 특집)을 만들고 싶다"를 구체적으로 제안할 수 있는가. 아이디어 노트를 가지고 다니는 습관이 있으면 어필.</p></div>
+<div class="keyword-card"><div class="keyword-card-title">호기심·정보감도</div><div class="keyword-card-jp">好奇心·情報感度</div><p>다양한 분야에 관심이 있고, 트렌드를 빠르게 캐치하는 능력. "최근 본 콘텐츠 중 인상 깊었던 것"을 항상 준비.</p></div>
+<div class="keyword-card"><div class="keyword-card-title">체력·스트레스 내성</div><div class="keyword-card-jp">体力·ストレス耐性</div><p>야근·철야·불규칙 스케줄에 버틸 수 있는 체력. 체육회계·장기간 무언가를 지속한 경험이 어필.</p></div>
+<div class="keyword-card"><div class="keyword-card-title">커뮤니케이션 능력</div><div class="keyword-card-jp">コミュニケーション力</div><p>작가·출연자·스태프·광고주 등 다양한 사람과 소통하는 능력. "상대의 매력을 끌어내는" 커뮤니케이션.</p></div>
+<div class="keyword-card"><div class="keyword-card-title">끈기·집념</div><div class="keyword-card-jp">粘り強さ·執念</div><p>좋은 콘텐츠를 만들기 위해 타협하지 않는 자세. "한 가지에 깊이 파고든" 경험.</p></div>
+<div class="keyword-card"><div class="keyword-card-title">리더십·추진력</div><div class="keyword-card-jp">リーダーシップ·推進力</div><p>프로젝트를 이끌고 사람을 움직이는 능력. 이벤트 기획·동아리 운영 등의 경험.</p></div>
+<div class="keyword-card"><div class="keyword-card-title">콘텐츠 소비량</div><div class="keyword-card-jp">コンテンツ消費量</div><p>TV·만화·영화·음악을 얼마나 넓고 깊게 소비하고 있는가. "소비자"에서 "제작자" 시점으로 전환할 수 있는가.</p></div>
+<div class="keyword-card"><div class="keyword-card-title">디지털 감각</div><div class="keyword-card-jp">デジタル感覚</div><p>SNS 운영·동영상 편집·데이터 분석 경험. 디지털 전환 중인 업계에서 점점 중요해지는 역량.</p></div>
+</div>
+</div>
+
+<div class="section" id="s5">
+<div class="section-num">SECTION 05</div>
+<div class="section-title">기업 비교 & 리스트</div>
+<div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+
+<div class="company-grid">
+<div class="company-card"><div class="company-card-name">닛테레 (닛폰TV)</div><div class="company-card-jp">日本テレビ放送網</div><div class="company-card-tags"><span class="company-card-tag">시청률 1위</span><span class="company-card-tag">Hulu 일본</span><span class="company-card-tag">고연봉</span></div><p>키 스테이션 시청률 1위. Hulu 일본 운영. 배신·이벤트 사업 적극 전개. 평균 연봉 1,400만 엔+.</p></div>
+<div class="company-card"><div class="company-card-name">후지TV</div><div class="company-card-jp">株式会社フジテレビジョン</div><div class="company-card-tags"><span class="company-card-tag">바라에티 강자</span><span class="company-card-tag">FOD</span><span class="company-card-tag">오다이바</span></div><p>바라에티·드라마 제작에 강점. FOD(배신), 이벤트(오다이바 모험왕) 등 다각화. 엔터테인먼트 성향 강한 사풍.</p></div>
+<div class="company-card"><div class="company-card-name">코단샤</div><div class="company-card-jp">株式会社講談社</div><div class="company-card-tags"><span class="company-card-tag">만화(매거진)</span><span class="company-card-tag">IP 비즈니스</span><span class="company-card-tag">디지털 전환</span></div><p>소년매거진·모닝·FRIDAY 등. 만화 앱(매거진 포켓) + 해외 IP 전개 적극적. 디지털 매출이 종이를 넘어섬.</p></div>
+<div class="company-card"><div class="company-card-name">슈에이샤</div><div class="company-card-jp">株式会社集英社</div><div class="company-card-tags"><span class="company-card-tag">소년점프</span><span class="company-card-tag">ONE PIECE</span><span class="company-card-tag">글로벌 IP</span></div><p>소년점프·논노·MORE 등. ONE PIECE·귀멸의 칼날 등 글로벌 IP 보유. 소년점프+ 앱으로 해외 독자 급증.</p></div>
+<div class="company-card"><div class="company-card-name">KADOKAWA</div><div class="company-card-jp">株式会社KADOKAWA</div><div class="company-card-tags"><span class="company-card-tag">출판+영상+게임</span><span class="company-card-tag">종합 IP</span><span class="company-card-tag">니코동</span></div><p>라이트노벨·만화·영화·게임·동영상까지 종합 IP 기업. 니코니코동화 운영. 미디어믹스 전략의 선구자.</p></div>
+<div class="company-card"><div class="company-card-name">TV도쿄</div><div class="company-card-jp">株式会社テレビ東京</div><div class="company-card-tags"><span class="company-card-tag">애니메이션</span><span class="company-card-tag">독자 콘텐츠</span><span class="company-card-tag">소규모</span></div><p>포켓몬스터·나루토 등 애니메이션 IP와 독자적 경제 프로그램(WBS)이 강점. 소규모이지만 개성이 강한 방송국.</p></div>
+</div>
+
+<h3>TV·출판 기업 선택 축</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>축</th><th>선택지 A</th><th>선택지 B</th></tr></thead>
+<tbody>
+<tr><td>제작(기획·연출) vs 비즈니스(영업·경영)</td><td>AD·디렉터·편집자</td><td>광고 영업·배신 사업·IP 라이선스</td></tr>
+<tr><td>TV 방송 vs 출판</td><td>닛테레·후지·TBS</td><td>코단샤·슈에이샤·KADOKAWA</td></tr>
+<tr><td>전통 미디어 vs 디지털 미디어</td><td>키 스테이션·대형 출판사</td><td>TVer·U-NEXT·웹미디어</td></tr>
+</tbody>
+</table></div>
+</div>
+
+<div class="section" id="s6">
+<div class="section-num">SECTION 06</div>
+<div class="section-title">ES 대책</div>
+<div class="section-title-jp">合格パターン·落とし穴</div>
+
+<h3>빈출 질문</h3>
+<p>TV·출판 ES에서는 <span class="hl">"만들고 싶은 프로그램(잡지 특집)을 구체적으로 기획해주세요"</span>라는 기획 제안형 질문이 특징적이다. 일반 기업의 ES와 형식 자체가 다른 경우가 많다.</p>
+
+<div class="es-pattern"><div class="es-pattern-label">합격 패턴 ① — 기획 제안형 (TV)</div>
+<p>"'한국인 유학생이 본 일본의 의외한 매력'이라는 테마로, 외국인 시점에서 일본 지방을 재발견하는 다큐 버라이어티를 기획하고 싶습니다. SNS에서 해외 반응을 실시간으로 보여주는 인터랙티브 요소를 넣어, 배신 × 지상파의 시너지를 만들겠습니다."<br/>→ 구체적 콘셉트 + 차별점 + 비즈니스 시점(배신 연동)이 명확.</p></div>
+<div class="es-pattern"><div class="es-pattern-label">합격 패턴 ② — 편집 제안형 (출판)</div>
+<p>"K-뷰티·K-패션이 일본에서 인기인 이유를 '문화 수용의 심리학'으로 분석하는 특집을 기획하고 싶습니다. 귀사의 ○○ 잡지 독자층(20대 여성)에게 '왜 한국 것에 끌리는가'를 깊이 파는 콘텐츠입니다."<br/>→ 독자 타겟 이해 + 구체적 콘셉트 + 자기 강점(한국 배경) 활용.</p></div>
+<div class="es-pattern"><div class="es-pattern-label">합격 패턴 ③ — IP 비즈니스형</div>
+<p>"귀사의 ○○이라는 만화 IP를 동남아시아 시장에서 확대하기 위한 SNS 마케팅 전략을 제안합니다. 현지 인플루언서와의 콜라보+현지어 번역 앱 배신을 동시에 전개하면 글로벌 팬덤 확장이 가능합니다."<br/>→ IP의 구체적 활용 + 해외 시장 이해 + 실행 가능한 전략.</p></div>
+<div class="es-pattern"><div class="es-pattern-label" style="color:var(--warn);">빠지기 쉬운 함정</div>
+<p>❌ "TV(만화)가 좋아서" — 소비자 시점. "만드는 쪽"의 시점이 필요.<br/>
+❌ 기획 제안이 추상적. "재미있는 프로그램을 만들고 싶다"는 NG. 타겟·콘셉트·차별점을 구체적으로.<br/>
+❌ "유명 작품이 좋아서 귀사를 지원" — 팬이 아니라 비즈니스 파트너로서의 시점을.<br/>
+✅ <span class="hl">반드시 구체적인 기획안을 1개 이상 준비</span>하라. TV는 프로그램 기획, 출판은 특집 기획이 면접의 분수령.</p></div>
+</div>
+
+<div class="section" id="s7">
+<div class="section-num">SECTION 07</div>
+<div class="section-title">면접 대책</div>
+<div class="section-title-jp">面接対策 — 頻出質問·選考フロー</div>
+
+<h3>선고 플로우</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>단계</th><th>내용</th><th>포인트</th></tr></thead>
+<tbody>
+<tr><td>ES</td><td>기획 제안, 가쿠치카, "왜 미디어?"</td><td>기획안의 구체성이 합격 분수령</td></tr>
+<tr><td>필기</td><td>작문(논술)+시사상식+교양(코단샤 등)</td><td>시사·문학·영화·만화 폭넓은 교양</td></tr>
+<tr><td>GD/그룹면접</td><td>"새로운 콘텐츠 기획" 등 즉석 토론</td><td>발상력 + 팀 속 역할 + 논리성</td></tr>
+<tr><td>1차 면접</td><td>현장 디렉터·편집자</td><td>"이 사람과 함께 일하고 싶은가"가 판단 기준</td></tr>
+<tr><td>최종</td><td>임원·프로듀서</td><td>"어떤 콘텐츠를 만들 것인가" 비전</td></tr>
+</tbody>
+</table></div>
+
+<h3 class="s1">빈출 질문 & 답변 가이드</h3>
+<div class="info-box info-box-s1">
+<p>· <span class="hl-s1">만들고 싶은 프로그램(잡지 특집/만화)을 기획해주세요.</span><br/>→ 타겟(누구에게) × 콘셉트(무엇을) × 차별점(왜 새로운가)을 30초 안에. 2~3개 기획안을 미리 준비.</p>
+<p>· <span class="hl-s1">최근 인상 깊었던 콘텐츠는? 왜?</span><br/>→ "재미있었다"에서 끝나면 안 됨. "어떤 구조가 시청자(독자)를 끌어당겼는가"를 분석적으로.</p>
+<p>· <span class="hl-s1">TV(출판)의 미래에 대해 어떻게 생각하는가?</span><br/>→ "사라진다"가 아니라 "배신·IP·디지털로 진화한다"는 긍정적 전환 시점. 구체적 사례 필수.</p>
+<p>· <span class="hl-s1">체력에 자신이 있는가? (암묵적 질문)</span><br/>→ 체육회·장기간 활동·아르바이트 등에서 체력·스트레스 내성을 간접적으로 보여줘야.</p>
+<p>· <span class="hl-s1">AD(편집 어시스턴트)부터 시작해도 괜찮은가?</span><br/>→ "괜찮다"가 기본. "현장을 아는 것이 좋은 콘텐츠를 만드는 기반"이라는 자세.</p>
+</div>
+
+<div class="info-box info-box-warn">
+<div class="box-label box-label-warn">면접 준비 체크리스트</div>
+<p>□ 구체적인 기획안(프로그램/특집/만화)을 2~3개 준비했는가?<br/>
+□ 지원 방송국(출판사)의 최근 히트 콘텐츠 3개를 분석했는가?<br/>
+□ "TV(출판)의 미래"에 대한 자기 의견(배신·IP·디지털)이 있는가?<br/>
+□ 체력·스트레스 내성을 보여줄 에피소드가 있는가?<br/>
+□ 시사·교양·문화 전반에 대한 폭넓은 지식이 있는가? (출판사 필기 대비)<br/>
+□ "소비자"가 아니라 "만드는 사람"의 시점으로 콘텐츠를 분석할 수 있는가?</p>
+</div>
+</div>
+
+<div class="footer">
+<p><span class="brand">Tokyo Career Studio</span> — 일본 취업 전문 컨설팅</p>
+<p>업계 리포트에 대한 피드백이나 상담은 <a href="https://www.latpeed.com/stores/Gvk82" style="color:var(--accent);" target="_blank">여기</a>에서 문의해주세요.</p>
+</div>
+
+</div>
+<script src="nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>
