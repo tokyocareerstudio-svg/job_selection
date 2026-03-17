@@ -1,4 +1,6 @@
-<!DOCTYPE html><html lang="ko"><head>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
 <script>
 (function(){
   if (sessionStorage.getItem('tcs_auth') !== 'ok') {
@@ -6,20 +8,63 @@
     location.replace('index.html');
   }
 })();
-</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SPI 언어 ④ 숙어의 구성 | Tokyo Career Studio</title>
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPI 언어 ④ 숙어의 구성 | Tokyo Career Studio</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-<style>:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--spi:#6c5ce7;--spi-soft:rgba(108,92,231,0.06);--spi-border:rgba(108,92,231,0.18);--wt:#34d399;--wt-soft:rgba(52,211,153,0.07);--wt-border:rgba(52,211,153,0.18);--solve:#a29bfe;--solve-soft:rgba(162,155,254,0.06);--correct:#34d399;--warn:#ef4444;--warn-soft:rgba(239,68,68,0.04);--warn-border:rgba(239,68,68,0.18);}*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}.hero{padding:48px 24px 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(52,211,153,0.05) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--wt);background:var(--wt-soft);border:1px solid var(--wt-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}.hero h1{font-size:26px;font-weight:900;margin-bottom:8px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;background:var(--wt-soft);color:var(--wt);border:1px solid var(--wt-border);}.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--wt);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}.st{font-size:20px;font-weight:800;margin-bottom:4px;}.st-jp{font-family:'Noto Sans JP';font-size:11px;color:var(--text-muted);margin-bottom:20px;}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}.section h3{font-size:15px;font-weight:700;color:var(--text);margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--wt);}.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}.ib-a{background:var(--wt-soft);border-color:var(--wt-border);border-left:3px solid var(--wt);}.ib-w{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn);}.ib p{font-size:12px;color:var(--text-dim);line-height:1.9;}.bl{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}.bl-wt{color:var(--wt);}.bl-w{color:var(--warn);}
-.pat-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:16px 0;}.pat-card{padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;}.pat-num{font-size:11px;font-weight:700;color:var(--wt);margin-bottom:4px;}.pat-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;}.pat-rule{font-size:12px;color:var(--text-dim);margin-bottom:6px;line-height:1.7;}.pat-ex{font-family:'Noto Sans JP';font-size:13px;color:var(--text-sub);}.pat-exk{font-size:11px;color:var(--wt);margin-top:2px;}
-.mini{margin:16px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}.mini-q{padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--border);}.mini-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--wt);margin-bottom:6px;text-transform:uppercase;}.mini-q p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-a{padding:16px 18px;background:var(--solve-soft);}.mini-a p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-ans{margin-top:10px;padding:8px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:6px;font-size:12px;font-weight:700;color:var(--correct);}.mini-trap{margin:12px 0;border:1px solid var(--warn-border);border-radius:10px;overflow:hidden;}.mini-trap .mini-q{background:var(--warn-soft);border-bottom-color:var(--warn-border);}.mini-trap .mini-label{color:var(--warn);}.mini-trap .mini-a{background:rgba(239,68,68,0.03);}.mini-trap .mini-ans{background:rgba(239,68,68,0.05);border-color:var(--warn-border);color:var(--warn);}
-.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}table{width:100%;border-collapse:collapse;font-size:12px;}thead{background:var(--surface-2);}th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);text-transform:uppercase;}td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}tr:last-child td{border-bottom:none;}td:first-child{font-weight:600;color:var(--text-sub);}
-.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--wt);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR';font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}.at-kr{background:rgba(52,211,153,0.03);border-top:1px solid var(--wt-border);}.ac-kr-body{padding:14px 16px;background:rgba(52,211,153,0.03);border-top:1px solid var(--wt-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--wt-border);background:var(--wt-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}@media(max-width:640px){.hero h1{font-size:22px;}}</style>
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--spi:#6c5ce7;--spi-soft:rgba(108,92,231,0.06);--spi-border:rgba(108,92,231,0.18);--tc:#4a9eff;--tc-soft:rgba(74,158,255,0.08);--tc-border:rgba(74,158,255,0.2);--solve:#a29bfe;--solve-soft:rgba(162,155,254,0.06);--correct:#34d399;--warn:#ef4444;--warn-soft:rgba(239,68,68,0.04);--warn-border:rgba(239,68,68,0.18);}
+*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:48px 24px 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(108,92,231,0.05) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-back:hover{color:var(--text-dim);}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--tc);background:var(--tc-soft);border:1px solid var(--tc-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}.hero h1{font-size:26px;font-weight:900;line-height:1.3;margin-bottom:8px;letter-spacing:-0.5px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;}.htag-tc{background:var(--tc-soft);color:var(--tc);border:1px solid var(--tc-border);}
+.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}.section h3{font-size:15px;font-weight:700;color:var(--text);margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--spi);}
+.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}.ib-a{background:var(--spi-soft);border-color:var(--spi-border);border-left:3px solid var(--spi);}.ib-w{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn);}.ib h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}.ib p,.ib div{font-size:12px;color:var(--text-dim);line-height:1.9;}.bl{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}.bl-spi{color:var(--spi);}.bl-w{color:var(--warn);}
+/* Vocab card */
+.vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0;}
+.vocab-card{padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;transition:border-color 0.2s;}.vocab-card:hover{border-color:var(--spi-border);}
+.vc-word{font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.vc-read{font-family:'Noto Sans JP',sans-serif;font-size:10px;color:var(--text-muted);margin-bottom:4px;}
+.vc-mean{font-size:11px;color:var(--text-dim);line-height:1.6;}
+.vc-kr{font-size:11px;color:var(--spi);font-weight:500;}
+.mini{margin:16px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}.mini-q{padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--border);}.mini-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.mini-q p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-a{padding:16px 18px;background:var(--solve-soft);}.mini-a p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-ans{margin-top:10px;padding:8px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:6px;font-size:12px;font-weight:700;color:var(--correct);}.mini-trap{margin:12px 0;border:1px solid var(--warn-border);border-radius:10px;overflow:hidden;}.mini-trap .mini-q{background:var(--warn-soft);border-bottom-color:var(--warn-border);}.mini-trap .mini-label{color:var(--warn);}.mini-trap .mini-a{background:rgba(239,68,68,0.03);}.mini-trap .mini-ans{background:rgba(239,68,68,0.05);border-color:var(--warn-border);color:var(--warn);}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}table{width:100%;border-collapse:collapse;font-size:12px;}thead{background:var(--surface-2);}th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}tr:last-child td{border-bottom:none;}td:first-child{font-weight:600;color:var(--text-sub);}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
+.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{color:var(--text-dim);background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}.at-kr{background:rgba(108,92,231,0.03);border-top:1px solid var(--spi-border);}.at-kr:hover{background:rgba(108,92,231,0.06);}.ac-kr-body{padding:14px 16px;background:rgba(108,92,231,0.03);border-top:1px solid var(--spi-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}
+.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--spi-border);background:var(--spi-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.hero h1{font-size:22px;}.vocab-grid{grid-template-columns:1fr;}}
+
+/* ── Tab System ── */
+.tab-bar{display:flex;gap:4px;margin:20px 0 0;padding:0 2px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tab-bar::-webkit-scrollbar{display:none;}
+.tab-btn{flex:0 0 auto;padding:10px 18px;background:var(--surface);border:1px solid var(--border);border-bottom:none;border-radius:10px 10px 0 0;font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.2s;font-family:inherit;white-space:nowrap;}
+.tab-btn:hover{color:var(--text-dim);background:var(--surface-2);}
+.tab-btn.active{background:var(--surface-2);color:var(--spi);border-color:var(--spi-border);border-bottom:1px solid var(--surface-2);position:relative;}
+.tab-panel{display:none;padding:20px 0;border-top:1px solid var(--spi-border);margin-top:-1px;}
+.tab-panel.active{display:block;}
+.tab-count{font-size:10px;color:var(--text-muted);font-weight:400;margin-left:6px;}
+.tab-btn.active .tab-count{color:var(--spi);}
+/* ── Section Accordion (for grouping 20-30 items) ── */
+.sec-acc{margin:12px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface);}
+.sec-acc-btn{width:100%;padding:14px 18px;background:var(--surface);border:none;color:var(--text-sub);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}
+.sec-acc-btn:hover{background:var(--surface-2);}
+.sec-acc-btn .acc-icon{font-size:12px;color:var(--text-muted);transition:transform 0.3s;}
+.sec-acc-btn.open{background:var(--surface-2);color:var(--text);border-bottom:1px solid var(--border);}
+.sec-acc-btn.open .acc-icon{transform:rotate(180deg);}
+.sec-acc-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
+.sec-acc-body.open{max-height:20000px;}
+.sec-acc-inner{padding:12px 14px;}
+.sec-acc-badge{font-size:10px;font-weight:600;color:var(--spi);background:var(--spi-soft);border:1px solid var(--spi-border);padding:2px 8px;border-radius:6px;margin-left:8px;}
+@media(max-width:640px){.tab-btn{padding:8px 14px;font-size:11px;}.sec-acc-btn{padding:12px 14px;font-size:12px;}}
+
+</style>
 </head>
 <body>
 <div class="hero"><div class="hero-inner">
   <a href="spi-gengo-index.html" class="hero-back">← SPI 언어 인덱스로 돌아가기</a>
   <div class="hero-label">SPI 언어 — 유형 ④ · 웹테스팅 전용</div>
   <h1>숙어의 구성 (熟語の成り立ち)</h1>
-  <p class="hero-sub">이자숙어가 어떤 구조로 만들어졌는지 5가지 패턴을 판별하는 유형. 웹테스팅(WEB) 전용이며 테스트센터에서는 미출제. "문장으로 바꿔보기" 기법 하나로 모든 문제를 풀 수 있습니다.</p>
+  <p class="hero-sub">이자숙어가 어떤 구조로 만들어졌는지 5가지 패턴을 판별하는 유형. 웹테스팅(WEB) 전용. "문장으로 바꿔보기" 기법으로 풀 수 있습니다.</p>
   <div class="hero-tags"><span class="htag htag-tc">웹테스팅 ★ 전용</span></div>
 </div></div>
 
@@ -30,45 +75,41 @@
   <div class="st">숙어의 구성이란?</div>
   <div class="st-jp">熟語の成り立ち — 漢字を分解して文にしてみる</div>
 
-  <p>이 유형은 이자숙어의 한자 2글자가 <strong style="color:var(--text);">어떤 관계로 결합</strong>되어 있는지를 판별하는 문제입니다. 실전에서는 4개 선택지 + "해당없음"으로 출제됩니다.</p>
+  <p>이자숙어의 한자 2글자가 <strong style="color:var(--text);">어떤 관계로 결합</strong>되어 있는지 판별하는 문제. 4개 선택지 + "해당없음"으로 출제.</p>
 
   <div class="ib ib-a">
     <div class="bl bl-spi">5대 패턴 (반드시 암기)</div>
-    <p><strong style="color:var(--text-sub);">A. 유의어 결합:</strong> 비슷한 뜻의 한자 2개 (岩+石 = 암석)<br><br>
-    <strong style="color:var(--text-sub);">B. 대의어 결합:</strong> 반대 뜻의 한자 2개 (上+下 = 상하)<br><br>
+    <p><strong style="color:var(--text-sub);">A. 유의어 결합:</strong> 비슷한 뜻 (岩+石 = 암석)<br><br>
+    <strong style="color:var(--text-sub);">B. 대의어 결합:</strong> 반대 뜻 (上+下 = 상하)<br><br>
     <strong style="color:var(--text-sub);">C. 주술 관계:</strong> 주어+서술어 (日が沈む = 일몰)<br><br>
-    <strong style="color:var(--text-sub);">D. 동사+목적어:</strong> 동사가 목적어를 취함 (読む+書 = 독서)<br><br>
-    <strong style="color:var(--text-sub);">E. 수식 관계:</strong> 앞 글자가 뒷 글자를 수식 (強い+風 = 강풍)</p>
+    <strong style="color:var(--text-sub);">D. 동사+목적어:</strong> (読む+書 = 독서)<br><br>
+    <strong style="color:var(--text-sub);">E. 수식 관계:</strong> 앞이 뒤를 수식 (強い+風 = 강풍)</p>
   </div>
 
-  <h3>풀이 기법 — "문장으로 바꿔보기"</h3>
-  <p>숙어의 한자를 분해해서 짧은 문장으로 바꿔보면 관계가 드러납니다.</p>
-
+  <h3>출제 패턴</h3>
   <div class="mini">
     <div class="mini-q"><div class="mini-label">📝 출제 형태 예시</div>
-    <p>次の熟語の成り立ち方として当てはまるものを選びなさい。
-
-「読書」
-
-A 似た意味を持つ漢字を重ねる
-B 反対の意味を持つ漢字を重ねる
-C 主語と述語の関係にある
-D 動詞の後に目的語をおく
-E 前の漢字が後の漢字を修飾する</p></div>
-    <div class="mini-a"><p><strong style="color:var(--solve);">풀이:</strong> 読書 = "書を読む (책을 읽다)"
-→ 동사(読む) + 목적어(書) → D. 동사+목적어</p>
+    <p>「読書」の成り立ち方として当てはまるものは？
+A 似た意味  B 反対の意味  C 主語と述語  D 動詞+目的語  E 修飾</p></div>
+    <div class="mini-a"><p><strong style="color:var(--solve);">풀이:</strong> 読書 = "書を読む(책을 읽다)" → D</p>
     <div class="mini-ans">정답: D 動詞の後に目的語をおく</div></div>
   </div>
 
   <div class="ib ib-w">
-    <div class="bl bl-w">판별이 헷갈릴 때</div>
-    <p><strong style="color:var(--text-sub);">유의어 vs 수식 관계가 가장 헷갈립니다.</strong> "한자를 분해해서 문장으로 바꿨을 때 두 글자가 대등한 관계면 유의어, 한쪽이 다른 쪽을 꾸며주면 수식 관계"입니다. 예: 寒冷 → 寒も冷も"つめたい" → 유의어 / 強風 → 強い風 → 수식 관계</p>
+    <div class="bl bl-w">판별 팁</div>
+    <p><strong style="color:var(--text-sub);">유의어 vs 수식이 가장 헷갈립니다.</strong> 두 글자가 대등하면 유의어, 한쪽이 꾸며주면 수식. 寒冷 → 유의어 / 強風 → 수식</p>
   </div>
 </div>
 
 <div class="section">
   <div class="sn">패턴별 빈출 숙어</div>
-  <div class="st">【패턴1】유의어 결합 (似た意味を持つ漢字を重ねる)</div>
+  <div class="st">5대 패턴 × 85개</div>
+  <div class="st-jp">5パターン別の頻出熟語一覧</div>
+  <p>패턴별로 정리했습니다. 펼쳐서 각 숙어의 한자 분해와 판별법을 확인하세요.</p>
+
+<div class="sec-acc">
+<button class="sec-acc-btn open" onclick="togSec(this)"><span>【패턴1】유의어 결합 (似た意味を持つ漢字を重ねる)<span class="sec-acc-badge">20개</span></span><span class="acc-icon">▼</span></button>
+<div class="sec-acc-body open"><div class="sec-acc-inner">
 <div class="table-wrap"><table><thead><tr><th>숙어</th><th>한자 분해</th><th>판별법</th><th>한국어</th></tr></thead><tbody>
 <tr><td><strong>岩石</strong></td><td>がんせき / 岩=바위, 石=돌</td><td>岩も石も同じ→유의어</td><td>암석</td></tr>
 <tr><td><strong>河川</strong></td><td>かせん / 河=강, 川=내</td><td>河も川も同じ→유의어</td><td>하천</td></tr>
@@ -91,11 +132,10 @@ E 前の漢字が後の漢字を修飾する</p></div>
 <tr><td><strong>根本</strong></td><td>こんぽん / 根=뿌리, 本=근본</td><td>根も本も&quot;もと&quot;→유의어</td><td>근본</td></tr>
 <tr><td><strong>変化</strong></td><td>へんか / 変=변하다, 化=변하다</td><td>変も化も&quot;かわる&quot;→유의어</td><td>변화</td></tr>
 </tbody></table></div>
-</div>
-
-<div class="section">
-  <div class="sn">패턴별 빈출 숙어</div>
-  <div class="st">【패턴2】대의어 결합 (反対の意味を持つ漢字を重ねる)</div>
+</div></div></div>
+<div class="sec-acc">
+<button class="sec-acc-btn" onclick="togSec(this)"><span>【패턴2】대의어 결합 (反対の意味を持つ漢字を重ねる)<span class="sec-acc-badge">20개</span></span><span class="acc-icon">▼</span></button>
+<div class="sec-acc-body"><div class="sec-acc-inner">
 <div class="table-wrap"><table><thead><tr><th>숙어</th><th>한자 분해</th><th>판별법</th><th>한국어</th></tr></thead><tbody>
 <tr><td><strong>左右</strong></td><td>さゆう / 左↔右</td><td>左と右は反対→대의어</td><td>좌우</td></tr>
 <tr><td><strong>上下</strong></td><td>じょうげ / 上↔下</td><td>上と下は反対→대의어</td><td>상하</td></tr>
@@ -118,11 +158,10 @@ E 前の漢字が後の漢字を修飾する</p></div>
 <tr><td><strong>売買</strong></td><td>ばいばい / 売↔買</td><td>売と買は反対→대의어</td><td>매매</td></tr>
 <tr><td><strong>緩急</strong></td><td>かんきゅう / 緩↔急</td><td>緩と急は反対→대의어</td><td>완급</td></tr>
 </tbody></table></div>
-</div>
-
-<div class="section">
-  <div class="sn">패턴별 빈출 숙어</div>
-  <div class="st">【패턴3】주술관계 (主語と述語の関係)</div>
+</div></div></div>
+<div class="sec-acc">
+<button class="sec-acc-btn" onclick="togSec(this)"><span>【패턴3】주술관계 (主語と述語の関係)<span class="sec-acc-badge">15개</span></span><span class="acc-icon">▼</span></button>
+<div class="sec-acc-body"><div class="sec-acc-inner">
 <div class="table-wrap"><table><thead><tr><th>숙어</th><th>한자 분해</th><th>판별법</th><th>한국어</th></tr></thead><tbody>
 <tr><td><strong>国立</strong></td><td>こくりつ / 国が立てる</td><td>国(주어)が立てた(술어)→주술</td><td>국립</td></tr>
 <tr><td><strong>官営</strong></td><td>かんえい / 官が営む</td><td>官(주어)が営む(술어)→주술</td><td>관영</td></tr>
@@ -140,11 +179,10 @@ E 前の漢字が後の漢字を修飾する</p></div>
 <tr><td><strong>私立</strong></td><td>しりつ / 私が立てる</td><td>私(주어)が立てた(술어)→주술</td><td>사립</td></tr>
 <tr><td><strong>気絶</strong></td><td>きぜつ / 気が絶える</td><td>気(주어)が絶える(술어)→주술</td><td>기절</td></tr>
 </tbody></table></div>
-</div>
-
-<div class="section">
-  <div class="sn">패턴별 빈출 숙어</div>
-  <div class="st">【패턴4】동사+목적어 (動詞の後に目的語をおく)</div>
+</div></div></div>
+<div class="sec-acc">
+<button class="sec-acc-btn" onclick="togSec(this)"><span>【패턴4】동사+목적어 (動詞の後に目的語をおく)<span class="sec-acc-badge">15개</span></span><span class="acc-icon">▼</span></button>
+<div class="sec-acc-body"><div class="sec-acc-inner">
 <div class="table-wrap"><table><thead><tr><th>숙어</th><th>한자 분해</th><th>판별법</th><th>한국어</th></tr></thead><tbody>
 <tr><td><strong>登山</strong></td><td>とざん / 山を登る</td><td>山(목적어)を登る(동사)→동목</td><td>등산</td></tr>
 <tr><td><strong>読書</strong></td><td>どくしょ / 書を読む</td><td>書(목적어)を読む(동사)→동목</td><td>독서</td></tr>
@@ -162,11 +200,10 @@ E 前の漢字が後の漢字を修飾する</p></div>
 <tr><td><strong>除草</strong></td><td>じょそう / 草を除く</td><td>草(목적어)を除く(동사)→동목</td><td>제초</td></tr>
 <tr><td><strong>造船</strong></td><td>ぞうせん / 船を造る</td><td>船(목적어)を造る(동사)→동목</td><td>조선</td></tr>
 </tbody></table></div>
-</div>
-
-<div class="section">
-  <div class="sn">패턴별 빈출 숙어</div>
-  <div class="st">【패턴5】수식관계 (前の漢字が後の漢字を修飾する)</div>
+</div></div></div>
+<div class="sec-acc">
+<button class="sec-acc-btn" onclick="togSec(this)"><span>【패턴5】수식관계 (前の漢字が後の漢字を修飾する)<span class="sec-acc-badge">15개</span></span><span class="acc-icon">▼</span></button>
+<div class="sec-acc-body"><div class="sec-acc-inner">
 <div class="table-wrap"><table><thead><tr><th>숙어</th><th>한자 분해</th><th>판별법</th><th>한국어</th></tr></thead><tbody>
 <tr><td><strong>急行</strong></td><td>きゅうこう / 急いで行く</td><td>急(수식)→行(피수식) &quot;急ぐ列車&quot;→수식</td><td>급행</td></tr>
 <tr><td><strong>直立</strong></td><td>ちょくりつ / まっすぐ立つ</td><td>直(수식)→立(피수식)→수식</td><td>직립</td></tr>
@@ -184,16 +221,38 @@ E 前の漢字が後の漢字を修飾する</p></div>
 <tr><td><strong>再会</strong></td><td>さいかい / 再び会う</td><td>再(수식)→会(피수식)→수식</td><td>재회</td></tr>
 <tr><td><strong>早朝</strong></td><td>そうちょう / 早い朝</td><td>早(수식)→朝(피수식)→수식</td><td>조조, 이른 아침</td></tr>
 </tbody></table></div>
+</div></div></div>
+
 </div>
 
 
 <div class="type-nav">
   <a href="spi-gengo-youhou.html"><div class="nl">← 이전 유형</div><div class="nt">③ 어구의 용법</div></a>
-  <a href="spi-gengo-narabikae.html"><div class="nl">다음 유형 →</div><div class="nt">⑤ 문장 배열·빈칸</div></a>
+  <a href="spi-gengo-narabikae.html"><div class="nl">다음 유형 →</div><div class="nt">⑤ 문장 배열</div></a>
 </div>
-<div class="footer"><p><span class="brand">Tokyo Career Studio</span> — SPI 언어 ④ 숙어의 구성</p><p>© Tokyo Career Studio. All rights reserved.</p></div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — SPI 언어 ④ 숙어의 구성</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
 </div>
-<script>function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}</script>
+</div>
+
+<script>
+function switchTab(tabGroup, idx) {
+  document.querySelectorAll('[data-tab-group="'+tabGroup+'"] .tab-btn').forEach(function(b,i){
+    b.classList.toggle('active', i===idx);
+  });
+  document.querySelectorAll('[data-tab-group="'+tabGroup+'"] .tab-panel').forEach(function(p,i){
+    p.classList.toggle('active', i===idx);
+  });
+}
+function togSec(btn) {
+  btn.classList.toggle('open');
+  var body = btn.nextElementSibling;
+  body.classList.toggle('open');
+}
+function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}
+</script>
   <script src="nav.js"></script>
   <script src="global-nav.js"></script>
 </body>

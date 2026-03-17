@@ -32,6 +32,30 @@
 .type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--spi-border);background:var(--spi-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}
 .footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
 @media(max-width:640px){.hero h1{font-size:22px;}.rel-grid{grid-template-columns:1fr;}}
+
+/* ── Tab System ── */
+.tab-bar{display:flex;gap:4px;margin:20px 0 0;padding:0 2px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.tab-bar::-webkit-scrollbar{display:none;}
+.tab-btn{flex:0 0 auto;padding:10px 18px;background:var(--surface);border:1px solid var(--border);border-bottom:none;border-radius:10px 10px 0 0;font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.2s;font-family:inherit;white-space:nowrap;}
+.tab-btn:hover{color:var(--text-dim);background:var(--surface-2);}
+.tab-btn.active{background:var(--surface-2);color:var(--spi);border-color:var(--spi-border);border-bottom:1px solid var(--surface-2);position:relative;}
+.tab-panel{display:none;padding:20px 0;border-top:1px solid var(--spi-border);margin-top:-1px;}
+.tab-panel.active{display:block;}
+.tab-count{font-size:10px;color:var(--text-muted);font-weight:400;margin-left:6px;}
+.tab-btn.active .tab-count{color:var(--spi);}
+/* ── Section Accordion (for grouping 20-30 items) ── */
+.sec-acc{margin:12px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;background:var(--surface);}
+.sec-acc-btn{width:100%;padding:14px 18px;background:var(--surface);border:none;color:var(--text-sub);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}
+.sec-acc-btn:hover{background:var(--surface-2);}
+.sec-acc-btn .acc-icon{font-size:12px;color:var(--text-muted);transition:transform 0.3s;}
+.sec-acc-btn.open{background:var(--surface-2);color:var(--text);border-bottom:1px solid var(--border);}
+.sec-acc-btn.open .acc-icon{transform:rotate(180deg);}
+.sec-acc-body{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}
+.sec-acc-body.open{max-height:20000px;}
+.sec-acc-inner{padding:12px 14px;}
+.sec-acc-badge{font-size:10px;font-weight:600;color:var(--spi);background:var(--spi-soft);border:1px solid var(--spi-border);padding:2px 8px;border-radius:6px;margin-left:8px;}
+@media(max-width:640px){.tab-btn{padding:8px 14px;font-size:11px;}.sec-acc-btn{padding:12px 14px;font-size:12px;}}
+
 </style>
 </head>
 <body>
@@ -39,7 +63,7 @@
   <a href="spi-gengo-index.html" class="hero-back">← SPI 언어 인덱스로 돌아가기</a>
   <div class="hero-label">SPI 언어 — 유형 ② · 테센 전용</div>
   <h1>두 단어의 관계 (二語の関係)</h1>
-  <p class="hero-sub">두 단어의 관계를 파악하고, 같은 관계를 가진 쌍을 찾는 유형. 8가지 관계 유형을 암기하고 "두 단어로 문장 만들기" 기법을 익히면 빠르게 풀 수 있습니다. 1문제 10~20초가 목표.</p>
+  <p class="hero-sub">두 단어의 관계를 파악하고, 같은 관계를 가진 쌍을 찾는 유형. 8가지 관계 유형을 암기하고 "두 단어로 문장 만들기" 기법을 익히면 빠르게 풀 수 있습니다.</p>
   <div class="hero-tags"><span class="htag htag-tc">테센 ★ 전용</span></div>
 </div></div>
 
@@ -50,25 +74,23 @@
   <div class="st">두 단어의 관계란?</div>
   <div class="st-jp">二語の関係 — 二つの言葉で文を作れば関係が見える</div>
 
-  <p>이 유형은 제시된 두 단어의 관계(동의어, 반의어, 포함 관계 등)를 파악한 뒤, 선택지에서 <strong style="color:var(--text);">같은 관계를 가진 쌍</strong>을 고르는 문제입니다.</p>
+  <p>제시된 두 단어의 관계(동의어, 반의어, 포함 관계 등)를 파악한 뒤, 선택지에서 <strong style="color:var(--text);">같은 관계를 가진 쌍</strong>을 고르는 문제입니다.</p>
 
-  <p>핵심 풀이법은 <strong style="color:var(--text);">"두 단어로 짧은 문장을 만들어보기"</strong>입니다. 예를 들어 "의사 : 병원" → "의사는 병원에서 일한다" → 이것과 같은 문장 구조가 되는 선택지를 고릅니다.</p>
+  <p>핵심 풀이법은 <strong style="color:var(--text);">"두 단어로 짧은 문장을 만들어보기"</strong>입니다. 예: "의사 : 병원" → "의사는 병원에서 일한다" → 같은 구조의 선택지를 고릅니다.</p>
 
   <div class="ib ib-a">
     <div class="bl bl-spi">8대 관계 유형 (반드시 암기)</div>
     <p><strong style="color:var(--text-sub);">① 동의어:</strong> A = B (같은 뜻)<br>
     <strong style="color:var(--text-sub);">② 반의어:</strong> A ↔ B (반대 뜻)<br>
-    <strong style="color:var(--text-sub);">③ 포함 관계 (상위↔하위):</strong> A는 B의 일종이다<br>
-    <strong style="color:var(--text-sub);">④ 역할 관계:</strong> A는 B에서 일한다 / A는 B를 사용한다<br>
-    <strong style="color:var(--text-sub);">⑤ 원료·재료 관계:</strong> A는 B로 만든다<br>
-    <strong style="color:var(--text-sub);">⑥ 세트 관계:</strong> A와 B는 함께 사용된다<br>
+    <strong style="color:var(--text-sub);">③ 포함 (상위↔하위):</strong> A는 B의 일종<br>
+    <strong style="color:var(--text-sub);">④ 역할:</strong> A는 B에서 일한다 / A는 B를 사용한다<br>
+    <strong style="color:var(--text-sub);">⑤ 원료·재료:</strong> A는 B로 만든다<br>
+    <strong style="color:var(--text-sub);">⑥ 세트:</strong> A와 B는 함께 사용<br>
     <strong style="color:var(--text-sub);">⑦ 원인과 결과:</strong> A하면 B가 된다<br>
-    <strong style="color:var(--text-sub);">⑧ 목적 관계:</strong> A는 B를 위해 존재한다</p>
+    <strong style="color:var(--text-sub);">⑧ 목적:</strong> A는 B를 위해 존재</p>
   </div>
 
-  <h3>풀이 기법 — "문장으로 바꿔보기"</h3>
-  <p>두 단어의 관계를 한 문장으로 만들어보면 관계가 명확해집니다. 그 문장과 같은 구조가 되는 선택지를 고르면 됩니다.</p>
-
+  <h3>출제 패턴</h3>
   <div class="mini">
     <div class="mini-q"><div class="mini-label">📝 출제 형태 예시</div>
     <p>示された二語の関係と同じ関係のものを選びなさい。
@@ -77,18 +99,21 @@
 
 ア　教師 : 学校　　イ　本 : 図書館
 ウ　犬 : 動物　　エ　赤 : 色</p></div>
-    <div class="mini-a"><p><strong style="color:var(--solve);">풀이:</strong> "의사는 병원에서 일한다" → 역할 관계 (장소)
-ア "교사는 학교에서 일한다" → 같은 역할 관계 ✓
-イ "책은 도서관에 있다" → 소속이지 역할이 아님
-ウ "개는 동물의 일종" → 포함 관계
-エ "빨강은 색의 일종" → 포함 관계</p>
+    <div class="mini-a"><p><strong style="color:var(--solve);">풀이:</strong> "의사는 병원에서 일한다" → 역할 관계
+ア "교사는 학교에서 일한다" → 같은 역할 관계 ✓</p>
     <div class="mini-ans">정답: ア 教師 : 学校</div></div>
   </div>
 </div>
 
 <div class="section">
   <div class="sn">유형별 빈출 예시</div>
-  <div class="st">【유형1】동의어 관계 (同義語)</div>
+  <div class="st">8대 유형 × 54쌍</div>
+  <div class="st-jp">8つの関係タイプ別の頻出ペア一覧</div>
+  <p>각 유형을 펼쳐서 빈출 예시와 "문장으로 바꿔보기" 판별법을 확인하세요.</p>
+
+<div class="sec-acc">
+<button class="sec-acc-btn open" onclick="togSec(this)"><span>【유형1】동의어 관계 (同義語)<span class="sec-acc-badge">8개</span></span><span class="acc-icon">▼</span></button>
+<div class="sec-acc-body open"><div class="sec-acc-inner">
 <div class="table-wrap"><table><thead><tr><th>단어 쌍</th><th>읽기</th><th>문장으로 바꿔보기</th><th>한국어</th></tr></thead><tbody>
 <tr><td><strong>逆境 : 苦境</strong></td><td>ぎゃっきょう : くきょう</td><td>逆境も苦境も同じ意味</td><td>역경 = 고경 (같은 뜻)</td></tr>
 <tr><td><strong>出版 : 刊行</strong></td><td>しゅっぱん : かんこう</td><td>出版も刊行も同じ意味</td><td>출판 = 간행</td></tr>
@@ -99,11 +124,10 @@
 <tr><td><strong>敏感 : 鋭敏</strong></td><td>びんかん : えいびん</td><td>敏感も鋭敏も同じ意味</td><td>민감 = 예민</td></tr>
 <tr><td><strong>不穏 : 険悪</strong></td><td>ふおん : けんあく</td><td>不穏も険悪もよくない状態</td><td>불온 = 험악</td></tr>
 </tbody></table></div>
-</div>
-
-<div class="section">
-  <div class="sn">유형별 빈출 예시</div>
-  <div class="st">【유형2】대의어 관계 (反意語/対義語)</div>
+</div></div></div>
+<div class="sec-acc">
+<button class="sec-acc-btn" onclick="togSec(this)"><span>【유형2】대의어 관계 (反意語/対義語)<span class="sec-acc-badge">8개</span></span><span class="acc-icon">▼</span></button>
+<div class="sec-acc-body"><div class="sec-acc-inner">
 <div class="table-wrap"><table><thead><tr><th>단어 쌍</th><th>읽기</th><th>문장으로 바꿔보기</th><th>한국어</th></tr></thead><tbody>
 <tr><td><strong>偉人 : 凡人</strong></td><td>いじん : ぼんじん</td><td>偉人と凡人は反対</td><td>위인 ↔ 범인</td></tr>
 <tr><td><strong>不利 : 有利</strong></td><td>ふり : ゆうり</td><td>不利と有利は反対</td><td>불리 ↔ 유리</td></tr>
@@ -114,11 +138,10 @@
 <tr><td><strong>過失 : 故意</strong></td><td>かしつ : こい</td><td>過失と故意は反対</td><td>과실 ↔ 고의</td></tr>
 <tr><td><strong>漠然 : 判然</strong></td><td>ばくぜん : はんぜん</td><td>漠然と判然は反対</td><td>막연 ↔ 판연</td></tr>
 </tbody></table></div>
-</div>
-
-<div class="section">
-  <div class="sn">유형별 빈출 예시</div>
-  <div class="st">【유형3】포함관계 (包含関係 - AはBの一種)</div>
+</div></div></div>
+<div class="sec-acc">
+<button class="sec-acc-btn" onclick="togSec(this)"><span>【유형3】포함관계 (包含関係 - AはBの一種)<span class="sec-acc-badge">8개</span></span><span class="acc-icon">▼</span></button>
+<div class="sec-acc-body"><div class="sec-acc-inner">
 <div class="table-wrap"><table><thead><tr><th>단어 쌍</th><th>읽기</th><th>문장으로 바꿔보기</th><th>한국어</th></tr></thead><tbody>
 <tr><td><strong>薔薇 : 植物</strong></td><td>ばら : しょくぶつ</td><td>薔薇は植物の一種</td><td>장미는 식물의 일종</td></tr>
 <tr><td><strong>野球 : スポーツ</strong></td><td>やきゅう : すぽーつ</td><td>野球はスポーツの一種</td><td>야구는 스포츠의 일종</td></tr>
@@ -129,11 +152,10 @@
 <tr><td><strong>水彩画 : 絵画</strong></td><td>すいさいが : かいが</td><td>水彩画は絵画の一種</td><td>수채화는 회화의 일종</td></tr>
 <tr><td><strong>インフルエンザ : 感染症</strong></td><td>いんふるえんざ : かんせんしょう</td><td>インフルエンザは感染症の一種</td><td>인플루엔자는 감염증의 일종</td></tr>
 </tbody></table></div>
-</div>
-
-<div class="section">
-  <div class="sn">유형별 빈출 예시</div>
-  <div class="st">【유형4】역할관계 (役割関係 - AはBするためのもの)</div>
+</div></div></div>
+<div class="sec-acc">
+<button class="sec-acc-btn" onclick="togSec(this)"><span>【유형4】역할관계 (役割関係 - AはBするためのもの)<span class="sec-acc-badge">7개</span></span><span class="acc-icon">▼</span></button>
+<div class="sec-acc-body"><div class="sec-acc-inner">
 <div class="table-wrap"><table><thead><tr><th>단어 쌍</th><th>읽기</th><th>문장으로 바꿔보기</th><th>한국어</th></tr></thead><tbody>
 <tr><td><strong>定規 : 計測</strong></td><td>じょうぎ : けいそく</td><td>定規は計測するための道具</td><td>자는 측정하기 위한 도구</td></tr>
 <tr><td><strong>薬 : 治療</strong></td><td>くすり : ちりょう</td><td>薬は治療するためのもの</td><td>약은 치료하기 위한 것</td></tr>
@@ -143,11 +165,10 @@
 <tr><td><strong>暗室 : 現像</strong></td><td>あんしつ : げんぞう</td><td>暗室は現像するための場所</td><td>암실은 현상하기 위한 장소</td></tr>
 <tr><td><strong>鉛筆 : 筆記</strong></td><td>えんぴつ : ひっき</td><td>鉛筆は筆記するための道具</td><td>연필은 필기하기 위한 도구</td></tr>
 </tbody></table></div>
-</div>
-
-<div class="section">
-  <div class="sn">유형별 빈출 예시</div>
-  <div class="st">【유형5】원료관계 (原料関係 - AはBから作られる)</div>
+</div></div></div>
+<div class="sec-acc">
+<button class="sec-acc-btn" onclick="togSec(this)"><span>【유형5】원료관계 (原料関係 - AはBから作られる)<span class="sec-acc-badge">6개</span></span><span class="acc-icon">▼</span></button>
+<div class="sec-acc-body"><div class="sec-acc-inner">
 <div class="table-wrap"><table><thead><tr><th>단어 쌍</th><th>읽기</th><th>문장으로 바꿔보기</th><th>한국어</th></tr></thead><tbody>
 <tr><td><strong>豆腐 : 大豆</strong></td><td>とうふ : だいず</td><td>豆腐は大豆から作られる</td><td>두부는 대두로 만든다</td></tr>
 <tr><td><strong>ビール : 麦</strong></td><td>びーる : むぎ</td><td>ビールは麦から作られる</td><td>맥주는 보리로 만든다</td></tr>
@@ -156,11 +177,10 @@
 <tr><td><strong>ワイン : ぶどう</strong></td><td>わいん : ぶどう</td><td>ワインはぶどうから作られる</td><td>와인은 포도로 만든다</td></tr>
 <tr><td><strong>バター : 牛乳</strong></td><td>ばたー : ぎゅうにゅう</td><td>バターは牛乳から作られる</td><td>버터는 우유로 만든다</td></tr>
 </tbody></table></div>
-</div>
-
-<div class="section">
-  <div class="sn">유형별 빈출 예시</div>
-  <div class="st">【유형6】목적어+동사 관계 (目的語と動詞)</div>
+</div></div></div>
+<div class="sec-acc">
+<button class="sec-acc-btn" onclick="togSec(this)"><span>【유형6】목적어+동사 관계 (目的語と動詞)<span class="sec-acc-badge">7개</span></span><span class="acc-icon">▼</span></button>
+<div class="sec-acc-body"><div class="sec-acc-inner">
 <div class="table-wrap"><table><thead><tr><th>단어 쌍</th><th>읽기</th><th>문장으로 바꿔보기</th><th>한국어</th></tr></thead><tbody>
 <tr><td><strong>カバン : 持つ</strong></td><td>かばん : もつ</td><td>カバンを持つ</td><td>가방을 들다</td></tr>
 <tr><td><strong>水 : 飲む</strong></td><td>みず : のむ</td><td>水を飲む</td><td>물을 마시다</td></tr>
@@ -170,11 +190,10 @@
 <tr><td><strong>日本舞踊 : 鑑賞</strong></td><td>にほんぶよう : かんしょう</td><td>日本舞踊を鑑賞する</td><td>일본 무용을 감상하다</td></tr>
 <tr><td><strong>薬 : 投与</strong></td><td>くすり : とうよ</td><td>薬を投与する</td><td>약을 투여하다</td></tr>
 </tbody></table></div>
-</div>
-
-<div class="section">
-  <div class="sn">유형별 빈출 예시</div>
-  <div class="st">【유형7】병렬관계 (並列関係 - AもBも同じカテゴリー)</div>
+</div></div></div>
+<div class="sec-acc">
+<button class="sec-acc-btn" onclick="togSec(this)"><span>【유형7】병렬관계 (並列関係 - AもBも同じカテゴリー)<span class="sec-acc-badge">5개</span></span><span class="acc-icon">▼</span></button>
+<div class="sec-acc-body"><div class="sec-acc-inner">
 <div class="table-wrap"><table><thead><tr><th>단어 쌍</th><th>읽기</th><th>문장으로 바꿔보기</th><th>한국어</th></tr></thead><tbody>
 <tr><td><strong>日本 : アメリカ</strong></td><td>にほん : あめりか</td><td>日本もアメリカも国</td><td>일본도 미국도 나라</td></tr>
 <tr><td><strong>バイオリン : フルート</strong></td><td>ばいおりん : ふるーと</td><td>バイオリンもフルートも楽器</td><td>바이올린도 플루트도 악기</td></tr>
@@ -182,11 +201,10 @@
 <tr><td><strong>文楽 : 狂言</strong></td><td>ぶんらく : きょうげん</td><td>文楽も狂言も伝統芸能</td><td>분라쿠도 교겐도 전통예능</td></tr>
 <tr><td><strong>神社 : 寺</strong></td><td>じんじゃ : てら</td><td>神社も寺も建築物/宗教施設</td><td>신사도 절도 종교 시설</td></tr>
 </tbody></table></div>
-</div>
-
-<div class="section">
-  <div class="sn">유형별 빈출 예시</div>
-  <div class="st">【유형8】세트관계 (セット関係 - AとBは一緒に使う)</div>
+</div></div></div>
+<div class="sec-acc">
+<button class="sec-acc-btn" onclick="togSec(this)"><span>【유형8】세트관계 (セット関係 - AとBは一緒に使う)<span class="sec-acc-badge">5개</span></span><span class="acc-icon">▼</span></button>
+<div class="sec-acc-body"><div class="sec-acc-inner">
 <div class="table-wrap"><table><thead><tr><th>단어 쌍</th><th>읽기</th><th>문장으로 바꿔보기</th><th>한국어</th></tr></thead><tbody>
 <tr><td><strong>太鼓 : ばち</strong></td><td>たいこ : ばち</td><td>太鼓とばちはセットで使う</td><td>북과 북채는 세트</td></tr>
 <tr><td><strong>針 : 糸</strong></td><td>はり : いと</td><td>針と糸はセットで使う</td><td>바늘과 실은 세트</td></tr>
@@ -194,13 +212,12 @@
 <tr><td><strong>鍵 : 鍵穴</strong></td><td>かぎ : かぎあな</td><td>鍵と鍵穴はセットで使う</td><td>열쇠와 열쇠구멍은 세트</td></tr>
 <tr><td><strong>弓 : 矢</strong></td><td>ゆみ : や</td><td>弓と矢はセットで使う</td><td>활과 화살은 세트</td></tr>
 </tbody></table></div>
-</div>
+</div></div></div>
 
 
-<div class="section">
-  <div class="ib ib-w">
+  <div class="ib ib-w" style="margin-top:20px;">
     <div class="bl bl-w">시간 관리 팁</div>
-    <p><strong style="color:var(--text-sub);">1문제 10~20초 목표.</strong> 두 단어로 문장을 만들어서 관계를 파악한 뒤, 선택지에도 같은 방식으로 문장을 만들어봅니다. 연습하면 할수록 패턴이 보여서 빨라집니다. 익숙한 유형은 5초만에도 풀 수 있습니다.</p>
+    <p><strong style="color:var(--text-sub);">1문제 10~20초 목표.</strong> 두 단어로 문장을 만들어 관계 파악 → 선택지도 같은 방식으로 문장 만들기. 연습할수록 패턴이 보여 5초만에도 풀 수 있습니다.</p>
   </div>
 </div>
 
@@ -211,8 +228,29 @@
 </div>
 <div class="footer"><p><span class="brand">Tokyo Career Studio</span> — SPI 언어 ② 두 단어의 관계</p><p>© Tokyo Career Studio. All rights reserved.</p><p style="margin-top:8px;font-size:10px;">예제는 SPI 출제 유형을 참고하여 독자 작성.</p></div>
 </div>
-<script>function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}</script>
+
   <script src="nav.js"></script>
   <script src="global-nav.js"></script>
+
+<script>
+// Tab switching
+function switchTab(tabGroup, idx) {
+  document.querySelectorAll('[data-tab-group="'+tabGroup+'"] .tab-btn').forEach(function(b,i){
+    b.classList.toggle('active', i===idx);
+  });
+  document.querySelectorAll('[data-tab-group="'+tabGroup+'"] .tab-panel').forEach(function(p,i){
+    p.classList.toggle('active', i===idx);
+  });
+}
+// Section accordion
+function togSec(btn) {
+  btn.classList.toggle('open');
+  var body = btn.nextElementSibling;
+  body.classList.toggle('open');
+}
+// Existing practice toggle
+function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}
+</script>
+
 </body>
 </html>
