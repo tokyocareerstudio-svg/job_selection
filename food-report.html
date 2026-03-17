@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'industry-index.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>식품메이커 업계 리포트 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a0f; --surface: #141419; --surface-2: #1c1c24;
+    --border: #2a2a35; --border-hover: #3a3a48;
+    --text: #e8e8ed; --text-sub: #c0c0d0; --text-dim: #8888a0; --text-muted: #555568;
+    --accent: #e17055; --accent-soft: rgba(225,112,85,0.08); --accent-border: rgba(225,112,85,0.22);
+    --warn: #f59e0b; --warn-soft: rgba(245,158,11,0.06); --warn-border: rgba(245,158,11,0.18);
+    --sub1: #00b894; --sub1-soft: rgba(0,184,148,0.08); --sub1-border: rgba(0,184,148,0.2);
+    --sub2: #a29bfe; --sub2-soft: rgba(162,155,254,0.08); --sub2-border: rgba(162,155,254,0.2);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Noto Sans JP',sans-serif; line-height:1.8; font-size:15px; -webkit-font-smoothing:antialiased; }
+  .container { max-width:760px; margin:0 auto; padding:0 24px 100px; }
+  .hero { padding:64px 24px 48px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(225,112,85,0.06) 0%, transparent 70%); pointer-events:none; }
+  .hero-inner { position:relative; max-width:760px; margin:0 auto; }
+  .hero-label { display:inline-block; font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-border); padding:4px 12px; border-radius:12px; margin-bottom:20px; text-transform:uppercase; }
+  .hero h1 { font-size:30px; font-weight:900; line-height:1.3; margin-bottom:10px; letter-spacing:-0.5px; }
+  .hero-sub { font-size:13px; color:var(--text-dim); line-height:1.9; margin-bottom:20px; max-width:560px; }
+  .hero-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .hero-tag { font-size:11px; padding:4px 12px; border-radius:100px; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); font-weight:500; }
+  .hero-tag.s1 { background:var(--sub1-soft); color:var(--sub1); border-color:var(--sub1-border); }
+  .hero-tag.s2 { background:var(--sub2-soft); color:var(--sub2); border-color:var(--sub2-border); }
+
+  .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
+  .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+  .section-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-btn { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
+  .nav-btn:hover, .nav-btn.active { color:var(--accent); background:var(--accent-soft); }
+
+  .section { padding:44px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom:none; }
+  .section-num { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); opacity:0.7; margin-bottom:6px; text-transform:uppercase; }
+  .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
+  .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); margin-bottom:20px; }
+  .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section h3 { font-size:14px; font-weight:700; color:var(--text-sub); margin:28px 0 12px; padding-left:10px; border-left:2px solid var(--accent); }
+  .section h3.s1 { border-left-color:var(--sub1); }
+  .section h3.s2 { border-left-color:var(--sub2); }
+
+  .info-box { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:16px 0; }
+  .info-box-accent { background:var(--accent-soft); border-color:var(--accent-border); border-left:3px solid var(--accent); }
+  .info-box-warn { background:var(--warn-soft); border-color:var(--warn-border); border-left:3px solid var(--warn); }
+  .info-box-s1 { background:var(--sub1-soft); border-color:var(--sub1-border); border-left:3px solid var(--sub1); }
+  .info-box-s2 { background:var(--sub2-soft); border-color:var(--sub2-border); border-left:3px solid var(--sub2); }
+  .info-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+  .box-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+
+  .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
+  .keyword-card { padding:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .keyword-card-title { font-size:12px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .keyword-card-jp { font-family:'Noto Sans JP'; font-size:10px; color:var(--text-muted); margin-bottom:8px; }
+  .keyword-card p { font-size:11px; color:var(--text-dim); line-height:1.7; margin-bottom:0; }
+
+  .company-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
+  .company-card { padding:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .company-card-name { font-size:13px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .company-card-jp { font-family:'Noto Sans JP'; font-size:10px; color:var(--text-muted); margin-bottom:6px; }
+  .company-card-tags { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:6px; }
+  .company-card-tag { font-size:9px; padding:2px 8px; border-radius:100px; border:1px solid var(--border); color:var(--text-muted); }
+  .company-card p { font-size:11px; color:var(--text-dim); line-height:1.7; margin-bottom:0; }
+
+  .es-pattern { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:12px 0; }
+  .es-pattern-label { font-size:10px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:8px; text-transform:uppercase; }
+  .es-pattern p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+
+  .footer { padding:40px 0 60px; border-top:1px solid var(--border); margin-top:20px; text-align:center; }
+  .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; }
+  .footer .brand { font-weight:700; color:var(--text-dim); }
+
+  @media (max-width:640px) { .keyword-grid,.company-grid { grid-template-columns:1fr; } .hero h1 { font-size:24px; } .section-title { font-size:18px; } }
+</style>
+</head>
+<body>
+<div class="hero">
+<div class="hero-inner">
+<div class="hero-label">업계 리포트 Vol.26</div>
+<h1>식품메이커 업계 완전 정리</h1>
+<p class="hero-sub">
+      아지노모토·메이지·니신·마루하니치로 — 일본의 식탁을 지탱하는 식품 대기업들.<br/>
+      건강 지향·해외 전개·DX로 재편되는 업계 전체를 한 페이지에.
+    </p>
+<div class="hero-tags">
+<span class="hero-tag">BtoB·BtoC 양축</span>
+<span class="hero-tag s1">문과·이과 모두 가능</span>
+<span class="hero-tag s2">안정성 높음</span>
+<span class="hero-tag">해외 매출 비중 확대 중</span>
+</div>
+</div>
+</div>
+
+<div class="section-nav">
+<div class="section-nav-inner">
+<button class="nav-btn active" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})">전체상</button>
+<button class="nav-btn" onclick="document.getElementById('s2').scrollIntoView({behavior:'smooth'})">트렌드</button>
+<button class="nav-btn" onclick="document.getElementById('s3').scrollIntoView({behavior:'smooth'})">직종</button>
+<button class="nav-btn" onclick="document.getElementById('s4').scrollIntoView({behavior:'smooth'})">자기분석</button>
+<button class="nav-btn" onclick="document.getElementById('s5').scrollIntoView({behavior:'smooth'})">기업비교</button>
+<button class="nav-btn" onclick="document.getElementById('s6').scrollIntoView({behavior:'smooth'})">ES대책</button>
+<button class="nav-btn" onclick="document.getElementById('s7').scrollIntoView({behavior:'smooth'})">면접대책</button>
+</div>
+</div>
+
+<div class="container">
+
+<!-- SECTION 01 -->
+<div class="section" id="s1">
+<div class="section-num">SECTION 01</div>
+<div class="section-title">업계 전체상</div>
+<div class="section-title-jp">業界全体像 — 食品メーカーのビジネスモデル</div>
+<p>일본 식품메이커 업계는 약 25조 엔 규모의 내수 시장을 기반으로, 조미료·가공식품·냉동식품·과자·유제품·수산 등 다양한 세그먼트로 구성됩니다. 원재료 조달부터 R&D·제조·물류·판매까지 수직 통합된 밸류체인이 특징이며, 편의점·슈퍼·외식 체인과의 BtoB 영업이 매출의 핵심입니다.</p>
+<p>최근에는 인구 감소에 따른 국내 시장 정체를 돌파하기 위해 해외 전개를 가속하고 있습니다. 아지노모토는 해외 매출 비율이 60%를 넘었고, 메이지·니신도 동남아시아·북미 시장을 적극 공략 중입니다. 건강 지향(건강기능식품, 저당·저염), 냉동식품 고급화, 대체 단백질(배양육·식물성 단백) 등이 업계를 재편하는 키워드입니다.</p>
+<div class="info-box info-box-accent">
+<div class="box-label">핵심 비즈니스 모델</div>
+<p>원재료 조달 → R&D(맛·기능) → 제조(공장) → 영업(유통·편의점·외식) → 소비자. BtoB(유통 영업)와 BtoC(소비자 마케팅)가 동시에 작동하며, "맛+건강+편의성"의 3축에서 상품 가치가 결정됩니다. 식품 전공자는 R&D·품질관리, 문과는 영업·마케팅·물류에서 활약합니다.</p>
+</div>
+</div>
+
+<!-- SECTION 02 -->
+<div class="section" id="s2">
+<div class="section-num">SECTION 02</div>
+<div class="section-title">면접관이 체크하는 트렌드 3선</div>
+<div class="section-title-jp">面接官がチェックするトレンド</div>
+<h3>① 건강 지향과 기능성 식품</h3>
+<p>고령화와 건강 의식 상승으로 "트쿠호(特保)"·"기능성 표시 식품" 시장이 급성장. 메이지의 R-1, 아사히의 디어나츄레 등이 대표 사례입니다. 면접에서 "건강 트렌드를 어떻게 상품 기획에 연결할 것인가"를 물어볼 가능성이 높습니다.</p>
+<h3 class="s1">② 해외 전개 가속</h3>
+<p>인구 감소에 따른 내수 한계를 해외 시장으로 돌파. 아지노모토는 태국·브라질·인도네시아에서 현지 공장을 운영하며, 니신은 "Cup Noodles"를 80개국에 판매 중입니다. 해외 주재 경험이 커리어 패스에서 중요한 업계입니다.</p>
+<h3 class="s2">③ 식품 DX와 스마트 팩토리</h3>
+<p>제조 공정의 AI 활용(품질 검사 자동화), 수요 예측 기반 생산 계획, D2C(자사 EC) 등 DX가 빠르게 진행 중입니다. "왜 식품메이커에서 DX인가?"를 자기 경험과 연결해서 답할 수 있으면 차별화됩니다.</p>
+</div>
+
+<!-- SECTION 03 -->
+<div class="section" id="s3">
+<div class="section-num">SECTION 03</div>
+<div class="section-title">이 업계에서 활약하는 직종</div>
+<div class="section-title-jp">食品メーカー業界で活躍する職種</div>
+<h3>영업 (루트 영업 중심)</h3>
+<p>편의점·슈퍼·외식 체인 등 거래처를 정기 방문하며 자사 상품의 진열 제안·신상품 도입 교섭을 합니다. 거래처와의 장기 관계 구축이 핵심이며, "제안형 영업(提案型営業)"이라 불립니다. 문과 출신의 가장 대표적인 진입 경로입니다.</p>
+<h3 class="s1">마케팅·상품 기획</h3>
+<p>소비자 조사를 기반으로 신상품을 기획하고, 광고·프로모션 전략을 설계합니다. 입사 직후 바로 배치되는 경우는 드물고, 영업 2~3년 경험 후 이동하는 것이 일반적입니다. 식품 트렌드에 대한 관심과 데이터 분석 능력이 요구됩니다.</p>
+<h3 class="s2">R&D·품질관리</h3>
+<p>신소재 연구·배합 개발·관능평가(맛 테스트)·안전성 검사 등을 담당합니다. 식품과학·농학·화학 전공이 주요 타겟이며, 이과 출신의 핵심 진입 경로입니다. 연구소 배치 후 장기간 한 분야를 깊이 파는 스페셜리스트 성향이 강합니다.</p>
+<h3>생산관리·SCM</h3>
+<p>공장의 생산 라인 관리, 원재료 조달 최적화, 수요 예측 기반 생산 계획 수립을 담당합니다. "현장(工場)"에서의 교대 근무 경험이 초기 커리어에 포함되는 경우가 많습니다.</p>
+</div>
+
+<!-- SECTION 04 -->
+<div class="section" id="s4">
+<div class="section-num">SECTION 04</div>
+<div class="section-title">식품메이커 × 자기분석 키워드</div>
+<div class="section-title-jp">自己分析キーワードとの接続</div>
+<p>식품메이커 ES·면접에서 자주 연결되는 키워드입니다. 자기 경험과 매칭해보세요.</p>
+<div class="keyword-grid">
+<div class="keyword-card">
+<div class="keyword-card-title">식(食)에 대한 관심</div>
+<div class="keyword-card-jp">食に対する興味·関心</div>
+<p>"왜 식품인가?"의 출발점. 단순히 "먹는 걸 좋아한다"가 아니라, 식문화·식습관·건강과 식품의 관계를 자기 경험과 연결하세요.</p>
+</div>
+<div class="keyword-card">
+<div class="keyword-card-title">관계 구축력</div>
+<div class="keyword-card-jp">関係構築力</div>
+<p>루트 영업의 핵심. 거래처 담당자와의 신뢰를 장기간 쌓아가는 경험. 동아리·아르바이트에서 "단골"과의 관계를 연결 가능.</p>
+</div>
+<div class="keyword-card">
+<div class="keyword-card-title">소비자 시점</div>
+<div class="keyword-card-jp">消費者目線</div>
+<p>마케팅·상품 기획 지망이라면 필수. "소비자가 원하는 것"을 파악한 경험. SNS 분석, 설문 조사, 현장 관찰 등.</p>
+</div>
+<div class="keyword-card">
+<div class="keyword-card-title">끈기·지속력</div>
+<div class="keyword-card-jp">粘り強さ·継続力</div>
+<p>루트 영업은 단기 성과가 아닌 장기 관계. "결과가 바로 안 나와도 계속한" 경험이 강력한 어필 포인트.</p>
+</div>
+</div>
+</div>
+
+<!-- SECTION 05 -->
+<div class="section" id="s5">
+<div class="section-num">SECTION 05</div>
+<div class="section-title">기업 비교 & 리스트</div>
+<div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+<p>식품메이커는 세그먼트별로 기업 성격이 크게 다릅니다. 자신의 축에 맞는 기업을 비교해보세요.</p>
+<div class="company-grid">
+<div class="company-card">
+<div class="company-card-name">아지노모토</div>
+<div class="company-card-jp">味の素株式会社</div>
+<div class="company-card-tags"><span class="company-card-tag">해외 매출 60%+</span><span class="company-card-tag">조미료·아미노산</span><span class="company-card-tag">글로벌</span></div>
+<p>해외 비중 최고 수준. 글로벌 지향이라면 최우선 타겟. 아미노산 기술을 기반으로 헬스케어까지 확장 중.</p>
+</div>
+<div class="company-card">
+<div class="company-card-name">메이지 홀딩스</div>
+<div class="company-card-jp">株式会社 明治</div>
+<div class="company-card-tags"><span class="company-card-tag">유제품·과자</span><span class="company-card-tag">건강 기능식품</span><span class="company-card-tag">BtoC 강함</span></div>
+<p>초콜릿(메이지 밀크초콜릿)·유제품(R-1, LG21)·과자 분야의 절대 강자. BtoC 마케팅에 관심이 있다면.</p>
+</div>
+<div class="company-card">
+<div class="company-card-name">니신식품</div>
+<div class="company-card-jp">日清食品ホールディングス</div>
+<div class="company-card-tags"><span class="company-card-tag">인스턴트라면</span><span class="company-card-tag">해외 80개국</span><span class="company-card-tag">혁신적 기업문화</span></div>
+<p>Cup Noodles의 글로벌 브랜드. "혁신"을 중시하는 사풍. 해외 주재 기회 풍부.</p>
+</div>
+<div class="company-card">
+<div class="company-card-name">마루하니치로</div>
+<div class="company-card-jp">マルハニチロ株式会社</div>
+<div class="company-card-tags"><span class="company-card-tag">수산·냉동식품</span><span class="company-card-tag">원재료 조달</span><span class="company-card-tag">BtoB 비중 높음</span></div>
+<p>수산 분야 일본 최대. 조달에서 제조·판매까지 수직 통합. 물류·SCM에 관심이 있다면 적합.</p>
+</div>
+<div class="company-card">
+<div class="company-card-name">닛폰햄</div>
+<div class="company-card-jp">日本ハム株式会社</div>
+<div class="company-card-tags"><span class="company-card-tag">식육·가공육</span><span class="company-card-tag">6차 산업화</span><span class="company-card-tag">스포츠 경영</span></div>
+<p>식육 분야 No.1. 사육에서 가공·판매까지 일관 체제. 닛폰햄 파이터즈 등 스포츠 사업도 운영.</p>
+</div>
+<div class="company-card">
+<div class="company-card-name">카고메</div>
+<div class="company-card-jp">カゴメ株式会社</div>
+<div class="company-card-tags"><span class="company-card-tag">토마토·야채 음료</span><span class="company-card-tag">건강 브랜드</span><span class="company-card-tag">중견</span></div>
+<p>"자연을 맛있게, 즐겁게(自然を、おいしく、楽しく)." 건강 지향 브랜드의 대표. 토마토 가공에 강점.</p>
+</div>
+</div>
+</div>
+
+<!-- SECTION 06 -->
+<div class="section" id="s6">
+<div class="section-num">SECTION 06</div>
+<div class="section-title">ES 대책</div>
+<div class="section-title-jp">合格パターン·落とし穴</div>
+<h3>빈출 질문</h3>
+<p>식품메이커 ES에서 가장 많이 나오는 질문은 "왜 식품업계인가(なぜ食品業界か)?"와 "우리 회사의 어떤 상품에 관심이 있는가?"입니다. 두 질문 모두 "단순히 좋아해서"를 넘어서 자기 경험과 연결된 답변이 필요합니다.</p>
+<div class="es-pattern">
+<div class="es-pattern-label">합격 패턴</div>
+<p>"유학 시절 일본 음식의 맛이 현지인에게도 받아들여지는 것을 보고, 식품을 통한 문화 교류의 가능성을 느꼈습니다. 귀사의 해외 사업에서 그 가능성을 실현하고 싶습니다."<br/>→ 자기 경험 + 업계 특성 + 지원 기업 전략이 한 줄로 연결됨.</p>
+</div>
+<div class="es-pattern">
+<div class="es-pattern-label" style="color:var(--warn);">빠지기 쉬운 함정</div>
+<p>❌ "어릴 때부터 먹는 것을 좋아해서 식품업계를 지원합니다" — 누구나 쓸 수 있는 말. 차별화가 없음.<br/>
+❌ "귀사의 상품을 잘 먹고 있어서" — 소비자 시점에 머물러 있음. "만드는 쪽"의 관점이 필요.<br/>
+✅ 소비자 경험에서 출발하되, "왜 그 경험이 나를 만드는 쪽으로 이끌었는가"까지 쓰세요.</p>
+</div>
+</div>
+
+<!-- SECTION 07 -->
+<div class="section" id="s7">
+<div class="section-num">SECTION 07</div>
+<div class="section-title">면접 대책</div>
+<div class="section-title-jp">面接対策 — 頻出質問·選考フロー</div>
+<h3>선고 플로우 (대기업 기준)</h3>
+<p>ES → 웹테스트(SPI/TG-WEB) → GD(그룹 디스커션) → 1차 면접(인사) → 2차 면접(현장 관리직) → 최종 면접(임원). 대기업은 GD가 있는 경우가 많고, "소비자 니즈를 어떻게 상품에 반영할 것인가" 같은 테마가 빈출입니다.</p>
+<h3 class="s1">빈출 질문</h3>
+<div class="info-box info-box-s1">
+<p>· 왜 식품업계인가? 그 중에서도 왜 우리 회사인가?<br/>
+· 우리 회사 상품 중 하나를 골라서 개선점을 제안해주세요.<br/>
+· 입사 후 어떤 부서에서 어떤 일을 하고 싶은가?<br/>
+· 일본의 식품 시장이 정체되고 있는데, 어떻게 성장할 수 있다고 생각하나?<br/>
+· 해외 주재에 대한 의향이 있는가?</p>
+</div>
+<div class="info-box info-box-warn">
+<div class="box-label" style="color:var(--warn);">주의 포인트</div>
+<p>식품메이커 면접에서는 "상품 지식"보다 "소비자 시점에서 과제를 발견하고 해결하는 사고력"을 봅니다. 사전에 지원 기업의 주요 상품 3~5개를 먹어보고, 각각에 대한 자기만의 의견(맛·패키지·타겟·개선점)을 정리해두세요.</p>
+</div>
+</div>
+
+<div class="footer">
+<p><span class="brand">Tokyo Career Studio</span> — 일본 취업 전문 컨설팅</p>
+<p>업계 리포트에 대한 피드백이나 상담은 <a href="https://www.latpeed.com/stores/Gvk82" style="color:var(--accent);" target="_blank">여기</a>에서 문의해주세요.</p>
+</div>
+
+</div>
+
+<script src="nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>
