@@ -120,7 +120,7 @@
   /* ── 섹션 카드 ── */
   .section-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     margin-bottom: 100px;
   }
@@ -155,6 +155,7 @@
   .card-test  { --c: #4a9eff; --cs: rgba(74,158,255,0.08); --cb: rgba(74,158,255,0.2); }
   .card-industry { --c: #a29bfe; --cs: rgba(162,155,254,0.08); --cb: rgba(162,155,254,0.2); }
   .card-job   { --c: #55efc4; --cs: rgba(85,239,196,0.08); --cb: rgba(85,239,196,0.2); }
+  .card-spi   { --c: #e17055; --cs: rgba(225,112,85,0.08); --cb: rgba(225,112,85,0.2); }
 
   .section-card::before { background: var(--c); }
 
@@ -417,6 +418,26 @@
           </div>
         </div>
 
+        <!-- SPI 적성검사 대책 (유료) -->
+        <div class="section-card card-spi" id="card-spi">
+          <div class="card-badge">📝 Step 04</div>
+          <div class="card-icon">📝</div>
+          <div class="card-title">SPI 적성검사<br>완전 대책</div>
+          <div class="card-desc">
+            비언어 6유형 + 언어 6유형<br>
+            공식·암기항목 270+개·예제까지<br>
+            테센/웹테 형식별 완전 대비.
+          </div>
+          <div class="card-meta">
+            <div class="card-tags">
+              <span class="card-tag">12유형</span>
+              <span class="card-tag">270+ 암기</span>
+            </div>
+            <span class="card-paid">수강생 전용</span>
+            <span class="card-arrow">→</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -517,6 +538,10 @@ document.getElementById('card-industry').addEventListener('click', () => {
 document.getElementById('card-job').addEventListener('click', () => {
   sessionStorage.setItem('tcs_redirect', 'map-lv1.html');
   location.href = 'map-lv1.html';
+});
+document.getElementById('card-spi').addEventListener('click', () => {
+  sessionStorage.setItem('tcs_redirect', 'spi-index.html');
+  location.href = 'spi-index.html';
 });
 </script>
 
