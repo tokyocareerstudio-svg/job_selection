@@ -36,6 +36,10 @@
   .hero-tag { font-size:11px; padding:4px 12px; border-radius:100px; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); font-weight:500; }
   .hero-tag.s1 { background:var(--sub1-soft); color:var(--sub1); border-color:var(--sub1-border); }
   .hero-tag.s2 { background:var(--sub2-soft); color:var(--sub2); border-color:var(--sub2-border); }
+  .hl { color:var(--accent); font-weight:600; }
+  .hl-s1 { color:var(--sub1); font-weight:600; }
+  .hl-s2 { color:var(--sub2); font-weight:600; }
+  .hl-warn { color:var(--warn); font-weight:600; }
   .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
   .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
   .section-nav-inner::-webkit-scrollbar { display:none; }
@@ -47,6 +51,7 @@
   .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
   .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); margin-bottom:20px; }
   .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section p:last-child { margin-bottom:0; }
   .section h3 { font-size:14px; font-weight:700; color:var(--text-sub); margin:28px 0 12px; padding-left:10px; border-left:2px solid var(--accent); }
   .section h3.s1 { border-left-color:var(--sub1); }
   .section h3.s2 { border-left-color:var(--sub2); }
@@ -54,8 +59,17 @@
   .info-box-accent { background:var(--accent-soft); border-color:var(--accent-border); border-left:3px solid var(--accent); }
   .info-box-warn { background:var(--warn-soft); border-color:var(--warn-border); border-left:3px solid var(--warn); }
   .info-box-s1 { background:var(--sub1-soft); border-color:var(--sub1-border); border-left:3px solid var(--sub1); }
+  .info-box-s2 { background:var(--sub2-soft); border-color:var(--sub2-border); border-left:3px solid var(--sub2); }
   .info-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
   .box-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .box-label-s1 { color:var(--sub1); }
+  .box-label-s2 { color:var(--sub2); }
+  .box-label-warn { color:var(--warn); }
+  .table-wrap { overflow-x:auto; margin:16px 0; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th { background:var(--surface-2); color:var(--text-dim); font-weight:600; padding:10px 12px; text-align:left; border-bottom:1px solid var(--border); font-size:11px; letter-spacing:0.5px; }
+  td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-sub); font-size:12px; line-height:1.7; }
+  tr:hover td { background:rgba(255,255,255,0.01); }
   .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
   .keyword-card { padding:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
   .keyword-card-title { font-size:12px; font-weight:700; color:var(--text); margin-bottom:4px; }
@@ -109,139 +123,279 @@
 
 <div class="container">
 
+<!-- ═══════════════ SECTION 01 ═══════════════ -->
 <div class="section" id="s1">
 <div class="section-num">SECTION 01</div>
 <div class="section-title">업계 전체상</div>
 <div class="section-title-jp">業界全体像 — 化粧品メーカーのビジネスモデル</div>
-<p>일본 화장품 시장은 약 2.7조 엔 규모로, 시세이도·카오·코세·폴라가 4대 대기업을 형성합니다. 비즈니스 모델은 "연구(소재·처방) → 제조(OEM 포함) → 브랜드 마케팅 → 유통(백화점·드럭스토어·EC)"의 구조이며, 브랜드 가치가 곧 기업 가치인 업계입니다.</p>
-<p>인바운드(방일 관광객) 수요, 중국·동남아 시장 확대, EC/D2C 전환이 업계를 재편 중이며, "클린뷰티(성분 안전성·환경 배려)" 트렌드가 신상품 개발의 핵심 축이 되고 있습니다. R&D 투자 비율이 메이커 중 가장 높은 업계 중 하나이며, 피부 과학·생명과학 전공의 이과 인재 수요도 큽니다.</p>
+
 <div class="info-box info-box-accent">
-<div class="box-label">핵심 비즈니스 모델</div>
-<p>R&D(소재·처방 개발) → 제조(자사 공장 or OEM) → 브랜드 구축(마케팅·광고) → 유통(백화점 카운터·드럭스토어·EC). 브랜드 파워가 가격 결정력을 좌우하며, "마케팅 주도형 메이커"라 불리는 이유입니다. 문과는 마케팅·영업·PR, 이과는 R&D·품질관리로 진입합니다.</p>
+<div class="box-label">한 줄 정의</div>
+<p><span class="hl">화장품·스킨케어·헤어케어 등 뷰티 제품을 연구·제조·판매하는 업계. 일본 화장품 시장 규모는 약 2.7조 엔으로, 시세이도·카오·코세·폴라가 4대 대기업을 형성.</span> "브랜드 가치 = 기업 가치"인 마케팅 주도형 메이커 업계이다.</p>
+<p>수익 구조는 <span class="hl">R&amp;D(소재·처방) → 제조 → 브랜드 구축(마케팅) → 유통(백화점·드럭스토어·EC)</span>의 흐름이며, 브랜드 파워가 곧 가격 결정력을 좌우한다. R&amp;D 투자 비율이 메이커 업계 중 최고 수준(매출의 2~4%)이며, 피부 과학·생명과학 분야의 기초 연구가 상품 차별화의 원천이다.</p>
+</div>
+
+<h3>화장품 메이커 업태 비교</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>업태</th><th>특징</th><th>대표 기업</th><th>취준생 접근성</th></tr></thead>
+<tbody>
+<tr><td>종합 화장품 대기업</td><td>스킨케어·메이크업·헤어케어 전반. 복수 브랜드 포트폴리오. 글로벌 전개</td><td>시세이도·카오·코세</td><td>★★★★★ (경쟁 최고)</td></tr>
+<tr><td>프레스티지 특화</td><td>백화점·면세점 채널 중심. 고가격·고부가가치. 카운터 BA 접객 중시</td><td>코세(데코르테), 폴라, SK-II(P&amp;G)</td><td>★★★★☆</td></tr>
+<tr><td>드럭스토어·매스 브랜드</td><td>중저가. 대량 생산·대량 유통. 가성비 경쟁</td><td>카오(비오레), 만담(갸츠비), 로토제약</td><td>★★★☆☆</td></tr>
+<tr><td>D2C·인디 브랜드</td><td>자사 EC 중심. SNS 마케팅 주도. 소규모·스피드 경영</td><td>벌크옴므, 바스코스메틱스</td><td>★★☆☆☆ (채용 소규모)</td></tr>
+<tr><td>OEM·ODM</td><td>타사 브랜드 화장품을 위탁 제조. 기술력 중심</td><td>코스모뷰티, 닛폰컬러</td><td>★★☆☆☆</td></tr>
+</tbody>
+</table></div>
+
+<div class="info-box info-box-warn">
+<div class="box-label box-label-warn">화장품 메이커에 입사하기 전에 알아야 할 현실</div>
+<p>① <span class="hl-warn">마케팅 배치는 영업 2~3년 후</span>가 일반적이다. 입사 직후 마케팅 부서에 배치되는 것은 극히 드물며, 먼저 영업(유통 영업 or BA 관리)에서 현장 감각을 익힌 뒤 이동한다.</p>
+<p>② <span class="hl-warn">영업은 유통 영업(드럭스토어·GMS)이 주류</span>다. 백화점 카운터 영업(BA 관리)은 일부이며, 대부분은 소매 유통 바이어와의 상담·진열 제안 업무이다.</p>
+<p>③ <span class="hl-warn">채용 경쟁이 매우 치열하다</span>. 시세이도·코세 등 상위 기업은 인기 업계 TOP 수준의 경쟁률. 브랜드에 대한 깊은 이해 + 비즈니스 시점이 동시에 필요하다.</p>
+<p>④ <span class="hl-warn">R&amp;D는 이과 전공 필수</span>. 화학·생물학·약학·피부과학 전공이 대상. 문과 출신은 영업·마케팅·PR·인사 등으로 진입한다.</p>
+</div>
+
+<h3 class="s1">화장품 업계의 밸류체인</h3>
+<div class="info-box info-box-s1">
+<div class="box-label box-label-s1">밸류체인 흐름</div>
+<p>① <span class="hl-s1">기초 연구</span>(피부 과학·신소재) → ② <span class="hl-s1">처방 개발</span>(배합·텍스처·안전성) → ③ <span class="hl-s1">제조</span>(자사 공장 or OEM) → ④ <span class="hl-s1">브랜드 구축</span>(마케팅·광고·PR) → ⑤ <span class="hl-s1">유통</span>(백화점 카운터·드럭스토어·EC) → ⑥ 소비자</p>
+<p>문과의 주요 진입 포인트는 ④ 브랜드 마케팅과 ⑤ 유통 영업이며, 이과는 ①② 연구개발과 ③ 제조·품질관리가 중심이다. PR·홍보는 문과·이과 불문으로 커뮤니케이션 능력이 핵심.</p>
 </div>
 </div>
 
+<!-- ═══════════════ SECTION 02 ═══════════════ -->
 <div class="section" id="s2">
 <div class="section-num">SECTION 02</div>
 <div class="section-title">면접관이 체크하는 트렌드 3선</div>
 <div class="section-title-jp">面接官がチェックするトレンド</div>
+
 <h3>① 클린뷰티와 지속가능성</h3>
-<p>성분 안전성(파라벤 프리, 비건), 친환경 패키징, 리필 시스템 등 "지속가능한 뷰티"가 글로벌 트렌드입니다. 카오의 리필 전략, 시세이도의 친환경 용기 등이 면접에서 언급할 수 있는 사례입니다.</p>
-<h3 class="s1">② D2C와 디지털 마케팅</h3>
-<p>백화점 카운터 중심에서 EC·자사 사이트·SNS 마케팅으로 중심이 이동 중입니다. AI 피부 진단, 버추얼 메이크업, 인플루언서 마케팅 등 디지털 기술과 뷰티의 융합이 가속화. "디지털 마케팅 경험"이 있으면 강점이 됩니다.</p>
-<h3 class="s2">③ 중국·동남아시아 시장</h3>
-<p>일본 화장품의 "메이드 인 재팬" 브랜드 가치가 해외에서 높아, 시세이도는 중국 매출이 전체의 25%를 넘습니다. 인바운드 회복과 함께 면세 매장 전략도 중요한 테마입니다.</p>
+<p>성분 안전성(파라벤 프리, 비건, 크루얼티 프리), 친환경 패키징(리필 시스템·바이오 플라스틱), 포용적 뷰티(다양한 피부톤·젠더리스) 등 <span class="hl">"지속가능한 뷰티"가 글로벌 트렌드</span>이다. 카오의 리필 전략(MyKirei), 시세이도의 친환경 용기 전환 등이 면접에서 언급할 수 있는 구체 사례.</p>
+<div class="info-box">
+<p>핵심 수치: 글로벌 클린뷰티 시장은 2025년 기준 약 120억 달러 규모로, 연 12%+의 고성장. 일본에서도 "성분 의식 소비자(成分意識消費者)"가 증가하며, 성분 앱(예: @cosme)의 영향력이 커지고 있다.</p>
 </div>
 
+<h3 class="s1">② D2C와 디지털 마케팅</h3>
+<p>백화점 카운터 중심에서 <span class="hl-s1">EC·자사 사이트·SNS 마케팅으로 중심이 이동 중</span>이다. AI 피부 진단(시세이도 "Optune"), 버추얼 메이크업(AR 기술), 인플루언서·KOL 마케팅 등 디지털 기술과 뷰티의 융합이 가속화. "디지털 마케팅 경험"이나 "SNS 운영 경험"이 있으면 강력한 어필 포인트가 된다.</p>
+<div class="info-box info-box-s1">
+<p>일본 화장품 EC 시장은 2024년 기준 약 8,000억 엔으로, 전체 시장의 약 30%. 코로나 이후 EC 비중이 급상승했으며, 특히 20~30대 소비자는 EC 구매 비율이 50%를 넘는다.</p>
+</div>
+
+<h3 class="s2">③ 중국·동남아 시장과 인바운드</h3>
+<p>일본 화장품의 <span class="hl-s2">"메이드 인 재팬" 브랜드 가치</span>가 해외에서 높아, 시세이도는 중국 매출이 전체의 25%를 넘는다. 중국 규제 강화(동물 실험 관련)에 따른 전략 수정, 동남아 시장(태국·인도네시아·베트남)으로의 다변화가 진행 중이다.</p>
+<p>인바운드 회복에 따라 면세 매장(공항·긴자·오모테산도) 전략도 중요한 테마. "인바운드 × 화장품"을 자기 관심과 연결하면 면접에서 차별화 포인트가 된다.</p>
+</div>
+
+<!-- ═══════════════ SECTION 03 ═══════════════ -->
 <div class="section" id="s3">
 <div class="section-num">SECTION 03</div>
 <div class="section-title">이 업계에서 활약하는 직종</div>
 <div class="section-title-jp">化粧品業界で活躍する職種</div>
+
 <h3>마케팅·브랜드 매니저</h3>
-<p>브랜드 전략 수립, 신상품 기획, 광고·프로모션 설계, SNS 운영까지 담당합니다. 화장품 업계에서 가장 인기 있는 직종이지만, 입사 직후 바로 배치되는 경우는 드물고 영업 2~3년 경험 후 이동이 일반적입니다.</p>
-<h3 class="s1">영업 (리테일·도매)</h3>
-<p>백화점·드럭스토어·GMS(대형 양판점) 등 거래처에 진열 제안·프로모션 기획을 합니다. 카운터 영업(BA 관리)과 유통 영업으로 나뉘며, 현장 감각을 익히는 중요한 첫 스텝입니다.</p>
-<h3 class="s2">R&D·연구개발</h3>
-<p>피부 과학 연구, 신소재·처방 개발, 안전성 시험 등을 담당합니다. 화학·생물학·약학·농학 전공이 주요 대상. 시세이도 연구소, 카오 연구소 등이 아시아 톱 클래스의 연구 환경을 갖추고 있습니다.</p>
-<h3>PR·홍보</h3>
-<p>미디어 릴레이션, 신상품 발표회 기획, 인플루언서 리레이션 등을 담당합니다. "뷰티 PR"은 업계 특유의 포지션으로, 패션·미디어에 관심 있는 인재에게 적합합니다.</p>
+<p>브랜드 전략 수립, 신상품 기획, 광고·프로모션 설계, SNS 운영까지 담당한다. <span class="hl">화장품 업계에서 가장 인기 있는 직종</span>이지만, 입사 직후 배치되는 경우는 드물고 영업 2~3년 경험 후 이동이 일반적이다.</p>
+<div class="info-box">
+<p><span class="hl">배치 경로</span>: 영업 2~3년 → 마케팅 부서 이동 → 브랜드 담당 → 브랜드 매니저. 시세이도는 "마케팅 직종 채용"으로 별도 모집하는 경우도 있으나 경쟁률이 극도로 높다. 요구 역량: 소비자 인사이트, 데이터 분석(POS·SNS), 크리에이티브 디렉션, 크로스 펑셔널 리드.</p>
 </div>
 
+<h3 class="s1">영업 (유통 영업·BA 관리)</h3>
+<p>드럭스토어·GMS·백화점 등 유통 채널에 <span class="hl-s1">진열 제안·프로모션 기획·신상품 도입 교섭</span>을 한다. 백화점 채널은 BA(뷰티 어드바이저) 관리·교육도 포함. 현장 감각을 익히는 가장 중요한 첫 스텝.</p>
+<div class="info-box info-box-s1">
+<p><span class="hl-s1">신졸 배치율: 약 50~60%</span>가 영업. 커리어 패스: 에리어 영업 → 에리어 매니저 → 본사 마케팅 or 유통 전략. 전국 전근(全国転勤) 일반적. 드럭스토어 영업의 경우 매장 순회가 일상이며, 주 1회 이상 바이어 상담.</p>
+</div>
+
+<h3 class="s2">R&D·연구개발 (이과 전용)</h3>
+<p>피부 과학 기초 연구, 신소재·처방 개발, 관능 평가(텍스처·향), 안전성 시험, 유효성 검증 등을 담당한다. <span class="hl-s2">화학·생물학·약학·농학 전공이 주요 대상</span>이며, 시세이도 연구소(GLOBAL INNOVATION CENTER), 카오 연구소(에치젠) 등이 아시아 톱 클래스의 연구 환경을 갖추고 있다.</p>
+<div class="info-box info-box-s2">
+<p>최근 연구 트렌드: 마이크로바이옴(피부 상재균), 에피제네틱스(피부 노화 메커니즘), AI 기반 처방 최적화. 박사 출신 채용도 증가 추세이며, 해외 학회 발표·논문 실적이 채용에서 중시된다.</p>
+</div>
+
+<h3>PR·홍보</h3>
+<p><span class="hl">미디어 릴레이션, 신상품 발표회 기획, 인플루언서·KOL 리레이션</span> 등을 담당한다. "뷰티 PR"은 업계 특유의 포지션으로, 패션 잡지·미용 매체와의 관계 구축이 핵심. 커뮤니케이션 능력 + 트렌드 감도가 요구된다.</p>
+<div class="info-box">
+<p>커리어 패스: PR 부서 배치 → 뷰티 에디터·미디어와 네트워크 구축 → PR 매니저 → 커뮤니케이션 디렉터. 문과·이과 불문이며, SNS 운영 경험·이벤트 기획 경험이 있으면 어필 가능.</p>
+</div>
+</div>
+
+<!-- ═══════════════ SECTION 04 ═══════════════ -->
 <div class="section" id="s4">
 <div class="section-num">SECTION 04</div>
 <div class="section-title">화장품메이커 × 자기분석 키워드</div>
 <div class="section-title-jp">自己分析キーワードとの接続</div>
+<p>화장품 메이커 ES·면접에서 자주 연결되는 키워드이다. 자기 경험과 매칭하여 에피소드를 준비하자.</p>
+
 <div class="keyword-grid">
 <div class="keyword-card">
 <div class="keyword-card-title">뷰티에 대한 감도</div>
 <div class="keyword-card-jp">美容に対する感度·関心</div>
-<p>"왜 화장품인가?"의 출발점. 자기 자신의 뷰티 경험, 화장품이 사람의 자신감에 미치는 영향 등을 구체적으로.</p>
+<p>"왜 화장품인가?"의 출발점. 단순히 "화장품을 좋아한다"가 아니라, 뷰티가 사람의 자신감·생활에 미치는 영향을 자기 경험으로.</p>
 </div>
 <div class="keyword-card">
 <div class="keyword-card-title">트렌드 감지력</div>
 <div class="keyword-card-jp">トレンドキャッチ力</div>
-<p>SNS·해외 트렌드를 빠르게 감지하고 분석한 경험. 마케팅 직종이라면 필수 어필 포인트.</p>
+<p>SNS·해외 트렌드를 빠르게 감지하고 분석한 경험. 인스타그램·TikTok·@cosme 등에서의 정보 수집 능력.</p>
 </div>
 <div class="keyword-card">
 <div class="keyword-card-title">제안력·프레젠 능력</div>
 <div class="keyword-card-jp">提案力·プレゼン力</div>
-<p>유통 영업에서 진열 제안, 마케팅에서 기획 프레젠 등 "제안해서 설득하는" 능력이 핵심.</p>
+<p>유통 영업에서 진열 제안, 마케팅에서 기획 프레젠. "상대를 설득해서 행동을 바꾼" 경험이 핵심.</p>
 </div>
 <div class="keyword-card">
 <div class="keyword-card-title">글로벌 시야</div>
 <div class="keyword-card-jp">グローバル視点</div>
-<p>해외 시장에 대한 관심, 다문화 감각. 해외 유학·거주 경험이 있으면 강력한 어필.</p>
+<p>해외 시장에 대한 관심, 다문화 감각. 해외 유학·거주 경험이 있으면 강력한 어필. K-뷰티 경험도 유효.</p>
+</div>
+<div class="keyword-card">
+<div class="keyword-card-title">소비자 시점</div>
+<div class="keyword-card-jp">消費者目線</div>
+<p>"소비자가 무엇을 원하는가"를 관찰·분석한 경험. 매장 관찰, 후기 분석, 설문 등 구체적 방법론이 있으면 +.</p>
+</div>
+<div class="keyword-card">
+<div class="keyword-card-title">관계 구축력</div>
+<div class="keyword-card-jp">関係構築力</div>
+<p>영업 직종의 핵심. 바이어·BA·유통 담당자와의 신뢰 관계. 아르바이트나 동아리에서의 대인 관계 경험을 연결.</p>
+</div>
+<div class="keyword-card">
+<div class="keyword-card-title">창조력·감성</div>
+<div class="keyword-card-jp">創造力·感性</div>
+<p>마케팅·PR 직종에서 중시. 새로운 아이디어를 내서 형태로 만든 경험. 디자인·콘텐츠 제작 경험도 유효.</p>
+</div>
+<div class="keyword-card">
+<div class="keyword-card-title">데이터 분석력</div>
+<div class="keyword-card-jp">データ分析力</div>
+<p>D2C·디지털 마케팅 시대에 필수. SNS 인사이트·POS 데이터·고객 리뷰 분석. 엑셀·SQL 경험이 있으면 차별화.</p>
 </div>
 </div>
 </div>
 
+<!-- ═══════════════ SECTION 05 ═══════════════ -->
 <div class="section" id="s5">
 <div class="section-num">SECTION 05</div>
 <div class="section-title">기업 비교 & 리스트</div>
 <div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+<p>화장품 메이커는 브랜드 포지셔닝·유통 채널·해외 비중에 따라 기업 성격이 크게 다르다.</p>
+
 <div class="company-grid">
 <div class="company-card">
 <div class="company-card-name">시세이도</div>
 <div class="company-card-jp">株式会社 資生堂</div>
 <div class="company-card-tags"><span class="company-card-tag">글로벌 No.5</span><span class="company-card-tag">프레스티지</span><span class="company-card-tag">해외 60%+</span></div>
-<p>일본 화장품 최대기업. 해외 매출 비율 60% 이상. NARS·클레드포보테 등 글로벌 브랜드 다수 보유.</p>
+<p>일본 화장품 최대 기업. 해외 매출 비율 60%+. NARS·클레드포보테·IPSA 등 글로벌 브랜드 다수. 평균 연봉 약 700만 엔. 채용 경쟁률 최고 수준.</p>
 </div>
 <div class="company-card">
 <div class="company-card-name">카오</div>
 <div class="company-card-jp">花王株式会社</div>
-<div class="company-card-tags"><span class="company-card-tag">화학 기반</span><span class="company-card-tag">생활용품+화장품</span><span class="company-card-tag">R&D 강점</span></div>
-<p>화장품(카네보, KATE) + 생활용품(메리즈, 어택) 양축 경영. 화학 기반 R&D가 업계 최강 수준.</p>
+<div class="company-card-tags"><span class="company-card-tag">화학 기반</span><span class="company-card-tag">생활용품+화장품</span><span class="company-card-tag">R&D 최강</span></div>
+<p>화장품(카네보, KATE, SUQQU) + 생활용품(메리즈, 어택) 양축 경영. 화학 기반 R&amp;D가 업계 최강 수준. 연구 지향이라면 최적.</p>
 </div>
 <div class="company-card">
 <div class="company-card-name">코세</div>
 <div class="company-card-jp">株式会社コーセー</div>
 <div class="company-card-tags"><span class="company-card-tag">데코르테</span><span class="company-card-tag">프레스티지 특화</span><span class="company-card-tag">인바운드 강세</span></div>
-<p>DECORTÉ·설기정(雪肌精)·지루스튜어트 등 프레스티지 브랜드 특화. 인바운드 수혜 기업.</p>
+<p>DECORTÉ·설기정(雪肌精)·지루스튜어트·타르트 등. 프레스티지 브랜드 특화. 인바운드 매출 비중이 높아 관광 회복 수혜 기업.</p>
 </div>
 <div class="company-card">
 <div class="company-card-name">폴라 오르비스 HD</div>
 <div class="company-card-jp">ポーラ·オルビスHD</div>
 <div class="company-card-tags"><span class="company-card-tag">방문 판매</span><span class="company-card-tag">연구 강점</span><span class="company-card-tag">D2C 전환 중</span></div>
-<p>폴라 레이디(방문 판매) 모델이 특징. 피부 과학 연구에서 업계 톱. 오르비스는 D2C 선두.</p>
+<p>폴라 레이디(방문 판매) 모델이 특징. 피부 과학 연구에서 업계 톱(WRINKLE SHOT). 오르비스는 D2C 선두.</p>
 </div>
+<div class="company-card">
+<div class="company-card-name">판클</div>
+<div class="company-card-jp">株式会社ファンケル</div>
+<div class="company-card-tags"><span class="company-card-tag">무첨가</span><span class="company-card-tag">건강식품 겸업</span><span class="company-card-tag">통판 중심</span></div>
+<p>"무첨가(無添加)" 화장품의 선구자. 건강식품(칼로리밋)도 강한 양축 경영. 키린 HD 산하. 통판·EC 비중 높음.</p>
+</div>
+<div class="company-card">
+<div class="company-card-name">만담</div>
+<div class="company-card-jp">株式会社マンダム</div>
+<div class="company-card-tags"><span class="company-card-tag">남성 화장품</span><span class="company-card-tag">동남아 강세</span><span class="company-card-tag">중견</span></div>
+<p>갸츠비·루시도 등 남성 브랜드의 절대 강자. 동남아(인도네시아) 시장에서 No.1 점유율. 글로벌 관심이라면 주목.</p>
 </div>
 </div>
 
+<h3>화장품 메이커 선택 축</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>축</th><th>선택지 A</th><th>선택지 B</th></tr></thead>
+<tbody>
+<tr><td>글로벌 지향 vs 국내 중심</td><td>시세이도, 카오, 만담</td><td>폴라, 판클, 코세(국내 비중 높음)</td></tr>
+<tr><td>프레스티지 vs 매스</td><td>시세이도(NARS), 코세(데코르테), 폴라</td><td>카오(비오레, KATE), 만담(갸츠비)</td></tr>
+<tr><td>마케팅 중심 vs 연구 중심</td><td>시세이도, 코세</td><td>카오(R&amp;D 최강), 폴라(피부 과학)</td></tr>
+</tbody>
+</table></div>
+</div>
+
+<!-- ═══════════════ SECTION 06 ═══════════════ -->
 <div class="section" id="s6">
 <div class="section-num">SECTION 06</div>
 <div class="section-title">ES 대책</div>
 <div class="section-title-jp">合格パターン·落とし穴</div>
+
 <h3>빈출 질문</h3>
-<p>"왜 화장품업계인가?"와 "우리 브랜드의 매력을 이야기해주세요"가 양대 빈출입니다. 특히 브랜드에 대한 이해도가 중요합니다.</p>
+<p>화장품 메이커 ES에서 가장 많이 나오는 질문은 <span class="hl">"왜 화장품업계인가?"</span>와 <span class="hl">"우리 브랜드의 매력을 이야기해주세요"</span>이다. 특히 브랜드에 대한 이해도가 합격의 분수령.</p>
+
 <div class="es-pattern">
-<div class="es-pattern-label">합격 패턴</div>
-<p>"해외 여행 중 일본 화장품의 품질에 감동한 현지인을 보고, 일본 뷰티의 가치를 세계에 전달하고 싶다는 생각이 들었습니다. 귀사의 글로벌 브랜드 전략에서 그 역할을 하고 싶습니다."<br/>→ 자기 원체험 + 업계 가치 + 기업 전략이 연결.</p>
+<div class="es-pattern-label">합격 패턴 ① — 원체험 연결형</div>
+<p>"해외 여행 중 현지인이 일본 화장품의 품질에 감동하는 것을 보고, 일본 뷰티의 가치를 세계에 전달하고 싶다는 생각이 들었습니다. 귀사의 글로벌 브랜드 전략에서 그 역할을 하고 싶습니다."<br/>→ 자기 원체험 + 업계 가치 + 기업 전략이 한 줄로 연결.</p>
+</div>
+<div class="es-pattern">
+<div class="es-pattern-label">합격 패턴 ② — 브랜드 분석형</div>
+<p>"귀사의 ○○ 브랜드가 타겟을 20대 후반 직장여성으로 재정의하면서 EC 매출이 급성장한 점에 주목했습니다. 소비자 데이터 분석을 통해 이 성장을 가속하는 마케팅에 기여하고 싶습니다."<br/>→ 구체적 브랜드 분석 + 데이터 시점 + 자기 역할 명확화.</p>
+</div>
+<div class="es-pattern">
+<div class="es-pattern-label">합격 패턴 ③ — 사회 가치형</div>
+<p>"화장품이 사람의 외면뿐 아니라 자신감과 정신 건강에도 기여한다고 생각합니다. 대학에서 심리학을 전공하며 '자기 인식(self-perception)'을 연구한 경험을 살려, 귀사의 '뷰티를 통한 임파워먼트' 사업에 참여하고 싶습니다."<br/>→ 전공 + 화장품의 사회적 가치 + 기업 비전 연결.</p>
 </div>
 <div class="es-pattern">
 <div class="es-pattern-label" style="color:var(--warn);">빠지기 쉬운 함정</div>
-<p>❌ "화장품을 좋아해서" — 소비자 시점에 머물러 있음. "만드는 쪽·전하는 쪽"의 관점 필요.<br/>
+<p>❌ "화장품을 좋아해서" — 소비자 시점에 머물러 있음. "만드는 쪽·전하는 쪽"의 관점이 필요.<br/>
 ❌ 브랜드명을 나열만 하고 "왜 그 브랜드인가"에 대한 자기 생각이 없는 패턴.<br/>
-✅ 반드시 지원 기업의 브랜드 포트폴리오를 조사하고, 1개 브랜드에 대한 깊은 분석을 준비하세요.</p>
+❌ "뷰티로 사람을 아름답게 만들고 싶다" — 추상적. 구체적 경험과 기업 전략으로 뒷받침해야 함.<br/>
+✅ 반드시 지원 기업의 <span class="hl">브랜드 포트폴리오를 조사</span>하고, 1개 브랜드에 대한 깊은 분석(타겟·경쟁우위·과제·성장 가능성)을 준비하라.</p>
 </div>
 </div>
 
+<!-- ═══════════════ SECTION 07 ═══════════════ -->
 <div class="section" id="s7">
 <div class="section-num">SECTION 07</div>
 <div class="section-title">면접 대책</div>
 <div class="section-title-jp">面接対策 — 頻出質問·選考フロー</div>
-<h3>선고 플로우</h3>
-<p>ES → 웹테스트 → GD → 1차 면접(인사) → 2차 면접(현장) → 최종(임원). 시세이도·코세 등은 GD 대신 프레젠 면접이 있는 경우도 있습니다.</p>
-<h3 class="s1">빈출 질문</h3>
+
+<h3>선고 플로우 (대기업 기준)</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>단계</th><th>내용</th><th>포인트</th></tr></thead>
+<tbody>
+<tr><td>ES</td><td>가쿠치카, 지망 동기, "좋아하는 브랜드와 그 이유"</td><td>브랜드 분석 깊이가 합격 분수령</td></tr>
+<tr><td>웹테스트</td><td>SPI or 玉手箱</td><td>시세이도는 玉手箱 빈출</td></tr>
+<tr><td>GD/프레젠</td><td>"신상품 기획" "타겟 재정의" 테마 빈출</td><td>소비자 시점 + 비즈니스 임팩트</td></tr>
+<tr><td>1차 면접</td><td>인사 면접관. 가쿠치카 후카보리</td><td>행동·결과를 구체적으로</td></tr>
+<tr><td>2차 면접</td><td>현장 관리직. 업계 이해도 + 직종 적합성</td><td>"영업 배치 괜찮은가?" 빈출</td></tr>
+<tr><td>최종</td><td>임원. 가치관·장기 비전</td><td>"뷰티를 통해 어떤 가치를 만들고 싶은가?"</td></tr>
+</tbody>
+</table></div>
+
+<h3 class="s1">빈출 질문 & 답변 가이드</h3>
 <div class="info-box info-box-s1">
-<p>· 왜 화장품업계인가? 그 중에서 왜 우리 회사인가?<br/>
-· 우리 브랜드 중 하나를 골라 타겟·포지셔닝·개선점을 이야기해주세요.<br/>
-· 화장품이 사람에게 주는 가치는 무엇이라고 생각하는가?<br/>
-· 중국 시장이 둔화되고 있는데, 어떤 성장 전략이 필요하다고 생각하나?<br/>
-· 클린뷰티 트렌드에 대해 어떻게 생각하는가?</p>
+<p>· <span class="hl-s1">왜 화장품업계인가? 그 중에서 왜 우리 회사인가?</span><br/>
+→ 원체험 + 업계 가치 + 기업 차별점(브랜드 포트폴리오, 해외 전략, 연구력 등)을 3단계로. "화장품 전반"이 아니라 "이 회사만의 강점"에 도달해야 한다.</p>
+<p>· <span class="hl-s1">우리 브랜드 중 하나를 골라 타겟·포지셔닝·개선점을 이야기해주세요.</span><br/>
+→ 사전에 지원 기업의 브랜드 3~5개를 실제로 사용해보고(혹은 매장에서 체험하고), 각 브랜드의 타겟·경쟁 상대·강점·과제를 정리. 백화점 카운터에서 BA의 접객을 체험해보면 현장감이 생긴다.</p>
+<p>· <span class="hl-s1">화장품이 사람에게 주는 가치는 무엇이라고 생각하는가?</span><br/>
+→ "아름답게 만든다"만으로는 부족. "자신감", "자기 표현", "커뮤니케이션 도구", "건강(스킨케어)" 등 다차원적 가치를 자기 경험과 연결.</p>
+<p>· <span class="hl-s1">중국 시장이 둔화되고 있는데, 어떤 성장 전략이 필요하다고 생각하나?</span><br/>
+→ 동남아 다변화, 인바운드 강화, D2C 전환, 클린뷰티 등 구체적 방향성 + 지원 기업의 중기경영계획과 연결.</p>
+<p>· <span class="hl-s1">입사 후 어떤 부서에서 어떤 일을 하고 싶은가?</span><br/>
+→ "마케팅"만 답하면 위험. "먼저 영업에서 유통·소비자 현장을 알고, 그 경험을 바탕으로 브랜드 마케팅으로 이동하고 싶다"가 현실적.</p>
 </div>
+
 <div class="info-box info-box-warn">
-<div class="box-label" style="color:var(--warn);">주의 포인트</div>
-<p>화장품 업계는 "뷰티에 대한 진심"과 "비즈니스 시점"의 균형을 봅니다. 단순 팬이 아니라, "이 브랜드를 어떻게 성장시킬 것인가"의 관점을 보여주세요. 사전에 백화점 카운터에서 BA(뷰티 어드바이저)의 접객을 체험하고 면접에 임하면 현장감이 생깁니다.</p>
+<div class="box-label box-label-warn">면접 준비 체크리스트</div>
+<p>□ 지원 기업의 브랜드 포트폴리오를 전부 파악했는가?<br/>
+□ 1개 브랜드를 골라 타겟·강점·경쟁사·과제를 분석했는가?<br/>
+□ 백화점 카운터 or 드럭스토어에서 실제 상품을 체험했는가?<br/>
+□ 기업의 중기경영계획(中期経営計画) 키워드 3개를 알고 있는가?<br/>
+□ "왜 마케팅이 아니라 영업부터 시작해도 괜찮은가?"에 답할 수 있는가?<br/>
+□ 클린뷰티·D2C·인바운드 중 1개 트렌드에 대한 자기 의견이 있는가?</p>
 </div>
 </div>
 
