@@ -1754,7 +1754,7 @@ const SCENARIO_ITEMS = [
       { text: '일단 끝까지 이야기를 듣고, 상대가 진정된 뒤 대응책을 제안한다', competency: ['傾聴力','共感力'] },
       { text: '사실관계를 정리해서 침착하게 설명한다', competency: ['論理的思考力','冷静さ'] },
       { text: '바로 점장에게 보고하고 함께 대응한다', competency: ['状況把握力','責任感'] },
-      { text: '사과 후 대안(할인·교환 등)을 즉시 제시한다', competency: ['実行力','積極性'] }
+      { text: '사과 후 상대가 납득할 때까지 여러 대안을 제시한다', competency: ['粘り強さ','協調性'] }
     ]
   },
   {
@@ -1764,7 +1764,7 @@ const SCENARIO_ITEMS = [
       { text: '비슷한 이벤트 사례를 조사하고 데이터를 기반으로 계획을 세운다', competency: ['論理的思考力','洞察力'] },
       { text: '기존에 없었던 새로운 콘셉트를 제안한다', competency: ['創造力','企画力'] },
       { text: '멤버별 강점을 파악해서 역할을 배분하고 일정표를 만든다', competency: ['調整力','自己管理能力'] },
-      { text: '직접 나서서 협찬을 구하고 준비를 진행한다', competency: ['積極性','実行力'] }
+      { text: '부족한 예산 안에서 직접 뛰며 끝까지 책임지고 준비한다', competency: ['責任感','粘り強さ'] }
     ]
   },
   {
@@ -1801,10 +1801,10 @@ const SCENARIO_ITEMS = [
     id: 'sc_7',
     situation: '학교 축제 실행위원인데, 당일 비가 와서 야외 프로그램을 전면 변경해야 한다.',
     choices: [
-      { text: '즉시 대안 장소를 확보하고 프로그램 순서를 재편성한다', competency: ['実行力','状況把握力'] },
+      { text: '비가 오는 상황을 역이용해서 새로운 우천 전용 프로그램을 급히 기획한다', competency: ['創造力','状況把握力'] },
       { text: '멤버들을 모아 역할을 재배분하고 각자 움직이게 한다', competency: ['牽引力','調整力'] },
       { text: '침착하게 가능한 옵션을 정리하고 최선의 방안을 선택한다', competency: ['冷静さ','論理的思考力'] },
-      { text: 'SNS로 참가자에게 변경 사항을 빠르게 안내한다', competency: ['発信力','積極性'] }
+      { text: '참가자와 멤버 모두에게 상황을 공유하고 함께 대안을 찾자고 제안한다', competency: ['発信力','協調性'] }
     ]
   },
   {
@@ -2329,10 +2329,10 @@ function computeCompetencyScores() {
     item.competency.forEach(c => { scores[c] = (scores[c] || 0) + 1; });
   });
 
-  // 시나리오 역량 반영 (가중치 1.5 — 행동 기반이므로 자기 인식보다 높게)
+  // 시나리오 역량 반영 (가중치 1.0 — 자기 인식과 동등하게 반영)
   state.scenario.forEach(entry => {
     if (!entry.competency) return;
-    entry.competency.forEach(c => { scores[c] = (scores[c] || 0) + 1.5; });
+    entry.competency.forEach(c => { scores[c] = (scores[c] || 0) + 1; });
   });
 
   // 에피소드 역량 보조 반영 (가중치 0.5)
@@ -2380,6 +2380,52 @@ function computeJobScores(compScores) {
     profile.sub.forEach(c => { if (compScores[c]) score += compScores[c]; });
     jobScores[job] = score;
   });
+
+  // ── 축 질문(4축) 기반 직종 보정 ──
+  const axG = { 환경:[], 업무:[], 문화:[], 커리어:[] };
+  Object.values(state.axisScores).forEach(({axis,val}) => { if(axG[axis]) axG[axis].push(val); });
+  const axA = {};
+  Object.entries(axG).forEach(([a,v]) => { axA[a] = v.length ? Math.round(v.reduce((s,x)=>s+x,0)/v.length) : 50; });
+
+  const env = axA['환경']||50;  // 낮을수록 도전/성장, 높을수록 안정
+  const work = axA['업무']||50; // 낮을수록 개인/프론트, 높을수록 팀/백오피스
+  const cul = axA['문화']||50;  // 낮을수록 자율/수평, 높을수록 체계/구조
+  const car = axA['커리어']||50; // 낮을수록 스페셜리스트, 높을수록 제너럴리스트
+
+  // 보정 계수 (최대 ±20% 보정)
+  const boost = (jobName, condition, factor) => {
+    if (condition && jobScores[jobName]) jobScores[jobName] *= factor;
+  };
+
+  // 환경축: 도전형(env<40) → 컨설팅/크리에이티브 보정, 안정형(env>60) → 기획/물류 보정
+  boost('컨설팅', env < 40, 1.15);
+  boost('크리에이티브', env < 40, 1.1);
+  boost('기획/관리', env > 60, 1.1);
+  boost('물류/SCM', env > 60, 1.1);
+
+  // 업무축: 개인/프론트(work<40) → 영업/컨설팅 보정, 팀/백오피스(work>60) → 기획/기술계 보정
+  boost('영업', work < 40, 1.15);
+  boost('컨설팅', work < 40, 1.1);
+  boost('기획/관리', work > 60, 1.15);
+  boost('기술계', work > 60, 1.1);
+  boost('SE/IT', work > 55, 1.05);
+
+  // 문화축: 자율(cul<40) → 크리에이티브/SE 보정, 체계(cul>60) → 물류/시공 보정
+  boost('크리에이티브', cul < 40, 1.15);
+  boost('SE/IT', cul < 45, 1.05);
+  boost('물류/SCM', cul > 60, 1.15);
+  boost('시공관리', cul > 60, 1.1);
+
+  // 커리어축: 스페셜리스트(car<40) → SE/기술계/크리에이티브, 제너럴(car>60) → 영업/기획/물류
+  boost('SE/IT', car < 40, 1.1);
+  boost('기술계', car < 40, 1.15);
+  boost('크리에이티브', car < 40, 1.1);
+  boost('영업', car > 60, 1.1);
+  boost('기획/관리', car > 60, 1.15);
+  boost('물류/SCM', car > 60, 1.1);
+
+  // 점수 반올림
+  Object.keys(jobScores).forEach(k => { jobScores[k] = Math.round(jobScores[k] * 100) / 100; });
 
   return jobScores;
 }
@@ -2617,23 +2663,32 @@ function computeResult() {
   // 업계 자동 추천 — 직종 점수 + 4축 + Q5 필터 기반 상위 3개 선정
   function getRecommendedIndustries(topJobs, axisAvg) {
     const noForeignLang = state.q5a.includes('q5a_6');
-    const noOvertime    = state.q5b.includes('q5b_10');
-    const noCompetition = state.q5b.includes('q5b_7');
     const hasEnglish    = state.profile.includes('english') || state.profile.includes('overseas');
     const envScore      = axisAvg['환경'] || 50;
     const cultureScore  = axisAvg['문화'] || 50;
+
+    // q5b 응답 확인
+    const q5b = state.q5b || [];
+    const noOvertime    = q5b.includes('q5b_10');
+    const noCompetition = q5b.includes('q5b_7');
+    const noForeignWork = q5b.includes('q5b_8');
+    const noStrangers   = q5b.includes('q5b_9');
+    const noSurprise    = q5b.includes('q5b_5');
+    const noMultitask   = q5b.includes('q5b_6');
 
     // 직종과 맞는 업계 필터
     let candidates = INDUSTRY_DB.filter(ind =>
       topJobs.some(job => ind.jobs.includes(job))
     );
 
-    // 소거 필터 적용
+    // 소거 필터 적용 (q5a)
     if (noForeignLang) {
       candidates = candidates.filter(ind =>
         ind.global !== '필수' && !ind.warnings.includes('외국어필수')
       );
     }
+
+    // 소거 필터 적용 (q5b)
     if (noOvertime) {
       candidates = candidates.filter(ind =>
         !ind.warnings.some(w => w.includes('야근많음'))
@@ -2644,8 +2699,18 @@ function computeResult() {
         !ind.warnings.some(w => w.includes('경쟁강함'))
       );
     }
+    if (noForeignWork) {
+      candidates = candidates.filter(ind =>
+        ind.global !== '필수' && ind.global !== '높음'
+      );
+    }
+    if (noStrangers) {
+      candidates = candidates.filter(ind =>
+        !ind.biz.includes('BtoC') || ind.biz.includes('BtoB')
+      );
+    }
 
-    // 점수 산정: 직종 매칭 수 + 문화 적합도 + 글로벌 선호
+    // 점수 산정: 직종 매칭 수 + 문화 적합도 + 글로벌 선호 + q5b 보정
     const scored = candidates.map(ind => {
       let score = 0;
       // 직종 매칭 수 (상위 직종일수록 가중)
@@ -2662,6 +2727,12 @@ function computeResult() {
       // 글로벌 선호
       if (hasEnglish && (ind.global === '높음' || ind.global === '필수')) score += 2;
       if (!hasEnglish && ind.global === '낮음') score += 1;
+      // q5b 보정: 돌발 싫음 → 안정적 문화 가산
+      if (noSurprise && isStable) score += 1;
+      if (noSurprise && isGrowth) score -= 1;
+      // q5b 보정: 멀티태스킹 어려움 → 전문성/프로젝트형 가산
+      if (noMultitask && ind.culture.some(c => ['전문성','연구중심'].includes(c))) score += 1;
+      if (noMultitask && ind.warnings.some(w => w.includes('멀티태스킹'))) score -= 1;
       return { ind, score };
     });
 
