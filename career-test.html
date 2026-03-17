@@ -3273,7 +3273,6 @@ function shareCard() {
   const axG={환경:[],업무:[],문화:[],커리어:[]};
   Object.values(state.axisScores).forEach(({axis,val})=>{if(axG[axis])axG[axis].push(val)});
   const axA={};Object.entries(axG).forEach(([a,v])=>{axA[a]=v.length?Math.round(v.reduce((s,x)=>s+x,0)/v.length):50});
-  const axL={환경:{a:'도전',b:'안정'},업무:{a:'개인',b:'팀'},문화:{a:'자율',b:'체계'},커리어:{a:'전문가',b:'제너럴'}};
 
   const envS=axA['환경']||50,culS=axA['문화']||50;
   const hE=state.profile.includes('english')||state.profile.includes('overseas');
@@ -3286,27 +3285,42 @@ function shareCard() {
   const tc=Object.entries(compScores).sort((a,b)=>b[1]-a[1]).slice(0,3);
   const emoji = pf?.emoji || '🎯';
 
-  // 직종별 서브 메시지
   const JOB_CATCH = {
-    '영업':'사람의 마음을 움직이는 힘',
-    'SE/IT':'논리로 세상을 설계하는 힘',
-    '기획/관리':'아이디어를 현실로 만드는 힘',
-    '컨설팅':'복잡함을 구조화하는 힘',
-    '기술계':'기술로 가치를 창조하는 힘',
-    '물류/SCM':'흐름을 설계하고 최적화하는 힘',
-    '판매/서비스':'현장에서 감동을 전하는 힘',
-    '시공관리':'현장을 이끄는 리더십의 힘',
+    '영업':'사람의 마음을 움직이는 힘','SE/IT':'논리로 세상을 설계하는 힘',
+    '기획/관리':'아이디어를 현실로 만드는 힘','컨설팅':'복잡함을 구조화하는 힘',
+    '기술계':'기술로 가치를 창조하는 힘','물류/SCM':'흐름을 설계하고 최적화하는 힘',
+    '판매/서비스':'현장에서 감동을 전하는 힘','시공관리':'현장을 이끄는 리더십의 힘',
     '크리에이티브':'없던 것을 만들어내는 힘'
   };
   const catchPhrase = JOB_CATCH[pJ] || '나만의 커리어를 설계하는 힘';
 
-  // 4축 미니 레이더 (텍스트 기반)
-  const axisChips = Object.entries(axA).map(([ax,v])=>{
-    const lb=axL[ax];
-    const side=v<50?lb.a:lb.b;
-    return `<div style="display:flex;align-items:center;gap:6px;padding:8px 16px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:8px">
-      <span style="font-size:12px;font-weight:700;color:#94a3b8">${ax}</span>
-      <span style="font-size:13px;font-weight:600;color:#e2e8f0">${side}</span>
+  // 업계 추천 TOP3
+  const rI = INDUSTRY_DB.filter(ind=>topJobs.some(j=>ind.jobs.includes(j)))
+    .map(ind=>{let s=0;topJobs.forEach((j,i)=>{if(ind.jobs.includes(j))s+=(3-i)*2});return{ind,s}})
+    .sort((a,b)=>b.s-a.s).slice(0,3).map(s=>s.ind);
+
+  // 직종 TOP3
+  const jobCards = topJobs.map((j,i) => {
+    const p = JOB_PROFILES[j];
+    const colors = ['#3b82f6','#7c3aed','#10b981'];
+    return `<div style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-left:3px solid ${colors[i]};border-radius:8px">
+      <span style="font-size:24px">${p?.emoji||'📋'}</span>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#e2e8f0">${p?.label||j}</div>
+        <div style="font-size:10px;color:#64748b">${i+1}순위 적합 직종</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // 업계 TOP3
+  const indCards = rI.map((ind,i) => {
+    const colors = ['#60a5fa','#a78bfa','#34d399'];
+    return `<div style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-left:3px solid ${colors[i]};border-radius:8px">
+      <span style="font-size:14px;font-weight:800;color:${colors[i]}">${i+1}</span>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#e2e8f0">${ind.name}</div>
+        <div style="font-size:10px;color:#64748b">${ind.biz.join('·')}</div>
+      </div>
     </div>`;
   }).join('');
 
@@ -3314,67 +3328,66 @@ function shareCard() {
   wrap.innerHTML = `
     <div id="share-card" style="width:1080px;height:1080px;background:#07070f;padding:0;display:flex;flex-direction:column;font-family:'Noto Sans KR',sans-serif;position:relative;overflow:hidden;">
 
-      <!-- ═══ 배경 효과 ═══ -->
-      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);width:600px;height:600px;background:radial-gradient(circle,rgba(59,130,246,0.15) 0%,rgba(124,58,237,0.08) 40%,transparent 70%);border-radius:50%"></div>
-      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);width:400px;height:400px;background:radial-gradient(circle,rgba(124,58,237,0.12) 0%,transparent 60%);border-radius:50%"></div>
-      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-55%);width:200px;height:200px;background:radial-gradient(circle,rgba(255,255,255,0.05) 0%,transparent 70%);border-radius:50%"></div>
+      <!-- 배경 글로우 -->
+      <div style="position:absolute;top:28%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(59,130,246,0.18) 0%,rgba(124,58,237,0.1) 35%,transparent 65%);border-radius:50%"></div>
+      <div style="position:absolute;top:28%;left:50%;transform:translate(-50%,-50%);width:450px;height:450px;background:radial-gradient(circle,rgba(124,58,237,0.15) 0%,transparent 55%);border-radius:50%"></div>
+      <div style="position:absolute;top:28%;left:50%;transform:translate(-50%,-50%);width:250px;height:250px;background:radial-gradient(circle,rgba(255,255,255,0.06) 0%,transparent 70%);border-radius:50%"></div>
 
-      <!-- ═══ 상단 브랜딩 ═══ -->
-      <div style="padding:56px 64px 0;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1">
-        <div style="font-size:12px;font-weight:800;letter-spacing:3px;color:rgba(255,255,255,0.25);text-transform:uppercase">Tokyo Career Studio</div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.15);letter-spacing:1px">커리어 DNA 진단</div>
+      <!-- 상단 브랜딩 -->
+      <div style="padding:44px 60px 0;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1">
+        <div style="font-size:11px;font-weight:800;letter-spacing:3px;color:rgba(255,255,255,0.2);text-transform:uppercase">Tokyo Career Studio</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.12);letter-spacing:1px">커리어 DNA 진단</div>
       </div>
 
-      <!-- ═══ 메인 히어로 ═══ -->
-      <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:1;padding:0 64px">
+      <!-- 이모지 히어로 -->
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 60px 20px;position:relative;z-index:1">
+        <div style="font-size:200px;line-height:1;margin-bottom:16px;filter:drop-shadow(0 0 60px rgba(59,130,246,0.35)) drop-shadow(0 0 120px rgba(124,58,237,0.25))">${emoji}</div>
+        <div style="font-size:52px;font-weight:900;color:#f1f5f9;letter-spacing:-1px;text-align:center;line-height:1.15">${pf?.label||pJ}</div>
+        <div style="font-size:18px;font-weight:400;color:#7c3aed;letter-spacing:1px;margin-top:6px">${catchPhrase}</div>
+        <div style="font-size:13px;color:#475569;margin-top:6px">${cType}${state.mbti?' · '+state.mbti:''}</div>
+      </div>
 
-        <!-- 이모지 히어로 -->
-        <div style="font-size:140px;line-height:1;margin-bottom:24px;filter:drop-shadow(0 0 40px rgba(59,130,246,0.3)) drop-shadow(0 0 80px rgba(124,58,237,0.2))">${emoji}</div>
-
-        <!-- 직종명 -->
-        <div style="font-size:48px;font-weight:900;color:#f1f5f9;letter-spacing:-1px;text-align:center;line-height:1.2;margin-bottom:8px">${pf?.label||pJ}</div>
-
-        <!-- 캐치프레이즈 -->
-        <div style="font-size:18px;font-weight:400;color:#7c3aed;letter-spacing:1px;margin-bottom:8px">${catchPhrase}</div>
-
-        <!-- 기업유형 -->
-        <div style="font-size:14px;color:#64748b;margin-bottom:32px">${cType}${state.mbti ? ' · '+state.mbti : ''}</div>
-
-        <!-- 강점 TOP 3 -->
-        <div style="display:flex;gap:10px;margin-bottom:28px">
-          ${tc.map(([n],i)=>{
-            const ko=CK[n]||n;
-            const colors=['#3b82f6','#7c3aed','#10b981'];
-            const bgs=['rgba(59,130,246,0.12)','rgba(124,58,237,0.12)','rgba(16,185,129,0.12)'];
-            const borders=['rgba(59,130,246,0.25)','rgba(124,58,237,0.25)','rgba(16,185,129,0.25)'];
-            return `<div style="padding:14px 24px;background:${bgs[i]};border:1px solid ${borders[i]};border-radius:12px;text-align:center">
-              <div style="font-size:11px;font-weight:700;color:${colors[i]};margin-bottom:4px">${i+1}순위</div>
-              <div style="font-size:18px;font-weight:800;color:#e2e8f0">${ko}</div>
-            </div>`;
-          }).join('')}
+      <!-- 하단 정보: 직종 TOP3 + 업계 TOP3 -->
+      <div style="flex:1;display:flex;gap:16px;padding:16px 60px 0;position:relative;z-index:1">
+        <!-- 직종 -->
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#3b82f6;text-transform:uppercase;margin-bottom:2px">추천 직종</div>
+          ${jobCards}
         </div>
-
-        <!-- 4축 칩 -->
-        <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-          ${axisChips}
+        <!-- 업계 -->
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:#a78bfa;text-transform:uppercase;margin-bottom:2px">추천 업계</div>
+          ${indCards}
         </div>
       </div>
 
-      <!-- ═══ 하단 ═══ -->
-      <div style="padding:0 64px 48px;display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:1">
+      <!-- 강점 TOP3 한줄 -->
+      <div style="display:flex;justify-content:center;gap:10px;padding:20px 60px 0;position:relative;z-index:1">
+        ${tc.map(([n],i)=>{
+          const ko=CK[n]||n;
+          const colors=['#3b82f6','#7c3aed','#10b981'];
+          return `<div style="padding:8px 20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:8px;text-align:center">
+            <span style="font-size:10px;color:${colors[i]};font-weight:700">${i+1}순위</span>
+            <span style="font-size:14px;font-weight:700;color:#e2e8f0;margin-left:6px">${ko}</span>
+          </div>`;
+        }).join('')}
+      </div>
+
+      <!-- 푸터 -->
+      <div style="padding:20px 60px 40px;display:flex;justify-content:space-between;align-items:flex-end;position:relative;z-index:1">
         <div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.2);margin-bottom:4px">나도 해보기</div>
-          <div style="font-size:14px;font-weight:600;color:#3b82f6">job-selection.vercel.app</div>
+          <div style="font-size:11px;color:rgba(255,255,255,0.15);margin-bottom:3px">나도 해보기</div>
+          <div style="font-size:13px;font-weight:600;color:#3b82f6">job-selection.vercel.app</div>
         </div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.15)">@tokyocareerstudio</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.12)">@tokyocareerstudio</div>
       </div>
     </div>
   `;
 
   const card = document.getElementById('share-card');
   html2canvas(card, {
-    width: 1080, height: 1080, scale: 1,
-    backgroundColor: null, useCORS: true, logging: false
+    width:1080, height:1080, scale:1,
+    backgroundColor:null, useCORS:true, logging:false
   }).then(canvas => {
     const link = document.createElement('a');
     link.download = 'career-dna-result.png';
