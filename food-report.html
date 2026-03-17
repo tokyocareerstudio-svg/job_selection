@@ -36,23 +36,25 @@
   .hero-tag { font-size:11px; padding:4px 12px; border-radius:100px; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); font-weight:500; }
   .hero-tag.s1 { background:var(--sub1-soft); color:var(--sub1); border-color:var(--sub1-border); }
   .hero-tag.s2 { background:var(--sub2-soft); color:var(--sub2); border-color:var(--sub2-border); }
-
+  .hl { color:var(--accent); font-weight:600; }
+  .hl-s1 { color:var(--sub1); font-weight:600; }
+  .hl-s2 { color:var(--sub2); font-weight:600; }
+  .hl-warn { color:var(--warn); font-weight:600; }
   .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
   .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
   .section-nav-inner::-webkit-scrollbar { display:none; }
   .nav-btn { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
   .nav-btn:hover, .nav-btn.active { color:var(--accent); background:var(--accent-soft); }
-
   .section { padding:44px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
   .section:last-child { border-bottom:none; }
   .section-num { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); opacity:0.7; margin-bottom:6px; text-transform:uppercase; }
   .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
   .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); margin-bottom:20px; }
   .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section p:last-child { margin-bottom:0; }
   .section h3 { font-size:14px; font-weight:700; color:var(--text-sub); margin:28px 0 12px; padding-left:10px; border-left:2px solid var(--accent); }
   .section h3.s1 { border-left-color:var(--sub1); }
   .section h3.s2 { border-left-color:var(--sub2); }
-
   .info-box { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:16px 0; }
   .info-box-accent { background:var(--accent-soft); border-color:var(--accent-border); border-left:3px solid var(--accent); }
   .info-box-warn { background:var(--warn-soft); border-color:var(--warn-border); border-left:3px solid var(--warn); }
@@ -60,13 +62,18 @@
   .info-box-s2 { background:var(--sub2-soft); border-color:var(--sub2-border); border-left:3px solid var(--sub2); }
   .info-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
   .box-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
-
+  .box-label-s1 { color:var(--sub1); }
+  .box-label-warn { color:var(--warn); }
+  .table-wrap { overflow-x:auto; margin:16px 0; }
+  table { width:100%; border-collapse:collapse; font-size:12px; }
+  th { background:var(--surface-2); color:var(--text-dim); font-weight:600; padding:10px 12px; text-align:left; border-bottom:1px solid var(--border); font-size:11px; letter-spacing:0.5px; }
+  td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-sub); font-size:12px; line-height:1.7; }
+  tr:hover td { background:rgba(255,255,255,0.01); }
   .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
   .keyword-card { padding:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
   .keyword-card-title { font-size:12px; font-weight:700; color:var(--text); margin-bottom:4px; }
   .keyword-card-jp { font-family:'Noto Sans JP'; font-size:10px; color:var(--text-muted); margin-bottom:8px; }
   .keyword-card p { font-size:11px; color:var(--text-dim); line-height:1.7; margin-bottom:0; }
-
   .company-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
   .company-card { padding:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
   .company-card-name { font-size:13px; font-weight:700; color:var(--text); margin-bottom:4px; }
@@ -74,15 +81,12 @@
   .company-card-tags { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:6px; }
   .company-card-tag { font-size:9px; padding:2px 8px; border-radius:100px; border:1px solid var(--border); color:var(--text-muted); }
   .company-card p { font-size:11px; color:var(--text-dim); line-height:1.7; margin-bottom:0; }
-
   .es-pattern { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:12px 0; }
   .es-pattern-label { font-size:10px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:8px; text-transform:uppercase; }
   .es-pattern p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
-
   .footer { padding:40px 0 60px; border-top:1px solid var(--border); margin-top:20px; text-align:center; }
   .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; }
   .footer .brand { font-weight:700; color:var(--text-dim); }
-
   @media (max-width:640px) { .keyword-grid,.company-grid { grid-template-columns:1fr; } .hero h1 { font-size:24px; } .section-title { font-size:18px; } }
 </style>
 </head>
@@ -118,58 +122,113 @@
 
 <div class="container">
 
-<!-- SECTION 01 -->
+<!-- ═══════════════ SECTION 01 ═══════════════ -->
 <div class="section" id="s1">
 <div class="section-num">SECTION 01</div>
 <div class="section-title">업계 전체상</div>
 <div class="section-title-jp">業界全体像 — 食品メーカーのビジネスモデル</div>
-<p>일본 식품메이커 업계는 약 25조 엔 규모의 내수 시장을 기반으로, 조미료·가공식품·냉동식품·과자·유제품·수산 등 다양한 세그먼트로 구성됩니다. 원재료 조달부터 R&D·제조·물류·판매까지 수직 통합된 밸류체인이 특징이며, 편의점·슈퍼·외식 체인과의 BtoB 영업이 매출의 핵심입니다.</p>
-<p>최근에는 인구 감소에 따른 국내 시장 정체를 돌파하기 위해 해외 전개를 가속하고 있습니다. 아지노모토는 해외 매출 비율이 60%를 넘었고, 메이지·니신도 동남아시아·북미 시장을 적극 공략 중입니다. 건강 지향(건강기능식품, 저당·저염), 냉동식품 고급화, 대체 단백질(배양육·식물성 단백) 등이 업계를 재편하는 키워드입니다.</p>
+
 <div class="info-box info-box-accent">
-<div class="box-label">핵심 비즈니스 모델</div>
-<p>원재료 조달 → R&D(맛·기능) → 제조(공장) → 영업(유통·편의점·외식) → 소비자. BtoB(유통 영업)와 BtoC(소비자 마케팅)가 동시에 작동하며, "맛+건강+편의성"의 3축에서 상품 가치가 결정됩니다. 식품 전공자는 R&D·품질관리, 문과는 영업·마케팅·물류에서 활약합니다.</p>
+<div class="box-label">한 줄 정의</div>
+<p><span class="hl">식품을 연구·제조·판매하는 업계. 조미료·가공식품·냉동식품·과자·유제품·수산·식육으로 세분화되며, 일본 식품 제조업 출하액은 약 25조 엔 규모.</span> 원재료 조달부터 R&amp;D·제조·물류·판매까지 수직 통합된 밸류체인이 특징이며, 편의점·슈퍼·외식 체인과의 BtoB 영업이 매출의 핵심이다.</p>
+<p>식품 메이커의 수익 구조는 <span class="hl">브랜드 충성도 × 대량 생산 × 유통 채널 장악</span>이 핵심이다. 식품은 소비자가 매일 반복 구매하는 저관여 상품이므로, 한 번 인지된 브랜드는 장기 안정 수익을 보장한다. 최근에는 인구 감소에 따른 <span class="hl">국내 시장 정체를 해외 전개로 돌파</span>하는 전략이 가속되고 있다. 아지노모토는 해외 매출 비율 60%+, 니신은 Cup Noodles를 80개국에 판매 중이다.</p>
+</div>
+
+<h3>식품 메이커 업태 비교</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>업태</th><th>특징</th><th>대표 기업</th><th>취준생 접근성</th></tr></thead>
+<tbody>
+<tr><td>종합 식품 메이커</td><td>조미료·가공식품·냉동식품 전반. 해외 비중 높음. 마케팅·영업 양축</td><td>아지노모토·메이지·니신</td><td>★★★★☆ (경쟁 높음)</td></tr>
+<tr><td>유제품·과자 특화</td><td>BtoC 브랜드가 강함. 소비자 마케팅 중심</td><td>메이지·모리나가유업·칼비·에자키글리코</td><td>★★★★☆</td></tr>
+<tr><td>수산·식육</td><td>원재료 조달~가공~판매의 수직 통합. BtoB 비중 높음</td><td>마루하니치로·닛폰햄·이토햄</td><td>★★★☆☆</td></tr>
+<tr><td>냉동식품·가공</td><td>편의점·외식 체인 OEM 포함. 공장 관리·SCM 중요</td><td>니치레이·아지노모토냉동</td><td>★★★☆☆</td></tr>
+<tr><td>조미료·향신료</td><td>BtoB(외식·가공용) 비중이 높은 니치 분야</td><td>카고메·큐피·에스비식품</td><td>★★☆☆☆ (채용 소규모)</td></tr>
+</tbody>
+</table></div>
+
+<div class="info-box info-box-warn">
+<div class="box-label box-label-warn">식품 메이커에 입사하기 전에 알아야 할 현실</div>
+<p>① <span class="hl-warn">루트 영업(固定거래처 순회)이 신졸의 주요 배치</span>다. 편의점·슈퍼·외식 체인의 바이어를 정기적으로 방문하며 자사 상품의 진열 확보·신상품 제안을 하는 반복성이 높은 업무다. "제안형 영업(提案型営業)"이라 불리며, 이 경험이 모든 커리어 패스의 기반이 된다.</p>
+<p>② <span class="hl-warn">마케팅·상품 기획은 영업 2~3년 후 이동</span>이 일반적이다. 입사 직후 본사 마케팅 배치는 극히 드물다. 영업에서 현장 감각을 익힌 뒤 이동하는 구조를 이해하고 지원해야 한다.</p>
+<p>③ <span class="hl-warn">R&amp;D·품질관리는 이과 전공 필수</span>. 식품과학·농학·화학·생물학 전공이 주요 대상. 문과 출신은 영업·기획·물류로 진입한다.</p>
+<p>④ <span class="hl-warn">공장·지방 근무 가능성</span>이 있다. 제조업이므로 공장이 지방에 있는 경우가 많고, 생산관리 직종은 교대 근무(シフト)를 포함할 수 있다.</p>
+</div>
+
+<h3 class="s1">식품 업계의 밸류체인</h3>
+<div class="info-box info-box-s1">
+<div class="box-label box-label-s1">밸류체인 흐름</div>
+<p>① <span class="hl-s1">원재료 조달</span>(1차 산업·수입) → ② <span class="hl-s1">R&amp;D</span>(신소재·배합·관능평가) → ③ <span class="hl-s1">제조</span>(공장 라인·품질 검사) → ④ <span class="hl-s1">영업</span>(유통 바이어 제안·진열 교섭) → ⑤ <span class="hl-s1">마케팅</span>(소비자 분석·광고·SNS) → ⑥ <span class="hl-s1">물류</span>(콜드체인·배송 최적화) → ⑦ 소비자</p>
+<p>문과 취준생의 주요 진입 포인트는 ④ 영업과 ⑤ 마케팅이며, 이과는 ② R&amp;D와 ③ 제조(품질관리)가 중심이다. ⑥ 물류·SCM은 문과·이과 불문.</p>
 </div>
 </div>
 
-<!-- SECTION 02 -->
+<!-- ═══════════════ SECTION 02 ═══════════════ -->
 <div class="section" id="s2">
 <div class="section-num">SECTION 02</div>
 <div class="section-title">면접관이 체크하는 트렌드 3선</div>
 <div class="section-title-jp">面接官がチェックするトレンド</div>
+
 <h3>① 건강 지향과 기능성 식품</h3>
-<p>고령화와 건강 의식 상승으로 "트쿠호(特保)"·"기능성 표시 식품" 시장이 급성장. 메이지의 R-1, 아사히의 디어나츄레 등이 대표 사례입니다. 면접에서 "건강 트렌드를 어떻게 상품 기획에 연결할 것인가"를 물어볼 가능성이 높습니다.</p>
-<h3 class="s1">② 해외 전개 가속</h3>
-<p>인구 감소에 따른 내수 한계를 해외 시장으로 돌파. 아지노모토는 태국·브라질·인도네시아에서 현지 공장을 운영하며, 니신은 "Cup Noodles"를 80개국에 판매 중입니다. 해외 주재 경험이 커리어 패스에서 중요한 업계입니다.</p>
-<h3 class="s2">③ 식품 DX와 스마트 팩토리</h3>
-<p>제조 공정의 AI 활용(품질 검사 자동화), 수요 예측 기반 생산 계획, D2C(자사 EC) 등 DX가 빠르게 진행 중입니다. "왜 식품메이커에서 DX인가?"를 자기 경험과 연결해서 답할 수 있으면 차별화됩니다.</p>
+<p>고령화와 건강 의식 상승으로 <span class="hl">"트쿠호(特定保健用食品)"·"기능성 표시 식품"</span> 시장이 급성장하고 있다. 메이지의 R-1, 카고메의 토마토 주스, 아사히의 디어나츄레 등이 대표 사례. 면접에서 "건강 트렌드를 어떻게 상품 기획에 연결할 것인가?"를 물어볼 가능성이 높다.</p>
+<div class="info-box">
+<p>핵심 수치: 기능성 표시 식품 시장은 2024년 기준 약 6,000억 엔 규모로, 5년 전 대비 약 2배 성장. 신졸 면접에서 "구체적인 시장 규모 수치"를 언급하면 업계 연구의 깊이가 전해진다.</p>
 </div>
 
-<!-- SECTION 03 -->
+<h3 class="s1">② 해외 전개 가속</h3>
+<p>인구 감소에 따른 내수 한계를 해외 시장으로 돌파. <span class="hl-s1">아지노모토는 태국·브라질·인도네시아에서 현지 공장을 운영</span>하며 해외 매출 비율이 60%를 넘었다. 니신은 "Cup Noodles"를 80개국에 판매하며, 인도·중국 시장에서 현지화 전략을 전개 중이다.</p>
+<p>일본 식품의 "메이드 인 재팬" 프리미엄이 아시아에서 통하고 있으며, 해외 주재·해외 사업 부문 배치가 커리어 패스에서 중요한 위치를 차지한다. 영어·현지어 능력이 있으면 어필 포인트가 된다.</p>
+<div class="info-box info-box-s1">
+<p>아지노모토 해외 매출 비율: 60%+ / 니신 해외 비율: 약 40% / 메이지 해외 비율: 약 15%(확대 중) / 야쿠르트 해외 비율: 약 40%</p>
+</div>
+
+<h3 class="s2">③ 식품 DX와 스마트 팩토리</h3>
+<p>제조 공정의 AI 활용(품질 검사 자동화, 이물질 감지), 수요 예측 기반 생산 계획(식품 로스 삭감), D2C(자사 EC 사이트) 등 <span class="hl-s2">DX가 식품 업계에서도 빠르게 진행 중</span>이다. 아지노모토는 "식품 × 바이오 × 디지털"을 중기경영계획의 핵심 축으로 내걸고 있다.</p>
+<p>"왜 식품 메이커에서 DX인가?"를 자기 경험(데이터 분석, IT 활용 등)과 연결해서 답할 수 있으면 차별화된다.</p>
+</div>
+
+<!-- ═══════════════ SECTION 03 ═══════════════ -->
 <div class="section" id="s3">
 <div class="section-num">SECTION 03</div>
 <div class="section-title">이 업계에서 활약하는 직종</div>
 <div class="section-title-jp">食品メーカー業界で活躍する職種</div>
+
 <h3>영업 (루트 영업 중심)</h3>
-<p>편의점·슈퍼·외식 체인 등 거래처를 정기 방문하며 자사 상품의 진열 제안·신상품 도입 교섭을 합니다. 거래처와의 장기 관계 구축이 핵심이며, "제안형 영업(提案型営業)"이라 불립니다. 문과 출신의 가장 대표적인 진입 경로입니다.</p>
-<h3 class="s1">마케팅·상품 기획</h3>
-<p>소비자 조사를 기반으로 신상품을 기획하고, 광고·프로모션 전략을 설계합니다. 입사 직후 바로 배치되는 경우는 드물고, 영업 2~3년 경험 후 이동하는 것이 일반적입니다. 식품 트렌드에 대한 관심과 데이터 분석 능력이 요구됩니다.</p>
-<h3 class="s2">R&D·품질관리</h3>
-<p>신소재 연구·배합 개발·관능평가(맛 테스트)·안전성 검사 등을 담당합니다. 식품과학·농학·화학 전공이 주요 타겟이며, 이과 출신의 핵심 진입 경로입니다. 연구소 배치 후 장기간 한 분야를 깊이 파는 스페셜리스트 성향이 강합니다.</p>
-<h3>생산관리·SCM</h3>
-<p>공장의 생산 라인 관리, 원재료 조달 최적화, 수요 예측 기반 생산 계획 수립을 담당합니다. "현장(工場)"에서의 교대 근무 경험이 초기 커리어에 포함되는 경우가 많습니다.</p>
+<p>편의점·슈퍼·외식 체인 등 거래처를 정기 방문하며 자사 상품의 <span class="hl">진열 제안(棚割り提案)·신상품 도입 교섭·판촉 기획</span>을 한다. 식품 업계의 영업은 "루트 세일즈(ルート営業)"라 불리며, 거래처와의 장기 관계 구축이 핵심이다. 문과 출신의 가장 대표적인 진입 경로.</p>
+<div class="info-box">
+<p><span class="hl">신졸 배치율: 약 50~60%</span>가 영업 부문 배치. 커리어 패스: 영업 2~3년 → 에리어 매니저 or 본사 마케팅 이동 → 영업 기획·사업 전략. 대기업의 경우 전국 전근(全国転勤)이 일반적이며, 지방 근무에서 출발하는 경우가 많다.</p>
 </div>
 
-<!-- SECTION 04 -->
+<h3 class="s1">마케팅·상품 기획</h3>
+<p>소비자 조사를 기반으로 <span class="hl-s1">신상품을 기획하고, 광고·프로모션 전략을 설계</span>한다. SNS 마케팅·인플루언서 활용도 증가 추세. 입사 직후 바로 배치되는 경우는 드물고, 영업 2~3년 경험 후 이동하는 것이 일반적이다.</p>
+<div class="info-box info-box-s1">
+<p>요구 역량: 소비자 인사이트 발굴, 데이터 분석(POS 데이터, 시장 조사), 프레젠테이션, 크로스 펑셔널 팀 리드. 영업 시절에 "현장에서 소비자 동향을 읽는 눈"을 길러두면 마케팅 이동 시 강점이 된다.</p>
+</div>
+
+<h3 class="s2">R&D·품질관리 (이과 전용)</h3>
+<p>신소재 연구, 배합 개발, 관능평가(맛 테스트), 안전성 검사, 유통기한 설정 등을 담당한다. <span class="hl-s2">식품과학·농학·화학·생물학 전공이 주요 대상</span>이며, 연구소 배치 후 장기간 한 분야를 깊이 파는 스페셜리스트 성향이 강하다.</p>
+<div class="info-box info-box-s2">
+<p>배치 예: 아지노모토 이노베이션연구소(가와사키), 메이지 연구본부(하치오지), 니신 식품 안전연구소. 배양육·대체 단백질·개인 맞춤 영양 등 첨단 분야로의 확장이 진행 중이며, 박사 출신 채용도 증가 추세.</p>
+</div>
+
+<h3>생산관리·SCM·물류</h3>
+<p>공장의 생산 라인 관리, 원재료 조달 최적화, <span class="hl">수요 예측 기반 생산 계획 수립, 콜드체인 물류 관리</span>를 담당한다. "현장(工場)"에서의 교대 근무 경험이 초기 커리어에 포함되는 경우가 많다. 문과·이과 불문.</p>
+<div class="info-box">
+<p>식품 메이커 특유의 포인트: 식품은 유통기한이 있으므로 "식품 로스 삭감"이 큰 과제. 수요 예측 정밀도가 곧 이익률에 직결된다. 이 문맥에서 DX·AI 활용 사례를 면접에서 언급할 수 있으면 가산점.</p>
+</div>
+</div>
+
+<!-- ═══════════════ SECTION 04 ═══════════════ -->
 <div class="section" id="s4">
 <div class="section-num">SECTION 04</div>
 <div class="section-title">식품메이커 × 자기분석 키워드</div>
 <div class="section-title-jp">自己分析キーワードとの接続</div>
-<p>식품메이커 ES·면접에서 자주 연결되는 키워드입니다. 자기 경험과 매칭해보세요.</p>
+<p>식품 메이커 ES·면접에서 자주 연결되는 키워드이다. 자기 경험과 매칭하여 에피소드를 준비해두자.</p>
+
 <div class="keyword-grid">
 <div class="keyword-card">
 <div class="keyword-card-title">식(食)에 대한 관심</div>
 <div class="keyword-card-jp">食に対する興味·関心</div>
-<p>"왜 식품인가?"의 출발점. 단순히 "먹는 걸 좋아한다"가 아니라, 식문화·식습관·건강과 식품의 관계를 자기 경험과 연결하세요.</p>
+<p>"왜 식품인가?"의 출발점. 단순히 "먹는 걸 좋아한다"가 아니라, 식문화·식습관·건강과 식품의 관계를 자기 경험과 연결하라.</p>
 </div>
 <div class="keyword-card">
 <div class="keyword-card-title">관계 구축력</div>
@@ -179,40 +238,61 @@
 <div class="keyword-card">
 <div class="keyword-card-title">소비자 시점</div>
 <div class="keyword-card-jp">消費者目線</div>
-<p>마케팅·상품 기획 지망이라면 필수. "소비자가 원하는 것"을 파악한 경험. SNS 분석, 설문 조사, 현장 관찰 등.</p>
+<p>마케팅·상품 기획 지망이라면 필수. "소비자가 원하는 것"을 파악한 경험. SNS 분석, 설문 조사, 현장 관찰 경험 등.</p>
 </div>
 <div class="keyword-card">
 <div class="keyword-card-title">끈기·지속력</div>
 <div class="keyword-card-jp">粘り強さ·継続力</div>
 <p>루트 영업은 단기 성과가 아닌 장기 관계. "결과가 바로 안 나와도 계속한" 경험이 강력한 어필 포인트.</p>
 </div>
+<div class="keyword-card">
+<div class="keyword-card-title">제안력</div>
+<div class="keyword-card-jp">提案力</div>
+<p>영업에서 진열 제안, 마케팅에서 기획 프레젠. "상대의 과제를 파악하고, 해결책을 제안한" 경험이 핵심.</p>
+</div>
+<div class="keyword-card">
+<div class="keyword-card-title">팀워크·조정력</div>
+<div class="keyword-card-jp">チームワーク·調整力</div>
+<p>식품 메이커는 영업·마케팅·R&amp;D·생산이 밀접하게 연결된 조직. 부서 간 조율 경험, 다양한 사람과 협업한 경험.</p>
+</div>
+<div class="keyword-card">
+<div class="keyword-card-title">변화 대응력</div>
+<div class="keyword-card-jp">変化対応力</div>
+<p>식품 트렌드는 빠르게 변화. 소비자 니즈 변화에 유연하게 대응한 경험. 계획이 변경됐을 때 빠르게 전환한 경험.</p>
+</div>
+<div class="keyword-card">
+<div class="keyword-card-title">글로벌 시야</div>
+<div class="keyword-card-jp">グローバル視点</div>
+<p>해외 전개를 가속하는 업계 특성. 유학·해외 경험이 있으면 강점. 없어도 "해외 식문화에 대한 관심"을 어필 가능.</p>
+</div>
 </div>
 </div>
 
-<!-- SECTION 05 -->
+<!-- ═══════════════ SECTION 05 ═══════════════ -->
 <div class="section" id="s5">
 <div class="section-num">SECTION 05</div>
 <div class="section-title">기업 비교 & 리스트</div>
 <div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
-<p>식품메이커는 세그먼트별로 기업 성격이 크게 다릅니다. 자신의 축에 맞는 기업을 비교해보세요.</p>
+<p>식품 메이커는 세그먼트별로 기업 성격이 크게 다르다. 자신의 축에 맞는 기업을 비교하라.</p>
+
 <div class="company-grid">
 <div class="company-card">
 <div class="company-card-name">아지노모토</div>
 <div class="company-card-jp">味の素株式会社</div>
 <div class="company-card-tags"><span class="company-card-tag">해외 매출 60%+</span><span class="company-card-tag">조미료·아미노산</span><span class="company-card-tag">글로벌</span></div>
-<p>해외 비중 최고 수준. 글로벌 지향이라면 최우선 타겟. 아미노산 기술을 기반으로 헬스케어까지 확장 중.</p>
+<p>해외 비중 최고 수준. 글로벌 지향이라면 최우선 타겟. 아미노산 기술을 기반으로 헬스케어·전자재료까지 확장 중. 평균 연봉 약 1,000만 엔.</p>
 </div>
 <div class="company-card">
 <div class="company-card-name">메이지 홀딩스</div>
 <div class="company-card-jp">株式会社 明治</div>
 <div class="company-card-tags"><span class="company-card-tag">유제품·과자</span><span class="company-card-tag">건강 기능식품</span><span class="company-card-tag">BtoC 강함</span></div>
-<p>초콜릿(메이지 밀크초콜릿)·유제품(R-1, LG21)·과자 분야의 절대 강자. BtoC 마케팅에 관심이 있다면.</p>
+<p>초콜릿(메이지 밀크초콜릿)·유제품(R-1, LG21)·과자 분야의 절대 강자. BtoC 마케팅에 관심이 있다면 최적.</p>
 </div>
 <div class="company-card">
 <div class="company-card-name">니신식품</div>
 <div class="company-card-jp">日清食品ホールディングス</div>
 <div class="company-card-tags"><span class="company-card-tag">인스턴트라면</span><span class="company-card-tag">해외 80개국</span><span class="company-card-tag">혁신적 기업문화</span></div>
-<p>Cup Noodles의 글로벌 브랜드. "혁신"을 중시하는 사풍. 해외 주재 기회 풍부.</p>
+<p>Cup Noodles의 글로벌 브랜드. "HUNGRY?"로 상징되는 혁신적인 사풍. 해외 주재 기회 풍부. 면접도 유니크.</p>
 </div>
 <div class="company-card">
 <div class="company-card-name">마루하니치로</div>
@@ -230,48 +310,103 @@
 <div class="company-card-name">카고메</div>
 <div class="company-card-jp">カゴメ株式会社</div>
 <div class="company-card-tags"><span class="company-card-tag">토마토·야채 음료</span><span class="company-card-tag">건강 브랜드</span><span class="company-card-tag">중견</span></div>
-<p>"자연을 맛있게, 즐겁게(自然を、おいしく、楽しく)." 건강 지향 브랜드의 대표. 토마토 가공에 강점.</p>
+<p>"자연을 맛있게, 즐겁게." 건강 지향 브랜드의 대표. 토마토 가공에 강점. 채용 규모는 소규모.</p>
 </div>
+<div class="company-card">
+<div class="company-card-name">야쿠르트 본사</div>
+<div class="company-card-jp">株式会社ヤクルト本社</div>
+<div class="company-card-tags"><span class="company-card-tag">유산균</span><span class="company-card-tag">해외 40%+</span><span class="company-card-tag">연구 강점</span></div>
+<p>유산균 시로타 주의 글로벌 전개. 40개국에 판매. 독자적인 판매 채널(야쿠르트 레이디)이 특징.</p>
+</div>
+<div class="company-card">
+<div class="company-card-name">칼비</div>
+<div class="company-card-jp">カルビー株式会社</div>
+<div class="company-card-tags"><span class="company-card-tag">스낵·과자</span><span class="company-card-tag">브랜드력</span><span class="company-card-tag">마케팅 강함</span></div>
+<p>쟈가리코·캇파에비센 등 국민 스낵 보유. 마케팅이 강한 기업으로 유명. 워라밸도 좋은 편.</p>
 </div>
 </div>
 
-<!-- SECTION 06 -->
+<h3>식품 메이커 선택 축</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>축</th><th>선택지 A</th><th>선택지 B</th></tr></thead>
+<tbody>
+<tr><td>글로벌 지향 vs 국내 중심</td><td>아지노모토, 니신, 야쿠르트</td><td>마루하니치로, 닛폰햄, 카고메</td></tr>
+<tr><td>BtoC 마케팅 중심 vs BtoB 영업 중심</td><td>메이지, 칼비, 니신</td><td>마루하니치로, 닛폰햄</td></tr>
+<tr><td>안정·대기업 vs 독자성·중견</td><td>아지노모토, 메이지, 니신</td><td>카고메, 칼비, 에자키글리코</td></tr>
+</tbody>
+</table></div>
+</div>
+
+<!-- ═══════════════ SECTION 06 ═══════════════ -->
 <div class="section" id="s6">
 <div class="section-num">SECTION 06</div>
 <div class="section-title">ES 대책</div>
 <div class="section-title-jp">合格パターン·落とし穴</div>
+
 <h3>빈출 질문</h3>
-<p>식품메이커 ES에서 가장 많이 나오는 질문은 "왜 식품업계인가(なぜ食品業界か)?"와 "우리 회사의 어떤 상품에 관심이 있는가?"입니다. 두 질문 모두 "단순히 좋아해서"를 넘어서 자기 경험과 연결된 답변이 필요합니다.</p>
+<p>식품 메이커 ES에서 가장 많이 나오는 질문은 <span class="hl">"왜 식품업계인가(なぜ食品業界か)?"</span>와 <span class="hl">"우리 회사의 어떤 상품에 관심이 있는가?"</span>이다. 두 질문 모두 "단순히 좋아해서"를 넘어서 자기 경험과 연결된 답변이 필요하다.</p>
+
 <div class="es-pattern">
-<div class="es-pattern-label">합격 패턴</div>
-<p>"유학 시절 일본 음식의 맛이 현지인에게도 받아들여지는 것을 보고, 식품을 통한 문화 교류의 가능성을 느꼈습니다. 귀사의 해외 사업에서 그 가능성을 실현하고 싶습니다."<br/>→ 자기 경험 + 업계 특성 + 지원 기업 전략이 한 줄로 연결됨.</p>
+<div class="es-pattern-label">합격 패턴 ① — 원체험 연결형</div>
+<p>"유학 시절 일본 음식의 맛이 현지인에게도 받아들여지는 것을 보고, 식품을 통한 문화 교류의 가능성을 느꼈습니다. 귀사의 해외 사업에서 그 가능성을 실현하고 싶습니다."<br/>→ 자기 원체험 + 업계 특성 + 지원 기업 전략이 한 줄로 연결.</p>
+</div>
+<div class="es-pattern">
+<div class="es-pattern-label">합격 패턴 ② — 과제 해결형</div>
+<p>"아르바이트에서 식품 폐기의 현실을 보고, 식품 로스를 줄이는 데 기여하고 싶다고 생각했습니다. 귀사의 냉동 기술이 그 해결책이 될 수 있다고 확신합니다."<br/>→ 사회 과제 인식 + 기업의 기술 강점 연결.</p>
+</div>
+<div class="es-pattern">
+<div class="es-pattern-label">합격 패턴 ③ — 상품 분석형</div>
+<p>"귀사의 ○○ 상품을 대학 친구들에게 추천했을 때, '맛도 맛이지만 패키지가 편리하다'는 반응이 있었습니다. 맛뿐 아니라 '편의성'까지 설계하는 귀사의 상품 철학에 공감합니다."<br/>→ 실제 소비 경험 + 구체적 피드백 + 기업 철학 연결.</p>
 </div>
 <div class="es-pattern">
 <div class="es-pattern-label" style="color:var(--warn);">빠지기 쉬운 함정</div>
-<p>❌ "어릴 때부터 먹는 것을 좋아해서 식품업계를 지원합니다" — 누구나 쓸 수 있는 말. 차별화가 없음.<br/>
-❌ "귀사의 상품을 잘 먹고 있어서" — 소비자 시점에 머물러 있음. "만드는 쪽"의 관점이 필요.<br/>
-✅ 소비자 경험에서 출발하되, "왜 그 경험이 나를 만드는 쪽으로 이끌었는가"까지 쓰세요.</p>
+<p>❌ "어릴 때부터 먹는 것을 좋아해서 식품업계를 지원합니다" — 누구나 쓸 수 있는 말. 차별화가 없다.<br/>
+❌ "귀사의 상품을 잘 먹고 있어서" — 소비자 시점에 머물러 있다. "만드는 쪽"의 관점이 필요.<br/>
+❌ "식품은 사람을 행복하게 만든다" — 추상적. 구체적 경험으로 뒷받침해야 한다.<br/>
+✅ 소비자 경험에서 출발하되, <span class="hl">"왜 그 경험이 나를 만드는 쪽으로 이끌었는가"</span>까지 써야 합격권.</p>
 </div>
 </div>
 
-<!-- SECTION 07 -->
+<!-- ═══════════════ SECTION 07 ═══════════════ -->
 <div class="section" id="s7">
 <div class="section-num">SECTION 07</div>
 <div class="section-title">면접 대책</div>
 <div class="section-title-jp">面接対策 — 頻出質問·選考フロー</div>
+
 <h3>선고 플로우 (대기업 기준)</h3>
-<p>ES → 웹테스트(SPI/TG-WEB) → GD(그룹 디스커션) → 1차 면접(인사) → 2차 면접(현장 관리직) → 최종 면접(임원). 대기업은 GD가 있는 경우가 많고, "소비자 니즈를 어떻게 상품에 반영할 것인가" 같은 테마가 빈출입니다.</p>
-<h3 class="s1">빈출 질문</h3>
+<div class="table-wrap"><table>
+<thead><tr><th>단계</th><th>내용</th><th>포인트</th></tr></thead>
+<tbody>
+<tr><td>ES</td><td>가쿠치카, 지망 동기, 자기PR</td><td>"왜 식품?"에 원체험 연결 필수</td></tr>
+<tr><td>웹테스트</td><td>SPI or TG-WEB</td><td>대기업은 SPI 비율 높음</td></tr>
+<tr><td>GD</td><td>"신상품 기획" "소비자 니즈 분석" 테마 빈출</td><td>논리 + 소비자 시점 + 협조성</td></tr>
+<tr><td>1차 면접</td><td>인사 면접관. 가쿠치카 후카보리 중심</td><td>행동·결과를 구체적으로</td></tr>
+<tr><td>2차 면접</td><td>현장 관리직. 업계 이해도 + 직종 적합성</td><td>"영업 배치 괜찮은가?" 질문 빈출</td></tr>
+<tr><td>최종</td><td>임원. 지망 동기·가치관·장기 비전</td><td>"10년 후 어떤 인재가 되고 싶은가?"</td></tr>
+</tbody>
+</table></div>
+
+<h3 class="s1">빈출 질문 & 답변 가이드</h3>
 <div class="info-box info-box-s1">
-<p>· 왜 식품업계인가? 그 중에서도 왜 우리 회사인가?<br/>
-· 우리 회사 상품 중 하나를 골라서 개선점을 제안해주세요.<br/>
-· 입사 후 어떤 부서에서 어떤 일을 하고 싶은가?<br/>
-· 일본의 식품 시장이 정체되고 있는데, 어떻게 성장할 수 있다고 생각하나?<br/>
-· 해외 주재에 대한 의향이 있는가?</p>
+<p>· <span class="hl-s1">왜 식품업계인가? 그 중에서도 왜 우리 회사인가?</span><br/>
+→ 원체험 + 업계 특성 + 기업 차별점을 3단계로 연결. "식품 전반"이 아니라 "이 기업만의 강점"에 도달해야 함.</p>
+<p>· <span class="hl-s1">우리 회사 상품 중 하나를 골라서 개선점을 제안해주세요.</span><br/>
+→ 사전에 지원 기업의 주요 상품 3~5개를 실제로 먹어보고, 맛·패키지·타겟·판매 채널에 대한 자기만의 의견을 준비.</p>
+<p>· <span class="hl-s1">입사 후 어떤 부서에서 어떤 일을 하고 싶은가?</span><br/>
+→ "마케팅"만 대답하면 위험. "먼저 영업에서 현장을 알고, 그 경험을 바탕으로 마케팅으로 이동하고 싶다"가 현실적인 답변.</p>
+<p>· <span class="hl-s1">일본의 식품 시장이 정체되고 있는데, 어떻게 성장할 수 있다고 생각하나?</span><br/>
+→ 해외 전개 / 건강 기능식품 / DX 중 하나를 골라 구체적으로. 지원 기업의 중기경영계획과 연결하면 가산점.</p>
+<p>· <span class="hl-s1">해외 주재에 대한 의향이 있는가?</span><br/>
+→ "있다"가 기본. 없더라도 "국내에서 해외 사업을 서포트하는 역할에 관심이 있다"로 전환.</p>
 </div>
+
 <div class="info-box info-box-warn">
-<div class="box-label" style="color:var(--warn);">주의 포인트</div>
-<p>식품메이커 면접에서는 "상품 지식"보다 "소비자 시점에서 과제를 발견하고 해결하는 사고력"을 봅니다. 사전에 지원 기업의 주요 상품 3~5개를 먹어보고, 각각에 대한 자기만의 의견(맛·패키지·타겟·개선점)을 정리해두세요.</p>
+<div class="box-label box-label-warn">면접 준비 체크리스트</div>
+<p>□ 지원 기업의 주요 상품 5개를 실제로 먹어봤는가?<br/>
+□ 각 상품에 대한 자기만의 감상(맛·패키지·개선점)을 정리했는가?<br/>
+□ 기업의 중기경영계획(中期経営計画) 키워드 3개를 알고 있는가?<br/>
+□ "왜 마케팅이 아니라 영업부터 시작해도 괜찮은가?"에 답할 수 있는가?<br/>
+□ 경쟁사와의 차별점을 1줄로 설명할 수 있는가?</p>
 </div>
 </div>
 
@@ -281,7 +416,6 @@
 </div>
 
 </div>
-
 <script src="nav.js"></script>
 <script src="global-nav.js"></script>
 </body>
