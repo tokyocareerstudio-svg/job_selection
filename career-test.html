@@ -1487,13 +1487,20 @@
       <div class="container">
         <div class="result-hero" id="result-hero"></div>
 
-        <!-- PDF 저장 버튼 -->
-        <div class="pdf-save-btn">
+        <!-- PDF 저장 + 공유 카드 버튼 -->
+        <div class="pdf-save-btn" style="display:flex;justify-content:flex-end;gap:8px;">
           <button onclick="savePDF()" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text-dim);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.borderColor='var(--accent)';this.style.color='var(--accent)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-dim)'">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
-            PDF로 저장
+            PDF 저장
+          </button>
+          <button onclick="shareCard()" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text-dim);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all 0.2s;" onmouseover="this.style.borderColor='#a29bfe';this.style.color='#a29bfe'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-dim)'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            공유 카드 저장
           </button>
         </div>
+
+        <!-- 공유 카드 (숨김 — 캡처용) -->
+        <div id="share-card-wrap" style="position:absolute;left:-9999px;top:0;"></div>
 
         <div id="result-body"></div>
 
@@ -3256,6 +3263,131 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
   `;
 }
 
+function shareCard() {
+  const { topJobs, compScores } = state.result;
+  const pJ = topJobs[0];
+  const pf = JOB_PROFILES[pJ];
+  const CK = {'論理的思考力':'논리적사고력','洞察力':'통찰력','創造力':'창조력','企画力':'기획력','冷静さ':'냉정함','積極性':'적극성','粘り強さ':'끈기','実行力':'실행력','自己管理能力':'자기관리능력','状況把握力':'상황파악력','発信力':'발신력','傾聴力':'경청력','共感力':'공감력','牽引力':'견인력','調整力':'조정력','柔軟性':'유연성','協調性':'협조성','責任感':'책임감'};
+
+  // 4축 평균
+  const axG = { 환경:[], 업무:[], 문화:[], 커리어:[] };
+  Object.values(state.axisScores).forEach(({axis,val}) => { if(axG[axis]) axG[axis].push(val); });
+  const axA = {};
+  Object.entries(axG).forEach(([a,v]) => { axA[a] = v.length ? Math.round(v.reduce((s,x)=>s+x,0)/v.length) : 50; });
+  const axL = { 환경:{a:'도전',b:'안정'}, 업무:{a:'개인',b:'팀'}, 문화:{a:'자율',b:'체계'}, 커리어:{a:'전문가',b:'제너럴'} };
+
+  const envS=axA['환경']||50, culS=axA['문화']||50;
+  const hE=state.profile.includes('english')||state.profile.includes('overseas');
+  let cType='중견기업·성장형';
+  if(envS<35&&culS<35) cType='스타트업·외자계';
+  else if(envS<45&&culS<45) cType='메가벤처·성장기업';
+  else if(envS<55&&hE) cType='글로벌 대기업';
+  else if(envS>=55&&culS>=55) cType='JTC·안정형 대기업';
+
+  const tc = Object.entries(compScores).sort((a,b)=>b[1]-a[1]).slice(0,3);
+  const tags = [
+    ...topJobs.slice(0,2).map((j,i) => `${i+1}순위 ${JOB_PROFILES[j]?.label||j}`),
+    ...(state.mbti ? [state.mbti] : []),
+  ];
+
+  // 4축 바 HTML
+  const barsH = Object.entries(axA).map(([ax,v]) => {
+    const lb = axL[ax];
+    return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+      <span style="font-size:13px;font-weight:700;color:#e2e8f0;min-width:48px">${ax}</span>
+      <div style="flex:1;height:8px;background:#1e293b;border-radius:4px;overflow:hidden">
+        <div style="height:100%;width:${v}%;background:linear-gradient(90deg,#3b82f6,#7c3aed);border-radius:4px"></div>
+      </div>
+      <span style="font-size:11px;color:#94a3b8;min-width:44px;text-align:right">${v<50?lb.a:lb.b}</span>
+    </div>`;
+  }).join('');
+
+  // 카드 HTML (1080x1080)
+  const wrap = document.getElementById('share-card-wrap');
+  wrap.innerHTML = `
+    <div id="share-card" style="width:1080px;height:1080px;background:linear-gradient(160deg,#0a0a1a 0%,#111128 40%,#0d1b2a 100%);padding:72px;display:flex;flex-direction:column;font-family:'Noto Sans KR',sans-serif;position:relative;overflow:hidden;">
+      <!-- 배경 장식 -->
+      <div style="position:absolute;top:-120px;right:-120px;width:400px;height:400px;background:radial-gradient(circle,rgba(59,130,246,0.12) 0%,transparent 70%);border-radius:50%"></div>
+      <div style="position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(124,58,237,0.1) 0%,transparent 70%);border-radius:50%"></div>
+
+      <!-- 헤더 -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:48px">
+        <div>
+          <div style="font-size:14px;font-weight:800;letter-spacing:3px;color:#3b82f6;text-transform:uppercase">TOKYO CAREER STUDIO</div>
+          <div style="font-size:12px;color:#475569;letter-spacing:1px;margin-top:4px">커리어 DNA 진단 결과</div>
+        </div>
+        <div style="font-size:12px;color:#334155;padding:6px 16px;border:1px solid #1e293b;border-radius:100px">career-test</div>
+      </div>
+
+      <!-- 메인 결과 -->
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+        <div style="font-size:16px;color:#7c3aed;font-weight:600;margin-bottom:12px">${cType}</div>
+        <div style="font-size:54px;font-weight:900;color:#f1f5f9;letter-spacing:-1px;line-height:1.2;margin-bottom:20px">${pf?.emoji||''} ${pf?.label||pJ}</div>
+
+        <!-- 태그 -->
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px">
+          ${tags.map(t => `<span style="font-size:14px;padding:6px 18px;border-radius:100px;background:rgba(59,130,246,0.1);color:#60a5fa;border:1px solid rgba(59,130,246,0.2);font-weight:500">${t}</span>`).join('')}
+        </div>
+
+        <!-- 강점 TOP 3 -->
+        <div style="margin-bottom:36px">
+          <div style="font-size:12px;font-weight:700;letter-spacing:2px;color:#3b82f6;margin-bottom:16px;text-transform:uppercase">강점 프로파일 TOP 3</div>
+          <div style="display:flex;gap:12px">
+            ${tc.map(([n,s],i) => {
+              const ko = CK[n]||n;
+              const colors = ['#3b82f6','#7c3aed','#10b981'];
+              return `<div style="flex:1;padding:20px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-left:3px solid ${colors[i]};border-radius:12px">
+                <div style="font-size:12px;color:${colors[i]};font-weight:700;margin-bottom:6px">${i+1}순위</div>
+                <div style="font-size:22px;font-weight:800;color:#e2e8f0">${ko}</div>
+                <div style="font-size:11px;color:#64748b;margin-top:4px">${n}</div>
+              </div>`;
+            }).join('')}
+          </div>
+        </div>
+
+        <!-- 4축 -->
+        <div>
+          <div style="font-size:12px;font-weight:700;letter-spacing:2px;color:#3b82f6;margin-bottom:16px;text-transform:uppercase">커리어 성향</div>
+          ${barsH}
+        </div>
+      </div>
+
+      <!-- 푸터 -->
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:32px">
+        <div style="font-size:12px;color:#334155;line-height:1.6">
+          tokyocareerstudio.com<br>
+          <span style="color:#475569">나도 해보기 →</span>
+          <span style="color:#60a5fa">job-selection.vercel.app/career-test</span>
+        </div>
+        <div style="font-size:11px;color:#334155">@tokyocareerstudio</div>
+      </div>
+    </div>
+  `;
+
+  // html2canvas로 캡처
+  const card = document.getElementById('share-card');
+  html2canvas(card, {
+    width: 1080,
+    height: 1080,
+    scale: 1,
+    backgroundColor: null,
+    useCORS: true,
+    logging: false
+  }).then(canvas => {
+    // 다운로드
+    const link = document.createElement('a');
+    link.download = 'career-dna-result.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    // 정리
+    wrap.innerHTML = '';
+  }).catch(err => {
+    console.error('카드 생성 오류:', err);
+    alert('카드 생성 중 오류가 발생했습니다. 다시 시도해주세요.');
+    wrap.innerHTML = '';
+  });
+}
+
 function savePDF() {
   const now = new Date();
   const ds = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
@@ -3410,6 +3542,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 인트로 화면 활성화는 CSS로 처리
 });
 </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="global-nav.js"></script>
 </body>
 </html>
