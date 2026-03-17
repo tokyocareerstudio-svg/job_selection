@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="ko"><head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'spi-gengo-youhou.html');
+    location.replace('index.html');
+  }
+})();
+</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SPI 언어 ③ 어구의 용법 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--spi:#6c5ce7;--spi-soft:rgba(108,92,231,0.06);--spi-border:rgba(108,92,231,0.18);--tc:#4a9eff;--tc-soft:rgba(74,158,255,0.08);--tc-border:rgba(74,158,255,0.2);--solve:#a29bfe;--solve-soft:rgba(162,155,254,0.06);--correct:#34d399;--warn:#ef4444;--warn-soft:rgba(239,68,68,0.04);--warn-border:rgba(239,68,68,0.18);}*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}.hero{padding:48px 24px 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(108,92,231,0.05) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--tc);background:var(--tc-soft);border:1px solid var(--tc-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}.hero h1{font-size:26px;font-weight:900;margin-bottom:8px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;background:var(--tc-soft);color:var(--tc);border:1px solid var(--tc-border);}.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}.st{font-size:20px;font-weight:800;margin-bottom:4px;}.st-jp{font-family:'Noto Sans JP';font-size:11px;color:var(--text-muted);margin-bottom:20px;}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}.section h3{font-size:15px;font-weight:700;color:var(--text);margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--spi);}.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}.ib-a{background:var(--spi-soft);border-color:var(--spi-border);border-left:3px solid var(--spi);}.ib-w{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn);}.ib p{font-size:12px;color:var(--text-dim);line-height:1.9;}.bl{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}.bl-spi{color:var(--spi);}.bl-w{color:var(--warn);}.mini{margin:16px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}.mini-q{padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--border);}.mini-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.mini-q p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-a{padding:16px 18px;background:var(--solve-soft);}.mini-a p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-ans{margin-top:10px;padding:8px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:6px;font-size:12px;font-weight:700;color:var(--correct);}.mini-trap{margin:12px 0;border:1px solid var(--warn-border);border-radius:10px;overflow:hidden;}.mini-trap .mini-q{background:var(--warn-soft);border-bottom-color:var(--warn-border);}.mini-trap .mini-label{color:var(--warn);}.mini-trap .mini-a{background:rgba(239,68,68,0.03);}.mini-trap .mini-ans{background:rgba(239,68,68,0.05);border-color:var(--warn-border);color:var(--warn);}.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR';font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}.at-kr{background:rgba(108,92,231,0.03);border-top:1px solid var(--spi-border);}.ac-kr-body{padding:14px 16px;background:rgba(108,92,231,0.03);border-top:1px solid var(--spi-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--spi-border);background:var(--spi-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}@media(max-width:640px){.hero h1{font-size:22px;}}</style>
+</head><body>
+<div class="hero"><div class="hero-inner">
+  <a href="spi-gengo-index.html" class="hero-back">← SPI 언어 인덱스로 돌아가기</a>
+  <div class="hero-label">SPI 언어 — 유형 ③ · 테센 전용</div>
+  <h1>어구의 용법 (語句の用法)</h1>
+  <p class="hero-sub">밑줄 친 단어와 같은 의미·용법으로 사용된 문장을 선택지에서 고르는 유형. 하나의 단어가 문맥에 따라 다른 의미를 가지는 "다의어"를 이해하는 것이 핵심입니다. 특히 빈출 다의어 9개(取る·上げる·甘い·堅い 등)를 미리 정리해두면 시험장에서 속도가 올라갑니다.</p>
+  <div class="hero-tags"><span class="htag">테센 ★ 전용</span></div>
+</div></div>
+
+<div class="container">
+<div class="section">
+  <div class="sn">강의</div>
+  <div class="st">어구의 용법이란?</div>
+  <div class="st-jp">語句の用法 — 同じ言葉でも意味が違う</div>
+
+  <p>이 유형은 밑줄 친 단어가 문장에서 <strong style="color:var(--text);">어떤 의미로 쓰였는지</strong>를 판단하고, 같은 의미로 쓰인 다른 문장을 고르는 문제입니다.</p>
+
+  <div class="ib ib-a">
+    <div class="bl bl-spi">풀이법 3단계</div>
+    <p><strong style="color:var(--text-sub);">① 밑줄 단어를 다른 단어로 바꿔본다.</strong> 제시문에서 밑줄 단어를 유의어로 치환. 예: "甘い考え" → "甘い = 달콤한? 아니, 생각이 느슨한 = 안이한"<br><br>
+    <strong style="color:var(--text-sub);">② 같은 유의어로 치환 가능한 선택지를 찾는다.</strong><br><br>
+    <strong style="color:var(--text-sub);">③ 품사가 같은지도 확인.</strong> 동사/형용사/명사 등 품사가 다르면 용법이 다른 것.</p>
+  </div>
+
+  <h3>빈출 다의어 — 이것만은 반드시</h3>
+
+  <div class="mini">
+    <div class="mini-q"><div class="mini-label">📝 대표 다의어 "取る"</div>
+    <p>① 手に<u>取る</u> → 손에 들다 (물리적 동작)
+② 年を<u>取る</u> → 나이를 먹다 (변화)
+③ 連絡を<u>取る</u> → 연락하다 (추상적 행위)
+④ 資格を<u>取る</u> → 자격을 따다 (취득)
+⑤ 休みを<u>取る</u> → 휴가를 얻다 (확보)</p></div>
+    <div class="mini-a"><p>같은 "取る"인데 의미가 전혀 다릅니다. SPI에서는 "이 문장의 取る와 같은 의미의 取る는?"이라고 물어봅니다. 각 의미별로 유의어 치환이 가능한지로 판단합니다.</p>
+    <div class="mini-ans">다의어의 핵심 = "유의어 치환"으로 같은 의미인지 확인</div></div>
+  </div>
+
+  <div class="ib">
+    <p><strong style="color:var(--text-sub);">빈출 다의어 9개:</strong> 取る, 上げる, 打つ, 引く, 甘い, 堅い(固い/硬い), 明るい, かける, つく<br><br>
+    이 9개 단어의 주요 의미(각 3~5개)를 정리해두면 대부분의 어구의 용법 문제에 대응 가능합니다.</p>
+  </div>
+
+  <div class="mini-trap">
+    <div class="mini-q"><div class="mini-label">⚠️ 함정 — "堅い" vs "固い" vs "硬い"</div>
+    <p>堅い = 의지가 굳건하다 (堅い決意)
+固い = 단단하다, 경직되어 있다 (固い表情)
+硬い = 물리적으로 딱딱하다 (硬いパン)
+SPI에서는 한자 표기 없이 히라가나 "かたい"로 출제하여 어떤 의미인지 문맥으로 판단하게 합니다.</p></div>
+    <div class="mini-a"><p>문맥의 대상이 물리적 물체 → 硬い, 사람의 태도/표정 → 固い, 의지/결심 → 堅い
+SPI는 이 세 가지 중 "같은 かたい"를 고르라고 합니다.</p>
+    <div class="mini-ans">히라가나만 보고 판단하면 안 됨. 반드시 문맥으로!</div></div>
+  </div>
+
+  <div class="ib ib-w">
+    <div class="bl bl-w">자주 하는 실수</div>
+    <p><strong style="color:var(--text-sub);">실수 1:</strong> 밑줄 단어의 "사전적 대표 의미"만 떠올려서, 문맥상의 특수 의미를 놓침.<br><br>
+    <strong style="color:var(--text-sub);">실수 2:</strong> 품사 불일치. "明るい性格(밝은 성격)"의 明るい(형용사)와 "明るくなった(밝아졌다)"의 明るく(부사적)는 같은 용법이지만, "明るみ(노출)"는 명사형으로 다른 용법.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sn">연습 문제</div>
+  <div class="st">어구의 용법 예제 10문제</div>
+  <div class="st-jp">語句の用法の練習問題10問</div>
+  <p>밑줄 친 단어와 같은 의미·용법으로 쓰인 문장을 고르세요.</p>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q01</div><div class="pc-title">取る — 물리적 동작</div>
+<div class="pc-jp">テーブルの上の本を<u>取って</u>ください。
+ア 彼は今年30歳を取った。
+イ 棚から皿を取った。
+ウ 夏休みを取ることにした。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">테이블 위의 책을 집어주세요. (물리적으로 집다)
+ア 그는 올해 30살이 되었다 イ 선반에서 접시를 집었다 ウ 여름 휴가를 쓰기로 했다</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">제시문: 取る = 물리적으로 집다
+イ "선반에서 접시를 집다" → 같은 물리적 동작 ✓
+ア 나이를 먹다 / ウ 휴가를 얻다 → 다른 의미</div></div>
+<div class="sa">정답: イ</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q02</div><div class="pc-title">甘い — 판단이 느슨한</div>
+<div class="pc-jp">彼の計画は<u>甘い</u>と思う。
+ア このケーキは甘い。　イ 甘い香りがする。　ウ 自分に甘い人だ。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">그의 계획은 안이하다. ア 이 케이크는 달다 イ 달콤한 향기가 난다 ウ 자신에게 관대한 사람이다</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">제시문: 甘い = 판단이 느슨하다/안이하다
+ウ "자신에게 甘い" = 자신에게 느슨하다 → 같은 의미 ✓
+ア 미각의 달다 / イ 향기가 달콤 → 다른 의미</div></div>
+<div class="sa">정답: ウ</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q03</div><div class="pc-title">上げる — 완료 보조</div>
+<div class="pc-jp">レポートを書き<u>上げた</u>。
+ア 声を上げる。　イ 成績を上げる。　ウ 編み物を仕上げた。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">리포트를 다 썼다(완성). ア 소리를 지르다 イ 성적을 올리다 ウ 뜨개질을 완성했다</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">제시문: 書き上げる = 다 쓰다(완료 보조동사)
+ウ 仕上げる = 완성하다 → 같은 "완료" 용법 ✓
+ア/イ = 물리적으로 올리다 → 다른 의미</div></div>
+<div class="sa">정답: ウ</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q04</div><div class="pc-title">引く — 사전을 찾다</div>
+<div class="pc-jp">辞書を<u>引く</u>。
+ア 綱を引く。　イ 風邪を引く。　ウ 例を引く。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">사전을 찾다. ア 줄을 당기다 イ 감기에 걸리다 ウ 예를 인용하다</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">辞書を引く = 사전에서 찾아보다 (참조·인용의 의미)
+ウ 例を引く = 예를 인용하다 → "참조"의 의미로 같음 ✓</div></div>
+<div class="sa">정답: ウ</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q05</div><div class="pc-title">かたい — 의지가 굳건한</div>
+<div class="pc-jp">彼女の決意は<u>かたい</u>。
+ア このパンはかたい。　イ かたい握手を交わした。　ウ 合格はかたいだろう。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">그녀의 결의는 굳건하다. ア 이 빵은 딱딱하다 イ 굳은 악수를 나눴다 ウ 합격은 확실할 것이다</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">제시문: かたい決意 = 굳건한 결의 (堅い)
+イ かたい握手 = 굳건한 악수 → 의지·유대의 "굳건함" ✓
+ア 물리적 딱딱함(硬い) / ウ 확실하다(堅い지만 "가능성" 의미)</div></div>
+<div class="sa">정답: イ</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q06</div><div class="pc-title">打つ — 행동을 취하다</div>
+<div class="pc-jp">対策を<u>打つ</u>。
+ア 釘を打つ。　イ 電報を打つ。　ウ 手を打つ。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">대책을 세우다. ア 못을 박다 イ 전보를 치다 ウ 손을 치다(합의하다)</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">対策を打つ = 대책을 강구하다(추상적 행동)
+ウ 手を打つ = 합의를 보다/손을 쓰다 → 추상적 행동 ✓
+ア 물리적 타격 / イ 전보를 보내다(통신 행위)</div></div>
+<div class="sa">정답: ウ</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q07</div><div class="pc-title">明るい — 지식이 풍부한</div>
+<div class="pc-jp">彼はIT分野に<u>明るい</u>。
+ア 明るい部屋。　イ 明るい性格。　ウ 政治に明るい人。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">그는 IT 분야에 밝다(정통하다). ア 밝은 방 イ 밝은 성격 ウ 정치에 밝은 사람</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">IT分野に明るい = 잘 알고 있다(정통)
+ウ 政治に明るい = 정치에 정통 → 같은 의미 ✓</div></div>
+<div class="sa">정답: ウ</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q08</div><div class="pc-title">かける — 시간·비용을 들이다</div>
+<div class="pc-jp">この作品には3年を<u>かけた</u>。
+ア 壁に絵をかける。　イ 迷惑をかける。　ウ 時間をかけて作る。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">이 작품에 3년을 들였다. ア 벽에 그림을 걸다 イ 폐를 끼치다 ウ 시간을 들여 만들다</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">3年をかけた = 시간을 투입하다
+ウ 時間をかけて = 시간을 들여 → 같은 의미 ✓</div></div>
+<div class="sa">정답: ウ</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q09</div><div class="pc-title">つく — 상태가 되다</div>
+<div class="pc-jp">自信が<u>ついた</u>。
+ア 嘘をつく。　イ 力がついた。　ウ 机につく。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">자신감이 붙었다. ア 거짓말을 하다 イ 힘이 붙었다 ウ 책상에 앉다</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">自信がつく = 자신감이 생기다(상태 획득)
+イ 力がつく = 힘이 생기다 → 같은 구조·의미 ✓</div></div>
+<div class="sa">정답: イ</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q10</div><div class="pc-title">上げる — 물리적으로 올리다</div>
+<div class="pc-jp">荷物を棚に<u>上げた</u>。
+ア 成果を上げる。　イ 天ぷらを上げる。　ウ 旗を上げる。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">짐을 선반에 올렸다. ア 성과를 올리다 イ 튀김을 올리다(건지다) ウ 깃발을 올리다</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">荷物を棚に上げる = 물리적으로 위로 올리다
+ウ 旗を上げる = 깃발을 물리적으로 올리다 ✓
+ア 추상적 성과 / イ 기름에서 건지다(揚げる)</div></div>
+<div class="sa">정답: ウ</div></div></div></div>
+
+</div>
+
+<div class="type-nav">
+  <a href="spi-gengo-nigo.html"><div class="nl">← 이전 유형</div><div class="nt">② 두 단어의 관계</div></a>
+  <a href="spi-gengo-jukugo.html"><div class="nl">다음 유형 →</div><div class="nt">④ 숙어의 구성</div></a>
+</div>
+<div class="footer"><p><span class="brand">Tokyo Career Studio</span> — SPI 언어 ③ 어구의 용법</p><p>© Tokyo Career Studio. All rights reserved.</p></div>
+</div>
+<script>function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}</script>
+  <script src="nav.js"></script>
+  <script src="global-nav.js"></script>
+</body></html>

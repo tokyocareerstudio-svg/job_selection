@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'spi-higengo-shugo.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPI 비언어 ⑤ 집합·표 읽기 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--spi:#f59e0b;--spi-soft:rgba(245,158,11,0.06);--spi-border:rgba(245,158,11,0.18);--tc:#4a9eff;--tc-soft:rgba(74,158,255,0.08);--tc-border:rgba(74,158,255,0.2);--wt:#34d399;--wt-soft:rgba(52,211,153,0.07);--wt-border:rgba(52,211,153,0.18);--solve:#a29bfe;--solve-soft:rgba(162,155,254,0.06);--correct:#34d399;--warn:#ef4444;--warn-soft:rgba(239,68,68,0.04);--warn-border:rgba(239,68,68,0.18);}
+*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:48px 24px 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(245,158,11,0.05) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-back:hover{color:var(--text-dim);}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);background:var(--spi-soft);border:1px solid var(--spi-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}.hero h1{font-size:26px;font-weight:900;line-height:1.3;margin-bottom:8px;letter-spacing:-0.5px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;}.htag-tc{background:var(--tc-soft);color:var(--tc);border:1px solid var(--tc-border);}.htag-wt{background:var(--wt-soft);color:var(--wt);border:1px solid var(--wt-border);}
+.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}.section h3{font-size:15px;font-weight:700;color:var(--text);margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--spi);}
+.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}.ib-a{background:var(--spi-soft);border-color:var(--spi-border);border-left:3px solid var(--spi);}.ib-w{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn);}.ib h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}.ib p,.ib div{font-size:12px;color:var(--text-dim);line-height:1.9;}.bl{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}.bl-spi{color:var(--spi);}.bl-w{color:var(--warn);}
+.fc{padding:16px 18px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;margin:10px 0;}.fc-name{font-size:12px;font-weight:700;color:var(--spi);margin-bottom:4px;}.fc-formula{font-family:'Space Grotesk',monospace;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;letter-spacing:0.5px;}.fc-desc{font-size:11px;color:var(--text-dim);line-height:1.7;}
+.mini{margin:16px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}.mini-q{padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--border);}.mini-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.mini-q p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-a{padding:16px 18px;background:var(--solve-soft);}.mini-a p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-ans{margin-top:10px;padding:8px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:6px;font-size:12px;font-weight:700;color:var(--correct);}.mini-trap{margin:12px 0;border:1px solid var(--warn-border);border-radius:10px;overflow:hidden;}.mini-trap .mini-q{background:var(--warn-soft);border-bottom-color:var(--warn-border);}.mini-trap .mini-label{color:var(--warn);}.mini-trap .mini-a{background:rgba(239,68,68,0.03);}.mini-trap .mini-ans{background:rgba(239,68,68,0.05);border-color:var(--warn-border);color:var(--warn);}
+.diagram{margin:12px 0;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow-x:auto;}.diagram-title{font-size:11px;font-weight:700;color:var(--spi);letter-spacing:1px;margin-bottom:10px;text-transform:uppercase;}
+/* Venn diagram CSS */
+.venn{position:relative;width:280px;height:180px;margin:10px auto;}
+.venn-c{position:absolute;border:2px solid;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.venn-a{width:160px;height:160px;left:0;top:10px;border-color:var(--tc);background:rgba(74,158,255,0.06);}
+.venn-b{width:160px;height:160px;right:0;top:10px;border-color:var(--wt);background:rgba(52,211,153,0.06);}
+.venn-la{position:absolute;top:0;left:20px;font-size:10px;font-weight:700;color:var(--tc);}.venn-lb{position:absolute;top:0;right:20px;font-size:10px;font-weight:700;color:var(--wt);}
+.venn-num{position:absolute;font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;}
+.vn-a{left:40px;top:80px;color:var(--tc);}.vn-ab{left:122px;top:80px;color:var(--spi);}.vn-b{right:40px;top:80px;color:var(--wt);}.vn-out{left:125px;top:160px;color:var(--text-muted);font-size:12px;}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}table{width:100%;border-collapse:collapse;font-size:12px;}thead{background:var(--surface-2);}th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}tr:last-child td{border-bottom:none;}td:first-child{font-weight:600;color:var(--text-sub);}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
+.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{color:var(--text-dim);background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}.at-kr{background:rgba(245,158,11,0.03);border-top:1px solid var(--spi-border);}.at-kr:hover{background:rgba(245,158,11,0.06);}.ac-kr-body{padding:14px 16px;background:rgba(245,158,11,0.03);border-top:1px solid var(--spi-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}
+.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--spi-border);background:var(--spi-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.hero h1{font-size:22px;}.venn{width:220px;height:150px;}.venn-c{width:130px!important;height:130px!important;}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-inner">
+  <a href="spi-higengo-index.html" class="hero-back">← SPI 비언어 인덱스로 돌아가기</a>
+  <div class="hero-label">SPI 비언어 — 유형 ⑤</div>
+  <h1>집합·표 읽기 (集合·図表)</h1>
+  <p class="hero-sub">벤 다이어그램으로 집합 관계를 파악하고, 표·그래프에서 증가율·구성비를 계산하는 유형. 특히 표 읽기는 테스트센터에서 최빈출급입니다. 공식 자체는 단순하지만 "분모를 뭘로 잡느냐"에서 실수가 납니다.</p>
+  <div class="hero-tags"><span class="htag htag-tc">테센 ★ 빈출</span><span class="htag htag-wt">웹테 ○ 출제</span></div>
+</div></div>
+
+<div class="container">
+
+<div class="section">
+  <div class="sn">강의</div>
+  <div class="st">집합과 표 읽기 — 시각화가 전부</div>
+  <div class="st-jp">集合・図表 — 可視化がすべて</div>
+
+  <p>이 유형의 핵심은 <strong style="color:var(--text);">머릿속이 아닌 종이 위에서 푸는 것</strong>입니다. 집합은 벤 다이어그램, 표 읽기는 필요한 숫자에만 집중하는 것이 시간을 절약하는 방법입니다.</p>
+
+  <h3>2그룹 집합 — 벤 다이어그램</h3>
+  <p>"영어를 할 수 있는 사람 60명, 중국어를 할 수 있는 사람 40명, 양쪽 다 20명. 어느 쪽도 못하는 사람은?" 같은 유형입니다.</p>
+
+  <div class="fc"><div class="fc-name">합집합 공식</div><div class="fc-formula">A∪B = A + B - A∩B</div><div class="fc-desc">A 또는 B = A + B - (양쪽 다). 중복을 한 번 빼야 함!</div></div>
+
+  <div class="diagram">
+    <div class="diagram-title">벤 다이어그램 예시: 100명, 영어 60, 중국어 40, 양쪽 20</div>
+    <div class="venn">
+      <div class="venn-c venn-a"></div>
+      <div class="venn-c venn-b"></div>
+      <div class="venn-la">영어 (60)</div>
+      <div class="venn-lb">중국어 (40)</div>
+      <div class="venn-num vn-a">40</div>
+      <div class="venn-num vn-ab">20</div>
+      <div class="venn-num vn-b">20</div>
+      <div class="venn-num vn-out">밖: 20명</div>
+    </div>
+    <p style="font-size:11px;color:var(--text-dim);text-align:center;margin-top:8px;">영어만=40, 양쪽=20, 중국어만=20, 어느 쪽도 아님=20</p>
+  </div>
+
+  <div class="mini-trap">
+    <div class="mini-q"><div class="mini-label">⚠️ 함정 — 3그룹 집합이 나오면</div>
+    <p>A, B, C 3개 그룹이 나오면 포함배제 원리(包含排除)를 써야 합니다:
+|A∪B∪C| = |A|+|B|+|C| - |A∩B| - |A∩C| - |B∩C| + |A∩B∩C|
+3개 겹치는 부분부터 채워 나가는 것이 핵심.</p></div>
+    <div class="mini-a"><p>실전에서는 3그룹까지 나오는 경우가 있지만 빈도는 낮습니다. 2그룹을 확실하게 풀 수 있으면 3그룹도 같은 원리의 확장입니다.</p>
+    <div class="mini-ans">3그룹은 "가장 안쪽(3개 겹침)부터" 채우기!</div></div>
+  </div>
+
+  <h3>표 읽기 — 증가율과 구성비</h3>
+  <p>표나 그래프에서 숫자를 읽고 계산하는 유형. 테스트센터에서 특히 빈출입니다. 핵심 공식은 두 개:</p>
+
+  <div class="fc"><div class="fc-name">증가율 (前年比)</div><div class="fc-formula">증가율 = (이후 - 이전) / 이전 × 100%</div><div class="fc-desc">주의: 분모는 반드시 "이전 값". 500→600이면 (600-500)/500 = 20%</div></div>
+  <div class="fc"><div class="fc-name">구성비 (構成比)</div><div class="fc-formula">구성비 = 해당 항목 / 합계 × 100%</div><div class="fc-desc">전체 800만엔 중 개발부 200만엔 → 200/800 = 25%</div></div>
+
+  <div class="mini-trap">
+    <div class="mini-q"><div class="mini-label">⚠️ 증가율의 최대 함정</div>
+    <p>A상점: 500→600 (증가액 100)
+B상점: 800→920 (증가액 120)
+"증가액"이 큰 B가 증가율도 높다?</p></div>
+    <div class="mini-a"><p>A: 100/500 = <strong style="color:var(--spi);">20%</strong> / B: 120/800 = <strong style="color:var(--spi);">15%</strong>
+→ 증가"액"은 B가 크지만, 증가"율"은 A가 높다!
+분모(기준)가 다르면 절대액과 비율은 역전될 수 있음.</p>
+    <div class="mini-ans">증가"액"과 증가"율"을 절대 혼동하지 말 것!</div></div>
+  </div>
+
+  <h3>자료 읽기 / 장문 읽기 계산 — 테스트센터 전용</h3>
+  <p>테스트센터에서는 그래프·차트를 보고 읽는 "자료 읽기(資料の読み取り)"와, 긴 조건문을 읽고 계산하는 "장문 읽기 계산(長文読み取り計算)"이 추가로 출제됩니다.</p>
+  <p><strong style="color:var(--text);">접근법:</strong> 문제를 먼저 읽고 필요한 숫자만 표에서 찾는다. 표 전체를 읽으면 시간 낭비.</p>
+
+  <div class="ib ib-w">
+    <div class="bl bl-w">자주 하는 실수</div>
+    <p><strong style="color:var(--text-sub);">실수 1:</strong> 합집합에서 중복을 안 빼고 단순 합산. A+B가 전체를 넘으면 반드시 중복이 있음!<br><br>
+    <strong style="color:var(--text-sub);">실수 2:</strong> 증가율 계산에서 분모를 "이후 값"으로 잡음. 분모는 항상 "이전 값(기준)"!<br><br>
+    <strong style="color:var(--text-sub);">실수 3:</strong> 표 문제에서 전체 표를 다 읽느라 시간 소모. 문제를 먼저 읽고 필요한 셀만 찾을 것.</p>
+  </div>
+</div>
+
+<!-- 요약 -->
+<div class="section">
+  <div class="sn">요약</div>
+  <div class="st">핵심 풀이법 한눈에 보기</div>
+  <div class="st-jp">解法一覧</div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>#</th><th>유형</th><th>핵심 공식/접근법</th><th>형식</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>2그룹 집합</td><td>A∪B = A+B-A∩B → 여사건으로 "밖" 계산</td><td>공통</td></tr>
+      <tr><td>2</td><td>3그룹 집합</td><td>포함배제 원리. 3겹→2겹→1겹 순으로</td><td>공통</td></tr>
+      <tr><td>3</td><td>증가율</td><td>(이후-이전)/이전 × 100%. 분모=이전</td><td>공통</td></tr>
+      <tr><td>4</td><td>구성비</td><td>항목/합계 × 100%</td><td>공통</td></tr>
+      <tr><td>5</td><td>자료/장문 읽기</td><td>문제 먼저 → 필요한 셀만 찾기</td><td style="color:var(--tc);">테센</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<!-- 예제 10문제 -->
+<div class="section">
+  <div class="sn">연습 문제</div>
+  <div class="st">집합·표 읽기 예제 10문제</div>
+  <div class="st-jp">集合・図表の練習問題10問</div>
+  <p>일본어 원문을 먼저 읽고 직접 풀어보세요.</p>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q01 — 2그룹 집합</div><div class="pc-title">영어·중국어 설문</div>
+<div class="pc-jp">100人にアンケート。英語ができる人は60人、中国語ができる人は40人、両方できる人は20人。英語も中国語もできない人は何人か。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">100명 설문. 영어 60명, 중국어 40명, 양쪽 20명. 어느 쪽도 못하는 사람은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">합집합 = 60+40-20 = 80명
+어느 쪽도 아님 = 100-80 = 20명</div></div>
+<div class="sa">정답: 20명</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q02 — 집합 (영어만)</div><div class="pc-title">영어만 할 수 있는 사람</div>
+<div class="pc-jp">Q01と同じ条件で、英語だけができる人（中国語はできない人）は何人か。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">Q01과 같은 조건. 영어만(중국어 불가) 할 수 있는 사람은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">영어만 = 영어 전체 - 양쪽 = 60 - 20 = 40명</div></div>
+<div class="sa">정답: 40명</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q03 — 증가율</div><div class="pc-title">매출 증가율 비교</div>
+<div class="pc-jp">A店の売上：2023年500万円、2024年600万円。B店の売上：2023年800万円、2024年920万円。売上の増加率が高いのはどちらか。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">A상점 500→600만엔. B상점 800→920만엔. 증가율이 높은 쪽은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">A: (600-500)/500 = 20%
+B: (920-800)/800 = 15%
+A > B</div></div>
+<div class="sa">정답: A상점 (20%)</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q04 — 구성비</div><div class="pc-title">부문별 매출 비율</div>
+<div class="pc-jp">営業部240万円、企画部160万円、開発部200万円、総務部80万円、人事部120万円。開発部の売上が全体に占める割合は何%か。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">영업 240, 기획 160, 개발 200, 총무 80, 인사 120(만엔). 개발부 비율은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">합계 = 240+160+200+80+120 = 800만엔
+개발 비율 = 200/800 × 100 = 25%</div></div>
+<div class="sa">정답: 25%</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q05 — 집합 (적어도)</div><div class="pc-title">적어도 1과목 합격</div>
+<div class="pc-jp">50人が数学と英語の試験を受けた。数学合格者32人、英語合格者28人、両方不合格者5人。両方合格した人は何人か。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">50명이 수학·영어 시험. 수학 합격 32명, 영어 합격 28명, 둘 다 불합격 5명. 둘 다 합격한 사람은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">적어도 1과목 합격 = 50-5 = 45명
+수학+영어-양쪽 = 45
+32+28-양쪽 = 45
+양쪽 = 60-45 = 15명</div></div>
+<div class="sa">정답: 15명</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q06 — 표 읽기 (감소율)</div><div class="pc-title">전년 대비 감소</div>
+<div class="pc-jp">ある商品の売上が2023年は400万円、2024年は340万円だった。売上の減少率は何%か。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">상품 매출 2023년 400만엔 → 2024년 340만엔. 감소율은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">감소율 = (400-340)/400 × 100 = 60/400 × 100 = 15%</div></div>
+<div class="sa">정답: 15%</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q07 — 표 읽기 (복합)</div><div class="pc-title">2년간 총 증가액</div>
+<div class="pc-jp">A部門：2022年300万、2023年350万、2024年400万。B部門：2022年200万、2023年180万、2024年250万。2022年から2024年にかけて、売上が増加した部門の合計増加額はいくらか。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">A부문 300→350→400. B부문 200→180→250. 2022~2024 매출 증가 부문의 합계 증가액은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">A: 400-300 = +100만 (증가 ✓)
+B: 250-200 = +50만 (증가 ✓)
+합계 증가액 = 100+50 = 150만엔</div></div>
+<div class="sa">정답: 150만엔</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q08 — 집합 응용</div><div class="pc-title">3종류 음료</div>
+<div class="pc-jp">60人にアンケート。コーヒーを飲む人35人、紅茶を飲む人25人、両方飲む人15人。コーヒーも紅茶も飲まない人は何人か。ただし、3種類目の飲み物は考えない。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">60명 설문. 커피 35명, 홍차 25명, 양쪽 15명. 둘 다 안 마시는 사람은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">합집합 = 35+25-15 = 45명
+둘 다 아님 = 60-45 = 15명</div></div>
+<div class="sa">정답: 15명</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q09 — 득점 범위</div><div class="pc-title">최고점의 최솟값</div>
+<div class="pc-jp">5人の平均点が60点で、最低点が40点だった。最高点として考えられる最小の値はいくらか。ただし全員の点数は整数とする。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">5명 평균 60점, 최저 40점. 최고점의 최솟값은? (모두 정수)</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">합계 = 60×5 = 300점
+최고점 최소화 → 나머지를 최대화
+나머지 3명을 최고점과 같은 값(X)으로 놓으면:
+40 + X + X + X + X = 300 → 4X = 260 → X = 65
+최고점 ≥ 65이므로 최솟값 = 65</div></div>
+<div class="sa">정답: 65점</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q10 — 표 읽기 (비율 비교)</div><div class="pc-title">점유율 변화</div>
+<div class="pc-jp">A社の市場シェア：2023年は全体1,000億円中300億円、2024年は全体1,200億円中330億円。A社のシェアは上がったか下がったか。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">A사 시장 점유율: 2023년 전체 1000억 중 300억, 2024년 전체 1200억 중 330억. 점유율은 올랐나 내렸나?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">2023: 300/1000 = 30%
+2024: 330/1200 = 27.5%
+매출 자체는 300→330으로 올랐지만, 점유율은 30→27.5로 내렸다.
+※ 시장 전체가 더 빠르게 성장한 경우.</div></div>
+<div class="sa">정답: 점유율은 내렸다 (30% → 27.5%)</div></div></div></div>
+
+</div>
+
+<div class="type-nav">
+  <a href="spi-higengo-sokudo.html"><div class="nl">← 이전 유형</div><div class="nt">④ 속도·일·농도</div></a>
+  <a href="spi-higengo-seisu.html"><div class="nl">다음 유형 →</div><div class="nt">⑥ 정수·방정식</div></a>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — SPI 비언어 ⑤ 집합·표 읽기</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
+  <p style="margin-top:8px;font-size:10px;">예제는 SPI 출제 유형을 참고하여 독자 작성. 실제 시험 문제와는 다릅니다.</p>
+</div>
+</div>
+<script>function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}</script>
+  <script src="nav.js"></script>
+  <script src="global-nav.js"></script>
+</body>
+</html>

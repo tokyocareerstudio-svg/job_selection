@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'spi-gengo-index.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPI 언어 파트 완전 정리 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--border-hover:#3a3a48;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--accent:#4a9eff;--spi:#6c5ce7;--spi-soft:rgba(108,92,231,0.06);--spi-border:rgba(108,92,231,0.18);--tc:#4a9eff;--tc-soft:rgba(74,158,255,0.08);--tc-border:rgba(74,158,255,0.2);--wt:#34d399;--wt-soft:rgba(52,211,153,0.07);--wt-border:rgba(52,211,153,0.18);--common:#c4b5fd;--common-soft:rgba(196,181,253,0.08);--common-border:rgba(196,181,253,0.2);}
+*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:64px 24px 48px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(108,92,231,0.06) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-back:hover{color:var(--text-dim);}
+.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);background:var(--spi-soft);border:1px solid var(--spi-border);padding:4px 12px;border-radius:12px;margin-bottom:20px;text-transform:uppercase;}
+.hero h1{font-size:30px;font-weight:900;line-height:1.3;margin-bottom:10px;letter-spacing:-0.5px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:20px;max-width:560px;}.hero-meta{font-size:11px;color:var(--text-muted);margin-bottom:20px;}.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}.hero-tag{font-size:11px;padding:4px 12px;border-radius:100px;background:var(--spi-soft);color:var(--spi);border:1px solid var(--spi-border);font-weight:500;}
+.section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0;}.section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}.section-nav-inner::-webkit-scrollbar{display:none;}.nav-btn{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap;text-decoration:none;}.nav-btn:hover,.nav-btn.active{color:var(--spi);background:var(--spi-soft);}
+.section{padding:44px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}.section-num{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}.section-title{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}.section-title-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}.section h3{font-size:14px;font-weight:700;color:var(--text-sub);margin:28px 0 12px;padding-left:10px;border-left:2px solid var(--spi);}
+.info-box{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}.info-box-accent{background:var(--spi-soft);border-color:var(--spi-border);border-left:3px solid var(--spi);}.info-box-tc{background:var(--tc-soft);border-color:var(--tc-border);border-left:3px solid var(--tc);}.info-box-wt{background:var(--wt-soft);border-color:var(--wt-border);border-left:3px solid var(--wt);}.info-box h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}.info-box p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0;}.box-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}table{width:100%;border-collapse:collapse;font-size:12px;}thead{background:var(--surface-2);}th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}tr:last-child td{border-bottom:none;}td:first-child{font-weight:600;color:var(--text-sub);white-space:nowrap;}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:0.3px;}.badge-tc{background:var(--tc-soft);color:var(--tc);border:1px solid var(--tc-border);}.badge-wt{background:var(--wt-soft);color:var(--wt);border:1px solid var(--wt-border);}.badge-common{background:var(--common-soft);color:var(--common);border:1px solid var(--common-border);}.badge-no{background:rgba(255,255,255,0.02);color:var(--text-muted);border:1px solid var(--border);opacity:0.5;}
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0;}.type-card{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;cursor:pointer;}.type-card:hover{border-color:var(--spi-border);background:var(--spi-soft);transform:translateY(-2px);}.type-icon{font-size:24px;flex-shrink:0;margin-top:2px;}.type-body{flex:1;}.type-kicker{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:4px;text-transform:uppercase;}.type-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;}.type-desc{font-size:11px;color:var(--text-dim);line-height:1.7;margin-bottom:8px;}.type-tags{display:flex;flex-wrap:wrap;gap:4px;}.type-tag{font-size:10px;padding:2px 8px;border-radius:6px;background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border);}.type-tag-tc{background:var(--tc-soft);color:var(--tc);border-color:var(--tc-border);}.type-tag-wt{background:var(--wt-soft);color:var(--wt);border-color:var(--wt-border);}.type-arrow{font-size:16px;color:var(--spi);flex-shrink:0;margin-top:4px;opacity:0;transition:opacity 0.2s;}.type-card:hover .type-arrow{opacity:1;}
+.stats-row{display:flex;gap:12px;margin:20px 0;flex-wrap:wrap;}.stat-box{flex:1;min-width:100px;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-align:center;}.stat-num{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--text);line-height:1;margin-bottom:4px;}.stat-num span{font-size:14px;color:var(--text-dim);}.stat-label{font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.type-grid{grid-template-columns:1fr;}.hero h1{font-size:24px;}.stats-row{gap:8px;}.stat-box{min-width:80px;padding:12px;}.stat-num{font-size:20px;}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <a href="spi-index.html" class="hero-back">← SPI 대책 메인으로 돌아가기</a>
+    <div class="hero-label">SPI 언어 대책</div>
+    <h1>SPI 언어 파트 완전 정리</h1>
+    <p class="hero-sub">어구의 의미·두 단어의 관계·어구의 용법은 테센 전용, 숙어의 구성은 웹테 전용. 형식별 출제 범위를 파악하고 유형별 암기·풀이법·예제로 효율적으로 대비합니다.</p>
+    <p class="hero-meta">Tokyo Career Studio &nbsp;|&nbsp; 2026.03 &nbsp;|&nbsp; StudyPro·大人塾·「これが本当のSPI3だ!」 크로스체크 완료</p>
+    <div class="hero-tags">
+      <span class="hero-tag">테센 vs 웹테 출제 범위 상이</span>
+      <span class="hero-tag">어휘 암기가 핵심</span>
+      <span class="hero-tag">일본어 원문 + 한국어 해설</span>
+      <span class="hero-tag">유형별 예제 10문제</span>
+    </div>
+  </div>
+</div>
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <a href="#s1" class="nav-btn active">학습 가이드</a>
+    <a href="#s2" class="nav-btn">출제 범위</a>
+    <a href="#s3" class="nav-btn">테센 vs 웹테</a>
+    <a href="#s4" class="nav-btn">학습 전략</a>
+    <a href="#s5" class="nav-btn">유형별 페이지</a>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="section" id="s1">
+  <div class="section-num">SECTION 01</div>
+  <div class="section-title">SPI 언어 파트 학습 가이드</div>
+  <div class="section-title-jp">SPI言語分野 — テストセンター・WEBテスティング対応</div>
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num">6<span>유형</span></div><div class="stat-label">출제 유형</div></div>
+    <div class="stat-box"><div class="stat-num">60<span>문제</span></div><div class="stat-label">예제 수록</div></div>
+    <div class="stat-box"><div class="stat-num">300<span>+</span></div><div class="stat-label">빈출 어휘</div></div>
+    <div class="stat-box"><div class="stat-num">2<span>형식</span></div><div class="stat-label">테센·웹테 대응</div></div>
+  </div>
+  <div class="info-box info-box-accent">
+    <div class="box-label">언어 파트란?</div>
+    <p>SPI의 언어 분야는 일본어의 어휘력·독해력·논리적 문장 이해력을 측정하는 파트입니다. 비언어와 달리 <strong style="color:var(--text-sub);">테스트센터와 웹테스팅의 출제 유형이 거의 겹치지 않는다</strong>는 것이 가장 큰 특징입니다. 테센은 어휘·어법 중심, 웹테는 숙어의 구성·문장 배열 중심. 자신이 볼 형식을 먼저 파악하는 것이 가장 효율적인 첫 걸음입니다.<br><br>
+    한국인 수험생에게 언어 파트는 <strong style="color:var(--text-sub);">일본어 어휘력 자체가 시험</strong>되므로, 빈출 어휘를 미리 외우는 것이 비언어보다 훨씬 직접적으로 점수에 연결됩니다.</p>
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <div class="section-num">SECTION 02</div>
+  <div class="section-title">출제 유형 × 형식별 범위</div>
+  <div class="section-title-jp">出題範囲マトリクス — テストセンター vs WEBテスティング</div>
+  <p>언어 파트는 비언어 이상으로 <strong style="color:var(--text);">테센과 웹테의 출제 유형이 다릅니다.</strong> 특히 어구의 의미·두 단어의 관계·어구의 용법은 테센에서만, 숙어의 구성은 웹테에서만 나옵니다.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>문제 유형</th><th>테스트센터</th><th>웹테스팅</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td>어구의 의미 (語句の意味)</td><td><span class="badge badge-tc">★ 필수</span></td><td><span class="badge badge-no">미출제</span></td><td>이자숙어·사자성어·관용구 암기가 핵심</td></tr>
+        <tr><td>두 단어의 관계 (二語の関係)</td><td><span class="badge badge-tc">★ 필수</span></td><td><span class="badge badge-no">미출제</span></td><td>8가지 관계 유형 암기</td></tr>
+        <tr><td>어구의 용법 (語句の用法)</td><td><span class="badge badge-tc">★ 필수</span></td><td><span class="badge badge-no">미출제</span></td><td>다의어·동음이의어 문맥 판단</td></tr>
+        <tr><td>숙어의 구성 (熟語の成り立ち)</td><td><span class="badge badge-no">미출제</span></td><td><span class="badge badge-wt">★ 필수</span></td><td>5패턴 판별. "문장으로 바꿔보기" 기법</td></tr>
+        <tr><td>문장 배열 (文の並び替え)</td><td><span class="badge badge-common">공통</span></td><td><span class="badge badge-common">공통</span></td><td>문절 타입과 문장 타입</td></tr>
+        <tr><td>빈칸 채우기 (空欄補充)</td><td><span class="badge badge-common">공통</span></td><td><span class="badge badge-common">공통</span></td><td>접속사·문맥 이해</td></tr>
+        <tr><td>장문 독해 (長文読解)</td><td><span class="badge badge-common">공통</span></td><td><span class="badge badge-common">공통</span></td><td>양쪽 모두 출제. 시간 배분 핵심</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="info-box" style="margin-top:12px;">
+    <p style="font-size:11px;color:var(--text-muted);">※ 출처: StudyPro (saisokuspi.com) 공식 출제 범위표 크로스체크</p>
+  </div>
+</div>
+
+<div class="section" id="s3">
+  <div class="section-num">SECTION 03</div>
+  <div class="section-title">테스트센터 vs 웹테스팅 핵심 차이</div>
+  <div class="section-title-jp">テストセンター vs WEBテスティング — 言語分野の違い</div>
+  <div class="info-box info-box-tc">
+    <div class="box-label" style="color:var(--tc);">테스트센터를 보는 경우</div>
+    <p><strong style="color:var(--text-sub);">어휘력이 승부처.</strong> 어구의 의미·두 단어의 관계·어구의 용법은 모두 "알면 풀고 모르면 못 푸는" 유형입니다. 빈출 이자숙어 160개, 사자성어 50개, 관용구 60개를 외우는 것이 가장 확실한 점수 상승 방법. 1문제 20~30초가 목표이므로 "아는 어휘를 빠르게 골라내는" 연습이 필요합니다.</p>
+  </div>
+  <div class="info-box info-box-wt">
+    <div class="box-label" style="color:var(--wt);">웹테스팅을 보는 경우</div>
+    <p><strong style="color:var(--text-sub);">숙어의 구성 + 문장 배열이 핵심.</strong> 어휘 자체를 묻는 문제는 없고, 대신 숙어가 어떤 구조로 만들어졌는지 5패턴을 판별하는 "숙어의 구성"이 웹테 전용 빈출입니다. "문장으로 바꿔보기"라는 테크닉을 익히면 기계적으로 풀 수 있습니다. 문장 배열·빈칸·장문은 테센과 공통이지만 웹테에서 비중이 더 높습니다.</p>
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <div class="section-num">SECTION 04</div>
+  <div class="section-title">학습 전략 4단계</div>
+  <div class="section-title-jp">学習戦略 — 効率的な対策ロードマップ</div>
+  <div class="info-box"><h4>1단계: 어휘 암기</h4><p>시트 ①②③의 빈출 어휘를 반복 학습합니다. 읽기→의미→한국어를 연결하여 암기. SPI는 선택식이므로 "대략 아는 것"만으로도 정답률이 크게 오릅니다. <strong style="color:var(--text-sub);">테센 수험자는 이 단계가 가장 중요.</strong></p></div>
+  <div class="info-box"><h4>2단계: 유형별 풀이 연습</h4><p>④ 숙어의 구성 → "문장으로 바꿔보기"로 5패턴 판별 연습. ② 두 단어의 관계 → 두 단어로 문장 만들기→같은 구조 찾기. ③ 어구의 용법 → 같은 단어의 다른 의미를 문맥으로 구분하는 연습.</p></div>
+  <div class="info-box"><h4>3단계: 오용 주의 표현 정리</h4><p>敷居が高い, 役不足, 情けは人のためならず 등 현대 일본어에서 잘못 쓰이는 표현은 SPI에서 본래 의미로 출제됩니다. 빈출 오용 표현 30개를 반드시 확인하세요.</p></div>
+  <div class="info-box"><h4>4단계: 시간 관리</h4><p>SPI 언어 파트는 <strong style="color:var(--spi);">1문제 20~30초가 목표.</strong> "아는 것은 즉시 답하고, 모르면 넘기기"가 핵심 전략. 장문 독해에 시간을 남겨두기 위해 어휘 문제는 빠르게 처리해야 합니다.</p></div>
+</div>
+
+<div class="section" id="s5">
+  <div class="section-num">SECTION 05</div>
+  <div class="section-title">유형별 학습 페이지</div>
+  <div class="section-title-jp">分野別の学習ページ — 講義・暗記リスト・解法・例題10問</div>
+  <p>각 유형별로 <strong style="color:var(--text-sub);">텍스트 강의 + 빈출 어휘/공식 + 일본어 원문/한국어 번역 예제 10문제</strong>를 수록했습니다.</p>
+
+  <div class="type-grid">
+    <a href="spi-gengo-goku.html" class="type-card">
+      <div class="type-icon">📖</div>
+      <div class="type-body">
+        <div class="type-kicker">유형 ①</div>
+        <div class="type-title">어구의 의미 (語句の意味)</div>
+        <div class="type-desc">이자숙어·사자성어·관용구·속담의 의미를 선택. 어휘 암기가 전부.</div>
+        <div class="type-tags"><span class="type-tag type-tag-tc">테센 ★ 전용</span><span class="type-tag">빈출 어휘 270개</span><span class="type-tag">예제 10개</span></div>
+      </div>
+      <div class="type-arrow">→</div>
+    </a>
+    <a href="spi-gengo-nigo.html" class="type-card">
+      <div class="type-icon">🔗</div>
+      <div class="type-body">
+        <div class="type-kicker">유형 ②</div>
+        <div class="type-title">두 단어의 관계 (二語の関係)</div>
+        <div class="type-desc">두 단어의 관계를 파악하여 같은 관계의 쌍 찾기. 8유형 암기.</div>
+        <div class="type-tags"><span class="type-tag type-tag-tc">테센 ★ 전용</span><span class="type-tag">8대 유형</span><span class="type-tag">예제 10개</span></div>
+      </div>
+      <div class="type-arrow">→</div>
+    </a>
+    <a href="spi-gengo-youhou.html" class="type-card">
+      <div class="type-icon">🎭</div>
+      <div class="type-body">
+        <div class="type-kicker">유형 ③</div>
+        <div class="type-title">어구의 용법 (語句の用法)</div>
+        <div class="type-desc">밑줄 친 단어와 같은 의미로 사용된 문장 선택. 다의어 이해 필수.</div>
+        <div class="type-tags"><span class="type-tag type-tag-tc">테센 ★ 전용</span><span class="type-tag">빈출 다의어 9개</span><span class="type-tag">예제 10개</span></div>
+      </div>
+      <div class="type-arrow">→</div>
+    </a>
+    <a href="spi-gengo-jukugo.html" class="type-card">
+      <div class="type-icon">🧱</div>
+      <div class="type-body">
+        <div class="type-kicker">유형 ④ — 웹테 전용</div>
+        <div class="type-title">숙어의 구성 (熟語の成り立ち)</div>
+        <div class="type-desc">이자숙어가 어떤 구조로 만들어졌는지 5패턴 판별.</div>
+        <div class="type-tags"><span class="type-tag type-tag-wt">웹테 ★ 전용</span><span class="type-tag">5패턴</span><span class="type-tag">예제 10개</span></div>
+      </div>
+      <div class="type-arrow">→</div>
+    </a>
+    <a href="spi-gengo-narabikae.html" class="type-card">
+      <div class="type-icon">🔀</div>
+      <div class="type-body">
+        <div class="type-kicker">유형 ⑤</div>
+        <div class="type-title">문장 배열·빈칸 채우기</div>
+        <div class="type-desc">문장을 논리적 순서로 배열하거나 빈칸에 적절한 접속사 선택.</div>
+        <div class="type-tags"><span class="type-tag" style="background:var(--common-soft);color:var(--common);border-color:var(--common-border);">공통</span><span class="type-tag">예제 10개</span></div>
+      </div>
+      <div class="type-arrow">→</div>
+    </a>
+    <a href="spi-gengo-dokkai.html" class="type-card">
+      <div class="type-icon">📄</div>
+      <div class="type-body">
+        <div class="type-kicker">유형 ⑥</div>
+        <div class="type-title">장문 독해 (長文読解)</div>
+        <div class="type-desc">긴 지문을 읽고 내용 파악·요지 정리·추론.</div>
+        <div class="type-tags"><span class="type-tag" style="background:var(--common-soft);color:var(--common);border-color:var(--common-border);">공통</span><span class="type-tag">예제 10개</span></div>
+      </div>
+      <div class="type-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — SPI 적성검사 대책 언어편</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
+  <p style="margin-top:8px;font-size:10px;">출제 범위: StudyPro·大人塾·「これが本当のSPI3だ!」 크로스체크. 예제 문제는 독자 작성.</p>
+</div>
+</div>
+
+<script>
+const navBtns=document.querySelectorAll('.nav-btn');const sections=document.querySelectorAll('.section');
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navBtns.forEach(b=>b.classList.remove('active'));const btn=document.querySelector(`.nav-btn[href="#${e.target.id}"]`);if(btn)btn.classList.add('active');}});},{rootMargin:'-40% 0px -60% 0px'});
+sections.forEach(s=>observer.observe(s));
+</script>
+  <script src="nav.js"></script>
+  <script src="global-nav.js"></script>
+</body>
+</html>

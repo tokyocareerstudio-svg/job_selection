@@ -1,0 +1,173 @@
+<!DOCTYPE html><html lang="ko"><head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'spi-gengo-dokkai.html');
+    location.replace('index.html');
+  }
+})();
+</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SPI 언어 ⑥ 장문 독해 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--spi:#6c5ce7;--spi-soft:rgba(108,92,231,0.06);--spi-border:rgba(108,92,231,0.18);--common:#c4b5fd;--common-soft:rgba(196,181,253,0.08);--common-border:rgba(196,181,253,0.2);--solve:#a29bfe;--solve-soft:rgba(162,155,254,0.06);--correct:#34d399;--warn:#ef4444;--warn-soft:rgba(239,68,68,0.04);--warn-border:rgba(239,68,68,0.18);}*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}.hero{padding:48px 24px 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(196,181,253,0.05) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--common);background:var(--common-soft);border:1px solid var(--common-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}.hero h1{font-size:26px;font-weight:900;margin-bottom:8px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;background:var(--common-soft);color:var(--common);border:1px solid var(--common-border);}.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}.st{font-size:20px;font-weight:800;margin-bottom:4px;}.st-jp{font-family:'Noto Sans JP';font-size:11px;color:var(--text-muted);margin-bottom:20px;}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}.section h3{font-size:15px;font-weight:700;color:var(--text);margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--common);}.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}.ib-a{background:var(--common-soft);border-color:var(--common-border);border-left:3px solid var(--common);}.ib-w{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn);}.ib p{font-size:12px;color:var(--text-dim);line-height:1.9;}.bl{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}.bl-c{color:var(--common);}.bl-w{color:var(--warn);}.mini{margin:16px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}.mini-q{padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--border);}.mini-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--common);margin-bottom:6px;text-transform:uppercase;}.mini-q p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-a{padding:16px 18px;background:var(--solve-soft);}.mini-a p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-ans{margin-top:10px;padding:8px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:6px;font-size:12px;font-weight:700;color:var(--correct);}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR';font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:8000px;}.at-kr{background:rgba(196,181,253,0.03);border-top:1px solid var(--common-border);}.ac-kr-body{padding:14px 16px;background:rgba(196,181,253,0.03);border-top:1px solid var(--common-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--common-border);background:var(--common-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}@media(max-width:640px){.hero h1{font-size:22px;}}</style>
+</head><body>
+<div class="hero"><div class="hero-inner">
+  <a href="spi-gengo-index.html" class="hero-back">← SPI 언어 인덱스로 돌아가기</a>
+  <div class="hero-label">SPI 언어 — 유형 ⑥ · 공통</div>
+  <h1>장문 독해 (長文読解)</h1>
+  <p class="hero-sub">200~400자 정도의 지문을 읽고 내용 파악·요지 정리·추론 문제를 푸는 유형. 테센과 웹테 모두 출제되며, 언어 파트에서 가장 시간이 많이 걸립니다. "문제를 먼저 읽고 → 지문에서 답을 찾는" 역순 전략이 핵심입니다.</p>
+  <div class="hero-tags"><span class="htag">공통 출제</span></div>
+</div></div>
+<div class="container">
+<div class="section">
+  <div class="sn">강의</div>
+  <div class="st">장문 독해 — 시간과의 싸움</div>
+  <div class="st-jp">長文読解 — 時間との戦い</div>
+
+  <p>장문 독해는 다른 언어 유형과 다르게 <strong style="color:var(--text);">시간이 가장 많이 필요한 유형</strong>입니다. 지문을 전부 읽고 나서 문제를 보면 시간이 부족하므로, 반드시 <strong style="color:var(--text);">문제를 먼저 읽는 역순 전략</strong>을 사용해야 합니다.</p>
+
+  <div class="ib ib-a">
+    <div class="bl bl-c">장문 독해 4단계 전략</div>
+    <p><strong style="color:var(--text-sub);">① 문제를 먼저 읽는다.</strong> "무엇을 묻는지"를 먼저 파악. 요지? 이유? 구체적 사실?<br><br>
+    <strong style="color:var(--text-sub);">② 키워드를 뽑는다.</strong> 문제에 나온 핵심 단어를 기억하고 지문에서 해당 부분만 집중 읽기.<br><br>
+    <strong style="color:var(--text-sub);">③ 지문은 "첫 문장 + 마지막 문장"부터.</strong> 각 단락의 첫 문장과 마지막 문장에 요지가 있는 경우가 많음.<br><br>
+    <strong style="color:var(--text-sub);">④ 선택지를 소거한다.</strong> "확실히 틀린 것"부터 제거. 나머지 중에서 "지문에 근거가 있는 것"을 선택.</p>
+  </div>
+
+  <h3>출제 패턴 3가지</h3>
+
+  <div class="ib">
+    <p><strong style="color:var(--text-sub);">패턴 A: 요지 파악</strong> — "筆者の主張として最も適切なものは？" (필자의 주장으로 가장 적절한 것은?)
+→ 마지막 단락, 특히 "つまり" "したがって" 뒤에 요지가 있는 경우가 많음.<br><br>
+    <strong style="color:var(--text-sub);">패턴 B: 내용 일치</strong> — "本文の内容と合うものは？" (본문 내용과 맞는 것은?)
+→ 선택지 하나하나를 지문과 대조. "약간 과장된 표현"이 있으면 불일치.<br><br>
+    <strong style="color:var(--text-sub);">패턴 C: 이유·원인</strong> — "筆者が～と考える理由は？" (필자가 ~라고 생각하는 이유는?)
+→ "なぜなら" "その理由は" 같은 표현 주변에 답이 있음.</p>
+  </div>
+
+  <div class="ib ib-w">
+    <div class="bl bl-w">자주 하는 실수</div>
+    <p><strong style="color:var(--text-sub);">실수 1:</strong> 지문을 전부 꼼꼼히 읽느라 시간 초과. 문제가 묻는 부분만 집중!<br><br>
+    <strong style="color:var(--text-sub);">실수 2:</strong> "상식적으로 맞는 것"을 고름. SPI는 "지문에 근거가 있는 것"을 묻는 것이지, 일반 상식을 묻는 게 아님.<br><br>
+    <strong style="color:var(--text-sub);">실수 3:</strong> 선택지의 미묘한 표현 차이를 놓침. "すべて(모두)" "必ず(반드시)" 같은 과장 표현이 있으면 대부분 오답.</p>
+  </div>
+
+  <h3>한국인 수험생을 위한 팁</h3>
+  <p>장문 독해는 일본어 읽기 속도가 곧 점수입니다. JLPT N2 이상 수준의 독해력이 있으면 충분히 대응 가능하지만, 시간 내에 풀려면 <strong style="color:var(--text);">불필요한 부분을 과감히 건너뛰는 연습</strong>이 필요합니다. 모든 문장을 한국어로 번역하면서 읽지 마세요. 키워드를 잡고 흐름을 따라가는 것이 중요합니다.</p>
+</div>
+
+<div class="section">
+  <div class="sn">연습 문제</div>
+  <div class="st">장문 독해 예제 5세트 (10문제)</div>
+  <div class="st-jp">長文読解の練習 — 5つの文章 × 各2問</div>
+  <p>각 지문에 2문제씩. 문제를 먼저 읽고 → 지문에서 답을 찾는 연습을 하세요.</p>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">세트 1 — Q01~Q02</div><div class="pc-title">기술과 인간</div>
+<div class="pc-jp">技術の発展により、私たちの生活は大きく変化した。かつて手作業で行っていたことが機械化され、生産性は飛躍的に向上した。しかし、その一方で、人間にしかできない創造的な仕事の重要性が改めて注目されている。つまり、技術はあくまで道具であり、それをどう使うかは人間次第なのである。
+
+Q01: 筆者の主張として最も適切なものは？
+ア 技術が発展すれば人間は不要になる
+イ 技術は道具であり、使い方は人間が決める
+ウ 手作業のほうが機械より優れている
+
+Q02: 「その一方で」が指す内容は？
+ア 生産性が向上したこと
+イ 技術が発展したこと
+ウ 生活が変化したこと</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">기술 발전으로 우리 생활은 크게 변화했다. 과거 수작업이 기계화되어 생산성이 비약적으로 향상되었다. 그러나 한편으로 인간만이 할 수 있는 창조적 일의 중요성이 새삼 주목받고 있다. 즉, 기술은 어디까지나 도구이며, 그것을 어떻게 쓰는지는 인간에게 달려 있다.
+
+Q01: 필자의 주장으로 가장 적절한 것은?
+Q02: "その一方で(한편으로)"가 가리키는 내용은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">Q01</div><div class="stx">"つまり"(즉) 뒤가 요지 → "기술은 도구, 사용은 인간 몫"</div></div>
+<div class="sa">Q01 정답: イ</div>
+<div class="ss" style="margin-top:12px;"><div class="sl">Q02</div><div class="stx">"その一方で" = 앞의 긍정적 내용(생산성 향상)에 대한 반전의 시작점. 가리키는 것은 "생산성이 향상된 것"의 다른 면.</div></div>
+<div class="sa">Q02 정답: ア 생산성이 향상된 것</div>
+</div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">세트 2 — Q03~Q04</div><div class="pc-title">독서의 가치</div>
+<div class="pc-jp">読書離れが進んでいると言われる。しかし、読書には他のメディアでは得られない深い思考力を養う効果がある。なぜなら、文章を読むことは単なる情報の受信ではなく、読み手自身が考えながら意味を構築する能動的な行為だからだ。
+
+Q03: 筆者が読書を重視する理由は？
+ア 情報を多く得られるから
+イ 能動的に思考する力が養われるから
+ウ 他のメディアより安価だから
+
+Q04: 本文の内容と合わないものは？
+ア 読書離れは進んでいる
+イ 読書は受動的な行為である
+ウ 読書は深い思考力を養う</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">독서 이탈이 진행되고 있다고 한다. 그러나 독서에는 다른 미디어에서는 얻을 수 없는 깊은 사고력을 기르는 효과가 있다. 왜냐하면 문장을 읽는 것은 단순한 정보 수신이 아니라, 읽는 사람 자신이 생각하면서 의미를 구축하는 능동적 행위이기 때문이다.</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">Q03</div><div class="stx">"なぜなら" 뒤 = 이유. "능동적으로 사고하는 행위"</div></div>
+<div class="sa">Q03 정답: イ</div>
+<div class="ss" style="margin-top:12px;"><div class="sl">Q04</div><div class="stx">본문: "단순한 정보 수신이 아닌 능동적 행위" → イ "수동적"은 본문과 반대</div></div>
+<div class="sa">Q04 정답: イ (합치하지 않는 것)</div>
+</div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">세트 3 — Q05~Q06</div><div class="pc-title">다양성과 조직</div>
+<div class="pc-jp">組織において多様性は重要である。異なる背景を持つ人々が集まることで、多角的な視点から問題を捉えることができる。ただし、多様性だけでは十分ではない。異なる意見を尊重しつつ、共通の目標に向かって協力する仕組みが必要だ。
+
+Q05: 筆者が「多様性だけでは十分ではない」と言う理由は？
+ア 多様性があると意見がまとまらないから
+イ 協力する仕組みも必要だから
+ウ 同じ背景の人のほうが効率的だから
+
+Q06: 本文の趣旨は？
+ア 多様性は不要である
+イ 多様性と協力の仕組みの両方が必要
+ウ 共通目標さえあれば多様性は不要</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">조직에서 다양성은 중요. 다른 배경의 사람이 모이면 다각적 시점에서 문제를 파악 가능. 단, 다양성만으로는 충분치 않다. 다른 의견을 존중하면서 공통 목표를 향해 협력하는 구조가 필요.</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">Q05</div><div class="stx">"ただし" 이후: 다양성+협력 구조 양쪽 필요</div></div><div class="sa">Q05 정답: イ</div>
+<div class="ss" style="margin-top:12px;"><div class="sl">Q06</div><div class="stx">전체 요지: 다양성 중요 + 그것만으로 부족 + 협력 구조 필요 = 양쪽 필요</div></div><div class="sa">Q06 정답: イ</div>
+</div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">세트 4 — Q07~Q08</div><div class="pc-title">환경 문제</div>
+<div class="pc-jp">環境問題の解決には個人の努力だけでは限界がある。企業や政府が制度的な枠組みを整えることが不可欠だ。たとえば、再生可能エネルギーの普及には、補助金制度や法整備が効果的である。個人の意識改革も重要だが、それを支える社会的な仕組みがあってこそ、大きな変化が生まれる。
+
+Q07: 筆者が最も重視しているのは？
+ア 個人の努力
+イ 制度的な枠組み
+ウ 再生可能エネルギー
+
+Q08: 「それを支える」の「それ」は何を指すか？
+ア 補助金制度
+イ 大きな変化
+ウ 個人の意識改革</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">환경 문제 해결에는 개인 노력만으로 한계. 기업과 정부의 제도적 틀이 불가결. 예를 들어 재생에너지 보급에는 보조금 제도와 법정비가 효과적. 개인의 의식 개혁도 중요하지만, 그것을 지원하는 사회적 구조가 있어야 큰 변화가 생긴다.</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">Q07</div><div class="stx">"不可欠(불가결)"이라고 한 것 = 제도적 틀</div></div><div class="sa">Q07 정답: イ</div>
+<div class="ss" style="margin-top:12px;"><div class="sl">Q08</div><div class="stx">"個人の意識改革も重要だが、それを支える" → "それ" = 바로 앞의 "個人の意識改革"</div></div><div class="sa">Q08 정답: ウ</div>
+</div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">세트 5 — Q09~Q10</div><div class="pc-title">커뮤니케이션</div>
+<div class="pc-jp">コミュニケーションにおいて、「話す力」ばかりが注目されがちだが、実は「聞く力」のほうがはるかに重要だ。相手の話をよく聞くことで信頼関係が生まれ、より深い対話が可能になる。すなわち、良いコミュニケーターとは、雄弁な人ではなく、傾聴できる人なのである。
+
+Q09: 筆者の主張は？
+ア 話す力が最も重要だ
+イ 聞く力のほうが重要だ
+ウ 話す力と聞く力は同等だ
+
+Q10: 「すなわち」以降で筆者が定義する「良いコミュニケーター」とは？
+ア 流暢に話せる人
+イ 相手の話を傾聴できる人
+ウ 多くの知識を持つ人</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">커뮤니케이션에서 "말하는 힘"만 주목받지만, 사실 "듣는 힘"이 훨씬 중요. 상대의 말을 잘 들으면 신뢰 관계가 생기고 더 깊은 대화가 가능. 즉, 좋은 커뮤니케이터란 웅변가가 아니라 경청할 수 있는 사람.</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">Q09</div><div class="stx">"はるかに重要" = 듣는 힘이 훨씬 중요</div></div><div class="sa">Q09 정답: イ</div>
+<div class="ss" style="margin-top:12px;"><div class="sl">Q10</div><div class="stx">"すなわち" 뒤 = 정의. "傾聴できる人"</div></div><div class="sa">Q10 정답: イ</div>
+</div></div></div>
+
+</div>
+
+<div class="type-nav">
+  <a href="spi-gengo-narabikae.html"><div class="nl">← 이전 유형</div><div class="nt">⑤ 문장 배열·빈칸</div></a>
+  <a href="spi-gengo-index.html"><div class="nl">인덱스 →</div><div class="nt">SPI 언어 메인</div></a>
+</div>
+<div class="footer"><p><span class="brand">Tokyo Career Studio</span> — SPI 언어 ⑥ 장문 독해</p><p>© Tokyo Career Studio. All rights reserved.</p></div>
+</div>
+<script>function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}</script>
+  <script src="nav.js"></script>
+  <script src="global-nav.js"></script>
+</body></html>

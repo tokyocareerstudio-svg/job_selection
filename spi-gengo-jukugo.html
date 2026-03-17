@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="ko"><head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'spi-gengo-jukugo.html');
+    location.replace('index.html');
+  }
+})();
+</script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SPI 언어 ④ 숙어의 구성 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--spi:#6c5ce7;--spi-soft:rgba(108,92,231,0.06);--spi-border:rgba(108,92,231,0.18);--wt:#34d399;--wt-soft:rgba(52,211,153,0.07);--wt-border:rgba(52,211,153,0.18);--solve:#a29bfe;--solve-soft:rgba(162,155,254,0.06);--correct:#34d399;--warn:#ef4444;--warn-soft:rgba(239,68,68,0.04);--warn-border:rgba(239,68,68,0.18);}*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}.hero{padding:48px 24px 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(52,211,153,0.05) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--wt);background:var(--wt-soft);border:1px solid var(--wt-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}.hero h1{font-size:26px;font-weight:900;margin-bottom:8px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;background:var(--wt-soft);color:var(--wt);border:1px solid var(--wt-border);}.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--wt);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}.st{font-size:20px;font-weight:800;margin-bottom:4px;}.st-jp{font-family:'Noto Sans JP';font-size:11px;color:var(--text-muted);margin-bottom:20px;}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}.section h3{font-size:15px;font-weight:700;color:var(--text);margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--wt);}.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}.ib-a{background:var(--wt-soft);border-color:var(--wt-border);border-left:3px solid var(--wt);}.ib-w{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn);}.ib p{font-size:12px;color:var(--text-dim);line-height:1.9;}.bl{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}.bl-wt{color:var(--wt);}.bl-w{color:var(--warn);}
+.pat-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:16px 0;}.pat-card{padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;}.pat-num{font-size:11px;font-weight:700;color:var(--wt);margin-bottom:4px;}.pat-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:6px;}.pat-rule{font-size:12px;color:var(--text-dim);margin-bottom:6px;line-height:1.7;}.pat-ex{font-family:'Noto Sans JP';font-size:13px;color:var(--text-sub);}.pat-exk{font-size:11px;color:var(--wt);margin-top:2px;}
+.mini{margin:16px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}.mini-q{padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--border);}.mini-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--wt);margin-bottom:6px;text-transform:uppercase;}.mini-q p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-a{padding:16px 18px;background:var(--solve-soft);}.mini-a p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-ans{margin-top:10px;padding:8px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:6px;font-size:12px;font-weight:700;color:var(--correct);}.mini-trap{margin:12px 0;border:1px solid var(--warn-border);border-radius:10px;overflow:hidden;}.mini-trap .mini-q{background:var(--warn-soft);border-bottom-color:var(--warn-border);}.mini-trap .mini-label{color:var(--warn);}.mini-trap .mini-a{background:rgba(239,68,68,0.03);}.mini-trap .mini-ans{background:rgba(239,68,68,0.05);border-color:var(--warn-border);color:var(--warn);}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}table{width:100%;border-collapse:collapse;font-size:12px;}thead{background:var(--surface-2);}th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);text-transform:uppercase;}td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}tr:last-child td{border-bottom:none;}td:first-child{font-weight:600;color:var(--text-sub);}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--wt);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR';font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}.at-kr{background:rgba(52,211,153,0.03);border-top:1px solid var(--wt-border);}.ac-kr-body{padding:14px 16px;background:rgba(52,211,153,0.03);border-top:1px solid var(--wt-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--wt-border);background:var(--wt-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}@media(max-width:640px){.hero h1{font-size:22px;}}</style>
+</head><body>
+<div class="hero"><div class="hero-inner">
+  <a href="spi-gengo-index.html" class="hero-back">← SPI 언어 인덱스로 돌아가기</a>
+  <div class="hero-label">SPI 언어 — 유형 ④ · 웹테 전용</div>
+  <h1>숙어의 구성 (熟語の成り立ち)</h1>
+  <p class="hero-sub">이자숙어가 어떤 구조로 만들어졌는지를 5패턴 중에서 판별하는 유형. 웹테스팅에서만 출제되며 빈출도가 높습니다. "문장으로 바꿔보기"라는 단 하나의 테크닉으로 거의 모든 문제를 기계적으로 풀 수 있습니다.</p>
+  <div class="hero-tags"><span class="htag">웹테 ★ 전용</span></div>
+</div></div>
+
+<div class="container">
+<div class="section">
+  <div class="sn">강의</div>
+  <div class="st">숙어의 구성 — 5패턴 완전 공략</div>
+  <div class="st-jp">熟語の成り立ち — 5パターンの完全攻略</div>
+
+  <p>이 유형의 핵심은 이자숙어를 <strong style="color:var(--text);">문장으로 바꿔보는 것</strong>입니다. 두 한자의 관계를 파악하면 5패턴 중 하나에 반드시 해당합니다.</p>
+
+  <div class="ib ib-a">
+    <div class="bl bl-wt">최강 테크닉: "문장으로 바꿔보기"</div>
+    <p>이자숙어의 앞 한자와 뒤 한자를 사이에 조사를 넣어 문장으로 만들어본다.<br><br>
+    <strong style="color:var(--text-sub);">예: 読書</strong> → 書を読む (책을 읽다) → "뒤를 앞으로 한다" = 보어관계<br>
+    <strong style="color:var(--text-sub);">예: 高温</strong> → 高い温度 (높은 온도) → "앞이 뒤를 수식" = 수식관계<br>
+    <strong style="color:var(--text-sub);">예: 売買</strong> → 売ると買う (팔다와 사다) → 비슷한 의미 나열 = 병렬<br><br>
+    이 테크닉으로 5패턴 전부 커버됩니다.</p>
+  </div>
+
+  <h3>5패턴 완전 정리</h3>
+
+  <div class="pat-grid">
+    <div class="pat-card"><div class="pat-num">패턴 ①</div><div class="pat-name">동의·유사 병렬 (同じような意味)</div><div class="pat-rule">앞 ≒ 뒤. 비슷한 의미의 한자가 나란히.</div><div class="pat-ex">岩石(岩≒石), 河川(河≒川), 思考(思≒考), 売買(売↔買도 여기)</div><div class="pat-exk">문장: "AとBは似ている" or "AもBも同じ方向"</div></div>
+    <div class="pat-card"><div class="pat-num">패턴 ②</div><div class="pat-name">반의·대립 병렬 (反対の意味)</div><div class="pat-rule">앞 ↔ 뒤. 반대 의미의 한자가 나란히.</div><div class="pat-ex">上下(上↔下), 左右(左↔右), 強弱(強↔弱), 売買(売↔買)</div><div class="pat-exk">※ 売買는 ①과 ② 모두 해석 가능. SPI에서는 "반대"로 출제되는 경향</div></div>
+    <div class="pat-card"><div class="pat-num">패턴 ③</div><div class="pat-name">수식 관계 (前が後ろを修飾)</div><div class="pat-rule">앞이 뒤를 꾸민다. "형용사+명사" 구조.</div><div class="pat-ex">高温(高い温度), 急流(急な流れ), 清水(清い水)</div><div class="pat-exk">문장: "Aな/いB" — 앞에 형용사적 의미가 있으면 수식</div></div>
+    <div class="pat-card"><div class="pat-num">패턴 ④</div><div class="pat-name">보어 관계 (後ろが前を補う / 動詞+目的語)</div><div class="pat-rule">동사+목적어 또는 목적어+동사. "~を~する" 구조.</div><div class="pat-ex">読書(書を読む), 登山(山に登る), 作文(文を作る)</div><div class="pat-exk">문장: "BをAする" or "AにBする" — 동사가 포함되면 보어</div></div>
+    <div class="pat-card"><div class="pat-num">패턴 ⑤</div><div class="pat-name">부정 (打ち消し)</div><div class="pat-rule">不·無·非·未 등의 부정 접두사가 붙음.</div><div class="pat-ex">不明(明らかでない), 無理(理がない), 非常(常でない), 未定(定まっていない)</div><div class="pat-exk">부정 글자가 보이면 즉시 ⑤ 확정. 가장 판별이 쉬움</div></div>
+  </div>
+
+  <div class="mini">
+    <div class="mini-q"><div class="mini-label">📝 미니 예제 — 판별 과정</div>
+    <p>「着席」はどのパターン？
+① 同じ意味  ② 反対の意味  ③ 前が後ろを修飾  ④ 動詞と目的語  ⑤ 打ち消し</p></div>
+    <div class="mini-a"><p><strong style="color:var(--solve);">문장으로 바꿔보기:</strong> 着席 → 席に着く (자리에 앉다)
+"席" = 목적어(자리), "着" = 동사(앉다) → <strong style="color:var(--wt);">④ 보어 관계</strong></p>
+    <div class="mini-ans">정답: ④ 동사와 목적어 (後ろが前を補う)</div></div>
+  </div>
+
+  <div class="mini-trap">
+    <div class="mini-q"><div class="mini-label">⚠️ 함정 — ①과 ②가 헷갈리는 경우</div>
+    <p>「売買」— 팔다와 사다. 같은 의미? 반대 의미?</p></div>
+    <div class="mini-a"><p>"팔다"와 "사다"는 <strong style="color:var(--warn);">반대 동작</strong>이지만, "거래하다"라는 하나의 행위를 나타내므로 <strong>병렬</strong>입니다. SPI에서는 이런 경우 "반대의 의미를 조합"(②)으로 출제되는 경향이 있지만, "비슷한 범주의 나열"(①)로 볼 수도 있어 선택지에 따라 판단하세요.</p>
+    <div class="mini-ans">선택지를 먼저 보고 ①과 ②중 어느 쪽이 있는지 확인!</div></div>
+  </div>
+
+  <div class="ib ib-w">
+    <div class="bl bl-w">자주 하는 실수</div>
+    <p><strong style="color:var(--text-sub);">실수 1:</strong> 수식(③)과 보어(④)를 혼동. "高温"은 "높은 온도"(수식), "登山"은 "산에 오르다"(보어). 동사가 있는지 없는지가 판단 기준.<br><br>
+    <strong style="color:var(--text-sub);">실수 2:</strong> 부정(⑤)인데 다른 패턴으로 분석. 不·無·非·未가 보이면 무조건 ⑤.<br><br>
+    <strong style="color:var(--text-sub);">실수 3:</strong> 한자의 의미를 모르면 판별 불가. 빈출 이자숙어의 의미를 먼저 외워야 이 유형도 풀 수 있음.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="sn">연습 문제</div>
+  <div class="st">숙어의 구성 예제 10문제</div>
+  <div class="st-jp">熟語の成り立ちの練習問題10問 — WEBテスティング専用</div>
+  <p>각 숙어가 5패턴 중 어디에 해당하는지 판별하세요.</p>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q01</div><div class="pc-title">読書</div>
+<div class="pc-jp">「読書」の成り立ちは？
+① 同じ意味  ② 反対  ③ 修飾  ④ 動詞+目的語  ⑤ 打ち消し</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="stx">書を読む (책을 읽다) → 동사(読)+목적어(書)</div></div>
+<div class="sa">정답: ④ 동사+목적어</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q02</div><div class="pc-title">高温</div>
+<div class="pc-jp">「高温」の成り立ちは？</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="stx">高い温度 (높은 온도) → 앞이 뒤를 수식</div></div>
+<div class="sa">정답: ③ 수식</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q03</div><div class="pc-title">不明</div>
+<div class="pc-jp">「不明」の成り立ちは？</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="stx">明らかでない (분명하지 않음) → 不 = 부정</div></div>
+<div class="sa">정답: ⑤ 부정</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q04</div><div class="pc-title">上下</div>
+<div class="pc-jp">「上下」の成り立ちは？</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="stx">上と下 (위와 아래) → 반대 의미</div></div>
+<div class="sa">정답: ② 반대 의미</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q05</div><div class="pc-title">思考</div>
+<div class="pc-jp">「思考」の成り立ちは？</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="stx">思う≒考える (생각하다≒생각하다) → 같은 의미</div></div>
+<div class="sa">정답: ① 같은 의미</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q06</div><div class="pc-title">登山</div>
+<div class="pc-jp">「登山」の成り立ちは？</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="stx">山に登る (산에 오르다) → 동사+목적어</div></div>
+<div class="sa">정답: ④ 동사+목적어</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q07</div><div class="pc-title">非常</div>
+<div class="pc-jp">「非常」の成り立ちは？</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="stx">常でない (평상이 아닌) → 非 = 부정</div></div>
+<div class="sa">정답: ⑤ 부정</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q08</div><div class="pc-title">急流</div>
+<div class="pc-jp">「急流」の成り立ちは？</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="stx">急な流れ (급한 흐름) → 앞이 뒤를 수식</div></div>
+<div class="sa">정답: ③ 수식</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q09</div><div class="pc-title">往復</div>
+<div class="pc-jp">「往復」の成り立ちは？</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="stx">往く(가다)と復る(돌아오다) → 반대 방향의 동작</div></div>
+<div class="sa">정답: ② 반대 의미</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q10</div><div class="pc-title">作文</div>
+<div class="pc-jp">「作文」の成り立ちは？</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="stx">文を作る (글을 만들다) → 동사+목적어</div></div>
+<div class="sa">정답: ④ 동사+목적어</div></div></div></div>
+
+</div>
+
+<div class="type-nav">
+  <a href="spi-gengo-youhou.html"><div class="nl">← 이전 유형</div><div class="nt">③ 어구의 용법</div></a>
+  <a href="spi-gengo-narabikae.html"><div class="nl">다음 유형 →</div><div class="nt">⑤ 문장 배열·빈칸</div></a>
+</div>
+<div class="footer"><p><span class="brand">Tokyo Career Studio</span> — SPI 언어 ④ 숙어의 구성</p><p>© Tokyo Career Studio. All rights reserved.</p></div>
+</div>
+<script>function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}</script>
+  <script src="nav.js"></script>
+  <script src="global-nav.js"></script>
+</body></html>

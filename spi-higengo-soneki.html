@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'spi-higengo-soneki.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPI 비언어 ③ 손익산·요금 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--spi:#f59e0b;--spi-soft:rgba(245,158,11,0.06);--spi-border:rgba(245,158,11,0.18);--tc:#4a9eff;--tc-soft:rgba(74,158,255,0.08);--tc-border:rgba(74,158,255,0.2);--wt:#34d399;--wt-soft:rgba(52,211,153,0.07);--wt-border:rgba(52,211,153,0.18);--solve:#a29bfe;--solve-soft:rgba(162,155,254,0.06);--correct:#34d399;--warn:#ef4444;--warn-soft:rgba(239,68,68,0.04);--warn-border:rgba(239,68,68,0.18);}
+*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:48px 24px 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(245,158,11,0.05) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-back:hover{color:var(--text-dim);}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);background:var(--spi-soft);border:1px solid var(--spi-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}.hero h1{font-size:26px;font-weight:900;line-height:1.3;margin-bottom:8px;letter-spacing:-0.5px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;}.htag-tc{background:var(--tc-soft);color:var(--tc);border:1px solid var(--tc-border);}.htag-wt{background:var(--wt-soft);color:var(--wt);border:1px solid var(--wt-border);}
+.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}.section h3{font-size:15px;font-weight:700;color:var(--text);margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--spi);}
+.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}.ib-a{background:var(--spi-soft);border-color:var(--spi-border);border-left:3px solid var(--spi);}.ib-w{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn);}.ib h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}.ib p,.ib div{font-size:12px;color:var(--text-dim);line-height:1.9;}.bl{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}.bl-spi{color:var(--spi);}.bl-w{color:var(--warn);}
+.fc{padding:16px 18px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;margin:10px 0;}.fc-name{font-size:12px;font-weight:700;color:var(--spi);margin-bottom:4px;}.fc-formula{font-family:'Space Grotesk',monospace;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;letter-spacing:0.5px;}.fc-desc{font-size:11px;color:var(--text-dim);line-height:1.7;}
+.mini{margin:16px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}.mini-q{padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--border);}.mini-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.mini-q p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-a{padding:16px 18px;background:var(--solve-soft);}.mini-a p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-ans{margin-top:10px;padding:8px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:6px;font-size:12px;font-weight:700;color:var(--correct);}.mini-trap{margin:12px 0;border:1px solid var(--warn-border);border-radius:10px;overflow:hidden;}.mini-trap .mini-q{background:var(--warn-soft);border-bottom-color:var(--warn-border);}.mini-trap .mini-label{color:var(--warn);}.mini-trap .mini-a{background:rgba(239,68,68,0.03);}.mini-trap .mini-ans{background:rgba(239,68,68,0.05);border-color:var(--warn-border);color:var(--warn);}
+.diagram{margin:12px 0;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow-x:auto;}.diagram-title{font-size:11px;font-weight:700;color:var(--spi);letter-spacing:1px;margin-bottom:10px;text-transform:uppercase;}
+/* Price flow */
+.price-flow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;padding:8px 0;}.pf-box{padding:10px 14px;border-radius:8px;text-align:center;border:1px solid var(--border);background:var(--surface-2);min-width:80px;}.pf-box .pf-label{font-size:9px;color:var(--text-muted);}.pf-box .pf-val{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--text);}.pf-box.hl-box{border-color:var(--spi);background:var(--spi-soft);}.pf-box.hl-box .pf-val{color:var(--spi);}.pf-arrow{font-size:16px;color:var(--text-muted);}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}table{width:100%;border-collapse:collapse;font-size:12px;}thead{background:var(--surface-2);}th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}tr:last-child td{border-bottom:none;}td:first-child{font-weight:600;color:var(--text-sub);}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
+.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{color:var(--text-dim);background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}.at-kr{background:rgba(245,158,11,0.03);border-top:1px solid var(--spi-border);}.at-kr:hover{background:rgba(245,158,11,0.06);}.ac-kr-body{padding:14px 16px;background:rgba(245,158,11,0.03);border-top:1px solid var(--spi-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}
+.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--spi-border);background:var(--spi-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.hero h1{font-size:22px;}.price-flow{gap:4px;}.pf-box{min-width:60px;padding:8px 10px;}.pf-box .pf-val{font-size:13px;}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-inner">
+  <a href="spi-higengo-index.html" class="hero-back">← SPI 비언어 인덱스로 돌아가기</a>
+  <div class="hero-label">SPI 비언어 — 유형 ③</div>
+  <h1>손익산·요금 (損益算·料金)</h1>
+  <p class="hero-sub">원가·정가·이익률·할인·대금 정산·요금 할인. 비즈니스의 기초 계산이면서 SPI에서도 꾸준히 출제되는 유형입니다. 용어의 의미를 정확히 알면 공식 자체는 간단합니다.</p>
+  <div class="hero-tags"><span class="htag htag-tc">테센 ○ 출제</span><span class="htag htag-wt">웹테 ○ 출제</span></div>
+</div></div>
+
+<div class="container">
+
+<div class="section">
+  <div class="sn">강의</div>
+  <div class="st">손익산·요금이란?</div>
+  <div class="st-jp">損益算・料金 — ビジネスの基礎計算</div>
+
+  <p>손익산은 "물건을 사서 팔 때 이익이 얼마인가"를 계산하는 유형입니다. 원가(仕入れ値)·정가(定価)·매가(売値)·이익(利益)의 관계를 이해하면 대부분의 문제를 풀 수 있습니다. 요금 할인·대금 정산은 테스트센터에서 주로 출제됩니다.</p>
+
+  <div class="ib ib-a">
+    <div class="bl bl-spi">반드시 외울 용어 4개</div>
+    <p><strong style="color:var(--text-sub);">원가 (原価/仕入れ値):</strong> 상품을 매입하는 가격. 모든 계산의 출발점.<br><br>
+    <strong style="color:var(--text-sub);">정가 (定価):</strong> 원가에 이익을 붙여 설정한 판매 가격. 정가 = 원가 × (1 + 이익률)<br><br>
+    <strong style="color:var(--text-sub);">매가 (売値):</strong> 실제로 팔린 가격. 할인이 있으면 정가보다 낮아짐. 매가 = 정가 × (1 - 할인율)<br><br>
+    <strong style="color:var(--text-sub);">이익 (利益):</strong> 매가 - 원가. 이 값이 양수면 이익, 음수면 손해.</p>
+  </div>
+
+  <h3>가격의 흐름 — 원가에서 이익까지</h3>
+  <p>손익산 문제는 거의 모두 아래 흐름을 따릅니다. 이 흐름을 도식화하면 실수가 줄어듭니다.</p>
+
+  <div class="diagram">
+    <div class="diagram-title">가격 흐름도</div>
+    <div class="price-flow">
+      <div class="pf-box"><div class="pf-label">원가</div><div class="pf-val">800엔</div></div>
+      <div class="pf-arrow">→ ×1.25</div>
+      <div class="pf-box"><div class="pf-label">정가 (+25%)</div><div class="pf-val">1,000엔</div></div>
+      <div class="pf-arrow">→ ×0.9</div>
+      <div class="pf-box"><div class="pf-label">매가 (-10%)</div><div class="pf-val">900엔</div></div>
+      <div class="pf-arrow">→</div>
+      <div class="pf-box hl-box"><div class="pf-label">이익</div><div class="pf-val">100엔</div></div>
+    </div>
+    <p style="font-size:11px;color:var(--text-dim);text-align:center;margin-top:6px;">이익 = 매가(900) - 원가(800) = 100엔</p>
+  </div>
+
+  <div class="fc"><div class="fc-name">정가 설정</div><div class="fc-formula">정가 = 원가 × (1 + 이익률)</div><div class="fc-desc">원가 800엔, 이익률 25% → 800 × 1.25 = 1,000엔</div></div>
+  <div class="fc"><div class="fc-name">할인 후 매가</div><div class="fc-formula">매가 = 정가 × (1 - 할인율)</div><div class="fc-desc">정가 1,000엔, 10% 할인 → 1,000 × 0.9 = 900엔</div></div>
+  <div class="fc"><div class="fc-name">이익</div><div class="fc-formula">이익 = 매가 - 원가</div><div class="fc-desc">매가 900 - 원가 800 = 100엔</div></div>
+  <div class="fc"><div class="fc-name">이익률</div><div class="fc-formula">이익률 = 이익 / 원가 × 100%</div><div class="fc-desc">100 / 800 × 100 = 12.5%. 주의: 분모는 정가가 아니라 "원가"</div></div>
+
+  <div class="mini-trap">
+    <div class="mini-q"><div class="mini-label">⚠️ 가장 흔한 함정</div>
+    <p>"정가의 20%의 이익" vs "원가의 20%의 이익"
+→ 기준이 정가인지 원가인지에 따라 금액이 완전히 달라집니다.
+SPI에서는 대부분 "원가의 ~%"로 출제되지만, 문제를 반드시 꼼꼼히 읽으세요.</p></div>
+    <div class="mini-a"><p>원가 1,000엔 기준:
+"원가의 20% 이익" → 이익 200엔, 정가 1,200엔
+"정가의 20% 이익"이라면 → 정가를 x로 놓고 x - 1000 = 0.2x → x = 1,250엔</p>
+    <div class="mini-ans">기준이 원가인지 정가인지 반드시 확인!</div></div>
+  </div>
+
+  <h3>대금 정산 (代金の精算) — 테스트센터</h3>
+  <p>여러 명이 함께 식사하거나 물건을 사고, 각자 다른 금액을 지불한 뒤 균등하게 나누는 문제입니다. 테스트센터에서만 출제됩니다.</p>
+  <p><strong style="color:var(--text);">접근법:</strong> ① 1인당 부담액 계산 ② 각자의 과부족 계산 ③ 부족한 사람이 초과한 사람에게 지불</p>
+
+  <div class="mini">
+    <div class="mini-q"><div class="mini-label">📝 미니 예제</div>
+    <p>A, B 2명이 점심. 합계 3,000엔. A가 2,000엔, B가 1,000엔 지불.
+균등 분할하려면?</p></div>
+    <div class="mini-a"><p>1인당 = 3,000 ÷ 2 = 1,500엔
+A: 2,000 지불 → 500엔 초과 (받을 금액)
+B: 1,000 지불 → 500엔 부족 (줄 금액)
+→ B가 A에게 500엔 지불</p>
+    <div class="mini-ans">정답: B → A에게 500엔</div></div>
+  </div>
+
+  <h3>요금 할인 (料金の割引) — 테스트센터</h3>
+  <p>단체 할인, 조기 구매 할인, 요일 할인 등 복수의 할인 조건이 겹치는 문제입니다. 테스트센터에서만 출제됩니다.</p>
+  <p><strong style="color:var(--text);">접근법:</strong> ① 할인 조건 해당 여부 확인 ② 할인 전 합계 계산 ③ 할인율 적용</p>
+
+  <div class="fc"><div class="fc-name">소비세 (消費税)</div><div class="fc-formula">세포함 = 본체가격 × (1 + 세율)</div><div class="fc-desc">세율 10%: 1,000엔 → 1,100엔 (세포함)</div></div>
+
+  <div class="ib ib-w">
+    <div class="bl bl-w">자주 하는 실수</div>
+    <p><strong style="color:var(--text-sub);">실수 1:</strong> "20% 할인"을 "×20%"로 계산. 올바른 계산은 "×0.8 (= 1-0.2)"<br><br>
+    <strong style="color:var(--text-sub);">실수 2:</strong> 할인 후에 소비세를 곱해야 하는데, 할인 전에 소비세를 곱해버림. 순서에 주의!<br><br>
+    <strong style="color:var(--text-sub);">실수 3:</strong> 대금 정산에서 "누가 누구에게 줘야 하는지" 방향을 헷갈림. 초과한 사람이 받고, 부족한 사람이 준다는 점을 명확히.</p>
+  </div>
+</div>
+
+<!-- 공식 요약 -->
+<div class="section">
+  <div class="sn">요약</div>
+  <div class="st">핵심 공식 한눈에 보기</div>
+  <div class="st-jp">公式一覧</div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>#</th><th>공식명</th><th>공식</th><th>주의</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>정가 설정</td><td>원가 × (1 + 이익률)</td><td>기준은 원가</td></tr>
+      <tr><td>2</td><td>할인 후 매가</td><td>정가 × (1 - 할인율)</td><td>"×0.8" not "×0.2"</td></tr>
+      <tr><td>3</td><td>이익</td><td>매가 - 원가</td><td>음수면 손해</td></tr>
+      <tr><td>4</td><td>이익률</td><td>이익/원가 × 100%</td><td>분모=원가</td></tr>
+      <tr><td>5</td><td>대금 정산</td><td>합계/인원수 → 과부족</td><td>테센 전용</td></tr>
+      <tr><td>6</td><td>요금 할인</td><td>기본요금 × (1-할인율)</td><td>테센 전용</td></tr>
+      <tr><td>7</td><td>소비세</td><td>본체 × (1+세율)</td><td>할인 후 적용</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<!-- 예제 10문제 -->
+<div class="section">
+  <div class="sn">연습 문제</div>
+  <div class="st">손익산·요금 예제 10문제</div>
+  <div class="st-jp">損益算・料金の練習問題10問</div>
+  <p>일본어 원문을 먼저 읽고 직접 풀어보세요.</p>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q01 — 손익산 기본</div><div class="pc-title">이익 계산</div>
+<div class="pc-jp">原価800円の商品に、原価の25%の利益を見込んで定価をつけた。その後、定価の10%引きで売った。利益はいくらか。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">원가 800엔 상품에 25% 이익을 붙여 정가 설정. 정가에서 10% 할인하여 판매. 이익은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">정가 = 800 × 1.25 = 1,000엔
+매가 = 1,000 × 0.9 = 900엔
+이익 = 900 - 800 = 100엔</div></div>
+<div class="sa">정답: 100엔</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q02 — 할인 후 손익분기</div><div class="pc-title">몇 % 할인까지 가능?</div>
+<div class="pc-jp">原価600円の商品に、原価の30%の利益を見込んで定価をつけた。損をしないためには、定価の何%引きまでが限度か。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">원가 600엔, 30% 이익 붙여 정가 설정. 손해 안 보려면 최대 몇 % 할인 가능?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">정가 = 600 × 1.3 = 780엔
+손해 안 보려면 매가 ≥ 원가(600)
+780 × (1 - x) ≥ 600
+1 - x ≥ 600/780 ≒ 0.769
+x ≤ 0.231 → 약 23.1%</div></div>
+<div class="sa">정답: 약 23% (소수점 이하는 문제 조건에 따라)</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q03 — 대금 정산 [테센]</div><div class="pc-title">3명의 식사 정산</div>
+<div class="pc-jp">A, B, Cの3人で食事をし、合計12,000円だった。Aが7,000円、Bが3,000円、Cが2,000円支払った。3人が同じ金額を負担するには、誰が誰にいくら払えばよいか。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">A,B,C 3명 식사 합계 12,000엔. A가 7,000, B가 3,000, C가 2,000 지불. 균등 분할 정산은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">1인당 = 12,000 ÷ 3 = 4,000엔
+A: 7,000→3,000 초과(받음) / B: 3,000→1,000 부족(줌) / C: 2,000→2,000 부족(줌)
+→ B→A 1,000엔, C→A 2,000엔</div></div>
+<div class="sa">정답: B→A 1,000엔, C→A 2,000엔</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q04 — 요금 할인 [테센]</div><div class="pc-title">단체 할인</div>
+<div class="pc-jp">遊園地の入場料は大人2,000円、子供1,000円。20人以上の団体は全員20%割引。大人15人、子供8人の合計入場料はいくらか。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">놀이공원 입장료 대인 2,000엔, 소인 1,000엔. 20명 이상 단체 20% 할인. 대인 15+소인 8 합계는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">합계 23명(≥20 → 할인 적용)
+할인 전: 15×2,000 + 8×1,000 = 38,000엔
+할인 후: 38,000 × 0.8 = 30,400엔</div></div>
+<div class="sa">정답: 30,400엔</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q05 — 이익률 역산</div><div class="pc-title">원가 구하기</div>
+<div class="pc-jp">ある商品を定価1,500円で売ったところ、原価の25%の利益が出た。この商品の原価はいくらか。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">상품을 정가 1,500엔에 팔았더니 원가의 25% 이익이 나왔다. 원가는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">정가 = 원가 × 1.25
+1,500 = 원가 × 1.25
+원가 = 1,500 / 1.25 = 1,200엔</div></div>
+<div class="sa">정답: 1,200엔</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q06 — 복합 할인</div><div class="pc-title">2단계 할인</div>
+<div class="pc-jp">定価5,000円の商品をまず20%引きにし、さらにそこから10%引きにした。最終的な売値はいくらか。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">정가 5,000엔 상품을 먼저 20% 할인, 거기서 다시 10% 할인. 최종 매가는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">1차: 5,000 × 0.8 = 4,000엔
+2차: 4,000 × 0.9 = 3,600엔
+※ 주의: 20%+10%=30% 할인이 아님! 5,000×0.7=3,500이 아니라 3,600.</div></div>
+<div class="sa">정답: 3,600엔</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q07 — 소비세 포함</div><div class="pc-title">세포함 가격</div>
+<div class="pc-jp">税抜き価格が2,800円の商品に消費税10%を加えた税込み価格はいくらか。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">세전 가격 2,800엔 상품에 소비세 10%를 더한 세포함 가격은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">2,800 × 1.10 = 3,080엔</div></div>
+<div class="sa">정답: 3,080엔</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q08 — 손익 판단</div><div class="pc-title">이익인가 손해인가?</div>
+<div class="pc-jp">原価1,200円の商品に40%の利益を見込んで定価をつけたが、売れなかったので定価の35%引きで売った。利益はいくらか。それとも損をしたか。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">원가 1,200엔, 40% 이익 붙여 정가. 안 팔려서 정가의 35% 할인 판매. 이익? 손해?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">정가 = 1,200 × 1.4 = 1,680엔
+매가 = 1,680 × 0.65 = 1,092엔
+이익 = 1,092 - 1,200 = -108엔 → 손해!</div></div>
+<div class="sa">정답: 108엔의 손해</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q09 — 대금 정산 응용 [테센]</div><div class="pc-title">4명의 여행 정산</div>
+<div class="pc-jp">A, B, C, Dの4人で旅行に行き、合計費用は40,000円だった。Aが18,000円、Bが12,000円、Cが6,000円、Dが4,000円を支払った。4人が同じ金額を負担するには？</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">A,B,C,D 4명 여행 합계 40,000엔. A가 18,000, B가 12,000, C가 6,000, D가 4,000 지불. 균등 분할 정산은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">1인당 = 40,000 ÷ 4 = 10,000엔
+A: 18,000→8,000 초과 / B: 12,000→2,000 초과 / C: 6,000→4,000 부족 / D: 4,000→6,000 부족
+C→A 4,000엔, D→A 4,000엔, D→B 2,000엔
+(또는 D가 6,000을 A에게 주고, A가 B에게 2,000 돌려줘도 OK)</div></div>
+<div class="sa">정답: C→A 4,000엔, D→A 4,000엔, D→B 2,000엔 (정산 경로는 여러 가지 가능)</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q10 — 할인 + 개수 조합</div><div class="pc-title">세트 할인</div>
+<div class="pc-jp">ある店で、りんご1個150円、みかん1個80円で売っている。りんご5個以上買うと、りんご全体が10%引きになる。りんご6個とみかん4個を買ったとき、合計金額はいくらか。</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">사과 1개 150엔, 귤 1개 80엔. 사과 5개 이상 사면 사과 전체 10% 할인. 사과 6개+귤 4개 합계는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">사과 6개(≥5 → 할인 적용): 150 × 6 × 0.9 = 810엔
+귤 4개(할인 없음): 80 × 4 = 320엔
+합계: 810 + 320 = 1,130엔</div></div>
+<div class="sa">정답: 1,130엔</div></div></div></div>
+
+</div>
+
+<div class="type-nav">
+  <a href="spi-higengo-kakuritsu.html"><div class="nl">← 이전 유형</div><div class="nt">② 순열·조합·확률</div></a>
+  <a href="spi-higengo-sokudo.html"><div class="nl">다음 유형 →</div><div class="nt">④ 속도·일·농도</div></a>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — SPI 비언어 ③ 손익산·요금</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
+  <p style="margin-top:8px;font-size:10px;">예제는 SPI 출제 유형을 참고하여 독자 작성. 실제 시험 문제와는 다릅니다.</p>
+</div>
+</div>
+<script>function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}</script>
+  <script src="nav.js"></script>
+  <script src="global-nav.js"></script>
+</body>
+</html>

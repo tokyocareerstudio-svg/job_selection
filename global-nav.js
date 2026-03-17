@@ -12,6 +12,7 @@
     { label: '진단 테스트',     file: 'career-test.html',    icon: '🧭', free: true  },
     { label: '업계 리포트',     file: 'industry-index.html', icon: '📋', free: false },
     { label: '직종 라이브러리', file: 'map-lv1.html',        icon: '🗺️', free: false },
+    { label: 'SPI 대책',       file: 'spi-index.html',      icon: '📝', free: false },
   ];
 
   const currentFile = location.pathname.split('/').pop() || 'index.html';

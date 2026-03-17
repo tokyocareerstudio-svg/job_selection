@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'spi-higengo-kakuritsu.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPI 비언어 ② 순열·조합·확률 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--border-hover:#3a3a48;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--spi:#f59e0b;--spi-soft:rgba(245,158,11,0.06);--spi-border:rgba(245,158,11,0.18);--tc:#4a9eff;--tc-soft:rgba(74,158,255,0.08);--tc-border:rgba(74,158,255,0.2);--wt:#34d399;--wt-soft:rgba(52,211,153,0.07);--wt-border:rgba(52,211,153,0.18);--solve:#a29bfe;--solve-soft:rgba(162,155,254,0.06);--correct:#34d399;--warn:#ef4444;--warn-soft:rgba(239,68,68,0.04);--warn-border:rgba(239,68,68,0.18);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}
+.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:48px 24px 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(245,158,11,0.05) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{position:relative;max-width:760px;margin:0 auto;}
+.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-back:hover{color:var(--text-dim);}
+.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);background:var(--spi-soft);border:1px solid var(--spi-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}
+.hero h1{font-size:26px;font-weight:900;line-height:1.3;margin-bottom:8px;letter-spacing:-0.5px;}
+.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;}
+.htag-tc{background:var(--tc-soft);color:var(--tc);border:1px solid var(--tc-border);}
+.htag-wt{background:var(--wt-soft);color:var(--wt);border:1px solid var(--wt-border);}
+.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}
+.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}
+.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}
+.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}
+.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}
+.section h3{font-size:15px;font-weight:700;color:var(--text);margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--spi);}
+.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}
+.ib-a{background:var(--spi-soft);border-color:var(--spi-border);border-left:3px solid var(--spi);}
+.ib-w{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn);}
+.ib h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}
+.ib p,.ib div{font-size:12px;color:var(--text-dim);line-height:1.9;}
+.bl{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}.bl-spi{color:var(--spi);}.bl-w{color:var(--warn);}
+/* Formula card */
+.fc{padding:16px 18px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;margin:10px 0;}
+.fc-name{font-size:12px;font-weight:700;color:var(--spi);margin-bottom:4px;}
+.fc-formula{font-family:'Space Grotesk',monospace;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;letter-spacing:0.5px;}
+.fc-desc{font-size:11px;color:var(--text-dim);line-height:1.7;}
+/* Mini example */
+.mini{margin:16px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}
+.mini-q{padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--border);}
+.mini-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}
+.mini-q p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}
+.mini-a{padding:16px 18px;background:var(--solve-soft);}
+.mini-a p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}
+.mini-ans{margin-top:10px;padding:8px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:6px;font-size:12px;font-weight:700;color:var(--correct);}
+.mini-trap{margin:12px 0;border:1px solid var(--warn-border);border-radius:10px;overflow:hidden;}
+.mini-trap .mini-q{background:var(--warn-soft);border-bottom-color:var(--warn-border);}
+.mini-trap .mini-label{color:var(--warn);}
+.mini-trap .mini-a{background:rgba(239,68,68,0.03);}
+.mini-trap .mini-ans{background:rgba(239,68,68,0.05);border-color:var(--warn-border);color:var(--warn);}
+/* Diagram */
+.diagram{margin:12px 0;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow-x:auto;}
+.diagram-title{font-size:11px;font-weight:700;color:var(--spi);letter-spacing:1px;margin-bottom:10px;text-transform:uppercase;}
+/* Tree diagram (CSS) */
+.tree{display:flex;flex-direction:column;gap:2px;font-size:11px;color:var(--text-dim);font-family:'Space Grotesk',monospace;line-height:1.6;padding:4px 0;}
+.tree .hl{color:var(--spi);font-weight:700;}
+/* Table */
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead{background:var(--surface-2);}
+th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}
+td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}
+tr:last-child td{border-bottom:none;}
+td:first-child{font-weight:600;color:var(--text-sub);}
+/* Problem card */
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}
+.pc-h{padding:18px 20px;}
+.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}
+.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}
+.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
+.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}
+.at:hover{color:var(--text-dim);background:var(--surface-3);}
+.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}
+.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}
+.at-kr{background:rgba(245,158,11,0.03);border-top:1px solid var(--spi-border);}.at-kr:hover{background:rgba(245,158,11,0.06);}
+.ac-kr-body{padding:14px 16px;background:rgba(245,158,11,0.03);border-top:1px solid var(--spi-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}
+.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}
+.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}
+.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}
+.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}
+.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}
+.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}
+.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}
+.type-nav a:hover{border-color:var(--spi-border);background:var(--spi-soft);}
+.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}
+.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}
+.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.hero h1{font-size:22px;}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-inner">
+  <a href="spi-higengo-index.html" class="hero-back">← SPI 비언어 인덱스로 돌아가기</a>
+  <div class="hero-label">SPI 비언어 — 유형 ②</div>
+  <h1>순열·조합·확률</h1>
+  <p class="hero-sub">경우의 수와 확률은 공식을 정확히 외우고 있는지가 승부처입니다. "순서가 중요하면 순열, 아니면 조합"이라는 판단을 순간적으로 할 수 있어야 합니다. 이 페이지에서는 핵심 공식 12개를 강의 형식으로 설명하고, 수형도(樹形図) 활용법과 함께 예제 10문제로 연습합니다.</p>
+  <div class="hero-tags"><span class="htag htag-tc">테센 ★ 필수</span><span class="htag htag-wt">웹테 ○ 출제</span></div>
+</div></div>
+
+<div class="container">
+
+<!-- ═══ 강의 ═══ -->
+<div class="section">
+  <div class="sn">강의</div>
+  <div class="st">순열·조합·확률이란?</div>
+  <div class="st-jp">順列・組合せ・確率 — 公式を武器にする分野</div>
+
+  <p>이 유형은 SPI 비언어에서 추론 다음으로 출제 빈도가 높습니다. 좋은 소식은 <strong style="color:var(--text);">공식을 정확히 알면 거의 기계적으로 풀 수 있다</strong>는 점입니다. 반대로 공식을 모르면 손도 못 대는 유형이기도 합니다.</p>
+
+  <p>핵심은 세 가지 판단을 빠르게 내리는 것입니다:</p>
+
+  <div class="ib ib-a">
+    <div class="bl bl-spi">3가지 핵심 판단</div>
+    <p><strong style="color:var(--text-sub);">① 순서가 중요한가?</strong> → 순서 중요 = 순열(P), 순서 무관 = 조합(C)<br><br>
+    <strong style="color:var(--text-sub);">② "적어도" "~이 아닌"이 나오는가?</strong> → 여사건(1에서 빼기) 활용<br><br>
+    <strong style="color:var(--text-sub);">③ 경우의 수가 적은가(10개 이하)?</strong> → 수형도(樹形図)로 직접 나열이 빠름</p>
+  </div>
+
+  <!-- ── 순열 ── -->
+  <h3>순열 (Permutation) — 순서가 중요할 때</h3>
+  <p>n개에서 r개를 뽑아 <strong style="color:var(--text);">나열하는</strong> 경우의 수. "1등, 2등, 3등을 뽑는다", "회장, 부회장을 선출한다" 같은 문제입니다.</p>
+
+  <div class="fc">
+    <div class="fc-name">순열 공식</div>
+    <div class="fc-formula">nPr = n! / (n - r)!</div>
+    <div class="fc-desc">n개에서 r개를 뽑아 나열. 예: 5P3 = 5×4×3 = 60</div>
+  </div>
+
+  <div class="mini">
+    <div class="mini-q">
+      <div class="mini-label">📝 미니 예제</div>
+      <p>5명 중 회장·부회장·서기를 뽑는 경우의 수는?</p>
+    </div>
+    <div class="mini-a">
+      <p><strong style="color:var(--solve);">풀이:</strong> 순서가 중요(회장≠부회장) → 순열
+5P3 = 5 × 4 × 3 = <strong style="color:var(--spi);">60가지</strong>
+(회장 5명 중 1명 × 부회장 남은 4명 중 1명 × 서기 남은 3명 중 1명)</p>
+      <div class="mini-ans">정답: 60가지</div>
+    </div>
+  </div>
+
+  <!-- ── 조합 ── -->
+  <h3>조합 (Combination) — 순서가 상관없을 때</h3>
+  <p>n개에서 r개를 <strong style="color:var(--text);">뽑기만</strong> 하는 경우의 수. "위원 3명을 뽑는다", "메뉴에서 2개를 고른다" 같은 문제입니다.</p>
+
+  <div class="fc">
+    <div class="fc-name">조합 공식</div>
+    <div class="fc-formula">nCr = n! / (r! × (n - r)!)</div>
+    <div class="fc-desc">n개에서 r개를 뽑기만. 예: 5C3 = 5!/(3!×2!) = 10</div>
+  </div>
+
+  <div class="mini">
+    <div class="mini-q">
+      <div class="mini-label">📝 미니 예제</div>
+      <p>7명 중 위원 3명을 뽑는 경우의 수는?</p>
+    </div>
+    <div class="mini-a">
+      <p><strong style="color:var(--solve);">풀이:</strong> 순서 무관(누가 위원장인지 구분 없음) → 조합
+7C3 = 7! / (3! × 4!) = (7×6×5) / (3×2×1) = 210/6 = <strong style="color:var(--spi);">35가지</strong></p>
+      <div class="mini-ans">정답: 35가지</div>
+    </div>
+  </div>
+
+  <div class="mini-trap">
+    <div class="mini-q">
+      <div class="mini-label">⚠️ 함정 — 순열과 조합을 혼동하면</div>
+      <p>같은 "7명 중 3명"인데 회장·부회장·서기를 뽑는다면?</p>
+    </div>
+    <div class="mini-a">
+      <p><strong style="color:var(--warn);">이건 순열!</strong> 7P3 = 7×6×5 = <strong>210가지</strong>
+조합(35)의 6배(= 3!)입니다. "역할이 있는지"가 판단 기준.</p>
+      <div class="mini-ans">역할 있음 = 순열(210) / 역할 없음 = 조합(35)</div>
+    </div>
+  </div>
+
+  <!-- ── 확률 ── -->
+  <h3>확률 — "몇 분의 몇"</h3>
+  <p>확률은 "전체 경우의 수 분의 해당 경우의 수"입니다. 순열·조합으로 경우의 수를 구한 뒤 나누면 됩니다.</p>
+
+  <div class="fc">
+    <div class="fc-name">확률 기본 공식</div>
+    <div class="fc-formula">P(A) = A가 일어나는 경우의 수 / 전체 경우의 수</div>
+    <div class="fc-desc">0 ≤ P ≤ 1. 모든 경우의 확률 합 = 1</div>
+  </div>
+
+  <div class="mini">
+    <div class="mini-q">
+      <div class="mini-label">📝 미니 예제</div>
+      <p>주사위 1개를 던질 때, 짝수가 나올 확률은?</p>
+    </div>
+    <div class="mini-a">
+      <p><strong style="color:var(--solve);">풀이:</strong> 전체: 6가지(1~6). 짝수: 2, 4, 6 → 3가지
+P = 3/6 = <strong style="color:var(--spi);">1/2</strong></p>
+      <div class="mini-ans">정답: 1/2</div>
+    </div>
+  </div>
+
+  <!-- ── 여사건 ── -->
+  <h3>여사건 — "적어도"가 나오면 이것</h3>
+  <p>"적어도 1개", "~이 아닌 경우"가 나오면, 직접 세는 것보다 <strong style="color:var(--text);">전체에서 반대를 빼는 것</strong>이 훨씬 빠릅니다.</p>
+
+  <div class="fc">
+    <div class="fc-name">여사건 공식</div>
+    <div class="fc-formula">P(적어도 1개) = 1 - P(하나도 없는 경우)</div>
+    <div class="fc-desc">"적어도 여자 1명 포함" = 전체 - 여자 0명(남자만)</div>
+  </div>
+
+  <div class="mini">
+    <div class="mini-q">
+      <div class="mini-label">📝 미니 예제</div>
+      <p>동전을 3번 던질 때, 적어도 1번 앞면이 나올 확률은?</p>
+    </div>
+    <div class="mini-a">
+      <p><strong style="color:var(--solve);">풀이:</strong> 직접 세면 복잡 → 여사건 활용!
+전부 뒷면 = (1/2)³ = 1/8
+적어도 1번 앞면 = 1 - 1/8 = <strong style="color:var(--spi);">7/8</strong></p>
+      <div class="mini-ans">정답: 7/8</div>
+    </div>
+  </div>
+
+  <!-- ── 수형도 ── -->
+  <h3>수형도 (樹形図) — 경우의 수가 적을 때 최강 무기</h3>
+  <p>경우의 수가 10개 이하일 때는 공식보다 <strong style="color:var(--text);">가지치기로 직접 나열</strong>하는 게 더 빠르고 확실합니다. SPI 실전에서도 수형도로 풀어야 하는 문제가 자주 나옵니다.</p>
+
+  <div class="diagram">
+    <div class="diagram-title">예시: 동전 2개를 던질 때 모든 경우</div>
+    <div class="tree">
+      <span>1회 &nbsp;&nbsp;&nbsp; 2회 &nbsp;&nbsp;&nbsp; 결과</span>
+      <span>┌─ 앞 ─┬─ 앞 → <span class="hl">(앞,앞)</span></span>
+      <span>│ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ 뒤 → (앞,뒤)</span>
+      <span>└─ 뒤 ─┬─ 앞 → (뒤,앞)</span>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└─ 뒤 → (뒤,뒤)</span>
+      <span style="margin-top:6px;">→ 전체 4가지. 둘 다 앞면 = <span class="hl">1/4</span></span>
+    </div>
+  </div>
+
+  <!-- ── 기타 공식들 ── -->
+  <h3>그 외 알아둘 공식</h3>
+
+  <div class="fc">
+    <div class="fc-name">곱의 법칙 (AND)</div>
+    <div class="fc-formula">P(A와 B 동시) = P(A) × P(B)</div>
+    <div class="fc-desc">독립 사건일 때. "동전 앞면 AND 주사위 1" = 1/2 × 1/6 = 1/12</div>
+  </div>
+  <div class="fc">
+    <div class="fc-name">합의 법칙 (OR)</div>
+    <div class="fc-formula">P(A 또는 B) = P(A) + P(B)</div>
+    <div class="fc-desc">배반 사건일 때 (동시 불가). "주사위 1 OR 2" = 1/6 + 1/6 = 2/6</div>
+  </div>
+  <div class="fc">
+    <div class="fc-name">중복 순열</div>
+    <div class="fc-formula">n^r (n의 r승)</div>
+    <div class="fc-desc">중복 허용하여 r개 나열. 3자리 비밀번호(0~9) = 10³ = 1000가지</div>
+  </div>
+  <div class="fc">
+    <div class="fc-name">원형 순열</div>
+    <div class="fc-formula">(n - 1)!</div>
+    <div class="fc-desc">n개를 원형으로 나열. 1명 고정 후 나머지 배열. 5명 원탁 = 4! = 24가지</div>
+  </div>
+  <div class="fc">
+    <div class="fc-name">같은 것이 있는 순열</div>
+    <div class="fc-formula">n! / (a! × b! × ...)</div>
+    <div class="fc-desc">n개 중 같은 것 a개, b개... "BOOK" 나열 = 4!/2! = 12가지 (O 2개)</div>
+  </div>
+  <div class="fc">
+    <div class="fc-name">기댓값</div>
+    <div class="fc-formula">E = Σ(값 × 확률)</div>
+    <div class="fc-desc">각 경우의 값에 확률을 곱해 합산. "평균적으로 얼마 받는가?"</div>
+  </div>
+
+  <div class="ib ib-w">
+    <div class="bl bl-w">자주 하는 실수 TOP 3</div>
+    <p><strong style="color:var(--text-sub);">실수 1:</strong> 순열과 조합을 혼동. "뽑아서 나열"은 순열, "뽑기만"은 조합.<br><br>
+    <strong style="color:var(--text-sub);">실수 2:</strong> 여사건을 쓸 수 있는데 직접 세서 시간 낭비. "적어도"가 보이면 반사적으로 여사건!<br><br>
+    <strong style="color:var(--text-sub);">실수 3:</strong> 팩토리얼 계산 실수. 5! = 120, 4! = 24, 3! = 6, 2! = 2, 1! = 1, 0! = 1 (0!은 1임에 주의).</p>
+  </div>
+</div>
+
+<!-- ═══ 공식 요약 ═══ -->
+<div class="section">
+  <div class="sn">요약</div>
+  <div class="st">핵심 공식 12개 한눈에 보기</div>
+  <div class="st-jp">公式一覧</div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>#</th><th>공식명</th><th>공식</th><th>키워드</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>순열</td><td>nPr = n!/(n-r)!</td><td>순서 있음, 나열</td></tr>
+      <tr><td>2</td><td>조합</td><td>nCr = n!/(r!×(n-r)!)</td><td>순서 없음, 뽑기</td></tr>
+      <tr><td>3</td><td>팩토리얼</td><td>n! = n×(n-1)×...×1</td><td>0!=1 주의</td></tr>
+      <tr><td>4</td><td>확률 기본</td><td>해당/전체</td><td>0≤P≤1</td></tr>
+      <tr><td>5</td><td>여사건</td><td>1 - P(반대)</td><td>"적어도" = 여사건</td></tr>
+      <tr><td>6</td><td>곱의 법칙</td><td>P(A)×P(B)</td><td>AND, 독립 사건</td></tr>
+      <tr><td>7</td><td>합의 법칙</td><td>P(A)+P(B)</td><td>OR, 배반 사건</td></tr>
+      <tr><td>8</td><td>중복 순열</td><td>n^r</td><td>중복 허용</td></tr>
+      <tr><td>9</td><td>원형 순열</td><td>(n-1)!</td><td>원탁, 1명 고정</td></tr>
+      <tr><td>10</td><td>같은 것 순열</td><td>n!/(a!×b!×...)</td><td>BOOK, TOKYO</td></tr>
+      <tr><td>11</td><td>기댓값</td><td>Σ(값×확률)</td><td>평균 기대</td></tr>
+      <tr><td>12</td><td>수형도</td><td>가지치기 나열</td><td>10개 이하일 때</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<!-- ═══ 예제 10문제 ═══ -->
+<div class="section">
+  <div class="sn">연습 문제</div>
+  <div class="st">순열·조합·확률 예제 10문제</div>
+  <div class="st-jp">順列・組合せ・確率の練習問題10問</div>
+  <p>일본어 원문을 먼저 읽고 직접 풀어보세요.</p>
+
+<!-- Q01 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">Q01 — 조합 + 여사건</div><div class="pc-title">위원 선출 (적어도 여자 1명)</div>
+<div class="pc-jp">男子4人、女子3人の中から3人の委員を選ぶとき、少なくとも女子1人が含まれる選び方は何通りか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">남자 4명, 여자 3명 중 3명의 위원을 뽑을 때, 적어도 여자 1명이 포함되는 경우의 수는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">"적어도" → 여사건!
+전체: 7C3 = 35
+여자 0명(남자만): 4C3 = 4
+적어도 여자 1명: 35 - 4 = 31</div></div>
+<div class="sa">정답: 31가지</div>
+</div></div></div>
+
+<!-- Q02 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">Q02 — 확률</div><div class="pc-title">주사위 눈의 합</div>
+<div class="pc-jp">さいころを2回投げるとき、出た目の合計が8になる確率はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">주사위를 2번 던질 때, 나온 눈의 합계가 8이 될 확률은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">전체: 6×6 = 36가지
+합이 8: (2,6)(3,5)(4,4)(5,3)(6,2) → 5가지
+확률: 5/36</div></div>
+<div class="sa">정답: 5/36</div>
+</div></div></div>
+
+<!-- Q03 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">Q03 — 같은 것이 있는 순열</div><div class="pc-title">TOKYO 나열</div>
+<div class="pc-jp">「TOKYO」の5文字を一列に並べるとき、並べ方は全部で何通りか。同じ文字は区別しない。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">"TOKYO"의 5글자를 일렬로 나열. 같은 글자는 구별하지 않을 때 경우의 수는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">T, O, K, Y, O → O가 2개
+5! / 2! = 120 / 2 = 60</div></div>
+<div class="sa">정답: 60가지</div>
+</div></div></div>
+
+<!-- Q04 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">Q04 — 순열</div><div class="pc-title">4자리 정수 만들기</div>
+<div class="pc-jp">1, 2, 3, 4, 5の数字を使って、各位の数字が異なる4桁の整数は何個作れるか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">1,2,3,4,5의 숫자로 각 자리 숫자가 다른 4자리 정수를 몇 개 만들 수 있는가?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">자릿수에 순서가 있음(천의 자리≠백의 자리) → 순열
+5P4 = 5×4×3×2 = 120</div></div>
+<div class="sa">정답: 120개</div>
+</div></div></div>
+
+<!-- Q05 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">Q05 — 곱의 법칙</div><div class="pc-title">동전과 주사위</div>
+<div class="pc-jp">コインを1回投げて表が出て、かつ、さいころを1回投げて6の目が出る確率はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">동전 1회 던져 앞면, 그리고 주사위 1회 던져 6이 나올 확률은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">"AND" → 곱의 법칙 (독립 사건)
+P(앞면) × P(6) = 1/2 × 1/6 = 1/12</div></div>
+<div class="sa">정답: 1/12</div>
+</div></div></div>
+
+<!-- Q06 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">Q06 — 여사건 + 곱의 법칙</div><div class="pc-title">동전 3번 (적어도 1번 앞면)</div>
+<div class="pc-jp">コインを3回投げるとき、少なくとも1回は表が出る確率はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">동전을 3번 던질 때, 적어도 1번은 앞면이 나올 확률은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">"적어도" → 여사건
+전부 뒷면 = (1/2)³ = 1/8
+적어도 1번 앞면 = 1 - 1/8 = 7/8</div></div>
+<div class="sa">정답: 7/8</div>
+</div></div></div>
+
+<!-- Q07 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">Q07 — 원형 순열</div><div class="pc-title">원탁 배치</div>
+<div class="pc-jp">5人が円卓に座るとき、座り方は何通りか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">5명이 원탁에 앉을 때, 앉는 방법은 몇 가지인가?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">원형 순열 → (n-1)!
+(5-1)! = 4! = 24</div></div>
+<div class="sa">정답: 24가지</div>
+</div></div></div>
+
+<!-- Q08 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">Q08 — 조합 응용</div><div class="pc-title">악수 횟수</div>
+<div class="pc-jp">10人が全員と1回ずつ握手をするとき、握手の回数は全部で何回か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">10명이 전원과 1번씩 악수할 때, 악수 횟수는 총 몇 번인가?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">2명이 쌍을 이루면 1회 악수. 순서 무관 → 조합
+10C2 = (10×9) / (2×1) = 45</div></div>
+<div class="sa">정답: 45회</div>
+</div></div></div>
+
+<!-- Q09 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">Q09 — 기댓값</div><div class="pc-title">복권의 기대 상금</div>
+<div class="pc-jp">ある くじ引きで、1等（10,000円）が1本、2等（1,000円）が3本、ハズレが6本ある。
+くじを1本引くとき、賞金の期待値はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">어떤 복권에서 1등(10,000엔) 1장, 2등(1,000엔) 3장, 꽝 6장이 있다.
+1장을 뽑을 때 상금의 기댓값은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">전체 10장
+E = 10000×(1/10) + 1000×(3/10) + 0×(6/10)
+  = 1000 + 300 + 0 = 1300</div></div>
+<div class="sa">정답: 1,300엔</div>
+</div></div></div>
+
+<!-- Q10 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">Q10 — 수형도 + 확률</div><div class="pc-title">적·백 공 꺼내기</div>
+<div class="pc-jp">袋の中に赤い球が3個、白い球が2個入っている。1個ずつ2回取り出すとき（取り出した球は戻さない）、2個とも赤い球である確率はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">주머니에 빨간 공 3개, 하얀 공 2개. 1개씩 2번 꺼낼 때(꺼낸 공 안 넣음), 2개 모두 빨간 공일 확률은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">1번째 빨간: 3/5
+2번째 빨간(남은 4개 중 빨간 2개): 2/4 = 1/2
+P = 3/5 × 1/2 = 3/10</div></div>
+<div class="sa">정답: 3/10</div>
+</div></div></div>
+
+</div>
+
+<div class="type-nav">
+  <a href="spi-higengo-suiron.html"><div class="nl">← 이전 유형</div><div class="nt">① 추론</div></a>
+  <a href="spi-higengo-soneki.html"><div class="nl">다음 유형 →</div><div class="nt">③ 손익산·요금</div></a>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — SPI 비언어 ② 순열·조합·확률</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
+  <p style="margin-top:8px;font-size:10px;">예제는 SPI 출제 유형을 참고하여 독자 작성. 실제 시험 문제와는 다릅니다.</p>
+</div>
+</div>
+<script>function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}</script>
+  <script src="nav.js"></script>
+  <script src="global-nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'spi-gengo-goku.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPI 언어 ① 어구의 의미 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--spi:#6c5ce7;--spi-soft:rgba(108,92,231,0.06);--spi-border:rgba(108,92,231,0.18);--tc:#4a9eff;--tc-soft:rgba(74,158,255,0.08);--tc-border:rgba(74,158,255,0.2);--solve:#a29bfe;--solve-soft:rgba(162,155,254,0.06);--correct:#34d399;--warn:#ef4444;--warn-soft:rgba(239,68,68,0.04);--warn-border:rgba(239,68,68,0.18);}
+*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:48px 24px 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(108,92,231,0.05) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-back:hover{color:var(--text-dim);}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--tc);background:var(--tc-soft);border:1px solid var(--tc-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}.hero h1{font-size:26px;font-weight:900;line-height:1.3;margin-bottom:8px;letter-spacing:-0.5px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;}.htag-tc{background:var(--tc-soft);color:var(--tc);border:1px solid var(--tc-border);}
+.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}.section h3{font-size:15px;font-weight:700;color:var(--text);margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--spi);}
+.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}.ib-a{background:var(--spi-soft);border-color:var(--spi-border);border-left:3px solid var(--spi);}.ib-w{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn);}.ib h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}.ib p,.ib div{font-size:12px;color:var(--text-dim);line-height:1.9;}.bl{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}.bl-spi{color:var(--spi);}.bl-w{color:var(--warn);}
+/* Vocab card */
+.vocab-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0;}
+.vocab-card{padding:12px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;transition:border-color 0.2s;}.vocab-card:hover{border-color:var(--spi-border);}
+.vc-word{font-family:'Noto Sans JP',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px;}
+.vc-read{font-family:'Noto Sans JP',sans-serif;font-size:10px;color:var(--text-muted);margin-bottom:4px;}
+.vc-mean{font-size:11px;color:var(--text-dim);line-height:1.6;}
+.vc-kr{font-size:11px;color:var(--spi);font-weight:500;}
+.mini{margin:16px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}.mini-q{padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--border);}.mini-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.mini-q p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-a{padding:16px 18px;background:var(--solve-soft);}.mini-a p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-ans{margin-top:10px;padding:8px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:6px;font-size:12px;font-weight:700;color:var(--correct);}.mini-trap{margin:12px 0;border:1px solid var(--warn-border);border-radius:10px;overflow:hidden;}.mini-trap .mini-q{background:var(--warn-soft);border-bottom-color:var(--warn-border);}.mini-trap .mini-label{color:var(--warn);}.mini-trap .mini-a{background:rgba(239,68,68,0.03);}.mini-trap .mini-ans{background:rgba(239,68,68,0.05);border-color:var(--warn-border);color:var(--warn);}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}table{width:100%;border-collapse:collapse;font-size:12px;}thead{background:var(--surface-2);}th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}tr:last-child td{border-bottom:none;}td:first-child{font-weight:600;color:var(--text-sub);}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
+.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{color:var(--text-dim);background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}.at-kr{background:rgba(108,92,231,0.03);border-top:1px solid var(--spi-border);}.at-kr:hover{background:rgba(108,92,231,0.06);}.ac-kr-body{padding:14px 16px;background:rgba(108,92,231,0.03);border-top:1px solid var(--spi-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}
+.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--spi-border);background:var(--spi-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.hero h1{font-size:22px;}.vocab-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-inner">
+  <a href="spi-gengo-index.html" class="hero-back">← SPI 언어 인덱스로 돌아가기</a>
+  <div class="hero-label">SPI 언어 — 유형 ① · 테센 전용</div>
+  <h1>어구의 의미 (語句の意味)</h1>
+  <p class="hero-sub">제시된 의미 설명에 해당하는 단어를 선택지에서 고르는 유형. 이자숙어·사자성어·관용구·속담의 암기가 전부입니다. 한국인 수험생에게는 일본어 어휘력 자체가 시험되므로, 빈출 어휘를 미리 외우는 것이 가장 직접적인 점수 향상 방법입니다.</p>
+  <div class="hero-tags"><span class="htag htag-tc">테센 ★ 전용</span></div>
+</div></div>
+
+<div class="container">
+
+<div class="section">
+  <div class="sn">강의</div>
+  <div class="st">어구의 의미란?</div>
+  <div class="st-jp">語句の意味 — 知っていれば解ける、知らなければ解けない</div>
+
+  <p>이 유형은 SPI 언어에서 가장 단순한 구조입니다. <strong style="color:var(--text);">"아래 설명과 의미가 가장 일치하는 것을 선택하시오"</strong>라는 형태로, 의미 설명이 주어지고 5개의 한자어/관용구 중에서 고르는 문제입니다.</p>
+
+  <p>즉, <strong style="color:var(--text);">알면 3초에 풀고, 모르면 아무리 고민해도 풀 수 없습니다.</strong> 그래서 이 유형의 대책은 "풀이법"이 아니라 "빈출 어휘 암기"입니다.</p>
+
+  <div class="ib ib-a">
+    <div class="bl bl-spi">어구의 의미 공략법</div>
+    <p><strong style="color:var(--text-sub);">① 빈출 이자숙어 160개를 먼저.</strong> 이자숙어가 가장 빈출이고, 외우기도 가장 효율적.<br><br>
+    <strong style="color:var(--text-sub);">② 사자성어 50개, 관용구·속담 60개를 이어서.</strong> 의미를 "대략" 알면 5지선다에서 소거법 가능.<br><br>
+    <strong style="color:var(--text-sub);">③ 오용 주의 표현 30개 반드시 확인.</strong> 현대 일본어에서 잘못 쓰이는 표현이 SPI에서는 "본래 의미"로 출제됨.<br><br>
+    <strong style="color:var(--text-sub);">④ 모르면 즉시 넘겨라.</strong> 1문제 20~30초 목표. 장문 독해에 시간을 남겨야 함.</p>
+  </div>
+
+  <h3>출제 패턴 — 이렇게 나옵니다</h3>
+  <p>문제 형식은 극히 단순합니다:</p>
+
+  <div class="mini">
+    <div class="mini-q"><div class="mini-label">📝 출제 형태 예시</div>
+    <p>下記の文と意味が最も合致するものを1つ選びなさい。
+
+「惜しげもなく金を使って、派手に遊ぶこと」
+
+ア　豪遊　　イ　奢侈（しゃし）　　ウ　優柔
+エ　専横　　オ　富裕</p></div>
+    <div class="mini-a"><p><strong style="color:var(--solve);">풀이:</strong> "아낌없이 돈을 써서 화려하게 노는 것"
+→ 豪遊(ごうゆう) = 호화롭게 놀다. 정확히 일치.
+奢侈 = 사치, 優柔 = 우유부단, 専横 = 전횡·독단, 富裕 = 부유
+→ 의미가 비슷해 보이는 "奢侈"가 함정이지만, "돈을 써서 노는 것"이 핵심이므로 豪遊.</p>
+    <div class="mini-ans">정답: ア 豪遊</div></div>
+  </div>
+
+  <h3>빈출 이자숙어 — 먼저 이것부터 외우세요</h3>
+  <p>SPI에서 가장 자주 출제되는 이자숙어 중 핵심 20개를 뽑았습니다. 전체 160개는 별도 어휘집을 참고하세요.</p>
+
+  <div class="vocab-grid">
+    <div class="vocab-card"><div class="vc-word">畏怖</div><div class="vc-read">いふ</div><div class="vc-mean">おそれおののくこと</div><div class="vc-kr">두려워 떨다</div></div>
+    <div class="vocab-card"><div class="vc-word">逸脱</div><div class="vc-read">いつだつ</div><div class="vc-mean">本筋からそれること</div><div class="vc-kr">일탈, 벗어남</div></div>
+    <div class="vocab-card"><div class="vc-word">斡旋</div><div class="vc-read">あっせん</div><div class="vc-mean">間に入って取り持つこと</div><div class="vc-kr">알선, 중재</div></div>
+    <div class="vocab-card"><div class="vc-word">瓦解</div><div class="vc-read">がかい</div><div class="vc-mean">組織が崩れること</div><div class="vc-kr">와해, 붕괴</div></div>
+    <div class="vocab-card"><div class="vc-word">邁進</div><div class="vc-read">まいしん</div><div class="vc-mean">恐れず進むこと</div><div class="vc-kr">매진, 두려움 없이 나아감</div></div>
+    <div class="vocab-card"><div class="vc-word">払拭</div><div class="vc-read">ふっしょく</div><div class="vc-mean">すっかり取り除くこと</div><div class="vc-kr">불식, 완전히 제거</div></div>
+    <div class="vocab-card"><div class="vc-word">恣意</div><div class="vc-read">しい</div><div class="vc-mean">自分勝手な考え</div><div class="vc-kr">자의, 제멋대로</div></div>
+    <div class="vocab-card"><div class="vc-word">刹那</div><div class="vc-read">せつな</div><div class="vc-mean">きわめて短い時間</div><div class="vc-kr">찰나, 극히 짧은 순간</div></div>
+    <div class="vocab-card"><div class="vc-word">凌駕</div><div class="vc-read">りょうが</div><div class="vc-mean">他をしのいで上に出ること</div><div class="vc-kr">능가, 뛰어넘다</div></div>
+    <div class="vocab-card"><div class="vc-word">惰性</div><div class="vc-read">だせい</div><div class="vc-mean">これまでの習慣で続くこと</div><div class="vc-kr">타성, 관성</div></div>
+    <div class="vocab-card"><div class="vc-word">逡巡</div><div class="vc-read">しゅんじゅん</div><div class="vc-mean">ためらって進まないこと</div><div class="vc-kr">주저, 망설임</div></div>
+    <div class="vocab-card"><div class="vc-word">漸次</div><div class="vc-read">ぜんじ</div><div class="vc-mean">しだいに・だんだんと</div><div class="vc-kr">점차, 서서히</div></div>
+    <div class="vocab-card"><div class="vc-word">鬱積</div><div class="vc-read">うっせき</div><div class="vc-mean">不満がたまること</div><div class="vc-kr">울적, 불만이 쌓임</div></div>
+    <div class="vocab-card"><div class="vc-word">折衷</div><div class="vc-read">せっちゅう</div><div class="vc-mean">両方の良い所を取り合わせる</div><div class="vc-kr">절충, 타협</div></div>
+    <div class="vocab-card"><div class="vc-word">慟哭</div><div class="vc-read">どうこく</div><div class="vc-mean">悲しみのあまり声を上げて泣く</div><div class="vc-kr">통곡, 소리 내어 울다</div></div>
+    <div class="vocab-card"><div class="vc-word">履行</div><div class="vc-read">りこう</div><div class="vc-mean">約束や契約を実行すること</div><div class="vc-kr">이행, 약속 실행</div></div>
+    <div class="vocab-card"><div class="vc-word">杞憂</div><div class="vc-read">きゆう</div><div class="vc-mean">心配しなくてよいことを心配する</div><div class="vc-kr">기우, 쓸데없는 걱정</div></div>
+    <div class="vocab-card"><div class="vc-word">潤沢</div><div class="vc-read">じゅんたく</div><div class="vc-mean">豊かで余裕があること</div><div class="vc-kr">윤택, 풍부</div></div>
+    <div class="vocab-card"><div class="vc-word">卑下</div><div class="vc-read">ひげ</div><div class="vc-mean">自分を低く見ること</div><div class="vc-kr">비하, 자기를 낮춤</div></div>
+    <div class="vocab-card"><div class="vc-word">享受</div><div class="vc-read">きょうじゅ</div><div class="vc-mean">受け入れて自分のものとする</div><div class="vc-kr">향수, 누림</div></div>
+  </div>
+
+  <h3>오용 주의 표현 — SPI 최대 함정</h3>
+  <p>현대 일본어에서 잘못 쓰이는 표현이 SPI에서는 <strong style="color:var(--text);">본래의 올바른 의미</strong>로 출제됩니다. 이것을 모르면 "확실히 안다"고 생각한 문제에서 틀립니다.</p>
+
+  <div class="mini-trap">
+    <div class="mini-q"><div class="mini-label">⚠️ 오용 주의 대표 3개</div>
+    <p><strong>敷居が高い (しきいがたかい)</strong>
+✗ 잘못된 이해: 격식이 높다, 들어가기 어렵다 (ハードルが高い)
+✓ 본래 의미: 상대에게 미안한 일이 있어서 그 집에 가기가 꺼려지는 것
+
+<strong>役不足 (やくぶそく)</strong>
+✗ 잘못된 이해: 자신의 능력이 부족하다
+✓ 본래 의미: 역할이 자신의 능력에 비해 너무 가벼움 (능력 > 역할)
+
+<strong>情けは人のためならず</strong>
+✗ 잘못된 이해: 동정은 상대를 위해 안 된다
+✓ 본래 의미: 남에게 베푼 은혜는 결국 자신에게 돌아온다</p></div>
+    <div class="mini-a"><p>이런 표현이 SPI에서는 "본래 의미"로 출제됩니다. 일상 대화의 감각으로 풀면 확실히 틀리게 설계된 함정 문제입니다.</p>
+    <div class="mini-ans">오용 주의 표현은 반드시 별도 암기할 것!</div></div>
+  </div>
+
+  <div class="ib ib-w">
+    <div class="bl bl-w">한국인 수험생 특별 주의</div>
+    <p><strong style="color:var(--text-sub);">한자어의 함정:</strong> 한국어와 한자가 같아도 의미가 다른 경우가 있습니다. 예를 들어 "勉強"은 일본어에서 "공부"뿐 아니라 "값을 깎아주다"의 의미도 있고, "丈夫(じょうぶ)"는 "튼튼하다"이지 "남편(장부)"이 아닙니다. 한자의 겉모습에 속지 마세요.</p>
+  </div>
+</div>
+
+<!-- 예제 10문제 -->
+<div class="section">
+  <div class="sn">연습 문제</div>
+  <div class="st">어구의 의미 예제 10문제</div>
+  <div class="st-jp">語句の意味の練習問題10問 — テストセンター専用</div>
+  <p>일본어 원문을 읽고 의미에 맞는 단어를 고르세요. 모르면 넘기는 연습도 함께!</p>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q01</div><div class="pc-title">이자숙어</div>
+<div class="pc-jp">下記の文と意味が最も合致するものを1つ選びなさい。
+「惜しげもなく金を使って、派手に遊ぶこと」
+ア 豪遊　イ 奢侈　ウ 優柔　エ 専横　オ 富裕</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">"아낌없이 돈을 써서 화려하게 노는 것"에 해당하는 단어는?
+ア 호화롭게 놀다 イ 사치 ウ 우유부단 エ 독단 オ 부유</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">豪遊(ごうゆう) = 돈을 아끼지 않고 화려하게 놀다. 의미 정확히 일치.
+奢侈 = 사치(비슷하지만 "놀다"의 뉘앙스 없음)</div></div>
+<div class="sa">정답: ア 豪遊</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q02</div><div class="pc-title">이자숙어</div>
+<div class="pc-jp">「間に入ってうまく取り持つこと」
+ア 斡旋　イ 干渉　ウ 介入　エ 仲裁　オ 関与</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">"사이에 들어가 잘 중재하는 것"은? ア 알선 イ 간섭 ウ 개입 エ 중재 オ 관여</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">斡旋(あっせん) = 사이에 들어가 잘 주선하다. "取り持つ(중개하다)"가 키워드.
+仲裁는 "분쟁 조정"으로 뉘앙스가 다름.</div></div>
+<div class="sa">정답: ア 斡旋</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q03</div><div class="pc-title">사자성어</div>
+<div class="pc-jp">「顔の皮が厚く、恥知らずなこと」
+ア 厚顔無恥　イ 臨機応変　ウ 付和雷同　エ 言語道断　オ 自画自賛</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">"낯이 두껍고 부끄러움을 모르는 것"은? ア 후안무치 イ 임기응변 ウ 부화뇌동 エ 언어도단 オ 자화자찬</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">厚顔無恥(こうがんむち) = 뻔뻔하고 부끄러움을 모름. 한국어 "후안무치"와 동일.</div></div>
+<div class="sa">정답: ア 厚顔無恥</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q04</div><div class="pc-title">관용구</div>
+<div class="pc-jp">「状況が一変して形勢が逆転すること」を表す慣用句はどれか。
+ア 目から鱗が落ちる　イ 寝耳に水　ウ 形勢逆転　エ 一転攻勢　オ 覆水盆に返らず</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">"상황이 일변하여 형세가 역전되는 것"을 나타내는 관용구는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">형세역전(形勢逆転)이 직접적 의미이지만 관용구로서는:
+목에서 비늘이 떨어진다 = 눈이 트이다 / 자고 있는 귀에 물 = 갑작스러운 소식
+이 선택지에서는 형세역전(ウ)이 가장 정확.</div></div>
+<div class="sa">정답: ウ 形勢逆転</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q05</div><div class="pc-title">오용 주의</div>
+<div class="pc-jp">「役不足」の本来の意味として正しいものはどれか。
+ア 自分の能力が足りないこと
+イ 与えられた役割が自分の能力に対して軽すぎること
+ウ 役割を果たせないこと</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">"役不足"의 본래 의미로 올바른 것은? ア 능력이 부족 イ 역할이 능력에 비해 너무 가벼움 ウ 역할을 다하지 못함</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">役不足 = 역할이 능력에 비해 너무 가벼움 (능력 > 역할)
+ア는 "力不足(ちからぶそく)"의 의미. 많은 사람이 혼동하는 대표적 오용 표현.</div></div>
+<div class="sa">정답: イ 역할이 능력에 비해 가벼움</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q06</div><div class="pc-title">이자숙어</div>
+<div class="pc-jp">「きわめて短い時間」
+ア 瞬間　イ 刹那　ウ 須臾　エ 暫時　オ 永劫</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">"극히 짧은 시간"은? ア 순간 イ 찰나 ウ 수유 エ 잠시 オ 영겁</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">刹那(せつな) = 극히 짧은 순간. "きわめて短い"가 키워드.
+瞬間도 의미는 비슷하지만, SPI에서 刹那가 정답으로 출제되는 빈출 패턴.</div></div>
+<div class="sa">정답: イ 刹那</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q07</div><div class="pc-title">관용구</div>
+<div class="pc-jp">「能ある鷹は爪を隠す」の意味として正しいものは？
+ア 有能な人ほど実力を見せびらかさない
+イ 鷹は爪を使わず狩りをする
+ウ 才能がある人は危険を避ける</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">"능 있는 매는 발톱을 숨긴다"의 의미는? ア 유능한 사람일수록 실력을 과시하지 않음 イ 매는 발톱 없이 사냥 ウ 재능 있는 사람은 위험 회피</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">유능한 사람일수록 자신의 실력을 함부로 드러내지 않는다는 뜻.</div></div>
+<div class="sa">정답: ア</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q08</div><div class="pc-title">이자숙어</div>
+<div class="pc-jp">「他をしのいで上に出ること」
+ア 凌駕　イ 超越　ウ 卓越　エ 優越　オ 凌辱</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">"남을 능가하여 위에 서는 것"은? ア 능가 イ 초월 ウ 탁월 エ 우월 オ 능욕</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">凌駕(りょうが) = 다른 것을 뛰어넘어 위에 서다. "しのいで上に出る"가 정확히 일치.
+超越·卓越도 비슷하지만 "他を"가 포인트 → 비교 대상이 있는 凌駕.</div></div>
+<div class="sa">정답: ア 凌駕</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q09</div><div class="pc-title">사자성어</div>
+<div class="pc-jp">「将来のことはまったく予測がつかないこと」
+ア 五里霧中　イ 前途多難　ウ 暗中模索　エ 四面楚歌　オ 一期一会</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">"장래를 전혀 예측할 수 없는 것"은? ア 오리무중 イ 전도다난 ウ 암중모색 エ 사면초가 オ 일기일회</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">五里霧中(ごりむちゅう) = 방향이 보이지 않아 어찌할 바를 모르는 상태.
+暗中模索도 비슷하지만 "手探りで探す(더듬어 찾다)"의 뉘앙스. 五里霧中은 "예측 불가"에 더 가까움.</div></div>
+<div class="sa">정답: ア 五里霧中</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q10</div><div class="pc-title">오용 주의</div>
+<div class="pc-jp">「敷居が高い」の本来の意味として正しいものはどれか。
+ア レベルが高くて挑戦しにくい
+イ 相手に不義理をして、その人の家に行きにくい
+ウ 建物の入口が物理的に高い</div></div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ac-kr-body">"敷居が高い"의 본래 의미는? ア 수준이 높아 도전하기 어렵다 イ 상대에게 미안한 일이 있어 그 집에 가기 어렵다 ウ 건물 입구가 물리적으로 높다</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">본래 의미 = 상대에게 미안한 일(不義理)이 있어 그 사람의 집에 가기가 꺼려지는 것.
+현대에서는 "격식이 높다"의 의미로 잘못 쓰이지만, SPI에서는 본래 의미로 출제.</div></div>
+<div class="sa">정답: イ</div></div></div></div>
+
+</div>
+
+<div class="type-nav">
+  <a href="spi-gengo-index.html"><div class="nl">← 인덱스</div><div class="nt">SPI 언어 메인</div></a>
+  <a href="spi-gengo-nigo.html"><div class="nl">다음 유형 →</div><div class="nt">② 두 단어의 관계</div></a>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — SPI 언어 ① 어구의 의미</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
+  <p style="margin-top:8px;font-size:10px;">예제는 SPI 출제 유형을 참고하여 독자 작성. 빈출 어휘는 goo辞書·コトバンク·Weblio 등에서 검증.</p>
+</div>
+</div>
+<script>function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}</script>
+  <script src="nav.js"></script>
+  <script src="global-nav.js"></script>
+</body>
+</html>
