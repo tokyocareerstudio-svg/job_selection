@@ -81,205 +81,146 @@ td:first-child{font-weight:600;color:var(--text-sub);white-space:nowrap;}
 .footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}
 .footer .brand{font-weight:700;color:var(--text-dim);}
 @media(max-width:640px){.type-grid{grid-template-columns:1fr;}.hero h1{font-size:24px;}.stats-row{gap:8px;}.stat-box{min-width:80px;padding:12px;}.stat-num{font-size:20px;}}
+
+/* Hub cards */
+.hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0;}
+.hub-card{padding:28px 24px;background:var(--surface);border:1px solid var(--border);border-radius:14px;text-decoration:none;transition:all 0.25s;display:block;position:relative;overflow:hidden;}
+.hub-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0;transition:opacity 0.2s;}
+.hub-card:hover{border-color:var(--spi-border);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.3);}
+.hub-card-higengo::before{background:linear-gradient(90deg,var(--tc),var(--spi));opacity:0;}
+.hub-card-higengo:hover::before{opacity:1;}
+.hub-card-gengo::before{background:linear-gradient(90deg,var(--spi),#e056a0);opacity:0;}
+.hub-card-gengo:hover::before{opacity:1;}
+.hub-icon{font-size:32px;margin-bottom:12px;}
+.hub-kicker{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);margin-bottom:8px;text-transform:uppercase;}
+.hub-title{font-size:20px;font-weight:800;color:var(--text);margin-bottom:8px;letter-spacing:-0.3px;}
+.hub-desc{font-size:12px;color:var(--text-dim);line-height:1.8;margin-bottom:14px;}
+.hub-stats{display:flex;gap:12px;flex-wrap:wrap;}
+.hub-stat{font-size:11px;color:var(--text-muted);padding:4px 10px;background:var(--surface-2);border-radius:6px;border:1px solid var(--border);}
+.hub-stat strong{color:var(--text-sub);}
+.hub-arrow{position:absolute;top:28px;right:24px;font-size:18px;color:var(--spi);opacity:0;transition:opacity 0.2s;}
+.hub-card:hover .hub-arrow{opacity:1;}
+@media(max-width:640px){.hub-grid{grid-template-columns:1fr;}.hub-title{font-size:18px;}}
+
 </style>
 </head>
 <body>
 <div class="hero">
   <div class="hero-inner">
     <div class="hero-label">SPI 적성검사 대책</div>
-    <h1>SPI 비언어 파트 완전 정리</h1>
-    <p class="hero-sub">테스트센터와 웹테스팅의 출제 범위 차이를 한눈에 파악하고, 유형별 핵심 공식·풀이법·예제를 단계적으로 학습. "내가 볼 형식에서 뭘 공부해야 하는지"부터 시작합니다.</p>
+    <h1>SPI 완전 대책 가이드</h1>
+    <p class="hero-sub">비언어(수리) 파트와 언어 파트를 체계적으로 학습. 테스트센터·웹테스팅 형식별 출제 범위를 파악하고, 유형별 공식·암기 항목·풀이법·예제로 효율적으로 대비합니다.</p>
     <p class="hero-meta">Tokyo Career Studio &nbsp;|&nbsp; 2026.03 &nbsp;|&nbsp; StudyPro·大人塾·「これが本当のSPI3だ!」 크로스체크 완료</p>
     <div class="hero-tags">
+      <span class="hero-tag">비언어 6유형 + 언어 6유형</span>
       <span class="hero-tag">테센 vs 웹테 완전 비교</span>
-      <span class="hero-tag">유형별 공식 총정리</span>
-      <span class="hero-tag">일본어 원문 + 한국어 번역</span>
-      <span class="hero-tag">유형별 예제 10문제</span>
+      <span class="hero-tag">일본어 원문 + 한국어 해설</span>
+      <span class="hero-tag">유형별 예제 수록</span>
     </div>
   </div>
 </div>
-<div class="section-nav">
-  <div class="section-nav-inner">
-    <a href="#s1" class="nav-btn active">학습 가이드</a>
-    <a href="#s2" class="nav-btn">출제 범위</a>
-    <a href="#s3" class="nav-btn">테센 vs 웹테</a>
-    <a href="#s4" class="nav-btn">학습 전략</a>
-    <a href="#s5" class="nav-btn">유형별 페이지</a>
-  </div>
-</div>
+
 <div class="container">
 
-<div class="section" id="s1">
+<div class="section">
   <div class="section-num">SECTION 01</div>
-  <div class="section-title">SPI 비언어 파트 학습 가이드</div>
-  <div class="section-title-jp">SPI非言語分野 — テストセンター・WEBテスティング対応</div>
-  <div class="stats-row">
-    <div class="stat-box"><div class="stat-num">6<span>유형</span></div><div class="stat-label">출제 유형</div></div>
-    <div class="stat-box"><div class="stat-num">60<span>문제</span></div><div class="stat-label">예제 수록</div></div>
-    <div class="stat-box"><div class="stat-num">50<span>+</span></div><div class="stat-label">핵심 공식</div></div>
-    <div class="stat-box"><div class="stat-num">2<span>형식</span></div><div class="stat-label">테센·웹테 대응</div></div>
-  </div>
+  <div class="section-title">SPI란?</div>
+  <div class="section-title-jp">SPIとは — 日本最大の適性検査</div>
   <div class="info-box info-box-accent">
-    <div class="box-label">비언어 파트란?</div>
-    <p>SPI의 비언어 분야는 중학~고등학교 수준의 수학적 사고력을 측정하는 파트입니다. 추론·확률·손익 계산 등 폭넓은 분야에서 출제되며, 문제 난이도 자체는 높지 않지만 <strong style="color:var(--text-sub);">제한 시간 안에 빠르고 정확하게 푸는 것</strong>이 핵심입니다. 특히 테스트센터와 웹테스팅은 출제 유형이 상당히 다르므로, 자신이 볼 형식을 먼저 파악하는 것이 가장 효율적인 첫 걸음입니다.</p>
+    <div class="box-label">SPI 적성검사 개요</div>
+    <p>SPI(Synthetic Personality Inventory)는 일본 최대의 채용 적성검사로, 리쿠르트 매니지먼트 솔루션즈가 운영합니다. <strong style="color:var(--text-sub);">능력검사(비언어+언어)</strong>와 <strong style="color:var(--text-sub);">성격검사</strong>로 구성되며, 약 70%의 대기업과 외자계 기업이 선발 과정에서 활용합니다. 능력검사 점수가 일정 기준에 미달하면 면접 기회조차 얻지 못하는 경우가 많으므로, 사전 대비가 필수입니다.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num">2<span>파트</span></div><div class="stat-label">비언어 + 언어</div></div>
+    <div class="stat-box"><div class="stat-num">12<span>유형</span></div><div class="stat-label">출제 유형</div></div>
+    <div class="stat-box"><div class="stat-num">70<span>%</span></div><div class="stat-label">대기업 도입률</div></div>
+    <div class="stat-box"><div class="stat-num">35<span>분</span></div><div class="stat-label">능력검사 시간</div></div>
   </div>
 </div>
 
-<div class="section" id="s2">
+<div class="section">
   <div class="section-num">SECTION 02</div>
-  <div class="section-title">출제 유형 × 형식별 범위</div>
-  <div class="section-title-jp">出題範囲マトリクス — テストセンター vs WEBテスティング</div>
-  <p><span style="color:var(--tc);font-weight:700;">■ 테스트센터</span>와 <span style="color:var(--wt);font-weight:700;">■ 웹테스팅</span>은 출제 유형이 상당히 다릅니다. 아래 표를 확인하고 자신이 볼 형식에 맞춰 학습 우선순위를 정하세요.</p>
-  <div class="table-wrap">
-    <table>
-      <thead><tr><th>문제 유형</th><th>테스트센터</th><th>웹테스팅</th><th>비고</th></tr></thead>
-      <tbody>
-        <tr><td>추론 (推論)</td><td><span class="badge badge-tc">★ 최빈출</span></td><td><span class="badge badge-wt">★ 최빈출</span></td><td>양쪽 최다 출제. 웹테는 "ア만으로 알 수 있는가" 유형 추가</td></tr>
-        <tr><td>경우의 수 (場合の数)</td><td><span class="badge badge-tc">★ 필수</span></td><td><span class="badge badge-wt">○ 출제</span></td><td>순열·조합 포함</td></tr>
-        <tr><td>확률 (確率)</td><td><span class="badge badge-tc">★ 필수</span></td><td><span class="badge badge-wt">○ 출제</span></td><td>웹테는 답 직접 입력 (찍기 불가)</td></tr>
-        <tr><td>집합 (集合)</td><td><span class="badge badge-common">공통</span></td><td><span class="badge badge-common">공통</span></td><td>벤 다이어그램 활용</td></tr>
-        <tr><td>손익산 (損益算)</td><td><span class="badge badge-common">공통</span></td><td><span class="badge badge-common">공통</span></td><td>원가·정가·이익 계산</td></tr>
-        <tr><td>속도산 (速度算)</td><td><span class="badge badge-common">공통</span></td><td><span class="badge badge-common">공통</span></td><td></td></tr>
-        <tr><td>표 읽기 (表の読み取り)</td><td><span class="badge badge-tc">★ 빈출</span></td><td><span class="badge badge-wt">○ 출제</span></td><td>테센에서 특히 빈출</td></tr>
-        <tr><td>비율 계산 (割合)</td><td><span class="badge badge-common">공통</span></td><td><span class="badge badge-common">공통</span></td><td></td></tr>
-        <tr><td>자료 읽기 (資料の読み取り)</td><td><span class="badge badge-tc">○ 출제</span></td><td><span class="badge badge-no">미출제</span></td><td>테센 전용</td></tr>
-        <tr><td>장문 읽기 계산</td><td><span class="badge badge-tc">○ 출제</span></td><td><span class="badge badge-no">미출제</span></td><td>테센 전용</td></tr>
-        <tr><td>대금 정산 (代金の精算)</td><td><span class="badge badge-tc">○ 출제</span></td><td><span class="badge badge-no">미출제</span></td><td>테센 전용</td></tr>
-        <tr><td>요금 할인 (料金の割引)</td><td><span class="badge badge-tc">○ 출제</span></td><td><span class="badge badge-no">미출제</span></td><td>테센 전용</td></tr>
-        <tr><td>분할 납부 (分割払い)</td><td><span class="badge badge-tc">○ 출제</span></td><td><span class="badge badge-no">미출제</span></td><td>테센 전용</td></tr>
-        <tr><td>연령산 (年齢算)</td><td><span class="badge badge-no">미출제</span></td><td><span class="badge badge-wt">○ 출제</span></td><td>웹테 전용</td></tr>
-        <tr><td>통과산 (通過算)</td><td><span class="badge badge-no">미출제</span></td><td><span class="badge badge-wt">○ 출제</span></td><td>웹테 전용</td></tr>
-        <tr><td>정수의 추리 (整数の推理)</td><td><span class="badge badge-no">미출제</span></td><td><span class="badge badge-wt">★ 빈출</span></td><td>웹테 전용 빈출</td></tr>
-        <tr><td>방정식 (方程式)</td><td><span class="badge badge-no">미출제</span></td><td><span class="badge badge-wt">○ 출제</span></td><td>웹테 전용</td></tr>
-        <tr><td>연립방정식</td><td><span class="badge badge-no">미출제</span></td><td><span class="badge badge-wt">○ 출제</span></td><td>웹테 전용</td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="info-box" style="margin-top:12px;">
-    <p style="font-size:11px;color:var(--text-muted);">※ 출처: StudyPro (saisokuspi.com), 大人塾, 「これが本当のSPI3だ!」(SPIノートの会) 크로스체크</p>
+  <div class="section-title">파트별 학습 페이지</div>
+  <div class="section-title-jp">分野別の学習ページ</div>
+  <p>아래에서 학습할 파트를 선택하세요. 각 파트에서 출제 범위·형식별 차이·학습 전략을 확인한 뒤, 유형별 상세 페이지로 이동하여 공식·암기 항목·예제를 학습합니다.</p>
+
+  <div class="hub-grid">
+    <a href="spi-higengo-index.html" class="hub-card hub-card-higengo">
+      <div class="hub-arrow">→</div>
+      <div class="hub-icon">🔢</div>
+      <div class="hub-kicker">비언어 파트</div>
+      <div class="hub-title">비언어 (수리) 완전 정리</div>
+      <div class="hub-desc">추론·확률·손익·속도·집합·정수 — 중학~고교 수학 사고력 측정. 공식 암기 + 빠른 계산이 핵심.</div>
+      <div class="hub-stats">
+        <div class="hub-stat"><strong>6</strong> 유형</div>
+        <div class="hub-stat"><strong>60</strong> 예제</div>
+        <div class="hub-stat"><strong>50+</strong> 공식</div>
+      </div>
+    </a>
+    <a href="spi-gengo-index.html" class="hub-card hub-card-gengo">
+      <div class="hub-arrow">→</div>
+      <div class="hub-icon">📝</div>
+      <div class="hub-kicker">언어 파트</div>
+      <div class="hub-title">언어 완전 정리</div>
+      <div class="hub-desc">어구의 의미·두 단어 관계·용법·숙어 구성·문장 배열·장문 독해 — 어휘 암기 + 독해 전략이 핵심.</div>
+      <div class="hub-stats">
+        <div class="hub-stat"><strong>6</strong> 유형</div>
+        <div class="hub-stat"><strong>270+</strong> 암기항목</div>
+        <div class="hub-stat"><strong>30</strong> 오용주의</div>
+      </div>
+    </a>
   </div>
 </div>
 
-<div class="section" id="s3">
+<div class="section">
   <div class="section-num">SECTION 03</div>
-  <div class="section-title">테스트센터 vs 웹테스팅 핵심 차이</div>
-  <div class="section-title-jp">テストセンター vs WEBテスティング — 形式別の違い</div>
+  <div class="section-title">수험 형식 비교</div>
+  <div class="section-title-jp">受検形式の比較 — テストセンター vs WEBテスティング</div>
+  <p>SPI는 수험 형식에 따라 출제 유형이 크게 달라집니다. 자신이 볼 형식을 먼저 확인하고 그에 맞춰 학습 우선순위를 정하세요.</p>
+
   <div class="table-wrap">
     <table>
-      <thead><tr><th>비교 항목</th><th style="color:var(--tc);">테스트센터</th><th style="color:var(--wt);">웹테스팅</th></tr></thead>
+      <thead><tr><th>항목</th><th>테스트센터</th><th>웹테스팅 (WEB)</th></tr></thead>
       <tbody>
-        <tr><td>시험 시간</td><td>언어+비언어 합산 약 35분 (정답 속도에 따라 문제 수 변동)</td><td>언어 약 12~15분 + 비언어 약 20분 (전체 약 35분, 개별 제한시간)</td></tr>
-        <tr><td>답안 형식</td><td>선택지에서 고르기 (5지선다 등)</td><td>숫자를 직접 입력 (찍기 불가)</td></tr>
-        <tr><td>전자계산기</td><td>사용 불가 (암산 필수)</td><td>사용 가능 (단, 난이도 상승)</td></tr>
-        <tr><td>난이도 변동</td><td>정답률에 따라 난이도 크게 상승</td><td>테센보다 변동 폭은 작음</td></tr>
-        <tr><td>문제 형식</td><td>세트 문제 (같은 조건 2~4문제)</td><td>1문제씩 독립 출제</td></tr>
-        <tr><td>되돌리기</td><td>불가 (넘기면 끝)</td><td>불가 (넘기면 끝)</td></tr>
-        <tr><td>결과 재사용</td><td>1년 이내 타 기업에 재전송 가능</td><td>매번 새로 수험</td></tr>
+        <tr><td>수험 장소</td><td>전용 시험장 (PC)</td><td>자택 (PC)</td></tr>
+        <tr><td>시간</td><td>비언어+언어 합계 약 35분</td><td>비언어+언어 합계 약 35분</td></tr>
+        <tr><td>응답 방식</td><td>선택식</td><td>선택식 + 입력식 혼합</td></tr>
+        <tr><td>난이도 조절</td><td>맞으면 어려워짐 (CAT)</td><td>고정</td></tr>
+        <tr><td>비언어 특징</td><td>추론·확률 최빈출, 표 읽기</td><td>정수 추리·방정식 추가</td></tr>
+        <tr><td>언어 특징</td><td>어구의 의미·두 단어 관계·용법 출제</td><td>숙어의 구성 출제 (어구의 의미 미출제)</td></tr>
       </tbody>
     </table>
   </div>
-  <div class="info-box info-box-tc">
-    <div class="box-label" style="color:var(--tc);">테스트센터를 보는 경우</div>
-    <p>암산 능력이 핵심. 전자계산기를 쓸 수 없으므로 기본 계산 속도를 훈련해야 합니다. 추론·표 읽기·확률이 최빈출이고, 자료 읽기·대금 정산·요금 할인 등 테센 전용 유형도 반드시 대비하세요.</p>
-  </div>
-  <div class="info-box info-box-wt">
-    <div class="box-label" style="color:var(--wt);">웹테스팅을 보는 경우</div>
-    <p>전자계산기 사용 가능하지만 그만큼 난이도가 높습니다. 답을 직접 입력하므로 찍기가 불가능하고, 정수의 추리·방정식 등 웹테 전용 유형이 별도로 존재합니다. 특히 "ア만으로 알 수 있는가" 유형은 웹테에서만 출제되는 독특한 추론 문제입니다.</p>
+
+  <div class="info-box" style="margin-top:16px;">
+    <div class="box-label">어떤 형식을 볼지 모르겠다면?</div>
+    <p>기업이 어떤 형식을 사용하는지는 채용 안내 메일이나 마이페이지에서 확인할 수 있습니다. "テストセンターへの予約" 안내가 오면 테센, "自宅で受検" 안내가 오면 웹테스팅입니다. 불분명할 경우 테스트센터 대비를 우선하되, 웹테 전용 유형(숙어 구성, 정수 추리)도 가볍게 훑어두세요.</p>
   </div>
 </div>
 
-<div class="section" id="s4">
+<div class="section">
   <div class="section-num">SECTION 04</div>
-  <div class="section-title">학습 전략 4단계</div>
-  <div class="section-title-jp">学習戦略 — 効率的な対策ロードマップ</div>
-  <div class="info-box"><h4>1단계: 공식 암기</h4><p>각 유형 페이지의 핵심 공식을 먼저 암기합니다. 순열(P), 조합(C), 확률, 손익, 속도 등 기본 공식을 "보면 바로 쓸 수 있는 수준"까지 반복합니다.</p></div>
-  <div class="info-box"><h4>2단계: 유형별 풀이 연습</h4><p>각 유형 페이지의 예제 문제를 풀면서 접근법을 체득합니다. 특히 추론은 "표 그려서 정리하기", 확률은 "수형도 그리기"가 핵심입니다. 풀이를 보기 전에 반드시 직접 풀어보세요.</p></div>
-  <div class="info-box"><h4>3단계: 형식별 집중</h4><p><strong style="color:var(--tc);">테스트센터</strong> → ①추론 ②확률 ③손익·요금 ④속도 ⑤집합·표 읽기 중심 + 자료읽기·대금정산·요금할인<br><strong style="color:var(--wt);">웹테스팅</strong> → ①추론 ②확률 ③손익 ④속도 ⑤집합 ⑥정수·방정식 중심 + 연령산·통과산</p></div>
-  <div class="info-box"><h4>4단계: 시간 관리 훈련</h4><p>비언어는 1문제 1분이 목표. <strong style="color:var(--spi);">"30초 고민해도 실마리 없으면 넘기기"</strong>가 핵심 전략. 풀 수 있는 문제를 확실히 맞히는 것이 고득점의 비결입니다.</p></div>
-</div>
+  <div class="section-title">학습 순서 추천</div>
+  <div class="section-title-jp">おすすめの学習順序</div>
 
-<div class="section" id="s5">
-  <div class="section-num">SECTION 05</div>
-  <div class="section-title">유형별 학습 페이지</div>
-  <div class="section-title-jp">分野別の学習ページ — 講義・公式・解法・例題10問</div>
-  <p>각 유형별로 <strong style="color:var(--text-sub);">텍스트 강의 + 핵심 공식 + 풀이법 + 일본어 원문/한국어 번역 예제 10문제</strong>를 수록했습니다. 풀이는 아코디언으로 접혀 있으니, 먼저 직접 풀어본 뒤 답을 확인하세요.</p>
-  <div class="type-grid">
-    <a href="spi-higengo-suiron.html" class="type-card">
-      <div class="type-icon">🧩</div>
-      <div class="type-body">
-        <div class="type-kicker">유형 ①</div>
-        <div class="type-title">추론 (推論)</div>
-        <div class="type-desc">순서·위치·내역·참거짓·대응·수량·조건판단(웹테). 비언어 최빈출 유형.</div>
-        <div class="type-tags"><span class="type-tag type-tag-tc">테센 ★</span><span class="type-tag type-tag-wt">웹테 ★</span><span class="type-tag">예제 10개</span></div>
-      </div>
-      <div class="type-arrow">→</div>
-    </a>
-    <a href="spi-higengo-kakuritsu.html" class="type-card">
-      <div class="type-icon">🎲</div>
-      <div class="type-body">
-        <div class="type-kicker">유형 ②</div>
-        <div class="type-title">순열·조합·확률</div>
-        <div class="type-desc">nPr·nCr·여사건·기댓값. 공식 암기가 승부처.</div>
-        <div class="type-tags"><span class="type-tag type-tag-tc">테센 ★</span><span class="type-tag type-tag-wt">웹테 ○</span><span class="type-tag">예제 10개</span></div>
-      </div>
-      <div class="type-arrow">→</div>
-    </a>
-    <a href="spi-higengo-soneki.html" class="type-card">
-      <div class="type-icon">💰</div>
-      <div class="type-body">
-        <div class="type-kicker">유형 ③</div>
-        <div class="type-title">손익산·요금</div>
-        <div class="type-desc">원가/정가/이익률, 할인, 대금 정산, 요금 할인.</div>
-        <div class="type-tags"><span class="type-tag type-tag-tc">테센 ○</span><span class="type-tag type-tag-wt">웹테 ○</span><span class="type-tag">예제 10개</span></div>
-      </div>
-      <div class="type-arrow">→</div>
-    </a>
-    <a href="spi-higengo-sokudo.html" class="type-card">
-      <div class="type-icon">🚄</div>
-      <div class="type-body">
-        <div class="type-kicker">유형 ④</div>
-        <div class="type-title">속도·일·농도</div>
-        <div class="type-desc">속도산, 통과산, 유수산, 일산, 농도산, 연령산.</div>
-        <div class="type-tags"><span class="type-tag type-tag-tc">테센 ○</span><span class="type-tag type-tag-wt">웹테 ○</span><span class="type-tag">예제 10개</span></div>
-      </div>
-      <div class="type-arrow">→</div>
-    </a>
-    <a href="spi-higengo-shugo.html" class="type-card">
-      <div class="type-icon">📊</div>
-      <div class="type-body">
-        <div class="type-kicker">유형 ⑤</div>
-        <div class="type-title">집합·표 읽기</div>
-        <div class="type-desc">벤 다이어그램, 표/그래프 읽기, 증감률, 구성비.</div>
-        <div class="type-tags"><span class="type-tag type-tag-tc">테센 ★</span><span class="type-tag type-tag-wt">웹테 ○</span><span class="type-tag">예제 10개</span></div>
-      </div>
-      <div class="type-arrow">→</div>
-    </a>
-    <a href="spi-higengo-seisu.html" class="type-card">
-      <div class="type-icon">🔢</div>
-      <div class="type-body">
-        <div class="type-kicker">유형 ⑥ — 웹테 전용</div>
-        <div class="type-title">정수·방정식</div>
-        <div class="type-desc">정수 추리, 문자식, 연립방정식, 배수. 웹테스팅에서만 출제.</div>
-        <div class="type-tags"><span class="type-tag type-tag-wt">웹테 전용 ★</span><span class="type-tag">예제 10개</span></div>
-      </div>
-      <div class="type-arrow">→</div>
-    </a>
+  <div class="info-box info-box-accent">
+    <div class="box-label">추천 학습 로드맵</div>
+    <p><strong style="color:var(--text-sub);">STEP 1.</strong> 수험 형식 확인 (테센 vs 웹테) → 위 표에서 출제 범위 파악<br><br>
+    <strong style="color:var(--text-sub);">STEP 2.</strong> 비언어: 추론·확률부터 시작 (양쪽 최빈출) → 손익·속도·집합·정수 순서<br><br>
+    <strong style="color:var(--text-sub);">STEP 3.</strong> 언어: 어휘 암기부터 시작 (이자숙어 160개 → 사자성어 50개 → 관용구 60개)<br><br>
+    <strong style="color:var(--text-sub);">STEP 4.</strong> 언어: 오용 주의 표현 30개 반드시 체크 (SPI 최대 함정)<br><br>
+    <strong style="color:var(--text-sub);">STEP 5.</strong> 시간 관리 연습 — 비언어 1문제 1~2분, 언어 어휘 20초, 장문 3~5분 목표</p>
   </div>
 </div>
 
 <div class="footer">
-  <p><span class="brand">Tokyo Career Studio</span> — SPI 적성검사 대책 비언어편</p>
+  <p><span class="brand">Tokyo Career Studio</span> — SPI 적성검사 완전 대책</p>
   <p>© Tokyo Career Studio. All rights reserved.</p>
-  <p style="margin-top:8px;font-size:10px;">출제 범위: StudyPro·大人塾·「これが本当のSPI3だ!」 크로스체크. 예제 문제는 독자 작성.</p>
+  <p style="margin-top:8px;font-size:10px;">본 자료는 학습 참고용이며 SPI 운영사(リクルートマネジメントソリューションズ)와 무관합니다.</p>
 </div>
 </div>
 
-<script>
-const navBtns=document.querySelectorAll('.nav-btn');
-const sections=document.querySelectorAll('.section');
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navBtns.forEach(b=>b.classList.remove('active'));const btn=document.querySelector(`.nav-btn[href="#${e.target.id}"]`);if(btn)btn.classList.add('active');}});},{rootMargin:'-40% 0px -60% 0px'});
-sections.forEach(s=>observer.observe(s));
-</script>
   <script src="nav.js"></script>
   <script src="global-nav.js"></script>
 </body>
