@@ -3285,74 +3285,63 @@ function shareCard() {
   const JOB_CATCH = {'영업':'사람의 마음을 움직이는 힘','SE/IT':'논리로 세상을 설계하는 힘','기획/관리':'아이디어를 현실로 만드는 힘','컨설팅':'복잡함을 구조화하는 힘','기술계':'기술로 가치를 창조하는 힘','물류/SCM':'흐름을 설계하고 최적화하는 힘','판매/서비스':'현장에서 감동을 전하는 힘','시공관리':'현장을 이끄는 리더십의 힘','크리에이티브':'없던 것을 만들어내는 힘'};
   const catchPhrase = JOB_CATCH[pJ] || '나만의 커리어를 설계하는 힘';
 
-  // 업계 TOP3
   const rI = INDUSTRY_DB.filter(ind=>topJobs.some(j=>ind.jobs.includes(j)))
     .map(ind=>{let s=0;topJobs.forEach((j,i)=>{if(ind.jobs.includes(j))s+=(3-i)*2});return{ind,s}})
     .sort((a,b)=>b.s-a.s).slice(0,3).map(s=>s.ind);
 
   const sC = ['#3b82f6','#7c3aed','#10b981'];
 
+  // 동일한 카드 스타일 함수
+  function rankCard(label, i, color) {
+    return `<div style="display:flex;align-items:center;gap:12px;padding:14px 18px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-left:3px solid ${color};border-radius:10px">
+      <span style="font-size:16px;font-weight:800;color:${color};min-width:20px">${i+1}</span>
+      <span style="font-size:16px;font-weight:700;color:#e2e8f0">${label}</span>
+    </div>`;
+  }
+
   const wrap = document.getElementById('share-card-wrap');
   wrap.innerHTML = `
-    <div id="share-card" style="width:1080px;height:1080px;background:#07070f;font-family:'Noto Sans KR',sans-serif;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+    <div id="share-card" style="width:1080px;height:1080px;background:#07070f;font-family:'Noto Sans KR',sans-serif;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;">
 
       <!-- 배경 글로우 -->
-      <div style="position:absolute;top:22%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(59,130,246,0.15) 0%,rgba(124,58,237,0.08) 30%,transparent 60%);border-radius:50%"></div>
-      <div style="position:absolute;top:22%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,0.12) 0%,transparent 50%);border-radius:50%"></div>
+      <div style="position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(59,130,246,0.15) 0%,rgba(124,58,237,0.08) 30%,transparent 60%);border-radius:50%"></div>
+      <div style="position:absolute;top:20%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(124,58,237,0.12) 0%,transparent 50%);border-radius:50%"></div>
 
       <!-- 상단 브랜딩 -->
-      <div style="position:absolute;top:40px;left:56px;right:56px;display:flex;justify-content:space-between;align-items:center">
+      <div style="width:100%;padding:40px 56px 0;display:flex;justify-content:space-between;align-items:center">
         <div style="font-size:11px;font-weight:800;letter-spacing:3px;color:rgba(255,255,255,0.2);text-transform:uppercase">Tokyo Career Studio</div>
         <div style="font-size:10px;color:rgba(255,255,255,0.12)">커리어 DNA 진단</div>
       </div>
 
-      <!-- ═══ 중앙 컨텐츠 블록 (정사각형 600x600 안에 배치) ═══ -->
-      <div style="width:680px;display:flex;flex-direction:column;align-items:center;">
+      <!-- 이모지 히어로 -->
+      <div style="margin-top:36px;font-size:180px;line-height:1;filter:drop-shadow(0 0 50px rgba(59,130,246,0.35)) drop-shadow(0 0 100px rgba(124,58,237,0.25));position:relative;z-index:1">${emoji}</div>
 
-        <!-- 이모지 히어로 -->
-        <div style="font-size:180px;line-height:1;margin-bottom:8px;filter:drop-shadow(0 0 50px rgba(59,130,246,0.35)) drop-shadow(0 0 100px rgba(124,58,237,0.25))">${emoji}</div>
+      <!-- 직종명 + 캐치프레이즈 -->
+      <div style="font-size:48px;font-weight:900;color:#f1f5f9;letter-spacing:-1px;text-align:center;line-height:1.15;margin-top:8px;position:relative;z-index:1">${pf?.label||pJ}</div>
+      <div style="font-size:17px;color:#7c3aed;letter-spacing:1px;margin-top:6px;position:relative;z-index:1">${catchPhrase}</div>
+      <div style="font-size:13px;color:#475569;margin-top:4px;position:relative;z-index:1">${cType}${state.mbti?' · '+state.mbti:''}</div>
 
-        <!-- 직종명 + 캐치프레이즈 -->
-        <div style="font-size:48px;font-weight:900;color:#f1f5f9;letter-spacing:-1px;text-align:center;line-height:1.15">${pf?.label||pJ}</div>
-        <div style="font-size:17px;color:#7c3aed;letter-spacing:1px;margin-top:6px">${catchPhrase}</div>
-        <div style="font-size:13px;color:#475569;margin-top:4px;margin-bottom:20px">${cType}${state.mbti?' · '+state.mbti:''}</div>
+      <!-- 강점 TOP3 -->
+      <div style="display:flex;gap:10px;margin-top:20px;position:relative;z-index:1">
+        ${tc.map(([n],i)=>{
+          const ko=CK[n]||n;
+          const bg=i===0?'59,130,246':i===1?'124,58,237':'16,185,129';
+          return `<div style="padding:10px 24px;background:rgba(${bg},0.1);border:1px solid rgba(${bg},0.25);border-radius:10px;text-align:center">
+            <div style="font-size:10px;font-weight:700;color:${sC[i]};margin-bottom:2px">${i+1}순위</div>
+            <div style="font-size:17px;font-weight:800;color:#e2e8f0">${ko}</div>
+          </div>`;
+        }).join('')}
+      </div>
 
-        <!-- 강점 TOP3 -->
-        <div style="display:flex;gap:10px;margin-bottom:24px">
-          ${tc.map(([n],i)=>{
-            const ko=CK[n]||n;
-            return `<div style="padding:10px 22px;background:rgba(${i===0?'59,130,246':i===1?'124,58,237':'16,185,129'},0.1);border:1px solid rgba(${i===0?'59,130,246':i===1?'124,58,237':'16,185,129'},0.25);border-radius:10px;text-align:center">
-              <div style="font-size:10px;font-weight:700;color:${sC[i]};margin-bottom:2px">${i+1}순위</div>
-              <div style="font-size:16px;font-weight:800;color:#e2e8f0">${ko}</div>
-            </div>`;
-          }).join('')}
+      <!-- 직종 + 업계 2단 (동일 카드 크기) -->
+      <div style="width:760px;display:flex;gap:16px;margin-top:28px;position:relative;z-index:1">
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:9px;font-weight:700;letter-spacing:2px;color:#3b82f6;text-transform:uppercase;text-align:center;margin-bottom:2px">추천 직종</div>
+          ${topJobs.map((j,i)=> rankCard(JOB_PROFILES[j]?.label||j, i, sC[i])).join('')}
         </div>
-
-        <!-- 직종 + 업계 2단 (폭 맞춤) -->
-        <div style="width:100%;display:flex;gap:12px;">
-          <!-- 직종 TOP3 -->
-          <div style="flex:1;display:flex;flex-direction:column;gap:6px">
-            <div style="font-size:9px;font-weight:700;letter-spacing:2px;color:#3b82f6;text-transform:uppercase;margin-bottom:2px;text-align:center">추천 직종</div>
-            ${topJobs.map((j,i)=>{
-              const p=JOB_PROFILES[j];
-              return `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-left:3px solid ${sC[i]};border-radius:8px">
-                <span style="font-size:22px">${p?.emoji||'📋'}</span>
-                <span style="font-size:14px;font-weight:700;color:#e2e8f0">${p?.label||j}</span>
-                <span style="margin-left:auto;font-size:10px;color:#64748b">${i+1}순위</span>
-              </div>`;
-            }).join('')}
-          </div>
-          <!-- 업계 TOP3 -->
-          <div style="flex:1;display:flex;flex-direction:column;gap:6px">
-            <div style="font-size:9px;font-weight:700;letter-spacing:2px;color:#a78bfa;text-transform:uppercase;margin-bottom:2px;text-align:center">추천 업계</div>
-            ${rI.map((ind,i)=>{
-              const colors=['#60a5fa','#a78bfa','#34d399'];
-              return `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-left:3px solid ${colors[i]};border-radius:8px">
-                <span style="font-size:16px;font-weight:800;color:${colors[i]}">${i+1}</span>
-                <span style="font-size:14px;font-weight:700;color:#e2e8f0">${ind.name}</span>
-              </div>`;
-            }).join('')}
-          </div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:8px">
+          <div style="font-size:9px;font-weight:700;letter-spacing:2px;color:#a78bfa;text-transform:uppercase;text-align:center;margin-bottom:2px">추천 업계</div>
+          ${rI.map((ind,i)=> rankCard(ind.name, i, ['#60a5fa','#a78bfa','#34d399'][i])).join('')}
         </div>
       </div>
 
