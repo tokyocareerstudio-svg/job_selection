@@ -13,134 +13,179 @@
 .mini{margin:16px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}.mini-q{padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--border);}.mini-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--wt);margin-bottom:6px;text-transform:uppercase;}.mini-q p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-a{padding:16px 18px;background:var(--solve-soft);}.mini-a p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-ans{margin-top:10px;padding:8px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:6px;font-size:12px;font-weight:700;color:var(--correct);}.mini-trap{margin:12px 0;border:1px solid var(--warn-border);border-radius:10px;overflow:hidden;}.mini-trap .mini-q{background:var(--warn-soft);border-bottom-color:var(--warn-border);}.mini-trap .mini-label{color:var(--warn);}.mini-trap .mini-a{background:rgba(239,68,68,0.03);}.mini-trap .mini-ans{background:rgba(239,68,68,0.05);border-color:var(--warn-border);color:var(--warn);}
 .table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}table{width:100%;border-collapse:collapse;font-size:12px;}thead{background:var(--surface-2);}th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);text-transform:uppercase;}td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}tr:last-child td{border-bottom:none;}td:first-child{font-weight:600;color:var(--text-sub);}
 .pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--wt);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR';font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}.at-kr{background:rgba(52,211,153,0.03);border-top:1px solid var(--wt-border);}.ac-kr-body{padding:14px 16px;background:rgba(52,211,153,0.03);border-top:1px solid var(--wt-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--wt-border);background:var(--wt-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}@media(max-width:640px){.hero h1{font-size:22px;}}</style>
-</head><body>
+</head>
+<body>
 <div class="hero"><div class="hero-inner">
   <a href="spi-gengo-index.html" class="hero-back">← SPI 언어 인덱스로 돌아가기</a>
-  <div class="hero-label">SPI 언어 — 유형 ④ · 웹테 전용</div>
+  <div class="hero-label">SPI 언어 — 유형 ④ · 웹테스팅 전용</div>
   <h1>숙어의 구성 (熟語の成り立ち)</h1>
-  <p class="hero-sub">이자숙어가 어떤 구조로 만들어졌는지를 5패턴 중에서 판별하는 유형. 웹테스팅에서만 출제되며 빈출도가 높습니다. "문장으로 바꿔보기"라는 단 하나의 테크닉으로 거의 모든 문제를 기계적으로 풀 수 있습니다.</p>
-  <div class="hero-tags"><span class="htag">웹테 ★ 전용</span></div>
+  <p class="hero-sub">이자숙어가 어떤 구조로 만들어졌는지 5가지 패턴을 판별하는 유형. 웹테스팅(WEB) 전용이며 테스트센터에서는 미출제. "문장으로 바꿔보기" 기법 하나로 모든 문제를 풀 수 있습니다.</p>
+  <div class="hero-tags"><span class="htag htag-tc">웹테스팅 ★ 전용</span></div>
 </div></div>
 
 <div class="container">
+
 <div class="section">
   <div class="sn">강의</div>
-  <div class="st">숙어의 구성 — 5패턴 완전 공략</div>
-  <div class="st-jp">熟語の成り立ち — 5パターンの完全攻略</div>
+  <div class="st">숙어의 구성이란?</div>
+  <div class="st-jp">熟語の成り立ち — 漢字を分解して文にしてみる</div>
 
-  <p>이 유형의 핵심은 이자숙어를 <strong style="color:var(--text);">문장으로 바꿔보는 것</strong>입니다. 두 한자의 관계를 파악하면 5패턴 중 하나에 반드시 해당합니다.</p>
+  <p>이 유형은 이자숙어의 한자 2글자가 <strong style="color:var(--text);">어떤 관계로 결합</strong>되어 있는지를 판별하는 문제입니다. 실전에서는 4개 선택지 + "해당없음"으로 출제됩니다.</p>
 
   <div class="ib ib-a">
-    <div class="bl bl-wt">최강 테크닉: "문장으로 바꿔보기"</div>
-    <p>이자숙어의 앞 한자와 뒤 한자를 사이에 조사를 넣어 문장으로 만들어본다.<br><br>
-    <strong style="color:var(--text-sub);">예: 読書</strong> → 書を読む (책을 읽다) → "뒤를 앞으로 한다" = 보어관계<br>
-    <strong style="color:var(--text-sub);">예: 高温</strong> → 高い温度 (높은 온도) → "앞이 뒤를 수식" = 수식관계<br>
-    <strong style="color:var(--text-sub);">예: 売買</strong> → 売ると買う (팔다와 사다) → 비슷한 의미 나열 = 병렬<br><br>
-    이 테크닉으로 5패턴 전부 커버됩니다.</p>
+    <div class="bl bl-spi">5대 패턴 (반드시 암기)</div>
+    <p><strong style="color:var(--text-sub);">A. 유의어 결합:</strong> 비슷한 뜻의 한자 2개 (岩+石 = 암석)<br><br>
+    <strong style="color:var(--text-sub);">B. 대의어 결합:</strong> 반대 뜻의 한자 2개 (上+下 = 상하)<br><br>
+    <strong style="color:var(--text-sub);">C. 주술 관계:</strong> 주어+서술어 (日が沈む = 일몰)<br><br>
+    <strong style="color:var(--text-sub);">D. 동사+목적어:</strong> 동사가 목적어를 취함 (読む+書 = 독서)<br><br>
+    <strong style="color:var(--text-sub);">E. 수식 관계:</strong> 앞 글자가 뒷 글자를 수식 (強い+風 = 강풍)</p>
   </div>
 
-  <h3>5패턴 완전 정리</h3>
-
-  <div class="pat-grid">
-    <div class="pat-card"><div class="pat-num">패턴 ①</div><div class="pat-name">동의·유사 병렬 (同じような意味)</div><div class="pat-rule">앞 ≒ 뒤. 비슷한 의미의 한자가 나란히.</div><div class="pat-ex">岩石(岩≒石), 河川(河≒川), 思考(思≒考), 売買(売↔買도 여기)</div><div class="pat-exk">문장: "AとBは似ている" or "AもBも同じ方向"</div></div>
-    <div class="pat-card"><div class="pat-num">패턴 ②</div><div class="pat-name">반의·대립 병렬 (反対の意味)</div><div class="pat-rule">앞 ↔ 뒤. 반대 의미의 한자가 나란히.</div><div class="pat-ex">上下(上↔下), 左右(左↔右), 強弱(強↔弱), 売買(売↔買)</div><div class="pat-exk">※ 売買는 ①과 ② 모두 해석 가능. SPI에서는 "반대"로 출제되는 경향</div></div>
-    <div class="pat-card"><div class="pat-num">패턴 ③</div><div class="pat-name">수식 관계 (前が後ろを修飾)</div><div class="pat-rule">앞이 뒤를 꾸민다. "형용사+명사" 구조.</div><div class="pat-ex">高温(高い温度), 急流(急な流れ), 清水(清い水)</div><div class="pat-exk">문장: "Aな/いB" — 앞에 형용사적 의미가 있으면 수식</div></div>
-    <div class="pat-card"><div class="pat-num">패턴 ④</div><div class="pat-name">보어 관계 (後ろが前を補う / 動詞+目的語)</div><div class="pat-rule">동사+목적어 또는 목적어+동사. "~を~する" 구조.</div><div class="pat-ex">読書(書を読む), 登山(山に登る), 作文(文を作る)</div><div class="pat-exk">문장: "BをAする" or "AにBする" — 동사가 포함되면 보어</div></div>
-    <div class="pat-card"><div class="pat-num">패턴 ⑤</div><div class="pat-name">부정 (打ち消し)</div><div class="pat-rule">不·無·非·未 등의 부정 접두사가 붙음.</div><div class="pat-ex">不明(明らかでない), 無理(理がない), 非常(常でない), 未定(定まっていない)</div><div class="pat-exk">부정 글자가 보이면 즉시 ⑤ 확정. 가장 판별이 쉬움</div></div>
-  </div>
+  <h3>풀이 기법 — "문장으로 바꿔보기"</h3>
+  <p>숙어의 한자를 분해해서 짧은 문장으로 바꿔보면 관계가 드러납니다.</p>
 
   <div class="mini">
-    <div class="mini-q"><div class="mini-label">📝 미니 예제 — 판별 과정</div>
-    <p>「着席」はどのパターン？
-① 同じ意味  ② 反対の意味  ③ 前が後ろを修飾  ④ 動詞と目的語  ⑤ 打ち消し</p></div>
-    <div class="mini-a"><p><strong style="color:var(--solve);">문장으로 바꿔보기:</strong> 着席 → 席に着く (자리에 앉다)
-"席" = 목적어(자리), "着" = 동사(앉다) → <strong style="color:var(--wt);">④ 보어 관계</strong></p>
-    <div class="mini-ans">정답: ④ 동사와 목적어 (後ろが前を補う)</div></div>
-  </div>
+    <div class="mini-q"><div class="mini-label">📝 출제 형태 예시</div>
+    <p>次の熟語の成り立ち方として当てはまるものを選びなさい。
 
-  <div class="mini-trap">
-    <div class="mini-q"><div class="mini-label">⚠️ 함정 — ①과 ②가 헷갈리는 경우</div>
-    <p>「売買」— 팔다와 사다. 같은 의미? 반대 의미?</p></div>
-    <div class="mini-a"><p>"팔다"와 "사다"는 <strong style="color:var(--warn);">반대 동작</strong>이지만, "거래하다"라는 하나의 행위를 나타내므로 <strong>병렬</strong>입니다. SPI에서는 이런 경우 "반대의 의미를 조합"(②)으로 출제되는 경향이 있지만, "비슷한 범주의 나열"(①)로 볼 수도 있어 선택지에 따라 판단하세요.</p>
-    <div class="mini-ans">선택지를 먼저 보고 ①과 ②중 어느 쪽이 있는지 확인!</div></div>
+「読書」
+
+A 似た意味を持つ漢字を重ねる
+B 反対の意味を持つ漢字を重ねる
+C 主語と述語の関係にある
+D 動詞の後に目的語をおく
+E 前の漢字が後の漢字を修飾する</p></div>
+    <div class="mini-a"><p><strong style="color:var(--solve);">풀이:</strong> 読書 = "書を読む (책을 읽다)"
+→ 동사(読む) + 목적어(書) → D. 동사+목적어</p>
+    <div class="mini-ans">정답: D 動詞の後に目的語をおく</div></div>
   </div>
 
   <div class="ib ib-w">
-    <div class="bl bl-w">자주 하는 실수</div>
-    <p><strong style="color:var(--text-sub);">실수 1:</strong> 수식(③)과 보어(④)를 혼동. "高温"은 "높은 온도"(수식), "登山"은 "산에 오르다"(보어). 동사가 있는지 없는지가 판단 기준.<br><br>
-    <strong style="color:var(--text-sub);">실수 2:</strong> 부정(⑤)인데 다른 패턴으로 분석. 不·無·非·未가 보이면 무조건 ⑤.<br><br>
-    <strong style="color:var(--text-sub);">실수 3:</strong> 한자의 의미를 모르면 판별 불가. 빈출 이자숙어의 의미를 먼저 외워야 이 유형도 풀 수 있음.</p>
+    <div class="bl bl-w">판별이 헷갈릴 때</div>
+    <p><strong style="color:var(--text-sub);">유의어 vs 수식 관계가 가장 헷갈립니다.</strong> "한자를 분해해서 문장으로 바꿨을 때 두 글자가 대등한 관계면 유의어, 한쪽이 다른 쪽을 꾸며주면 수식 관계"입니다. 예: 寒冷 → 寒も冷も"つめたい" → 유의어 / 強風 → 強い風 → 수식 관계</p>
   </div>
 </div>
 
 <div class="section">
-  <div class="sn">연습 문제</div>
-  <div class="st">숙어의 구성 예제 10문제</div>
-  <div class="st-jp">熟語の成り立ちの練習問題10問 — WEBテスティング専用</div>
-  <p>각 숙어가 5패턴 중 어디에 해당하는지 판별하세요.</p>
-
-<div class="pc"><div class="pc-h"><div class="pc-num">Q01</div><div class="pc-title">読書</div>
-<div class="pc-jp">「読書」の成り立ちは？
-① 同じ意味  ② 反対  ③ 修飾  ④ 動詞+目的語  ⑤ 打ち消し</div></div>
-<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="stx">書を読む (책을 읽다) → 동사(読)+목적어(書)</div></div>
-<div class="sa">정답: ④ 동사+목적어</div></div></div></div>
-
-<div class="pc"><div class="pc-h"><div class="pc-num">Q02</div><div class="pc-title">高温</div>
-<div class="pc-jp">「高温」の成り立ちは？</div></div>
-<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="stx">高い温度 (높은 온도) → 앞이 뒤를 수식</div></div>
-<div class="sa">정답: ③ 수식</div></div></div></div>
-
-<div class="pc"><div class="pc-h"><div class="pc-num">Q03</div><div class="pc-title">不明</div>
-<div class="pc-jp">「不明」の成り立ちは？</div></div>
-<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="stx">明らかでない (분명하지 않음) → 不 = 부정</div></div>
-<div class="sa">정답: ⑤ 부정</div></div></div></div>
-
-<div class="pc"><div class="pc-h"><div class="pc-num">Q04</div><div class="pc-title">上下</div>
-<div class="pc-jp">「上下」の成り立ちは？</div></div>
-<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="stx">上と下 (위와 아래) → 반대 의미</div></div>
-<div class="sa">정답: ② 반대 의미</div></div></div></div>
-
-<div class="pc"><div class="pc-h"><div class="pc-num">Q05</div><div class="pc-title">思考</div>
-<div class="pc-jp">「思考」の成り立ちは？</div></div>
-<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="stx">思う≒考える (생각하다≒생각하다) → 같은 의미</div></div>
-<div class="sa">정답: ① 같은 의미</div></div></div></div>
-
-<div class="pc"><div class="pc-h"><div class="pc-num">Q06</div><div class="pc-title">登山</div>
-<div class="pc-jp">「登山」の成り立ちは？</div></div>
-<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="stx">山に登る (산에 오르다) → 동사+목적어</div></div>
-<div class="sa">정답: ④ 동사+목적어</div></div></div></div>
-
-<div class="pc"><div class="pc-h"><div class="pc-num">Q07</div><div class="pc-title">非常</div>
-<div class="pc-jp">「非常」の成り立ちは？</div></div>
-<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="stx">常でない (평상이 아닌) → 非 = 부정</div></div>
-<div class="sa">정답: ⑤ 부정</div></div></div></div>
-
-<div class="pc"><div class="pc-h"><div class="pc-num">Q08</div><div class="pc-title">急流</div>
-<div class="pc-jp">「急流」の成り立ちは？</div></div>
-<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="stx">急な流れ (급한 흐름) → 앞이 뒤를 수식</div></div>
-<div class="sa">정답: ③ 수식</div></div></div></div>
-
-<div class="pc"><div class="pc-h"><div class="pc-num">Q09</div><div class="pc-title">往復</div>
-<div class="pc-jp">「往復」の成り立ちは？</div></div>
-<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="stx">往く(가다)と復る(돌아오다) → 반대 방향의 동작</div></div>
-<div class="sa">정답: ② 반대 의미</div></div></div></div>
-
-<div class="pc"><div class="pc-h"><div class="pc-num">Q10</div><div class="pc-title">作文</div>
-<div class="pc-jp">「作文」の成り立ちは？</div></div>
-<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="stx">文を作る (글을 만들다) → 동사+목적어</div></div>
-<div class="sa">정답: ④ 동사+목적어</div></div></div></div>
-
+  <div class="sn">패턴별 빈출 숙어</div>
+  <div class="st">【패턴1】유의어 결합 (似た意味を持つ漢字を重ねる)</div>
+<div class="table-wrap"><table><thead><tr><th>숙어</th><th>한자 분해</th><th>판별법</th><th>한국어</th></tr></thead><tbody>
+<tr><td><strong>岩石</strong></td><td>がんせき / 岩=바위, 石=돌</td><td>岩も石も同じ→유의어</td><td>암석</td></tr>
+<tr><td><strong>河川</strong></td><td>かせん / 河=강, 川=내</td><td>河も川も同じ→유의어</td><td>하천</td></tr>
+<tr><td><strong>優秀</strong></td><td>ゆうしゅう / 優=뛰어난, 秀=빼어난</td><td>優も秀も&quot;すぐれる&quot;→유의어</td><td>우수</td></tr>
+<tr><td><strong>思考</strong></td><td>しこう / 思=생각, 考=생각</td><td>思も考も&quot;かんがえる&quot;→유의어</td><td>사고</td></tr>
+<tr><td><strong>敏速</strong></td><td>びんそく / 敏=빠른, 速=빠른</td><td>敏も速も&quot;はやい&quot;→유의어</td><td>민속(기민하다)</td></tr>
+<tr><td><strong>寒冷</strong></td><td>かんれい / 寒=차가운, 冷=차가운</td><td>寒も冷も&quot;つめたい&quot;→유의어</td><td>한랭</td></tr>
+<tr><td><strong>温暖</strong></td><td>おんだん / 温=따뜻한, 暖=따뜻한</td><td>温も暖も&quot;あたたかい&quot;→유의어</td><td>온난</td></tr>
+<tr><td><strong>永久</strong></td><td>えいきゅう / 永=길, 久=오래</td><td>永も久も&quot;ながい&quot;→유의어</td><td>영구</td></tr>
+<tr><td><strong>隠蔽</strong></td><td>いんぺい / 隠=숨기다, 蔽=가리다</td><td>隠も蔽も&quot;かくす&quot;→유의어</td><td>은폐</td></tr>
+<tr><td><strong>探索</strong></td><td>たんさく / 探=찾다, 索=찾다</td><td>探も索も&quot;さがす&quot;→유의어</td><td>탐색</td></tr>
+<tr><td><strong>破壊</strong></td><td>はかい / 破=부수다, 壊=부수다</td><td>破も壊も&quot;こわす&quot;→유의어</td><td>파괴</td></tr>
+<tr><td><strong>救援</strong></td><td>きゅうえん / 救=구하다, 援=돕다</td><td>救も援も&quot;たすける&quot;→유의어</td><td>구원</td></tr>
+<tr><td><strong>飢餓</strong></td><td>きが / 飢=주리다, 餓=주리다</td><td>飢も餓も&quot;うえる&quot;→유의어</td><td>기아</td></tr>
+<tr><td><strong>消滅</strong></td><td>しょうめつ / 消=사라지다, 滅=사라지다</td><td>消も滅も&quot;きえる&quot;→유의어</td><td>소멸</td></tr>
+<tr><td><strong>歓喜</strong></td><td>かんき / 歓=기쁨, 喜=기쁨</td><td>歓も喜も&quot;よろこぶ&quot;→유의어</td><td>환희</td></tr>
+<tr><td><strong>堅固</strong></td><td>けんご / 堅=굳다, 固=굳다</td><td>堅も固も&quot;かたい&quot;→유의어</td><td>견고</td></tr>
+<tr><td><strong>巨大</strong></td><td>きょだい / 巨=크다, 大=크다</td><td>巨も大も&quot;おおきい&quot;→유의어</td><td>거대</td></tr>
+<tr><td><strong>援助</strong></td><td>えんじょ / 援=돕다, 助=돕다</td><td>援も助も&quot;たすける&quot;→유의어</td><td>원조</td></tr>
+<tr><td><strong>根本</strong></td><td>こんぽん / 根=뿌리, 本=근본</td><td>根も本も&quot;もと&quot;→유의어</td><td>근본</td></tr>
+<tr><td><strong>変化</strong></td><td>へんか / 変=변하다, 化=변하다</td><td>変も化も&quot;かわる&quot;→유의어</td><td>변화</td></tr>
+</tbody></table></div>
 </div>
+
+<div class="section">
+  <div class="sn">패턴별 빈출 숙어</div>
+  <div class="st">【패턴2】대의어 결합 (反対の意味を持つ漢字を重ねる)</div>
+<div class="table-wrap"><table><thead><tr><th>숙어</th><th>한자 분해</th><th>판별법</th><th>한국어</th></tr></thead><tbody>
+<tr><td><strong>左右</strong></td><td>さゆう / 左↔右</td><td>左と右は反対→대의어</td><td>좌우</td></tr>
+<tr><td><strong>上下</strong></td><td>じょうげ / 上↔下</td><td>上と下は反対→대의어</td><td>상하</td></tr>
+<tr><td><strong>進退</strong></td><td>しんたい / 進↔退</td><td>進むと退くは反対→대의어</td><td>진퇴</td></tr>
+<tr><td><strong>善悪</strong></td><td>ぜんあく / 善↔悪</td><td>善と悪は反対→대의어</td><td>선악</td></tr>
+<tr><td><strong>高低</strong></td><td>こうてい / 高↔低</td><td>高と低は反対→대의어</td><td>고저</td></tr>
+<tr><td><strong>明暗</strong></td><td>めいあん / 明↔暗</td><td>明と暗は反対→대의어</td><td>명암</td></tr>
+<tr><td><strong>寒暖</strong></td><td>かんだん / 寒↔暖</td><td>寒と暖は反対→대의어</td><td>한난</td></tr>
+<tr><td><strong>貧富</strong></td><td>ひんぷ / 貧↔富</td><td>貧と富は反対→대의어</td><td>빈부</td></tr>
+<tr><td><strong>因果</strong></td><td>いんが / 因↔果</td><td>原因と結果は反対→대의어</td><td>인과</td></tr>
+<tr><td><strong>異同</strong></td><td>いどう / 異↔同</td><td>異と同は反対→대의어</td><td>이동, 차이와 같음</td></tr>
+<tr><td><strong>加減</strong></td><td>かげん / 加↔減</td><td>加と減は反対→대의어</td><td>가감</td></tr>
+<tr><td><strong>攻防</strong></td><td>こうぼう / 攻↔防</td><td>攻と防は反対→대의어</td><td>공방</td></tr>
+<tr><td><strong>往復</strong></td><td>おうふく / 往↔復</td><td>往と復は反対→대의어</td><td>왕복</td></tr>
+<tr><td><strong>新旧</strong></td><td>しんきゅう / 新↔旧</td><td>新と旧は反対→대의어</td><td>신구</td></tr>
+<tr><td><strong>開閉</strong></td><td>かいへい / 開↔閉</td><td>開と閉は反対→대의어</td><td>개폐</td></tr>
+<tr><td><strong>出没</strong></td><td>しゅつぼつ / 出↔没</td><td>出と没は反対→대의어</td><td>출몰</td></tr>
+<tr><td><strong>損益</strong></td><td>そんえき / 損↔益</td><td>損と益は反対→대의어</td><td>손익</td></tr>
+<tr><td><strong>需給</strong></td><td>じゅきゅう / 需↔給</td><td>需と給は反対→대의어</td><td>수급</td></tr>
+<tr><td><strong>売買</strong></td><td>ばいばい / 売↔買</td><td>売と買は反対→대의어</td><td>매매</td></tr>
+<tr><td><strong>緩急</strong></td><td>かんきゅう / 緩↔急</td><td>緩と急は反対→대의어</td><td>완급</td></tr>
+</tbody></table></div>
+</div>
+
+<div class="section">
+  <div class="sn">패턴별 빈출 숙어</div>
+  <div class="st">【패턴3】주술관계 (主語と述語の関係)</div>
+<div class="table-wrap"><table><thead><tr><th>숙어</th><th>한자 분해</th><th>판별법</th><th>한국어</th></tr></thead><tbody>
+<tr><td><strong>国立</strong></td><td>こくりつ / 国が立てる</td><td>国(주어)が立てた(술어)→주술</td><td>국립</td></tr>
+<tr><td><strong>官営</strong></td><td>かんえい / 官が営む</td><td>官(주어)が営む(술어)→주술</td><td>관영</td></tr>
+<tr><td><strong>県立</strong></td><td>けんりつ / 県が立てる</td><td>県(주어)が立てた(술어)→주술</td><td>현립</td></tr>
+<tr><td><strong>地震</strong></td><td>じしん / 地が震える</td><td>地(주어)が震える(술어)→주술</td><td>지진</td></tr>
+<tr><td><strong>骨折</strong></td><td>こっせつ / 骨が折れる</td><td>骨(주어)が折れる(술어)→주술</td><td>골절</td></tr>
+<tr><td><strong>日没</strong></td><td>にちぼつ / 日が没する</td><td>日(주어)が没する(술어)→주술</td><td>일몰</td></tr>
+<tr><td><strong>雷鳴</strong></td><td>らいめい / 雷が鳴る</td><td>雷(주어)が鳴る(술어)→주술</td><td>뇌명</td></tr>
+<tr><td><strong>頭痛</strong></td><td>ずつう / 頭が痛い</td><td>頭(주어)が痛む(술어)→주술</td><td>두통</td></tr>
+<tr><td><strong>腹痛</strong></td><td>ふくつう / 腹が痛い</td><td>腹(주어)が痛む(술어)→주술</td><td>복통</td></tr>
+<tr><td><strong>年長</strong></td><td>ねんちょう / 年が長い</td><td>年(주어)が長い(술어)→주술</td><td>연장</td></tr>
+<tr><td><strong>人望</strong></td><td>じんぼう / 人が望む</td><td>人(주어)が望む(술어)→주술</td><td>인망</td></tr>
+<tr><td><strong>市営</strong></td><td>しえい / 市が営む</td><td>市(주어)が営む(술어)→주술</td><td>시영</td></tr>
+<tr><td><strong>都営</strong></td><td>とえい / 都が営む</td><td>都(주어)が営む(술어)→주술</td><td>도영</td></tr>
+<tr><td><strong>私立</strong></td><td>しりつ / 私が立てる</td><td>私(주어)が立てた(술어)→주술</td><td>사립</td></tr>
+<tr><td><strong>気絶</strong></td><td>きぜつ / 気が絶える</td><td>気(주어)が絶える(술어)→주술</td><td>기절</td></tr>
+</tbody></table></div>
+</div>
+
+<div class="section">
+  <div class="sn">패턴별 빈출 숙어</div>
+  <div class="st">【패턴4】동사+목적어 (動詞の後に目的語をおく)</div>
+<div class="table-wrap"><table><thead><tr><th>숙어</th><th>한자 분해</th><th>판별법</th><th>한국어</th></tr></thead><tbody>
+<tr><td><strong>登山</strong></td><td>とざん / 山を登る</td><td>山(목적어)を登る(동사)→동목</td><td>등산</td></tr>
+<tr><td><strong>読書</strong></td><td>どくしょ / 書を読む</td><td>書(목적어)を読む(동사)→동목</td><td>독서</td></tr>
+<tr><td><strong>防火</strong></td><td>ぼうか / 火を防ぐ</td><td>火(목적어)を防ぐ(동사)→동목</td><td>방화(예방)</td></tr>
+<tr><td><strong>納税</strong></td><td>のうぜい / 税を納める</td><td>税(목적어)を納める(동사)→동목</td><td>납세</td></tr>
+<tr><td><strong>着席</strong></td><td>ちゃくせき / 席に着く</td><td>席(목적어)に着く(동사)→동목</td><td>착석</td></tr>
+<tr><td><strong>帰国</strong></td><td>きこく / 国に帰る</td><td>国(목적어)に帰る(동사)→동목</td><td>귀국</td></tr>
+<tr><td><strong>求人</strong></td><td>きゅうじん / 人を求める</td><td>人(목적어)を求める(동사)→동목</td><td>구인</td></tr>
+<tr><td><strong>殺虫</strong></td><td>さっちゅう / 虫を殺す</td><td>虫(목적어)を殺す(동사)→동목</td><td>살충</td></tr>
+<tr><td><strong>握手</strong></td><td>あくしゅ / 手を握る</td><td>手(목적어)を握る(동사)→동목</td><td>악수</td></tr>
+<tr><td><strong>消火</strong></td><td>しょうか / 火を消す</td><td>火(목적어)を消す(동사)→동목</td><td>소화</td></tr>
+<tr><td><strong>就職</strong></td><td>しゅうしょく / 職に就く</td><td>職(목적어)に就く(동사)→동목</td><td>취직</td></tr>
+<tr><td><strong>洗顔</strong></td><td>せんがん / 顔を洗う</td><td>顔(목적어)を洗う(동사)→동목</td><td>세안</td></tr>
+<tr><td><strong>投球</strong></td><td>とうきゅう / 球を投げる</td><td>球(목적어)を投げる(동사)→동목</td><td>투구</td></tr>
+<tr><td><strong>除草</strong></td><td>じょそう / 草を除く</td><td>草(목적어)を除く(동사)→동목</td><td>제초</td></tr>
+<tr><td><strong>造船</strong></td><td>ぞうせん / 船を造る</td><td>船(목적어)を造る(동사)→동목</td><td>조선</td></tr>
+</tbody></table></div>
+</div>
+
+<div class="section">
+  <div class="sn">패턴별 빈출 숙어</div>
+  <div class="st">【패턴5】수식관계 (前の漢字が後の漢字を修飾する)</div>
+<div class="table-wrap"><table><thead><tr><th>숙어</th><th>한자 분해</th><th>판별법</th><th>한국어</th></tr></thead><tbody>
+<tr><td><strong>急行</strong></td><td>きゅうこう / 急いで行く</td><td>急(수식)→行(피수식) &quot;急ぐ列車&quot;→수식</td><td>급행</td></tr>
+<tr><td><strong>直立</strong></td><td>ちょくりつ / まっすぐ立つ</td><td>直(수식)→立(피수식)→수식</td><td>직립</td></tr>
+<tr><td><strong>美談</strong></td><td>びだん / 美しい話</td><td>美(수식)→談(피수식)→수식</td><td>미담</td></tr>
+<tr><td><strong>悪評</strong></td><td>あくひょう / 悪い評判</td><td>悪(수식)→評(피수식)→수식</td><td>악평</td></tr>
+<tr><td><strong>異国</strong></td><td>いこく / 異なる国</td><td>異(수식)→国(피수식)→수식</td><td>이국</td></tr>
+<tr><td><strong>遠路</strong></td><td>えんろ / 遠い道</td><td>遠(수식)→路(피수식)→수식</td><td>원로, 먼 길</td></tr>
+<tr><td><strong>高温</strong></td><td>こうおん / 高い温度</td><td>高(수식)→温(피수식)→수식</td><td>고온</td></tr>
+<tr><td><strong>長文</strong></td><td>ちょうぶん / 長い文</td><td>長(수식)→文(피수식)→수식</td><td>장문</td></tr>
+<tr><td><strong>新年</strong></td><td>しんねん / 新しい年</td><td>新(수식)→年(피수식)→수식</td><td>신년</td></tr>
+<tr><td><strong>強風</strong></td><td>きょうふう / 強い風</td><td>強(수식)→風(피수식)→수식</td><td>강풍</td></tr>
+<tr><td><strong>大雨</strong></td><td>おおあめ / 大きい雨</td><td>大(수식)→雨(피수식)→수식</td><td>대우, 폭우</td></tr>
+<tr><td><strong>短時間</strong></td><td>たんじかん / 短い時間</td><td>短(수식)→時間(피수식)→수식</td><td>단시간</td></tr>
+<tr><td><strong>清流</strong></td><td>せいりゅう / 清い流れ</td><td>清(수식)→流(피수식)→수식</td><td>청류</td></tr>
+<tr><td><strong>再会</strong></td><td>さいかい / 再び会う</td><td>再(수식)→会(피수식)→수식</td><td>재회</td></tr>
+<tr><td><strong>早朝</strong></td><td>そうちょう / 早い朝</td><td>早(수식)→朝(피수식)→수식</td><td>조조, 이른 아침</td></tr>
+</tbody></table></div>
+</div>
+
 
 <div class="type-nav">
   <a href="spi-gengo-youhou.html"><div class="nl">← 이전 유형</div><div class="nt">③ 어구의 용법</div></a>
@@ -151,4 +196,5 @@
 <script>function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}</script>
   <script src="nav.js"></script>
   <script src="global-nav.js"></script>
-</body></html>
+</body>
+</html>
