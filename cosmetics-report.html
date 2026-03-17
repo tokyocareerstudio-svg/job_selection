@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'industry-index.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>화장품메이커 업계 리포트 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #0a0a0f; --surface: #141419; --surface-2: #1c1c24;
+    --border: #2a2a35; --border-hover: #3a3a48;
+    --text: #e8e8ed; --text-sub: #c0c0d0; --text-dim: #8888a0; --text-muted: #555568;
+    --accent: #fd79a8; --accent-soft: rgba(253,121,168,0.08); --accent-border: rgba(253,121,168,0.22);
+    --warn: #f59e0b; --warn-soft: rgba(245,158,11,0.06); --warn-border: rgba(245,158,11,0.18);
+    --sub1: #a29bfe; --sub1-soft: rgba(162,155,254,0.08); --sub1-border: rgba(162,155,254,0.2);
+    --sub2: #00b894; --sub2-soft: rgba(0,184,148,0.08); --sub2-border: rgba(0,184,148,0.2);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Noto Sans JP',sans-serif; line-height:1.8; font-size:15px; -webkit-font-smoothing:antialiased; }
+  .container { max-width:760px; margin:0 auto; padding:0 24px 100px; }
+  .hero { padding:64px 24px 48px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(253,121,168,0.06) 0%, transparent 70%); pointer-events:none; }
+  .hero-inner { position:relative; max-width:760px; margin:0 auto; }
+  .hero-label { display:inline-block; font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-border); padding:4px 12px; border-radius:12px; margin-bottom:20px; text-transform:uppercase; }
+  .hero h1 { font-size:30px; font-weight:900; line-height:1.3; margin-bottom:10px; letter-spacing:-0.5px; }
+  .hero-sub { font-size:13px; color:var(--text-dim); line-height:1.9; margin-bottom:20px; max-width:560px; }
+  .hero-tags { display:flex; flex-wrap:wrap; gap:6px; }
+  .hero-tag { font-size:11px; padding:4px 12px; border-radius:100px; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); font-weight:500; }
+  .hero-tag.s1 { background:var(--sub1-soft); color:var(--sub1); border-color:var(--sub1-border); }
+  .hero-tag.s2 { background:var(--sub2-soft); color:var(--sub2); border-color:var(--sub2-border); }
+  .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
+  .section-nav-inner { max-width:760px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
+  .section-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-btn { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
+  .nav-btn:hover, .nav-btn.active { color:var(--accent); background:var(--accent-soft); }
+  .section { padding:44px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom:none; }
+  .section-num { font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); opacity:0.7; margin-bottom:6px; text-transform:uppercase; }
+  .section-title { font-size:20px; font-weight:800; margin-bottom:4px; letter-spacing:-0.3px; }
+  .section-title-jp { font-family:'Noto Sans JP',sans-serif; font-size:11px; color:var(--text-muted); margin-bottom:20px; }
+  .section p { font-size:13px; color:var(--text-sub); line-height:2.0; margin-bottom:14px; }
+  .section h3 { font-size:14px; font-weight:700; color:var(--text-sub); margin:28px 0 12px; padding-left:10px; border-left:2px solid var(--accent); }
+  .section h3.s1 { border-left-color:var(--sub1); }
+  .section h3.s2 { border-left-color:var(--sub2); }
+  .info-box { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:16px 0; }
+  .info-box-accent { background:var(--accent-soft); border-color:var(--accent-border); border-left:3px solid var(--accent); }
+  .info-box-warn { background:var(--warn-soft); border-color:var(--warn-border); border-left:3px solid var(--warn); }
+  .info-box-s1 { background:var(--sub1-soft); border-color:var(--sub1-border); border-left:3px solid var(--sub1); }
+  .info-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+  .box-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
+  .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
+  .keyword-card { padding:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .keyword-card-title { font-size:12px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .keyword-card-jp { font-family:'Noto Sans JP'; font-size:10px; color:var(--text-muted); margin-bottom:8px; }
+  .keyword-card p { font-size:11px; color:var(--text-dim); line-height:1.7; margin-bottom:0; }
+  .company-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
+  .company-card { padding:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .company-card-name { font-size:13px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .company-card-jp { font-family:'Noto Sans JP'; font-size:10px; color:var(--text-muted); margin-bottom:6px; }
+  .company-card-tags { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:6px; }
+  .company-card-tag { font-size:9px; padding:2px 8px; border-radius:100px; border:1px solid var(--border); color:var(--text-muted); }
+  .company-card p { font-size:11px; color:var(--text-dim); line-height:1.7; margin-bottom:0; }
+  .es-pattern { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:12px 0; }
+  .es-pattern-label { font-size:10px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:8px; text-transform:uppercase; }
+  .es-pattern p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
+  .footer { padding:40px 0 60px; border-top:1px solid var(--border); margin-top:20px; text-align:center; }
+  .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; }
+  .footer .brand { font-weight:700; color:var(--text-dim); }
+  @media (max-width:640px) { .keyword-grid,.company-grid { grid-template-columns:1fr; } .hero h1 { font-size:24px; } .section-title { font-size:18px; } }
+</style>
+</head>
+<body>
+<div class="hero">
+<div class="hero-inner">
+<div class="hero-label">업계 리포트 Vol.27</div>
+<h1>화장품메이커 업계 완전 정리</h1>
+<p class="hero-sub">
+      시세이도·카오·코세·폴라 — 일본이 세계에 자랑하는 뷰티 산업.<br/>
+      인바운드·클린뷰티·D2C로 재편되는 뷰티 업계를 한 페이지에.
+    </p>
+<div class="hero-tags">
+<span class="hero-tag">BtoC 중심</span>
+<span class="hero-tag s1">브랜드 마케팅 핵심</span>
+<span class="hero-tag s2">글로벌 전개 활발</span>
+<span class="hero-tag">문과·이과 모두 가능</span>
+</div>
+</div>
+</div>
+
+<div class="section-nav">
+<div class="section-nav-inner">
+<button class="nav-btn active" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})">전체상</button>
+<button class="nav-btn" onclick="document.getElementById('s2').scrollIntoView({behavior:'smooth'})">트렌드</button>
+<button class="nav-btn" onclick="document.getElementById('s3').scrollIntoView({behavior:'smooth'})">직종</button>
+<button class="nav-btn" onclick="document.getElementById('s4').scrollIntoView({behavior:'smooth'})">자기분석</button>
+<button class="nav-btn" onclick="document.getElementById('s5').scrollIntoView({behavior:'smooth'})">기업비교</button>
+<button class="nav-btn" onclick="document.getElementById('s6').scrollIntoView({behavior:'smooth'})">ES대책</button>
+<button class="nav-btn" onclick="document.getElementById('s7').scrollIntoView({behavior:'smooth'})">면접대책</button>
+</div>
+</div>
+
+<div class="container">
+
+<div class="section" id="s1">
+<div class="section-num">SECTION 01</div>
+<div class="section-title">업계 전체상</div>
+<div class="section-title-jp">業界全体像 — 化粧品メーカーのビジネスモデル</div>
+<p>일본 화장품 시장은 약 2.7조 엔 규모로, 시세이도·카오·코세·폴라가 4대 대기업을 형성합니다. 비즈니스 모델은 "연구(소재·처방) → 제조(OEM 포함) → 브랜드 마케팅 → 유통(백화점·드럭스토어·EC)"의 구조이며, 브랜드 가치가 곧 기업 가치인 업계입니다.</p>
+<p>인바운드(방일 관광객) 수요, 중국·동남아 시장 확대, EC/D2C 전환이 업계를 재편 중이며, "클린뷰티(성분 안전성·환경 배려)" 트렌드가 신상품 개발의 핵심 축이 되고 있습니다. R&D 투자 비율이 메이커 중 가장 높은 업계 중 하나이며, 피부 과학·생명과학 전공의 이과 인재 수요도 큽니다.</p>
+<div class="info-box info-box-accent">
+<div class="box-label">핵심 비즈니스 모델</div>
+<p>R&D(소재·처방 개발) → 제조(자사 공장 or OEM) → 브랜드 구축(마케팅·광고) → 유통(백화점 카운터·드럭스토어·EC). 브랜드 파워가 가격 결정력을 좌우하며, "마케팅 주도형 메이커"라 불리는 이유입니다. 문과는 마케팅·영업·PR, 이과는 R&D·품질관리로 진입합니다.</p>
+</div>
+</div>
+
+<div class="section" id="s2">
+<div class="section-num">SECTION 02</div>
+<div class="section-title">면접관이 체크하는 트렌드 3선</div>
+<div class="section-title-jp">面接官がチェックするトレンド</div>
+<h3>① 클린뷰티와 지속가능성</h3>
+<p>성분 안전성(파라벤 프리, 비건), 친환경 패키징, 리필 시스템 등 "지속가능한 뷰티"가 글로벌 트렌드입니다. 카오의 리필 전략, 시세이도의 친환경 용기 등이 면접에서 언급할 수 있는 사례입니다.</p>
+<h3 class="s1">② D2C와 디지털 마케팅</h3>
+<p>백화점 카운터 중심에서 EC·자사 사이트·SNS 마케팅으로 중심이 이동 중입니다. AI 피부 진단, 버추얼 메이크업, 인플루언서 마케팅 등 디지털 기술과 뷰티의 융합이 가속화. "디지털 마케팅 경험"이 있으면 강점이 됩니다.</p>
+<h3 class="s2">③ 중국·동남아시아 시장</h3>
+<p>일본 화장품의 "메이드 인 재팬" 브랜드 가치가 해외에서 높아, 시세이도는 중국 매출이 전체의 25%를 넘습니다. 인바운드 회복과 함께 면세 매장 전략도 중요한 테마입니다.</p>
+</div>
+
+<div class="section" id="s3">
+<div class="section-num">SECTION 03</div>
+<div class="section-title">이 업계에서 활약하는 직종</div>
+<div class="section-title-jp">化粧品業界で活躍する職種</div>
+<h3>마케팅·브랜드 매니저</h3>
+<p>브랜드 전략 수립, 신상품 기획, 광고·프로모션 설계, SNS 운영까지 담당합니다. 화장품 업계에서 가장 인기 있는 직종이지만, 입사 직후 바로 배치되는 경우는 드물고 영업 2~3년 경험 후 이동이 일반적입니다.</p>
+<h3 class="s1">영업 (리테일·도매)</h3>
+<p>백화점·드럭스토어·GMS(대형 양판점) 등 거래처에 진열 제안·프로모션 기획을 합니다. 카운터 영업(BA 관리)과 유통 영업으로 나뉘며, 현장 감각을 익히는 중요한 첫 스텝입니다.</p>
+<h3 class="s2">R&D·연구개발</h3>
+<p>피부 과학 연구, 신소재·처방 개발, 안전성 시험 등을 담당합니다. 화학·생물학·약학·농학 전공이 주요 대상. 시세이도 연구소, 카오 연구소 등이 아시아 톱 클래스의 연구 환경을 갖추고 있습니다.</p>
+<h3>PR·홍보</h3>
+<p>미디어 릴레이션, 신상품 발표회 기획, 인플루언서 리레이션 등을 담당합니다. "뷰티 PR"은 업계 특유의 포지션으로, 패션·미디어에 관심 있는 인재에게 적합합니다.</p>
+</div>
+
+<div class="section" id="s4">
+<div class="section-num">SECTION 04</div>
+<div class="section-title">화장품메이커 × 자기분석 키워드</div>
+<div class="section-title-jp">自己分析キーワードとの接続</div>
+<div class="keyword-grid">
+<div class="keyword-card">
+<div class="keyword-card-title">뷰티에 대한 감도</div>
+<div class="keyword-card-jp">美容に対する感度·関心</div>
+<p>"왜 화장품인가?"의 출발점. 자기 자신의 뷰티 경험, 화장품이 사람의 자신감에 미치는 영향 등을 구체적으로.</p>
+</div>
+<div class="keyword-card">
+<div class="keyword-card-title">트렌드 감지력</div>
+<div class="keyword-card-jp">トレンドキャッチ力</div>
+<p>SNS·해외 트렌드를 빠르게 감지하고 분석한 경험. 마케팅 직종이라면 필수 어필 포인트.</p>
+</div>
+<div class="keyword-card">
+<div class="keyword-card-title">제안력·프레젠 능력</div>
+<div class="keyword-card-jp">提案力·プレゼン力</div>
+<p>유통 영업에서 진열 제안, 마케팅에서 기획 프레젠 등 "제안해서 설득하는" 능력이 핵심.</p>
+</div>
+<div class="keyword-card">
+<div class="keyword-card-title">글로벌 시야</div>
+<div class="keyword-card-jp">グローバル視点</div>
+<p>해외 시장에 대한 관심, 다문화 감각. 해외 유학·거주 경험이 있으면 강력한 어필.</p>
+</div>
+</div>
+</div>
+
+<div class="section" id="s5">
+<div class="section-num">SECTION 05</div>
+<div class="section-title">기업 비교 & 리스트</div>
+<div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
+<div class="company-grid">
+<div class="company-card">
+<div class="company-card-name">시세이도</div>
+<div class="company-card-jp">株式会社 資生堂</div>
+<div class="company-card-tags"><span class="company-card-tag">글로벌 No.5</span><span class="company-card-tag">프레스티지</span><span class="company-card-tag">해외 60%+</span></div>
+<p>일본 화장품 최대기업. 해외 매출 비율 60% 이상. NARS·클레드포보테 등 글로벌 브랜드 다수 보유.</p>
+</div>
+<div class="company-card">
+<div class="company-card-name">카오</div>
+<div class="company-card-jp">花王株式会社</div>
+<div class="company-card-tags"><span class="company-card-tag">화학 기반</span><span class="company-card-tag">생활용품+화장품</span><span class="company-card-tag">R&D 강점</span></div>
+<p>화장품(카네보, KATE) + 생활용품(메리즈, 어택) 양축 경영. 화학 기반 R&D가 업계 최강 수준.</p>
+</div>
+<div class="company-card">
+<div class="company-card-name">코세</div>
+<div class="company-card-jp">株式会社コーセー</div>
+<div class="company-card-tags"><span class="company-card-tag">데코르테</span><span class="company-card-tag">프레스티지 특화</span><span class="company-card-tag">인바운드 강세</span></div>
+<p>DECORTÉ·설기정(雪肌精)·지루스튜어트 등 프레스티지 브랜드 특화. 인바운드 수혜 기업.</p>
+</div>
+<div class="company-card">
+<div class="company-card-name">폴라 오르비스 HD</div>
+<div class="company-card-jp">ポーラ·オルビスHD</div>
+<div class="company-card-tags"><span class="company-card-tag">방문 판매</span><span class="company-card-tag">연구 강점</span><span class="company-card-tag">D2C 전환 중</span></div>
+<p>폴라 레이디(방문 판매) 모델이 특징. 피부 과학 연구에서 업계 톱. 오르비스는 D2C 선두.</p>
+</div>
+</div>
+</div>
+
+<div class="section" id="s6">
+<div class="section-num">SECTION 06</div>
+<div class="section-title">ES 대책</div>
+<div class="section-title-jp">合格パターン·落とし穴</div>
+<h3>빈출 질문</h3>
+<p>"왜 화장품업계인가?"와 "우리 브랜드의 매력을 이야기해주세요"가 양대 빈출입니다. 특히 브랜드에 대한 이해도가 중요합니다.</p>
+<div class="es-pattern">
+<div class="es-pattern-label">합격 패턴</div>
+<p>"해외 여행 중 일본 화장품의 품질에 감동한 현지인을 보고, 일본 뷰티의 가치를 세계에 전달하고 싶다는 생각이 들었습니다. 귀사의 글로벌 브랜드 전략에서 그 역할을 하고 싶습니다."<br/>→ 자기 원체험 + 업계 가치 + 기업 전략이 연결.</p>
+</div>
+<div class="es-pattern">
+<div class="es-pattern-label" style="color:var(--warn);">빠지기 쉬운 함정</div>
+<p>❌ "화장품을 좋아해서" — 소비자 시점에 머물러 있음. "만드는 쪽·전하는 쪽"의 관점 필요.<br/>
+❌ 브랜드명을 나열만 하고 "왜 그 브랜드인가"에 대한 자기 생각이 없는 패턴.<br/>
+✅ 반드시 지원 기업의 브랜드 포트폴리오를 조사하고, 1개 브랜드에 대한 깊은 분석을 준비하세요.</p>
+</div>
+</div>
+
+<div class="section" id="s7">
+<div class="section-num">SECTION 07</div>
+<div class="section-title">면접 대책</div>
+<div class="section-title-jp">面接対策 — 頻出質問·選考フロー</div>
+<h3>선고 플로우</h3>
+<p>ES → 웹테스트 → GD → 1차 면접(인사) → 2차 면접(현장) → 최종(임원). 시세이도·코세 등은 GD 대신 프레젠 면접이 있는 경우도 있습니다.</p>
+<h3 class="s1">빈출 질문</h3>
+<div class="info-box info-box-s1">
+<p>· 왜 화장품업계인가? 그 중에서 왜 우리 회사인가?<br/>
+· 우리 브랜드 중 하나를 골라 타겟·포지셔닝·개선점을 이야기해주세요.<br/>
+· 화장품이 사람에게 주는 가치는 무엇이라고 생각하는가?<br/>
+· 중국 시장이 둔화되고 있는데, 어떤 성장 전략이 필요하다고 생각하나?<br/>
+· 클린뷰티 트렌드에 대해 어떻게 생각하는가?</p>
+</div>
+<div class="info-box info-box-warn">
+<div class="box-label" style="color:var(--warn);">주의 포인트</div>
+<p>화장품 업계는 "뷰티에 대한 진심"과 "비즈니스 시점"의 균형을 봅니다. 단순 팬이 아니라, "이 브랜드를 어떻게 성장시킬 것인가"의 관점을 보여주세요. 사전에 백화점 카운터에서 BA(뷰티 어드바이저)의 접객을 체험하고 면접에 임하면 현장감이 생깁니다.</p>
+</div>
+</div>
+
+<div class="footer">
+<p><span class="brand">Tokyo Career Studio</span> — 일본 취업 전문 컨설팅</p>
+<p>업계 리포트에 대한 피드백이나 상담은 <a href="https://www.latpeed.com/stores/Gvk82" style="color:var(--accent);" target="_blank">여기</a>에서 문의해주세요.</p>
+</div>
+
+</div>
+<script src="nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>
