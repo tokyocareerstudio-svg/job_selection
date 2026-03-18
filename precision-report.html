@@ -71,15 +71,15 @@
   td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,0.03); color:var(--text-sub); font-size:12px; line-height:1.7; }
   .keyword-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
   .keyword-card { padding:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
-  .keyword-card-title { font-size:12px; font-weight:700; color:var(--text); margin-bottom:4px; }
+  .keyword-name { font-size:12px; font-weight:700; color:var(--text); margin-bottom:4px; }
   .keyword-card-jp { font-family:'Noto Sans JP'; font-size:10px; color:var(--text-muted); margin-bottom:8px; }
   .keyword-card p { font-size:11px; color:var(--text-dim); line-height:1.7; margin-bottom:0; }
   .company-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
   .company-card { padding:16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
   .company-card-name { font-size:13px; font-weight:700; color:var(--text); margin-bottom:4px; }
   .company-card-jp { font-family:'Noto Sans JP'; font-size:10px; color:var(--text-muted); margin-bottom:6px; }
-  .company-card-tags { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:6px; }
-  .company-card-tag { font-size:9px; padding:2px 8px; border-radius:100px; border:1px solid var(--border); color:var(--text-muted); }
+  .company-tags { display:flex; flex-wrap:wrap; gap:4px; margin-bottom:6px; }
+  .company-tag { font-size:9px; padding:2px 8px; border-radius:100px; border:1px solid var(--border); color:var(--text-muted); }
   .company-card p { font-size:11px; color:var(--text-dim); line-height:1.7; margin-bottom:0; }
   .es-pattern { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:12px 0; }
   .es-pattern-label { font-size:10px; font-weight:700; letter-spacing:1px; color:var(--accent); margin-bottom:8px; text-transform:uppercase; }
@@ -382,42 +382,42 @@ SECTION 04</div>
 
 <div class="keyword-grid">
 <div class="keyword-card">
-<div class="keyword-card-title">기술에 대한 탐구심</div>
+<div class="keyword-name">기술에 대한 탐구심</div>
 <div class="keyword-card-jp">技術への探求心</div>
 <p>"왜 정밀기기인가?"의 핵심. 모노즈쿠리(모노즈쿠리)에 대한 관심, 기술로 사회 과제를 해결하고 싶다는 열의.</p>
 </div>
 <div class="keyword-card">
-<div class="keyword-card-title">논리적 사고력</div>
+<div class="keyword-name">논리적 사고력</div>
 <div class="keyword-card-jp">論理的思考力</div>
 <p>키엔스 영업의 핵심. 고객의 과제를 구조화하고 해결책을 논리적으로 제안하는 능력.</p>
 </div>
 <div class="keyword-card">
-<div class="keyword-card-title">끈기·집중력</div>
+<div class="keyword-name">끈기·집중력</div>
 <div class="keyword-card-jp">粘り強さ·集中力</div>
 <p>3~5년 단위의 장기 프로젝트를 끝까지 해내는 인내력. 연구·개발에서 특히 중요.</p>
 </div>
 <div class="keyword-card">
-<div class="keyword-card-title">커뮤니케이션 능력</div>
+<div class="keyword-name">커뮤니케이션 능력</div>
 <div class="keyword-card-jp">コミュニケーション力</div>
 <p>기술 영업에서 "기술 지식을 비전문가에게 설명하는" 능력. R&amp;D에서도 크로스 펑셔널 소통이 필수.</p>
 </div>
 <div class="keyword-card">
-<div class="keyword-card-title">글로벌 시야</div>
+<div class="keyword-name">글로벌 시야</div>
 <div class="keyword-card-jp">グローバル視点</div>
 <p>해외 매출 비율이 50~80%인 기업이 대부분. 해외 경험이 있으면 강력한 어필. 영어력 필수.</p>
 </div>
 <div class="keyword-card">
-<div class="keyword-card-title">주체성·자기 주도</div>
+<div class="keyword-name">주체성·자기 주도</div>
 <div class="keyword-card-jp">主体性·自発性</div>
 <p>키엔스 채용의 핵심. "지시를 기다리지 않고 스스로 과제를 찾아 행동한" 경험.</p>
 </div>
 <div class="keyword-card">
-<div class="keyword-card-title">팀워크·협업</div>
+<div class="keyword-name">팀워크·협업</div>
 <div class="keyword-card-jp">チームワーク</div>
 <p>R&amp;D는 팀 프로젝트. 기계·전기·소프트 등 다른 전공의 엔지니어와 협업한 경험.</p>
 </div>
 <div class="keyword-card">
-<div class="keyword-card-title">정확성·치밀함</div>
+<div class="keyword-name">정확성·치밀함</div>
 <div class="keyword-card-jp">正確さ·緻密さ</div>
 <p>나노미터 단위의 정밀도가 요구되는 업계. 디테일에 대한 집착이 강점이 되는 곳.</p>
 </div>
@@ -429,42 +429,43 @@ SECTION 04</div>
 <div class="section-title">기업 비교 &amp; 리스트</div>
 <div class="section-title-jp">あなたの軸で選ぶ企業リスト</div>
 
-<div class="company-grid">
+<div class="company-group">
+<div class="company-group-label">🏢 주요 기업</div>
 <div class="company-card">
-<div class="company-card-name">키엔스</div>
-<div class="company-card-jp">株式会社キーエンス</div>
-<div class="company-card-tags"><span class="company-card-tag">영업이익률 50%+</span><span class="company-card-tag">평균 연봉 2,200만</span><span class="company-card-tag">직판 모델</span></div>
-<p>FA 센서·계측기기·현미경·3D 측정기·바코드 리더 등 공장 자동화의 절대 강자. 영업이익률 50%+(일본 메이커 1위)의 비결은 "직판 모델(대리점 경유 ×) + 고부가가치 제품 + 컨설팅 영업"의 3축. 평균 연봉 약 2,200만 엔(일본 상장 기업 중 1~2위). 문과·이과 불문으로 영업직을 적극 채용하며, 채용 프로세스는 "20초 자기PR" "설득 면접" 등 독특. "성장 = 정의"라는 문화이며, 1일 방문 5~8건·분 단위 스케줄 관리·매주 사례 공유(ベストプラクティス) 등 고강도 환경. "키엔스에서 3년 일하면 어디서든 통한다"는 평가도 있다.</p>
+<div class="company-type">영업이익률 50%+</div>
+<div class="company-name">키엔스 <span class="company-name-jp">株式会社キーエンス</span></div>
+<div class="company-tags"><span class="company-tag">영업이익률 50%+</span><span class="company-tag">평균 연봉 2,200만</span><span class="company-tag">직판 모델</span></div>
+<div class="company-desc">FA 센서·계측기기·현미경·3D 측정기·바코드 리더 등 공장 자동화의 절대 강자. 영업이익률 50%+(일본 메이커 1위)의 비결은 "직판 모델(대리점 경유 ×) + 고부가가치 제품 + 컨설팅 영업"의 3축. 평균 연봉 약 2,200만 엔(일본 상장 기업 중 1~2위). 문과·이과 불문으로 영업직을 적극 채용하며, 채용 프로세스는 "20초 자기PR" "설득 면접" 등 독특. "성장 = 정의"라는 문화이며, 1일 방문 5~8건·분 단위 스케줄 관리·매주 사례 공유(ベストプラクティス) 등 고강도 환경. "키엔스에서 3년 일하면 어디서든 통한다"는 평가도 있다.</div>
 </div>
 <div class="company-card">
-<div class="company-card-name">올림푸스</div>
-<div class="company-card-jp">オリンパス株式会社</div>
-<div class="company-card-tags"><span class="company-card-tag">내시경 세계 70%</span><span class="company-card-tag">의료기기 특화</span><span class="company-card-tag">글로벌</span></div>
-<p>소화기 내시경 세계 점유율 약 70%로 압도적 글로벌 리더. 2021년에 카메라 사업(OM Digital Solutions)을 매각하고 의료기기에 완전 집중이라는 대담한 경영 판단을 실행. 내시경·치료기기·과학기기가 3대 사업이며, AI 내시경(대장 폴립 자동 감지, ENDOCUFF 등)으로 디지털 의료를 리드 중. 해외 매출 비율 80%+로 진정한 글로벌 기업. 해외 주재(미국·유럽·아시아) 기회 풍부. 평균 연봉 약 960만 엔.</p>
+<div class="company-type">내시경 세계 70%</div>
+<div class="company-name">올림푸스 <span class="company-name-jp">オリンパス株式会社</span></div>
+<div class="company-tags"><span class="company-tag">내시경 세계 70%</span><span class="company-tag">의료기기 특화</span><span class="company-tag">글로벌</span></div>
+<div class="company-desc">소화기 내시경 세계 점유율 약 70%로 압도적 글로벌 리더. 2021년에 카메라 사업(OM Digital Solutions)을 매각하고 의료기기에 완전 집중이라는 대담한 경영 판단을 실행. 내시경·치료기기·과학기기가 3대 사업이며, AI 내시경(대장 폴립 자동 감지, ENDOCUFF 등)으로 디지털 의료를 리드 중. 해외 매출 비율 80%+로 진정한 글로벌 기업. 해외 주재(미국·유럽·아시아) 기회 풍부. 평균 연봉 약 960만 엔.</div>
 </div>
 <div class="company-card">
-<div class="company-card-name">도쿄일렉트론 (TEL)</div>
-<div class="company-card-jp">東京エレクトロン株式会社</div>
-<div class="company-card-tags"><span class="company-card-tag">반도체 장비</span><span class="company-card-tag">매출 2조 엔+</span><span class="company-card-tag">이공계 중심</span></div>
-<p>반도체 제조장비 세계 3위(AMAT·ASML 다음). 코팅(레지스트 도포)·에칭(회로 패턴 형성)·세정·열처리 장비에서 글로벌 톱 클래스. TSMC·삼성·인텔 등 세계 반도체 최대 기업이 모두 TEL의 고객. 매출 2조 엔+(2024), 영업이익률 약 30%. AI 반도체·선단 패키징 수요로 수주 잔고 급증. 평균 연봉 약 1,300만 엔+(일본 메이커 톱 클래스). 이공계 석사 이상이 주요 채용 타겟이며, 공정 엔지니어·필드 엔지니어 수요가 높다.</p>
+<div class="company-type">반도체 장비</div>
+<div class="company-name">도쿄일렉트론 (TEL) <span class="company-name-jp">東京エレクトロン株式会社</span></div>
+<div class="company-tags"><span class="company-tag">반도체 장비</span><span class="company-tag">매출 2조 엔+</span><span class="company-tag">이공계 중심</span></div>
+<div class="company-desc">반도체 제조장비 세계 3위(AMAT·ASML 다음). 코팅(레지스트 도포)·에칭(회로 패턴 형성)·세정·열처리 장비에서 글로벌 톱 클래스. TSMC·삼성·인텔 등 세계 반도체 최대 기업이 모두 TEL의 고객. 매출 2조 엔+(2024), 영업이익률 약 30%. AI 반도체·선단 패키징 수요로 수주 잔고 급증. 평균 연봉 약 1,300만 엔+(일본 메이커 톱 클래스). 이공계 석사 이상이 주요 채용 타겟이며, 공정 엔지니어·필드 엔지니어 수요가 높다.</div>
 </div>
 <div class="company-card">
-<div class="company-card-name">호야</div>
-<div class="company-card-jp">HOYA株式会社</div>
-<div class="company-card-tags"><span class="company-card-tag">반도체 마스크 블랭크스</span><span class="company-card-tag">안경 렌즈</span><span class="company-card-tag">고수익</span></div>
-<p>반도체 포토마스크·HDD 유리기판에서 세계 독점. 안경 렌즈·콘택트렌즈도 강함. 영업이익률 30%+의 초고수익 기업.</p>
+<div class="company-type">반도체 마스크 블랭크스</div>
+<div class="company-name">호야 <span class="company-name-jp">HOYA株式会社</span></div>
+<div class="company-tags"><span class="company-tag">반도체 마스크 블랭크스</span><span class="company-tag">안경 렌즈</span><span class="company-tag">고수익</span></div>
+<div class="company-desc">반도체 포토마스크·HDD 유리기판에서 세계 독점. 안경 렌즈·콘택트렌즈도 강함. 영업이익률 30%+의 초고수익 기업.</div>
 </div>
 <div class="company-card">
-<div class="company-card-name">시마즈제작소</div>
-<div class="company-card-jp">株式会社島津製作所</div>
-<div class="company-card-tags"><span class="company-card-tag">분석기기</span><span class="company-card-tag">노벨상 기업</span><span class="company-card-tag">교토</span></div>
-<p>액체 크로마토그래프·질량분석계에서 세계 톱 클래스. 노벨 화학상(다나카 고이치)을 배출한 기업. 연구 문화가 강함.</p>
+<div class="company-type">분석기기</div>
+<div class="company-name">시마즈제작소 <span class="company-name-jp">株式会社島津製作所</span></div>
+<div class="company-tags"><span class="company-tag">분석기기</span><span class="company-tag">노벨상 기업</span><span class="company-tag">교토</span></div>
+<div class="company-desc">액체 크로마토그래프·질량분석계에서 세계 톱 클래스. 노벨 화학상(다나카 고이치)을 배출한 기업. 연구 문화가 강함.</div>
 </div>
 <div class="company-card">
-<div class="company-card-name">테루모</div>
-<div class="company-card-jp">テルモ株式会社</div>
-<div class="company-card-tags"><span class="company-card-tag">의료기기</span><span class="company-card-tag">카테터</span><span class="company-card-tag">안정·글로벌</span></div>
-<p>혈관 카테터·주사기·인공 심폐 등 의료기기 종합 메이커. 해외 매출 60%+. 안정성과 글로벌을 동시에 원하면 최적.</p>
+<div class="company-type">의료기기</div>
+<div class="company-name">테루모 <span class="company-name-jp">テルモ株式会社</span></div>
+<div class="company-tags"><span class="company-tag">의료기기</span><span class="company-tag">카테터</span><span class="company-tag">안정·글로벌</span></div>
+<div class="company-desc">혈관 카테터·주사기·인공 심폐 등 의료기기 종합 메이커. 해외 매출 60%+. 안정성과 글로벌을 동시에 원하면 최적.</div>
 </div>
 </div>
 
