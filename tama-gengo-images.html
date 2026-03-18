@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'tama-gengo-images.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玉手箱 언어 ② IMAGES형 취지판정 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--tama:#34d399;--tama-soft:rgba(52,211,153,0.06);--tama-border:rgba(52,211,153,0.18);--gengo:#60a5fa;--gengo-soft:rgba(96,165,250,0.06);--gengo-border:rgba(96,165,250,0.18);--solve:#a29bfe;--solve-soft:rgba(162,155,254,0.06);--correct:#34d399;--warn:#ef4444;--warn-soft:rgba(239,68,68,0.04);--warn-border:rgba(239,68,68,0.18);}
+*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:48px 0 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;max-width:760px;margin:0 auto;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(52,211,153,0.05) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;padding:0 24px;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-back:hover{color:var(--text-dim);}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gengo);background:var(--gengo-soft);border:1px solid var(--gengo-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}.hero h1{font-size:26px;font-weight:900;line-height:1.3;margin-bottom:8px;letter-spacing:-0.5px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;}.htag-g{background:var(--gengo-soft);color:var(--gengo);border:1px solid var(--gengo-border);}
+.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--tama);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}.section h3{font-size:15px;font-weight:700;color:var(--text);margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--tama);}
+.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}.ib-a{background:var(--tama-soft);border-color:var(--tama-border);border-left:3px solid var(--tama);}.ib-w{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn);}.ib h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}.ib p,.ib div{font-size:12px;color:var(--text-dim);line-height:1.9;}.bl{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}.bl-t{color:var(--tama);}.bl-w{color:var(--warn);}
+.mini{margin:16px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}.mini-q{padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--border);}.mini-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--tama);margin-bottom:6px;text-transform:uppercase;}.mini-q p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-a{padding:16px 18px;background:var(--solve-soft);}.mini-a p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-ans{margin-top:10px;padding:8px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:6px;font-size:12px;font-weight:700;color:var(--correct);}.mini-trap{margin:12px 0;border:1px solid var(--warn-border);border-radius:10px;overflow:hidden;}.mini-trap .mini-q{background:var(--warn-soft);border-bottom-color:var(--warn-border);}.mini-trap .mini-label{color:var(--warn);}.mini-trap .mini-a{background:rgba(239,68,68,0.03);}.mini-trap .mini-ans{background:rgba(239,68,68,0.05);border-color:var(--warn-border);color:var(--warn);}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--tama);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
+.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{color:var(--text-dim);background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}.at-kr{background:rgba(52,211,153,0.03);border-top:1px solid var(--tama-border);}.at-kr:hover{background:rgba(52,211,153,0.06);}.ac-kr-body{padding:14px 16px;background:rgba(52,211,153,0.03);border-top:1px solid var(--tama-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}
+.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--tama-border);background:var(--tama-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.hero h1{font-size:22px;}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-inner">
+  <a href="tama-index.html" class="hero-back">← 玉手箱 전체 가이드로 돌아가기</a>
+  <div class="hero-label">玉手箱 언어 — 형식 ② · IMAGES형</div>
+  <h1>취지판정 (趣旨判定)</h1>
+  <p class="hero-sub">400-600자의 장문을 읽고, 설문문이 A(필자가 가장 말하고 싶은 것=취지) B(본문에 쓰여 있지만 취지는 아님) C(본문과 관계없음) 중 어디에 해당하는지 판별하는 유형. GAB형보다 시간이 짧고(10분/32문), 「취지인가 아닌가」를 구분해야 하므로 A와 B의 경계가 가장 어렵습니다.</p>
+  <div class="hero-tags"><span class="htag htag-g">32문 (8장문 x 4문) / 10분</span></div>
+</div></div>
+
+<div class="container">
+
+<div class="section">
+  <div class="sn">강의</div>
+  <div class="st">IMAGES형 취지판정이란?</div>
+  <div class="st-jp">IMAGES形式の趣旨判定 — 筆者が一番言いたいことを見抜く</div>
+
+  <p>IMAGES 페이퍼 시험에서 유래한 형식으로, 玉手箱 언어에서 GAB형 다음으로 자주 출제됩니다. GAB형(15분)보다 시간이 5분 짧은 10분에 같은 32문을 풀어야 하므로, 1장문당 약 <strong style="color:var(--text);">1분 15초</strong>밖에 없습니다. 시간 압박이 훨씬 심합니다.</p>
+
+  <div class="ib ib-a">
+    <div class="bl bl-t">3택 선택지 (전 문제 공통)</div>
+    <p><strong style="color:var(--text-sub);">A. 필자가 가장 호소하고 싶은 것(취지)이 서술되어 있다</strong><br>
+    → 본문 전체의 결론, 주장, 메인 메시지에 해당<br><br>
+    <strong style="color:var(--text-sub);">B. 본문에 쓰여 있지만, 가장 호소하고 싶은 것은 아니다</strong><br>
+    → 본문에 언급은 있으나 부수적 정보, 배경, 예시에 불과<br><br>
+    <strong style="color:var(--text-sub);">C. 본문과 관계없는 것이 쓰여 있다</strong><br>
+    → 본문에 전혀 언급되지 않은 내용</p>
+  </div>
+
+  <div class="ib ib-w">
+    <div class="bl bl-w">핵심 규칙</div>
+    <p>화면 상단에 「설문문에는 A와 C에 해당하는 것이 반드시 1개 이상 포함되어 있다」는 주의문이 표시됩니다. 즉, 4문 중 A가 최소 1개, C가 최소 1개는 반드시 있습니다. 전부 B로 하거나, A가 0개인 응답은 불가능합니다.</p>
+  </div>
+
+  <h3>GAB형과의 결정적 차이</h3>
+  <p>GAB형은 「맞다/틀리다/판단불가」라는 논리적 판별이지만, IMAGES형은 <strong style="color:var(--text);">「취지인가 아닌가」라는 중요도 판별</strong>입니다. 본문에 쓰여 있어도 메인 주장이 아니면 B입니다. 이 A와 B의 구분이 IMAGES형의 최대 난관입니다.</p>
+
+  <div class="mini">
+    <div class="mini-q"><div class="mini-label">📝 미니 예제</div>
+    <p>【본문 (발췌)】
+「就職活動において、自己分析は欠かせないプロセスである。自分の強みや価値観を明確にすることで、企業選びの軸が定まり、面接でも一貫した回答ができるようになる。しかし、自己分析に時間をかけすぎて行動が遅れるケースも少なくない。大切なのは、完璧な自己分析を目指すことではなく、ある程度の方向性が見えた段階で企業研究や選考に進むことである。」
+
+【설문문1】自己分析は就職活動において重要である。
+【설문문2】自己分析よりも行動を優先すべきである。
+【설문문3】面接対策にはグループディスカッションの練習が有効である。
+【설문문4】完璧な自己分析を目指すのではなく、適度な段階で行動に移るべきだ。</p></div>
+    <div class="mini-a"><p><strong style="color:var(--solve);">풀이:</strong>
+설문1: 본문 서두에 「自己分析は欠かせない」라고 쓰여 있음 → 본문에 있지만, 필자의 최종 주장은 아님 = <strong>B</strong>
+설문2: 본문에 자기분석보다 행동이 우선이라고는 하지 않았음. 자기분석은 필요하되 과하게 하지 말라는 것 = <strong>C</strong>
+설문3: 그룹 디스커션 연습에 대한 언급 전혀 없음 = <strong>C</strong>
+설문4: 본문 마지막 문장의 결론과 정확히 일치 = <strong>A (취지)</strong></p>
+    <div class="mini-ans">정답: 설문1=B / 설문2=C / 설문3=C / 설문4=A</div></div>
+  </div>
+
+  <h3>A와 B를 구분하는 핵심 기법</h3>
+
+  <div class="ib ib-a">
+    <div class="bl bl-t">A(취지)를 찾는 3가지 시그널</div>
+    <p><strong style="color:var(--text-sub);">1. 결론 위치:</strong> 일본어 문장은 마지막에 결론을 놓는 경향. 「大切なのは」「重要なことは」「つまり」「結局」 뒤에 나오는 내용이 취지일 확률이 높음<br><br>
+    <strong style="color:var(--text-sub);">2. 역접 뒤:</strong> 「しかし」「だが」「一方で」 뒤에 나오는 주장이 필자의 진짜 의견인 경우가 많음<br><br>
+    <strong style="color:var(--text-sub);">3. 강조 표현:</strong> 「べきだ」「必要がある」「不可欠だ」 같은 당위 표현이 포함된 문장</p>
+  </div>
+
+  <div class="ib">
+    <div class="bl bl-t">B(본문에 있지만 취지 아님)가 되는 전형</div>
+    <p>• 배경 설명 — 「近年」「従来」로 시작하는 상황 서술<br>
+    • 구체적 예시 — 「例えば」 뒤의 설명<br>
+    • 부수적 사실 — 취지를 뒷받침하는 데이터나 통계<br>
+    • 일반론 — 「と言われている」 같은 일반적 견해</p>
+  </div>
+
+  <h3>시간 배분 가이드</h3>
+  <div class="ib">
+    <p><strong style="color:var(--text-sub);">32문 / 10분 = 1문당 약 19초</strong><br><br>
+    • 장문 1개 + 설문 4개 = 약 1분 15초 이내<br>
+    • 전략: 본문 마지막 2-3문장만 먼저 읽고 취지(A) 후보를 파악 → 설문과 대조<br>
+    • C를 먼저 제거 (본문에 없는 내용은 즉시 C) → 나머지에서 A/B 판별<br>
+    • A와 B에서 30초 이상 고민하면 직감으로 선택하고 넘기기 (오류율 미측정)</p>
+  </div>
+</div>
+
+<!-- 연습 문제 10문 -->
+<div class="section">
+  <div class="sn">연습 문제</div>
+  <div class="st">IMAGES형 취지판정 예제 10문제</div>
+  <div class="st-jp">IMAGES形式の趣旨判定 練習問題10問</div>
+  <p>본문을 읽고 각 설문문에 A(취지) B(본문에 있지만 취지 아님) C(관계없음) 중 하나를 선택하세요.</p>
+
+<!-- Q01-Q04: 장문 1 -->
+<div class="pc"><div class="pc-h"><div class="pc-num">본문 1 (Q01-Q04)</div><div class="pc-title">팀워크와 리더십</div>
+<div class="pc-jp">企業が求める人材像として「チームワーク」が挙げられることは多い。確かにチームで協力して成果を出す能力は重要である。しかし、単に周囲に合わせるだけの協調性ではなく、自分の意見を持ちながらもチーム全体の目標に向けて調整できる力こそが、真のチームワークである。特に新入社員に求められるのは、指示を待つだけでなく、自ら考えて提案する主体性を持ったうえでの協調性だ。</div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q01</div><div class="pc-title">설문</div>
+<div class="pc-jp">企業が求める人材像としてチームワークが重視されている。</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">본문 서두에 「チームワークが挙げられることは多い」라고 쓰여 있음. 사실이지만 도입부의 배경 설명이지 필자의 최종 주장은 아님.</div></div>
+<div class="sa">정답: B — 본문에 있지만 취지 아님</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q02</div><div class="pc-title">설문</div>
+<div class="pc-jp">真のチームワークとは、自分の意見を持ちながらチーム目標に向けて調整できる力である。</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">「しかし」 뒤에 나오는 핵심 주장. 「〜こそが、真のチームワークである」라는 강조 구문으로 필자의 메인 메시지.</div></div>
+<div class="sa">정답: A — 취지</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q03</div><div class="pc-title">설문</div>
+<div class="pc-jp">新入社員にはリーダーシップ研修が必要である。</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">본문에 리더십 연수에 대한 언급은 전혀 없음.</div></div>
+<div class="sa">정답: C — 관계없음</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q04</div><div class="pc-title">설문</div>
+<div class="pc-jp">新入社員には、指示を待つだけでなく主体性を持った協調性が求められる。</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">본문 마지막 문장의 내용과 일치. 취지를 구체적으로 신입사원에게 적용한 부연 설명. A와 헷갈릴 수 있지만, 이 문장은 취지(Q02)의 구체적 적용례이므로 B.</div></div>
+<div class="sa">정답: B — 본문에 있지만 취지 아님 (취지의 구체적 적용례)</div></div></div></div>
+
+<!-- Q05-Q08: 장문 2 -->
+<div class="pc"><div class="pc-h"><div class="pc-num">본문 2 (Q05-Q08)</div><div class="pc-title">워크라이프밸런스</div>
+<div class="pc-jp">長時間労働の是正は、日本企業にとって長年の課題である。近年、働き方改革関連法の施行により、残業時間の上限規制が設けられた。また、在宅勤務やフレックスタイム制度を導入する企業も増加している。しかし、制度を整えるだけでは不十分であり、重要なのは従業員一人ひとりが効率的な働き方を自ら考え、実践することである。制度に頼るだけでなく、個人の意識改革が働き方改革の本質だと言えるだろう。</div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q05</div><div class="pc-title">설문</div>
+<div class="pc-jp">日本では働き方改革関連法により、残業時間の上限規制が設けられた。</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">본문에 직접 쓰여 있는 사실이지만, 배경 설명에 해당하며 필자의 주장은 아님.</div></div>
+<div class="sa">정답: B — 본문에 있지만 취지 아님</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q06</div><div class="pc-title">설문</div>
+<div class="pc-jp">働き方改革の本質は、制度整備だけでなく個人の意識改革にある。</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">본문 마지막 문장 「個人の意識改革が働き方改革の本質だ」와 정확히 일치. 필자의 결론.</div></div>
+<div class="sa">정답: A — 취지</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q07</div><div class="pc-title">설문</div>
+<div class="pc-jp">在宅勤務の導入率は、大企業より中小企業の方が高い。</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">본문에는 재택근무 도입 기업이 증가하고 있다는 것만 있고, 대기업/중소기업 간 비교는 전혀 없음.</div></div>
+<div class="sa">정답: C — 관계없음</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q08</div><div class="pc-title">설문</div>
+<div class="pc-jp">フレックスタイム制度を導入する企業が増えている。</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">본문에 「フレックスタイム制度を導入する企業も増加している」라고 직접 쓰여 있음. 그러나 배경 정보이지 취지는 아님.</div></div>
+<div class="sa">정답: B — 본문에 있지만 취지 아님</div></div></div></div>
+
+<!-- Q09-Q10: 장문 3 -->
+<div class="pc"><div class="pc-h"><div class="pc-num">본문 3 (Q09-Q10)</div><div class="pc-title">데이터 활용과 의사결정</div>
+<div class="pc-jp">ビジネスにおけるデータ活用の重要性が叫ばれて久しい。多くの企業がBI（ビジネスインテリジェンス）ツールを導入し、データに基づいた意思決定を推進している。だが、データはあくまで判断材料の一つであり、最終的な意思決定には経験や直感も不可欠である。データと人間の判断を適切に組み合わせることが、これからの経営に求められる姿勢だろう。</div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q09</div><div class="pc-title">설문</div>
+<div class="pc-jp">データに基づいた意思決定だけで十分であり、経験や直感は不要だ。</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">본문에 「経験や直感も不可欠」이라고 되어 있으므로 「불요」라는 설문은 관계없는 것이 아니라 본문과 반대. 그러나 IMAGES형에서 C는 「관계없음」이지 「틀림」이 아님. 본문과 내용이 연결되어 있으므로 B가 아니라... 실은 IMAGES형에는 B도 아님(취지가 아닌 것은 B이지만 이건 본문과 반대). IMAGES형에서 본문의 내용과 반대인 것은 「본문에 관계없는 것」으로 분류 = C.</div></div>
+<div class="sa">정답: C — 관계없음 (본문의 주장과 반대되는 내용은 C)</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q10</div><div class="pc-title">설문</div>
+<div class="pc-jp">データと人間の判断を組み合わせることが、これからの経営に求められる。</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">본문 마지막 문장 「データと人間の判断を適切に組み合わせることが、これからの経営に求められる姿勢」와 정확히 일치. 필자의 결론.</div></div>
+<div class="sa">정답: A — 취지</div></div></div></div>
+
+</div>
+
+<div class="type-nav">
+  <a href="tama-gengo-gab.html"><div class="nl">← 이전 형식</div><div class="nt">① GAB형 논리적독해</div></a>
+  <a href="tama-gengo-shushi.html"><div class="nl">다음 형식 →</div><div class="nt">③ 취지파악</div></a>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — 玉手箱 언어 IMAGES형 취지판정</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
+</div>
+</div>
+
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+<script>
+function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}
+</script>
+</body>
+</html>
