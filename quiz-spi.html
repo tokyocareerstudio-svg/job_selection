@@ -65,33 +65,34 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto San
 <script>
 const BANK = [
 // --- 언어: 어구의 의미 ---
-{cat:'언어·어구의 의미',q:'「潤沢」의 의미로 가장 적절한 것은?',opts:['물건이 풍부한 모양','갑작스러운 변화','건조하고 메마른 모양','느리고 조용한 모양','끈기 있게 노력하는 모양'],ans:0,explain:'潤沢(じゅんたく) = 물건·자금 등이 풍부하고 넉넉한 모양.'},
-{cat:'언어·어구의 의미',q:'「逼迫」의 의미로 가장 적절한 것은?',opts:['여유가 있는 상태','사태가 급박하게 다가옴','천천히 진행됨','과거를 그리워함','의지가 굳건함'],ans:1,explain:'逼迫(ひっぱく) = 사태가 절박하게 다가옴. 재정 핍박 등에 사용.'},
-{cat:'언어·어구의 의미',q:'「忌憚」의 의미로 가장 적절한 것은?',opts:['기뻐서 어쩔 줄 모름','꺼리고 삼감','강하게 주장함','잊어버림','비밀로 함'],ans:1,explain:'忌憚(きたん) = 꺼리고 삼감. 「忌憚のないご意見」= 거리낌 없는 의견.'},
+{cat:'언어·어구의 의미',q:'「潤沢」의 의미로 가장 적절한 것은?',q_jp:'「潤沢」の意味として最も適切なものはどれか。',opts:['물건이 풍부한 모양','갑작스러운 변화','건조하고 메마른 모양','느리고 조용한 모양','끈기 있게 노력하는 모양'],opts_jp:['物が豊かなさま','突然の変化','乾燥したさま','ゆっくりと静かなさま','粘り強く努力するさま'],ans:0,explain:'潤沢(じゅんたく) = 물건·자금 등이 풍부하고 넉넉한 모양.'},
+{cat:'언어·어구의 의미',q:'「逼迫」의 의미로 가장 적절한 것은?',q_jp:'「逼迫」の意味として最も適切なものはどれか。',opts:['여유가 있는 상태','사태가 급박하게 다가옴','천천히 진행됨','과거를 그리워함','의지가 굳건함'],opts_jp:['余裕がある状態','事態が差し迫ること','ゆっくり進むこと','過去を懐かしむこと','意志が固いこと'],ans:1,explain:'逼迫(ひっぱく) = 사태가 절박하게 다가옴. 재정 핍박 등에 사용.'},
+{cat:'언어·어구의 의미',q:'「忌憚」의 의미로 가장 적절한 것은?',q_jp:'「忌憚」の意味として最も適切なものはどれか。',opts:['기뻐서 어쩔 줄 모름','꺼리고 삼감','강하게 주장함','잊어버림','비밀로 함'],opts_jp:['喜びに満ちること','はばかり遠慮すること','強く主張すること','忘れること','秘密にすること'],ans:1,explain:'忌憚(きたん) = 꺼리고 삼감. 「忌憚のないご意見」= 거리낌 없는 의견.'},
 // --- 언어: 두 단어 관계 ---
-{cat:'언어·두 단어',q:'「寛容 : 厳格」과 같은 관계인 것은?',opts:['快適 : 不快','勤勉 : 努力','先生 : 教師','動物 : 犬','入口 : 出口'],ans:0,explain:'반의 관계. 관용(너그러움) ↔ 엄격. 쾌적 ↔ 불쾌도 반의 관계.'},
-{cat:'언어·두 단어',q:'「医師 : 患者」와 같은 관계인 것은?',opts:['教師 : 生徒','病院 : 学校','薬 : 注射','大人 : 子供','勉強 : 授業'],ans:0,explain:'역할 관계(서비스 제공자 : 수혜자). 의사:환자 = 교사:학생.'},
+{cat:'언어·두 단어',q:'「寛容 : 厳格」과 같은 관계인 것은?',q_jp:'「寛容 : 厳格」と同じ関係のものはどれか。',opts:['快適 : 不快','勤勉 : 努力','先生 : 教師','動物 : 犬','入口 : 出口'],ans:0,explain:'반의 관계. 관용(너그러움) ↔ 엄격. 쾌적 ↔ 불쾌도 반의 관계.'},
+{cat:'언어·두 단어',q:'「医師 : 患者」와 같은 관계인 것은?',q_jp:'「医師 : 患者」と同じ関係のものはどれか。',opts:['教師 : 生徒','病院 : 学校','薬 : 注射','大人 : 子供','勉強 : 授業'],ans:0,explain:'역할 관계(서비스 제공자 : 수혜자). 의사:환자 = 교사:학생.'},
 // --- 비언어: 속도·거리·시간 ---
-{cat:'비언어·속도',q:'시속 60km로 2시간 30분 달리면 몇 km를 이동하는가?',opts:['120km','140km','150km','160km','180km'],ans:2,explain:'60 × 2.5 = 150km'},
-{cat:'비언어·속도',q:'240km의 거리를 시속 80km로 달리면 몇 시간 걸리는가?',opts:['2시간','2시간 30분','3시간','3시간 30분','4시간'],ans:2,explain:'240 ÷ 80 = 3시간'},
+{cat:'비언어·속도',q:'시속 60km로 2시간 30분 달리면 몇 km를 이동하는가?',q_jp:'時速60kmで2時間30分走ると、何km移動するか。',opts:['120km','140km','150km','160km','180km'],ans:2,explain:'60 × 2.5 = 150km'},
+{cat:'비언어·속도',q:'240km의 거리를 시속 80km로 달리면 몇 시간 걸리는가?',q_jp:'240kmの距離を時速80kmで走ると、何時間かかるか。',opts:['2時間','2時間30分','3時間','3時間30分','4時間'],ans:2,explain:'240 ÷ 80 = 3시간'},
 // --- 비언어: 손익산 ---
-{cat:'비언어·손익산',q:'원가 800엔의 상품에 25%의 이익을 붙여 정가를 매겼다. 정가는?',opts:['900엔','950엔','1,000엔','1,050엔','1,100엔'],ans:2,explain:'800 × 1.25 = 1,000엔'},
-{cat:'비언어·손익산',q:'정가 1,200엔의 상품을 20% 할인해서 팔았다. 판매가는?',opts:['840엔','900엔','960엔','1,000엔','1,080엔'],ans:2,explain:'1,200 × 0.8 = 960엔'},
+{cat:'비언어·손익산',q:'원가 800엔의 상품에 25%의 이익을 붙여 정가를 매겼다. 정가는?',q_jp:'原価800円の商品に25%の利益を付けて定価をつけた。定価はいくらか。',opts:['900円','950円','1,000円','1,050円','1,100円'],ans:2,explain:'800 × 1.25 = 1,000엔'},
+{cat:'비언어·손익산',q:'정가 1,200엔의 상품을 20% 할인해서 팔았다. 판매가는?',q_jp:'定価1,200円の商品を20%割引で販売した。販売価格はいくらか。',opts:['840円','900円','960円','1,000円','1,080円'],ans:2,explain:'1,200 × 0.8 = 960엔'},
 // --- 비언어: 확률 ---
-{cat:'비언어·확률',q:'주머니에 빨간 공 3개, 파란 공 5개, 흰 공 2개가 있다. 1개를 꺼낼 때 파란 공일 확률은?',opts:['1/5','3/10','1/2','5/10','2/5'],ans:2,explain:'파란 5 / 전체 10 = 1/2'},
-{cat:'비언어·확률',q:'동전을 3번 던질 때, 3번 모두 앞면이 나올 확률은?',opts:['1/2','1/4','1/6','1/8','1/16'],ans:3,explain:'(1/2)³ = 1/8'},
+{cat:'비언어·확률',q:'주머니에 빨간 공 3개, 파란 공 5개, 흰 공 2개가 있다. 1개를 꺼낼 때 파란 공일 확률은?',q_jp:'袋に赤い玉3個、青い玉5個、白い玉2個がある。1個取り出すとき、青い玉である確率は？',opts:['1/5','3/10','1/2','5/10','2/5'],ans:2,explain:'파란 5 / 전체 10 = 1/2'},
+{cat:'비언어·확률',q:'동전을 3번 던질 때, 3번 모두 앞면이 나올 확률은?',q_jp:'コインを3回投げるとき、3回とも表が出る確率は？',opts:['1/2','1/4','1/6','1/8','1/16'],ans:3,explain:'(1/2)³ = 1/8'},
 // --- 비언어: 추론 ---
-{cat:'비언어·추론',q:'A, B, C, D, E 5명이 일렬로 선다. A는 B보다 앞, C는 D보다 뒤, B는 C보다 앞일 때, 확실히 알 수 있는 것은?',opts:['A가 1번째','E가 5번째','A는 D보다 앞','B는 D보다 뒤','C가 3번째'],ans:2,explain:'A>B>C이고 D>C이므로 A는 D보다 앞인지 확실하지 않음... 재검토: A>B>C, C뒤에D(D>C). A>B>C이고 D>C. A와D 관계는 불명. 정답은 B>C가 확실.'},
-{cat:'비언어·추론',q:'「이 도시의 모든 공원에는 벤치가 있다」가 참일 때, 반드시 참인 것은?',opts:['벤치가 없으면 공원이 아니다','공원이 아니면 벤치가 없다','벤치가 있으면 공원이다','이 도시 밖 공원에도 벤치가 있다','공원에 벤치가 2개 이상 있다'],ans:0,explain:'대우: 벤치가 없으면(¬B) → 공원이 아니다(¬A). 원명제와 대우만 동치.'},
+{cat:'비언어·추론',q:'「이 도시의 모든 공원에는 벤치가 있다」가 참일 때, 반드시 참인 것은?',q_jp:'「この都市のすべての公園にはベンチがある」が真であるとき、必ず真であるものはどれか。',opts:['벤치가 없으면 공원이 아니다','공원이 아니면 벤치가 없다','벤치가 있으면 공원이다','이 도시 밖 공원에도 벤치가 있다','공원에 벤치가 2개 이상 있다'],opts_jp:['ベンチがなければ公園ではない','公園でなければベンチがない','ベンチがあれば公園である','この都市外の公園にもベンチがある','公園にはベンチが2つ以上ある'],ans:0,explain:'대우: 벤치가 없으면(¬B) → 공원이 아니다(¬A). 원명제와 대우만 동치.'},
 // --- 비언어: 집합 ---
-{cat:'비언어·집합',q:'100명 중 영어를 좋아하는 사람 60명, 수학을 좋아하는 사람 50명, 둘 다 좋아하는 사람 20명이다. 둘 다 좋아하지 않는 사람은?',opts:['5명','10명','15명','20명','30명'],ans:1,explain:'영어만 40 + 수학만 30 + 둘다 20 = 90. 100-90 = 10명.'},
+{cat:'비언어·집합',q:'100명 중 영어를 좋아하는 사람 60명, 수학을 좋아하는 사람 50명, 둘 다 좋아하는 사람 20명이다. 둘 다 좋아하지 않는 사람은?',q_jp:'100人中、英語が好きな人60人、数学が好きな人50人、両方好きな人20人。どちらも好きでない人は？',opts:['5人','10人','15人','20人','30人'],ans:1,explain:'영어만 40 + 수학만 30 + 둘다 20 = 90. 100-90 = 10명.'},
 // --- 비언어: 정수 ---
-{cat:'비언어·정수',q:'72의 약수의 개수는?',opts:['8개','10개','12개','14개','16개'],ans:2,explain:'72 = 2³ × 3². 약수 개수 = (3+1)(2+1) = 12개.'},
+{cat:'비언어·정수',q:'72의 약수의 개수는?',q_jp:'72の約数の個数はいくつか。',opts:['8個','10個','12個','14個','16個'],ans:2,explain:'72 = 2³ × 3². 약수 개수 = (3+1)(2+1) = 12개.'},
 ];
 
 const QUIZ_SIZE = 10;
 const TIME_LIMIT = 300;
-let questions=[],current=0,answers=[],timer=TIME_LIMIT,timerInterval=null,questionStartTime=0,phase='start';
+let questions=[],current=0,answers=[],timer=TIME_LIMIT,timerInterval=null,questionStartTime=0,phase='start',lang='jp';
+function getQ(q){return lang==='jp'&&q.q_jp?q.q_jp:q.q;}
+function getOpts(q){return lang==='jp'&&q.opts_jp?q.opts_jp:q.opts;}
 const app=document.getElementById('app');
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 function formatTime(s){return Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60);}
@@ -101,12 +102,12 @@ function nextQuestion(){if(current<questions.length-1){current++;questionStartTi
 function finishQuiz(){clearInterval(timerInterval);for(let i=0;i<questions.length;i++)if(!answers[i])answers[i]={selected:-1,correct:false,timeSpent:0,locked:true};phase='result';render();}
 function renderTimer(){const el=document.querySelector('.qz-timer');if(el){el.textContent=formatTime(timer);el.classList.toggle('warn',timer<=30);}}
 function render(){if(phase==='start')return renderStart();if(phase==='result')return renderResult();renderQuiz();}
-function renderStart(){app.innerHTML=`<div class="qz-start"><h2>🎯 <span style="color:var(--accent);">SPI</span> 미니 모의고사</h2><p>문제 은행에서 랜덤 ${QUIZ_SIZE}문이 출제됩니다.<br>제한시간 ${TIME_LIMIT/60}분. 언어(어구의미/두단어관계)와 비언어(속도/손익/확률/추론)가 섞여 나옵니다.</p><div style="margin-bottom:20px;"><span style="font-size:12px;color:var(--text-muted);">문제 은행: ${BANK.length}문 | 출제: ${QUIZ_SIZE}문 | 제한: ${TIME_LIMIT/60}분</span></div><button class="qz-btn qz-btn-primary" onclick="startQuiz()" style="font-size:15px;padding:14px 40px;">시작하기</button></div>`;}
+function renderStart(){var ja=lang==='jp'?'background:var(--accent);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';var ka=lang==='ko'?'background:var(--accent);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';app.innerHTML=`<div class="qz-start"><h2>🎯 <span style="color:var(--accent);">SPI</span> 미니 모의고사</h2><p>문제 은행에서 랜덤 ${QUIZ_SIZE}문이 출제됩니다.<br>제한시간 ${TIME_LIMIT/60}분. 언어(어구의미/두단어관계)와 비언어(속도/손익/확률/추론)가 섞여 나옵니다.</p><div style="display:flex;justify-content:center;gap:4px;margin:16px 0;"><button onclick="lang='jp';render();" class="qz-btn" style="padding:8px 20px;font-size:12px;${ja}">日本語 (실전)</button><button onclick="lang='ko';render();" class="qz-btn" style="padding:8px 20px;font-size:12px;${ka}">한국어 (연습)</button></div><div style="margin-bottom:20px;"><span style="font-size:12px;color:var(--text-muted);">문제 은행: ${BANK.length}문 | 출제: ${QUIZ_SIZE}문 | 제한: ${TIME_LIMIT/60}분 | 풀이는 항상 한국어</span></div><button class="qz-btn qz-btn-primary" onclick="startQuiz()" style="font-size:15px;padding:14px 40px;">시작하기</button></div>`;}
 function renderQuiz(){const q=questions[current],a=answers[current],locked=a&&a.locked;let dots='';for(let i=0;i<questions.length;i++){let c='qz-dot';if(i===current)c+=' current';else if(answers[i])c+=answers[i].correct?' done':' wrong-dot';dots+=`<div class="${c}"></div>`;}
-let opts=q.opts.map((o,i)=>{let c='qz-opt';if(locked){c+=' locked';if(i===q.ans)c+=' is-correct';else if(a&&a.selected===i)c+=' is-wrong';}return`<button class="${c}" onclick="selectAnswer(${i})">${o}</button>`;}).join('');
+let opts=getOpts(q).map((o,i)=>{let c='qz-opt';if(locked){c+=' locked';if(i===q.ans)c+=' is-correct';else if(a&&a.selected===i)c+=' is-wrong';}return`<button class="${c}" onclick="selectAnswer(${i})">${o}</button>`;}).join('');
 let explain=locked?`<div class="qz-explain show"><div class="qz-explain-label">풀이</div><p>${q.explain}</p></div>`:'';
 let actions=locked?`<div class="qz-actions"><button class="qz-btn qz-btn-primary" onclick="${current===questions.length-1?'finishQuiz()':'nextQuestion()'}">${current===questions.length-1?'결과 보기':'다음 문제 →'}</button></div>`:'';
-app.innerHTML=`<div class="qz-header"><div class="qz-title"><span>SPI</span> 미니 모의고사</div><div class="qz-timer${timer<=30?' warn':''}">${formatTime(timer)}</div></div><div class="qz-progress">${dots}</div><div class="qz-card"><div class="qz-meta"><div class="qz-num">Q${current+1} / ${questions.length}</div><div class="qz-cat">${q.cat}</div></div><div class="qz-q">${q.q}</div><div class="qz-opts">${opts}</div>${explain}${actions}</div>`;}
+app.innerHTML=`<div class="qz-header"><div class="qz-title"><span>SPI</span> 미니 모의고사</div><div class="qz-timer${timer<=30?' warn':''}">${formatTime(timer)}</div></div><div class="qz-progress">${dots}</div><div class="qz-card"><div class="qz-meta"><div class="qz-num">Q${current+1} / ${questions.length}</div><div class="qz-cat">${q.cat}</div></div><div class="qz-q">${getQ(q)}</div><div class="qz-opts">${opts}</div>${explain}${actions}</div>`;}
 function renderResult(){const cc=answers.filter(a=>a.correct).length,wc=answers.filter(a=>!a.correct).length,tt=TIME_LIMIT-timer,avg=Math.round(tt/questions.length),pct=Math.round(cc/questions.length*100);const cs={};questions.forEach((q,i)=>{if(!cs[q.cat])cs[q.cat]={total:0,correct:0};cs[q.cat].total++;if(answers[i]&&answers[i].correct)cs[q.cat].correct++;});let ch=Object.entries(cs).map(([c,s])=>{const r=Math.round(s.correct/s.total*100);const co=r>=70?'var(--correct)':r>=40?'var(--accent)':'var(--wrong)';return`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;"><span style="color:var(--text-sub);">${c}</span><span style="color:${co};font-weight:700;">${s.correct}/${s.total} (${r}%)</span></div>`;}).join('');
 app.innerHTML=`<div class="qz-result"><h2>모의고사 결과</h2><div class="qz-score">${pct}<span style="font-size:24px;color:var(--text-dim);">%</span></div><div class="qz-score-label">${cc}문 정답 / ${questions.length}문</div><div class="qz-breakdown"><div class="qz-stat"><div class="qz-stat-num green">${cc}</div><div class="qz-stat-label">정답</div></div><div class="qz-stat"><div class="qz-stat-num red">${wc}</div><div class="qz-stat-label">오답</div></div><div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${avg}<span style="font-size:12px;">초</span></div><div class="qz-stat-label">문항 평균</div></div><div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${formatTime(tt)}</div><div class="qz-stat-label">총 소요</div></div></div><div style="text-align:left;max-width:400px;margin:0 auto 24px;"><div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:8px;text-transform:uppercase;">카테고리별 분석</div>${ch}</div><button class="qz-btn qz-btn-primary" onclick="phase='start';render();" style="font-size:15px;padding:14px 40px;">다시 도전하기</button></div>`;}
 render();
