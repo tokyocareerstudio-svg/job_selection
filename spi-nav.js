@@ -15,6 +15,7 @@
       index: 'spi-index.html',
       children: [
         { label: 'SPI 전체 가이드', file: 'spi-index.html', isBold: true },
+        { label: '🎯 미니 모의고사', file: 'quiz-spi.html' },
         { label: '── 언어', isHeader: true },
         { label: '언어 개요', file: 'spi-gengo-index.html' },
         { label: '① 어구의 의미', file: 'spi-gengo-goku.html' },
@@ -40,6 +41,7 @@
       index: 'tama-index.html',
       children: [
         { label: '玉手箱 전체 가이드', file: 'tama-index.html', isBold: true },
+        { label: '🎯 미니 모의고사', file: 'quiz-tama.html' },
         { label: '── 언어 (言語)', isHeader: true },
         { label: '언어 개요', file: 'tama-gengo-index.html' },
         { label: '① GAB형 논리적독해', file: 'tama-gengo-gab.html' },
@@ -59,6 +61,7 @@
       index: 'tgweb-index.html',
       children: [
         { label: 'TG-WEB 전체 가이드', file: 'tgweb-index.html', isBold: true },
+        { label: '🎯 미니 모의고사', file: 'quiz-tgweb.html' },
         { label: '── 언어 (言語)', isHeader: true },
         { label: '언어 개요', file: 'tgweb-gengo-index.html' },
         { label: '① 종래형 (공란·나열·장문)', file: 'tgweb-gengo-juurai.html' },

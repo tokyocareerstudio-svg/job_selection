@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'quiz-tgweb.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TG-WEB 미니 모의고사 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--tg:#f59e0b;--tg-soft:rgba(245,158,11,0.06);--tg-border:rgba(245,158,11,0.18);--correct:#34d399;--wrong:#ef4444;--solve:#a29bfe;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:680px;margin:0 auto;padding:20px 24px 100px;}
+.qz-header{padding:24px 0;border-bottom:1px solid var(--border);margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.qz-title{font-size:18px;font-weight:800;letter-spacing:-0.3px;}.qz-title span{color:var(--tg);}
+.qz-timer{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--tg);min-width:70px;text-align:right;}
+.qz-timer.warn{color:var(--wrong);animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+.qz-progress{display:flex;gap:4px;margin-bottom:20px;}
+.qz-dot{flex:1;height:4px;border-radius:2px;background:var(--surface-2);transition:background 0.3s;}
+.qz-dot.done{background:var(--correct);}.qz-dot.wrong-dot{background:var(--wrong);}.qz-dot.current{background:var(--tg);opacity:0.6;}
+.qz-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 24px;min-height:300px;}
+.qz-meta{display:flex;justify-content:space-between;margin-bottom:16px;}
+.qz-num{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tg);text-transform:uppercase;}
+.qz-cat{font-size:11px;color:var(--text-muted);padding:2px 10px;background:var(--surface-2);border-radius:6px;}
+.qz-q{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:14px;color:var(--text-sub);line-height:2.0;margin-bottom:20px;white-space:pre-line;}
+.qz-opts{display:flex;flex-direction:column;gap:8px;}
+.qz-opt{padding:12px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--text-sub);cursor:pointer;transition:all 0.2s;text-align:left;font-family:inherit;line-height:1.6;}
+.qz-opt:hover:not(.locked){border-color:var(--tg-border);background:var(--tg-soft);}
+.qz-opt.locked{cursor:default;}.qz-opt.is-correct{border-color:var(--correct);background:rgba(52,211,153,0.08);color:var(--correct);}.qz-opt.is-wrong{border-color:var(--wrong);background:rgba(239,68,68,0.06);color:var(--wrong);opacity:0.7;}
+.qz-explain{margin-top:16px;padding:16px;background:rgba(162,155,254,0.05);border:1px solid rgba(162,155,254,0.15);border-radius:10px;display:none;}
+.qz-explain.show{display:block;}.qz-explain-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:6px;text-transform:uppercase;}.qz-explain p{font-size:12px;color:var(--text-dim);line-height:1.8;margin:0;}
+.qz-actions{display:flex;gap:10px;margin-top:20px;justify-content:flex-end;}
+.qz-btn{padding:10px 24px;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:all 0.2s;border:none;}
+.qz-btn-primary{background:var(--tg);color:#0a0a0f;}.qz-btn-primary:hover{opacity:0.9;}
+.qz-start,.qz-result{text-align:center;padding:60px 20px;}
+.qz-start h2,.qz-result h2{font-size:24px;font-weight:900;margin-bottom:12px;}
+.qz-start p,.qz-result p{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:24px;}
+.qz-score{font-family:'Space Grotesk',sans-serif;font-size:64px;font-weight:700;color:var(--tg);line-height:1;}
+.qz-score-label{font-size:13px;color:var(--text-muted);margin-top:8px;margin-bottom:24px;}
+.qz-breakdown{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;}
+.qz-stat{padding:14px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;min-width:100px;}
+.qz-stat-num{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;}.qz-stat-num.green{color:var(--correct);}.qz-stat-num.red{color:var(--wrong);}
+.qz-stat-label{font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.qz-footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);text-align:center;}
+.qz-footer p{font-size:11px;color:var(--text-muted);}.qz-footer a{color:var(--tg);text-decoration:none;}
+@media(max-width:640px){.qz-card{padding:20px 16px;}.qz-start h2,.qz-result h2{font-size:20px;}.qz-score{font-size:48px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="app"></div>
+  <div class="qz-footer">
+    <p><a href="tgweb-index.html">← TG-WEB 가이드로 돌아가기</a></p>
+    <p style="margin-top:8px;">© Tokyo Career Studio. All rights reserved.</p>
+  </div>
+</div>
+<script>
+const BANK = [
+// --- 종래형 언어: 공란보충 ---
+{cat:'종래형·공란보충',q:'日本の出生率は年々低下している。【　】、政府は子育て支援の拡充を急いでいる。\n\n빈칸에 들어갈 접속사는?',opts:['しかし','したがって','例えば','つまり','あるいは'],ans:1,explain:'출생률 저하(원인) → 지원 확충(결과). 인과관계 = したがって(따라서).'},
+{cat:'종래형·공란보충',q:'テクノロジーの進化は私たちの生活を便利にした。【　】、人々がテクノロジーに過度に依存するリスクも指摘されている。',opts:['そのため','一方で','つまり','具体的には','要するに'],ans:1,explain:'편리(긍정) ↔ 과도한 의존 리스크(부정). 대비 = 一方で(한편으로).'},
+{cat:'종래형·공란보충',q:'この地域では古くから農業が盛んであり、住民の多くは農業に【　】生計を立てている。',opts:['反して','基づいて','携わって','限って','備えて'],ans:2,explain:'농업에 종사하여 생계를 세운다 = 携わって(たずさわって).'},
+// --- 종래형 언어: 장문독해 ---
+{cat:'종래형·장문독해',q:'【본문 요약: 리모트워크는 워라밸을 개선했지만, 모든 업무에 적합하지는 않다. 중요한 것은 업무 성질에 맞춰 유연하게 선택하는 것이다.】\n\n필자가 가장 주장하고 싶은 것은?',opts:['리모트워크는 모든 업무에 적합하다','오피스 근무가 리모트보다 효율적이다','업무에 맞춰 유연하게 일하는 방식을 선택할 수 있는 것이 중요하다','통근시간 삭감이 최대의 메리트이다'],ans:2,explain:'마지막 단락 「業務の性質に応じて最適な働き方を選択できる柔軟性」이 핵심 주장.'},
+// --- 신형 언어: 동의어 ---
+{cat:'신형·동의어',q:'「斬新」의 동의어는?',opts:['古風','独創的','平凡','伝統的','慎重'],ans:1,explain:'斬新(ざんしん) = 매우 새롭고 독창적인. 独創的이 동의어.'},
+{cat:'신형·동의어',q:'「逡巡」의 동의어는?',opts:['前進','決断','躊躇','邁進','迅速'],ans:2,explain:'逡巡(しゅんじゅん) = 머뭇거림. 躊躇(ちゅうちょ) = 망설임.'},
+{cat:'신형·동의어',q:'「寡黙」의 동의어는?',opts:['雄弁','饒舌','無口','活発','率直'],ans:2,explain:'寡黙(かもく) = 말이 적음. 無口(むくち) = 말수가 적음.'},
+// --- 신형 언어: 반의어 ---
+{cat:'신형·반의어',q:'「簡潔」의 반의어는?',opts:['明快','冗長','簡素','正確','丁寧'],ans:1,explain:'簡潔(간결) ↔ 冗長(장황).'},
+{cat:'신형·반의어',q:'「楽観」의 반의어는?',opts:['希望','悲観','期待','達観','傍観'],ans:1,explain:'楽観(낙관) ↔ 悲観(비관).'},
+// --- 신형 언어: 속담 ---
+{cat:'신형·속담',q:'「紺屋の白袴」의 의미는?',opts:['실패를 두려워하지 않고 도전','남의 일에 바빠 자기 일은 못 챙김','눈에 띄지 않지만 확실히 성과를 냄','어려운 상황에서도 포기하지 않음'],ans:1,explain:'紺屋の白袴 = 염색업자가 자기 바지는 못 염색. 의사의 불양생과 유사.'},
+{cat:'신형·속담',q:'「能ある鷹は爪を隠す」의 의미는?',opts:['약자가 강자에게 맞섬','실력자는 겉으로 과시하지 않음','준비 없이 일에 뛰어듦','외모로 사람을 판단하면 안 됨'],ans:1,explain:'능력 있는 매는 발톱을 숨긴다 = 실력자는 과시하지 않음.'},
+{cat:'신형·속담',q:'「七転び八起き」를 가장 잘 표현하는 상황은?',opts:['한번도 실패하지 않고 성공','몇 번 실패해도 포기하지 않고 결국 성공','남의 도움으로 어려움을 극복','신중하게 계획을 세워 실행'],ans:1,explain:'일곱 번 넘어지고 여덟 번 일어남 = 불굴의 정신.'},
+// --- 종래형 계수: 추론 ---
+{cat:'종래형·추론',q:'「비가 오면 시합은 중지된다」가 참일 때, 반드시 참인 것은?',opts:['비가 안 오면 시합이 열린다','시합이 중지 안 됐으면 비는 안 왔다','시합이 중지됐으면 비가 왔다','맑으면 반드시 시합이 열린다'],ans:1,explain:'대우: ¬B→¬A. 시합 중지 안 됨(¬B)→비 안 옴(¬A). 역과 이는 반드시 참이 아님.'},
+{cat:'종래형·추론',q:'정팔면체의 변의 수는?',opts:['8','10','12','14','16'],ans:2,explain:'정팔면체: 면=8(정삼각형), 1면의 변=3. 변=3x8/2=12.'},
+// --- 신형 계수: 사칙역산 ---
+{cat:'신형·사칙역산',q:'□ + 48 = 91',opts:['33','43','53','139','없음'],ans:1,explain:'91-48=43'},
+{cat:'신형·사칙역산',q:'□ ÷ 9 = 11',opts:['2','20','79','99','없음'],ans:3,explain:'11x9=99'},
+{cat:'신형·사칙역산',q:'(52 + □) ÷ 9 = 11',opts:['39','42','47','51','없음'],ans:2,explain:'52+□=99 → □=47'},
+{cat:'신형·사칙역산',q:'7 × 9 = □ ÷ 3',opts:['21','63','126','189','없음'],ans:3,explain:'63=□/3 → □=189'},
+];
+
+const QUIZ_SIZE=10,TIME_LIMIT=300;
+let questions=[],current=0,answers=[],timer=TIME_LIMIT,timerInterval=null,questionStartTime=0,phase='start';
+const app=document.getElementById('app');
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function formatTime(s){return Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60);}
+function startQuiz(){questions=shuffle(BANK).slice(0,QUIZ_SIZE);current=0;answers=[];timer=TIME_LIMIT;phase='quiz';questionStartTime=Date.now();timerInterval=setInterval(()=>{timer--;renderTimer();if(timer<=0){clearInterval(timerInterval);finishQuiz();}},1000);render();}
+function selectAnswer(i){if(answers[current]&&answers[current].locked)return;const q=questions[current];answers[current]={selected:i,correct:i===q.ans,timeSpent:Math.round((Date.now()-questionStartTime)/1000),locked:true};render();}
+function nextQuestion(){if(current<questions.length-1){current++;questionStartTime=Date.now();render();}else finishQuiz();}
+function finishQuiz(){clearInterval(timerInterval);for(let i=0;i<questions.length;i++)if(!answers[i])answers[i]={selected:-1,correct:false,timeSpent:0,locked:true};phase='result';render();}
+function renderTimer(){const el=document.querySelector('.qz-timer');if(el){el.textContent=formatTime(timer);el.classList.toggle('warn',timer<=30);}}
+function render(){if(phase==='start')return renderStart();if(phase==='result')return renderResult();renderQuiz();}
+function renderStart(){app.innerHTML=`<div class="qz-start"><h2>🎯 <span style="color:var(--tg);">TG-WEB</span> 미니 모의고사</h2><p>문제 은행에서 랜덤 ${QUIZ_SIZE}문이 출제됩니다.<br>제한시간 ${TIME_LIMIT/60}분. 종래형(공란보충/추론)과 신형(동의어/반의어/속담/사칙역산)이 섞여 나옵니다.</p><div style="margin-bottom:20px;"><span style="font-size:12px;color:var(--text-muted);">문제 은행: ${BANK.length}문 | 출제: ${QUIZ_SIZE}문 | 제한: ${TIME_LIMIT/60}분</span></div><button class="qz-btn qz-btn-primary" onclick="startQuiz()" style="font-size:15px;padding:14px 40px;">시작하기</button></div>`;}
+function renderQuiz(){const q=questions[current],a=answers[current],locked=a&&a.locked;let dots='';for(let i=0;i<questions.length;i++){let c='qz-dot';if(i===current)c+=' current';else if(answers[i])c+=answers[i].correct?' done':' wrong-dot';dots+=`<div class="${c}"></div>`;}
+let opts=q.opts.map((o,i)=>{let c='qz-opt';if(locked){c+=' locked';if(i===q.ans)c+=' is-correct';else if(a&&a.selected===i)c+=' is-wrong';}return`<button class="${c}" onclick="selectAnswer(${i})">${o}</button>`;}).join('');
+let explain=locked?`<div class="qz-explain show"><div class="qz-explain-label">풀이</div><p>${q.explain}</p></div>`:'';
+let actions=locked?`<div class="qz-actions"><button class="qz-btn qz-btn-primary" onclick="${current===questions.length-1?'finishQuiz()':'nextQuestion()'}">${current===questions.length-1?'결과 보기':'다음 문제 →'}</button></div>`:'';
+app.innerHTML=`<div class="qz-header"><div class="qz-title"><span>TG-WEB</span> 미니 모의고사</div><div class="qz-timer${timer<=30?' warn':''}">${formatTime(timer)}</div></div><div class="qz-progress">${dots}</div><div class="qz-card"><div class="qz-meta"><div class="qz-num">Q${current+1} / ${questions.length}</div><div class="qz-cat">${q.cat}</div></div><div class="qz-q">${q.q}</div><div class="qz-opts">${opts}</div>${explain}${actions}</div>`;}
+function renderResult(){const cc=answers.filter(a=>a.correct).length,wc=answers.filter(a=>!a.correct).length,tt=TIME_LIMIT-timer,avg=Math.round(tt/questions.length),pct=Math.round(cc/questions.length*100);const cs={};questions.forEach((q,i)=>{if(!cs[q.cat])cs[q.cat]={total:0,correct:0};cs[q.cat].total++;if(answers[i]&&answers[i].correct)cs[q.cat].correct++;});let ch=Object.entries(cs).map(([c,s])=>{const r=Math.round(s.correct/s.total*100);const co=r>=70?'var(--correct)':r>=40?'var(--tg)':'var(--wrong)';return`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;"><span style="color:var(--text-sub);">${c}</span><span style="color:${co};font-weight:700;">${s.correct}/${s.total} (${r}%)</span></div>`;}).join('');
+app.innerHTML=`<div class="qz-result"><h2>모의고사 결과</h2><div class="qz-score">${pct}<span style="font-size:24px;color:var(--text-dim);">%</span></div><div class="qz-score-label">${cc}문 정답 / ${questions.length}문</div><div class="qz-breakdown"><div class="qz-stat"><div class="qz-stat-num green">${cc}</div><div class="qz-stat-label">정답</div></div><div class="qz-stat"><div class="qz-stat-num red">${wc}</div><div class="qz-stat-label">오답</div></div><div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${avg}<span style="font-size:12px;">초</span></div><div class="qz-stat-label">문항 평균</div></div><div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${formatTime(tt)}</div><div class="qz-stat-label">총 소요</div></div></div><div style="text-align:left;max-width:400px;margin:0 auto 24px;"><div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tg);margin-bottom:8px;text-transform:uppercase;">카테고리별 분석</div>${ch}</div><button class="qz-btn qz-btn-primary" onclick="phase='start';render();" style="font-size:15px;padding:14px 40px;">다시 도전하기</button></div>`;}
+render();
+</script>
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>

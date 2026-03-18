@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'quiz-tama.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玉手箱 미니 모의고사 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--tama:#34d399;--tama-soft:rgba(52,211,153,0.06);--tama-border:rgba(52,211,153,0.18);--correct:#34d399;--wrong:#ef4444;--solve:#a29bfe;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:680px;margin:0 auto;padding:20px 24px 100px;}
+
+/* Header */
+.qz-header{padding:24px 0;border-bottom:1px solid var(--border);margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.qz-title{font-size:18px;font-weight:800;letter-spacing:-0.3px;}
+.qz-title span{color:var(--tama);}
+.qz-timer{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--tama);min-width:70px;text-align:right;}
+.qz-timer.warn{color:var(--wrong);animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+
+/* Progress */
+.qz-progress{display:flex;gap:4px;margin-bottom:20px;}
+.qz-dot{flex:1;height:4px;border-radius:2px;background:var(--surface-2);transition:background 0.3s;}
+.qz-dot.done{background:var(--correct);}.qz-dot.wrong-dot{background:var(--wrong);}.qz-dot.current{background:var(--tama);opacity:0.6;}
+
+/* Card */
+.qz-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 24px;min-height:300px;position:relative;transition:all 0.3s;}
+.qz-meta{display:flex;justify-content:space-between;margin-bottom:16px;}
+.qz-num{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tama);text-transform:uppercase;}
+.qz-cat{font-size:11px;color:var(--text-muted);padding:2px 10px;background:var(--surface-2);border-radius:6px;}
+.qz-q{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:14px;color:var(--text-sub);line-height:2.0;margin-bottom:20px;white-space:pre-line;}
+.qz-opts{display:flex;flex-direction:column;gap:8px;}
+.qz-opt{padding:12px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--text-sub);cursor:pointer;transition:all 0.2s;text-align:left;font-family:inherit;line-height:1.6;}
+.qz-opt:hover:not(.locked){border-color:var(--tama-border);background:var(--tama-soft);}
+.qz-opt.selected{border-color:var(--tama);background:var(--tama-soft);color:var(--text);font-weight:600;}
+.qz-opt.locked{cursor:default;}
+.qz-opt.is-correct{border-color:var(--correct);background:rgba(52,211,153,0.08);color:var(--correct);}
+.qz-opt.is-wrong{border-color:var(--wrong);background:rgba(239,68,68,0.06);color:var(--wrong);opacity:0.7;}
+
+/* Explanation */
+.qz-explain{margin-top:16px;padding:16px;background:rgba(162,155,254,0.05);border:1px solid rgba(162,155,254,0.15);border-radius:10px;display:none;}
+.qz-explain.show{display:block;}
+.qz-explain-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:6px;text-transform:uppercase;}
+.qz-explain p{font-size:12px;color:var(--text-dim);line-height:1.8;margin:0;}
+
+/* Actions */
+.qz-actions{display:flex;gap:10px;margin-top:20px;justify-content:flex-end;}
+.qz-btn{padding:10px 24px;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:all 0.2s;border:none;}
+.qz-btn-primary{background:var(--tama);color:#0a0a0f;}.qz-btn-primary:hover{opacity:0.9;}
+.qz-btn-secondary{background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);}.qz-btn-secondary:hover{border-color:var(--tama-border);}
+.qz-btn:disabled{opacity:0.3;cursor:default;}
+
+/* Start & Result screens */
+.qz-start,.qz-result{text-align:center;padding:60px 20px;}
+.qz-start h2,.qz-result h2{font-size:24px;font-weight:900;margin-bottom:12px;}
+.qz-start p,.qz-result p{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:24px;}
+.qz-score{font-family:'Space Grotesk',sans-serif;font-size:64px;font-weight:700;color:var(--tama);line-height:1;}
+.qz-score-label{font-size:13px;color:var(--text-muted);margin-top:8px;margin-bottom:24px;}
+.qz-breakdown{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;}
+.qz-stat{padding:14px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;min-width:100px;}
+.qz-stat-num{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;}
+.qz-stat-num.green{color:var(--correct);}.qz-stat-num.red{color:var(--wrong);}
+.qz-stat-label{font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+
+/* Footer */
+.qz-footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);text-align:center;}
+.qz-footer p{font-size:11px;color:var(--text-muted);}
+.qz-footer a{color:var(--tama);text-decoration:none;}.qz-footer a:hover{text-decoration:underline;}
+
+@media(max-width:640px){.qz-card{padding:20px 16px;}.qz-start h2,.qz-result h2{font-size:20px;}.qz-score{font-size:48px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="app"></div>
+  <div class="qz-footer">
+    <p><a href="tama-index.html">← 玉手箱 가이드로 돌아가기</a></p>
+    <p style="margin-top:8px;">© Tokyo Career Studio. All rights reserved.</p>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// 문제 은행 (QUESTION BANK)
+// 카테고리: gengo-gab, gengo-images, keisu-shisoku, keisu-zuhyo, keisu-kuukan
+// 문제를 추가하려면 이 배열에 객체를 추가하기만 하면 됩니다.
+// ============================================================
+const BANK = [
+// --- 언어: GAB형 논리적독해 ---
+{cat:'언어·GAB형',q:'【본문】「近年、リモートワークの普及により、都心部のオフィス需要は減少傾向にある。一方で、地方都市では移住者の増加に伴い、コワーキングスペースの需要が急増している。」\n\n【설문】地方都市では、リモートワークの普及によりオフィス需要が減少している。',opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],ans:2,explain:'오피스 수요 감소는 「도심부」. 지방도시는 코워킹 수요 급증이라고만 되어 있고, 오피스 수요 감소 언급 없음.'},
+{cat:'언어·GAB형',q:'【본문】「AI의 진화에 의해 많은 직종에서 업무 효율이 향상되고 있다.」\n\n【설문】AIの進化により、一部の職種では雇用が減少している。',opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],ans:2,explain:'본문은 「업무 효율 향상」만 언급. 고용 감소에 대한 언급은 없으므로 판단 불가.'},
+{cat:'언어·GAB형',q:'【본문】「환경 규제 강화에 따라 많은 제조업 기업이 CO2 배출량 삭감에 힘쓰고 있다. 특히 자동차 업계에서는 EV 개발이 가속되어 2030년까지 EV 판매 비율을 50% 이상으로 하겠다는 목표를 내건 기업이 늘고 있다.」\n\n【설문】すべての自動車メーカーは、2030年までにEV販売比率を50%以上にする目標を掲げている。',opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],ans:1,explain:'「目標を掲げる企業が増えている(늘고 있다)」이지 「모든(すべての)」기업이라고는 안 했으므로 틀리다.'},
+{cat:'언어·GAB형',q:'【본문】「日本では少子高齢化が進み、生産年齢人口は減少を続けている。」\n\n【설문】日本の生産年齢人口は、少子高齢化の影響で増加している。',opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],ans:1,explain:'본문에 「減少を続けている(감소를 계속하고 있다)」라고 명확히 반대.'},
+// --- 언어: IMAGES형 취지판정 ---
+{cat:'언어·IMAGES형',q:'【본문】「グローバル化により国際競争が激化する中、企業が持続的に成長するためには、イノベーションが不可欠である。」\n\n【설문】企業の持続的な成長にはイノベーションが欠かせない。',opts:['A. 필자의 취지','B. 본문에 있지만 취지 아님','C. 본문과 관계없음'],ans:0,explain:'본문의 핵심 주장 그 자체. 이노베이션이 불가결하다는 것이 취지.'},
+{cat:'언어·IMAGES형',q:'【본문】「近年、働き方改革の一環として、多くの企業がフレックスタイム制度を導入している。これにより、従業員の満足度が向上したという報告がある。」\n\n【설문】フレックスタイム制度は全ての企業で導入されている。',opts:['A. 필자의 취지','B. 본문에 있지만 취지 아님','C. 본문과 관계없음'],ans:2,explain:'「多くの企業(많은 기업)」이지 「전부」라고 하지 않았으므로 본문과 관계없는 주장.'},
+// --- 계수: 사칙역산 ---
+{cat:'계수·사칙역산',q:'□ + 37 = 92',opts:['45','55','65','129','없음'],ans:1,explain:'□ = 92 - 37 = 55'},
+{cat:'계수·사칙역산',q:'□ × 8 = 96',opts:['11','12','13','88','768'],ans:1,explain:'□ = 96 ÷ 8 = 12'},
+{cat:'계수·사칙역산',q:'64 - □ = 19',opts:['35','45','55','83','없음'],ans:1,explain:'□ = 64 - 19 = 45'},
+{cat:'계수·사칙역산',q:'(□ + 7) × 4 = 60',opts:['5','8','12','15','22'],ans:1,explain:'□ + 7 = 60 ÷ 4 = 15 → □ = 15 - 7 = 8'},
+{cat:'계수·사칙역산',q:'□ × 0.25 = 7',opts:['1.75','7.25','14','28','175'],ans:3,explain:'□ = 7 ÷ 0.25 = 28. 0.25 = 1/4이므로 □ = 7 × 4 = 28'},
+{cat:'계수·사칙역산',q:'48 ÷ □ = 6',opts:['0.125','6','8','42','288'],ans:2,explain:'48 ÷ □ = 6 → □ = 48 ÷ 6 = 8. (□ = 6 × 48 = 288 함정 주의)'},
+{cat:'계수·사칙역산',q:'(□ - 5) × 3 = 36',opts:['7','12','15','17','19'],ans:3,explain:'□ - 5 = 36 ÷ 3 = 12 → □ = 12 + 5 = 17'},
+{cat:'계수·사칙역산',q:'□ ÷ 0.5 = 18',opts:['9','18.5','36','90','없음'],ans:0,explain:'□ = 18 × 0.5 = 9. 0.5로 나누면 2배이므로 □ = 18의 절반 = 9'},
+// --- 계수: 도표읽기 ---
+{cat:'계수·도표읽기',q:'【X사 사업부별 매출 (백만엔)】\n식품: 2023년 320 / 2024년 368\n음료: 2023년 280 / 2024년 294\n일용품: 2023년 150 / 2024년 180\n화장품: 2023년 250 / 2024년 240\n\n2024년 식품사업부의 전년대비 매출 증가율은?',opts:['10%','12%','15%','18%','20%'],ans:2,explain:'(368-320)÷320×100 = 48÷320×100 = 15%'},
+{cat:'계수·도표읽기',q:'【Z사 지역별 매출 (억엔)】\n관동: Q1=50, Q2=55, Q3=48, Q4=67 (연간220)\n간사이: Q1=35, Q2=40, Q3=38, Q4=47 (연간160)\n규슈: Q1=20, Q2=22, Q3=19, Q4=29 (연간90)\n합계: 470\n\n연간합계에서 규슈 매출이 차지하는 비율은?',opts:['15%','17%','19%','21%','23%'],ans:2,explain:'90÷470×100 = 19.14% → 약 19%'},
+{cat:'계수·도표읽기',q:'【Z사 지역별 매출 (억엔)】\n관동: Q1=50, Q2=55, Q3=48, Q4=67\n간사이: Q1=35, Q2=40, Q3=38, Q4=47\n규슈: Q1=20, Q2=22, Q3=19, Q4=29\n\n간사이 지역의 분기 평균 매출은?',opts:['36억엔','38억엔','40억엔','42억엔','44억엔'],ans:2,explain:'간사이 연간 160 ÷ 4 = 40억엔'},
+// --- 계수: 표빈칸추측 ---
+{cat:'계수·표빈칸',q:'표의 법칙을 찾아 ?에 들어갈 값은?\n\n| A | B |\n| 3 | 15 |\n| 5 | 25 |\n| 8 | ? |',opts:['35','38','40','45','48'],ans:2,explain:'B = A × 5. 3×5=15, 5×5=25 → 8×5=40'},
+{cat:'계수·표빈칸',q:'표의 법칙을 찾아 ?에 들어갈 값은?\n\n| X | Y | Z |\n| 6 | 5 | 30 |\n| 4 | 9 | 36 |\n| 7 | 8 | ? |',opts:['15','48','54','56','63'],ans:3,explain:'Z = X × Y. 6×5=30, 4×9=36 → 7×8=56'},
+{cat:'계수·표빈칸',q:'표의 법칙을 찾아 ?에 들어갈 값은?\n\n| A | B | C | 합계 |\n| 15 | 25 | 10 | 50 |\n| 20 | ? | 12 | 50 |\n| 18 | 22 | 10 | 50 |',opts:['15','18','20','22','28'],ans:1,explain:'각 행의 합계=50. 20+?+12=50 → ?=18'},
+];
+
+// ============================================================
+// 앱 로직
+// ============================================================
+const QUIZ_SIZE = 10;
+const TIME_LIMIT = 300; // 5분
+
+let questions = [];
+let current = 0;
+let answers = []; // {selected, correct, timeSpent}
+let timer = TIME_LIMIT;
+let timerInterval = null;
+let questionStartTime = 0;
+let phase = 'start'; // start, quiz, result
+
+const app = document.getElementById('app');
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
+function startQuiz() {
+  questions = shuffle(BANK).slice(0, QUIZ_SIZE);
+  current = 0;
+  answers = [];
+  timer = TIME_LIMIT;
+  phase = 'quiz';
+  questionStartTime = Date.now();
+  timerInterval = setInterval(() => {
+    timer--;
+    renderTimer();
+    if (timer <= 0) { clearInterval(timerInterval); finishQuiz(); }
+  }, 1000);
+  render();
+}
+
+function selectAnswer(idx) {
+  if (answers[current] && answers[current].locked) return;
+  const q = questions[current];
+  const timeSpent = Math.round((Date.now() - questionStartTime) / 1000);
+  answers[current] = { selected: idx, correct: idx === q.ans, timeSpent, locked: true };
+  render();
+}
+
+function nextQuestion() {
+  if (current < questions.length - 1) {
+    current++;
+    questionStartTime = Date.now();
+    render();
+  } else {
+    finishQuiz();
+  }
+}
+
+function finishQuiz() {
+  clearInterval(timerInterval);
+  // 미응답 문제 처리
+  for (let i = 0; i < questions.length; i++) {
+    if (!answers[i]) answers[i] = { selected: -1, correct: false, timeSpent: 0, locked: true };
+  }
+  phase = 'result';
+  render();
+}
+
+function renderTimer() {
+  const el = document.querySelector('.qz-timer');
+  if (el) {
+    el.textContent = formatTime(timer);
+    el.classList.toggle('warn', timer <= 30);
+  }
+}
+
+function render() {
+  if (phase === 'start') return renderStart();
+  if (phase === 'result') return renderResult();
+  renderQuiz();
+}
+
+function renderStart() {
+  app.innerHTML = `
+    <div class="qz-start">
+      <h2>🎯 <span style="color:var(--tama);">玉手箱</span> 미니 모의고사</h2>
+      <p>문제 은행에서 랜덤 ${QUIZ_SIZE}문이 출제됩니다.<br>제한시간 ${TIME_LIMIT/60}분. 언어(GAB/IMAGES)와 계수(사칙역산/도표/표빈칸)가 섞여 나옵니다.<br>실전처럼 빠르게 풀어보세요!</p>
+      <div style="margin-bottom:20px;">
+        <span style="font-size:12px;color:var(--text-muted);">문제 은행: ${BANK.length}문 | 출제: ${QUIZ_SIZE}문 | 제한: ${TIME_LIMIT/60}분</span>
+      </div>
+      <button class="qz-btn qz-btn-primary" onclick="startQuiz()" style="font-size:15px;padding:14px 40px;">시작하기</button>
+    </div>`;
+}
+
+function renderQuiz() {
+  const q = questions[current];
+  const a = answers[current];
+  const locked = a && a.locked;
+
+  let dotsHTML = '';
+  for (let i = 0; i < questions.length; i++) {
+    let cls = 'qz-dot';
+    if (i === current) cls += ' current';
+    else if (answers[i]) cls += answers[i].correct ? ' done' : ' wrong-dot';
+    dotsHTML += `<div class="${cls}"></div>`;
+  }
+
+  let optsHTML = q.opts.map((o, i) => {
+    let cls = 'qz-opt';
+    if (locked) {
+      cls += ' locked';
+      if (i === q.ans) cls += ' is-correct';
+      else if (a && a.selected === i) cls += ' is-wrong';
+    } else if (a && a.selected === i) {
+      cls += ' selected';
+    }
+    return `<button class="${cls}" onclick="selectAnswer(${i})">${o}</button>`;
+  }).join('');
+
+  let explainHTML = '';
+  if (locked) {
+    explainHTML = `<div class="qz-explain show">
+      <div class="qz-explain-label">풀이</div>
+      <p>${q.explain}</p>
+    </div>`;
+  }
+
+  let actionsHTML = '';
+  if (locked) {
+    const isLast = current === questions.length - 1;
+    actionsHTML = `<div class="qz-actions">
+      <button class="qz-btn qz-btn-primary" onclick="${isLast ? 'finishQuiz()' : 'nextQuestion()'}">${isLast ? '결과 보기' : '다음 문제 →'}</button>
+    </div>`;
+  }
+
+  app.innerHTML = `
+    <div class="qz-header">
+      <div class="qz-title"><span>玉手箱</span> 미니 모의고사</div>
+      <div class="qz-timer${timer<=30?' warn':''}">${formatTime(timer)}</div>
+    </div>
+    <div class="qz-progress">${dotsHTML}</div>
+    <div class="qz-card">
+      <div class="qz-meta">
+        <div class="qz-num">Q${current+1} / ${questions.length}</div>
+        <div class="qz-cat">${q.cat}</div>
+      </div>
+      <div class="qz-q">${q.q}</div>
+      <div class="qz-opts">${optsHTML}</div>
+      ${explainHTML}
+      ${actionsHTML}
+    </div>`;
+}
+
+function renderResult() {
+  const correctCount = answers.filter(a => a.correct).length;
+  const wrongCount = answers.filter(a => !a.correct).length;
+  const totalTime = TIME_LIMIT - timer;
+  const avgTime = Math.round(totalTime / questions.length);
+  const pct = Math.round(correctCount / questions.length * 100);
+
+  // 카테고리별 분석
+  const catStats = {};
+  questions.forEach((q, i) => {
+    if (!catStats[q.cat]) catStats[q.cat] = { total: 0, correct: 0 };
+    catStats[q.cat].total++;
+    if (answers[i] && answers[i].correct) catStats[q.cat].correct++;
+  });
+  let catHTML = Object.entries(catStats).map(([cat, s]) => {
+    const r = Math.round(s.correct / s.total * 100);
+    const color = r >= 70 ? 'var(--correct)' : r >= 40 ? 'var(--tama)' : 'var(--wrong)';
+    return `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;">
+      <span style="color:var(--text-sub);">${cat}</span>
+      <span style="color:${color};font-weight:700;">${s.correct}/${s.total} (${r}%)</span>
+    </div>`;
+  }).join('');
+
+  app.innerHTML = `
+    <div class="qz-result">
+      <h2>모의고사 결과</h2>
+      <div class="qz-score">${pct}<span style="font-size:24px;color:var(--text-dim);">%</span></div>
+      <div class="qz-score-label">${correctCount}문 정답 / ${questions.length}문</div>
+      <div class="qz-breakdown">
+        <div class="qz-stat"><div class="qz-stat-num green">${correctCount}</div><div class="qz-stat-label">정답</div></div>
+        <div class="qz-stat"><div class="qz-stat-num red">${wrongCount}</div><div class="qz-stat-label">오답</div></div>
+        <div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${avgTime}<span style="font-size:12px;">초</span></div><div class="qz-stat-label">문항 평균</div></div>
+        <div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${formatTime(totalTime)}</div><div class="qz-stat-label">총 소요</div></div>
+      </div>
+      <div style="text-align:left;max-width:400px;margin:0 auto 24px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tama);margin-bottom:8px;text-transform:uppercase;">카테고리별 분석</div>
+        ${catHTML}
+      </div>
+      <button class="qz-btn qz-btn-primary" onclick="phase='start';render();" style="font-size:15px;padding:14px 40px;">다시 도전하기</button>
+    </div>`;
+}
+
+render();
+</script>
+
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>
