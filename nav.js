@@ -635,13 +635,7 @@
     sections.forEach(sec => observer.observe(sec));
   }
 
-  // 업계 리포트(-report.html)에서는 섹션 미니맵 비활성화 (사이드바에 s1~s7 안 보이게)
-  if (!currentFile.endsWith('-report.html')) {
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initSectionObserver);
-    } else {
-      setTimeout(initSectionObserver, 150);
-    }
-  }
+  // 섹션 미니맵(s1~s7) 비활성화 — 사이드바 카테고리 이동으로 충분
+  // initSectionObserver 호출 제거
 
 })();
