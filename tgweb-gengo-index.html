@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'tgweb-gengo-index.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TG-WEB 언어 파트 개요 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--border-hover:#3a3a48;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--tg:#f59e0b;--tg-soft:rgba(245,158,11,0.06);--tg-border:rgba(245,158,11,0.18);--gengo:#60a5fa;--gengo-soft:rgba(96,165,250,0.06);--gengo-border:rgba(96,165,250,0.18);--warn:#ef4444;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}
+.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;max-width:760px;margin:0 auto;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(96,165,250,0.06) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{position:relative;max-width:760px;margin:0 auto;padding:0 24px;}
+.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-back:hover{color:var(--text-dim);}
+.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gengo);background:var(--gengo-soft);border:1px solid var(--gengo-border);padding:4px 12px;border-radius:12px;margin-bottom:20px;text-transform:uppercase;}
+.hero h1{font-size:30px;font-weight:900;line-height:1.3;margin-bottom:10px;letter-spacing:-0.5px;}
+.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:20px;}
+.hero-meta{font-size:11px;color:var(--text-muted);margin-bottom:20px;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.hero-tag{font-size:11px;padding:4px 12px;border-radius:100px;background:var(--gengo-soft);color:var(--gengo);border:1px solid var(--gengo-border);font-weight:500;}
+.section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0;}
+.section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}.section-nav-inner::-webkit-scrollbar{display:none;}
+.nav-btn{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap;text-decoration:none;}
+.nav-btn:hover,.nav-btn.active{color:var(--gengo);background:var(--gengo-soft);}
+.section{padding:44px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}
+.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--tg);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}
+.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}
+.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}
+.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}
+.section h3{font-size:14px;font-weight:700;color:var(--text-sub);margin:28px 0 12px;padding-left:10px;border-left:2px solid var(--gengo);}
+.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}
+.ib-a{background:var(--gengo-soft);border-color:var(--gengo-border);border-left:3px solid var(--gengo);}
+.ib p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0;}
+.bl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gengo);margin-bottom:6px;text-transform:uppercase;}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}
+table{width:100%;border-collapse:collapse;font-size:12px;}thead{background:var(--surface-2);}
+th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}
+td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}tr:last-child td{border-bottom:none;}td:first-child{font-weight:600;color:var(--text-sub);white-space:nowrap;}
+.stats-row{display:flex;gap:12px;margin:20px 0;flex-wrap:wrap;}
+.stat-box{flex:1;min-width:100px;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-align:center;}
+.stat-num{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--text);line-height:1;margin-bottom:4px;}.stat-num span{font-size:14px;color:var(--text-dim);}
+.stat-label{font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;}
+.type-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:20px 0;}
+.type-card{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;cursor:pointer;}
+.type-card:hover{border-color:var(--gengo-border);background:var(--gengo-soft);transform:translateY(-2px);}
+.type-icon{font-size:24px;flex-shrink:0;margin-top:2px;}.type-body{flex:1;}
+.type-kicker{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gengo);margin-bottom:4px;text-transform:uppercase;}
+.type-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.type-desc{font-size:11px;color:var(--text-dim);line-height:1.7;margin-bottom:8px;}
+.type-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.type-tag{font-size:10px;padding:2px 8px;border-radius:6px;background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border);}
+.type-arrow{font-size:16px;color:var(--gengo);flex-shrink:0;margin-top:4px;opacity:0;transition:opacity 0.2s;}.type-card:hover .type-arrow{opacity:1;}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.hero h1{font-size:24px;}.stats-row{gap:8px;}.stat-box{min-width:80px;padding:12px;}.stat-num{font-size:20px;}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <a href="tgweb-index.html" class="hero-back">← TG-WEB 대책 메인으로 돌아가기</a>
+    <div class="hero-label">TG-WEB 언어 대책</div>
+    <h1>TG-WEB 언어 파트 완전 정리</h1>
+    <p class="hero-sub">従来型(12문/12분): 공란보충·문장나열·장문독해. 新型(34문/7분): 동의어·반의어·속담. 従来型은 대학입시 현대문 수준의 논리독해, 新型은 어휘력과 순발력이 핵심입니다.</p>
+    <p class="hero-meta">Tokyo Career Studio &nbsp;|&nbsp; 2026.03 &nbsp;|&nbsp; ワンキャリア · unistyle · 「これが本当のWebテストだ!②」 크로스체크 완료</p>
+    <div class="hero-tags">
+      <span class="hero-tag">従来型 12문/12분</span>
+      <span class="hero-tag">新型 34문/7분</span>
+      <span class="hero-tag">형식별 강의 + 예제</span>
+    </div>
+  </div>
+</div>
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <a href="#s1" class="nav-btn active">학습 가이드</a>
+    <a href="#s2" class="nav-btn">형식 비교</a>
+    <a href="#s3" class="nav-btn">학습 전략</a>
+    <a href="#s4" class="nav-btn">형식별 페이지</a>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="section" id="s1">
+  <div class="sn">SECTION 01</div>
+  <div class="st">TG-WEB 언어 파트 학습 가이드</div>
+  <div class="st-jp">TG-WEB 言語分野 — 論理力 vs 語彙力</div>
+
+  <div class="ib ib-a">
+    <div class="bl">SPI · 玉手箱 언어와의 핵심 차이</div>
+    <p>SPI 언어는 어구의 의미·두 단어 관계 등 <strong style="color:var(--text-sub);">기초 어휘력</strong> 중심, 玉手箱 언어는 <strong style="color:var(--text-sub);">장문 독해 3형식 중 1형식 반복</strong>입니다. TG-WEB 언어는 이 둘과 모두 다릅니다.<br><br>
+    <strong style="color:var(--text-sub);">従来型</strong>: 접속사의 논리 관계를 파악하여 문장 구조를 재구성하는 <strong style="color:var(--text-sub);">논리력</strong>이 핵심. 대학입시 현대문에 가깝습니다.<br>
+    <strong style="color:var(--text-sub);">新型</strong>: 동의어·반의어·속담 등 <strong style="color:var(--text-sub);">어휘 암기</strong> + 속독. SPI 어휘 대비와 겸용 가능하지만, 속담은 TG-WEB 전용 대비가 필요합니다.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num">12<span>문</span></div><div class="stat-label">従来型</div></div>
+    <div class="stat-box"><div class="stat-num">12<span>분</span></div><div class="stat-label">従来型 제한</div></div>
+    <div class="stat-box"><div class="stat-num">34<span>문</span></div><div class="stat-label">新型</div></div>
+    <div class="stat-box"><div class="stat-num">7<span>분</span></div><div class="stat-label">新型 제한</div></div>
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <div class="sn">SECTION 02</div>
+  <div class="st">従来型 vs 新型 비교표</div>
+  <div class="st-jp">従来型と新型の比較</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>항목</th><th>従来型 (12문/12분)</th><th>新型 (34문/7분)</th></tr></thead>
+      <tbody>
+        <tr><td>공란보충</td><td>3문 정도 — 접속사·숙어 빈칸</td><td>없음</td></tr>
+        <tr><td>문장나열</td><td>3문 정도 — 섞인 문장을 논리순 배열</td><td>없음</td></tr>
+        <tr><td>장문독해</td><td>6문 정도 — 필자 주장·요지 파악</td><td>4문 정도 — 선택지가 속담인 경우도</td></tr>
+        <tr><td>동의어/반의어</td><td>없음</td><td>다수 — 즉답 필요</td></tr>
+        <tr><td>속담/사자성어</td><td>없음</td><td>다수 — 잘 안 쓰이는 것도 출제</td></tr>
+        <tr><td>1문당 시간</td><td>약 60초</td><td><strong style="color:var(--warn);">약 12초</strong></td></tr>
+        <tr><td>핵심 능력</td><td>논리적 독해력, 접속사 분석</td><td>어휘 암기량, 순발력</td></tr>
+        <tr><td>한국인 유불리</td><td>한자어 추론 가능 (유리)</td><td>속담은 별도 암기 필요 (불리)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="section" id="s3">
+  <div class="sn">SECTION 03</div>
+  <div class="st">학습 전략</div>
+  <div class="st-jp">効率的な対策ロードマップ</div>
+
+  <div class="ib ib-a">
+    <div class="bl">추천 학습 순서</div>
+    <p><strong style="color:var(--text-sub);">STEP 1. 従来型 공란보충 + 문장나열 마스터</strong><br>
+    이 6문(공란3 + 나열3)을 전부 맞추면 그것만으로 50%. 장문독해보다 패턴이 정형화되어 있어 연습 효과가 큼.<br><br>
+    <strong style="color:var(--text-sub);">STEP 2. 新型 어휘 암기 (동의어/반의어/속담)</strong><br>
+    30문 중 어휘 문제가 대부분. SPI 어휘 대비 교재 + TG-WEB 속담 리스트를 병행.<br><br>
+    <strong style="color:var(--text-sub);">STEP 3. 장문독해는 접속사 중심으로 속독 연습</strong><br>
+    従来型/新型 모두 장문독해가 있지만, 시간 대비 효율이 낮음. 접속사(しかし·つまり·一方)와 지시어(これ·それ) 전후만 집중적으로 읽는 기법 훈련.<br><br>
+    <strong style="color:var(--text-sub);">STEP 4. 시간 관리 연습</strong><br>
+    従来型: 공란+나열에 8분, 장문에 4분(또는 찍기). 新型: 어휘 문제를 1문 5초로 끝내고 장문에 시간 투자.</p>
+  </div>
+
+  <h3>한국인 수험생 팁</h3>
+  <div class="ib">
+    <p>• <strong style="color:var(--text-sub);">한자 어휘에 강점</strong> — 従来型 공란보충에서 한자어(環境·経済·影響 등)가 자주 나옴. 한국어 한자 독음으로 추론 가능<br>
+    • <strong style="color:var(--text-sub);">접속사는 한국어와 1:1 대응</strong> — しかし(그러나), つまり(즉), 一方(한편), したがって(따라서). 논리 구조 파악에 한국인이 유리<br>
+    • <strong style="color:var(--text-sub);">속담은 별도 학습 필수</strong> — 「紺屋の白袴」「石の上にも三年」 등 일본 고유 속담은 한국어로 추론 불가. 최소 50개 암기 추천</p>
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <div class="sn">SECTION 04</div>
+  <div class="st">형식별 학습 페이지</div>
+  <div class="st-jp">形式別の学習ページ — 講義・解法・例題</div>
+  <p>각 형식별로 강의(출제 포인트·풀이 전략·함정 패턴)와 연습 문제가 수록되어 있습니다.</p>
+
+  <div class="type-grid">
+    <a href="tgweb-gengo-juurai.html" class="type-card">
+      <div class="type-icon">📖</div>
+      <div class="type-body">
+        <div class="type-kicker">従来型 · 주류</div>
+        <div class="type-title">従来型 언어 (공란보충·나열·장문)</div>
+        <div class="type-desc">12문/12분. 접속사·논리구조 분석이 핵심. 공란보충과 나열을 확실히 맞추고 장문은 전략적으로.</div>
+        <div class="type-tags">
+          <span class="type-tag">12문 / 12분</span>
+          <span class="type-tag">논리독해</span>
+          <span class="type-tag">예제 10문</span>
+        </div>
+      </div>
+      <div class="type-arrow">→</div>
+    </a>
+    <a href="tgweb-gengo-shingata.html" class="type-card">
+      <div class="type-icon">⚡</div>
+      <div class="type-body">
+        <div class="type-kicker">新型 · 스피드</div>
+        <div class="type-title">新型 언어 (동의어·반의어·속담)</div>
+        <div class="type-desc">34문/7분. 어휘 암기력과 순발력 승부. 1문 12초. SPI 어휘 대비 + 속담 리스트 병행.</div>
+        <div class="type-tags">
+          <span class="type-tag">34문 / 7분</span>
+          <span class="type-tag">어휘 암기</span>
+          <span class="type-tag">예제 10문</span>
+        </div>
+      </div>
+      <div class="type-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — TG-WEB 언어 파트 완전 정리</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
+  <p style="margin-top:8px;font-size:10px;">본 자료는 학습 참고용이며 TG-WEB 운영사(株式会社ヒューマネージ)와 무관합니다.</p>
+</div>
+</div>
+
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>

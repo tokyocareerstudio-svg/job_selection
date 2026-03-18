@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'tgweb-index.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TG-WEB 대책 가이드 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--border-hover:#3a3a48;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--accent:#4a9eff;--tg:#f59e0b;--tg-soft:rgba(245,158,11,0.06);--tg-border:rgba(245,158,11,0.18);--gengo:#60a5fa;--gengo-soft:rgba(96,165,250,0.06);--gengo-border:rgba(96,165,250,0.18);--keisu:#f472b6;--keisu-soft:rgba(244,114,182,0.06);--keisu-border:rgba(244,114,182,0.18);--warn:#ef4444;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}
+.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;max-width:760px;margin:0 auto;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(245,158,11,0.07) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{position:relative;max-width:760px;margin:0 auto;padding:0 24px;}
+.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}
+.hero-back:hover{color:var(--text-dim);}
+.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--tg);background:var(--tg-soft);border:1px solid var(--tg-border);padding:4px 12px;border-radius:12px;margin-bottom:20px;text-transform:uppercase;}
+.hero h1{font-size:30px;font-weight:900;line-height:1.3;margin-bottom:10px;letter-spacing:-0.5px;}
+.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:20px;}
+.hero-meta{font-size:11px;color:var(--text-muted);margin-bottom:20px;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.hero-tag{font-size:11px;padding:4px 12px;border-radius:100px;background:var(--tg-soft);color:var(--tg);border:1px solid var(--tg-border);font-weight:500;}
+.section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0;}
+.section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+.section-nav-inner::-webkit-scrollbar{display:none;}
+.nav-btn{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap;text-decoration:none;}
+.nav-btn:hover,.nav-btn.active{color:var(--tg);background:var(--tg-soft);}
+.section{padding:44px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}
+.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--tg);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}
+.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}
+.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}
+.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}
+.section h3{font-size:14px;font-weight:700;color:var(--text-sub);margin:28px 0 12px;padding-left:10px;border-left:2px solid var(--tg);}
+.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}
+.ib-a{background:var(--tg-soft);border-color:var(--tg-border);border-left:3px solid var(--tg);}
+.ib h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}
+.ib p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0;}
+.bl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--tg);margin-bottom:6px;text-transform:uppercase;}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead{background:var(--surface-2);}
+th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}
+td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}
+tr:last-child td{border-bottom:none;}
+td:first-child{font-weight:600;color:var(--text-sub);white-space:nowrap;}
+.stats-row{display:flex;gap:12px;margin:20px 0;flex-wrap:wrap;}
+.stat-box{flex:1;min-width:100px;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-align:center;}
+.stat-num{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--text);line-height:1;margin-bottom:4px;}
+.stat-num span{font-size:14px;color:var(--text-dim);}
+.stat-label{font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;}
+.hub-grid{display:grid;grid-template-columns:1fr;gap:12px;margin:24px 0;}
+.hub-card{display:block;padding:22px 24px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;transition:all 0.25s;position:relative;overflow:hidden;}
+.hub-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.hub-card:hover{border-color:var(--tg-border);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.3);}
+.hub-card-gengo::before{background:linear-gradient(90deg,var(--gengo),var(--tg));}
+.hub-card-keisu::before{background:linear-gradient(90deg,var(--keisu),var(--tg));}
+.hub-kicker{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}
+.hub-kicker-g{color:var(--gengo);}.hub-kicker-k{color:var(--keisu);}
+.hub-title{font-size:16px;font-weight:800;color:var(--text);margin-bottom:6px;}
+.hub-desc{font-size:12px;color:var(--text-dim);line-height:1.8;margin-bottom:10px;}
+.hub-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.hub-tag{font-size:10px;padding:3px 10px;border-radius:6px;background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border);}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}
+.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}
+.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.hero h1{font-size:24px;}.stats-row{gap:8px;}.stat-box{min-width:80px;padding:12px;}.stat-num{font-size:20px;}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <a href="spi-index.html" class="hero-back">← 적성검사 대책 메인으로</a>
+    <div class="hero-label">TG-WEB 대책</div>
+    <h1>TG-WEB 완전 가이드</h1>
+    <p class="hero-sub">ヒューマネージ社가 개발한 고난이도 적성검사. 「従来型(구형)」은 도형·암호·추론 등 초견 문제가 많고, 「新型(신형)」은 SPI/玉手箱와 유사하지만 시간이 극한으로 짧습니다. SPI·玉手箱와는 완전히 다른 대비가 필요합니다.</p>
+    <p class="hero-meta">Tokyo Career Studio &nbsp;|&nbsp; 2026.03 &nbsp;|&nbsp; ワンキャリア · unistyle · 「これが本当のWebテストだ!②」 크로스체크 완료</p>
+    <div class="hero-tags">
+      <span class="hero-tag">従来型 / 新型 2종류</span>
+      <span class="hero-tag">SPI 대비 최고 난이도</span>
+      <span class="hero-tag">보더 4-5할</span>
+      <span class="hero-tag">자생당·기린·산토리 등 대기업</span>
+    </div>
+  </div>
+</div>
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <a href="#s1" class="nav-btn active">TG-WEB이란</a>
+    <a href="#s2" class="nav-btn">従来型 vs 新型</a>
+    <a href="#s3" class="nav-btn">수험 형식</a>
+    <a href="#s4" class="nav-btn">파트별 학습</a>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="section" id="s1">
+  <div class="sn">SECTION 01</div>
+  <div class="st">TG-WEB이란?</div>
+  <div class="st-jp">TG-WEBとは — ヒューマネージ社の高難度適性検査</div>
+
+  <p>TG-WEB은 株式会社ヒューマネージ가 개발·판매하는 적성검사로, SPI·玉手箱와 함께 일본 취활 3대 웹테스트 중 하나입니다. 2,000사 이상이 도입하고 있으며, 자생당(資生堂), 기린(キリン), 산토리(サントリー), 미쓰비시지쇼(三菱地所), TV아사히 등 대기업에서 많이 채용하고 있습니다.</p>
+
+  <div class="ib ib-a">
+    <div class="bl">SPI · 玉手箱와의 핵심 차이</div>
+    <p><strong style="color:var(--text-sub);">난이도가 압도적으로 높습니다.</strong> SPI가 「기초학력 측정」, 玉手箱가 「스피드 처리력 측정」이라면, TG-WEB은 <strong style="color:var(--text-sub);">「응용사고력 측정」</strong>입니다. 특히 従来型 계수에서는 전개도, 암호해독, 거짓말쟁이 추론 등 SPI/玉手箱에서는 절대 나오지 않는 유형이 출제됩니다.<br><br>
+    반면 보더라인(합격선)은 <strong style="color:var(--text-sub);">4-5할(40-50%)</strong>로 SPI(7할)보다 낮습니다. 어려운 만큼 만점을 기대하지 않으며, 「풀 수 있는 문제를 확실히 맞추는 전략」이 핵심입니다.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num">4<span>과목</span></div><div class="stat-label">언어·계수·영어·성격</div></div>
+    <div class="stat-box"><div class="stat-num">2<span>형식</span></div><div class="stat-label">従来型 / 新型</div></div>
+    <div class="stat-box"><div class="stat-num">2000<span>사+</span></div><div class="stat-label">도입 기업</div></div>
+    <div class="stat-box"><div class="stat-num">4-5<span>割</span></div><div class="stat-label">보더라인</div></div>
+  </div>
+
+  <p>과목은 <strong style="color:var(--text);">언어·계수·영어·성격</strong> 4과목이지만, 대부분의 기업은 <strong style="color:var(--text);">언어 + 계수 + 성격검사</strong>만 실시합니다. 영어를 실시하는 기업은 극소수(외자계·글로벌 기업 일부)이므로, 기본적으로 언어와 계수 대비에 집중하면 됩니다.</p>
+
+  <div class="ib">
+    <div class="bl">TG-WEB 판별법 — URL로 확인</div>
+    <p>기업에서 보내주는 수험 URL에 <strong style="color:var(--tg);">c-personal.com</strong> 또는 <strong style="color:var(--tg);">e-gitest.com</strong>이 포함되어 있으면 TG-WEB입니다. SPI(arorua.net)나 玉手箱(e-exams.jp)와는 URL이 다르므로, 수험 전에 어떤 시험인지 확인할 수 있습니다.</p>
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <div class="sn">SECTION 02</div>
+  <div class="st">従来型 vs 新型 — 완전히 다른 시험</div>
+  <div class="st-jp">従来型（旧型）と新型 — 対策が全く異なる</div>
+
+  <p>TG-WEB의 가장 큰 특징은 <strong style="color:var(--text);">언어와 계수에 「従来型(구형)」과 「新型(신형)」 2종류</strong>가 존재한다는 것입니다. 기업마다 어느 쪽을 채용하는지가 다르며, 대다수 기업은 従来型을 사용합니다. 시험 시작 시 제한시간으로 판별할 수 있습니다.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>항목</th><th>従来型 (구형)</th><th>新型 (신형)</th></tr></thead>
+      <tbody>
+        <tr><td>채용 비율</td><td><strong style="color:var(--tg);">대다수 (주류)</strong></td><td>소수</td></tr>
+        <tr><td>언어</td><td>12문 / 12분 (1문 1분)</td><td>34문 / 7분 (1문 약 12초)</td></tr>
+        <tr><td>언어 내용</td><td>공란보충, 문장나열, 장문독해</td><td>동의어, 반의어, 속담, 장문독해</td></tr>
+        <tr><td>계수</td><td>9문 / 18분 (1문 2분)</td><td>36문 / 8분 (1문 약 13초)</td></tr>
+        <tr><td>계수 내용</td><td>도형(전개도), 추론(거짓말쟁이), 암호, 수열</td><td>사칙역산, 도표읽기</td></tr>
+        <tr><td>영어</td><td colspan="2">공통: 10문 / 15분 (2장문 x 5문) — 대부분 미실시</td></tr>
+        <tr><td>난이도</td><td><strong style="color:var(--warn);">매우 높음 (0점 가능)</strong></td><td>보통 (SPI 수준, 시간만 극한)</td></tr>
+        <tr><td>전략</td><td>해법 패턴 암기, 어려운 문제 버리기</td><td>스피드 훈련, 玉手箱 대비 겸용 가능</td></tr>
+        <tr><td>문제 이동</td><td><strong style="color:var(--tg);">자유 이동 가능</strong></td><td>자유 이동 가능</td></tr>
+        <tr><td>시간으로 판별</td><td>언어 12분 / 계수 18분</td><td>언어 7분 / 계수 8분</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ib ib-a">
+    <div class="bl">従来型 vs 新型 판별법</div>
+    <p>시험 시작 전 과목 일람 화면에서 <strong style="color:var(--text-sub);">제한시간</strong>을 확인하세요.<br>
+    • 검사1 = <strong style="color:var(--tg);">12분</strong> → 従来型 언어 / 검사2 = <strong style="color:var(--tg);">18분</strong> → 従来型 계수<br>
+    • 검사1 = <strong style="color:var(--tg);">7분</strong> → 新型 언어 / 검사2 = <strong style="color:var(--tg);">8분</strong> → 新型 계수<br><br>
+    대부분의 기업은 언어→계수→성격검사 순서로 진행됩니다. 시험 시간만 보면 어떤 형식인지 즉시 알 수 있습니다.</p>
+  </div>
+
+  <div class="ib">
+    <div class="bl">SPI / 玉手箱 대비와의 관계</div>
+    <p>• <strong style="color:var(--text-sub);">新型 계수</strong> = 사칙역산 + 도표읽기 → <strong style="color:var(--tg);">玉手箱 계수 대비가 그대로 적용</strong><br>
+    • <strong style="color:var(--text-sub);">新型 언어</strong> = 동의어/반의어/속담 → SPI 언어 어휘 대비 + 속담 암기 추가<br>
+    • <strong style="color:var(--text-sub);">従来型 계수</strong> = 전개도/추론/암호 → <strong style="color:var(--warn);">TG-WEB 전용 대비 필수 (SPI/玉手箱 경험이 전혀 도움 안 됨)</strong><br>
+    • <strong style="color:var(--text-sub);">従来型 언어</strong> = 논리 독해 → 대학입시 현대문 수준, SPI보다 어려움</p>
+  </div>
+</div>
+
+<div class="section" id="s3">
+  <div class="sn">SECTION 03</div>
+  <div class="st">수험 형식과 주의사항</div>
+  <div class="st-jp">受験形式と注意点</div>
+
+  <h3>WEB 방식 (자택 수험) — 가장 흔함</h3>
+  <div class="ib">
+    <p>• 기업이 지정한 URL에 자택 PC로 접속하여 수험<br>
+    • <strong style="color:var(--text-sub);">전자계산기 사용 가능</strong> — 계수 풀 때 계산기를 미리 준비<br>
+    • SPI와 달리 <strong style="color:var(--text-sub);">문제 간 자유 이동 가능</strong> — 어려운 문제를 건너뛰고 쉬운 것부터 풀 수 있음<br>
+    • TG-WEB eye(AI 감시형)가 도입된 기업도 있음 — 카메라 ON 요구 시 부정행위 탐지</p>
+  </div>
+
+  <h3>테스트센터 방식 (회장 수험)</h3>
+  <div class="ib">
+    <p>• 전국 주요 도시의 테스트센터에서 PC로 수험<br>
+    • <strong style="color:var(--warn);">전자계산기 사용 불가</strong> — 암산·필산 필수, 메모용지 제공<br>
+    • 계산 속도가 결과에 직결되므로, 테스트센터 수험이 예상되면 필산 연습 병행</p>
+  </div>
+
+  <h3>마크시트 방식 (기업 회장)</h3>
+  <div class="ib">
+    <p>• 기업 회장에서 필기시험으로 실시<br>
+    • WEB 방식과 동일한 문제가 출제되는 경우가 많음</p>
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <div class="sn">SECTION 04</div>
+  <div class="st">파트별 학습 페이지</div>
+  <div class="st-jp">分野別の学習ページ</div>
+  <p>언어·계수 각각의 従来型/新型 강의와 연습 문제가 수록되어 있습니다.</p>
+
+  <div class="hub-grid">
+    <a href="tgweb-gengo-index.html" class="hub-card hub-card-gengo">
+      <div class="hub-kicker hub-kicker-g">언어 (言語)</div>
+      <div class="hub-title">TG-WEB 언어 파트</div>
+      <div class="hub-desc">従来型: 공란보충·문장나열·장문독해 (12문/12분). 新型: 동의어·반의어·속담 (34문/7분). 두 형식 모두 대비.</div>
+      <div class="hub-tags">
+        <span class="hub-tag">従来型 12문/12분</span>
+        <span class="hub-tag">新型 34문/7분</span>
+        <span class="hub-tag">강의 + 예제</span>
+      </div>
+    </a>
+    <a href="tgweb-keisu-index.html" class="hub-card hub-card-keisu">
+      <div class="hub-kicker hub-kicker-k">계수 (計数)</div>
+      <div class="hub-title">TG-WEB 계수 파트</div>
+      <div class="hub-desc">従来型: 도형·추론·암호·수열 (9문/18분). 新型: 사칙역산·도표읽기 (36문/8분). TG-WEB 최대 난관은 従来型 계수.</div>
+      <div class="hub-tags">
+        <span class="hub-tag">従来型 9문/18분</span>
+        <span class="hub-tag">新型 36문/8분</span>
+        <span class="hub-tag">강의 + 예제</span>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — TG-WEB 완전 가이드</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
+  <p style="margin-top:8px;font-size:10px;">본 자료는 학습 참고용이며 TG-WEB 운영사(株式会社ヒューマネージ)와 무관합니다.</p>
+</div>
+</div>
+
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>

@@ -56,9 +56,17 @@
       id: 'tgweb',
       label: 'TG-WEB',
       icon: '🌐',
-      index: null,
+      index: 'tgweb-index.html',
       children: [
-        { label: '준비 중입니다', isComingSoon: true }
+        { label: 'TG-WEB 전체 가이드', file: 'tgweb-index.html', isBold: true },
+        { label: '── 언어 (言語)', isHeader: true },
+        { label: '언어 개요', file: 'tgweb-gengo-index.html' },
+        { label: '① 従来型 (공란·나열·장문)', file: 'tgweb-gengo-juurai.html' },
+        { label: '② 新型 (동의어·속담)', file: 'tgweb-gengo-shingata.html' },
+        { label: '── 계수 (計数)', isHeader: true },
+        { label: '계수 개요', file: 'tgweb-keisu-index.html' },
+        { label: '① 従来型 (도형·추론·암호)', file: 'tgweb-keisu-juurai.html' },
+        { label: '② 新型 (사칙역산·도표)', file: 'tgweb-keisu-shingata.html' },
       ]
     },
   ];
