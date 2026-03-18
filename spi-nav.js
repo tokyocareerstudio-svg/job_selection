@@ -37,9 +37,17 @@
       id: 'tamatebako',
       label: '玉手箱',
       icon: '📦',
-      index: null,
+      index: 'tama-index.html',
       children: [
-        { label: '준비 중입니다', isComingSoon: true }
+        { label: '玉手箱 전체 가이드', file: 'tama-index.html', isBold: true },
+        { label: '── 계수 (計数)', isHeader: true },
+        { label: '계수 개요', file: 'tama-keisu-index.html' },
+        { label: '── 언어 (言語)', isHeader: true },
+        { label: '언어 개요', file: 'tama-gengo-index.html' },
+        { label: '── 영어 (英語)', isHeader: true },
+        { label: '영어 개요', file: 'tama-eigo-index.html' },
+        { label: '── 성격검사', isHeader: true },
+        { label: '성격검사 개요', file: 'tama-seikaku-index.html' },
       ]
     },
     {
