@@ -3059,6 +3059,114 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
   `).join('') : '<div style="font-size:12px;color:var(--text-muted);padding:12px 16px;background:var(--surface);border-radius:10px;line-height:1.8;">에피소드를 선택하지 않았습니다. ES와 면접의 핵심 소재가 되는 에피소드 발굴이 가장 시급한 과제입니다.<br><a href="https://www.latpeed.com/stores/Gvk82" target="_blank" style="color:var(--accent);">자기분석 컨설팅</a>에서 당신의 경험 속 숨은 에피소드를 함께 찾아드립니다.</div>';
 
   // ══════════════════════════════════════
+  // SEC 4-B: 개인화 ES 전략 가이드
+  // ══════════════════════════════════════
+  const top1Comp = top3Comps[0] || [];
+  const top1Info = COMP_INFO[top1Comp[0]] || { ko:'(미측정)', desc:'' };
+  const top2Info = COMP_INFO[(top3Comps[1]||[])[0]] || { ko:'', desc:'' };
+  const top3Info = COMP_INFO[(top3Comps[2]||[])[0]] || { ko:'', desc:'' };
+
+  // 4축 모티베이션 텍스트 생성
+  const MOTIVE_TEXT = {
+    환경: { a:'새로운 도전이 있는 환경에서 가장 의욕이 생깁니다', b:'안정적인 환경에서 장기적으로 성장할 때 최선의 성과를 냅니다' },
+    업무: { a:'명확한 목표를 향해 몰입할 때 가장 의욕이 생깁니다', b:'팀이 함께 목표를 달성했을 때 가장 보람을 느낍니다' },
+    문화: { a:'자율적으로 생각하고 행동할 수 있는 환경에서 힘이 납니다', b:'명확한 프로세스 안에서 역할에 집중할 때 최선을 다합니다' },
+    커리어: { a:'한 분야를 깊이 파고들 때 가장 동기부여가 됩니다', b:'다양한 경험을 쌓으며 성장할 때 의욕이 생깁니다' }
+  };
+  const motiveLines = Object.entries(axisAvg).map(([axis, val]) => {
+    const mt = MOTIVE_TEXT[axis];
+    if (!mt) return '';
+    return val < 50 ? mt.a : mt.b;
+  }).filter(Boolean);
+  const topMotive = motiveLines[0] || '';
+  const subMotive = motiveLines[1] || '';
+
+  // 에피소드→STAR 매핑
+  const mainEp = selectedEpisodes[0];
+  const starGuide = mainEp ? `
+    <div style="padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-top:10px;">
+      <div style="font-size:11px;font-weight:700;color:#a29bfe;margin-bottom:10px;">📖 "${mainEp.text}" → STAR 구조로 풀면</div>
+      <div style="font-size:11px;color:var(--text-dim);line-height:2.0;">
+        <div style="padding:6px 0;border-bottom:1px solid var(--border);"><strong style="color:var(--accent);">S(상황)</strong> 어떤 배경에서 이 경험이 시작됐는가? → 구체적 시간·장소·역할</div>
+        <div style="padding:6px 0;border-bottom:1px solid var(--border);"><strong style="color:var(--accent);">T(과제)</strong> 어떤 목표나 문제가 있었는가? → 숫자로 표현할 수 있으면 최고</div>
+        <div style="padding:6px 0;border-bottom:1px solid var(--border);"><strong style="color:var(--accent);">A(행동)</strong> 구체적으로 무엇을 했는가? → <span style="color:#a29bfe;font-weight:600;">여기서 ${top1Info.ko}이(가) 드러나야 합니다</span></div>
+        <div style="padding:6px 0;"><strong style="color:var(--accent);">R(결과)</strong> 어떤 성과가 나왔고, 무엇을 배웠는가? → 정량적 결과 + 배움</div>
+      </div>
+    </div>` : '';
+
+  // 면접 3대 원칙 체크
+  const principleCheck = `
+    <div style="padding:14px 16px;background:rgba(245,158,11,0.04);border:1px solid rgba(245,158,11,0.12);border-radius:10px;margin-top:12px;">
+      <div style="font-size:11px;font-weight:700;color:#f59e0b;margin-bottom:10px;">✅ ES 작성 전 3대 원칙 체크리스트</div>
+      <div style="font-size:11px;color:var(--text-dim);line-height:2.2;">
+        <div>□ <strong>일관성:</strong> 자기PR(${top1Info.ko})과 가쿠치카의 에피소드가 같은 강점을 가리키는가?</div>
+        <div>□ <strong>모티베이션 원천:</strong> "${topMotive}" — 이것이 지망동기에서 기업 선택 이유로 연결되는가?</div>
+        <div>□ <strong>재현성:</strong> 에피소드의 사고방식을 "입사 후 OO에서도 이렇게 활용하겠다"로 연결했는가?</div>
+      </div>
+    </div>`;
+
+  const esStrategyHTML = `
+    <div id="es-strategy" style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border);">
+      <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:14px;">📝 당신의 ES 전략 — 진단 결과 기반 맞춤 가이드</div>
+
+      <!-- 자기PR 가이드 -->
+      <div style="padding:16px;background:var(--surface);border:1px solid var(--border);border-left:3px solid #4a9eff;border-radius:10px;margin-bottom:10px;">
+        <div style="font-size:12px;font-weight:700;color:#4a9eff;margin-bottom:10px;">① 자기PR(自己PR) — ${top1Info.ko}을(를) 전면에</div>
+        <div style="font-size:11px;color:var(--text-dim);line-height:1.9;margin-bottom:10px;">
+          <div style="padding:8px 12px;background:rgba(74,158,255,0.05);border-radius:6px;margin-bottom:8px;">
+            <strong style="color:var(--text-sub);">두괄식 시작:</strong> "나의 강점은 <span style="color:#4a9eff;font-weight:700;">${top1Info.ko}</span>입니다"
+          </div>
+          <div style="margin-bottom:4px;"><strong style="color:var(--text-sub);">구조:</strong> 강점 선언 → 에피소드로 증명 → 귀사에서 활용</div>
+          ${top1Info.desc ? `<div style="margin-bottom:4px;"><strong style="color:var(--text-sub);">정의:</strong> ${top1Info.desc}</div>` : ''}
+          ${EP_EXAMPLE[top1Comp[0]] ? `<div><strong style="color:var(--text-sub);">에피소드 힌트:</strong> ${EP_EXAMPLE[top1Comp[0]]}</div>` : ''}
+        </div>
+        ${ES_MISTAKES[top1Comp[0]] ? `<div style="font-size:10px;color:var(--text-muted);padding:8px 12px;background:rgba(239,68,68,0.04);border-radius:6px;line-height:1.7;">
+          <span style="color:#ef4444;font-weight:600;">빈출 실수:</span> ${ES_MISTAKES[top1Comp[0]].mistakeKo}<br>
+          <span style="color:var(--success);font-weight:600;">올바른 표현:</span> ${ES_MISTAKES[top1Comp[0]].fixKo}
+        </div>` : ''}
+      </div>
+
+      <!-- 가쿠치카 가이드 -->
+      <div style="padding:16px;background:var(--surface);border:1px solid var(--border);border-left:3px solid #a29bfe;border-radius:10px;margin-bottom:10px;">
+        <div style="font-size:12px;font-weight:700;color:#a29bfe;margin-bottom:10px;">② 가쿠치카(ガクチカ) — 에피소드를 STAR로 구조화</div>
+        <div style="font-size:11px;color:var(--text-dim);line-height:1.9;">
+          <div style="margin-bottom:6px;">면접관은 "무엇을 했는가"보다 <strong style="color:var(--text-sub);">"왜 그렇게 했는가(사고과정)"</strong>를 봅니다.</div>
+          <div style="margin-bottom:6px;">Action 파트에서 <strong style="color:#a29bfe;">${top1Info.ko}</strong>이(가) 자연스럽게 드러나면 자기PR과 <strong>일관성</strong>이 생깁니다.</div>
+          <div style="font-size:10px;color:var(--text-muted);padding:6px 10px;background:rgba(162,155,254,0.04);border-radius:6px;">
+            💡 TCS 표기 룰: 思います > 考えます / 종지형 > 진행형 / 한자복합어(的·化·性) 지양 / 서면 = 貴社, 면접 = 御社
+          </div>
+        </div>
+        ${starGuide}
+      </div>
+
+      <!-- 지망동기 가이드 -->
+      <div style="padding:16px;background:var(--surface);border:1px solid var(--border);border-left:3px solid #55efc4;border-radius:10px;margin-bottom:10px;">
+        <div style="font-size:12px;font-weight:700;color:#55efc4;margin-bottom:10px;">③ 지망동기(志望動機) — 4축 분석 결과가 모티베이션의 원천</div>
+        <div style="font-size:11px;color:var(--text-dim);line-height:1.9;">
+          <div style="margin-bottom:8px;">지망동기의 핵심은 <strong style="color:var(--text-sub);">"왜 다른 회사가 아니라 이 회사인가"</strong>입니다.</div>
+          <div style="padding:10px 12px;background:rgba(85,239,196,0.06);border-radius:8px;margin-bottom:10px;">
+            <div style="font-size:10px;font-weight:700;color:#55efc4;margin-bottom:6px;">당신의 모티베이션 원천 (4축 기반)</div>
+            ${motiveLines.map((line, i) => `<div style="font-size:11px;color:var(--text-dim);padding:3px 0;">${i === 0 ? '▸ ' : '▸ '}${line}</div>`).join('')}
+          </div>
+          <div style="font-size:11px;color:var(--text-dim);line-height:1.9;">
+            <strong style="color:var(--text-sub);">지망동기 구조 (4단계):</strong><br>
+            <span style="color:#55efc4;">①</span> 가치관에서 비롯된 커리어 목표 제시<br>
+            <span style="color:#55efc4;">②</span> 그 목표를 실현할 수 있는 환경 조건 = 위의 모티베이션 원천<br>
+            <span style="color:#55efc4;">③</span> 그 조건에 가장 부합하는 회사가 <strong>귀사인 이유</strong>를 구체적으로<br>
+            <span style="color:#55efc4;">④</span> 입사 후 ${top1Info.ko}을(를) 살려 어떻게 기여할지 마무리
+          </div>
+        </div>
+      </div>
+
+      ${principleCheck}
+
+      <div style="margin-top:12px;padding:10px 14px;background:var(--surface);border-radius:8px;font-size:10px;color:var(--text-muted);line-height:1.7;">
+        📌 이 가이드는 진단 결과를 기반으로 자동 생성된 방향 제안입니다. 실제 ES 작성 시 지원 기업의 인재상과 교차 검증하세요.
+        더 깊은 첨삭이 필요하면 → <a href="https://www.latpeed.com/stores/Gvk82" target="_blank" style="color:var(--accent);">1:1 ES 클리닉</a>
+      </div>
+    </div>`;
+
+  // ══════════════════════════════════════
   // SEC 5: 추천 업계 + 소거 업계
   // ══════════════════════════════════════
   const industryHTML = selectedInds.map((ind, i) => {
@@ -3247,9 +3355,8 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
         선택한 에피소드를 기반으로 ES(엔트리시트) 작성 방향을 제안합니다.${episodeTypes.length > 0 ? ` 당신의 에피소드 유형: <strong style="color:var(--text-sub);">${[...new Set(episodeTypes)].join(' · ')}</strong>` : ''}
       </div>
       ${episodeHTML}
+      ${esStrategyHTML}
     </div>
-
-    <!-- ★ SEC 5: 추천 업계 + 소거 업계 -->
     <div class="result-section">
       <div class="result-section-title">SEC 5 · 추천 업계 & ES 포인트</div>
       ${isAutoRecommend ? `<div style="font-size:11px;color:var(--text-muted);margin-bottom:12px;padding:8px 12px;background:var(--surface);border-radius:6px;">🤖 직종 적합도·성향·약점 필터를 종합해 자동 추천한 업계입니다</div>` : ''}
@@ -3266,9 +3373,9 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
         </a>
       </div>
       <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap;">
-        <a href="self-analysis-guide.html#s6" target="_blank" style="flex:1;min-width:200px;padding:14px 16px;background:rgba(74,158,255,0.05);border:1px solid rgba(74,158,255,0.18);border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:10px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='rgba(74,158,255,0.18)'">
-          <span style="font-size:12px;font-weight:600;color:var(--accent);">📝 이 결과를 ES에 활용하는 법</span>
-          <span style="margin-left:auto;color:var(--accent);">→</span>
+        <a href="#es-strategy" onclick="document.getElementById('es-strategy').scrollIntoView({behavior:'smooth'});return false;" style="flex:1;min-width:200px;padding:14px 16px;background:rgba(74,158,255,0.05);border:1px solid rgba(74,158,255,0.18);border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:10px;transition:border-color 0.2s;cursor:pointer;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='rgba(74,158,255,0.18)'">
+          <span style="font-size:12px;font-weight:600;color:var(--accent);">📝 나의 ES 전략 보기 ↑</span>
+          <span style="margin-left:auto;color:var(--accent);">↑</span>
         </a>
         <a href="self-analysis-guide.html#s7" target="_blank" style="flex:1;min-width:200px;padding:14px 16px;background:rgba(74,158,255,0.05);border:1px solid rgba(74,158,255,0.18);border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:10px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='rgba(74,158,255,0.18)'">
           <span style="font-size:12px;font-weight:600;color:var(--accent);">🔍 에피소드 발굴 워크시트</span>
