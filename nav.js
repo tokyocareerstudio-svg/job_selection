@@ -65,6 +65,7 @@
         { label: "부동산 영업",   file: "sales-eg06-realestate.html" },
         { label: "인재/HR 영업",  file: "sales-eg07-hr.html" },
         { label: "MR 제약영업",   file: "sales-eg08-pharma.html" },
+        { label: "통신 법인영업", file: "sales-eg09-telecom.html" },
     ]},
     { id: "se", label: "SE/IT엔지니어", file: "se-overview.html", children: [
         { label: "SIer SE",         file: "se-se01-sier.html" },
@@ -120,6 +121,8 @@
     "부동산영업": "sales-eg06-realestate.html",
     "인재/HR영업": "sales-eg07-hr.html",
     "MR (製薬)": "sales-eg08-pharma.html",
+    "통신 법인영업": "sales-eg09-telecom.html",
+    "통신 영업": "sales-eg09-telecom.html",
     "SIer SE": "se-se01-sier.html",
     "Web계 엔지니어": "se-se02-web.html",
     "인프라/네트워크 엔지니어": "se-se03-infra.html",

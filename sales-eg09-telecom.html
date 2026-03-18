@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'industry-index.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>통신 법인영업 상세 카드 | Tokyo Career Studio</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #141419;
+    --surface-2: #1c1c24;
+    --surface-3: #22222e;
+    --border: #2a2a35;
+    --border-hover: #3a3a48;
+    --text: #e8e8ed;
+    --text-sub: #c0c0d0;
+    --text-dim: #8888a0;
+    --text-muted: #555568;
+    --accent: #34d399;
+    --accent-soft: rgba(52, 211, 153, 0.08);
+    --accent-border: rgba(52, 211, 153, 0.18);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', 'Noto Sans JP', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container { max-width: 760px; margin: 0 auto; padding: 0 24px 100px; }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 56px 24px 40px; text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(52,211,153,0.05) 0%, transparent 70%);
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+  .hero-breadcrumb { font-size: 11px; color: var(--text-muted); margin-bottom: 16px; }
+  .hero-breadcrumb a { color: var(--accent); text-decoration: none; }
+  .hero-breadcrumb span { margin: 0 6px; }
+  .hero-label {
+    display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 3px;
+    color: var(--accent); background: var(--accent-soft);
+    border: 1px solid var(--accent-border); padding: 5px 14px; border-radius: 16px; margin-bottom: 20px;
+  }
+  .hero-icon {
+    width: 64px; height: 64px; border-radius: 14px;
+    background: var(--accent-soft); border: 1px solid var(--accent-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; color: var(--accent);
+    font-family: 'Noto Sans JP', sans-serif; font-weight: 700; margin: 0 auto 20px;
+    letter-spacing: -1px;
+  }
+  .hero h1 { font-size: 30px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.5px; }
+  .hero .title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 14px; color: var(--text-muted); margin-bottom: 4px; }
+  .hero .title-en { font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .hero-tags { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .hero-tag {
+    font-size: 11px; padding: 4px 12px; border-radius: 12px;
+    background: var(--accent-soft); color: var(--accent);
+    font-weight: 500; border: 1px solid var(--accent-border);
+  }
+  .hero-summary { font-size: 13px; color: var(--text-dim); max-width: 540px; margin: 0 auto; line-height: 1.9; }
+
+  /* ===== NAV ===== */
+  .section-nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10,10,15,0.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); padding: 10px 0;
+  }
+  .section-nav-inner {
+    max-width: 760px; margin: 0 auto; padding: 0 24px;
+    display: flex; gap: 4px; overflow-x: auto;
+    scrollbar-width: none; -ms-overflow-style: none;
+  }
+  .section-nav-inner::-webkit-scrollbar { display: none; }
+  .nav-item {
+    flex-shrink: 0; padding: 6px 12px; border-radius: 8px;
+    font-size: 11px; font-weight: 500; color: var(--text-muted);
+    cursor: pointer; border: none; background: none;
+    font-family: inherit; transition: all 0.2s; white-space: nowrap;
+  }
+  .nav-item:hover, .nav-item.active { color: var(--accent); background: var(--accent-soft); }
+
+  /* ===== SECTIONS ===== */
+  .section { padding: 40px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .section:last-child { border-bottom: none; }
+  .section-number { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: var(--accent); opacity: 0.6; margin-bottom: 6px; }
+  .section-title { font-size: 20px; font-weight: 800; margin-bottom: 4px; letter-spacing: -0.3px; }
+  .section-title-jp { font-family: 'Noto Sans JP', sans-serif; font-size: 12px; color: var(--text-muted); margin-bottom: 20px; }
+  .section p { font-size: 13px; color: var(--text-sub); line-height: 2.0; margin-bottom: 14px; }
+  .section p:last-child { margin-bottom: 0; }
+  .hl { color: var(--accent); font-weight: 600; }
+  .hl-warn { color: #ef4444; font-weight: 600; }
+
+  /* ===== BOXES ===== */
+  .info-box { padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; margin: 16px 0; }
+  .info-box-accent { border-left: 3px solid var(--accent); background: var(--accent-soft); border-color: var(--accent-border); border-left-color: var(--accent); }
+  .info-box-blue { border-left: 3px solid #60a5fa; background: rgba(96,165,250,0.06); border-color: rgba(96,165,250,0.18); border-left-color: #60a5fa; }
+  .info-box-warn { border-left: 3px solid #f59e0b; background: rgba(245,158,11,0.06); border-color: rgba(245,158,11,0.18); border-left-color: #f59e0b; }
+  .info-box h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+  .info-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  /* ===== TABLE ===== */
+  .compare-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 12px; }
+  .compare-table th { text-align: left; padding: 10px 14px; background: var(--surface-2); color: var(--text-dim); font-weight: 600; font-size: 11px; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); }
+  .compare-table td { padding: 10px 14px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--text-sub); vertical-align: top; line-height: 1.7; }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table .row-label { font-weight: 600; color: var(--accent); white-space: nowrap; width: 120px; }
+
+  /* ===== CAREER TIMELINE ===== */
+  .career-timeline { position: relative; margin: 20px 0; padding-left: 28px; }
+  .career-timeline::before { content: ''; position: absolute; left: 8px; top: 4px; bottom: 4px; width: 2px; background: linear-gradient(180deg, var(--accent) 0%, rgba(52,211,153,0.1) 100%); border-radius: 1px; }
+  .career-step { position: relative; padding: 14px 0; }
+  .career-step::before { content: ''; position: absolute; left: -24px; top: 20px; width: 10px; height: 10px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+  .career-year { font-size: 11px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+  .career-role { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .career-desc { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  /* ===== MATCH GRID ===== */
+  .match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0; }
+  .match-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .match-card.good { border-color: var(--accent-border); background: var(--accent-soft); }
+  .match-card.bad { border-color: rgba(239,68,68,0.2); background: rgba(239,68,68,0.05); }
+  .match-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; }
+  .match-card.good .match-label { color: var(--accent); }
+  .match-card.bad .match-label { color: #f87171; }
+  .match-item { font-size: 12px; color: var(--text-dim); margin-bottom: 6px; display: flex; gap: 8px; line-height: 1.6; }
+  .match-item::before { flex-shrink: 0; margin-top: 3px; font-size: 10px; }
+  .match-card.good .match-item::before { content: '▶'; color: var(--accent); }
+  .match-card.bad .match-item::before { content: '▶'; color: #f87171; }
+
+  /* ===== KEYWORD GRID ===== */
+  .keyword-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .keyword-card { padding: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .keyword-card .kw-name { font-size: 14px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .keyword-card .kw-desc { font-size: 11px; color: var(--text-dim); line-height: 1.7; }
+
+  /* ===== QA ===== */
+  .qa-list { display: flex; flex-direction: column; gap: 8px; margin: 16px 0; }
+  .qa-item { padding: 16px 18px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+  .qa-item:hover { border-color: var(--border-hover); }
+  .qa-question { font-size: 13px; font-weight: 600; color: var(--text); display: flex; align-items: flex-start; gap: 10px; }
+  .qa-q-mark { color: var(--accent); font-weight: 800; font-size: 14px; flex-shrink: 0; opacity: 0.7; }
+  .qa-answer { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-dim); line-height: 1.8; padding-left: 24px; }
+  .qa-item.open .qa-answer { display: block; }
+
+  /* ===== WARN ===== */
+  .warn-box { padding: 18px 20px; background: rgba(239,68,68,0.04); border: 1px solid rgba(239,68,68,0.12); border-left: 3px solid #ef4444; border-radius: 10px; margin: 14px 0; }
+  .warn-box h4 { font-size: 13px; font-weight: 700; color: #ef4444; margin-bottom: 6px; }
+  .warn-box p { font-size: 12px; color: var(--text-dim); line-height: 1.8; }
+
+  /* ===== FOOTER ===== */
+  .footer { text-align: center; padding-top: 40px; margin-top: 20px; border-top: 1px solid var(--border); }
+  .footer p { font-size: 11px; color: var(--text-muted); line-height: 1.8; }
+  .footer .brand { font-weight: 700; color: var(--text-dim); }
+
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 24px; }
+    .section-title { font-size: 18px; }
+    .match-grid { grid-template-columns: 1fr; }
+    .keyword-grid { grid-template-columns: 1fr; }
+    .hero { padding: 40px 20px 32px; }
+    .compare-table { font-size: 11px; }
+    .compare-table th, .compare-table td { padding: 8px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-breadcrumb">
+      <a href="#">직종 대분류 맵</a><span>›</span><a href="#">영업 개요</a><span>›</span>통신 법인영업
+    </div>
+    <div class="hero-label">직종 상세 카드 — 영업 EG-09</div>
+    <div class="hero-icon">📡</div>
+    <h1>통신 법인영업</h1>
+    <div class="title-jp">通信キャリア法人営業</div>
+    <div class="title-en">Telecom B2B Sales — Industry Detail Card</div>
+    <div class="hero-tags">
+      <span class="hero-tag">BtoB</span>
+      <span class="hero-tag">에리어 담당제</span>
+      <span class="hero-tag">회선+DX 솔루션</span>
+      <span class="hero-tag">문과 중심</span>
+      <span class="hero-tag">통신 3사+라쿠텐</span>
+    </div>
+    <p class="hero-summary">
+      통신 법인영업이란, 기업 고객에게 통신회선·네트워크·클라우드·IoT 솔루션을 제안하는 직종이다.<br>
+      SIer의 IT영업과 비슷해 보이지만, 통신 인프라를 기반으로 하는 점에서 상품 구조·영업 스타일이 근본적으로 다르다.<br>
+      <strong style="color:var(--accent)">이 카드에서는 통신 법인영업만의 구조·차별화 포인트·ES 전략을 정리했다.</strong>
+    </p>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+
+
+<!-- ===== CONTENT ===== -->
+<div class="container">
+
+  <!-- ========== SECTION 1 ========== -->
+  <div class="section" id="s1">
+    <div class="section-number">SECTION 01</div>
+    <div class="section-title">통신 법인영업이란</div>
+    <div class="section-title-jp">通信キャリア法人営業とは</div>
+
+    <p>
+      통신 법인영업이란, <span class="hl">기업·자치체·학교·병원 등 법인 고객에게 통신회선·네트워크 구축·클라우드·IoT·보안 등의 솔루션을 제안하고 계약을 따내는 직종</span>이다.
+      NTT도코모·KDDI·소프트뱅크·라쿠텐모바일 같은 통신사(MNO)의 법인 사업 부문이 주요 무대이다.
+    </p>
+
+    <p>
+      "통신 = 스마트폰 판매"라는 이미지를 가진 학생이 많지만, 법인영업은 전혀 다른 세계다.
+      기업의 통신 인프라 전체를 설계하고, 거기에 클라우드·IoT·AI를 얹어 <span class="hl">고객의 사업 과제를 통신 기반으로 해결하는 "DX 컨설팅"에 가까운 영업</span>이다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>통신 법인영업이 하는 일 — 핵심 4단계</h4>
+      <p>
+        <strong>① 고객 과제 히어링</strong> — 담당 기업을 정기 방문하여 통신 환경의 문제점, IT 투자 계획, 사업 과제를 파악한다. "사무소를 이전하는데 네트워크를 새로 깔아야 한다", "공장에 IoT 센서를 도입하고 싶다" 등의 니즈를 끌어낸다.<br><br>
+        <strong>② 솔루션 설계·제안</strong> — SE(기술 담당)와 함께 회선·네트워크·클라우드·보안을 조합한 솔루션을 설계한다. 견적서·제안서를 만들어 고객에게 프레젠테이션. 경쟁사(다른 통신사·SIer)와의 경합(컨페)에서 이겨야 한다.<br><br>
+        <strong>③ 계약·도입 관리</strong> — 수주 후 회선 개통·장비 설치·시스템 이행의 일정을 조율한다. 건설 부서, 운용 부서, 외주 업체 등 복수의 관계자를 조율하는 프로젝트 매니지먼트 역할.<br><br>
+        <strong>④ 기존 고객 관리(에리어 영업)</strong> — 통신 법인영업의 가장 큰 특징. 담당 에리어(지역) 또는 담당 업종의 기업군을 장기적으로 관리한다. 기존 회선의 갱신·업그레이드, 추가 서비스 제안을 통해 매출을 확대하는 "농경형 영업"이 중심.
+      </p>
+    </div>
+
+    <div class="info-box info-box-blue">
+      <h4>IT영업(SIer/SaaS)과 어떻게 다른가?</h4>
+      <p>
+        <strong>IT영업(SIer)</strong> — 고객 맞춤 시스템을 처음부터 만들어주는 영업. 시스템 개발 프로젝트 단위. 수주 금액이 크고 영업 사이클이 길다(6개월~수년). "소프트웨어"가 상품의 중심.<br><br>
+        <strong>IT영업(SaaS)</strong> — 이미 만들어진 클라우드 서비스를 파는 영업. 월액 과금 모델. 빠른 클로징, 해약률 관리가 핵심. 인사이드 세일즈+필드 세일즈의 분업 체제가 일반적.<br><br>
+        <strong>통신 법인영업</strong> — <span class="hl">통신회선이라는 "인프라"가 토대</span>에 있고, 그 위에 클라우드·IoT·보안 등을 쌓아 올리는 구조. 에리어 담당제로 같은 고객을 장기적으로 관리하는 점이 가장 큰 차이. 월액 회선 매출이 안정적 기반이 되어, SIer처럼 "프로젝트 한 건에 걸리는" 구조가 아니다. 통신 기술(5G, 네트워크, IoT)에 대한 기초 이해가 IT영업보다 더 직접적으로 요구된다.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>통신 법인영업의 하루 (MNO 법인영업 3년차 예시)</h4>
+      <p>
+        09:00 출근, 전날 고객 미팅 내용 CRM 입력·후속 작업 정리<br>
+        09:30 SE와 미팅 — 제조업 고객의 IoT 도입안 기술 확인<br>
+        10:30 고객 방문 ① — 기존 거래처 갱신 제안 (회선 업그레이드+클라우드 추가)<br>
+        12:00 점심 (이동 중 차내에서)<br>
+        13:30 고객 방문 ② — 신규 개척. 사무소 이전에 맞춘 네트워크 전체 제안<br>
+        15:00 고객 방문 ③ — 로컬 5G 도입 검토 중인 물류회사에 기술 설명회 동행<br>
+        17:00 사무소 복귀, 견적서 작성·제안서 수정<br>
+        18:30 퇴근
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 2 ========== -->
+
+<div class="info-box" style="margin:20px 0;padding:16px 20px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;border-left:3px solid var(--accent);">
+<div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--accent);margin-bottom:6px;">💰 통신 법인영업 연봉 레인지</div>
+<p style="font-size:13px;color:var(--text-sub);line-height:1.8;margin:0;">통신 3사(NTT도코모·KDDI·소프트뱅크) 종합직 평균연봉 약 <strong style='color:var(--accent)'>800~900만엔</strong>대. 신졸 초년도 300~350만엔. 법인영업 성과 인센티브는 기본급 대비 변동폭이 작은 편(안정형). 과장급(35~40세) 900~1,100만엔. 라쿠텐모바일은 성과 연동 비율이 높다. 통신 대리점·통신 건설회사의 영업은 상대적으로 낮은 편(500~650만엔).</p>
+</div>
+  <div class="section" id="s2">
+    <div class="section-number">SECTION 02</div>
+    <div class="section-title">통신 법인영업의 세분화</div>
+    <div class="section-title-jp">通信法人営業の細分化マップ</div>
+
+    <p>
+      같은 "통신 법인영업"이라도, 소속 회사와 담당 영역에 따라 일의 성격이 크게 다르다.
+      <span class="hl">자기가 어떤 스타일의 영업을 하고 싶은지를 먼저 정리</span>하고 지원해야 한다.
+    </p>
+
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>유형</th>
+          <th>상품·솔루션</th>
+          <th>영업 스타일</th>
+          <th>특징</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="row-label">MNO 직판 (대기업 담당)</td>
+          <td>모바일 회선, 전용선, 클라우드, IoT, 보안 패키지</td>
+          <td>어카운트 영업. 대기업 1사에 깊이 파고드는 스타일</td>
+          <td>계약 규모 大. 장기 관계 구축. 사내 조율력 핵심</td>
+        </tr>
+        <tr>
+          <td class="row-label">MNO 직판 (중소·에리어)</td>
+          <td>모바일 회선, 광회선, 간이 클라우드, 복합기 연동</td>
+          <td>에리어 담당. 하루 2~3건 방문하는 루트 영업</td>
+          <td>고객 수 多. 한 건당 규모는 작지만 건수로 승부</td>
+        </tr>
+        <tr>
+          <td class="row-label">MNO DX·솔루션 영업</td>
+          <td>로컬 5G, 스마트팩토리, 원격의료, 스마트시티</td>
+          <td>SE·컨설턴트와 팀 제안. 기술 설명회·PoC 동행</td>
+          <td>최신 기술. IT영업에 가까운 컨설팅형. 성장 분야</td>
+        </tr>
+        <tr>
+          <td class="row-label">NTT동일본·서일본 (고정회선)</td>
+          <td>광회선(프레츠), 법인 네트워크, VPN</td>
+          <td>에리어 밀착. 자치체·학교·중소기업 대상</td>
+          <td>안정적. 지역 밀착형. 전근 범위가 한정적인 경우 多</td>
+        </tr>
+        <tr>
+          <td class="row-label">통신 대리점</td>
+          <td>MNO 상품을 대리 판매. 회선+복합기+보안을 패키지</td>
+          <td>텔레아포(전화 영업)+방문. 건수 중시의 신규 개척형</td>
+          <td>영업력이 직접 연봉에 반영. 체력·근성 요구. 이직률 높은 편</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box">
+      <h4>MNO 직판과 대리점의 차이 — 반드시 이해하고 지원할 것</h4>
+      <p>
+        통신 법인영업에서 가장 흔한 미스매치가 이 구분을 모르고 지원하는 것이다.<br><br>
+        <strong>MNO 직판(도코모·KDDI·소프트뱅크 본체)</strong> — 종합직 채용. 에리어 담당제 + DX 솔루션 제안까지 폭넓음. 연봉·복리후생·교육 체계가 대기업 수준. 다만 전배(배치전환)로 소비자 영업(도코모숍 관련)에 배치될 가능성도 있음.<br><br>
+        <strong>통신 대리점</strong> — MNO의 상품을 대리로 파는 별도 회사. 광통신·복합기를 패키지로 판매하는 영업이 많다. 실적에 따른 인센티브가 크지만 근무 환경의 편차가 크다. "통신 영업"이라고 뭉뚱그려 지원하면 입사 후 갭이 클 수 있다.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 3 ========== -->
+  <div class="section" id="s3">
+    <div class="section-number">SECTION 03</div>
+    <div class="section-title">통신 법인영업에서 보는 역량</div>
+    <div class="section-title-jp">通信法人営業に求められる力</div>
+
+    <p>
+      통신 법인영업에서 평가되는 역량은 IT영업과 겹치는 부분도 있지만,
+      <span class="hl">통신 인프라 기반의 장기 관계 구축</span>이라는 특성에서 오는 고유한 요소가 있다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>핵심 역량 5가지</h4>
+      <p>
+        <strong>① 관계 구축력 (에리어·어카운트 관리)</strong> — 한 번 판매하고 끝이 아니라 같은 고객을 수년간 담당한다. 정기 방문, 갱신 제안, 업셀링을 통해 매출을 확대하는 "농경형" 영업력. "이 사람에게 맡기면 안심"이라는 신뢰를 쌓는 것이 핵심.<br><br>
+        <strong>② 통신 기술 기초 이해</strong> — 5G, 광회선, VPN, 클라우드, IoT의 기본 구조를 이해하고 고객에게 알기 쉽게 설명하는 능력. SE에게 전부 맡기는 것이 아니라 "1차 설명은 영업이 한다"는 전제. 기술을 깊이 파지 않아도 되지만 "문외한"이면 안 된다.<br><br>
+        <strong>③ 과제 발견력 (히어링)</strong> — 고객이 "이런 게 필요합니다"라고 말하기 전에 "이런 과제가 있지 않습니까?"라고 먼저 물을 수 있는 능력. 통신 환경의 문제점을 고객보다 먼저 발견하면 제안 기회가 생긴다.<br><br>
+        <strong>④ 사내 조율력</strong> — 통신 법인영업은 혼자 완결하는 일이 거의 없다. SE, 네트워크 건설, 운용, 요금 부서, 법무 등 사내 관계자가 많다. "고객이 원하는 것"을 사내에서 실현시키기 위한 조율이 업무의 절반 이상.<br><br>
+        <strong>⑤ 제안·프레젠테이션</strong> — 경쟁사(다른 통신사, SIer, 클라우드 벤더)와의 경합에서 이기기 위한 제안력. 가격 경쟁이 되기 쉬운 통신 상품에서 "가격이 아닌 가치"를 전달하는 능력이 차별화 포인트.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 4 ========== -->
+  <div class="section" id="s4">
+    <div class="section-number">SECTION 04</div>
+    <div class="section-title">커리어패스</div>
+    <div class="section-title-jp">通信法人営業のキャリアパス</div>
+
+    <p>
+      통신사 법인영업의 커리어는 <span class="hl">영업 현장에서 시작해서 사업 기획·경영 쪽으로 넓어지는 루트</span>가 전형적이다.
+      대기업이므로 사내 이동(전배)을 통한 폭넓은 경험도 가능하다.
+    </p>
+
+    <div class="career-timeline">
+      <div class="career-step">
+        <div class="career-year">1~3년차</div>
+        <div class="career-role">에리어 영업 / 기존 고객 관리</div>
+        <div class="career-desc">담당 에리어의 중소기업을 중심으로 회선 갱신·추가 서비스 제안. 하루 2~3건 방문, 견적 작성, 사내 조율을 반복하며 영업의 기본을 습득. 통신 상품·기술 지식도 이 시기에 집중적으로 배운다.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">4~6년차</div>
+        <div class="career-role">대기업 어카운트 / DX 솔루션 영업</div>
+        <div class="career-desc">대기업 고객을 1사 전담하거나, DX·IoT·로컬 5G 등 고도 솔루션 영업으로 이동. SE·컨설턴트와 팀을 짜서 제안하는 프로젝트형 영업이 늘어난다. 수억엔 규모의 안건을 다루게 되는 시기.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">7~10년차</div>
+        <div class="career-role">매니저 / 사업기획</div>
+        <div class="career-desc">영업 팀의 매니저(과장급)로 부하 관리·목표 관리를 담당하거나, 법인 사업 기획 부서로 이동하여 새로운 솔루션 상품 기획·가격 전략·파트너 전략을 담당.</div>
+      </div>
+      <div class="career-step">
+        <div class="career-year">10년차 이후</div>
+        <div class="career-role">세 갈래 — 경영·전문직·그룹사</div>
+        <div class="career-desc">
+          <strong>길A: 경영 라인</strong> — 영업본부장·사업부장 등 경영 라인. 법인 사업 전체의 매출·이익 책임.<br>
+          <strong>길B: 전문직</strong> — 특정 업종(금융, 제조, 공공 등)의 통신 DX 전문가. 컨설턴트에 가까운 역할.<br>
+          <strong>길C: 그룹사·관련회사</strong> — KDDI마토메테오피스, NTT커뮤니케이션즈 등 그룹사로 이동. 또는 파트너 기업으로 전직.
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box info-box-warn">
+      <h4>한국인 법인영업의 현실적 커리어 포인트</h4>
+      <p>
+        통신사 법인영업은 고객과의 장기 관계가 핵심이므로 <strong>일본어 커뮤니케이션 능력이 직접적으로 성과와 연결</strong>된다. 한편, 한국 기업의 일본 진출이 활발한 업종(제조·물류·EC)을 담당하게 되면 한국어가 강력한 무기가 된다. KDDI·소프트뱅크의 해외 사업 부문이나 라쿠텐모바일의 글로벌 팀으로의 이동도 한국인의 강점이 살아나는 루트.
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 5 ========== -->
+  <div class="section" id="s5">
+    <div class="section-number">SECTION 05</div>
+    <div class="section-title">ES 작성 포인트</div>
+    <div class="section-title-jp">ES 공략 — 통신 법인영업 지망</div>
+
+    <p>
+      통신 법인영업 지망 ES에서 가장 중요한 것은
+      <span class="hl">"왜 일반 영업이 아닌, 통신 법인영업인가"를 구체적으로 말하는 것</span>이다.
+      "사람과 관계를 쌓는 것이 좋아서 영업을 지망한다"만으로는 어떤 회사의 영업이든 쓸 수 있는 말이 된다.
+    </p>
+
+    <div class="info-box info-box-accent">
+      <h4>지망동기 3단계 구조</h4>
+      <p>
+        <strong>Step1. 왜 "영업"인가</strong> — 고객의 과제를 직접 듣고 해결하는 것에 보람을 느끼는 원체험. "영업 = 물건을 파는 일"이 아니라 "과제 해결의 최전선"이라는 인식을 보여준다.<br><br>
+        <strong>Step2. 왜 "통신"인가</strong> — IT 전반이 아니라 통신 인프라에 관심이 있는 이유. "기업 활동의 모든 기반에 통신이 있다", "5G·IoT로 통신이 사업 자체를 바꾸는 시대", "사회 인프라로서의 공공성"등 통신 고유의 가치에 대한 공감.<br><br>
+        <strong>Step3. 왜 "이 회사"인가</strong> — MNO끼리의 차별화. 도코모의 이용자 기반·R&D, KDDI의 au경제권·법인DX, 소프트뱅크의 AI·투자 연계, 라쿠텐의 Open RAN·글로벌. 법인 사업 전략의 차이를 구체적으로.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <h4>자기PR 예시 — 통신 법인영업 지망</h4>
+      <p>
+        "저의 강점은 <strong>상대방의 말에서 아직 표현되지 않은 과제를 발견하는 경청력</strong>입니다. 대학 시절 한일 교류 이벤트 기획에서, 참가자 앙케이트의 표면적인 '만족'이라는 답변 뒤에 숨겨진 불만을 개별 인터뷰로 끌어내어 다음 기획에 반영한 경험이 있습니다. 이 '말하지 않는 과제를 먼저 발견하는' 자세를, 귀사의 법인영업에서 고객의 통신 과제를 선제적으로 발견하고 해결책을 제안하는 데 발휘하고 싶습니다."
+      </p>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 6 ========== -->
+  <div class="section" id="s6">
+    <div class="section-number">SECTION 06</div>
+    <div class="section-title">면접에서 자주 파고드는 질문</div>
+    <div class="section-title-jp">面接頻出質問と深掘り対策</div>
+
+    <p>
+      통신사 법인영업 면접은 <span class="hl">"왜 통신인가"와 "영업 적성"</span>을 중심으로 파고든다.
+      특히 MNO끼리의 차별화와, 법인영업의 장기 관계 구축에 대한 이해가 핵심이다.
+    </p>
+
+    <div class="qa-list">
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>왜 IT영업이 아니라 통신 법인영업인가?</span></div>
+        <div class="qa-answer">
+          핵심 차별화 질문. "SIer는 프로젝트 단위로 고객이 바뀌지만, 통신 법인영업은 같은 고객과 장기적으로 관계를 쌓으면서 인프라부터 DX까지 포괄적으로 지원할 수 있다"는 구조적 차이를 명확히 말할 것. 거기에 "통신 인프라라는 사회 기반에 관여하고 싶다"는 가치관을 더하면 설득력이 올라간다.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>우리 회사와 다른 통신사의 법인 사업 차이는?</span></div>
+        <div class="qa-answer">
+          법인 사업 전략의 차이를 구체적으로 파악해야 한다. 도코모: 이용자 수 1위 기반의 법인 모바일 관리+d포인트 경제권. KDDI: "KDDI Business ID"를 축으로 한 법인 DX 원스톱 제공+스타트업 지원. 소프트뱅크: AI(소프트뱅크 로보틱스)·ARM·비전펀드와 연계한 신사업 제안력. 라쿠텐: 라쿠텐 경제권 데이터 활용+Open RAN 기술의 법인 전개. 각사의 IR 자료·중기경영계획에서 법인 사업 매출 비율과 성장 전략을 확인해둘 것.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>영업에서 가장 중요한 것은 무엇이라고 생각하는가?</span></div>
+        <div class="qa-answer">
+          "커뮤니케이션"이라고만 답하면 너무 보편적. 통신 법인영업의 문맥에서는 "고객이 아직 인식하지 못한 과제를 먼저 발견하고 제안하는 것"이 가장 강한 답변. 거기에 "장기적인 신뢰 관계 속에서 그것이 가능해진다"는 에리어 영업의 특성을 연결하면 통신 법인영업에 대한 이해가 드러난다.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>통신 업계의 과제는 무엇이라고 생각하는가?</span></div>
+        <div class="qa-answer">
+          소비자 시장의 요금 경쟁 격화(알뜰폰 확대), 인구 감소에 따른 개인 가입자 성장 한계 → 법인 DX·IoT·글로벌이 성장 축. 이 구조를 이해한 위에 "그래서 법인영업의 역할이 더 중요해지고 있다"는 논리로 연결하면 업계 이해와 지망동기가 동시에 전달된다.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>소비자 영업(도코모숍 등)에 배치되면 어떻게 하겠는가?</span></div>
+        <div class="qa-answer">
+          MNO 종합직의 현실적 질문. 법인영업 지망이라도 입사 후 1~2년은 소비자 영업(도코모숍·au숍 관련)에 배치될 가능성이 있다. "소비자 영업에서 고객 대응의 기본기를 배우는 것 자체가 법인영업의 기반이 된다고 생각한다"는 긍정적 프레이밍이 기본. "절대 싫다"는 유연성 부족으로 보인다.
+        </div>
+      </div>
+      <div class="qa-item" onclick="this.classList.toggle('open')">
+        <div class="qa-question"><span class="qa-q-mark">Q</span><span>일본어로 법인 고객을 담당할 자신이 있는가?</span></div>
+        <div class="qa-answer">
+          한국인 학생에게 반드시 나오는 질문. 법인영업은 고객과의 신뢰 관계가 핵심이므로 일본어 커뮤니케이션에 대한 우려가 있을 수 있다. "일본어로 ○○를 해본 경험이 있다"(인턴, 아르바이트에서 일본인 대상 접객, 대학 발표 등)는 구체적 실적으로 답하는 것이 효과적. 또한 "한국 기업의 일본 진출이 활발한 시기에 한일 양언어·양문화를 이해하는 것이 법인영업에서 직접적 강점이 된다"는 논리도 유효.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 7 ========== -->
+  <div class="section" id="s7">
+    <div class="section-number">SECTION 07</div>
+    <div class="section-title">자기분석 키워드 연결</div>
+    <div class="section-title-jp">自己分析キーワード接続</div>
+
+    <p>
+      자기분석 키워드가 통신 법인영업에서 어떻게 연결되는지를 정리했다.
+    </p>
+
+    <div class="keyword-grid">
+      <div class="keyword-card">
+        <div class="kw-name">관계구축력</div>
+        <div class="kw-desc">통신 법인영업의 핵심 중의 핵심. 에리어 담당제에서 같은 고객을 수년간 관리하며 신뢰를 쌓아가는 "농경형" 영업의 기본 역량.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">경청력</div>
+        <div class="kw-desc">고객이 직접 말하지 않는 과제를 히어링으로 끌어내는 능력. "통신 환경에 문제를 느끼지 않는다"는 고객에게서도 개선 기회를 발견하는 것이 프로 법인영업.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">조정력</div>
+        <div class="kw-desc">SE, 건설, 운용, 요금, 법무 등 사내 관계자가 많은 통신사에서 "고객이 원하는 것을 사내에서 실현시키는" 조율 능력. 법인영업 업무의 절반 이상이 사내 조율이라 해도 과언이 아니다.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">공헌의식</div>
+        <div class="kw-desc">통신은 사회 인프라. 기업의 통신 환경을 정비하는 것은 곧 그 기업의 사업 기반을 지탱하는 것. "보이지 않는 곳에서 비즈니스를 지탱한다"는 공공적 보람.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">도전정신</div>
+        <div class="kw-desc">IoT, 로컬 5G, 스마트시티 등 아직 시장이 형성되지 않은 분야를 고객과 함께 만들어가는 DX 솔루션 영업. "이전에 없던 것을 팔러 가는" 도전.</div>
+      </div>
+      <div class="keyword-card">
+        <div class="kw-name">실행력</div>
+        <div class="kw-desc">제안에서 끝나지 않고 회선 개통·장비 설치·시스템 이행까지 끌고 가는 실행력. 통신 법인영업은 "계약을 따내면 끝"이 아니라 "도입 완료까지가 영업의 책임"이다.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== SECTION 8 ========== -->
+  <div class="section" id="s8">
+    <div class="section-number">SECTION 08</div>
+    <div class="section-title">주의점 / 빠지기 쉬운 함정</div>
+    <div class="section-title-jp">よくある誤解と落とし穴</div>
+
+    <p>
+      통신 법인영업 지망 학생이 자주 빠지는 함정이다.
+      지원 전에 반드시 자기 점검을 해둘 것.
+    </p>
+
+    <div class="warn-box">
+      <h4>함정 1: "통신 영업 = 스마트폰 판매"라고 생각하는 것</h4>
+      <p>통신사 법인영업과 도코모숍·au숍의 소비자 영업은 전혀 다른 직종이다. 법인영업은 기업 대상 B2B 솔루션 영업이고, 숍 영업은 개인 대상 B2C 접객이다. ES와 면접에서 "법인영업"의 구체적인 업무 이미지를 말할 수 있어야 한다.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 2: MNO 본체와 대리점을 구분하지 못하는 것</h4>
+      <p>"통신 영업"으로 검색하면 MNO 본체와 통신 대리점이 섞여서 나온다. 업무 내용·연봉·커리어패스·근무 환경이 크게 다르므로 반드시 구분해서 지원할 것. 회사명에 "도코모"가 들어 있어도 NTT도코모 본체인지, 도코모CS(고객 서포트)인지, 판매 대리점인지를 확인해야 한다.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 3: "사람이 좋아서 영업"이 지망동기의 전부인 것</h4>
+      <p>"사람과 관계를 쌓는 것이 좋다"는 어떤 회사의 영업이든 쓸 수 있는 말이다. "왜 통신 인프라를 통해 고객 과제를 해결하고 싶은가"라는 통신 고유의 동기가 없으면 면접에서 깊이가 없다고 평가받는다. 통신 기술·통신 업계에 대한 관심의 계기를 반드시 포함할 것.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 4: 소비자 영업 배치 가능성을 인식하지 못하는 것</h4>
+      <p>MNO 종합직으로 입사하면 법인영업을 희망해도 처음 1~2년은 소비자 영업(숍 관련·개인 고객 대응) 부서에 배치될 가능성이 있다. 이를 "미스매치"로 느끼지 않도록 사전에 마음 준비를 해두고, 면접에서 물어봤을 때 긍정적으로 답할 수 있도록 준비할 것.</p>
+    </div>
+
+    <div class="warn-box">
+      <h4>함정 5: 통신 기술에 전혀 무관심한 채 지원하는 것</h4>
+      <p>문과 출신도 충분히 할 수 있는 직종이지만, "5G가 뭔지 모른다", "IoT를 설명할 수 없다"는 수준이면 면접에서 불리하다. 깊이 알 필요는 없지만 "기본 개념은 이해하고 관심이 있다"는 것을 보여줘야 한다. 각 통신사의 기술 블로그·뉴스 릴리즈를 몇 개만 읽어도 충분히 차별화가 된다.</p>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <div class="footer">
+    <p><span class="brand">Tokyo Career Studio</span> 직종 라이브러리 레벨3 — 통신 법인영업 (通信キャリア法人営業)</p>
+    <p>영업 개요 카드(레벨2) | 직종 대분류 맵(레벨1)도 함께 참고</p>
+  </div>
+
+</div>
+
+<script>
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const nav = document.querySelector('.section-nav');
+    const navHeight = nav ? nav.offsetHeight : 0;
+    const y = el.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+const sections = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+const navItems = document.querySelectorAll('.nav-item');
+function updateActiveNav() {
+  const nav = document.querySelector('.section-nav');
+  const navHeight = nav ? nav.offsetHeight : 0;
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { const rect = el.getBoundingClientRect(); if (rect.top <= navHeight + 60) current = id; }
+  });
+  navItems.forEach((item, i) => {
+    if (sections[i] === current) item.classList.add('active'); else item.classList.remove('active');
+  });
+}
+window.addEventListener('scroll', updateActiveNav);
+updateActiveNav();
+</script>
+<script src="nav.js"></script>
+  <script src="global-nav.js"></script>
+</body>
+</html>
