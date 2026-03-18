@@ -274,14 +274,18 @@ function render() {
   renderQuiz();
 }
 
+function setLang(l){lang=l;render();}
+
 function renderStart() {
+  var ja=lang==='jp'?'background:var(--tama);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';
+  var ka=lang==='ko'?'background:var(--tama);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';
   app.innerHTML = `
     <div class="qz-start">
       <h2>🎯 <span style="color:var(--tama);">玉手箱</span> 미니 모의고사</h2>
       <p>문제 은행에서 랜덤 ${QUIZ_SIZE}문이 출제됩니다.<br>제한시간 ${TIME_LIMIT/60}분. 언어(GAB/IMAGES)와 계수(사칙역산/도표/표빈칸)가 섞여 나옵니다.<br>실전처럼 빠르게 풀어보세요!</p>
       <div style="display:flex;justify-content:center;gap:4px;margin:20px 0;">
-        <button onclick="lang='jp';render();" class="qz-btn" style="padding:8px 20px;font-size:12px;${lang==='jp'?'background:var(--tama);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);'}">日本語 (실전)</button>
-        <button onclick="lang='ko';render();" class="qz-btn" style="padding:8px 20px;font-size:12px;${lang==='ko'?'background:var(--tama);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);'}">한국어 (연습)</button>
+        <button onclick="setLang('jp')" class="qz-btn" style="padding:8px 20px;font-size:12px;${ja}">日本語 (실전)</button>
+        <button onclick="setLang('ko')" class="qz-btn" style="padding:8px 20px;font-size:12px;${ka}">한국어 (연습)</button>
       </div>
       <div style="margin-bottom:20px;">
         <span style="font-size:12px;color:var(--text-muted);">문제 은행: ${BANK.length}문 | 출제: ${QUIZ_SIZE}문 | 제한: ${TIME_LIMIT/60}분 | 풀이는 항상 한국어</span>
