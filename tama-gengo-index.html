@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'tama-gengo-index.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玉手箱 언어 파트 개요 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--border-hover:#3a3a48;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--accent:#4a9eff;--tama:#34d399;--tama-soft:rgba(52,211,153,0.06);--tama-border:rgba(52,211,153,0.18);--gengo:#60a5fa;--gengo-soft:rgba(96,165,250,0.06);--gengo-border:rgba(96,165,250,0.18);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}
+.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;max-width:760px;margin:0 auto;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(52,211,153,0.06) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{position:relative;max-width:760px;margin:0 auto;padding:0 24px;}
+.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}
+.hero-back:hover{color:var(--text-dim);}
+.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--tama);background:var(--tama-soft);border:1px solid var(--tama-border);padding:4px 12px;border-radius:12px;margin-bottom:20px;text-transform:uppercase;}
+.hero h1{font-size:30px;font-weight:900;line-height:1.3;margin-bottom:10px;letter-spacing:-0.5px;}
+.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:20px;}
+.hero-meta{font-size:11px;color:var(--text-muted);margin-bottom:20px;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.hero-tag{font-size:11px;padding:4px 12px;border-radius:100px;background:var(--tama-soft);color:var(--tama);border:1px solid var(--tama-border);font-weight:500;}
+.section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0;}
+.section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+.section-nav-inner::-webkit-scrollbar{display:none;}
+.nav-btn{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap;text-decoration:none;}
+.nav-btn:hover,.nav-btn.active{color:var(--tama);background:var(--tama-soft);}
+.section{padding:44px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}
+.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--tama);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}
+.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}
+.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}
+.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}
+.section h3{font-size:14px;font-weight:700;color:var(--text-sub);margin:28px 0 12px;padding-left:10px;border-left:2px solid var(--tama);}
+.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}
+.ib-a{background:var(--tama-soft);border-color:var(--tama-border);border-left:3px solid var(--tama);}
+.ib h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}
+.ib p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0;}
+.bl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--tama);margin-bottom:6px;text-transform:uppercase;}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead{background:var(--surface-2);}
+th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}
+td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}
+tr:last-child td{border-bottom:none;}
+td:first-child{font-weight:600;color:var(--text-sub);white-space:nowrap;}
+.stats-row{display:flex;gap:12px;margin:20px 0;flex-wrap:wrap;}
+.stat-box{flex:1;min-width:100px;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-align:center;}
+.stat-num{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--text);line-height:1;margin-bottom:4px;}
+.stat-num span{font-size:14px;color:var(--text-dim);}
+.stat-label{font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;}
+.type-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:20px 0;}
+.type-card{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;cursor:pointer;}
+.type-card:hover{border-color:var(--tama-border);background:var(--tama-soft);transform:translateY(-2px);}
+.type-icon{font-size:24px;flex-shrink:0;margin-top:2px;}
+.type-body{flex:1;}
+.type-kicker{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--tama);margin-bottom:4px;text-transform:uppercase;}
+.type-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.type-desc{font-size:11px;color:var(--text-dim);line-height:1.7;margin-bottom:8px;}
+.type-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.type-tag{font-size:10px;padding:2px 8px;border-radius:6px;background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border);}
+.type-arrow{font-size:16px;color:var(--tama);flex-shrink:0;margin-top:4px;opacity:0;transition:opacity 0.2s;}
+.type-card:hover .type-arrow{opacity:1;}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}
+.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}
+.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.hero h1{font-size:24px;}.stats-row{gap:8px;}.stat-box{min-width:80px;padding:12px;}.stat-num{font-size:20px;}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <a href="tama-index.html" class="hero-back">← 玉手箱 대책 메인으로 돌아가기</a>
+    <div class="hero-label">玉手箱 언어 대책</div>
+    <h1>玉手箱 언어 파트 완전 정리</h1>
+    <p class="hero-sub">GAB형 논리적독해(15분)·IMAGES형 취지판정(10분)·취지파악(12분) — 3형식 중 기업이 선택한 1형식만 끝까지 출제. 장문을 빠르게 읽고 본문 근거로만 판단하는 훈련이 핵심입니다. SPI 언어와 달리 어휘 암기가 아닌 독해력 승부.</p>
+    <p class="hero-meta">Tokyo Career Studio &nbsp;|&nbsp; 2026.03 &nbsp;|&nbsp; ワンキャリア · unistyle · 「これが本当のWebテストだ!」 크로스체크 완료</p>
+    <div class="hero-tags">
+      <span class="hero-tag">3형식 중 1형식만 출제</span>
+      <span class="hero-tag">GAB형이 가장 빈출</span>
+      <span class="hero-tag">일본어 장문 속독이 핵심</span>
+      <span class="hero-tag">형식별 강의 + 예제 10문</span>
+    </div>
+  </div>
+</div>
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <a href="#s1" class="nav-btn active">학습 가이드</a>
+    <a href="#s2" class="nav-btn">3형식 비교</a>
+    <a href="#s3" class="nav-btn">학습 전략</a>
+    <a href="#s4" class="nav-btn">형식별 페이지</a>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="section" id="s1">
+  <div class="sn">SECTION 01</div>
+  <div class="st">玉手箱 언어 파트 학습 가이드</div>
+  <div class="st-jp">玉手箱 言語分野 — 長文読解が全て</div>
+
+  <div class="ib ib-a">
+    <div class="bl">SPI 언어와의 핵심 차이</div>
+    <p>SPI 언어는 어구의 의미, 두 단어 관계 등 <strong style="color:var(--text-sub);">어휘 암기</strong> 비중이 높지만, 玉手箱 언어는 전 형식이 <strong style="color:var(--text-sub);">장문 독해</strong>입니다. 400-1000자의 일본어 문장을 읽고, 논리적 정오를 판별하거나 필자의 취지를 파악하는 능력이 시험됩니다. 어휘를 외울 필요는 없지만, 일본어 장문을 빠르게 읽고 논리적으로 분석하는 훈련이 필수입니다.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num">3<span>형식</span></div><div class="stat-label">기업이 1형식 선택</div></div>
+    <div class="stat-box"><div class="stat-num">32<span>문</span></div><div class="stat-label">GAB·IMAGES</div></div>
+    <div class="stat-box"><div class="stat-num">10<span>분</span></div><div class="stat-label">IMAGES형 최단</div></div>
+    <div class="stat-box"><div class="stat-num">28<span>초</span></div><div class="stat-label">GAB 1문당 시간</div></div>
+  </div>
+
+  <p>玉手箱 언어의 가장 큰 특징은 <strong style="color:var(--text);">과목당 1형식만 끝까지 반복 출제</strong>된다는 것입니다. 최초 문제가 GAB형이면 마지막까지 GAB형만 나옵니다. 어떤 형식이 나올지 사전에 알 수 없으므로 3형식 모두 대비해야 하지만, 제한 시간을 보면 역산할 수 있습니다.</p>
+</div>
+
+<div class="section" id="s2">
+  <div class="sn">SECTION 02</div>
+  <div class="st">3형식 비교표</div>
+  <div class="st-jp">3つの問題形式の比較</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>항목</th><th>① GAB형 논리적독해</th><th>② IMAGES형 취지판정</th><th>③ 취지파악</th></tr></thead>
+      <tbody>
+        <tr><td>출제 빈도</td><td><strong style="color:var(--tama);">높음 (최빈출)</strong></td><td>높음</td><td>낮음 (거의 안 나옴)</td></tr>
+        <tr><td>문제 수 / 시간</td><td>32문 / 15분</td><td>32문 / 10분</td><td>10문 / 12분</td></tr>
+        <tr><td>1문당 시간</td><td>약 28초</td><td><strong style="color:var(--warn);">약 19초 (최단)</strong></td><td>약 72초</td></tr>
+        <tr><td>장문 길이</td><td>약 600자</td><td>약 400-600자</td><td>약 1000자</td></tr>
+        <tr><td>선택지</td><td>3택: A맞다/B틀리다/C판단불가</td><td>3택: A취지/B본문O취지X/C관계없음</td><td>4지선다 (취지에 가장 가까운 것)</td></tr>
+        <tr><td>판별 기준</td><td>논리적 정오 (사실 판별)</td><td>중요도 (취지인가 아닌가)</td><td>결론 파악 (메인 메시지)</td></tr>
+        <tr><td>최대 난관</td><td>C(판단불가)의 경계</td><td>A(취지)와 B(취지 아님)의 경계</td><td>선택지 간 미묘한 차이</td></tr>
+        <tr><td>제한 시간으로 판별</td><td>15분 → GAB형</td><td>10분 → IMAGES형</td><td>12분 → 취지파악</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ib ib-a">
+    <div class="bl">3형식 공통 원칙</div>
+    <p>• <strong style="color:var(--text-sub);">본문에 쓰여 있는 것만으로 판단</strong> — 상식, 일반론, 개인 의견 절대 금지<br>
+    • <strong style="color:var(--text-sub);">설문(선택지) 먼저 읽기</strong> → 키워드 파악 → 본문에서 해당 부분만 집중 독해<br>
+    • <strong style="color:var(--text-sub);">오류율 미측정</strong> — 확신이 없으면 찍고 넘기기 (감점 없음)<br>
+    • <strong style="color:var(--text-sub);">돌아갈 수 없음</strong> — 다음 장문으로 넘기면 이전 장문 재열람 불가</p>
+  </div>
+</div>
+
+<div class="section" id="s3">
+  <div class="sn">SECTION 03</div>
+  <div class="st">학습 전략</div>
+  <div class="st-jp">効率的な対策ロードマップ</div>
+
+  <div class="ib ib-a">
+    <div class="bl">추천 학습 순서</div>
+    <p><strong style="color:var(--text-sub);">STEP 1. GAB형부터 마스터</strong><br>
+    가장 빈출이며, 논리적 정오 판별은 IMAGES형의 기초가 됨. 「본문만으로 판단」 원칙에 익숙해지는 것이 최우선.<br><br>
+    <strong style="color:var(--text-sub);">STEP 2. IMAGES형 취지판정</strong><br>
+    GAB형과 비슷하지만 「맞다/틀리다」가 아닌 「취지인가 아닌가」를 판별. A와 B의 경계를 집중 훈련. 시간이 5분 짧으므로 속도감 필요.<br><br>
+    <strong style="color:var(--text-sub);">STEP 3. 취지파악 (여유가 있으면)</strong><br>
+    출제 빈도가 낮으므로 최우선은 아님. GAB형과 IMAGES형을 충분히 연습한 후 가볍게 대비.<br><br>
+    <strong style="color:var(--text-sub);">STEP 4. 실전 시간 관리 연습</strong><br>
+    반드시 타이머를 켜고 실전과 동일한 제한 시간에서 연습. GAB형 15분/32문, IMAGES형 10분/32문 체감을 몸에 익히기.</p>
+  </div>
+
+  <h3>일본어 장문 속독 팁 (한국인 수험생용)</h3>
+  <div class="ib">
+    <p>• <strong style="color:var(--text-sub);">한자어는 한국어 독음으로 빠르게 의미 추론</strong> — 「環境規制(환경규제)」「生産性(생산성)」등 한자 어휘가 많아 한국인에게 유리<br>
+    • <strong style="color:var(--text-sub);">접속사에 주목</strong> — 「しかし(그러나)」「つまり(즉)」「一方(한편)」「例えば(예를 들면)」가 문장의 논리 구조를 알려줌<br>
+    • <strong style="color:var(--text-sub);">결론은 마지막에</strong> — 일본어 문장은 결론이 문말에 오는 경향. 마지막 2-3문장을 먼저 읽는 습관<br>
+    • <strong style="color:var(--text-sub);">모르는 단어는 건너뛰기</strong> — 완벽한 이해보다 전체 논지 파악이 우선</p>
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <div class="sn">SECTION 04</div>
+  <div class="st">형식별 학습 페이지</div>
+  <div class="st-jp">形式別の学習ページ — 講義・解法・例題10問</div>
+  <p>각 형식별로 강의(출제 포인트·풀이 전략·함정 패턴)와 연습 문제 10문이 수록되어 있습니다.</p>
+
+  <div class="type-grid">
+    <a href="tama-gengo-gab.html" class="type-card">
+      <div class="type-icon">📖</div>
+      <div class="type-body">
+        <div class="type-kicker">형식 ① · 최빈출</div>
+        <div class="type-title">GAB형 논리적독해 (論理的読解)</div>
+        <div class="type-desc">A(맞다) B(틀리다) C(판단불가) 3택. 본문의 논리적 정오를 판별. 15분/32문.</div>
+        <div class="type-tags">
+          <span class="type-tag">32문 / 15분</span>
+          <span class="type-tag">3택 정오판별</span>
+          <span class="type-tag">예제 10문</span>
+        </div>
+      </div>
+      <div class="type-arrow">→</div>
+    </a>
+    <a href="tama-gengo-images.html" class="type-card">
+      <div class="type-icon">🎯</div>
+      <div class="type-body">
+        <div class="type-kicker">형식 ② · 시간 최단</div>
+        <div class="type-title">IMAGES형 취지판정 (趣旨判定)</div>
+        <div class="type-desc">A(취지) B(본문O취지X) C(관계없음) 3택. 필자의 메인 주장을 판별. 10분/32문.</div>
+        <div class="type-tags">
+          <span class="type-tag">32문 / 10분</span>
+          <span class="type-tag">3택 취지판정</span>
+          <span class="type-tag">예제 10문</span>
+        </div>
+      </div>
+      <div class="type-arrow">→</div>
+    </a>
+    <a href="tama-gengo-shushi.html" class="type-card">
+      <div class="type-icon">🔍</div>
+      <div class="type-body">
+        <div class="type-kicker">형식 ③ · 출제 빈도 낮음</div>
+        <div class="type-title">취지파악 (趣旨把握)</div>
+        <div class="type-desc">4지선다에서 필자의 주장에 가장 가까운 것을 선택. 1000자급 장문. 10문/12분.</div>
+        <div class="type-tags">
+          <span class="type-tag">10문 / 12분</span>
+          <span class="type-tag">4지선다</span>
+          <span class="type-tag">예제 10문</span>
+        </div>
+      </div>
+      <div class="type-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — 玉手箱 언어 파트 완전 정리</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
+  <p style="margin-top:8px;font-size:10px;">본 자료는 학습 참고용이며 玉手箱 운영사(日本エス・エイチ・エル株式会社)와 무관합니다.</p>
+</div>
+</div>
+
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>
