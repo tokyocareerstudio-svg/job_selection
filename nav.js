@@ -83,6 +83,7 @@
         { label: "기획",            file: "kikaku-kk02-planning.html" },
         { label: "마케팅",          file: "kikaku-kk03-marketing.html" },
         { label: "부동산·사업기획", file: "kikaku-kk04-realestate.html" },
+        { label: "MD·바이어·상품개발", file: "kikaku-kk05-md.html" },
     ]},
     { id: "logistics", label: "물류·SCM", file: "logistics-overview.html", children: [
         { label: "메이커·유통 SCM", file: "logistics-scm01-maker.html" },
@@ -136,6 +137,10 @@
     "기획": "kikaku-kk02-planning.html",
     "마케팅": "kikaku-kk03-marketing.html",
     "부동산·사업기획": "kikaku-kk04-realestate.html",
+    "MD": "kikaku-kk05-md.html",
+    "바이어": "kikaku-kk05-md.html",
+    "상품개발": "kikaku-kk05-md.html",
+    "머천다이저": "kikaku-kk05-md.html",
     "메이커·유통 SCM": "logistics-scm01-maker.html",
     "3PL·포워더": "logistics-scm02-3pl.html",
     "무역·조달·구매": "logistics-scm03-trade.html",
