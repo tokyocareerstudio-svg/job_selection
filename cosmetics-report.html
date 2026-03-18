@@ -89,7 +89,80 @@
   .footer p { font-size:11px; color:var(--text-muted); line-height:1.8; }
   .footer .brand { font-weight:700; color:var(--text-dim); }
   @media (max-width:640px) { .keyword-grid,.company-grid { grid-template-columns:1fr; } .hero h1 { font-size:24px; } .section-title { font-size:18px; } }
-</style>
+
+  /* ── Job Link Cards ── */
+  .job-link-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-bottom: 8px;
+  }
+
+  .job-link-card:hover {
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+  }
+
+  .job-link-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .job-link-body { flex: 1; }
+
+  .job-link-kicker {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  .job-link-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .job-link-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+
+  .job-link-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .job-link-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  .job-link-arrow {
+    font-size: 16px;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  </style>
 </head>
 <body>
 <div class="hero">
@@ -221,7 +294,71 @@
 </div>
 </div>
 
+<!-- ── 관련 직종 카드 링크 (자동 삽입) ── -->
+<a class="job-link-card" href="https://job-selection.vercel.app/kikaku-kk03-marketing" target="_blank">
+<div class="job-link-icon">📣</div>
+<div class="job-link-body">
+<div class="job-link-kicker">마케팅 — 직종 상세 카드</div>
+<div class="job-link-title">마케팅 — 시장과 고객을 이해하고 전략을 짜는 사람</div>
+<div class="job-link-desc">상품 기획·브랜드 매니지먼트·디지털 마케팅·PR 등. <strong style="color:var(--text-sub);">소비재(BtoC) 메이커</strong>에서 특히 핵심 직종.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">브랜드매니지먼트</span>
+<span class="job-link-tag">디지털마케팅</span>
+<span class="job-link-tag">BtoC 메이커</span>
+<span class="job-link-tag">분석력</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
+<a class="job-link-card" href="https://job-selection.vercel.app/sales-eg01-maker" target="_blank">
+<div class="job-link-icon">🏭</div>
+<div class="job-link-body">
+<div class="job-link-kicker">메이커 영업 — 직종 상세 카드</div>
+<div class="job-link-title">메이커 영업 — 자사 제품의 가치를 전하는 사람</div>
+<div class="job-link-desc">제조업(전기·식품·소재·화학 등)의 <strong style="color:var(--text-sub);">법인영업(BtoB)</strong>이 주류. 기존 거래처를 깊게 파고드는 루트영업 비중이 높다.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">BtoB 루트영업</span>
+<span class="job-link-tag">기술 이해력</span>
+<span class="job-link-tag">장기 관계 구축</span>
+<span class="job-link-tag">안정적</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
+<a class="job-link-card" href="https://job-selection.vercel.app/tech-gi03-rd" target="_blank">
+<div class="job-link-icon">🔬</div>
+<div class="job-link-body">
+<div class="job-link-kicker">연구개발(R&D) — 직종 상세 카드</div>
+<div class="job-link-title">연구개발(R&D) — 미래의 기술을 창조하는 사람</div>
+<div class="job-link-desc">제약·소재·전기·화학 메이커의 <strong style="color:var(--text-sub);">기초연구·응용연구·제품개발</strong>. 석사 이상 우대, 논문·학회 실적이 선고에 직결.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">석사/박사 우대</span>
+<span class="job-link-tag">논문 실적</span>
+<span class="job-link-tag">기초연구</span>
+<span class="job-link-tag">장기적 시야</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
+<a class="job-link-card" href="https://job-selection.vercel.app/creative-cr03-graphic" target="_blank">
+<div class="job-link-icon">✏️</div>
+<div class="job-link-body">
+<div class="job-link-kicker">그래픽디자인 — 직종 상세 카드</div>
+<div class="job-link-title">그래픽·비주얼 디자이너 — 시각으로 브랜드를 만드는 사람</div>
+<div class="job-link-desc">패키지·로고·에디토리얼·웹 비주얼 등 <strong style="color:var(--text-sub);">시각 커뮤니케이션</strong> 전반을 담당. 아파렐·화장품·출판 등에서 수요.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">Adobe</span>
+<span class="job-link-tag">패키지디자인</span>
+<span class="job-link-tag">브랜딩</span>
+<span class="job-link-tag">포트폴리오</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
+
 <!-- ═══════════════ SECTION 04 ═══════════════ -->
+
+
 <div class="section" id="s4">
 <div class="section-num">SECTION 04</div>
 <div class="section-title">화장품메이커 × 자기분석 키워드</div>

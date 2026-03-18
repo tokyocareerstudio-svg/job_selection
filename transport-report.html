@@ -19,7 +19,80 @@
   .es-pattern{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:12px 0}.es-pattern-label{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--accent);margin-bottom:8px;text-transform:uppercase}.es-pattern p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0}
   .footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8}.footer .brand{font-weight:700;color:var(--text-dim)}
   @media(max-width:640px){.keyword-grid,.company-grid{grid-template-columns:1fr}.hero h1{font-size:24px}.section-title{font-size:18px}}
-</style>
+
+  /* ── Job Link Cards ── */
+  .job-link-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-bottom: 8px;
+  }
+
+  .job-link-card:hover {
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+  }
+
+  .job-link-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .job-link-body { flex: 1; }
+
+  .job-link-kicker {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  .job-link-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .job-link-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+
+  .job-link-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .job-link-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  .job-link-arrow {
+    font-size: 16px;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  </style>
 </head>
 <body>
 <div class="hero"><div class="hero-inner">
@@ -142,6 +215,68 @@
 <div class="info-box"><p>JR동일본 에리어직(ポテンシャル採用): 역무원·차장에서 시작, 해당 에리어 내에서 커리어 형성. ANA 그랜드 스태프: 공항 한정 채용. 체크인·게이트·라운지 업무.</p></div>
 </div>
 
+
+<!-- ── 관련 직종 카드 링크 (자동 삽입) ── -->
+<a class="job-link-card" href="https://job-selection.vercel.app/service-overview" target="_blank">
+<div class="job-link-icon">🛎️</div>
+<div class="job-link-body">
+<div class="job-link-kicker">판매·서비스 — 직종 개요 카드</div>
+<div class="job-link-title">판매·서비스 — 고객과 직접 만나는 최전선</div>
+<div class="job-link-desc">소매·호텔·외식·여행 등에서 <strong style="color:var(--text-sub);">고객 접점(BtoC)</strong>을 담당. 점장·SV(슈퍼바이저)로의 커리어패스가 특징.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">BtoC</span>
+<span class="job-link-tag">접객</span>
+<span class="job-link-tag">점장 루트</span>
+<span class="job-link-tag">커뮤니케이션력</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
+<a class="job-link-card" href="https://job-selection.vercel.app/tech-gi01-mech" target="_blank">
+<div class="job-link-icon">🔩</div>
+<div class="job-link-body">
+<div class="job-link-kicker">기계/전기 엔지니어 — 직종 상세 카드</div>
+<div class="job-link-title">기계/전기 엔지니어 — 제품의 심장을 설계하는 사람</div>
+<div class="job-link-desc">자동차·전기·중공업·정밀기기 메이커에서 <strong style="color:var(--text-sub);">기구설계·회로설계·제어 소프트</strong>를 담당. CAD/CAE 활용.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">기구설계</span>
+<span class="job-link-tag">회로설계</span>
+<span class="job-link-tag">CAD</span>
+<span class="job-link-tag">이공계 필수</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
+<a class="job-link-card" href="https://job-selection.vercel.app/logistics-overview" target="_blank">
+<div class="job-link-icon">🚚</div>
+<div class="job-link-body">
+<div class="job-link-kicker">물류·SCM — 직종 개요 카드</div>
+<div class="job-link-title">물류·SCM — 모노의 흐름을 최적화하는 사람</div>
+<div class="job-link-desc">3PL·메이커물류·포워더 등에서 <strong style="color:var(--text-sub);">배송·보관·수출입·조달</strong>을 관리. DX화·자동화가 급진행 중인 분야.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">글로벌</span>
+<span class="job-link-tag">DX·자동화</span>
+<span class="job-link-tag">3PL</span>
+<span class="job-link-tag">공급망관리</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
+<a class="job-link-card" href="https://job-selection.vercel.app/sales-overview" target="_blank">
+<div class="job-link-icon">🤝</div>
+<div class="job-link-body">
+<div class="job-link-kicker">영업(営業) — 직종 개요 카드</div>
+<div class="job-link-title">영업 — 고객과의 접점에서 가치를 전달하는 사람</div>
+<div class="job-link-desc">일본 기업의 <strong style="color:var(--text-sub);">문과 종합직 채용의 절반 이상</strong>이 영업 배치. 업계에 따라 법인영업(BtoB)·개인영업(BtoC)·루트영업·신규개척 등 성격이 크게 다르다.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">문과 주력 직종</span>
+<span class="job-link-tag">커뮤니케이션력</span>
+<span class="job-link-tag">BtoB/BtoC</span>
+<span class="job-link-tag">성과 연동</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
 <div class="section" id="s4">
 <div class="section-num">SECTION 04</div>
 <div class="section-title">운수 인프라 × 자기분석 키워드</div>

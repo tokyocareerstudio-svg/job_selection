@@ -19,7 +19,80 @@
   .es-pattern{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:12px 0}.es-pattern-label{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--accent);margin-bottom:8px;text-transform:uppercase}.es-pattern p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0}
   .footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8}.footer .brand{font-weight:700;color:var(--text-dim)}
   @media(max-width:640px){.keyword-grid,.company-grid{grid-template-columns:1fr}.hero h1{font-size:24px}.section-title{font-size:18px}}
-</style>
+
+  /* ── Job Link Cards ── */
+  .job-link-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-bottom: 8px;
+  }
+
+  .job-link-card:hover {
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+  }
+
+  .job-link-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .job-link-body { flex: 1; }
+
+  .job-link-kicker {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  .job-link-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .job-link-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+
+  .job-link-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .job-link-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  .job-link-arrow {
+    font-size: 16px;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  </style>
 </head>
 <body>
 <div class="hero"><div class="hero-inner">
@@ -139,6 +212,68 @@
 <div class="info-box"><p>커리어 패스: BM(빌딩 매니지먼트) → PM(프로퍼티 매니지먼트) → AM(자산운용). 자사 빌딩의 수익성을 높이는 것이 미션이며, 테넌트 만족도 × 비용 효율의 균형이 핵심.</p></div>
 </div>
 
+
+<!-- ── 관련 직종 카드 링크 (자동 삽입) ── -->
+<a class="job-link-card" href="https://job-selection.vercel.app/sekou-overview" target="_blank">
+<div class="job-link-icon">🏗️</div>
+<div class="job-link-body">
+<div class="job-link-kicker">시공관리 — 직종 개요 카드</div>
+<div class="job-link-title">시공관리 — 현장에서 건물을 완성시키는 사람</div>
+<div class="job-link-desc">건설·제네콘에서 <strong style="color:var(--text-sub);">공사 현장의 공정·안전·품질·원가</strong>를 관리. 건축/토목/설비로 세분화.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">현장관리</span>
+<span class="job-link-tag">자격증(시공관리기사)</span>
+<span class="job-link-tag">체력</span>
+<span class="job-link-tag">리더십</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
+<a class="job-link-card" href="https://job-selection.vercel.app/sekou-sk01-arch" target="_blank">
+<div class="job-link-icon">🏢</div>
+<div class="job-link-body">
+<div class="job-link-kicker">건축시공관리 — 직종 상세 카드</div>
+<div class="job-link-title">건축시공관리 — 빌딩·주택을 짓는 현장 책임자</div>
+<div class="job-link-desc">오피스빌딩·맨션·상업시설 등의 <strong style="color:var(--text-sub);">신축·리노베이션 현장</strong>에서 공정·안전·품질을 총괄.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">1급건축시공관리기사</span>
+<span class="job-link-tag">현장</span>
+<span class="job-link-tag">프로젝트관리</span>
+<span class="job-link-tag">건축학</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
+<a class="job-link-card" href="https://job-selection.vercel.app/sales-eg06-realestate" target="_blank">
+<div class="job-link-icon">🏠</div>
+<div class="job-link-body">
+<div class="job-link-kicker">부동산영업 — 직종 상세 카드</div>
+<div class="job-link-title">부동산영업 — 사람과 공간을 연결하는 사람</div>
+<div class="job-link-desc">매매·임대·투자용 부동산의 <strong style="color:var(--text-sub);">개인영업(BtoC) 비중이 높은 업계</strong>. 토지·건물 활용 제안, 자산관리 컨설팅까지.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">BtoC 비중 높음</span>
+<span class="job-link-tag">인센티브형</span>
+<span class="job-link-tag">자격증(택건사)</span>
+<span class="job-link-tag">행동력</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
+<a class="job-link-card" href="https://job-selection.vercel.app/kikaku-kk04-realestate" target="_blank">
+<div class="job-link-icon">🏗️</div>
+<div class="job-link-body">
+<div class="job-link-kicker">부동산기획 — 직종 상세 카드</div>
+<div class="job-link-title">부동산·사업기획 — 거리와 공간의 미래를 그리는 사람</div>
+<div class="job-link-desc">디벨로퍼·종합부동산에서 <strong style="color:var(--text-sub);">용지 취득·재개발·시설 기획</strong>을 담당. 장기 프로젝트를 관통하는 기획력이 핵심.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">디벨로퍼</span>
+<span class="job-link-tag">재개발</span>
+<span class="job-link-tag">장기프로젝트</span>
+<span class="job-link-tag">도시개발</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
 <div class="section" id="s4">
 <div class="section-num">SECTION 04</div>
 <div class="section-title">디벨로퍼 × 자기분석 키워드</div>

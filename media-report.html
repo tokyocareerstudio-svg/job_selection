@@ -19,7 +19,80 @@
   .es-pattern{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:12px 0}.es-pattern-label{font-size:10px;font-weight:700;letter-spacing:1px;color:var(--accent);margin-bottom:8px;text-transform:uppercase}.es-pattern p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0}
   .footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8}.footer .brand{font-weight:700;color:var(--text-dim)}
   @media(max-width:640px){.keyword-grid,.company-grid{grid-template-columns:1fr}.hero h1{font-size:24px}.section-title{font-size:18px}}
-</style>
+
+  /* ── Job Link Cards ── */
+  .job-link-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.2s;
+    margin-bottom: 8px;
+  }
+
+  .job-link-card:hover {
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+  }
+
+  .job-link-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .job-link-body { flex: 1; }
+
+  .job-link-kicker {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  .job-link-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .job-link-desc {
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+
+  .job-link-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .job-link-tag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    background: var(--surface-2);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+  }
+
+  .job-link-arrow {
+    font-size: 16px;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  </style>
 </head>
 <body>
 <div class="hero"><div class="hero-inner">
@@ -145,6 +218,68 @@
 <div class="info-box"><p>TVer·Hulu(닛테레)·FOD(후지) 등의 배신 사업 부문, 출판사의 전자서적·웹매거진 부문에서 PM·마케팅·데이터 분석 포지션이 증가 중. "미디어에 관심 있는 IT 인재"는 희소.</p></div>
 </div>
 
+
+<!-- ── 관련 직종 카드 링크 (자동 삽입) ── -->
+<a class="job-link-card" href="https://job-selection.vercel.app/creative-overview" target="_blank">
+<div class="job-link-icon">🎨</div>
+<div class="job-link-body">
+<div class="job-link-kicker">크리에이티브 — 직종 개요 카드</div>
+<div class="job-link-title">크리에이티브 — 아이디어로 가치를 만드는 사람</div>
+<div class="job-link-desc">UI/UX 디자인·광고 크리에이티브·그래픽 디자인 등. <strong style="color:var(--text-sub);">광고대리점·게임·미디어·웹</strong> 업계에서 핵심 직종.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">디자인</span>
+<span class="job-link-tag">기획력</span>
+<span class="job-link-tag">포트폴리오</span>
+<span class="job-link-tag">크리에이티브</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
+<a class="job-link-card" href="https://job-selection.vercel.app/creative-cr02-ad" target="_blank">
+<div class="job-link-icon">📺</div>
+<div class="job-link-body">
+<div class="job-link-kicker">광고크리에이티브 — 직종 상세 카드</div>
+<div class="job-link-title">광고·엔터 크리에이티브 — 세상에 메시지를 전하는 사람</div>
+<div class="job-link-desc">TV CM·디지털 광고·캠페인의 <strong style="color:var(--text-sub);">기획·카피라이팅·아트디렉션</strong>. 전통&도2에서는 カンヌ수상 등이 커리어의 이정표.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">카피라이팅</span>
+<span class="job-link-tag">아트디렉션</span>
+<span class="job-link-tag">광고대리점</span>
+<span class="job-link-tag">캠페인 기획</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
+<a class="job-link-card" href="https://job-selection.vercel.app/sales-eg04-ad" target="_blank">
+<div class="job-link-icon">📢</div>
+<div class="job-link-body">
+<div class="job-link-kicker">광고영업 — 직종 상세 카드</div>
+<div class="job-link-title">광고/미디어 영업 — 미디어와 클라이언트를 잇는 사람</div>
+<div class="job-link-desc">광고대리점·미디어에서 <strong style="color:var(--text-sub);">클라이언트의 과제를 광고로 해결</strong>하는 제안형 영업. 기획력·프레젠테이션 능력이 중요.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">제안형영업</span>
+<span class="job-link-tag">크리에이티브</span>
+<span class="job-link-tag">미디어 이해</span>
+<span class="job-link-tag">프레젠테이션</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
+<a class="job-link-card" href="https://job-selection.vercel.app/kikaku-kk02-planning" target="_blank">
+<div class="job-link-icon">📊</div>
+<div class="job-link-body">
+<div class="job-link-kicker">기획직 — 직종 상세 카드</div>
+<div class="job-link-title">기획직(事業企画·経営企画) — 사업의 방향을 설계하는 사람</div>
+<div class="job-link-desc">신규 사업 기획, 중기경영계획 수립, 시장분석 등. <strong style="color:var(--text-sub);">현장(영업·기술) 경험 후 이동</strong>하는 루트가 일반적.</div>
+<div class="job-link-tags">
+<span class="job-link-tag">사업기획</span>
+<span class="job-link-tag">경영기획</span>
+<span class="job-link-tag">분석력</span>
+<span class="job-link-tag">현장경험→이동</span>
+</div>
+</div>
+<div class="job-link-arrow">→</div>
+</a>
 <div class="section" id="s4">
 <div class="section-num">SECTION 04</div>
 <div class="section-title">TV방송·출판 × 자기분석 키워드</div>
