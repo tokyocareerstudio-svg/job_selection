@@ -207,9 +207,8 @@
   /* ── 카드 그리드 ── */
   .card-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 340px));
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 12px;
-    justify-content: start;
   }
 
   .report-card {
@@ -219,6 +218,7 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 14px;
+    max-width: 320px;
     text-decoration: none;
     transition: all 0.22s ease;
     position: relative;
@@ -533,7 +533,7 @@ function filterIndustry(tag, btn) {
 <!-- ══════════════════════════════════════════════ -->
 <!-- 그룹 3: 종합상사·광고·미디어 -->
 <!-- ══════════════════════════════════════════════ -->
-<div class="section-group" data-group="service">
+<div class="section-group" data-group="trade">
 <div class="group-header">
 <div class="group-icon" style="background:rgba(253,203,110,0.12)">🌏</div>
 <span class="group-title">상사 · 광고 · 컨설팅</span>
