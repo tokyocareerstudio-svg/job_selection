@@ -635,10 +635,13 @@
     sections.forEach(sec => observer.observe(sec));
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initSectionObserver);
-  } else {
-    setTimeout(initSectionObserver, 150);
+  // 업계 리포트(-report.html)에서는 섹션 미니맵 비활성화 (사이드바에 s1~s7 안 보이게)
+  if (!currentFile.endsWith('-report.html')) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initSectionObserver);
+    } else {
+      setTimeout(initSectionObserver, 150);
+    }
   }
 
 })();
