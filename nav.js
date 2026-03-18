@@ -122,7 +122,7 @@
     "SIer SE": "se-se01-sier.html",
     "Web계 엔지니어": "se-se02-web.html",
     "인프라/네트워크 엔지니어": "se-se03-infra.html",
-    "SES (기술자파견)": "se-se04-ses.html",
+    "SES (기술자 파견)": "se-se04-ses.html",
     "기계/전기 엔지니어": "tech-gi01-mech.html",
     "생산관리": "tech-gi02-production.html",
     "품질관리": "tech-gi02-production.html",
@@ -130,7 +130,7 @@
     "사무/관리": "kikaku-kk01-admin.html",
     "기획": "kikaku-kk02-planning.html",
     "마케팅": "kikaku-kk03-marketing.html",
-    "부동산 사업기획": "kikaku-kk04-realestate.html",
+    "부동산·사업기획": "kikaku-kk04-realestate.html",
     "메이커·유통 SCM": "logistics-scm01-maker.html",
     "3PL·포워더": "logistics-scm02-3pl.html",
     "무역·조달·구매": "logistics-scm03-trade.html",
@@ -144,6 +144,7 @@
     "광고·엔터테인먼트 크리에이티브": "creative-cr02-ad.html",
     "그래픽·비주얼 디자인": "creative-cr03-graphic.html",
     "전략·종합 컨설팅": "consul-con01-strategy.html",
+    "전략컨설팅": "consul-con01-strategy.html",
     "전략 컨설팅": "consul-con01-strategy.html",
     "종합컨설팅": "consul-con01-strategy.html",
     "IT컨설팅": "consul-con02-it.html",
@@ -539,7 +540,9 @@
       if (!h4) return;
       const text = h4.textContent.trim();
       let href = null;
-      for (const [key, url] of Object.entries(L2_TO_L3)) {
+      // 긴 키부터 매칭 (짧은 키가 먼저 매칭되는 것 방지)
+      const sortedEntries = Object.entries(L2_TO_L3).sort((a, b) => b[0].length - a[0].length);
+      for (const [key, url] of sortedEntries) {
         if (text.includes(key)) { href = url; break; }
       }
       if (!href) return;
