@@ -76,6 +76,7 @@
         { label: "기계/전기 엔지니어", file: "tech-gi01-mech.html" },
         { label: "생산관리·품질관리",  file: "tech-gi02-production.html" },
         { label: "연구개발 (R&D)",     file: "tech-gi03-rd.html" },
+        { label: "통신 엔지니어",      file: "tech-gi04-telecom.html" },
     ]},
     { id: "kikaku", label: "기획/관리 계열", file: "kikaku-overview.html", children: [
         { label: "사무/관리",       file: "kikaku-kk01-admin.html" },
@@ -127,6 +128,8 @@
     "생산관리": "tech-gi02-production.html",
     "품질관리": "tech-gi02-production.html",
     "연구개발": "tech-gi03-rd.html",
+    "통신 엔지니어": "tech-gi04-telecom.html",
+    "통신": "tech-gi04-telecom.html",
     "사무/관리": "kikaku-kk01-admin.html",
     "기획": "kikaku-kk02-planning.html",
     "마케팅": "kikaku-kk03-marketing.html",
