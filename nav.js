@@ -39,7 +39,7 @@
       { label: "은행",                 file: "bank-report.html" },
       { label: "증권·IB",             file: "securities-report.html" },
       { label: "보험",                 file: "insurance-report.html" },
-      { label: "금융서비스",           file: "finservice-report.html" },
+      { label: "카드·리스·자산운용",           file: "finservice-report.html" },
       { label: "── 서비스·유통·HR",   file: "industry-index.html", isHeader: true },
       { label: "소매유통",             file: "retail-report.html" },
       { label: "아파렐",              file: "apparel-report.html" },
