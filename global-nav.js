@@ -137,9 +137,12 @@
       btn.classList.add('active');
     } else if (item.file === 'industry-index.html' && currentFile.endsWith('-report.html')) {
       btn.classList.add('active-parent');
+    } else if (item.file === 'spi-index.html' && currentFile.startsWith('spi-')) {
+      btn.classList.add('active-parent');
     } else if (item.file === 'map-lv1.html' &&
       !currentFile.endsWith('-report.html') &&
-      !['career-test.html','industry-index.html','map-lv1.html','index.html'].includes(currentFile)) {
+      !currentFile.startsWith('spi-') &&
+      !['career-test.html','industry-index.html','map-lv1.html','index.html','spi-index.html'].includes(currentFile)) {
       btn.classList.add('active-parent');
     }
 

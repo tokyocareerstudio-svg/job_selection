@@ -282,7 +282,7 @@ const sections=document.querySelectorAll('.section');
 const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navBtns.forEach(b=>b.classList.remove('active'));const btn=document.querySelector(`.nav-btn[href="#${e.target.id}"]`);if(btn)btn.classList.add('active');}});},{rootMargin:'-40% 0px -60% 0px'});
 sections.forEach(s=>observer.observe(s));
 </script>
-  <script src="nav.js"></script>
+  <script src="spi-nav.js"></script>
   <script src="global-nav.js"></script>
 </body>
 </html>
