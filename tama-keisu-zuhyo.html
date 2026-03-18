@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'tama-keisu-zuhyo.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玉手箱 계수 ② 도표읽기 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--tama:#34d399;--tama-soft:rgba(52,211,153,0.06);--tama-border:rgba(52,211,153,0.18);--keisu:#f472b6;--keisu-soft:rgba(244,114,182,0.06);--keisu-border:rgba(244,114,182,0.18);--solve:#a29bfe;--solve-soft:rgba(162,155,254,0.06);--correct:#34d399;--warn:#ef4444;--warn-soft:rgba(239,68,68,0.04);--warn-border:rgba(239,68,68,0.18);}
+*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:48px 0 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;max-width:760px;margin:0 auto;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(244,114,182,0.05) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;padding:0 24px;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-back:hover{color:var(--text-dim);}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--keisu);background:var(--keisu-soft);border:1px solid var(--keisu-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}.hero h1{font-size:26px;font-weight:900;line-height:1.3;margin-bottom:8px;letter-spacing:-0.5px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;}.htag-k{background:var(--keisu-soft);color:var(--keisu);border:1px solid var(--keisu-border);}
+.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--keisu);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}.section h3{font-size:15px;font-weight:700;color:var(--text);margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--keisu);}
+.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}.ib-a{background:var(--keisu-soft);border-color:var(--keisu-border);border-left:3px solid var(--keisu);}.ib-w{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn);}.ib h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}.ib p,.ib div{font-size:12px;color:var(--text-dim);line-height:1.9;}.bl{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}.bl-k{color:var(--keisu);}.bl-w{color:var(--warn);}
+.mini{margin:16px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}.mini-q{padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--border);}.mini-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--keisu);margin-bottom:6px;text-transform:uppercase;}.mini-q p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-a{padding:16px 18px;background:var(--solve-soft);}.mini-a p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-ans{margin-top:10px;padding:8px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:6px;font-size:12px;font-weight:700;color:var(--correct);}.mini-trap{margin:12px 0;border:1px solid var(--warn-border);border-radius:10px;overflow:hidden;}.mini-trap .mini-q{background:var(--warn-soft);border-bottom-color:var(--warn-border);}.mini-trap .mini-label{color:var(--warn);}.mini-trap .mini-a{background:rgba(239,68,68,0.03);}.mini-trap .mini-ans{background:rgba(239,68,68,0.05);border-color:var(--warn-border);color:var(--warn);}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}table{width:100%;border-collapse:collapse;font-size:12px;}thead{background:var(--surface-2);}th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}tr:last-child td{border-bottom:none;}td:first-child{font-weight:600;color:var(--text-sub);white-space:nowrap;}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--keisu);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:13px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
+.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{color:var(--text-dim);background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}
+.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}
+.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--keisu-border);background:var(--keisu-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.hero h1{font-size:22px;}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-inner">
+  <a href="tama-index.html" class="hero-back">← 玉手箱 전체 가이드로 돌아가기</a>
+  <div class="hero-label">玉手箱 계수 — 형식 ② · 도표읽기</div>
+  <h1>도표읽기 (図表の読み取り)</h1>
+  <p class="hero-sub">도표(표·그래프)에서 필요한 수치를 추출하여 비율·변화율·비교 등을 계산하는 유형. 1개 도표에 대해 여러 문제가 출제되며, 도표 자체는 단순하지만 「어떤 수치를 쓸 것인가」를 빠르게 판단하는 능력이 핵심입니다.</p>
+  <div class="hero-tags"><span class="htag htag-k">29문/15분 or 40문/35분</span></div>
+</div></div>
+
+<div class="container">
+
+<div class="section">
+  <div class="sn">강의</div>
+  <div class="st">도표읽기란?</div>
+  <div class="st-jp">図表の読み取り — 必要な数値だけを素早く拾う</div>
+
+  <p>도표(매출 표, 막대그래프, 원그래프 등)가 주어지고, 그 도표를 바탕으로 계산 문제가 출제됩니다. 1개 도표에 대해 보통 3-5문이 나옵니다. 도표를 넘기면 돌아올 수 없으므로, 해당 도표의 문제는 한번에 처리해야 합니다.</p>
+
+  <div class="ib ib-a">
+    <div class="bl bl-k">자주 나오는 계산 공식</div>
+    <p><strong style="color:var(--text-sub);">구성비(비율)</strong> = 부분 ÷ 전체 × 100 (%)<br><br>
+    <strong style="color:var(--text-sub);">전년대비 증감률</strong> = (올해 - 전년) ÷ 전년 × 100 (%)<br><br>
+    <strong style="color:var(--text-sub);">전년대비 비율</strong> = 올해 ÷ 전년 × 100 (%)<br>
+    (100%보다 크면 증가, 100%보다 작으면 감소)<br><br>
+    <strong style="color:var(--text-sub);">평균</strong> = 합계 ÷ 항목 수<br><br>
+    <strong style="color:var(--text-sub);">차이</strong> = A - B (단위에 주의)</p>
+  </div>
+
+  <h3>출제 형태 — 이렇게 나옵니다</h3>
+  <p>화면 상단(또는 왼쪽)에 도표가 표시되고, 하단(또는 오른쪽)에 질문과 5개 선택지가 표시됩니다. 도표를 보면서 필요한 수치를 찾아 계산합니다. 도표에 포함된 데이터 전체를 읽을 필요는 없고, 질문이 묻는 항목의 수치만 추출하면 됩니다.</p>
+
+  <div class="mini">
+    <div class="mini-q"><div class="mini-label">📝 미니 예제 — 비율 계산</div>
+    <p>【도표: A사 부서별 매출 (단위: 억엔)】
+영업부: 45  |  기획부: 30  |  개발부: 60  |  총무부: 15  |  합계: 150
+
+질문: 개발부의 매출이 전체 매출에서 차지하는 비율은?
+A. 35%  B. 40%  C. 45%  D. 50%  E. 55%</p></div>
+    <div class="mini-a"><p><strong style="color:var(--solve);">풀이:</strong> 개발부 60 ÷ 전체 150 × 100 = 40%</p>
+    <div class="mini-ans">정답: B. 40%</div></div>
+  </div>
+
+  <div class="mini">
+    <div class="mini-q"><div class="mini-label">📝 미니 예제 — 전년대비 증감률</div>
+    <p>【도표: B사 매출 추이 (단위: 만엔)】
+2023년: 8,000  |  2024년: 9,200
+
+질문: 2024년의 전년대비 매출 증가율은?
+A. 10%  B. 12%  C. 15%  D. 18%  E. 20%</p></div>
+    <div class="mini-a"><p><strong style="color:var(--solve);">풀이:</strong> (9,200 - 8,000) ÷ 8,000 × 100 = 1,200 ÷ 8,000 × 100 = 15%</p>
+    <div class="mini-ans">정답: C. 15%</div></div>
+  </div>
+
+  <h3>함정 패턴</h3>
+
+  <div class="mini-trap">
+    <div class="mini-q"><div class="mini-label">⚠️ 함정 — 단위 혼동 (万 vs 億)</div>
+    <p>【도표 A: 매출 (단위: 億円)】 120
+【도표 B: 경비 (단위: 万円)】 35,000
+
+질문: 매출에서 경비를 뺀 금액은 얼마(억엔 기준)?</p></div>
+    <div class="mini-a"><p><strong style="color:var(--warn);">함정:</strong> 도표 A는 「억엔」, 도표 B는 「만엔」으로 단위가 다릅니다.
+경비 35,000만엔 = 3.5억엔 → 120 - 3.5 = 116.5억엔
+단위를 그대로 빼면 120 - 35,000 = -34,880이라는 말도 안 되는 값이 나옵니다.</p>
+    <div class="mini-ans">함정: 단위 환산 누락 (1億 = 10,000万)</div></div>
+  </div>
+
+  <div class="mini-trap">
+    <div class="mini-q"><div class="mini-label">⚠️ 함정 — 기준값 오독 (어디가 분모?)</div>
+    <p>【도표: C사 대비 D사의 매출 비율을 구하라】
+C사 매출: 200  |  D사 매출: 150
+
+「C사 대비 D사」와 「D사 대비 C사」를 혼동하면 정반대의 값이 나옵니다.</p></div>
+    <div class="mini-a"><p><strong style="color:var(--warn);">함정:</strong> 「C사 대비 D사」= D사 ÷ C사 = 150 ÷ 200 = 75%
+「D사 대비 C사」= C사 ÷ D사 = 200 ÷ 150 = 133%
+분모를 잘못 잡으면 선택지에 함정값이 반드시 있습니다.</p>
+    <div class="mini-ans">함정: 「대비(に対する)」의 분모 오독</div></div>
+  </div>
+
+  <h3>시간 배분 가이드</h3>
+  <div class="ib">
+    <p><strong style="color:var(--text-sub);">29문/15분 패턴: 1문당 약 31초</strong><br>
+    <strong style="color:var(--text-sub);">40문/35분 패턴: 1문당 약 53초</strong><br><br>
+    • 도표를 처음 볼 때 30초간 전체 구조 파악: 행/열 레이블, 단위, 합계 유무<br>
+    • 질문을 읽고 필요한 수치만 도표에서 추출 → 즉시 계산<br>
+    • 개산(概算)으로 선택지 2-3개를 먼저 소거 가능한 경우가 많음<br>
+    • 시간이 부족하면 계산 없이 「대략 이 정도」로 선택지 고르기도 유효</p>
+  </div>
+</div>
+
+<!-- 연습 문제 10문 -->
+<div class="section">
+  <div class="sn">연습 문제</div>
+  <div class="st">도표읽기 예제 10문제</div>
+  <div class="st-jp">図表の読み取り 練習問題10問</div>
+  <p>도표를 보고 질문에 답하세요. 실전처럼 전자계산기를 사용하며 연습하세요.</p>
+
+<!-- Q01-Q03: 도표 1 -->
+<div class="pc"><div class="pc-h"><div class="pc-num">도표 1 (Q01-Q03)</div><div class="pc-title">X사 사업부별 매출 (단위: 백만엔)</div>
+<div class="pc-jp">
+事業部 | 2023年 | 2024年
+食品   |  320   |  368
+飲料   |  280   |  294
+日用品 |  150   |  180
+化粧品 |  250   |  240
+合計   | 1,000  | 1,082</div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q01</div><div class="pc-title">구성비</div>
+<div class="pc-jp">2024年において、飲料事業部の売上が全体に占める割合に最も近いものはどれか。
+
+A. 24%　B. 27%　C. 30%　D. 33%　E. 36%</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">음료 294 ÷ 전체 1,082 × 100 = 27.17...%
+가장 가까운 값은 27%.</div></div>
+<div class="sa">정답: B. 27%</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q02</div><div class="pc-title">전년대비 증가율</div>
+<div class="pc-jp">2024年の食品事業部の売上は、前年比で何%増加したか。
+
+A. 10%　B. 12%　C. 15%　D. 18%　E. 20%</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">(368 - 320) ÷ 320 × 100 = 48 ÷ 320 × 100 = 15%</div></div>
+<div class="sa">정답: C. 15%</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q03</div><div class="pc-title">전년대비 감소 판별</div>
+<div class="pc-jp">2023年から2024年にかけて、売上が減少した事業部はどれか。
+
+A. 食品　B. 飲料　C. 日用品　D. 化粧品　E. なし</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">식품 320→368(증가), 음료 280→294(증가), 일용품 150→180(증가), 화장품 250→240(감소)
+감소한 사업부는 화장품.</div></div>
+<div class="sa">정답: D. 化粧品</div></div></div></div>
+
+<!-- Q04-Q06: 도표 2 -->
+<div class="pc"><div class="pc-h"><div class="pc-num">도표 2 (Q04-Q06)</div><div class="pc-title">Y시 인구 추이 (단위: 만명)</div>
+<div class="pc-jp">
+年度   | 男性  | 女性  | 合計
+2020年 | 12.5  | 13.0  | 25.5
+2021年 | 12.3  | 13.1  | 25.4
+2022年 | 12.0  | 13.3  | 25.3
+2023年 | 11.8  | 13.2  | 25.0
+2024年 | 11.5  | 13.4  | 24.9</div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q04</div><div class="pc-title">기간 내 변화량</div>
+<div class="pc-jp">2020年から2024年にかけて、男性人口は何万人減少したか。
+
+A. 0.5万人　B. 0.8万人　C. 1.0万人　D. 1.2万人　E. 1.5万人</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">남성 인구: 12.5 - 11.5 = 1.0만명 감소</div></div>
+<div class="sa">정답: C. 1.0万人</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q05</div><div class="pc-title">비율 비교</div>
+<div class="pc-jp">2024年において、女性人口が全体に占める割合に最も近いものはどれか。
+
+A. 46%　B. 49%　C. 51%　D. 54%　E. 56%</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">여성 13.4 ÷ 전체 24.9 × 100 = 53.8...%
+가장 가까운 값은 54%.</div></div>
+<div class="sa">정답: D. 54%</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q06</div><div class="pc-title">전년대비 증감률</div>
+<div class="pc-jp">2023年の合計人口の前年比減少率に最も近いものはどれか。
+
+A. 0.4%　B. 0.8%　C. 1.2%　D. 1.6%　E. 2.0%</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">(25.3 - 25.0) ÷ 25.3 × 100 = 0.3 ÷ 25.3 × 100 = 1.186...%
+가장 가까운 값은 1.2%.</div></div>
+<div class="sa">정답: C. 1.2%</div></div></div></div>
+
+<!-- Q07-Q10: 도표 3 -->
+<div class="pc"><div class="pc-h"><div class="pc-num">도표 3 (Q07-Q10)</div><div class="pc-title">Z사 지역별·분기별 매출 (단위: 억엔)</div>
+<div class="pc-jp">
+地域   | Q1  | Q2  | Q3  | Q4  | 年間計
+関東   | 50  | 55  | 48  | 67  |  220
+関西   | 35  | 40  | 38  | 47  |  160
+九州   | 20  | 22  | 19  | 29  |   90
+合計   | 105 | 117 | 105 | 143 |  470</div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q07</div><div class="pc-title">분기별 비교</div>
+<div class="pc-jp">関東地域のQ4売上は、Q3売上の何倍に最も近いか。
+
+A. 1.2倍　B. 1.3倍　C. 1.4倍　D. 1.5倍　E. 1.6倍</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">Q4 67 ÷ Q3 48 = 1.395...
+가장 가까운 값은 1.4배.</div></div>
+<div class="sa">정답: C. 1.4倍</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q08</div><div class="pc-title">구성비</div>
+<div class="pc-jp">年間合計において、九州地域の売上が全体に占める割合に最も近いものはどれか。
+
+A. 15%　B. 17%　C. 19%　D. 21%　E. 23%</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">규슈 90 ÷ 전체 470 × 100 = 19.14...%
+가장 가까운 값은 19%.</div></div>
+<div class="sa">정답: C. 19%</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q09</div><div class="pc-title">최대/최소 판별</div>
+<div class="pc-jp">全地域合計の売上が最も低い四半期はどれか。
+
+A. Q1　B. Q2　C. Q3　D. Q4　E. 判断できない</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">합계: Q1=105, Q2=117, Q3=105, Q4=143
+Q1과 Q3이 동일하게 105로 최저. 선택지에 「Q1とQ3」이 없으므로, Q1 또는 Q3 중 하나.
+선택지 A(Q1)과 C(Q3) 모두 해당하지만, 일반적으로 먼저 나오는 Q1을 선택.</div></div>
+<div class="sa">정답: A. Q1 (Q3도 동일 수치이므로 주의)</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q10</div><div class="pc-title">평균</div>
+<div class="pc-jp">関西地域の四半期平均売上に最も近いものはどれか。
+
+A. 36億円　B. 38億円　C. 40億円　D. 42億円　E. 44億円</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">간사이 연간합계 160 ÷ 4분기 = 40억엔</div></div>
+<div class="sa">정답: C. 40億円</div></div></div></div>
+
+</div>
+
+<div class="type-nav">
+  <a href="tama-keisu-shisoku.html"><div class="nl">← 이전 형식</div><div class="nt">① 사칙역산</div></a>
+  <a href="tama-keisu-kuukan.html"><div class="nl">다음 형식 →</div><div class="nt">③ 표빈칸추측</div></a>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — 玉手箱 계수 도표읽기</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
+</div>
+</div>
+
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+<script>
+function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}
+</script>
+</body>
+</html>

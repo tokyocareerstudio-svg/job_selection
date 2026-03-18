@@ -47,6 +47,9 @@
         { label: '③ 취지파악', file: 'tama-gengo-shushi.html' },
         { label: '── 계수 (計数)', isHeader: true },
         { label: '계수 개요', file: 'tama-keisu-index.html' },
+        { label: '① 사칙역산', file: 'tama-keisu-shisoku.html' },
+        { label: '② 도표읽기', file: 'tama-keisu-zuhyo.html' },
+        { label: '③ 표빈칸추측', file: 'tama-keisu-kuukan.html' },
       ]
     },
     {

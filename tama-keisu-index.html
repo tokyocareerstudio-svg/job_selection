@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'tama-keisu-index.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玉手箱 계수 파트 개요 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--border-hover:#3a3a48;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--accent:#4a9eff;--tama:#34d399;--tama-soft:rgba(52,211,153,0.06);--tama-border:rgba(52,211,153,0.18);--keisu:#f472b6;--keisu-soft:rgba(244,114,182,0.06);--keisu-border:rgba(244,114,182,0.18);--warn:#ef4444;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}
+.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;max-width:760px;margin:0 auto;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(244,114,182,0.06) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{position:relative;max-width:760px;margin:0 auto;padding:0 24px;}
+.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}
+.hero-back:hover{color:var(--text-dim);}
+.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--keisu);background:var(--keisu-soft);border:1px solid var(--keisu-border);padding:4px 12px;border-radius:12px;margin-bottom:20px;text-transform:uppercase;}
+.hero h1{font-size:30px;font-weight:900;line-height:1.3;margin-bottom:10px;letter-spacing:-0.5px;}
+.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:20px;}
+.hero-meta{font-size:11px;color:var(--text-muted);margin-bottom:20px;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.hero-tag{font-size:11px;padding:4px 12px;border-radius:100px;background:var(--keisu-soft);color:var(--keisu);border:1px solid var(--keisu-border);font-weight:500;}
+.section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0;}
+.section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+.section-nav-inner::-webkit-scrollbar{display:none;}
+.nav-btn{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap;text-decoration:none;}
+.nav-btn:hover,.nav-btn.active{color:var(--keisu);background:var(--keisu-soft);}
+.section{padding:44px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}
+.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--keisu);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}
+.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}
+.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}
+.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}
+.section h3{font-size:14px;font-weight:700;color:var(--text-sub);margin:28px 0 12px;padding-left:10px;border-left:2px solid var(--keisu);}
+.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}
+.ib-a{background:var(--keisu-soft);border-color:var(--keisu-border);border-left:3px solid var(--keisu);}
+.ib h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}
+.ib p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0;}
+.bl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--keisu);margin-bottom:6px;text-transform:uppercase;}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead{background:var(--surface-2);}
+th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}
+td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}
+tr:last-child td{border-bottom:none;}
+td:first-child{font-weight:600;color:var(--text-sub);white-space:nowrap;}
+.stats-row{display:flex;gap:12px;margin:20px 0;flex-wrap:wrap;}
+.stat-box{flex:1;min-width:100px;padding:16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-align:center;}
+.stat-num{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--text);line-height:1;margin-bottom:4px;}
+.stat-num span{font-size:14px;color:var(--text-dim);}
+.stat-label{font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;}
+.type-grid{display:grid;grid-template-columns:1fr;gap:10px;margin:20px 0;}
+.type-card{display:flex;align-items:flex-start;gap:14px;padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;cursor:pointer;}
+.type-card:hover{border-color:var(--keisu-border);background:var(--keisu-soft);transform:translateY(-2px);}
+.type-icon{font-size:24px;flex-shrink:0;margin-top:2px;}
+.type-body{flex:1;}
+.type-kicker{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--keisu);margin-bottom:4px;text-transform:uppercase;}
+.type-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.type-desc{font-size:11px;color:var(--text-dim);line-height:1.7;margin-bottom:8px;}
+.type-tags{display:flex;flex-wrap:wrap;gap:4px;}
+.type-tag{font-size:10px;padding:2px 8px;border-radius:6px;background:var(--surface-2);color:var(--text-muted);border:1px solid var(--border);}
+.type-arrow{font-size:16px;color:var(--keisu);flex-shrink:0;margin-top:4px;opacity:0;transition:opacity 0.2s;}
+.type-card:hover .type-arrow{opacity:1;}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}
+.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}
+.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.hero h1{font-size:24px;}.stats-row{gap:8px;}.stat-box{min-width:80px;padding:12px;}.stat-num{font-size:20px;}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-inner">
+    <a href="tama-index.html" class="hero-back">← 玉手箱 대책 메인으로 돌아가기</a>
+    <div class="hero-label">玉手箱 계수 대책</div>
+    <h1>玉手箱 계수 파트 완전 정리</h1>
+    <p class="hero-sub">사칙역산(9분)·도표읽기(15분 or 35분)·표빈칸추측(20분 or 35분) — 3형식 중 기업이 선택한 1형식만 끝까지 출제. SPI 비언어와 달리 전자계산기(웹 시험 한정)를 쓰면서 정확하고 빠르게 계산하는 능력이 핵심입니다.</p>
+    <p class="hero-meta">Tokyo Career Studio &nbsp;|&nbsp; 2026.03 &nbsp;|&nbsp; ワンキャリア · unistyle · 「これが本当のWebテストだ!」 크로스체크 완료</p>
+    <div class="hero-tags">
+      <span class="hero-tag">3형식 중 1형식만 출제</span>
+      <span class="hero-tag">전자계산기 필수 (WEB)</span>
+      <span class="hero-tag">사칙역산이 가장 빈출</span>
+      <span class="hero-tag">형식별 강의 + 예제 10문</span>
+    </div>
+  </div>
+</div>
+<div class="section-nav">
+  <div class="section-nav-inner">
+    <a href="#s1" class="nav-btn active">학습 가이드</a>
+    <a href="#s2" class="nav-btn">3형식 비교</a>
+    <a href="#s3" class="nav-btn">학습 전략</a>
+    <a href="#s4" class="nav-btn">형식별 페이지</a>
+  </div>
+</div>
+
+<div class="container">
+
+<div class="section" id="s1">
+  <div class="sn">SECTION 01</div>
+  <div class="st">玉手箱 계수 파트 학습 가이드</div>
+  <div class="st-jp">玉手箱 計数分野 — 電卓を味方につける</div>
+
+  <div class="ib ib-a">
+    <div class="bl">SPI 비언어와의 핵심 차이</div>
+    <p>SPI 비언어는 순열·조합, 확률, 추론 등 <strong style="color:var(--text-sub);">다양한 유형</strong>이 섞여 출제되지만, 玉手箱 계수는 <strong style="color:var(--text-sub);">1형식만 끝까지 반복</strong> 출제됩니다. 또한 웹 시험(자택 수험)에서는 <strong style="color:var(--text-sub);">전자계산기 사용이 전제</strong>되어 있어, 계산 자체의 난도보다 <strong style="color:var(--text-sub);">제한 시간 내 정확한 처리 속도</strong>가 승패를 가릅니다.<br><br>
+    또 하나의 차이는 <strong style="color:var(--text-sub);">오류율(誤謬率)이 측정되지 않는다</strong>는 것입니다. 틀려도 감점이 없으므로, 모르는 문제는 빠르게 찍고 넘기는 것이 정석입니다.</p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num">3<span>형식</span></div><div class="stat-label">기업이 1형식 선택</div></div>
+    <div class="stat-box"><div class="stat-num">50<span>문</span></div><div class="stat-label">사칙역산 최대</div></div>
+    <div class="stat-box"><div class="stat-num">9<span>분</span></div><div class="stat-label">사칙역산 제한</div></div>
+    <div class="stat-box"><div class="stat-num">10<span>초</span></div><div class="stat-label">사칙역산 1문당</div></div>
+  </div>
+
+  <p>玉手箱 계수의 가장 큰 특징은 <strong style="color:var(--text);">과목당 1형식만 끝까지 반복 출제</strong>된다는 것입니다. 최초 문제가 사칙역산이면 마지막까지 사칙역산만 나옵니다. 어떤 형식이 나올지 사전에 알 수 없으므로 3형식 모두 대비해야 하지만, 문제 수와 제한 시간으로 형식을 판별할 수 있습니다.</p>
+
+  <div class="ib ib-a">
+    <div class="bl">C-GAB(테스트센터) 주의</div>
+    <p>C-GAB는 테스트센터에서 치르는 玉手箱 파생 시험입니다. <strong style="color:var(--text-sub);">전자계산기 사용 불가</strong>이므로, 암산·필산·개산(概算) 능력이 필요합니다. 웹 시험에서 계산기에 의존하는 습관을 들이면 C-GAB에서 시간 부족에 빠질 수 있으므로, 가능하면 암산 연습도 병행하세요.</p>
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <div class="sn">SECTION 02</div>
+  <div class="st">3형식 비교표</div>
+  <div class="st-jp">3つの問題形式の比較</div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>항목</th><th>① 사칙역산</th><th>② 도표읽기</th><th>③ 표빈칸추측</th></tr></thead>
+      <tbody>
+        <tr><td>출제 빈도</td><td><strong style="color:var(--keisu);">높음 (최빈출)</strong></td><td>높음</td><td>보통</td></tr>
+        <tr><td>문제 수 / 시간</td><td>50문 / 9분</td><td>29문/15분 or 40문/35분</td><td>20문/20분 or 35문/35분</td></tr>
+        <tr><td>1문당 시간</td><td><strong style="color:var(--warn);">약 10초 (최단)</strong></td><td>약 31초 or 53초</td><td>약 60초</td></tr>
+        <tr><td>출제 형태</td><td>□ = ? 방정식 빈칸 채우기</td><td>도표/그래프에서 수치 추출 후 계산</td><td>표의 빈칸(?)에 들어갈 값 추측</td></tr>
+        <tr><td>핵심 능력</td><td>이항 속도, 사칙연산 정확성</td><td>비율·변화율 계산, 도표 독해력</td><td>법칙성 발견, 패턴 인식</td></tr>
+        <tr><td>전자계산기</td><td>필수 (WEB) / 불가 (C-GAB)</td><td>필수 (WEB) / 불가 (C-GAB)</td><td>필수 (WEB) / 불가 (C-GAB)</td></tr>
+        <tr><td>오류율 측정</td><td>없음 (찍어도 감점 없음)</td><td>없음</td><td>없음</td></tr>
+        <tr><td>제한 시간으로 판별</td><td>9분 → 사칙역산</td><td>15분 or 35분 → 도표읽기</td><td>20분 or 35분 → 표빈칸추측</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="ib ib-a">
+    <div class="bl">3형식 공통 원칙</div>
+    <p>• <strong style="color:var(--text-sub);">전자계산기를 미리 준비</strong> — 웹 시험에서는 PC 내장 계산기 또는 실물 계산기 사용 가능. 시험 시작 전 계산기를 열어두기<br>
+    • <strong style="color:var(--text-sub);">오류율 미측정</strong> — 모르면 찍고 넘기기. 빈칸으로 두는 것보다 아무 값이나 선택하는 것이 유리<br>
+    • <strong style="color:var(--text-sub);">되돌아갈 수 없음</strong> — 다음 문제로 넘기면 이전 문제 재열람 불가<br>
+    • <strong style="color:var(--text-sub);">단위에 주의</strong> — 만(万), 억(億), %(퍼센트), 전년대비 등 단위 혼동이 가장 흔한 실수</p>
+  </div>
+</div>
+
+<div class="section" id="s3">
+  <div class="sn">SECTION 03</div>
+  <div class="st">학습 전략</div>
+  <div class="st-jp">効率的な対策ロードマップ</div>
+
+  <div class="ib ib-a">
+    <div class="bl">추천 학습 순서</div>
+    <p><strong style="color:var(--text-sub);">STEP 1. 사칙역산부터 마스터</strong><br>
+    가장 빈출이며, 1문당 10초라는 극한의 속도가 요구됨. 이항(移項) 기법을 완벽히 익히고, 계산기 조작을 손에 익히는 것이 최우선.<br><br>
+    <strong style="color:var(--text-sub);">STEP 2. 도표읽기</strong><br>
+    비율·변화율·전년대비 공식을 암기하고, 도표에서 필요한 수치만 빠르게 추출하는 연습. 불필요한 데이터를 무시하는 능력이 핵심.<br><br>
+    <strong style="color:var(--text-sub);">STEP 3. 표빈칸추측</strong><br>
+    표의 법칙성을 발견하는 사고력이 필요. 비례·반비례·합계 활용 등 패턴을 많이 접해두면 유리.<br><br>
+    <strong style="color:var(--text-sub);">STEP 4. 실전 시간 관리 연습</strong><br>
+    반드시 타이머를 켜고 실전과 동일한 제한 시간에서 연습. 특히 사칙역산 50문/9분은 체감해보지 않으면 속도감을 잡기 어려움.</p>
+  </div>
+
+  <h3>전자계산기 활용 팁</h3>
+  <div class="ib">
+    <p>• <strong style="color:var(--text-sub);">Windows 계산기 단축키</strong> — Win+R → calc 입력. 「표준」 모드로 충분<br>
+    • <strong style="color:var(--text-sub);">Mac 계산기</strong> — Spotlight(Cmd+Space) → "계산기" 검색<br>
+    • <strong style="color:var(--text-sub);">실물 계산기 추천</strong> — 화면을 보면서 손가락으로 치는 것이 PC 계산기보다 빠른 경우가 많음<br>
+    • <strong style="color:var(--text-sub);">M+ / MR 기능 활용</strong> — 중간 결과를 메모리에 저장하면 복잡한 계산에서 시간 단축<br>
+    • <strong style="color:var(--text-sub);">% 키 활용</strong> — 도표읽기에서 비율 계산 시 유용 (예: 150 x 23% = 150 × 23 %)</p>
+  </div>
+
+  <h3>C-GAB 대비 포인트 (암산 훈련)</h3>
+  <div class="ib">
+    <p>• <strong style="color:var(--text-sub);">개산(概算) 습관</strong> — 선택지가 5개라면, 대략적인 값으로 2-3개를 먼저 소거 가능<br>
+    • <strong style="color:var(--text-sub);">25% = 1/4, 33% = 1/3, 20% = 1/5</strong> — 분수 변환으로 암산 속도 향상<br>
+    • <strong style="color:var(--text-sub);">끝자리 계산</strong> — 선택지의 끝자리만 다르면, 끝자리 계산으로 정답 특정 가능</p>
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <div class="sn">SECTION 04</div>
+  <div class="st">형식별 학습 페이지</div>
+  <div class="st-jp">形式別の学習ページ — 講義・解法・例題10問</div>
+  <p>각 형식별로 강의(출제 포인트·풀이 전략·함정 패턴)와 연습 문제 10문이 수록되어 있습니다.</p>
+
+  <div class="type-grid">
+    <a href="tama-keisu-shisoku.html" class="type-card">
+      <div class="type-icon">🔢</div>
+      <div class="type-body">
+        <div class="type-kicker">형식 ① · 최빈출</div>
+        <div class="type-title">사칙역산 (四則逆算)</div>
+        <div class="type-desc">□ = ? 형태의 방정식 빈칸 채우기. 이항 기법으로 □를 구한다. 50문/9분, 1문당 약 10초의 스피드 승부.</div>
+        <div class="type-tags">
+          <span class="type-tag">50문 / 9분</span>
+          <span class="type-tag">이항 기법</span>
+          <span class="type-tag">예제 10문</span>
+        </div>
+      </div>
+      <div class="type-arrow">→</div>
+    </a>
+    <a href="tama-keisu-zuhyo.html" class="type-card">
+      <div class="type-icon">📊</div>
+      <div class="type-body">
+        <div class="type-kicker">형식 ② · 도표 독해력</div>
+        <div class="type-title">도표읽기 (図表の読み取り)</div>
+        <div class="type-desc">도표·그래프에서 필요한 수치를 추출하여 비율·변화율·비교를 계산. 29문/15분 또는 40문/35분.</div>
+        <div class="type-tags">
+          <span class="type-tag">29문/15분 or 40문/35분</span>
+          <span class="type-tag">비율·변화율 계산</span>
+          <span class="type-tag">예제 10문</span>
+        </div>
+      </div>
+      <div class="type-arrow">→</div>
+    </a>
+    <a href="tama-keisu-kuukan.html" class="type-card">
+      <div class="type-icon">🧩</div>
+      <div class="type-body">
+        <div class="type-kicker">형식 ③ · 패턴 인식</div>
+        <div class="type-title">표빈칸추측 (表の空欄の推測)</div>
+        <div class="type-desc">표의 법칙성을 발견하고 빈칸(?)에 해당하는 값을 추측. 비례·반비례·합계 활용. 20문/20분 또는 35문/35분.</div>
+        <div class="type-tags">
+          <span class="type-tag">20문/20분 or 35문/35분</span>
+          <span class="type-tag">법칙성 발견</span>
+          <span class="type-tag">예제 10문</span>
+        </div>
+      </div>
+      <div class="type-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — 玉手箱 계수 파트 완전 정리</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
+  <p style="margin-top:8px;font-size:10px;">본 자료는 학습 참고용이며 玉手箱 운영사(日本エス・エイチ・エル株式会社)와 무관합니다.</p>
+</div>
+</div>
+
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>
