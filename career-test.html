@@ -3123,7 +3123,10 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
   const ind1Name = selectedInds[0]?.name || '추천 업계';
   const ind2Name = selectedInds[1]?.name || '';
   const ind3Name = selectedInds[2]?.name || '';
-  const indListStr = [ind1Name, ind2Name, ind3Name].filter(Boolean).join(', ');
+  // 리포트가 아직 없는 업계 (추천 문구에서 제외)
+  const NO_REPORT = ['소프트웨어','X-Tech','씽크탱크','교육'];
+  const indWithReport = selectedInds.filter(ind => !NO_REPORT.includes(ind.name)).map(ind => ind.name);
+  const indListStr = indWithReport.slice(0, 3).join(', ') || '추천 업계';
 
   let actionItems = [];
   if (sitSelf === 'zero' || sitSelf === 'start') {
