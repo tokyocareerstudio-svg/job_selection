@@ -219,22 +219,47 @@
 
   <div class="mini">
     <div class="mini-q"><div class="mini-label">📝 미니 예제 — 전개도 판별</div>
-    <p>다음 중 정육면체의 전개도가 아닌 것은?
-A: 십자형(①)  B: S자형(⑥)  C: 2x3 직사각형  D: L자형(⑤)  E: 계단형(⑧)
-
-위의 11종 일람을 참고하세요.</p></div>
-    <div class="mini-a"><p><strong style="color:var(--solve);">풀이:</strong> C의 2x3 직사각형은 11종 어디에도 해당하지 않습니다. 2x3은 한 줄에 3면이 나란히 있는 블록이 2줄이므로, 접으면 면이 겹칩니다.</p>
+    <p>다음 A-E 중 정육면체의 전개도가 <strong style="color:var(--warn);">아닌 것</strong>은?</p>
+    <div style="overflow-x:auto;margin:10px 0;">
+    <svg width="100%" viewBox="0 0 600 100" xmlns="http://www.w3.org/2000/svg" style="max-width:600px;">
+    <style>.qf{fill:none;stroke:var(--color-text-secondary,#888);stroke-width:0.5;}.ql{font-family:'Noto Sans KR',sans-serif;font-size:11px;fill:var(--color-text-secondary,#888);text-anchor:middle;}</style>
+    <!-- A: cross (valid ①) -->
+    <g transform="translate(10,10)"><text class="ql" x="36" y="-2">A</text>
+    <rect class="qf" x="18" y="4" width="18" height="18"/><rect class="qf" x="0" y="22" width="18" height="18"/><rect class="qf" x="18" y="22" width="18" height="18"/><rect class="qf" x="36" y="22" width="18" height="18"/><rect class="qf" x="54" y="22" width="18" height="18"/><rect class="qf" x="18" y="40" width="18" height="18"/></g>
+    <!-- B: S shape (valid ⑥) -->
+    <g transform="translate(120,10)"><text class="ql" x="28" y="-2">B</text>
+    <rect class="qf" x="0" y="4" width="18" height="18"/><rect class="qf" x="0" y="22" width="18" height="18"/><rect class="qf" x="18" y="22" width="18" height="18"/><rect class="qf" x="18" y="40" width="18" height="18"/><rect class="qf" x="36" y="40" width="18" height="18"/><rect class="qf" x="36" y="58" width="18" height="18"/></g>
+    <!-- C: 2x3 rectangle (INVALID) -->
+    <g transform="translate(230,10)"><text class="ql" x="27" y="-2" style="fill:var(--color-text-danger,#e24b4a)">C</text>
+    <rect x="0" y="4" width="18" height="18" fill="none" stroke="var(--color-text-danger,#e24b4a)" stroke-width="0.5" stroke-dasharray="3 2"/><rect x="18" y="4" width="18" height="18" fill="none" stroke="var(--color-text-danger,#e24b4a)" stroke-width="0.5" stroke-dasharray="3 2"/><rect x="36" y="4" width="18" height="18" fill="none" stroke="var(--color-text-danger,#e24b4a)" stroke-width="0.5" stroke-dasharray="3 2"/><rect x="0" y="22" width="18" height="18" fill="none" stroke="var(--color-text-danger,#e24b4a)" stroke-width="0.5" stroke-dasharray="3 2"/><rect x="18" y="22" width="18" height="18" fill="none" stroke="var(--color-text-danger,#e24b4a)" stroke-width="0.5" stroke-dasharray="3 2"/><rect x="36" y="22" width="18" height="18" fill="none" stroke="var(--color-text-danger,#e24b4a)" stroke-width="0.5" stroke-dasharray="3 2"/></g>
+    <!-- D: L shape (valid ⑤) -->
+    <g transform="translate(340,10)"><text class="ql" x="18" y="-2">D</text>
+    <rect class="qf" x="0" y="4" width="18" height="18"/><rect class="qf" x="0" y="22" width="18" height="18"/><rect class="qf" x="0" y="40" width="18" height="18"/><rect class="qf" x="0" y="58" width="18" height="18"/><rect class="qf" x="18" y="58" width="18" height="18"/><rect class="qf" x="36" y="58" width="18" height="18"/></g>
+    <!-- E: stair (valid ⑧) -->
+    <g transform="translate(460,10)"><text class="ql" x="36" y="-2">E</text>
+    <rect class="qf" x="0" y="4" width="18" height="18"/><rect class="qf" x="18" y="4" width="18" height="18"/><rect class="qf" x="18" y="22" width="18" height="18"/><rect class="qf" x="36" y="22" width="18" height="18"/><rect class="qf" x="36" y="40" width="18" height="18"/><rect class="qf" x="54" y="40" width="18" height="18"/></g>
+    </svg>
+    </div></div>
+    <div class="mini-a"><p><strong style="color:var(--solve);">풀이:</strong> C는 2x3 직사각형으로, 11종 어디에도 해당하지 않습니다. 2x3은 접으면 면이 겹치므로 전개도 불가.</p>
     <div class="mini-ans">정답: C (2x3 직사각형은 전개도 불가)</div></div>
   </div>
 
   <div class="mini">
     <div class="mini-q"><div class="mini-label">📝 미니 예제 — 일필서</div>
-    <p>위의 일필서 도형 중, 왼쪽(오각형+대각선)을 일필서로 그릴 때의 출발점과 종료점은?
-
-A. A에서 출발, C에서 종료
-B. B에서 출발, E에서 종료
-C. 어디서든 출발 가능
-D. 일필서 불가능</p></div>
+    <p>아래 도형을 일필서로 그릴 때의 출발점과 종료점은?</p>
+    <div style="overflow-x:auto;margin:10px 0;">
+    <svg width="100%" viewBox="0 0 260 180" xmlns="http://www.w3.org/2000/svg" style="max-width:300px;">
+    <style>.qe{stroke:var(--color-text-secondary,#888);stroke-width:1;}.qv{fill:var(--color-background-secondary,#1c1c24);stroke:var(--color-text-secondary,#888);stroke-width:0.5;}.qo{fill:#FAEEDA;stroke:#BA7517;stroke-width:1;}.qt{font-family:'Noto Sans KR',sans-serif;font-size:10px;text-anchor:middle;dominant-baseline:central;}.qt-n{fill:var(--color-text-secondary,#888);}.qt-o{fill:#854F0B;}</style>
+    <line class="qe" x1="100" y1="10" x2="180" y2="55"/><line class="qe" x1="180" y1="55" x2="150" y2="140"/><line class="qe" x1="150" y1="140" x2="50" y2="140"/><line class="qe" x1="50" y1="140" x2="20" y2="55"/><line class="qe" x1="20" y1="55" x2="100" y2="10"/><line class="qe" x1="20" y1="55" x2="180" y2="55"/>
+    <circle class="qv" cx="100" cy="10" r="14"/><text class="qt qt-n" x="100" y="10">A:2</text>
+    <circle class="qo" cx="180" cy="55" r="14"/><text class="qt qt-o" x="180" y="55">B:3</text>
+    <circle class="qv" cx="150" cy="140" r="14"/><text class="qt qt-n" x="150" y="140">C:2</text>
+    <circle class="qv" cx="50" cy="140" r="14"/><text class="qt qt-n" x="50" y="140">D:2</text>
+    <circle class="qo" cx="20" cy="55" r="14"/><text class="qt qt-o" x="20" y="55">E:3</text>
+    <text class="qt qt-o" x="220" y="55" text-anchor="start">= 홀수점</text>
+    </svg>
+    </div>
+    <p>A. A에서 출발, C에서 종료　B. B에서 출발, E에서 종료　C. 어디서든 출발 가능　D. 불가능</p></div>
     <div class="mini-a"><p><strong style="color:var(--solve);">풀이:</strong> 홀수점은 B(차수3)과 E(차수3)의 2개. 홀수점이 2개이면 한쪽 홀수점에서 출발, 다른 쪽에서 종료.</p>
     <div class="mini-ans">정답: B. B에서 출발, E에서 종료 (또는 그 반대)</div></div>
   </div>
@@ -336,49 +361,115 @@ A. D1, E3, B2  B. D1, F3, B2  C. E1, D3, A2  D. D1, E2, B3  E. D1, D3, B2</p></d
   <div class="st-jp">従来型計数 練習問題10問</div>
   <p>도형 4문 + 추론 4문 + 암호/수열 2문. 1문당 2분을 목표로 연습하세요.</p>
 
-<div class="pc"><div class="pc-h"><div class="pc-num">Q01 — 도형 (정다면체)</div><div class="pc-title">정팔면체의 변의 수</div>
-<div class="pc-jp">正八面体の辺の数はいくつか。
-
-A. 8　B. 10　C. 12　D. 14　E. 16</div></div>
+<div class="pc"><div class="pc-h"><div class="pc-num">Q01 — 도형 (전개도)</div><div class="pc-title">전개도 판별</div>
+<p style="font-size:12px;color:var(--text-dim);margin-bottom:12px;">다음 A-D 중 정육면체의 전개도인 것은 몇 개인가?</p>
+<div style="overflow-x:auto;">
+<svg width="100%" viewBox="0 0 560 90" xmlns="http://www.w3.org/2000/svg" style="max-width:560px;">
+<style>.ef{fill:none;stroke:var(--color-text-secondary,#888);stroke-width:0.5;}.el{font-family:'Noto Sans KR',sans-serif;font-size:11px;fill:var(--color-text-secondary,#888);text-anchor:middle;}</style>
+<!-- A: T-shape variant (valid ②) -->
+<g transform="translate(10,8)"><text class="el" x="36" y="-2">A</text>
+<rect class="ef" x="18" y="4" width="16" height="16"/><rect class="ef" x="0" y="20" width="16" height="16"/><rect class="ef" x="16" y="20" width="16" height="16"/><rect class="ef" x="32" y="20" width="16" height="16"/><rect class="ef" x="48" y="20" width="16" height="16"/><rect class="ef" x="48" y="36" width="16" height="16"/></g>
+<!-- B: 2-2-2 valid ⑪ -->
+<g transform="translate(140,8)"><text class="el" x="24" y="-2">B</text>
+<rect class="ef" x="16" y="4" width="16" height="16"/><rect class="ef" x="32" y="4" width="16" height="16"/><rect class="ef" x="16" y="20" width="16" height="16"/><rect class="ef" x="0" y="20" width="16" height="16"/><rect class="ef" x="0" y="36" width="16" height="16"/><rect class="ef" x="0" y="52" width="16" height="16"/></g>
+<!-- C: 4 in a row + 2 on same side (INVALID - 2x2 block) -->
+<g transform="translate(270,8)"><text class="el" x="32" y="-2">C</text>
+<rect class="ef" x="0" y="4" width="16" height="16"/><rect class="ef" x="16" y="4" width="16" height="16"/><rect class="ef" x="32" y="4" width="16" height="16"/><rect class="ef" x="48" y="4" width="16" height="16"/><rect class="ef" x="16" y="20" width="16" height="16"/><rect class="ef" x="32" y="20" width="16" height="16"/></g>
+<!-- D: L-shape (valid ⑤) -->
+<g transform="translate(400,8)"><text class="el" x="16" y="-2">D</text>
+<rect class="ef" x="0" y="4" width="16" height="16"/><rect class="ef" x="0" y="20" width="16" height="16"/><rect class="ef" x="0" y="36" width="16" height="16"/><rect class="ef" x="0" y="52" width="16" height="16"/><rect class="ef" x="16" y="52" width="16" height="16"/><rect class="ef" x="32" y="52" width="16" height="16"/></g>
+</svg>
+</div>
+<div class="pc-jp">A. 1개　B. 2개　C. 3개　D. 4개　E. 0개</div></div>
 <button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="sl">풀이</div><div class="stx">정팔면체: 면 = 8(정삼각형), 1면의 변 = 3
-변의 수 = 3 × 8 ÷ 2 = 12 (각 변을 2면이 공유하므로 ÷2)</div></div>
-<div class="sa">정답: C. 12</div></div></div></div>
+<div class="ss"><div class="sl">풀이</div><div class="stx">A = ②T자형(O), B = ⑪ 2-2-2형(O), C = 가운데 2x2 블록 존재(X), D = ⑤L자형(O)
+전개도인 것 = A, B, D의 3개</div></div>
+<div class="sa">정답: C. 3개</div></div></div></div>
 
 <div class="pc"><div class="pc-h"><div class="pc-num">Q02 — 도형 (일필서)</div><div class="pc-title">일필서 가능 여부</div>
-<div class="pc-jp">5개의 점이 있고, 각 점에서 나가는 선의 수가 다음과 같다.
-A: 4개, B: 3개, C: 2개, D: 3개, E: 2개
-
-이 도형을 일필서로 그릴 수 있는가?
-
-1. 가능  2. 불가능</div></div>
+<p style="font-size:12px;color:var(--text-dim);margin-bottom:12px;">아래 도형을 일필서로 그릴 수 있는가?</p>
+<div style="overflow-x:auto;">
+<svg width="100%" viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg" style="max-width:280px;">
+<style>.qe2{stroke:var(--color-text-secondary,#888);stroke-width:1;}.qv2{fill:var(--color-background-secondary,#1c1c24);stroke:var(--color-text-secondary,#888);stroke-width:0.5;}.qt2{font-family:'Noto Sans KR',sans-serif;font-size:10px;text-anchor:middle;dominant-baseline:central;fill:var(--color-text-secondary,#888);}</style>
+<!-- House shape: square + triangle roof -->
+<line class="qe2" x1="40" y1="50" x2="120" y2="10"/><line class="qe2" x1="120" y1="10" x2="200" y2="50"/>
+<line class="qe2" x1="40" y1="50" x2="200" y2="50"/><line class="qe2" x1="40" y1="50" x2="40" y2="140"/><line class="qe2" x1="200" y1="50" x2="200" y2="140"/><line class="qe2" x1="40" y1="140" x2="200" y2="140"/>
+<!-- Diagonal -->
+<line class="qe2" x1="40" y1="50" x2="200" y2="140"/>
+<circle class="qv2" cx="120" cy="10" r="12"/><text class="qt2" x="120" y="10">A:2</text>
+<circle class="qv2" cx="40" cy="50" r="12" style="fill:#FAEEDA;stroke:#BA7517;"/><text class="qt2" x="40" y="50" style="fill:#854F0B;">B:4</text>
+<circle class="qv2" cx="200" cy="50" r="12" style="fill:#FAEEDA;stroke:#BA7517;"/><text class="qt2" x="200" y="50" style="fill:#854F0B;">C:3</text>
+<circle class="qv2" cx="40" cy="140" r="12"/><text class="qt2" x="40" y="140">D:2</text>
+<circle class="qv2" cx="200" cy="140" r="12" style="fill:#FAEEDA;stroke:#BA7517;"/><text class="qt2" x="200" y="140" style="fill:#854F0B;">E:3</text>
+</svg>
+</div>
+<div class="pc-jp">1. 가능　2. 불가능</div></div>
 <button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="sl">풀이</div><div class="stx">홀수점(나가는 선이 홀수인 점) = B(3개), D(3개) → 홀수점 2개.
-홀수점이 0개 또는 2개이면 일필서 가능.</div></div>
-<div class="sa">정답: 1. 가능 (B에서 시작, D에서 끝 또는 그 반대)</div></div></div></div>
+<div class="ss"><div class="sl">풀이</div><div class="stx">B=4(짝수), C=3(홀수), E=3(홀수) → 홀수점 = C, E → 2개
+홀수점 2개이면 일필서 가능. C에서 출발, E에서 종료 (또는 반대).</div></div>
+<div class="sa">정답: 1. 가능</div></div></div></div>
 
 <div class="pc"><div class="pc-h"><div class="pc-num">Q03 — 도형 (접기)</div><div class="pc-title">정사각형 접기</div>
-<div class="pc-jp">정사각형 종이를 아래 순서로 접었다:
-1) 반으로 접기 (세로 방향)
-2) 다시 반으로 접기 (가로 방향)
-3) 접힌 상태에서 오른쪽 위 모서리를 삼각형으로 자름
+<p style="font-size:12px;color:var(--text-dim);margin-bottom:12px;">정사각형을 접고 잘랐을 때 펼친 모양은?</p>
+<div style="overflow-x:auto;">
+<svg width="100%" viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" style="max-width:520px;">
+<style>.fs{fill:none;stroke:var(--color-text-secondary,#888);stroke-width:0.5;}.fd{stroke:var(--color-text-secondary,#888);stroke-width:0.5;stroke-dasharray:3 2;}.fc{fill:var(--color-text-danger,#e24b4a);opacity:0.3;}.ft{font-family:'Noto Sans KR',sans-serif;font-size:9px;fill:var(--color-text-secondary,#888);text-anchor:middle;}.fa{font-family:'Noto Sans KR',sans-serif;font-size:14px;fill:var(--color-text-secondary,#888);text-anchor:middle;dominant-baseline:central;}</style>
+<!-- Step 1: Original square -->
+<rect class="fs" x="10" y="10" width="80" height="80"/>
+<line class="fd" x1="50" y1="10" x2="50" y2="90"/>
+<text class="ft" x="50" y="105">1. 세로 반접기</text>
+<text class="fa" x="115" y="50">→</text>
+<!-- Step 2: Half -->
+<rect class="fs" x="140" y="10" width="40" height="80"/>
+<line class="fd" x1="140" y1="50" x2="180" y2="50"/>
+<text class="ft" x="160" y="105">2. 가로 반접기</text>
+<text class="fa" x="210" y="50">→</text>
+<!-- Step 3: Quarter with cut -->
+<rect class="fs" x="240" y="10" width="40" height="40"/>
+<polygon class="fc" points="260,10 280,10 280,30"/>
+<line style="stroke:var(--color-text-danger,#e24b4a);stroke-width:1;" x1="260" y1="10" x2="280" y2="30"/>
+<text class="ft" x="260" y="66">3. 우상단 삼각 자르기</text>
+<text class="fa" x="310" y="30">→</text>
+<!-- Step 4: Unfolded result = 4 triangular holes -->
+<rect class="fs" x="340" y="10" width="80" height="80"/>
+<polygon class="fc" points="380,10 420,10 420,50"/><polygon class="fc" points="380,10 340,10 340,50"/>
+<polygon class="fc" points="380,90 420,90 420,50"/><polygon class="fc" points="380,90 340,90 340,50"/>
+<text class="ft" x="380" y="105">4. 펼친 결과</text>
+</svg>
+</div>
+<div class="pc-jp">펼쳤을 때 구멍의 개수는?
 
-펼쳤을 때 구멍의 개수는?
-
-A. 1개  B. 2개  C. 4개  D. 8개  E. 16개</div></div>
+A. 1개　B. 2개　C. 4개　D. 8개　E. 16개</div></div>
 <button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="sl">풀이</div><div class="stx">2번 접었으므로 4겹. 4겹 상태에서 1군데를 자르면, 펼쳤을 때 4개의 구멍이 생김.
-(가로 반 x 세로 반 = 4개소에 동일한 구멍)</div></div>
+<div class="ss"><div class="sl">풀이</div><div class="stx">2번 접었으므로 4겹. 우상단 모서리를 1번 자르면 4겹 모두 잘림.
+펼치면 대칭적으로 4개의 삼각형 구멍이 나타남 (상하좌우 대칭).</div></div>
 <div class="sa">정답: C. 4개</div></div></div></div>
 
-<div class="pc"><div class="pc-h"><div class="pc-num">Q04 — 도형 (주사위)</div><div class="pc-title">주사위 마주보는 면</div>
-<div class="pc-jp">주사위에서 마주보는 면의 합은 항상 7이다.
-1의 면이 위를 향하고 있을 때, 바닥에 있는 면의 숫자는?
-
-A. 2  B. 3  C. 5  D. 6  E. 7</div></div>
+<div class="pc"><div class="pc-h"><div class="pc-num">Q04 — 도형 (주사위)</div><div class="pc-title">주사위 전개도에서 대면 찾기</div>
+<p style="font-size:12px;color:var(--text-dim);margin-bottom:12px;">아래 전개도를 접어 주사위를 만들었을 때, ★의 대면(마주보는 면)은?</p>
+<div style="overflow-x:auto;">
+<svg width="100%" viewBox="0 0 360 120" xmlns="http://www.w3.org/2000/svg" style="max-width:360px;">
+<style>.df2{fill:none;stroke:var(--color-text-secondary,#888);stroke-width:0.5;rx:2;}.dl{font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central;fill:var(--color-text-secondary,#888);}.ds2{fill:#FAEEDA;stroke:#BA7517;stroke-width:1;rx:2;}.dl-s{fill:#854F0B;}</style>
+<!-- T-shape net -->
+<rect class="df2" x="50" y="4" width="40" height="40"/><text class="dl" x="70" y="24">A</text>
+<rect class="ds2" x="10" y="44" width="40" height="40"/><text class="dl dl-s" x="30" y="64">★</text>
+<rect class="df2" x="50" y="44" width="40" height="40"/><text class="dl" x="70" y="64">B</text>
+<rect class="df2" x="90" y="44" width="40" height="40"/><text class="dl" x="110" y="64">C</text>
+<rect class="df2" x="130" y="44" width="40" height="40"/><text class="dl" x="150" y="64">D</text>
+<rect class="df2" x="90" y="84" width="40" height="40" style="display:none;"/>
+<!-- hide 6th face to make it cleaner -->
+<rect class="df2" x="50" y="84" width="40" height="40"/><text class="dl" x="70" y="104">E</text>
+<!-- Labels -->
+<text style="font-family:'Noto Sans KR',sans-serif;font-size:11px;fill:var(--color-text-secondary,#888);" x="220" y="30">★의 대면은?</text>
+<text style="font-family:'Noto Sans KR',sans-serif;font-size:11px;fill:var(--color-text-secondary,#888);" x="220" y="50">A. A　B. B　C. C</text>
+<text style="font-family:'Noto Sans KR',sans-serif;font-size:11px;fill:var(--color-text-secondary,#888);" x="220" y="70">D. D　E. E</text>
+</svg>
+</div></div>
 <button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="sl">풀이</div><div class="stx">마주보는 면의 합 = 7. 위 = 1이면 바닥 = 7 - 1 = 6.</div></div>
-<div class="sa">정답: D. 6</div></div></div></div>
+<div class="ss"><div class="sl">풀이</div><div class="stx">전개도에서 대면 찾기: 같은 줄에서 1칸 건너뛴 면이 대면.
+★은 왼쪽 끝, 같은 줄(가로)에서 1칸(B) 건너뛰면 C.
+또는: ★ → B는 인접(접으면 옆면) → B 건너 C가 대면.</div></div>
+<div class="sa">정답: C. C</div></div></div></div>
 
 <div class="pc"><div class="pc-h"><div class="pc-num">Q05 — 추론 (거짓말쟁이)</div><div class="pc-title">3명 중 거짓말쟁이 판별</div>
 <div class="pc-jp">A, B, C 3명 중 1명만 거짓말쟁이이다.
