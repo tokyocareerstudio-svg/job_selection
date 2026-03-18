@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'tgweb-gengo-juurai.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TG-WEB 언어 ① 従来型 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--tg:#f59e0b;--tg-soft:rgba(245,158,11,0.06);--tg-border:rgba(245,158,11,0.18);--gengo:#60a5fa;--gengo-soft:rgba(96,165,250,0.06);--gengo-border:rgba(96,165,250,0.18);--solve:#a29bfe;--solve-soft:rgba(162,155,254,0.06);--correct:#34d399;--warn:#ef4444;--warn-soft:rgba(239,68,68,0.04);--warn-border:rgba(239,68,68,0.18);}
+*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:48px 0 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;max-width:760px;margin:0 auto;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(96,165,250,0.05) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;padding:0 24px;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-back:hover{color:var(--text-dim);}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--gengo);background:var(--gengo-soft);border:1px solid var(--gengo-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}.hero h1{font-size:26px;font-weight:900;line-height:1.3;margin-bottom:8px;letter-spacing:-0.5px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;}.htag-g{background:var(--gengo-soft);color:var(--gengo);border:1px solid var(--gengo-border);}
+.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--tg);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}.section h3{font-size:15px;font-weight:700;color:var(--text);margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--gengo);}
+.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}.ib-a{background:var(--gengo-soft);border-color:var(--gengo-border);border-left:3px solid var(--gengo);}.ib-w{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn);}.ib p,.ib div{font-size:12px;color:var(--text-dim);line-height:1.9;}.bl{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}.bl-g{color:var(--gengo);}.bl-w{color:var(--warn);}
+.mini{margin:16px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}.mini-q{padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--border);}.mini-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gengo);margin-bottom:6px;text-transform:uppercase;}.mini-q p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-a{padding:16px 18px;background:var(--solve-soft);}.mini-a p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-ans{margin-top:10px;padding:8px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:6px;font-size:12px;font-weight:700;color:var(--correct);}.mini-trap{margin:12px 0;border:1px solid var(--warn-border);border-radius:10px;overflow:hidden;}.mini-trap .mini-q{background:var(--warn-soft);border-bottom-color:var(--warn-border);}.mini-trap .mini-label{color:var(--warn);}.mini-trap .mini-a{background:rgba(239,68,68,0.03);}.mini-trap .mini-ans{background:rgba(239,68,68,0.05);border-color:var(--warn-border);color:var(--warn);}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--gengo);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:13px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
+.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{color:var(--text-dim);background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}
+.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}
+.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--gengo-border);background:var(--gengo-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.hero h1{font-size:22px;}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-inner">
+  <a href="tgweb-index.html" class="hero-back">← TG-WEB 전체 가이드로 돌아가기</a>
+  <div class="hero-label">TG-WEB 언어 — 従来型</div>
+  <h1>従来型 언어 (空欄補充·並べ替え·長文読解)</h1>
+  <p class="hero-sub">12문을 12분 안에 풀어야 합니다. 공란보충(접속사·숙어 빈칸) 약 3문, 문장나열(논리 순서 배열) 약 3문, 장문독해(필자 주장·요지) 약 6문으로 구성. 공란+나열 6문을 확실히 맞추면 50%에 도달하므로, 장문독해에 목숨 걸지 않는 것이 핵심 전략입니다.</p>
+  <div class="hero-tags"><span class="htag htag-g">12문 / 12분 · 1문당 약 60초</span></div>
+</div></div>
+
+<div class="container">
+
+<div class="section">
+  <div class="sn">강의</div>
+  <div class="st">従来型 언어의 3가지 출제 유형</div>
+  <div class="st-jp">従来型言語 — 空欄補充・並べ替え・長文読解</div>
+
+  <h3>유형 1. 공란보충 (空欄補充) — 약 3문</h3>
+  <p>문장 안의 【 】에 들어갈 가장 적절한 단어·접속사·숙어를 5개 선택지에서 고릅니다. 문장 전후의 논리 관계(역접·순접·인과·예시)를 파악하는 것이 핵심입니다.</p>
+
+  <div class="ib ib-a">
+    <div class="bl bl-g">접속사 판별 기준</div>
+    <p>• <strong style="color:var(--text-sub);">역접(しかし·だが·一方)</strong> — 앞뒤 내용이 반대<br>
+    • <strong style="color:var(--text-sub);">인과(したがって·そのため·ゆえに)</strong> — 앞이 원인, 뒤가 결과<br>
+    • <strong style="color:var(--text-sub);">예시(例えば·具体的には)</strong> — 추상→구체<br>
+    • <strong style="color:var(--text-sub);">환언(つまり·すなわち·要するに)</strong> — 같은 내용을 다른 말로<br>
+    • <strong style="color:var(--text-sub);">첨가(また·さらに·加えて)</strong> — 같은 방향의 정보 추가</p>
+  </div>
+
+  <div class="mini">
+    <div class="mini-q"><div class="mini-label">📝 미니 예제 — 공란보충</div>
+    <p>産業革命によって19世紀のイングランドの人口は急速に増加し、特に都市部の人口は飛躍的に増加した。仕事を求めて来た人が多かったが、農村とはまったく異なる都市という【　】生活環境に魅力を感じて来た人もいた。
+
+A. 画一的な  B. 未知の  C. 非効率な  D. 退屈な  E. 危険な</p></div>
+    <div class="mini-a"><p><strong style="color:var(--solve);">풀이:</strong> 「農村とはまったく異なる(농촌과는 완전히 다른)」와 연결되는 표현을 찾습니다. 「완전히 다른 도시라는 【?】 생활환경에 매력을 느껴」이므로, 농촌에서 온 사람에게 도시는 「미지의(未知の)」 환경입니다.</p>
+    <div class="mini-ans">정답: B. 未知の</div></div>
+  </div>
+
+  <h3>유형 2. 문장나열 (並べ替え) — 약 3문</h3>
+  <p>섞여 있는 5-6개의 문장을 논리적 순서로 재배열합니다. 접속사·지시어(これ·その)가 가리키는 대상을 추적하면 순서가 보입니다.</p>
+
+  <div class="ib ib-a">
+    <div class="bl bl-g">나열 풀이 3스텝</div>
+    <p><strong style="color:var(--text-sub);">STEP 1.</strong> 접속사가 없는 문장 = 첫 문장 후보<br>
+    <strong style="color:var(--text-sub);">STEP 2.</strong> 지시어(これ·その·このような)가 가리키는 대상을 앞 문장에서 찾기<br>
+    <strong style="color:var(--text-sub);">STEP 3.</strong> 「したがって·以上のことから」= 마지막 문장 후보</p>
+  </div>
+
+  <div class="mini">
+    <div class="mini-q"><div class="mini-label">📝 미니 예제 — 문장나열</div>
+    <p>다음 문장을 논리적 순서로 배열하시오.
+
+ア. したがって、企業は環境への配慮を経営戦略に組み込む必要がある。
+イ. 近年、消費者の環境意識は急速に高まっている。
+ウ. このような変化は、企業の製品開発にも大きな影響を与えている。
+エ. 例えば、プラスチック削減やリサイクル素材の活用が求められるようになった。</p></div>
+    <div class="mini-a"><p><strong style="color:var(--solve);">풀이:</strong>
+イ(접속사 없음 = 도입) → ウ(このような変化 = イの내용을 지칭) → エ(例えば = 구체 예시) → ア(したがって = 결론)
+순서: イ → ウ → エ → ア</p>
+    <div class="mini-ans">정답: イ → ウ → エ → ア</div></div>
+  </div>
+
+  <h3>유형 3. 장문독해 (長文読解) — 약 6문</h3>
+  <p>400-800자의 일본어 장문을 읽고, 필자의 주장·요지·논지와 합치하는 선택지를 고릅니다. 시간이 가장 많이 걸리는 유형이며, 전략적으로 포기하는 것도 유효합니다.</p>
+
+  <div class="ib ib-a">
+    <div class="bl bl-g">장문독해 전략</div>
+    <p>• <strong style="color:var(--text-sub);">설문(선택지) 먼저 읽기</strong> — 무엇을 묻는지 파악 후 본문에서 해당 부분만 집중<br>
+    • <strong style="color:var(--text-sub);">마지막 2-3문장에 결론</strong> — 일본어는 결론이 문말에 오는 경향. 시간 없으면 끝만 읽기<br>
+    • <strong style="color:var(--text-sub);">접속사에 주목</strong> — しかし 뒤에 필자 주장이 올 확률 높음<br>
+    • <strong style="color:var(--text-sub);">시간 없으면 찍기</strong> — 6문 전부 찍어도 확률적으로 1-2문 맞출 수 있음</p>
+  </div>
+
+  <div class="mini-trap">
+    <div class="mini-q"><div class="mini-label">⚠️ 함정 — 장문에 시간을 뺏기면 전멸</div>
+    <p>공란보충(3문) + 나열(3문) = 6문을 확실히 맞추면 50%.
+장문독해(6문)에 12분 전부 투자해도 6문 전부 맞추기 어려움.
+
+추천 시간 배분: 공란+나열에 8분 → 장문에 4분(또는 전부 찍기)</p></div>
+    <div class="mini-a"><p><strong style="color:var(--warn);">핵심:</strong> 공란·나열은 패턴이 정형화되어 있어 연습하면 확실히 맞출 수 있지만, 장문독해는 시간 대비 효율이 낮습니다. 공란·나열을 먼저 풀고 남은 시간에 장문을 도전하세요.</p>
+    <div class="mini-ans">전략: 공란+나열 = 확실한 득점원, 장문 = 보너스</div></div>
+  </div>
+
+  <h3>시간 배분 가이드</h3>
+  <div class="ib">
+    <p><strong style="color:var(--text-sub);">12문 / 12분 = 1문당 약 60초</strong><br><br>
+    • 공란보충 3문: 약 4분 (1문 80초) — 가장 확실한 득점원<br>
+    • 문장나열 3문: 약 4분 (1문 80초) — 접속사·지시어 추적으로 풀기<br>
+    • 장문독해 6문: 약 4분 (1문 40초) — 시간 부족 시 찍기도 전략<br>
+    • <strong style="color:var(--text-sub);">문제 간 자유 이동 가능</strong> — 장문을 건너뛰고 공란·나열 먼저 풀기</p>
+  </div>
+
+  <h3>자주 틀리는 포인트</h3>
+  <div class="ib ib-w">
+    <div class="bl bl-w">실수 방지 체크리스트</div>
+    <p>• <strong style="color:var(--text-sub);">접속사의 뉘앙스 혼동</strong> — 「しかし(역접)」과 「したがって(인과)」를 구별<br>
+    • <strong style="color:var(--text-sub);">지시어가 가리키는 대상 오독</strong> — 「これ」가 바로 앞 문장이 아닌 2-3문장 전을 가리킬 수도 있음<br>
+    • <strong style="color:var(--text-sub);">장문에서 자기 의견 섞기</strong> — 본문에 쓰여 있는 것만으로 판단 (玉手箱 GAB형과 동일 원칙)<br>
+    • <strong style="color:var(--text-sub);">시간 배분 실패</strong> — 장문 1문에 3분 이상 소모하면 나머지를 모두 놓침</p>
+  </div>
+</div>
+
+<!-- 연습 문제 10문 -->
+<div class="section">
+  <div class="sn">연습 문제</div>
+  <div class="st">従来型 언어 예제 10문제</div>
+  <div class="st-jp">従来型言語 練習問題10問</div>
+  <p>공란보충 4문 + 문장나열 3문 + 장문독해 3문으로 구성했습니다.</p>
+
+<!-- Q01: 공란보충 -->
+<div class="pc"><div class="pc-h"><div class="pc-num">Q01 — 공란보충</div><div class="pc-title">접속사 선택</div>
+<div class="pc-jp">日本の出生率は年々低下している。【　】、政府は子育て支援の拡充を急いでいる。
+
+A. しかし　B. したがって　C. 例えば　D. つまり　E. あるいは</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">출생률 저하(원인) → 정부가 지원 확충을 서두르고 있다(결과). 인과관계이므로 「したがって(따라서)」.</div></div>
+<div class="sa">정답: B. したがって</div></div></div></div>
+
+<!-- Q02: 공란보충 -->
+<div class="pc"><div class="pc-h"><div class="pc-num">Q02 — 공란보충</div><div class="pc-title">숙어/형용사 선택</div>
+<div class="pc-jp">テクノロジーの進化は私たちの生活を便利にした。【　】、人々がテクノロジーに過度に依存するリスクも指摘されている。
+
+A. そのため　B. 一方で　C. つまり　D. 具体的には　E. 要するに</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">앞: 편리해졌다(긍정). 뒤: 과도한 의존 리스크(부정). 반대 방향이므로 역접·대비를 나타내는 「一方で(한편으로)」.</div></div>
+<div class="sa">정답: B. 一方で</div></div></div></div>
+
+<!-- Q03: 공란보충 -->
+<div class="pc"><div class="pc-h"><div class="pc-num">Q03 — 공란보충</div><div class="pc-title">문맥 추론</div>
+<div class="pc-jp">この地域では古くから農業が盛んであり、住民の多くは農業に【　】生計を立てている。
+
+A. 反して　B. 基づいて　C. 携わって　D. 限って　E. 備えて</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">「농업에 【?】 생계를 세우고 있다」 — 농업에 종사하여. 「携わって(たずさわって)」= 종사하여.</div></div>
+<div class="sa">정답: C. 携わって</div></div></div></div>
+
+<!-- Q04: 공란보충 -->
+<div class="pc"><div class="pc-h"><div class="pc-num">Q04 — 공란보충</div><div class="pc-title">이중 공란</div>
+<div class="pc-jp">AI技術は多くの分野で活用されている。【 ア 】、医療分野ではAIによる画像診断が実用化されつつある。【 イ 】、AIの判断に全面的に依拠することへの懸念も根強い。
+
+ア: A.例えば B.しかし C.つまり
+イ: A.したがって B.ただし C.同様に</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">ア: 「많은 분야」의 구체 예시로 「의료 분야」를 들고 있으므로 「例えば」.
+イ: 긍정(실용화)에서 부정(우려)으로 전환이므로 역접의 「ただし」.</div></div>
+<div class="sa">정답: ア = A.例えば / イ = B.ただし</div></div></div></div>
+
+<!-- Q05-Q07: 문장나열 -->
+<div class="pc"><div class="pc-h"><div class="pc-num">Q05 — 문장나열</div><div class="pc-title">4문장 배열</div>
+<div class="pc-jp">다음 문장을 논리적 순서로 배열하시오.
+
+ア. その結果、多くの企業が海外市場への進出を加速させている。
+イ. グローバル化の進展により、国内市場の競争は激化している。
+ウ. しかし、海外進出には言語や文化の壁といった課題も多い。
+エ. そのため、現地パートナーとの提携が成功の鍵となっている。</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">イ(접속사 없음=도입: 글로벌화→국내경쟁 격화) → ア(その結果: 해외진출 가속) → ウ(しかし: 역접=해외진출의 과제) → エ(そのため: 인과=현지 파트너 제휴)</div></div>
+<div class="sa">정답: イ → ア → ウ → エ</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q06 — 문장나열</div><div class="pc-title">5문장 배열</div>
+<div class="pc-jp">ア. このような背景から、リカレント教育の重要性が高まっている。
+イ. 技術革新のスピードは年々加速している。
+ウ. 例えば、オンライン講座を活用して新しいスキルを習得する社会人が増えている。
+エ. それに伴い、既存のスキルが短期間で陳腐化するリスクが生じている。
+オ. 生涯にわたって学び続ける姿勢が、これからの時代には不可欠である。</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">イ(도입: 기술혁신 가속) → エ(それに伴い: 스킬 진부화 리스크) → ア(このような背景: 리커런트 교육 중요성) → ウ(例えば: 온라인 강좌 구체 예시) → オ(결론: 평생학습 자세 불가결)</div></div>
+<div class="sa">정답: イ → エ → ア → ウ → オ</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q07 — 문장나열</div><div class="pc-title">4문장 배열</div>
+<div class="pc-jp">ア. すなわち、表面的な数字だけでなく、その背景にある要因を分析することが求められる。
+イ. データを正しく読み解く力は、ビジネスにおいて不可欠である。
+ウ. しかし、データの解釈を誤ると、逆に間違った意思決定につながる危険性がある。
+エ. データに基づく意思決定は、感覚に頼るよりも精度が高い。</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">エ(도입: 데이터 기반 의사결정은 정밀도 높음) → ウ(しかし: 해석 오류 시 위험) → イ(데이터를 올바르게 읽는 힘 불가결) → ア(すなわち: 표면적 숫자뿐 아니라 배경 분석)</div></div>
+<div class="sa">정답: エ → ウ → イ → ア</div></div></div></div>
+
+<!-- Q08-Q10: 장문독해 -->
+<div class="pc"><div class="pc-h"><div class="pc-num">본문 (Q08-Q10)</div><div class="pc-title">장문독해 — 리모트워크와 생산성</div>
+<div class="pc-jp">リモートワークの普及は、働き方に大きな変化をもたらした。通勤時間がなくなることで自由に使える時間が増え、多くの労働者がワークライフバランスの改善を実感している。
+
+しかし、すべての業務がリモートワークに適しているわけではない。チームでの創造的な議論や、対面でのコミュニケーションが求められる業務では、オフィス勤務の方が効率的であるとの指摘もある。
+
+重要なのは、リモートワークとオフィス勤務のどちらが優れているかではなく、業務の性質に応じて最適な働き方を選択できる柔軟性を組織が持つことである。画一的な制度ではなく、個々の状況に合わせた対応が、真の生産性向上につながるだろう。</div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q08</div><div class="pc-title">필자의 주장</div>
+<div class="pc-jp">筆者が最も主張したいことはどれか。
+
+A. リモートワークはすべての業務に適している
+B. オフィス勤務の方がリモートワークより効率的である
+C. 業務に応じて柔軟に働き方を選べることが重要である
+D. 通勤時間の削減が最大のメリットである
+E. 創造的な議論はオンラインでは不可能である</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">마지막 단락 「重要なのは...業務の性質に応じて最適な働き方を選択できる柔軟性」이 필자의 핵심 주장.</div></div>
+<div class="sa">정답: C</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q09</div><div class="pc-title">본문 내용 합치</div>
+<div class="pc-jp">本文の内容と合致するものはどれか。
+
+A. リモートワークにはデメリットがないと筆者は考えている
+B. 対面コミュニケーションが必要な業務もあると指摘されている
+C. 筆者はオフィス勤務を全面的に推奨している
+D. 画一的な制度こそが生産性向上の鍵である</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">2단락에 「対面でのコミュニケーションが求められる業務では、オフィス勤務の方が効率的であるとの指摘もある」 → B가 합치. A는 본문과 모순, C/D도 본문과 반대.</div></div>
+<div class="sa">정답: B</div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">Q10</div><div class="pc-title">본문 내용 불합치</div>
+<div class="pc-jp">本文の内容と合致しないものはどれか。
+
+A. 通勤時間の削減はリモートワークのメリットの一つである
+B. リモートワークの普及は働き方に変化をもたらした
+C. すべての業務がリモートワークに適しているわけではない
+D. 筆者は画一的な制度を推奨している</div></div>
+<button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">마지막 단락에 「画一的な制度ではなく、個々の状況に合わせた対応が」라고 하여 화일적 제도를 부정. D는 본문과 반대.</div></div>
+<div class="sa">정답: D (본문은 화일적 제도를 부정)</div></div></div></div>
+
+</div>
+
+<div class="type-nav">
+  <a href="tgweb-gengo-index.html"><div class="nl">← 언어 개요로</div><div class="nt">언어 파트 개요</div></a>
+  <a href="tgweb-gengo-shingata.html"><div class="nl">다음 형식 →</div><div class="nt">② 新型 언어</div></a>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — TG-WEB 従来型 언어</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
+</div>
+</div>
+
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+<script>
+function tog(b){b.classList.toggle('open');b.nextElementSibling.classList.toggle('open');}
+</script>
+</body>
+</html>
