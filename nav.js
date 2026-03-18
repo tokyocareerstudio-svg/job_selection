@@ -44,7 +44,6 @@
       { label: "소매・유통",             file: "retail-report.html" },
       { label: "아파렐",              file: "apparel-report.html" },
       { label: "HR·인재",             file: "hr-report.html" },
-      { label: "교육",                 file: "education-report.html" },
       { label: "호텔·관광",           file: "hotel-report.html" },
       { label: "외식",                 file: "foodservice-report.html" },
       { label: "여행",                 file: "travel-report.html" },
