@@ -391,58 +391,69 @@ A. D1, E3, B2  B. D1, F3, B2  C. E1, D3, A2  D. D1, E2, B3  E. D1, D3, B2</p></d
 <div style="overflow-x:auto;">
 <svg width="100%" viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg" style="max-width:280px;">
 <style>.qe2{stroke:var(--color-text-secondary,#888);stroke-width:1;}.qv2{fill:var(--color-background-secondary,#1c1c24);stroke:var(--color-text-secondary,#888);stroke-width:0.5;}.qt2{font-family:'Noto Sans KR',sans-serif;font-size:10px;text-anchor:middle;dominant-baseline:central;fill:var(--color-text-secondary,#888);}</style>
-<!-- House shape: square + triangle roof -->
 <line class="qe2" x1="40" y1="50" x2="120" y2="10"/><line class="qe2" x1="120" y1="10" x2="200" y2="50"/>
 <line class="qe2" x1="40" y1="50" x2="200" y2="50"/><line class="qe2" x1="40" y1="50" x2="40" y2="140"/><line class="qe2" x1="200" y1="50" x2="200" y2="140"/><line class="qe2" x1="40" y1="140" x2="200" y2="140"/>
-<!-- Diagonal -->
 <line class="qe2" x1="40" y1="50" x2="200" y2="140"/>
-<circle class="qv2" cx="120" cy="10" r="12"/><text class="qt2" x="120" y="10">A:2</text>
-<circle class="qv2" cx="40" cy="50" r="12"/><text class="qt2" x="40" y="50">B:4</text>
-<circle class="qv2" cx="200" cy="50" r="12" style="fill:#FAEEDA;stroke:#BA7517;"/><text class="qt2" x="200" y="50" style="fill:#854F0B;">C:3</text>
-<circle class="qv2" cx="40" cy="140" r="12"/><text class="qt2" x="40" y="140">D:2</text>
-<circle class="qv2" cx="200" cy="140" r="12" style="fill:#FAEEDA;stroke:#BA7517;"/><text class="qt2" x="200" y="140" style="fill:#854F0B;">E:3</text>
+<circle class="qv2" cx="120" cy="10" r="10"/><text class="qt2" x="120" y="10">A</text>
+<circle class="qv2" cx="40" cy="50" r="10"/><text class="qt2" x="40" y="50">B</text>
+<circle class="qv2" cx="200" cy="50" r="10"/><text class="qt2" x="200" y="50">C</text>
+<circle class="qv2" cx="40" cy="140" r="10"/><text class="qt2" x="40" y="140">D</text>
+<circle class="qv2" cx="200" cy="140" r="10"/><text class="qt2" x="200" y="140">E</text>
 </svg>
 </div>
 <div class="pc-jp">1. 가능　2. 불가능</div></div>
 <button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
-<div class="ss"><div class="sl">풀이</div><div class="stx">B=4(짝수), C=3(홀수), E=3(홀수) → 홀수점 = C, E → 2개
-홀수점 2개이면 일필서 가능. C에서 출발, E에서 종료 (또는 반대).</div></div>
+<div class="ss"><div class="sl">풀이</div><div class="stx">각 점의 차수(나가는 선의 수)를 세면:</div></div>
+<div style="overflow-x:auto;margin:8px 0;">
+<svg width="100%" viewBox="0 0 240 160" xmlns="http://www.w3.org/2000/svg" style="max-width:280px;">
+<style>.qe3{stroke:var(--color-text-secondary,#888);stroke-width:1;}.qv3{fill:var(--color-background-secondary,#1c1c24);stroke:var(--color-text-secondary,#888);stroke-width:0.5;}.qo3{fill:#FAEEDA;stroke:#BA7517;stroke-width:1;}.qt3{font-family:'Noto Sans KR',sans-serif;font-size:10px;text-anchor:middle;dominant-baseline:central;}.qt3n{fill:var(--color-text-secondary,#888);}.qt3o{fill:#854F0B;}</style>
+<line class="qe3" x1="40" y1="50" x2="120" y2="10"/><line class="qe3" x1="120" y1="10" x2="200" y2="50"/>
+<line class="qe3" x1="40" y1="50" x2="200" y2="50"/><line class="qe3" x1="40" y1="50" x2="40" y2="140"/><line class="qe3" x1="200" y1="50" x2="200" y2="140"/><line class="qe3" x1="40" y1="140" x2="200" y2="140"/>
+<line class="qe3" x1="40" y1="50" x2="200" y2="140"/>
+<circle class="qv3" cx="120" cy="10" r="12"/><text class="qt3 qt3n" x="120" y="10">A:2</text>
+<circle class="qv3" cx="40" cy="50" r="12"/><text class="qt3 qt3n" x="40" y="50">B:4</text>
+<circle class="qo3" cx="200" cy="50" r="12"/><text class="qt3 qt3o" x="200" y="50">C:3</text>
+<circle class="qv3" cx="40" cy="140" r="12"/><text class="qt3 qt3n" x="40" y="140">D:2</text>
+<circle class="qo3" cx="200" cy="140" r="12"/><text class="qt3 qt3o" x="200" y="140">E:3</text>
+</svg>
+</div>
+<div class="ss"><div class="stx">A=2(짝수), B=4(짝수), C=3(홀수), D=2(짝수), E=3(홀수)
+홀수점 = C, E → 2개 → 일필서 가능. C에서 출발 → E에서 종료 (또는 반대).</div></div>
 <div class="sa">정답: 1. 가능</div></div></div></div>
 
 <div class="pc"><div class="pc-h"><div class="pc-num">Q03 — 도형 (접기)</div><div class="pc-title">정사각형 접기</div>
-<p style="font-size:12px;color:var(--text-dim);margin-bottom:12px;">정사각형을 접고 잘랐을 때 펼친 모양은?</p>
+<p style="font-size:12px;color:var(--text-dim);margin-bottom:12px;">정사각형을 아래 순서로 접고 잘랐다. 펼쳤을 때 구멍의 개수는?</p>
 <div style="overflow-x:auto;">
-<svg width="100%" viewBox="0 0 520 120" xmlns="http://www.w3.org/2000/svg" style="max-width:520px;">
+<svg width="100%" viewBox="0 0 380 120" xmlns="http://www.w3.org/2000/svg" style="max-width:400px;">
 <style>.fs{fill:none;stroke:var(--color-text-secondary,#888);stroke-width:0.5;}.fd{stroke:var(--color-text-secondary,#888);stroke-width:0.5;stroke-dasharray:3 2;}.fc{fill:var(--color-text-danger,#e24b4a);opacity:0.3;}.ft{font-family:'Noto Sans KR',sans-serif;font-size:9px;fill:var(--color-text-secondary,#888);text-anchor:middle;}.fa{font-family:'Noto Sans KR',sans-serif;font-size:14px;fill:var(--color-text-secondary,#888);text-anchor:middle;dominant-baseline:central;}</style>
-<!-- Step 1: Original square -->
 <rect class="fs" x="10" y="10" width="80" height="80"/>
 <line class="fd" x1="50" y1="10" x2="50" y2="90"/>
 <text class="ft" x="50" y="105">1. 세로 반접기</text>
 <text class="fa" x="115" y="50">→</text>
-<!-- Step 2: Half -->
 <rect class="fs" x="140" y="10" width="40" height="80"/>
 <line class="fd" x1="140" y1="50" x2="180" y2="50"/>
 <text class="ft" x="160" y="105">2. 가로 반접기</text>
 <text class="fa" x="210" y="50">→</text>
-<!-- Step 3: Quarter with cut -->
 <rect class="fs" x="240" y="10" width="40" height="40"/>
 <polygon class="fc" points="260,10 280,10 280,30"/>
 <line style="stroke:var(--color-text-danger,#e24b4a);stroke-width:1;" x1="260" y1="10" x2="280" y2="30"/>
 <text class="ft" x="260" y="66">3. 우상단 삼각 자르기</text>
-<text class="fa" x="310" y="30">→</text>
-<!-- Step 4: Unfolded result = 4 triangular holes -->
-<rect class="fs" x="340" y="10" width="80" height="80"/>
-<polygon class="fc" points="380,10 420,10 420,50"/><polygon class="fc" points="380,10 340,10 340,50"/>
-<polygon class="fc" points="380,90 420,90 420,50"/><polygon class="fc" points="380,90 340,90 340,50"/>
-<text class="ft" x="380" y="105">4. 펼친 결과</text>
+<text class="ft" x="330" y="30" style="font-size:12px;">→ 펼치면?</text>
 </svg>
 </div>
-<div class="pc-jp">펼쳤을 때 구멍의 개수는?
-
-A. 1개　B. 2개　C. 4개　D. 8개　E. 16개</div></div>
+<div class="pc-jp">A. 1개　B. 2개　C. 4개　D. 8개　E. 16개</div></div>
 <button class="at" onclick="tog(this)"><span>💡 풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab">
 <div class="ss"><div class="sl">풀이</div><div class="stx">2번 접었으므로 4겹. 우상단 모서리를 1번 자르면 4겹 모두 잘림.
-펼치면 대칭적으로 4개의 삼각형 구멍이 나타남 (상하좌우 대칭).</div></div>
+펼치면 대칭적으로 4개의 삼각형 구멍이 나타남:</div></div>
+<div style="overflow-x:auto;margin:8px 0;">
+<svg width="100%" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" style="max-width:140px;">
+<rect fill="none" stroke="var(--color-text-secondary,#888)" stroke-width="0.5" x="10" y="10" width="100" height="100"/>
+<polygon fill="var(--color-text-danger,#e24b4a)" opacity="0.3" points="60,10 110,10 110,60"/>
+<polygon fill="var(--color-text-danger,#e24b4a)" opacity="0.3" points="60,10 10,10 10,60"/>
+<polygon fill="var(--color-text-danger,#e24b4a)" opacity="0.3" points="60,110 110,110 110,60"/>
+<polygon fill="var(--color-text-danger,#e24b4a)" opacity="0.3" points="60,110 10,110 10,60"/>
+</svg>
+</div>
 <div class="sa">정답: C. 4개</div></div></div></div>
 
 <div class="pc"><div class="pc-h"><div class="pc-num">Q04 — 도형 (주사위)</div><div class="pc-title">주사위 전개도에서 대면 찾기</div>
