@@ -28,90 +28,34 @@ window.addEventListener('DOMContentLoaded', function(){
   body.tcs-ready { padding-left:0 !important; margin-left:0 !important; }
 
   :root {
-    --bg: #0a0a0f;
-    --surface: #141419;
-    --surface-2: #1c1c24;
-    --surface-3: #22222e;
-    --border: #2a2a35;
-    --border-hover: #3a3a48;
-    --text: #e8e8ed;
-    --text-sub: #c0c0d0;
-    --text-dim: #8888a0;
-    --text-muted: #555568;
-    --accent: #4a9eff;
-    --accent-soft: rgba(74,158,255,0.08);
-    --accent-border: rgba(74,158,255,0.18);
-    --warn: #f59e0b;
-    --warn-soft: rgba(245,158,11,0.06);
-    --warn-border: rgba(245,158,11,0.18);
-    --success: #34d399;
-    --success-soft: rgba(52,211,153,0.07);
-    --success-border: rgba(52,211,153,0.18);
-    --purple: #a78bfa;
-    --purple-soft: rgba(167,139,250,0.08);
-    --purple-border: rgba(167,139,250,0.18);
-    --pink: #f472b6;
-    --pink-soft: rgba(244,114,182,0.08);
-    --pink-border: rgba(244,114,182,0.18);
-    --danger: #ef4444;
-    --danger-soft: rgba(239,68,68,0.06);
-    --danger-border: rgba(239,68,68,0.18);
+    --bg: #0a0a0f; --surface: #141419; --surface-2: #1c1c24; --surface-3: #22222e;
+    --border: #2a2a35; --border-hover: #3a3a48;
+    --text: #e8e8ed; --text-sub: #c0c0d0; --text-dim: #8888a0; --text-muted: #555568;
+    --accent: #4a9eff; --accent-soft: rgba(74,158,255,0.08); --accent-border: rgba(74,158,255,0.18);
+    --warn: #f59e0b; --warn-soft: rgba(245,158,11,0.06); --warn-border: rgba(245,158,11,0.18);
+    --success: #34d399; --success-soft: rgba(52,211,153,0.07); --success-border: rgba(52,211,153,0.18);
+    --purple: #a78bfa; --purple-soft: rgba(167,139,250,0.08); --purple-border: rgba(167,139,250,0.18);
+    --pink: #f472b6; --pink-soft: rgba(244,114,182,0.08); --pink-border: rgba(244,114,182,0.18);
+    --danger: #ef4444; --danger-soft: rgba(239,68,68,0.06); --danger-border: rgba(239,68,68,0.18);
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Noto Sans KR','Noto Sans JP',sans-serif;
-    line-height: 1.8;
-    font-size: 15px;
-    -webkit-font-smoothing: antialiased;
-  }
+  body { background:var(--bg); color:var(--text); font-family:'Noto Sans KR','Noto Sans JP',sans-serif; line-height:1.8; font-size:15px; -webkit-font-smoothing:antialiased; }
   .container { max-width:808px; margin:0 auto; padding:0 24px 100px; }
 
-  .hero {
-    padding: 64px 24px 48px;
-    border-bottom: 1px solid var(--border);
-    position: relative; overflow: hidden;
-  }
-  .hero::before {
-    content:''; position:absolute; inset:0;
-    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(74,158,255,0.06) 0%, transparent 70%);
-    pointer-events:none;
-  }
+  .hero { padding:64px 24px 48px; border-bottom:1px solid var(--border); position:relative; overflow:hidden; }
+  .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(74,158,255,0.06) 0%, transparent 70%); pointer-events:none; }
   .hero-inner { position:relative; max-width:808px; margin:0 auto; padding:0 24px; }
-  .hero-label {
-    display:inline-block; font-size:10px; font-weight:700;
-    letter-spacing:3px; color:var(--accent);
-    background:var(--accent-soft); border:1px solid var(--accent-border);
-    padding:4px 12px; border-radius:12px; margin-bottom:20px; text-transform:uppercase;
-  }
+  .hero-label { display:inline-block; font-size:10px; font-weight:700; letter-spacing:3px; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-border); padding:4px 12px; border-radius:12px; margin-bottom:20px; text-transform:uppercase; }
   .hero h1 { font-size:30px; font-weight:900; line-height:1.3; margin-bottom:10px; letter-spacing:-0.5px; }
   .hero-sub { font-size:13px; color:var(--text-dim); line-height:1.9; margin-bottom:20px; max-width:560px; }
   .hero-meta { font-size:11px; color:var(--text-muted); margin-bottom:20px; }
   .hero-tags { display:flex; flex-wrap:wrap; gap:6px; }
-  .hero-tag {
-    font-size:11px; padding:4px 12px; border-radius:100px;
-    background:var(--accent-soft); color:var(--accent);
-    border:1px solid var(--accent-border); font-weight:500;
-  }
+  .hero-tag { font-size:11px; padding:4px 12px; border-radius:100px; background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); font-weight:500; }
 
-  .section-nav {
-    position:sticky; top:0; z-index:100;
-    background:rgba(10,10,15,0.92); backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--border); padding:10px 0;
-  }
-  .section-nav-inner {
-    max-width:808px; margin:0 auto; padding:0 24px;
-    display:flex; gap:4px; overflow-x:auto; scrollbar-width:none;
-  }
+  .section-nav { position:sticky; top:0; z-index:100; background:rgba(10,10,15,0.92); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border-bottom:1px solid var(--border); padding:10px 0; }
+  .section-nav-inner { max-width:808px; margin:0 auto; padding:0 24px; display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; }
   .section-nav-inner::-webkit-scrollbar { display:none; }
-  .nav-btn {
-    flex-shrink:0; padding:6px 12px; border-radius:8px;
-    font-size:11px; font-weight:500; color:var(--text-muted);
-    cursor:pointer; border:none; background:none; font-family:inherit;
-    transition:all 0.2s; white-space:nowrap;
-  }
+  .nav-btn { flex-shrink:0; padding:6px 12px; border-radius:8px; font-size:11px; font-weight:500; color:var(--text-muted); cursor:pointer; border:none; background:none; font-family:inherit; transition:all 0.2s; white-space:nowrap; }
   .nav-btn:hover, .nav-btn.active { color:var(--accent); background:var(--accent-soft); }
 
   .section { padding:44px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
@@ -132,143 +76,76 @@ window.addEventListener('DOMContentLoaded', function(){
   .info-box-danger { background:var(--danger-soft); border-color:var(--danger-border); border-left:3px solid var(--danger); }
   .info-box h4 { font-size:13px; font-weight:700; margin-bottom:8px; color:var(--text); }
   .info-box p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
-  .box-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--accent); margin-bottom:6px; text-transform:uppercase; }
-  .box-label-warn { color:var(--warn); }
-  .box-label-success { color:var(--success); }
-  .box-label-purple { color:var(--purple); }
-  .box-label-pink { color:var(--pink); }
-  .box-label-danger { color:var(--danger); }
-  .hl { color:var(--accent); font-weight:600; }
-  .hl-warn { color:var(--warn); font-weight:600; }
-  .hl-success { color:var(--success); font-weight:600; }
-  .hl-purple { color:var(--purple); font-weight:600; }
+  .box-label { font-size:10px; font-weight:700; letter-spacing:2px; margin-bottom:6px; text-transform:uppercase; color:var(--accent); }
+  .box-label-warn { color:var(--warn); } .box-label-success { color:var(--success); } .box-label-purple { color:var(--purple); } .box-label-pink { color:var(--pink); } .box-label-danger { color:var(--danger); }
+  .hl { color:var(--accent); font-weight:600; } .hl-warn { color:var(--warn); font-weight:600; } .hl-success { color:var(--success); font-weight:600; } .hl-purple { color:var(--purple); font-weight:600; }
 
   .struct-grid { display:flex; flex-direction:column; gap:8px; margin:16px 0; }
-  .struct-row {
-    display:flex; align-items:flex-start; gap:12px;
-    padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px;
-  }
-  .struct-label {
-    flex-shrink:0; width:56px; padding:4px 0; font-size:11px; font-weight:700;
-    color:var(--accent); text-align:center;
-  }
+  .struct-row { display:flex; align-items:flex-start; gap:12px; padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
+  .struct-label { flex-shrink:0; width:56px; padding:4px 0; font-size:11px; font-weight:700; color:var(--accent); text-align:center; }
   .struct-content { flex:1; font-size:12px; color:var(--text-dim); line-height:1.8; }
   .struct-content strong { color:var(--text-sub); }
-  .struct-pct { flex-shrink:0; font-size:11px; color:var(--text-muted); min-width:36px; text-align:right; }
 
   .ex-block { margin:16px 0; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
-  .ex-header {
-    padding:10px 16px; background:var(--surface-2); display:flex; align-items:center; gap:8px;
-    cursor:pointer; user-select:none;
-  }
+  .ex-header { padding:10px 16px; background:var(--surface-2); display:flex; align-items:center; gap:8px; cursor:pointer; user-select:none; }
   .ex-tag { font-size:10px; font-weight:700; padding:2px 8px; border-radius:4px; }
   .ex-tag-good { background:var(--success-soft); color:var(--success); border:1px solid var(--success-border); }
   .ex-tag-bad { background:var(--danger-soft); color:var(--danger); border:1px solid var(--danger-border); }
   .ex-tag-q { background:var(--purple-soft); color:var(--purple); border:1px solid var(--purple-border); }
-  .ex-tag-a { background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); }
   .ex-label { font-size:12px; font-weight:600; color:var(--text-sub); }
-  .ex-toggle { margin-left:auto; font-size:10px; color:var(--text-muted); transition:transform 0.2s; }
+  .ex-toggle { margin-left:auto; font-size:10px; color:var(--text-muted); }
   .ex-body { padding:14px 16px; background:var(--surface); font-size:12px; line-height:1.9; display:none; }
   .ex-body.open { display:block; }
-  .ex-body .jp { color:var(--text-dim); font-family:'Noto Sans JP','Noto Sans KR',sans-serif; margin-bottom:10px; }
-  .ex-body .ko { color:var(--text-muted); font-size:11px; }
-  .ex-body .point { margin-top:10px; padding:8px 12px; background:var(--accent-soft); border-radius:6px; font-size:11px; color:var(--accent); line-height:1.7; }
 
   .compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
   .compare-card { padding:16px; border-radius:10px; }
   .compare-card.good { background:var(--success-soft); border:1px solid var(--success-border); }
   .compare-card.bad { background:var(--danger-soft); border:1px solid var(--danger-border); }
   .compare-card h5 { font-size:12px; font-weight:700; margin-bottom:8px; }
-  .compare-card.good h5 { color:var(--success); }
-  .compare-card.bad h5 { color:var(--danger); }
+  .compare-card.good h5 { color:var(--success); } .compare-card.bad h5 { color:var(--danger); }
   .compare-card p { font-size:11px; color:var(--text-dim); line-height:1.8; margin-bottom:0; }
 
   .rule-table { width:100%; border-collapse:collapse; margin:16px 0; }
-  .rule-table th {
-    font-size:11px; font-weight:700; color:var(--accent); text-align:left;
-    padding:10px 14px; background:var(--surface); border-bottom:1px solid var(--border);
-  }
-  .rule-table td {
-    font-size:12px; color:var(--text-dim); padding:10px 14px;
-    border-bottom:1px solid rgba(255,255,255,0.03); line-height:1.7; vertical-align:top;
-  }
+  .rule-table th { font-size:11px; font-weight:700; color:var(--accent); text-align:left; padding:10px 14px; background:var(--surface); border-bottom:1px solid var(--border); }
+  .rule-table td { font-size:12px; color:var(--text-dim); padding:10px 14px; border-bottom:1px solid rgba(255,255,255,0.03); line-height:1.7; vertical-align:top; }
   .rule-table tr:hover td { background:var(--surface); }
 
   .checklist { margin:16px 0; }
-  .checklist-item {
-    display:flex; align-items:flex-start; gap:10px;
-    padding:10px 14px; border-bottom:1px solid rgba(255,255,255,0.03);
-    font-size:12px; color:var(--text-dim); line-height:1.8;
-  }
+  .checklist-item { display:flex; align-items:flex-start; gap:10px; padding:10px 14px; border-bottom:1px solid rgba(255,255,255,0.03); font-size:12px; color:var(--text-dim); line-height:1.8; }
   .checklist-item:last-child { border-bottom:none; }
   .checklist-icon { flex-shrink:0; margin-top:2px; }
 
-  .step-flow { display:flex; flex-direction:column; gap:0; margin:16px 0; }
-  .step-item { display:flex; align-items:flex-start; gap:14px; position:relative; padding-bottom:16px; }
-  .step-item:not(:last-child)::after {
-    content:''; position:absolute; left:15px; top:32px; bottom:0;
-    width:2px; background:var(--border);
-  }
-  .step-num {
-    flex-shrink:0; width:32px; height:32px; border-radius:50%;
-    background:var(--accent-soft); border:1px solid var(--accent-border);
-    display:flex; align-items:center; justify-content:center;
-    font-size:12px; font-weight:800; color:var(--accent); z-index:1;
-  }
-  .step-body { flex:1; padding-top:4px; }
-  .step-body h4 { font-size:13px; font-weight:700; color:var(--text-sub); margin-bottom:4px; }
-  .step-body p { font-size:12px; color:var(--text-dim); line-height:1.8; margin-bottom:0; }
-  .step-body .q-example { font-size:11px; color:var(--warn); margin-top:4px; font-style:italic; }
+  /* Vertical step flow (후카보리 5단계) */
+  .v-step-flow { display:flex; flex-direction:column; gap:0; margin:16px 0; }
+  .v-step-item { display:flex; align-items:flex-start; gap:14px; position:relative; padding-bottom:16px; }
+  .v-step-item:not(:last-child)::after { content:''; position:absolute; left:15px; top:32px; bottom:0; width:2px; background:var(--border); }
+  .v-step-num { flex-shrink:0; width:32px; height:32px; border-radius:50%; background:var(--accent-soft); border:1px solid var(--accent-border); display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; color:var(--accent); z-index:1; }
+  .v-step-body { flex:1; padding-top:4px; }
+  .v-step-body h4 { font-size:13px; font-weight:700; color:var(--text-sub); margin-bottom:4px; }
+  .v-step-body p { font-size:12px; color:var(--text-dim); line-height:1.8; margin-bottom:0; }
+  .q-example { font-size:11px; color:var(--warn); margin-top:4px; font-style:italic; }
 
-  .cta-btn {
-    display:inline-flex; align-items:center; gap:8px;
-    padding:14px 32px; background:var(--accent); color:#fff;
-    border-radius:10px; font-size:14px; font-weight:700;
-    text-decoration:none; transition:all 0.2s; border:none; cursor:pointer;
-    font-family:inherit;
-  }
-  .cta-btn:hover { background:#6aadff; transform:translateY(-1px); }
-  .cta-btn-secondary {
-    background:transparent; border:1px solid var(--accent-border); color:var(--accent);
-  }
-  .cta-btn-secondary:hover { background:var(--accent-soft); }
+  /* Horizontal step flow indicator (es-guide와 동일) */
+  .step-flow { display:flex; align-items:center; gap:0; margin:20px 0 8px; padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; overflow-x:auto; }
+  .step-flow-item { font-size:11px; font-weight:600; color:var(--text-muted); white-space:nowrap; padding:4px 10px; border-radius:6px; }
+  .step-flow-item.current { background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border); }
+  .step-flow-arrow { color:var(--text-muted); font-size:10px; margin:0 2px; opacity:0.4; }
 
-  .pt-cta {
-    background:linear-gradient(135deg, rgba(74,158,255,0.06), rgba(167,139,250,0.06));
-    border:1px solid var(--accent-border); border-radius:12px;
-    padding:28px 24px; text-align:center; margin:32px 0;
-  }
-  .pt-cta h4 { font-size:16px; font-weight:800; margin-bottom:8px; }
-  .pt-cta p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:16px; }
-
-  /* stage cards */
+  /* Stage cards */
   .stage-card { padding:18px 20px; background:var(--surface); border:1px solid var(--border); border-radius:10px; margin:12px 0; border-left:3px solid var(--accent); }
-  .stage-card.s1 { border-left-color:var(--success); }
-  .stage-card.s2 { border-left-color:var(--warn); }
-  .stage-card.sf { border-left-color:var(--danger); }
+  .stage-card.s1 { border-left-color:var(--success); } .stage-card.s2 { border-left-color:var(--warn); } .stage-card.sf { border-left-color:var(--danger); }
   .stage-card h4 { font-size:14px; font-weight:700; margin-bottom:6px; }
   .stage-card p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:0; }
 
-  /* question grid for S5 */
-  .q-grid { display:grid; grid-template-columns:1fr; gap:8px; margin:16px 0; }
-  .q-item { display:flex; gap:12px; padding:12px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px; }
-  .q-item-num { flex-shrink:0; font-size:12px; font-weight:800; color:var(--accent); min-width:28px; }
-  .q-item-body { flex:1; }
-  .q-item-title { font-size:13px; font-weight:700; color:var(--text-sub); }
-  .q-item-jp { font-size:11px; color:var(--text-muted); font-family:'Noto Sans JP',sans-serif; }
-  .q-item-cat { font-size:10px; font-weight:600; padding:2px 8px; border-radius:4px; margin-left:auto; flex-shrink:0; align-self:center; }
-  .cat-self { background:var(--accent-soft); color:var(--accent); }
-  .cat-company { background:var(--success-soft); color:var(--success); }
-  .cat-future { background:var(--purple-soft); color:var(--purple); }
-  .cat-human { background:var(--warn-soft); color:var(--warn); }
-  .cat-bg { background:var(--pink-soft); color:var(--pink); }
-  .cat-senkou { background:var(--danger-soft); color:var(--danger); }
+  .cta-btn { display:inline-flex; align-items:center; gap:8px; padding:14px 32px; background:var(--accent); color:#fff; border-radius:10px; font-size:14px; font-weight:700; text-decoration:none; transition:all 0.2s; border:none; cursor:pointer; font-family:inherit; }
+  .cta-btn:hover { background:#6aadff; transform:translateY(-1px); }
+  .cta-btn-secondary { background:transparent; border:1px solid var(--accent-border); color:var(--accent); }
+  .cta-btn-secondary:hover { background:var(--accent-soft); }
+  .pt-cta { background:linear-gradient(135deg, rgba(74,158,255,0.06), rgba(167,139,250,0.06)); border:1px solid var(--accent-border); border-radius:12px; padding:28px 24px; text-align:center; margin:32px 0; }
+  .pt-cta h4 { font-size:16px; font-weight:800; margin-bottom:8px; }
+  .pt-cta p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:16px; }
 
-  @media (max-width:640px) {
-    .hero h1 { font-size:24px; }
-    .section-title { font-size:18px; }
-    .compare-grid { grid-template-columns:1fr; }
-  }
+  @media (max-width:640px) { .hero h1 { font-size:24px; } .section-title { font-size:18px; } .compare-grid { grid-template-columns:1fr; } .step-flow { flex-wrap:wrap; } }
 </style>
 </head>
 <body>
@@ -280,16 +157,15 @@ window.addEventListener('DOMContentLoaded', function(){
     <h1>면접 완전 가이드</h1>
     <p class="hero-sub">
       면접은 ES를 검증하는 자리입니다.<br>
-      3대 원칙, 후카보리 5단계, 단계별 전략, 빈출 20대 질문,<br>
-      역질문, GD, 이과생 기술면접까지 — 일본 취활 면접의 모든 것.
+      ES에서 쓴 강점이 진짜인지 확인하는 4단계 워크플로우.<br>
+      준비 → 후카보리 → 실전(1차/2차/최종) → 마무리.
     </p>
     <p class="hero-meta">Tokyo Career Studio &nbsp;|&nbsp; 2026.03 &nbsp;|&nbsp; 약 25분</p>
     <div class="hero-tags">
-      <span class="hero-tag">ES 검증의 자리</span>
-      <span class="hero-tag">3대 원칙</span>
-      <span class="hero-tag">후카보리 5단계</span>
-      <span class="hero-tag">빈출 20대 질문</span>
-      <span class="hero-tag">역질문 가이드</span>
+      <span class="hero-tag">Step 1 면접 전 준비</span>
+      <span class="hero-tag">Step 2 후카보리</span>
+      <span class="hero-tag">Step 3 1차/2차/최종</span>
+      <span class="hero-tag">Step 4 역질문</span>
       <span class="hero-tag">GD 대비</span>
       <span class="hero-tag">기술면접</span>
     </div>
@@ -299,23 +175,25 @@ window.addEventListener('DOMContentLoaded', function(){
 <!-- ═══════════ SECTION NAV ═══════════ -->
 <nav class="section-nav">
   <div class="section-nav-inner">
-    <button class="nav-btn active" onclick="scrollToSection('s1')">면접의 본질</button>
-    <button class="nav-btn" onclick="scrollToSection('s2')">3대 원칙</button>
-    <button class="nav-btn" onclick="scrollToSection('s3')">후카보리</button>
-    <button class="nav-btn" onclick="scrollToSection('s4')">단계별 전략</button>
-    <button class="nav-btn" onclick="scrollToSection('s5')">빈출 20대 질문</button>
-    <button class="nav-btn" onclick="scrollToSection('s6')">역질문</button>
-    <button class="nav-btn" onclick="scrollToSection('s7')">GD 대비</button>
-    <button class="nav-btn" onclick="scrollToSection('s8')">기술면접</button>
+    <button class="nav-btn active" onclick="scrollToSection('s1')">면접이란?</button>
+    <button class="nav-btn" onclick="scrollToSection('s2')">Step1 준비</button>
+    <button class="nav-btn" onclick="scrollToSection('s3')">Step2 후카보리</button>
+    <button class="nav-btn" onclick="scrollToSection('s4')">Step3 실전</button>
+    <button class="nav-btn" onclick="scrollToSection('s5')">Step4 역질문</button>
+    <button class="nav-btn" onclick="scrollToSection('s6')">GD 대비</button>
+    <button class="nav-btn" onclick="scrollToSection('s7')">기술면접</button>
+    <button class="nav-btn" onclick="scrollToSection('s8')">체크리스트</button>
   </div>
 </nav>
 
 <div class="container">
 
-<!-- ════ SECTION 01 ════ -->
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 01: 면접이란 무엇인가 (축소)        -->
+<!-- ════════════════════════════════════════════ -->
 <div class="section" id="s1">
   <div class="section-num">SECTION 01</div>
-  <div class="section-title">면접의 본질: ES 검증의 자리</div>
+  <div class="section-title">면접 = ES 검증의 자리</div>
   <div class="section-title-jp">面接の本質：ESを検証する場</div>
 
   <p>
@@ -332,8 +210,6 @@ window.addEventListener('DOMContentLoaded', function(){
     </p>
   </div>
 
-  <h3>ES → 면접의 관계</h3>
-
   <table class="rule-table">
     <thead><tr><th>단계</th><th>역할</th><th>분량</th></tr></thead>
     <tbody>
@@ -343,50 +219,46 @@ window.addEventListener('DOMContentLoaded', function(){
     </tbody>
   </table>
 
-  <h3>문과생 vs 이과생 선고 프로세스 차이</h3>
-
-  <div class="compare-grid">
-    <div class="compare-card good">
-      <h5>문과생 (종합직/영업직)</h5>
-      <p>
-        ES/웹테스트 → 1차 면접 → 2차 면접 → 최종 면접 → 내정
-      </p>
-    </div>
-    <div class="compare-card" style="background:var(--purple-soft);border:1px solid var(--purple-border);">
-      <h5 style="color:var(--purple);">이과생 (기술직/엔지니어)</h5>
-      <p>
-        ES/웹테스트 → 면접 → 기술면접 → (인턴) → 본선고 면접 → 내정
-      </p>
-    </div>
-  </div>
-
   <div class="info-box">
-    <h4>이 가이드의 활용법</h4>
+    <h4>이 가이드의 사용법</h4>
     <p>
-      <strong>문과생:</strong> S1~S7 학습 (S8은 스킵 가능)<br>
-      <strong>이과생:</strong> S1~S8 전체 학습 (S8 기술면접 필수)
+      <strong>ES 가이드에서 정한 강점(Step 1)이 면접의 출발점입니다.</strong>
+      아직 ES를 정리하지 않았다면 → <a href="es-guide.html" style="color:var(--accent);font-weight:600;text-decoration:underline;">ES 작성 완전 가이드</a>를 먼저 완성하세요.<br><br>
+      <strong>문과생:</strong> S1~S5 + S8 학습 (S6은 GD가 있는 경우, S7은 스킵 가능)<br>
+      <strong>이과생:</strong> S1~S5 + S7 + S8 전체 학습
     </p>
   </div>
 </div>
 
-<!-- ════ SECTION 02 ════ -->
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 02: Step 1 — 면접 전 준비            -->
+<!-- ════════════════════════════════════════════ -->
 <div class="section" id="s2">
-  <div class="section-num">SECTION 02</div>
-  <div class="section-title">면접 3대 핵심 원칙</div>
-  <div class="section-title-jp">面接の3大原則</div>
+  <div class="section-num">STEP 01</div>
+  <div class="section-title">면접 전 준비: 3대 원칙 장착</div>
+  <div class="section-title-jp">面接前の準備：3大原則を装備する</div>
+
+  <div class="step-flow">
+    <span class="step-flow-item current">Step 1 준비</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 2 후카보리</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 3 실전</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 4 역질문</span>
+  </div>
 
   <p>
-    일본 기업의 채용 프로세스는 ES 작성부터 최종 면접까지 하나의 연결된 흐름입니다.
-    이 전체 과정에서 일관되게 적용되는 <span class="hl">3가지 핵심 원칙</span>을 이해하면,
-    각 단계에서 무엇을 준비하고 어떻게 답변해야 하는지 명확해집니다.
+    면접장에 들어가기 전에 반드시 장착해야 할 3가지 원칙이 있습니다.
+    이 원칙을 이해하면 모든 질문에 <span class="hl">같은 프레임워크</span>로 답할 수 있습니다.
   </p>
 
-  <!-- 원칙 1 -->
   <h3>제1원칙: 일관성 (一貫性)</h3>
 
   <p>
     ES - 적성검사(성격검사) - 면접의 모든 단계에서 어필하는 내용에 <span class="hl">모순점이 없어야</span> 합니다.
-    면접관은 1차, 2차, 최종에서 같은 사람이 다른 이야기를 하면 신뢰도가 급락합니다.
+    ES 가이드 Step 1에서 정한 강점이 면접 전체를 관통해야 합니다.
   </p>
 
   <div class="compare-grid">
@@ -413,57 +285,38 @@ window.addEventListener('DOMContentLoaded', function(){
   <div class="info-box info-box-success">
     <div class="box-label box-label-success">일관성을 지키는 3가지</div>
     <p>
-      <strong>1.</strong> 하나의 축을 중심으로 모든 답변 구성<br>
+      <strong>1.</strong> ES Step 1의 강점 하나를 중심으로 모든 답변 구성<br>
       <strong>2.</strong> ES에 쓴 에피소드를 면접에서도 동일하게 사용<br>
       <strong>3.</strong> 자기PR, 강점, 주변 평가가 같은 방향을 가리키도록
     </p>
   </div>
 
-  <!-- 원칙 2 -->
   <h3>제2원칙: 모티베이션의 원천 (モチベーションの源泉)</h3>
 
   <p>
     "이 사람은 무엇에 의해 움직이는 사람인가?" —
     단순히 "열심히 하겠습니다"가 아니라, <span class="hl">왜 열심히 하는지</span> 그 원천을 보여줘야 합니다.
+    ES 가이드 Step 4에서 활용한 4축 분석 결과를 면접에서도 그대로 씁니다.
   </p>
-
-  <div class="info-box info-box-purple">
-    <div class="box-label box-label-purple">핵심 포인트</div>
-    <h4>선호업무환경 진단 4축 = 모티베이션 원천</h4>
-    <p>
-      1-2회차에서 진행한 "선호업무환경 진단 20문항" 결과가 바로 여러분의 모티베이션 원천입니다.
-      내가 선호하는 환경에서 일할 때 최고의 성과를 낼 수 있기 때문입니다.
-    </p>
-  </div>
 
   <table class="rule-table">
-    <thead><tr><th>축</th><th>A 성향 (낮은 점수)</th><th>B 성향 (높은 점수)</th></tr></thead>
+    <thead><tr><th>축</th><th>A 성향</th><th>B 성향</th></tr></thead>
     <tbody>
-      <tr><td><strong>환경</strong></td><td>도전/성장: 빠른 성장, 변화 환영</td><td>안정/지속: 안정적, 예측 가능, 장기적 커리어</td></tr>
-      <tr><td><strong>업무 방식</strong></td><td>개인 성과: 독립적, 성과로 증명</td><td>팀 협업: 협업 중심, 팀워크, 관계 중시</td></tr>
-      <tr><td><strong>문화</strong></td><td>자율/수평: 자율, 수평적, 유연한 규칙</td><td>체계/구조: 위계, 명확한 구조/프로세스</td></tr>
-      <tr><td><strong>커리어</strong></td><td>스페셜리스트: 한 분야 깊게</td><td>제너럴리스트: 다양한 경험</td></tr>
+      <tr><td><strong>환경</strong></td><td>"새로운 도전이 있는 환경에서 가장 의욕이 생깁니다"</td><td>"안정적인 환경에서 장기적으로 성장할 때 최선의 성과를 냅니다"</td></tr>
+      <tr><td><strong>업무</strong></td><td>"명확한 목표를 향해 몰입할 때 가장 의욕이 생깁니다"</td><td>"팀이 함께 목표를 달성했을 때 가장 보람을 느낍니다"</td></tr>
+      <tr><td><strong>문화</strong></td><td>"자율적으로 생각하고 행동할 수 있는 환경에서 힘이 납니다"</td><td>"명확한 프로세스 안에서 역할에 집중할 때 최선을 다합니다"</td></tr>
+      <tr><td><strong>커리어</strong></td><td>"한 분야를 깊이 파고들 때 가장 동기부여가 됩니다"</td><td>"다양한 경험을 쌓으며 성장할 때 의욕이 생깁니다"</td></tr>
     </tbody>
   </table>
-
-  <p>
-    <strong>면접에서 이렇게 표현하세요:</strong>
-    "새로운 도전이 있는 환경에서 가장 의욕이 생깁니다" (환경 A),
-    "팀이 함께 목표를 달성했을 때 가장 보람을 느낍니다" (업무 B),
-    "한 분야를 깊이 파고들 때 가장 동기부여가 됩니다" (커리어 A) 등
-    자신의 4축 결과에 맞는 표현을 준비하세요.
-  </p>
 
   <div class="info-box info-box-warn">
     <div class="box-label box-label-warn">핵심 메시지</div>
     <p>
       <strong>"나는 OO한 환경에서 OO할 때 최고의 성과를 낸다"</strong><br>
-      이것을 명확히 말할 수 있어야 합니다.
-      그리고 그 환경이 엔트리하는 기업과 일치한다는 것을 보여주세요.
+      이것을 명확히 말할 수 있어야 합니다. 그리고 그 환경이 엔트리하는 기업과 일치한다는 것을 보여주세요.
     </p>
   </div>
 
-  <!-- 원칙 3 -->
   <h3>제3원칙: 재현성 (再現性)</h3>
 
   <p>
@@ -484,82 +337,86 @@ window.addEventListener('DOMContentLoaded', function(){
 
   <div class="info-box">
     <h4>재현성 공식</h4>
-    <p>
-      <strong>[과거 성과]</strong> + <strong>[성과를 낸 사고방식/접근법]</strong> + <strong>[입사 후 활용 계획]</strong>
-    </p>
+    <p><strong>[과거 성과]</strong> + <strong>[성과를 낸 사고방식/접근법]</strong> + <strong>[입사 후 활용 계획]</strong></p>
   </div>
 
-  <h3>3대 원칙 정리</h3>
+  <h3>3대 원칙 → ES와의 대응표</h3>
 
   <table class="rule-table">
-    <thead><tr><th>원칙</th><th>핵심 질문</th><th>대응법</th></tr></thead>
+    <thead><tr><th>원칙</th><th>면접에서의 핵심 질문</th><th>ES 가이드 연결</th></tr></thead>
     <tbody>
-      <tr><td><strong>일관성</strong></td><td>이 사람은 어떤 사람인가?</td><td>하나의 축으로 모든 답변 연결</td></tr>
-      <tr><td><strong>모티베이션</strong></td><td>무엇이 이 사람을 움직이는가?</td><td>선호업무환경 4축으로 구체적으로</td></tr>
-      <tr><td><strong>재현성</strong></td><td>입사 후에도 성과를 낼 수 있는가?</td><td>사고방식의 활용 가능성 제시</td></tr>
+      <tr><td><strong>일관성</strong></td><td>이 사람은 어떤 사람인가?</td><td>Step 1 강점 → 자기PR/가쿠치카/지망동기 관통</td></tr>
+      <tr><td><strong>모티베이션</strong></td><td>무엇이 이 사람을 움직이는가?</td><td>Step 4 지망동기의 4축 분석</td></tr>
+      <tr><td><strong>재현성</strong></td><td>입사 후에도 성과를 낼 수 있는가?</td><td>Step 2 자기PR의 "활용"(15%), Step 4 지망동기의 "포부"(15%)</td></tr>
     </tbody>
   </table>
 </div>
 
-<!-- ════ SECTION 03 ════ -->
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 03: Step 2 — 후카보리 완전 대응      -->
+<!-- ════════════════════════════════════════════ -->
 <div class="section" id="s3">
-  <div class="section-num">SECTION 03</div>
-  <div class="section-title">후카보리(深掘り) 대응법</div>
+  <div class="section-num">STEP 02</div>
+  <div class="section-title">후카보리(深掘り) 완전 대응</div>
   <div class="section-title-jp">深掘りへの対応法</div>
+
+  <div class="step-flow">
+    <span class="step-flow-item">Step 1 준비</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item current">Step 2 후카보리</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 3 실전</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 4 역질문</span>
+  </div>
 
   <p>
     후카보리(深掘り)는 "깊이 파고든다"는 뜻입니다.
     일본 면접관은 <span class="hl">"なぜ(왜)"를 반복해서 물으면서</span> 여러분의 사고 과정을 확인합니다.
-    한 문장에서 5개 이상의 질문이 파생됩니다.
-  </p>
-
-  <h3>왜 일본 기업은 후카보리를 하는가?</h3>
-
-  <p>
     성과는 운이나 환경의 영향을 받지만, <span class="hl">사고 과정은 그 사람의 본질</span>이기 때문입니다.
-    신입사원은 새로운 환경, 새로운 문제를 만나게 되는데 —
-    과거의 성과 자체보다 "문제를 어떻게 인식하고, 어떻게 접근하는 사람인가?"가 더 중요합니다.
-    같은 사고 방식으로 우리 회사에서도 문제를 해결할 거라고 판단하는 것입니다.
   </p>
 
   <h3>후카보리 5단계 프레임워크</h3>
 
-  <div class="step-flow">
-    <div class="step-item">
-      <div class="step-num">1</div>
-      <div class="step-body">
+  <p>이 5단계에 답할 수 있으면, 아무리 "なぜ"를 물어도 당황하지 않습니다.</p>
+
+  <div class="v-step-flow">
+    <div class="v-step-item">
+      <div class="v-step-num">1</div>
+      <div class="v-step-body">
         <h4>문제 인식</h4>
         <p>상황을 어떻게 파악했는가?</p>
         <div class="q-example">"왜 그게 문제라고 생각했나요?"</div>
       </div>
     </div>
-    <div class="step-item">
-      <div class="step-num">2</div>
-      <div class="step-body">
+    <div class="v-step-item">
+      <div class="v-step-num">2</div>
+      <div class="v-step-body">
         <h4>사고 과정</h4>
         <p>왜 그렇게 생각했는가?</p>
         <div class="q-example">"왜 그 방법을 선택했나요?" "다른 방법은?"</div>
       </div>
     </div>
-    <div class="step-item">
-      <div class="step-num">3</div>
-      <div class="step-body">
+    <div class="v-step-item">
+      <div class="v-step-num">3</div>
+      <div class="v-step-body">
         <h4>접근 방법</h4>
         <p>어떤 방식으로 해결하려 했는가?</p>
         <div class="q-example">"구체적으로 어떻게 했나요?"</div>
       </div>
     </div>
-    <div class="step-item">
-      <div class="step-num">4</div>
-      <div class="step-body">
+    <div class="v-step-item">
+      <div class="v-step-num">4</div>
+      <div class="v-step-body">
         <h4>실행과 조정</h4>
         <p>막히면 어떻게 조정했는가?</p>
         <div class="q-example">"어려웠던 점은?" "어떻게 극복했나요?"</div>
       </div>
     </div>
-    <div class="step-item">
-      <div class="step-num">5</div>
-      <div class="step-body">
+    <div class="v-step-item">
+      <div class="v-step-num">5</div>
+      <div class="v-step-body">
         <h4>학습</h4>
         <p>무엇을 배웠고 어떻게 적용할 것인가?</p>
         <div class="q-example">"그 경험에서 무엇을 배웠나요?" "입사 후 어떻게 활용할 건가요?"</div>
@@ -567,56 +424,45 @@ window.addEventListener('DOMContentLoaded', function(){
     </div>
   </div>
 
-  <div class="info-box info-box-accent">
-    <h4>이 5단계에 답할 수 있으면, 아무리 "なぜ"를 물어도 당황하지 않습니다.</h4>
-  </div>
-
   <h3>후카보리 대응 예시</h3>
 
   <div class="ex-block">
-    <div class="ex-header" onclick="toggleEx(this)">
+    <div class="ex-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.ex-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
       <span class="ex-tag ex-tag-good">예시</span>
       <span class="ex-label">텔레마케팅 인턴 — 5단계 후카보리</span>
       <span class="ex-toggle">▼</span>
     </div>
     <div class="ex-body">
-      <div class="jp" style="margin-bottom:16px;">
+      <div class="jp" style="margin-bottom:16px;color:var(--text-dim);font-family:'Noto Sans JP','Noto Sans KR',sans-serif;">
         <strong>【원래 가쿠치카 답변】</strong><br>
-        私はテレマーケティングのインターンに力を入れました。<br>
-        当初、アポイント獲得が0件という状態が続いていました。原因を分析したところ、ターゲット選定が曖昧だったことに気づきました。そこで電話時に「領収書を手入力されていますか？」という質問を追加し、回答を都道府県別・業種別に整理してパターンを探りました。その結果、月7件のアポイント獲得を達成しました。この経験から、「努力の量」より「努力の方向」が重要だと学びました。
+        私はテレマーケティングのインターンに力を入れました。当初、アポイント獲得が0件という状態が続いていました。原因を分析したところ、ターゲット選定が曖昧だったことに気づきました。そこで電話時に「領収書を手入力されていますか？」という質問を追加し、回答を都道府県別・業種別に整理してパターンを探りました。その結果、月7件のアポイント獲得を達成しました。この経験から、「努力の量」より「努力の方向」が重要だと学びました。
       </div>
       <p style="font-size:12px;color:var(--accent);font-weight:700;margin-bottom:12px;">【후카보리 5단계】</p>
       <p style="font-size:12px;color:var(--text-dim);line-height:2.0;">
         <strong style="color:var(--warn);">1. 문제 인식</strong><br>
         Q: 왜 0건이 문제라고 생각했나요?<br>
         A: 목표가 월 5건이었는데 0건이면 팀에 기여를 전혀 못하는 상황이었습니다. 같은 방식을 반복해도 결과가 바뀌지 않을 거라고 판단했습니다.<br><br>
-
         <strong style="color:var(--warn);">2. 사고 과정</strong><br>
         Q: 왜 데이터 분석이라는 방법을 선택했나요?<br>
         A: 무작정 전화하는 것보다 "어떤 기업이 우리 서비스를 필요로 하는지"를 먼저 파악하는 게 효율적이라고 생각했습니다.<br>
         Q: 다른 방법은 고려 안 했나요?<br>
         A: 스크립트를 바꾸거나 전화 횟수를 늘리는 방법도 있었지만, 근본적으로 "타겟 선정"이 문제라고 판단해서 그쪽에 집중했습니다.<br><br>
-
         <strong style="color:var(--warn);">3. 접근 방법</strong><br>
         Q: 구체적으로 어떻게 했나요?<br>
         A: 전화할 때 "영수증을 수동 입력하고 계신가요?"라는 질문을 추가했고, 그 응답을 도도부현별, 업종별로 정리해서 패턴을 찾았습니다.<br><br>
-
         <strong style="color:var(--warn);">4. 실행과 조정</strong><br>
         Q: 어려웠던 점은?<br>
         A: 처음에는 데이터가 부족해서 패턴이 안 보였습니다.<br>
         Q: 어떻게 극복했나요?<br>
         A: 2주간 데이터를 모으면서 100건 이상이 쌓이자 지역별 차이가 명확해졌습니다.<br><br>
-
         <strong style="color:var(--warn);">5. 학습</strong><br>
         Q: 그 경험에서 무엇을 배웠나요?<br>
-        A: "노력의 양"보다 "노력의 방향"이 중요하다는 것을 배웠습니다. 데이터로 타겟을 좁히니 같은 시간에 더 좋은 결과가 나왔습니다.<br>
+        A: "노력의 양"보다 "노력의 방향"이 중요하다는 것을 배웠습니다.<br>
         Q: 입사 후 어떻게 활용할 건가요?<br>
         A: 영업에서도 "어떤 고객이 우리 상품을 필요로 하는가"를 데이터로 먼저 파악한 후 접근하겠습니다.
       </p>
     </div>
   </div>
-
-  <h3>후카보리에서 막혔을 때</h3>
 
   <div class="info-box info-box-warn">
     <div class="box-label box-label-warn">막혔을 때 대처법</div>
@@ -624,343 +470,167 @@ window.addEventListener('DOMContentLoaded', function(){
     <p>
       <strong>이렇게 대응하세요:</strong><br>
       "솔직히 그 당시에는 깊이 생각하지 못했습니다. 하지만 지금 돌아보면 OO했으면 더 좋았을 것 같습니다."<br>
-      → 자기 객관화 + 성장 가능성을 보여줍니다. 모르는 척하거나 얼버무리는 것보다 훨씬 좋은 인상을 줍니다.
+      → 자기 객관화 + 성장 가능성을 보여줍니다.
     </p>
   </div>
 </div>
 
-<!-- ════ SECTION 04 ════ -->
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 04: Step 3 — 1차/2차/최종 실전 전략  -->
+<!-- ════════════════════════════════════════════ -->
 <div class="section" id="s4">
-  <div class="section-num">SECTION 04</div>
-  <div class="section-title">1차/2차/최종 단계별 전략</div>
-  <div class="section-title-jp">一次・二次・最終面接の段階別戦略</div>
+  <div class="section-num">STEP 03</div>
+  <div class="section-title">1차/2차/최종 실전 전략</div>
+  <div class="section-title-jp">一次・二次・最終面接の実戦戦略</div>
+
+  <div class="step-flow">
+    <span class="step-flow-item">Step 1 준비</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 2 후카보리</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item current">Step 3 실전</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 4 역질문</span>
+  </div>
 
   <p>
-    일본 기업의 면접은 보통 1차 → 2차 → 최종의 3단계로 진행됩니다.
     각 단계마다 <span class="hl">면접관의 역할과 평가 포인트가 다릅니다</span>.
-    같은 답변을 하더라도 각 단계에 맞는 어필 포인트를 조절해야 합니다.
+    아래에서 각 단계의 핵심과, 그 단계에서 자주 나오는 질문을 함께 확인하세요.
   </p>
+
+  <!-- 1차 -->
+  <h3 style="border-left-color:var(--success);">1차 면접: 기본 확인</h3>
 
   <div class="stage-card s1">
-    <h4 style="color:var(--success);">1차 면접: 기본 확인</h4>
+    <h4 style="color:var(--success);">면접관: 인사부 젊은 사원 / 현장 사원</h4>
     <p>
-      <strong>면접관:</strong> 인사부 젊은 사원 / 현장 사원<br>
-      <strong>평가 포인트:</strong> 기본적인 커뮤니케이션 능력, 첫인상, 논리적 전달력<br>
-      <strong>전략:</strong> ES에 쓴 내용을 명확하고 또렷하게 전달. 결론부터, 간결하게. 밝고 긍정적인 인상.<br>
-      <strong>주요 질문:</strong> 자기소개, 가쿠치카, 자기PR, 지망동기 (기본 4대 질문)
+      <strong>평가:</strong> 기본 커뮤니케이션, 첫인상, 논리적 전달력<br>
+      <strong>전략:</strong> ES 내용을 명확하고 또렷하게 전달. 결론부터, 간결하게. 밝고 긍정적인 인상.<br>
+      <strong>핵심:</strong> "이 사람과 함께 일하고 싶은가?" (인품·커뮤니케이션)
     </p>
   </div>
 
-  <div class="stage-card s2">
-    <h4 style="color:var(--warn);">2차 면접: 심화 검증</h4>
-    <p>
-      <strong>면접관:</strong> 현장 관리자(課長/部長) / 인사 매니저<br>
-      <strong>평가 포인트:</strong> 사고 과정의 깊이, 기업 이해도, 조직 적합성<br>
-      <strong>전략:</strong> 후카보리에 대비하여 "왜?"를 3단계 이상 준비. 기업 연구를 깊이 있게. 자기 이해의 깊이를 보여주세요.<br>
-      <strong>주요 질문:</strong> 가쿠치카 후카보리, 취활의 축, 약점, 타사 선고 상황
-    </p>
-  </div>
-
-  <div class="stage-card sf">
-    <h4 style="color:var(--danger);">최종 면접: 의욕과 각오</h4>
-    <p>
-      <strong>면접관:</strong> 임원 / 사장<br>
-      <strong>평가 포인트:</strong> 입사 의욕, 장기 비전, 기업 가치관과의 매칭, 인간적 매력<br>
-      <strong>전략:</strong> "왜 이 회사가 아니면 안 되는가"를 열정적으로 전달. 커리어 플랜을 구체적으로. 입사 후 기여 의지를 확실히.<br>
-      <strong>주요 질문:</strong> 지망동기(심화), 커리어 플랜, 기업 이념, 마지막 한마디
-    </p>
-  </div>
-
-  <div class="info-box">
-    <h4>단계별 핵심 정리</h4>
-    <p>
-      <strong>1차:</strong> "이 사람과 함께 일하고 싶은가?" (인품·커뮤니케이션)<br>
-      <strong>2차:</strong> "이 사람은 일을 잘할 수 있는가?" (사고과정·실행력)<br>
-      <strong>최종:</strong> "이 사람은 오래 함께할 수 있는가?" (가치관·의욕)
-    </p>
-  </div>
-</div>
-
-<!-- ════ SECTION 05 ════ -->
-<div class="section" id="s5">
-  <div class="section-num">SECTION 05</div>
-  <div class="section-title">면접 빈출 20대 질문</div>
-  <div class="section-title-jp">面接頻出20の質問</div>
-
-  <p>
-    면접은 ES를 검증하는 자리입니다. ES에서 작성한 내용을 그대로 활용하되, 후카보리에 대비하세요.
-    아래 20개 질문은 일본 취활 면접에서 가장 자주 나오는 질문들입니다.
-  </p>
-
-  <div class="info-box info-box-accent">
-    <h4>카테고리 분류</h4>
-    <p>
-      <span class="hl">자기 이해:</span> Q1, 2, 3, 4, 11, 12 &nbsp;&nbsp;
-      <span class="hl-success">기업 이해:</span> Q5, 6, 18 &nbsp;&nbsp;
-      <span class="hl-purple">미래 비전:</span> Q8, 16<br>
-      <span class="hl-warn">인간성/적응력:</span> Q7, 13, 14, 19 &nbsp;&nbsp;
-      배경/지식: Q15, 17 &nbsp;&nbsp;
-      선고 관련: Q9, 10, 20
-    </p>
-  </div>
-
-  <h3>★ 필수 질문 10개</h3>
-
-  <!-- Q1 -->
   <div class="ex-block">
-    <div class="ex-header" onclick="toggleEx(this)">
-      <span class="ex-tag ex-tag-q">Q1</span>
-      <span class="ex-label">자기소개 (自己紹介をお願いします)</span>
-      <span class="q-item-cat cat-self">자기이해</span>
-      <span class="ex-toggle">▼</span>
-    </div>
-    <div class="ex-body">
-      <p style="color:var(--text-dim);font-size:12px;line-height:1.9;">
-        <strong style="color:var(--text-sub);">질문 의도:</strong> 아이스브레이크 + 첫인상 형성 + 커뮤니케이션 확인<br><br>
-        <strong style="color:var(--text-sub);">답변 구조 (30초~1분):</strong><br>
-        인사(10%): 대학명, 학부, 이름<br>
-        가쿠치카 핵심(60%): 학생 시절 힘 쓴 것 1~2문장<br>
-        마무리(30%): "本日よろしくお願いいたします"<br><br>
-        <strong style="color:var(--text-sub);">작성 포인트:</strong><br>
-        30초 = 약 150자, 1분 = 약 300자. ES의 가쿠치카를 압축하여 활용. 밝고 또렷한 목소리로. 자기PR과 혼동하지 않도록 주의 (강점 어필 불필요).<br><br>
-        <strong style="color:var(--danger);">NG:</strong> 이력서 낭독 / 너무 길거나 짧음 / 긴장해서 웅얼거림
-      </p>
-    </div>
-  </div>
-
-  <!-- Q2 -->
-  <div class="ex-block">
-    <div class="ex-header" onclick="toggleEx(this)">
-      <span class="ex-tag ex-tag-q">Q2</span>
-      <span class="ex-label">가쿠치카 (学生時代に力を入れたことは?)</span>
-      <span class="q-item-cat cat-self">자기이해</span>
-      <span class="ex-toggle">▼</span>
-    </div>
-    <div class="ex-body">
-      <p style="color:var(--text-dim);font-size:12px;line-height:1.9;">
-        <strong style="color:var(--text-sub);">질문 의도:</strong> 사고과정 검증 + 재현성 확인 + 후카보리의 출발점<br><br>
-        <strong style="color:var(--text-sub);">답변 구조 (STAR법 + 결론 먼저):</strong><br>
-        결론(10%): 무엇에 힘썼는가<br>
-        S 상황(20%): 어떤 상황/배경<br>
-        T 과제(15%): 목표/과제<br>
-        A 행동(35%): 구체적 행동<br>
-        R 결과(10%): 성과/결과<br>
-        배움(10%): 무엇을 배웠는가<br><br>
-        <strong style="color:var(--text-sub);">포인트:</strong> ES와 동일한 에피소드 사용 / 숫자로 성과 표현 / "왜?"에 대한 답변 미리 준비
-      </p>
-    </div>
-  </div>
-
-  <!-- Q3 -->
-  <div class="ex-block">
-    <div class="ex-header" onclick="toggleEx(this)">
-      <span class="ex-tag ex-tag-q">Q3</span>
-      <span class="ex-label">자기PR (自己PRをお願いします)</span>
-      <span class="q-item-cat cat-self">자기이해</span>
-      <span class="ex-toggle">▼</span>
-    </div>
-    <div class="ex-body">
-      <p style="color:var(--text-dim);font-size:12px;line-height:1.9;">
-        <strong style="color:var(--text-sub);">질문 의도:</strong> 강점이 업무에 활용 가능한가 + 입사 후 재현 가능성<br><br>
-        <strong style="color:var(--text-sub);">답변 구조:</strong><br>
-        결론(15%): "나의 강점은 OO입니다"<br>
-        에피소드(55%): 강점을 발휘한 구체적 경험<br>
-        결과(15%): 어떤 성과로 이어졌는가<br>
-        활용(15%): 귀사에서 어떻게 활용할 것인가<br><br>
-        <strong style="color:var(--text-sub);">포인트:</strong> 강점은 행동 특성으로 정의 / 에피소드는 가쿠치카와 연결 / 기업 인재상과 연결
-      </p>
-    </div>
-  </div>
-
-  <!-- Q4 -->
-  <div class="ex-block">
-    <div class="ex-header" onclick="toggleEx(this)">
-      <span class="ex-tag ex-tag-q">Q4</span>
-      <span class="ex-label">약점·단점 (短所は何ですか?)</span>
-      <span class="q-item-cat cat-self">자기이해</span>
-      <span class="ex-toggle">▼</span>
-    </div>
-    <div class="ex-body">
-      <p style="color:var(--text-dim);font-size:12px;line-height:1.9;">
-        <strong style="color:var(--text-sub);">질문 의도:</strong> 자기 객관화 능력 + 개선 의지 + 치명적 단점 체크<br><br>
-        <strong style="color:var(--text-sub);">답변 구조:</strong><br>
-        단점(20%): "나의 단점은 OO입니다"<br>
-        인식 계기(25%): 어떻게 그것을 인식했나<br>
-        개선 노력(40%): 어떻게 개선하려 노력하고 있나<br>
-        현재 상태(15%): 지금은 어느 정도 개선되었나<br><br>
-        <strong style="color:var(--text-sub);">포인트:</strong> 강점의 이면으로 표현 (신중함→결정이 느림). 개선 노력이 핵심.<br>
-        <strong style="color:var(--danger);">NG:</strong> "단점이 없습니다" / 치명적 단점(지각, 무책임) / 개선 노력 없이 나열만
-      </p>
-    </div>
-  </div>
-
-  <!-- Q5 -->
-  <div class="ex-block">
-    <div class="ex-header" onclick="toggleEx(this)">
-      <span class="ex-tag ex-tag-q">Q5</span>
-      <span class="ex-label">지망동기 (志望動機を教えてください)</span>
-      <span class="q-item-cat cat-company">기업이해</span>
-      <span class="ex-toggle">▼</span>
-    </div>
-    <div class="ex-body">
-      <p style="color:var(--text-dim);font-size:12px;line-height:1.9;">
-        <strong style="color:var(--text-sub);">질문 의도:</strong> 입사 의욕 + 기업 이해도 + 장기 근속 가능성<br><br>
-        <strong style="color:var(--text-sub);">답변 구조:</strong><br>
-        결론(15%): 귀사를 지망하는 이유는 OO입니다<br>
-        원체험(25%): 그런 생각을 갖게 된 경험/계기<br>
-        업계 이유(20%): 왜 이 업계인가<br>
-        기업 이유(25%): 왜 다른 회사가 아닌 이 회사인가<br>
-        포부(15%): 입사 후 무엇을 하고 싶은가<br><br>
-        <strong style="color:var(--text-sub);">포인트:</strong> What 2~3할 : Why 7~8할. 자신의 가치관·경험과 연결. 기업별 맞춤 필수.
-      </p>
-    </div>
-  </div>
-
-  <!-- Q6 -->
-  <div class="ex-block">
-    <div class="ex-header" onclick="toggleEx(this)">
-      <span class="ex-tag ex-tag-q">Q6</span>
-      <span class="ex-label">취활의 축 (就活の軸は何ですか?)</span>
-      <span class="q-item-cat cat-company">기업이해</span>
-      <span class="ex-toggle">▼</span>
-    </div>
-    <div class="ex-body">
-      <p style="color:var(--text-dim);font-size:12px;line-height:1.9;">
-        <strong style="color:var(--text-sub);">질문 의도:</strong> 기업 선택 기준 확인 + 가치관 파악 + 자사와의 매칭<br><br>
-        <strong style="color:var(--text-sub);">답변 구조:</strong><br>
-        축(25%): "나의 취활 축은 OO입니다"<br>
-        배경(35%): 왜 그것을 중요하게 생각하게 되었나<br>
-        기업 연결(40%): 귀사는 그 축에 어떻게 부합하는가<br><br>
-        <strong style="color:var(--text-sub);">Tip:</strong> 선호업무환경 진단 결과를 활용하세요! 예: "저는 팀으로 협업하면서 성장할 수 있는 환경을 축으로 하고 있습니다."
-      </p>
-    </div>
-  </div>
-
-  <!-- Q7 -->
-  <div class="ex-block">
-    <div class="ex-header" onclick="toggleEx(this)">
-      <span class="ex-tag ex-tag-q">Q7</span>
-      <span class="ex-label">좌절 경험 (挫折経験を教えてください)</span>
-      <span class="q-item-cat cat-human">인간성</span>
-      <span class="ex-toggle">▼</span>
-    </div>
-    <div class="ex-body">
-      <p style="color:var(--text-dim);font-size:12px;line-height:1.9;">
-        <strong style="color:var(--text-sub);">질문 의도:</strong> 역경 대처 능력 + 회복력 + 스트레스 내성<br><br>
-        <strong style="color:var(--text-sub);">답변 구조:</strong><br>
-        좌절 내용(25%): 어떤 좌절/실패였는가<br>
-        대처 과정(45%): 어떻게 대처/극복했는가<br>
-        배운 점(30%): 그 경험에서 무엇을 배웠는가<br><br>
-        <strong style="color:var(--text-sub);">포인트:</strong> "극복"보다 "대처 과정"이 중요. 남 탓하지 않고 자기 책임으로 해석. 현재와 연결.
-      </p>
-    </div>
-  </div>
-
-  <!-- Q8 -->
-  <div class="ex-block">
-    <div class="ex-header" onclick="toggleEx(this)">
-      <span class="ex-tag ex-tag-q">Q8</span>
-      <span class="ex-label">커리어 플랜 (5年後どうなっていたいですか?)</span>
-      <span class="q-item-cat cat-future">미래비전</span>
-      <span class="ex-toggle">▼</span>
-    </div>
-    <div class="ex-body">
-      <p style="color:var(--text-dim);font-size:12px;line-height:1.9;">
-        <strong style="color:var(--text-sub);">질문 의도:</strong> 장기 근속 의지 + 성장 비전 + 기업 방향성 일치<br><br>
-        <strong style="color:var(--text-sub);">답변 구조:</strong><br>
-        단기 1~3년(30%): "먼저 OO를 익히고 싶습니다"<br>
-        중기 5년(35%): "OO 분야에서 OO 역할을 하고 싶습니다"<br>
-        장기 10년(35%): "궁극적으로 OO에 기여하고 싶습니다"<br><br>
-        <strong style="color:var(--text-sub);">포인트:</strong> 구체적이되 유연성 표현. 기업의 커리어 패스와 연결. 회사 성장과 연결.
-      </p>
-    </div>
-  </div>
-
-  <!-- Q9 -->
-  <div class="ex-block">
-    <div class="ex-header" onclick="toggleEx(this)">
-      <span class="ex-tag ex-tag-q">Q9</span>
-      <span class="ex-label">타사 선고 상황 (他社の選考状況を教えてください)</span>
-      <span class="q-item-cat cat-senkou">선고관련</span>
-      <span class="ex-toggle">▼</span>
-    </div>
-    <div class="ex-body">
-      <p style="color:var(--text-dim);font-size:12px;line-height:1.9;">
-        <strong style="color:var(--text-sub);">질문 의도:</strong> 지망도 확인 + 취활 축 일관성 + 채용 타이밍 조정<br><br>
-        <strong style="color:var(--text-sub);">답변 구조:</strong><br>
-        진행 상황(40%): "현재 OO업계 O개사 선고 중입니다"<br>
-        축 일관성(30%): "저의 취활 축은 OO이므로"<br>
-        귀사 위치(30%): "그 중에서 귀사는 제1지망입니다"<br><br>
-        <strong style="color:var(--text-sub);">포인트:</strong> 취활 축의 일관성 유지 / 제1지망임을 어필 / 타사명은 말하지 않아도 OK / 정직하게 답변
-      </p>
-    </div>
-  </div>
-
-  <!-- Q10 -->
-  <div class="ex-block">
-    <div class="ex-header" onclick="toggleEx(this)">
-      <span class="ex-tag ex-tag-q">Q10</span>
-      <span class="ex-label">마지막 한마디 (最後に一言お願いします)</span>
-      <span class="q-item-cat cat-senkou">선고관련</span>
-      <span class="ex-toggle">▼</span>
-    </div>
-    <div class="ex-body">
-      <p style="color:var(--text-dim);font-size:12px;line-height:1.9;">
-        <strong style="color:var(--text-sub);">질문 의도:</strong> 최종 어필 기회 + 열의 확인 + 인상에 남기기<br><br>
-        <strong style="color:var(--text-sub);">답변 구조:</strong><br>
-        감사(20%): "오늘 기회를 주셔서 감사합니다"<br>
-        면접 소감(30%): "면접을 통해 OO를 느꼈습니다"<br>
-        입사 의욕(50%): "꼭 귀사에서 OO하고 싶습니다"<br><br>
-        <strong style="color:var(--text-sub);">포인트:</strong> 감사 + 열의 + 어필. 30초~1분으로 간결하게.<br>
-        <strong style="color:var(--danger);">NG:</strong> "特にありません" (특별히 없습니다) — 절대 금지
-      </p>
-    </div>
-  </div>
-
-  <h3>☆ 추가 빈출 질문 10개</h3>
-
-  <div class="ex-block">
-    <div class="ex-header" onclick="toggleEx(this)">
-      <span class="ex-tag ex-tag-q">Q11~20</span>
-      <span class="ex-label">주위 평가, 존경하는 사람, 취미, 스트레스 해소, 학업, 입사 후, 뉴스, 기업 이념, 전근, 역질문</span>
+    <div class="ex-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.ex-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+      <span class="ex-tag ex-tag-q">1차</span>
+      <span class="ex-label">1차 빈출: 자기소개 / 가쿠치카 / 자기PR / 지망동기</span>
       <span class="ex-toggle">▼</span>
     </div>
     <div class="ex-body">
       <p style="color:var(--text-dim);font-size:12px;line-height:2.0;">
-        <strong style="color:var(--accent);">Q11. 주위의 평가</strong> (周りからどんな人だと言われますか?) — 자기PR과 같은 방향으로. 제3자 코멘트 인용.<br><br>
-        <strong style="color:var(--accent);">Q12. 존경하는 사람</strong> (尊敬する人は誰ですか?) — 유명인보다 가까운 사람. "왜"가 핵심. 자신에게 미친 영향.<br><br>
-        <strong style="color:var(--accent);">Q13. 취미·특기</strong> (趣味や特技は何ですか?) — 구체적으로 어떻게 즐기는지. 가능하면 배운 점도.<br><br>
-        <strong style="color:var(--accent);">Q14. 스트레스 해소법</strong> (ストレス解消法は何ですか?) — 구체적 방법 + 효과도 함께. "스트레스를 안 받는다"는 비현실적.<br><br>
-        <strong style="color:var(--accent);">Q15. 학업·연구</strong> (大学で何を学んでいますか?) — 비전공자도 이해할 수 있게 쉽게. "왜" 그 연구를 선택했는지.<br><br>
-        <strong style="color:var(--accent);">Q16. 입사 후 하고 싶은 일</strong> (入社後にやりたいことは?) — 기업의 사업/부서를 조사해서 구체적으로. 자신의 강점과 연결.<br><br>
-        <strong style="color:var(--accent);">Q17. 관심 있는 뉴스</strong> (最近気になっているニュースは?) — 지원 업계 관련 뉴스 우선. 자신의 의견 + 논리적 근거.<br><br>
-        <strong style="color:var(--accent);">Q18. 기업 이념</strong> (当社の企業理念についてどう思いますか?) — 단순 암기 아닌 자신의 해석. 경험과 연결.<br><br>
-        <strong style="color:var(--accent);">Q19. 전근·근무조건</strong> (転勤は可能ですか?) — 기본적으로 긍정적 자세. 불가능한 경우 이유와 함께 솔직하게.<br><br>
-        <strong style="color:var(--accent);">Q20. 역질문</strong> (何か質問はありますか?) → Section 6에서 자세히 다룹니다.
+        <strong style="color:var(--accent);">자기소개</strong> (30초~1분): 인사(대학명/이름) → 가쿠치카 핵심 1~2문장 → "本日よろしくお願いいたします". 자기PR과 혼동 금지 (강점 어필 불필요).<br><br>
+        <strong style="color:var(--accent);">가쿠치카</strong> (1~2분): ES STAR 구조 그대로. 결론→S→T→A(강점 드러나야)→R+배움. ES와 동일한 에피소드 사용.<br><br>
+        <strong style="color:var(--accent);">자기PR</strong> (1~2분): "나의 강점은 「행동 특성」입니다" → 에피소드 → 결과 → 귀사에서 활용. ES Step 1의 강점 그대로.<br><br>
+        <strong style="color:var(--accent);">지망동기</strong> (1~2분): 결론 → 원체험 → 업계→기업 → 포부. What 2~3할 : Why 7~8할.
       </p>
     </div>
   </div>
 
-  <h3>면접 시 NG 상황</h3>
+  <!-- 2차 -->
+  <h3 style="border-left-color:var(--warn);">2차 면접: 심화 검증</h3>
+
+  <div class="stage-card s2">
+    <h4 style="color:var(--warn);">면접관: 현장 관리자(課長/部長) / 인사 매니저</h4>
+    <p>
+      <strong>평가:</strong> 사고 과정의 깊이, 기업 이해도, 조직 적합성<br>
+      <strong>전략:</strong> Step 2 후카보리 5단계를 완벽히 준비. 기업 연구를 깊이 있게. 자기 이해의 깊이를 보여주세요.<br>
+      <strong>핵심:</strong> "이 사람은 일을 잘할 수 있는가?" (사고과정·실행력)
+    </p>
+  </div>
+
+  <div class="ex-block">
+    <div class="ex-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.ex-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+      <span class="ex-tag ex-tag-q">2차</span>
+      <span class="ex-label">2차 빈출: 약점 / 취활의 축 / 좌절경험 / 타사선고 / 주위평가</span>
+      <span class="ex-toggle">▼</span>
+    </div>
+    <div class="ex-body">
+      <p style="color:var(--text-dim);font-size:12px;line-height:2.0;">
+        <strong style="color:var(--accent);">약점·단점</strong>: 단점(20%) → 인식 계기(25%) → 개선 노력(40%) → 현재 상태(15%). 강점의 이면으로 표현 (신중함→결정이 느림). 개선 노력이 핵심. NG: "단점이 없습니다" / 치명적 단점.<br><br>
+        <strong style="color:var(--accent);">취활의 축</strong>: "나의 취활 축은 OO입니다"(25%) → 배경(35%) → 귀사 연결(40%). 4축 분석 결과 활용.<br><br>
+        <strong style="color:var(--accent);">좌절 경험</strong>: 좌절 내용(25%) → 대처 과정(45%) → 배운 점(30%). "극복"보다 "대처 과정"이 중요. 남 탓 금지.<br><br>
+        <strong style="color:var(--accent);">타사 선고 상황</strong>: 진행 상황(40%) → 축 일관성(30%) → 귀사 위치(30%). 제1지망임을 어필. 타사명은 말하지 않아도 OK.<br><br>
+        <strong style="color:var(--accent);">주위의 평가</strong>: 자기PR과 같은 방향으로. 제3자 코멘트 인용. 일관성 포인트.
+      </p>
+    </div>
+  </div>
+
+  <!-- 최종 -->
+  <h3 style="border-left-color:var(--danger);">최종 면접: 의욕과 각오</h3>
+
+  <div class="stage-card sf">
+    <h4 style="color:var(--danger);">면접관: 임원 / 사장</h4>
+    <p>
+      <strong>평가:</strong> 입사 의욕, 장기 비전, 기업 가치관과의 매칭, 인간적 매력<br>
+      <strong>전략:</strong> "왜 이 회사가 아니면 안 되는가"를 열정적으로 전달. 커리어 플랜을 구체적으로. 입사 후 기여 의지를 확실히.<br>
+      <strong>핵심:</strong> "이 사람은 오래 함께할 수 있는가?" (가치관·의욕)
+    </p>
+  </div>
+
+  <div class="ex-block">
+    <div class="ex-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.ex-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+      <span class="ex-tag ex-tag-q">최종</span>
+      <span class="ex-label">최종 빈출: 커리어플랜 / 기업이념 / 입사후 / 마지막한마디</span>
+      <span class="ex-toggle">▼</span>
+    </div>
+    <div class="ex-body">
+      <p style="color:var(--text-dim);font-size:12px;line-height:2.0;">
+        <strong style="color:var(--accent);">커리어 플랜</strong>: 단기 1~3년(30%) → 중기 5년(35%) → 장기 10년(35%). 구체적이되 유연성 표현. 기업의 커리어 패스와 연결.<br><br>
+        <strong style="color:var(--accent);">기업 이념</strong>: 단순 암기 아닌 자신의 해석. 경험과 연결. "이 이념이 저의 가치관과 맞는 이유는..."<br><br>
+        <strong style="color:var(--accent);">입사 후 하고 싶은 일</strong>: 기업의 사업/부서를 조사해서 구체적으로. 자신의 강점(Step 1)과 연결. 재현성 어필.<br><br>
+        <strong style="color:var(--accent);">마지막 한마디</strong>: 감사(20%) → 면접 소감(30%) → 입사 의욕(50%). 30초~1분. <span style="color:var(--danger);font-weight:700;">NG: "特にありません" — 절대 금지</span>
+      </p>
+    </div>
+  </div>
+
+  <h3>추가 빈출 질문</h3>
+
+  <div class="ex-block">
+    <div class="ex-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.ex-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+      <span class="ex-tag ex-tag-q">기타</span>
+      <span class="ex-label">존경하는 사람 / 취미 / 스트레스 / 학업 / 뉴스 / 전근</span>
+      <span class="ex-toggle">▼</span>
+    </div>
+    <div class="ex-body">
+      <p style="color:var(--text-dim);font-size:12px;line-height:2.0;">
+        <strong style="color:var(--accent);">존경하는 사람</strong>: 유명인보다 가까운 사람. "왜"가 핵심. 자신에게 미친 영향.<br><br>
+        <strong style="color:var(--accent);">취미·특기</strong>: 구체적으로 어떻게 즐기는지. 가능하면 배운 점도.<br><br>
+        <strong style="color:var(--accent);">스트레스 해소법</strong>: 구체적 방법 + 효과. "스트레스를 안 받는다"는 비현실적.<br><br>
+        <strong style="color:var(--accent);">학업·연구</strong>: 비전공자도 이해할 수 있게 쉽게. "왜" 그 연구를 선택했는지.<br><br>
+        <strong style="color:var(--accent);">관심 있는 뉴스</strong>: 지원 업계 관련 뉴스 우선. 자신의 의견 + 논리적 근거.<br><br>
+        <strong style="color:var(--accent);">전근</strong>: 기본적으로 긍정적 자세. 불가능한 경우 이유와 함께 솔직하게.
+      </p>
+    </div>
+  </div>
 
   <div class="info-box info-box-danger">
-    <div class="box-label box-label-danger">절대 금지</div>
+    <div class="box-label box-label-danger">면접 시 절대 금지</div>
     <p>
-      ❌ ES와 다른 내용 말하기<br>
-      ❌ 너무 길게 답변하기 (2분 이상)<br>
-      ❌ 부정적인 표현 사용<br>
-      ❌ "특별히 없습니다" (역질문, 마지막 한마디)<br>
-      ❌ 외운 듯한 기계적 답변<br>
-      ❌ 면접관 말 끊기
+      ❌ ES와 다른 내용 말하기 &nbsp;&nbsp; ❌ 2분 이상 답변 &nbsp;&nbsp; ❌ 부정적 표현<br>
+      ❌ "특별히 없습니다" (역질문/마지막 한마디) &nbsp;&nbsp; ❌ 외운 듯한 기계적 답변 &nbsp;&nbsp; ❌ 면접관 말 끊기
     </p>
   </div>
 </div>
 
-<!-- ════ SECTION 06 ════ -->
-<div class="section" id="s6">
-  <div class="section-num">SECTION 06</div>
-  <div class="section-title">역질문(逆質問) 가이드</div>
-  <div class="section-title-jp">逆質問ガイド</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 05: Step 4 — 역질문 + 마무리        -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section" id="s5">
+  <div class="section-num">STEP 04</div>
+  <div class="section-title">역질문(逆質問)으로 마무리</div>
+  <div class="section-title-jp">逆質問で締めくくる</div>
+
+  <div class="step-flow">
+    <span class="step-flow-item">Step 1 준비</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 2 후카보리</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 3 실전</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item current">Step 4 역질문</span>
+  </div>
 
   <p>
     "何か質問はありますか?"(질문 있습니까?) — 이것은 단순한 형식이 아니라
@@ -973,40 +643,18 @@ window.addEventListener('DOMContentLoaded', function(){
   <table class="rule-table">
     <thead><tr><th>유형</th><th>일본어</th><th>한국어</th></tr></thead>
     <tbody>
-      <tr>
-        <td><strong>업무 관련</strong></td>
-        <td style="font-family:'Noto Sans JP',sans-serif;">入社後、最も成長を実感できるのはどのような場面でしょうか？</td>
-        <td>입사 후 가장 성장을 실감할 수 있는 것은 어떤 장면인가요?</td>
-      </tr>
-      <tr>
-        <td><strong>면접관 개인</strong></td>
-        <td style="font-family:'Noto Sans JP',sans-serif;">○○様が仕事をする上で大切にされていることは何ですか？</td>
-        <td>○○님께서 일하시면서 소중히 여기시는 것은 무엇인가요?</td>
-      </tr>
-      <tr>
-        <td><strong>성장 관련</strong></td>
-        <td style="font-family:'Noto Sans JP',sans-serif;">配属後、一人前として認められるまでにはどのくらいの期間がかかりますか？</td>
-        <td>배속 후 한 사람 몫으로 인정받기까지 어느 정도 기간이 걸리나요?</td>
-      </tr>
-      <tr>
-        <td><strong>인재상</strong></td>
-        <td style="font-family:'Noto Sans JP',sans-serif;">御社で活躍されている方に共通する特徴があれば教えてください</td>
-        <td>귀사에서 활약하시는 분들에게 공통되는 특징이 있으면 알려주세요</td>
-      </tr>
-      <tr>
-        <td><strong>사업 방향</strong></td>
-        <td style="font-family:'Noto Sans JP',sans-serif;">今後、御社が特に力を入れていきたい事業領域があれば教えてください</td>
-        <td>앞으로 귀사가 특히 힘을 쏟고자 하는 사업 영역이 있으면 알려주세요</td>
-      </tr>
+      <tr><td><strong>업무</strong></td><td style="font-family:'Noto Sans JP',sans-serif;">入社後、最も成長を実感できるのはどのような場面でしょうか？</td><td>입사 후 가장 성장을 실감할 수 있는 것은 어떤 장면인가요?</td></tr>
+      <tr><td><strong>면접관</strong></td><td style="font-family:'Noto Sans JP',sans-serif;">○○様が仕事をする上で大切にされていることは何ですか？</td><td>○○님께서 일하시면서 소중히 여기시는 것은 무엇인가요?</td></tr>
+      <tr><td><strong>성장</strong></td><td style="font-family:'Noto Sans JP',sans-serif;">配属後、一人前として認められるまでにはどのくらいの期間がかかりますか？</td><td>배속 후 한 사람 몫으로 인정받기까지 어느 정도 기간이 걸리나요?</td></tr>
+      <tr><td><strong>인재상</strong></td><td style="font-family:'Noto Sans JP',sans-serif;">御社で活躍されている方に共通する特徴があれば教えてください</td><td>귀사에서 활약하시는 분들에게 공통되는 특징이 있으면 알려주세요</td></tr>
+      <tr><td><strong>사업</strong></td><td style="font-family:'Noto Sans JP',sans-serif;">今後、御社が特に力を入れていきたい事業領域があれば教えてください</td><td>앞으로 귀사가 특히 힘을 쏟고자 하는 사업 영역이 있으면 알려주세요</td></tr>
     </tbody>
   </table>
 
-  <h3>피해야 할 역질문</h3>
-
   <div class="info-box info-box-danger">
-    <div class="box-label box-label-danger">NG</div>
+    <div class="box-label box-label-danger">NG 역질문</div>
     <p>
-      ❌ "特に質問はありません" (특별히 없습니다) — 입사 의욕 의심<br>
+      ❌ "特に質問はありません" — 입사 의욕 의심<br>
       ❌ 조사하면 알 수 있는 것 (매출, 사원 수 등) — 기업 연구 부족<br>
       ❌ 급여, 휴일 등 대우면만 묻는 것 — 의욕보다 조건 중시 인상
     </p>
@@ -1018,13 +666,17 @@ window.addEventListener('DOMContentLoaded', function(){
       역질문은 <strong>입사 후를 상정한 질문</strong>이 가장 좋은 인상을 줍니다.
       "입사 후에 바로 공부해야 할 것이 있다면 무엇인가요?"처럼
       이미 입사한 것처럼 질문하면 의욕이 전달됩니다.
+      면접에서는 반드시 <strong>御社</strong> (구두용) — ES 서면의 貴社와 구분하세요.
     </p>
   </div>
 </div>
 
-<!-- ════ SECTION 07 ════ -->
-<div class="section" id="s7">
-  <div class="section-num">SECTION 07</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 06: GD 대비                          -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section" id="s6">
+  <div class="section-num">SECTION 06</div>
   <div class="section-title">GD(그룹디스커션) 대비</div>
   <div class="section-title-jp">グループディスカッション対策</div>
 
@@ -1049,75 +701,51 @@ window.addEventListener('DOMContentLoaded', function(){
   <h3>GD 역할</h3>
 
   <div class="struct-grid">
-    <div class="struct-row">
-      <div class="struct-label" style="color:var(--accent);">사회자</div>
-      <div class="struct-content"><strong>논의를 진행</strong>하는 역할. 리더십을 어필할 수 있지만, 독단적이면 감점. 모두의 발언 기회를 보장하세요.</div>
-    </div>
-    <div class="struct-row">
-      <div class="struct-label" style="color:var(--success);">서기</div>
-      <div class="struct-content"><strong>논의 내용을 정리</strong>. 요약력과 구조화 능력을 어필. 마지막 발표 시 서기의 메모가 결론의 기초.</div>
-    </div>
-    <div class="struct-row">
-      <div class="struct-label" style="color:var(--warn);">타임키퍼</div>
-      <div class="struct-content"><strong>시간 관리</strong>. "나머지 5분입니다, 결론을 정리합시다" 등 적절한 개입.</div>
-    </div>
-    <div class="struct-row">
-      <div class="struct-label" style="color:var(--purple);">발표자</div>
-      <div class="struct-content"><strong>팀의 결론을 대표로 발표</strong>. 논리적 전달력과 프레젠 능력을 어필.</div>
-    </div>
-  </div>
-
-  <div class="info-box info-box-accent">
-    <h4>GD 핵심 포인트</h4>
-    <p>
-      역할이 없어도 괜찮습니다. <strong>적극적으로 의견을 내고, 남의 의견에 반응</strong>하는 것만으로도 좋은 평가를 받습니다.<br>
-      반대 의견을 말할 때는 "확실히 OO라는 의견도 일리가 있습니다. 한편 저는 OO라고 생각하는데..."처럼 쿠션을 넣으세요.<br>
-      결론 없이 끝나는 것이 최악입니다. 완벽하지 않아도 <strong>시간 내 결론을 내는 것</strong>이 중요합니다.
-    </p>
+    <div class="struct-row"><div class="struct-label" style="color:var(--accent);">사회자</div><div class="struct-content"><strong>논의를 진행</strong>하는 역할. 리더십을 어필할 수 있지만, 독단적이면 감점. 모두의 발언 기회를 보장하세요.</div></div>
+    <div class="struct-row"><div class="struct-label" style="color:var(--success);">서기</div><div class="struct-content"><strong>논의 내용을 정리</strong>. 요약력과 구조화 능력을 어필. 마지막 발표 시 서기의 메모가 결론의 기초.</div></div>
+    <div class="struct-row"><div class="struct-label" style="color:var(--warn);">타임키퍼</div><div class="struct-content"><strong>시간 관리</strong>. "나머지 5분입니다, 결론을 정리합시다" 등 적절한 개입.</div></div>
+    <div class="struct-row"><div class="struct-label" style="color:var(--purple);">발표자</div><div class="struct-content"><strong>팀의 결론을 대표로 발표</strong>. 논리적 전달력과 프레젠 능력을 어필.</div></div>
   </div>
 
   <div class="compare-grid">
     <div class="compare-card bad">
       <h5>❌ GD NG 행동</h5>
-      <p>
-        다른 사람 의견을 무시/부정<br>
-        혼자서만 계속 말함<br>
-        한마디도 안 함<br>
-        주제에서 벗어남<br>
-        결론 없이 시간 초과
-      </p>
+      <p>다른 사람 의견을 무시/부정<br>혼자서만 계속 말함<br>한마디도 안 함<br>주제에서 벗어남<br>결론 없이 시간 초과</p>
     </div>
     <div class="compare-card good">
       <h5>✅ GD 좋은 행동</h5>
-      <p>
-        "OO님의 의견에 덧붙이면..."<br>
-        발언 안 하는 사람에게 "OO님은 어떻게 생각하시나요?"<br>
-        "지금까지의 의견을 정리하면..."<br>
-        구체적 근거와 함께 의견 제시<br>
-        시간 의식하며 결론 유도
-      </p>
+      <p>"OO님의 의견에 덧붙이면..."<br>발언 안 하는 사람에게 "OO님은 어떻게 생각하시나요?"<br>"지금까지의 의견을 정리하면..."<br>구체적 근거와 함께 의견 제시<br>시간 의식하며 결론 유도</p>
     </div>
+  </div>
+
+  <div class="info-box info-box-accent">
+    <h4>GD 핵심</h4>
+    <p>
+      역할이 없어도 괜찮습니다. <strong>적극적으로 의견을 내고, 남의 의견에 반응</strong>하는 것만으로도 좋은 평가를 받습니다.
+      반대 의견을 말할 때는 "확실히 OO라는 의견도 일리가 있습니다. 한편 저는..."처럼 쿠션을 넣으세요.
+      완벽하지 않아도 <strong>시간 내 결론을 내는 것</strong>이 중요합니다.
+    </p>
   </div>
 </div>
 
-<!-- ════ SECTION 08 ════ -->
-<div class="section" id="s8">
-  <div class="section-num">SECTION 08</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 07: 이과생 기술면접                   -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section" id="s7">
+  <div class="section-num">SECTION 07</div>
   <div class="section-title">이과생 기술면접(技術面接)</div>
   <div class="section-title-jp">理系・技術面接ガイド</div>
 
   <p>
     이 섹션은 이과생(기술직 지망)을 위한 내용입니다.
-    기술면접은 자신의 기술/연구 내용에 대해 프레젠테이션을 하고, 기업에서 질의응답을 하는 형식의 면접입니다.
+    기술면접은 자신의 기술/연구 내용에 대해 프레젠테이션을 하고, 기업에서 질의응답을 하는 형식입니다.
   </p>
 
   <div class="info-box info-box-warn">
     <div class="box-label box-label-warn">중요</div>
     <h4>이과생이라고 해서 연구 이야기만 하면 안 됩니다</h4>
-    <p>
-      일본 기업은 이과생에게도 <strong>인성과 커뮤니케이션 능력</strong>을 중요하게 봅니다.
-      연구 경험은 어필 도구 중 하나일 뿐, 전부가 아닙니다.
-    </p>
+    <p>일본 기업은 이과생에게도 <strong>인성과 커뮤니케이션 능력</strong>을 중요하게 봅니다. 연구 경험은 어필 도구 중 하나일 뿐, 전부가 아닙니다.</p>
   </div>
 
   <h3>이과생 면접 평가 비중</h3>
@@ -1132,39 +760,13 @@ window.addEventListener('DOMContentLoaded', function(){
     </tbody>
   </table>
 
-  <h3>기술면접 진행 순서</h3>
-
-  <div class="step-flow">
-    <div class="step-item">
-      <div class="step-num">1</div>
-      <div class="step-body">
-        <h4>프레젠테이션 (10~20분)</h4>
-        <p>자신의 기술/연구 내용에 대해 발표. 슬라이드 수 = 프레젠 시간(분) x 0.5~1장.</p>
-      </div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">2</div>
-      <div class="step-body">
-        <h4>질의응답 (20~30분)</h4>
-        <p>프레젠 내용에 대한 심화 질문. "왜 그 연구를?" "어려웠던 점은?" "어떻게 극복?"</p>
-      </div>
-    </div>
-    <div class="step-item">
-      <div class="step-num">3</div>
-      <div class="step-body">
-        <h4>역질문</h4>
-        <p>기업의 기술 방향, R&D 체제 등에 대한 질문.</p>
-      </div>
-    </div>
-  </div>
-
   <h3>프레젠에 포함해야 할 내용</h3>
 
   <table class="rule-table">
     <thead><tr><th>항목</th><th>비중</th><th>설명</th></tr></thead>
     <tbody>
       <tr><td><strong>연구 테마</strong></td><td>5%</td><td>한 문장으로 명확히</td></tr>
-      <tr><td><strong>연구 시작 배경</strong></td><td>15%</td><td>왜 이 연구를 시작했는가</td></tr>
+      <tr><td><strong>배경</strong></td><td>15%</td><td>왜 이 연구를 시작했는가</td></tr>
       <tr><td><strong>목적</strong></td><td>10%</td><td>무엇을 밝히려고/해결하려고 하는가</td></tr>
       <tr><td><strong>어려웠던 점</strong></td><td>20%</td><td>연구 과정에서의 과제</td></tr>
       <tr><td><strong>중시하는 점</strong></td><td>10%</td><td>연구에서 중요하게 생각하는 가치</td></tr>
@@ -1174,58 +776,13 @@ window.addEventListener('DOMContentLoaded', function(){
     </tbody>
   </table>
 
-  <div class="info-box">
-    <h4>비전공자도 이해할 수 있게 쉽게 설명하는 것이 중요합니다</h4>
-    <p>면접관이 반드시 같은 전공은 아닙니다. 전문용어는 쉬운 말로 바꾸세요.</p>
-  </div>
-
-  <h3>기술면접 빈출 질문</h3>
-
-  <table class="rule-table">
-    <thead><tr><th>질문</th><th>확인하려는 것</th><th>대응 포인트</th></tr></thead>
-    <tbody>
-      <tr><td>왜 이 연구를 하려고 했는가?</td><td>주체성, 문제의식</td><td>자신의 관심/문제의식에서 출발</td></tr>
-      <tr><td>이 연구에서 어려웠던 점은?</td><td>과제 해결력</td><td>구체적 과제 + 해결 과정</td></tr>
-      <tr><td>어떻게 극복했는가?</td><td>끈기, 창의성</td><td>시행착오와 개선 과정</td></tr>
-      <tr><td>연구실에서의 역할은?</td><td>팀워크, 리더십</td><td>구체적 역할과 공헌</td></tr>
-    </tbody>
-  </table>
-
   <h3>이과생이 주의할 NG 패턴</h3>
 
   <div class="struct-grid">
-    <div class="struct-row" style="border-left:3px solid var(--danger);">
-      <div class="struct-label" style="color:var(--danger);">NG 1</div>
-      <div class="struct-content">
-        <strong style="color:var(--danger);">기술 설명에만 치중</strong><br>
-        ❌ 전문용어 나열, 기술 상세만 설명<br>
-        ✅ 왜 그 연구를 했는지, 무엇을 배웠는지, 어떻게 활용할지
-      </div>
-    </div>
-    <div class="struct-row" style="border-left:3px solid var(--danger);">
-      <div class="struct-label" style="color:var(--danger);">NG 2</div>
-      <div class="struct-content">
-        <strong style="color:var(--danger);">연구와 지망동기가 연결 안 됨</strong><br>
-        ❌ "연구는 OO, 지망동기는 OO" (별개의 이야기)<br>
-        ✅ 연구/경험 → 발견한 가치관 → 지망 업계/기업으로 자연스럽게 연결
-      </div>
-    </div>
-    <div class="struct-row" style="border-left:3px solid var(--danger);">
-      <div class="struct-label" style="color:var(--danger);">NG 3</div>
-      <div class="struct-content">
-        <strong style="color:var(--danger);">"연구를 계속하고 싶습니다"만</strong><br>
-        ❌ 대학원에 가면 되지, 왜 기업에?<br>
-        ✅ 연구를 사회에 적용하고 싶다, 제품화에 기여하고 싶다 등
-      </div>
-    </div>
-    <div class="struct-row" style="border-left:3px solid var(--danger);">
-      <div class="struct-label" style="color:var(--danger);">NG 4</div>
-      <div class="struct-content">
-        <strong style="color:var(--danger);">인성 어필 부재</strong><br>
-        ❌ 연구 이야기만 하고 인간성이 안 보임<br>
-        ✅ 연구 + 팀워크/커뮤니케이션 경험 균형 있게 어필
-      </div>
-    </div>
+    <div class="struct-row" style="border-left:3px solid var(--danger);"><div class="struct-label" style="color:var(--danger);">NG 1</div><div class="struct-content"><strong style="color:var(--danger);">기술 설명에만 치중</strong><br>❌ 전문용어 나열, 기술 상세만 설명<br>✅ 왜 그 연구를 했는지, 무엇을 배웠는지, 어떻게 활용할지</div></div>
+    <div class="struct-row" style="border-left:3px solid var(--danger);"><div class="struct-label" style="color:var(--danger);">NG 2</div><div class="struct-content"><strong style="color:var(--danger);">연구와 지망동기가 연결 안 됨</strong><br>❌ "연구는 OO, 지망동기는 OO" (별개의 이야기)<br>✅ 연구/경험 → 발견한 가치관 → 지망 업계/기업으로 자연스럽게 연결</div></div>
+    <div class="struct-row" style="border-left:3px solid var(--danger);"><div class="struct-label" style="color:var(--danger);">NG 3</div><div class="struct-content"><strong style="color:var(--danger);">"연구를 계속하고 싶습니다"만</strong><br>❌ 대학원에 가면 되지, 왜 기업에?<br>✅ 연구를 사회에 적용하고 싶다, 제품화에 기여하고 싶다 등</div></div>
+    <div class="struct-row" style="border-left:3px solid var(--danger);"><div class="struct-label" style="color:var(--danger);">NG 4</div><div class="struct-content"><strong style="color:var(--danger);">인성 어필 부재</strong><br>❌ 연구 이야기만 하고 인간성이 안 보임<br>✅ 연구 + 팀워크/커뮤니케이션 경험 균형 있게 어필</div></div>
   </div>
 
   <div class="info-box info-box-purple">
@@ -1239,65 +796,64 @@ window.addEventListener('DOMContentLoaded', function(){
   </div>
 </div>
 
-<!-- ════ 면접 후 피드백 + 체크리스트 + CTA ════ -->
-<div class="section">
-  <div class="section-num">APPENDIX</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 08: 면접 후 체크리스트               -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section" id="s8">
+  <div class="section-num">SECTION 08</div>
   <div class="section-title">면접 후 체크리스트</div>
   <div class="section-title-jp">面接後のチェックリスト</div>
 
-  <p>
-    면접이 끝난 후 반드시 피드백 정리를 하세요.
-    아래 체크리스트로 자기 평가를 해보고, 다음 면접까지 개선하세요.
-  </p>
+  <p>면접이 끝난 후 반드시 피드백 정리를 하세요. 다음 면접까지 개선할 포인트를 찾는 것이 핵심입니다.</p>
 
   <h3>답변 품질 자기 평가</h3>
 
   <div class="checklist">
-    <div class="checklist-item"><span class="checklist-icon">□</span> 결론부터 말했는가?</div>
-    <div class="checklist-item"><span class="checklist-icon">□</span> 질문 의도를 파악했는가?</div>
-    <div class="checklist-item"><span class="checklist-icon">□</span> 구체적으로 답변했는가?</div>
-    <div class="checklist-item"><span class="checklist-icon">□</span> 시간 배분은 적절했는가? (2분 이내)</div>
-    <div class="checklist-item"><span class="checklist-icon">□</span> 역질문은 잘 했는가?</div>
+    <div class="checklist-item"><span class="checklist-icon">□</span> 모든 답변을 결론부터 말했는가?</div>
+    <div class="checklist-item"><span class="checklist-icon">□</span> ES Step 1의 강점이 자기PR/가쿠치카/지망동기 답변에서 일관되게 드러났는가?</div>
+    <div class="checklist-item"><span class="checklist-icon">□</span> 후카보리 5단계에 모두 답할 수 있었는가?</div>
+    <div class="checklist-item"><span class="checklist-icon">□</span> 각 답변을 2분 이내로 마무리했는가?</div>
+    <div class="checklist-item"><span class="checklist-icon">□</span> 재현성(입사 후 활용)까지 연결했는가?</div>
+    <div class="checklist-item"><span class="checklist-icon">□</span> 역질문은 2~3개 준비해서 전달했는가?</div>
   </div>
 
   <h3>振り返り(피드백) 분류</h3>
 
   <div class="info-box">
     <p>
-      <strong>답변할 수 있었다 + 예상했음</strong> → 대책 완료된 질문 (유지)<br>
-      <strong>답변할 수 있었다 + 예상 못함</strong> → 운이 좋았던 질문 (정리해두기)<br>
-      <strong>답변할 수 없었다 + 예상했음</strong> → 대책 불충분 질문 (원인 분석 필요)<br>
-      <strong>답변할 수 없었다 + 예상 못함</strong> → 준비 부족 질문 (예상 문답 정리)
+      <strong>답변 O + 예상 O</strong> → 대책 완료 (유지)<br>
+      <strong>답변 O + 예상 X</strong> → 운이 좋았음 (정리해두기)<br>
+      <strong>답변 X + 예상 O</strong> → 대책 불충분 (원인 분석 필요)<br>
+      <strong>답변 X + 예상 X</strong> → 준비 부족 (예상 문답 추가)
     </p>
   </div>
 
-  <h3>핵심 메시지 8가지</h3>
+  <h3>핵심 메시지</h3>
 
   <div class="struct-grid">
     <div class="struct-row"><div class="struct-label" style="color:var(--accent);">1</div><div class="struct-content"><strong>ES와 면접은 같은 시험지:</strong> ES에 쓴 내용을 면접에서 검증한다</div></div>
-    <div class="struct-row"><div class="struct-label" style="color:var(--accent);">2</div><div class="struct-content"><strong>일본 기업이 보는 두 가지:</strong> 오래 할 수 있는가(가치관) + 일 잘할 수 있는가(사고과정)</div></div>
-    <div class="struct-row"><div class="struct-label" style="color:var(--accent);">3</div><div class="struct-content"><strong>면접 3대 원칙:</strong> 일관성 + 모티베이션 원천(선호업무환경 4축) + 재현성</div></div>
-    <div class="struct-row"><div class="struct-label" style="color:var(--accent);">4</div><div class="struct-content"><strong>한국은 결과, 일본은 과정:</strong> "무엇을 했는가"보다 "왜 그렇게 했는가"</div></div>
-    <div class="struct-row"><div class="struct-label" style="color:var(--accent);">5</div><div class="struct-content"><strong>후카보리 5단계:</strong> 문제 인식 → 사고 과정 → 접근 방법 → 실행과 조정 → 학습</div></div>
-    <div class="struct-row"><div class="struct-label" style="color:var(--accent);">6</div><div class="struct-content"><strong>깊이가 중요:</strong> 경험 10개보다 3개를 깊이 파는 게 낫다</div></div>
-    <div class="struct-row"><div class="struct-label" style="color:var(--accent);">7</div><div class="struct-content"><strong>실패도 무기:</strong> 실패에서 무엇을 배웠는가가 성장 가능성</div></div>
-    <div class="struct-row"><div class="struct-label" style="color:var(--accent);">8</div><div class="struct-content"><strong>이과생도 인성 중요:</strong> 연구 + 커뮤니케이션/팀워크 균형 있게 어필</div></div>
+    <div class="struct-row"><div class="struct-label" style="color:var(--accent);">2</div><div class="struct-content"><strong>3대 원칙:</strong> 일관성(Step 1 강점 관통) + 모티베이션(4축) + 재현성(입사 후 활용)</div></div>
+    <div class="struct-row"><div class="struct-label" style="color:var(--accent);">3</div><div class="struct-content"><strong>한국은 결과, 일본은 과정:</strong> "무엇을 했는가"보다 "왜 그렇게 했는가"</div></div>
+    <div class="struct-row"><div class="struct-label" style="color:var(--accent);">4</div><div class="struct-content"><strong>후카보리 5단계:</strong> 문제 인식 → 사고 과정 → 접근 방법 → 실행과 조정 → 학습</div></div>
+    <div class="struct-row"><div class="struct-label" style="color:var(--accent);">5</div><div class="struct-content"><strong>깊이가 중요:</strong> 경험 10개보다 3개를 깊이 파는 게 낫다</div></div>
+    <div class="struct-row"><div class="struct-label" style="color:var(--accent);">6</div><div class="struct-content"><strong>실패도 무기:</strong> 실패에서 무엇을 배웠는가가 성장 가능성</div></div>
   </div>
 
   <!-- 관련 가이드 링크 -->
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:24px;">
     <a href="self-analysis-guide.html" style="flex:1;min-width:220px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:10px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-      <span style="font-size:12px;font-weight:600;color:var(--text-sub);">📖 자기분석 완전 가이드</span>
+      <span style="font-size:12px;font-weight:600;color:var(--text-sub);">자기분석 완전 가이드</span>
       <span style="margin-left:auto;color:var(--text-muted);">→</span>
     </a>
     <a href="es-guide.html" style="flex:1;min-width:220px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:10px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-      <span style="font-size:12px;font-weight:600;color:var(--text-sub);">✍️ ES 작성 완전 가이드</span>
+      <span style="font-size:12px;font-weight:600;color:var(--text-sub);">ES 작성 완전 가이드</span>
       <span style="margin-left:auto;color:var(--text-muted);">→</span>
     </a>
   </div>
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
     <a href="career-test.html" style="flex:1;min-width:220px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:10px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-      <span style="font-size:12px;font-weight:600;color:var(--text-sub);">🧭 커리어 나침반 진단</span>
+      <span style="font-size:12px;font-weight:600;color:var(--text-sub);">커리어 나침반 진단</span>
       <span style="margin-left:auto;color:var(--text-muted);">→</span>
     </a>
   </div>
@@ -1321,12 +877,6 @@ window.addEventListener('DOMContentLoaded', function(){
 </div><!-- /.container -->
 
 <script>
-function toggleEx(header) {
-  const body = header.nextElementSibling;
-  body.classList.toggle('open');
-  header.querySelector('.ex-toggle').textContent = body.classList.contains('open') ? '▲' : '▼';
-}
-
 function scrollToSection(id) {
   const el = document.getElementById(id);
   if (el) {
@@ -1335,7 +885,6 @@ function scrollToSection(id) {
     window.scrollTo({ top: y, behavior: 'smooth' });
   }
 }
-
 const sections = document.querySelectorAll('.section[id]');
 const navBtns = document.querySelectorAll('.nav-btn');
 const observer = new IntersectionObserver((entries) => {
