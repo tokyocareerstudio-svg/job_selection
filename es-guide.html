@@ -154,22 +154,6 @@ window.addEventListener('DOMContentLoaded', function(){
   .struct-content strong { color:var(--text-sub); }
   .struct-pct { flex-shrink:0; font-size:11px; color:var(--text-muted); min-width:36px; text-align:right; }
 
-  .ex-block { margin:16px 0; border:1px solid var(--border); border-radius:10px; overflow:hidden; }
-  .ex-header {
-    padding:10px 16px; background:var(--surface-2); display:flex; align-items:center; gap:8px;
-    cursor:pointer; user-select:none;
-  }
-  .ex-tag { font-size:10px; font-weight:700; padding:2px 8px; border-radius:4px; }
-  .ex-tag-good { background:var(--success-soft); color:var(--success); border:1px solid var(--success-border); }
-  .ex-tag-bad { background:var(--danger-soft); color:var(--danger); border:1px solid var(--danger-border); }
-  .ex-label { font-size:12px; font-weight:600; color:var(--text-sub); }
-  .ex-toggle { margin-left:auto; font-size:10px; color:var(--text-muted); transition:transform 0.2s; }
-  .ex-body { padding:14px 16px; background:var(--surface); font-size:12px; line-height:1.9; display:none; }
-  .ex-body.open { display:block; }
-  .ex-body .jp { color:var(--text-dim); font-family:'Noto Sans JP','Noto Sans KR',sans-serif; margin-bottom:10px; }
-  .ex-body .ko { color:var(--text-muted); font-size:11px; }
-  .ex-body .point { margin-top:10px; padding:8px 12px; background:var(--accent-soft); border-radius:6px; font-size:11px; color:var(--accent); line-height:1.7; }
-
   .compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:16px 0; }
   .compare-card { padding:16px; border-radius:10px; }
   .compare-card.good { background:var(--success-soft); border:1px solid var(--success-border); }
@@ -199,7 +183,6 @@ window.addEventListener('DOMContentLoaded', function(){
   .checklist-item:last-child { border-bottom:none; }
   .checklist-icon { flex-shrink:0; margin-top:2px; }
 
-  .cta-block { text-align:center; margin:32px 0; }
   .cta-btn {
     display:inline-flex; align-items:center; gap:8px;
     padding:14px 32px; background:var(--accent); color:#fff;
@@ -221,10 +204,56 @@ window.addEventListener('DOMContentLoaded', function(){
   .pt-cta h4 { font-size:16px; font-weight:800; margin-bottom:8px; }
   .pt-cta p { font-size:12px; color:var(--text-dim); line-height:1.9; margin-bottom:16px; }
 
+  /* Step flow indicator */
+  .step-flow {
+    display:flex; align-items:center; gap:0; margin:20px 0 8px;
+    padding:14px 16px; background:var(--surface); border:1px solid var(--border); border-radius:10px;
+    overflow-x:auto;
+  }
+  .step-flow-item {
+    font-size:11px; font-weight:600; color:var(--text-muted);
+    white-space:nowrap; padding:4px 10px; border-radius:6px;
+    transition:all 0.2s;
+  }
+  .step-flow-item.current {
+    background:var(--accent-soft); color:var(--accent); border:1px solid var(--accent-border);
+  }
+  .step-flow-arrow { color:var(--text-muted); font-size:10px; margin:0 2px; opacity:0.4; }
+
+  /* Collapsible value cards */
+  .value-card {
+    margin:8px 0; border:1px solid var(--border); border-radius:10px; overflow:hidden;
+  }
+  .value-card-header {
+    padding:12px 16px; background:var(--surface-2); display:flex; align-items:center; gap:10px;
+    cursor:pointer; user-select:none;
+  }
+  .value-card-header:hover { background:var(--surface-3); }
+  .value-card-name { font-size:13px; font-weight:700; color:var(--text-sub); }
+  .value-card-jp { font-size:10px; color:var(--text-muted); font-family:'Noto Sans JP',sans-serif; }
+  .value-card-toggle { margin-left:auto; font-size:10px; color:var(--text-muted); transition:transform 0.2s; }
+  .value-card-body { padding:14px 16px; background:var(--surface); display:none; }
+  .value-card-body.open { display:block; }
+  .value-card-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+  .value-card-bad, .value-card-good { padding:10px 12px; border-radius:8px; font-size:11px; line-height:1.8; }
+  .value-card-bad { background:var(--danger-soft); border:1px solid var(--danger-border); color:var(--text-dim); }
+  .value-card-good { background:var(--success-soft); border:1px solid var(--success-border); color:var(--text-dim); }
+  .value-card-bad strong { color:var(--danger); font-size:10px; display:block; margin-bottom:4px; }
+  .value-card-good strong { color:var(--success); font-size:10px; display:block; margin-bottom:4px; }
+
+  /* TCS rule inline */
+  .rule-inline {
+    padding:12px 16px; background:var(--warn-soft); border:1px solid var(--warn-border);
+    border-radius:8px; margin:14px 0; font-size:11px; color:var(--text-dim); line-height:1.9;
+  }
+  .rule-inline strong { color:var(--warn); }
+
   @media (max-width:640px) {
     .hero h1 { font-size:24px; }
     .section-title { font-size:18px; }
     .compare-grid { grid-template-columns:1fr; }
+    .value-card-row { grid-template-columns:1fr; }
+    .step-flow { flex-wrap:wrap; }
   }
 </style>
 </head>
@@ -236,17 +265,17 @@ window.addEventListener('DOMContentLoaded', function(){
     <div class="hero-label">ES Writing Guide</div>
     <h1>ES 작성 완전 가이드</h1>
     <p class="hero-sub">
-      엔트리시트(ES)는 단순한 서류가 아니라 면접의 대본입니다.<br>
-      자기PR, 가쿠치카, 지망동기 — 3대 항목의 구조부터 TCS 표기 룰,<br>
-      좋은 예시와 나쁜 예시까지, ES 통과율을 높이는 모든 것.
+      위에서 아래로 따라가면 ES가 완성됩니다.<br>
+      강점 선택 → 자기PR → 가쿠치카 → 지망동기 → 표기 룰 → 체크리스트.<br>
+      5단계 워크플로우로 통과율을 높이세요.
     </p>
     <p class="hero-meta">Tokyo Career Studio &nbsp;|&nbsp; 2026.03 &nbsp;|&nbsp; 약 20분</p>
     <div class="hero-tags">
-      <span class="hero-tag">자기PR 구조</span>
-      <span class="hero-tag">가쿠치카 STAR</span>
-      <span class="hero-tag">지망동기 4단계</span>
-      <span class="hero-tag">TCS 표기 룰</span>
-      <span class="hero-tag">좋은 예시 vs 나쁜 예시</span>
+      <span class="hero-tag">Step 1 강점 선택</span>
+      <span class="hero-tag">Step 2 자기PR</span>
+      <span class="hero-tag">Step 3 가쿠치카</span>
+      <span class="hero-tag">Step 4 지망동기</span>
+      <span class="hero-tag">Step 5 표기 룰</span>
     </div>
   </div>
 </div>
@@ -255,40 +284,29 @@ window.addEventListener('DOMContentLoaded', function(){
 <nav class="section-nav">
   <div class="section-nav-inner">
     <button class="nav-btn active" onclick="scrollToSection('s1')">ES란?</button>
-    <button class="nav-btn" onclick="scrollToSection('s2')">자기PR</button>
-    <button class="nav-btn" onclick="scrollToSection('s3')">가쿠치카</button>
-    <button class="nav-btn" onclick="scrollToSection('s4')">지망동기</button>
-    <button class="nav-btn" onclick="scrollToSection('s5')">표기 룰</button>
-    <button class="nav-btn" onclick="scrollToSection('s6')">16강점 매칭</button>
+    <button class="nav-btn" onclick="scrollToSection('s2')">Step1 강점</button>
+    <button class="nav-btn" onclick="scrollToSection('s3')">Step2 자기PR</button>
+    <button class="nav-btn" onclick="scrollToSection('s4')">Step3 가쿠치카</button>
+    <button class="nav-btn" onclick="scrollToSection('s5')">Step4 지망동기</button>
+    <button class="nav-btn" onclick="scrollToSection('s6')">Step5 표기룰</button>
     <button class="nav-btn" onclick="scrollToSection('s7')">체크리스트</button>
   </div>
 </nav>
 
 <div class="container">
 
-<!-- ════ SECTION 01 ════ -->
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 01: ES란 무엇인가 (축소)            -->
+<!-- ════════════════════════════════════════════ -->
 <div class="section" id="s1">
   <div class="section-num">SECTION 01</div>
   <div class="section-title">ES란 무엇인가</div>
   <div class="section-title-jp">エントリーシート（ES）とは</div>
 
   <p>
-    엔트리시트(ES)는 일본 취활의 첫 번째 관문이자, 면접의 대본입니다.
+    엔트리시트(ES)는 일본 취활의 첫 번째 관문이자, <span class="hl">면접의 대본</span>입니다.
     면접관은 여러분의 ES를 손에 들고 질문합니다.
     ES에 쓴 내용이 진짜인지, 그 사람이 정말 그런 사람인지 확인하는 것이 면접의 본질입니다.
-  </p>
-
-  <div class="info-box info-box-accent">
-    <h4>ES와 면접의 관계</h4>
-    <p>
-      <strong>ES:</strong> 400자로 압축 → 핵심만<br>
-      <strong>면접:</strong> 1~2분 답변 → ES보다 약간 상세하게<br>
-      <strong>후카보리:</strong> ES에 쓰지 못한 사고 과정을 설명
-    </p>
-  </div>
-
-  <p>
-    일본 기업이 ES와 면접을 통해 확인하는 것은 단 두 가지입니다.
   </p>
 
   <div class="info-box">
@@ -299,47 +317,474 @@ window.addEventListener('DOMContentLoaded', function(){
     </p>
   </div>
 
-  <h3>ES 3대 항목</h3>
-
   <p>
     거의 모든 기업의 ES에 등장하는 3대 항목이 있습니다.
-    이 세 가지를 완벽하게 준비하면 ES의 80%는 해결됩니다.
+    이 가이드에서는 각 항목을 Step별로 조립하는 방법을 다룹니다.
   </p>
 
   <div class="struct-grid">
     <div class="struct-row">
       <div class="struct-label" style="color:#4a9eff;">자기PR</div>
-      <div class="struct-content"><strong>나의 강점은 무엇인가</strong> — 강점 선언 + 에피소드로 증명 + 귀사에서 활용</div>
+      <div class="struct-content"><strong>나의 강점은 무엇인가</strong> — 강점 선언 + 에피소드로 증명 + 귀사에서 활용 → <span class="hl">Step 2</span></div>
     </div>
     <div class="struct-row">
       <div class="struct-label" style="color:#a78bfa;">가쿠치카</div>
-      <div class="struct-content"><strong>학생 시절 힘을 쏟은 것</strong> — 사고 과정 검증의 출발점. 후카보리의 주 타겟</div>
+      <div class="struct-content"><strong>학생 시절 힘을 쏟은 것</strong> — 사고 과정 검증의 출발점. 후카보리의 주 타겟 → <span class="hl-purple">Step 3</span></div>
     </div>
     <div class="struct-row">
       <div class="struct-label" style="color:#34d399;">지망동기</div>
-      <div class="struct-content"><strong>왜 이 회사인가</strong> — 가치관 + 4축 분석 + 기업 고유의 이유</div>
+      <div class="struct-content"><strong>왜 이 회사인가</strong> — 가치관 + 4축 분석 + 기업 고유의 이유 → <span class="hl-success">Step 4</span></div>
     </div>
+  </div>
+
+  <div class="info-box info-box-accent">
+    <h4>이 가이드의 사용법</h4>
+    <p>
+      <strong>먼저 Step 1에서 강점을 정하세요.</strong>
+      그 강점이 자기PR의 첫 문장이 되고, 가쿠치카의 Action에서 드러나며, 지망동기에서 "귀사에서 이 강점을 활용하겠습니다"로 마무리됩니다.
+      <span class="hl">하나의 강점이 ES 전체를 관통하는 것</span> — 이것이 일관성(一貫性)입니다.
+    </p>
   </div>
 </div>
 
-<!-- ════ SECTION 02 ════ -->
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 02: Step 1 — 강점을 정하라           -->
+<!-- ════════════════════════════════════════════ -->
 <div class="section" id="s2">
-  <div class="section-num">SECTION 02</div>
-  <div class="section-title">자기PR(自己PR)</div>
-  <div class="section-title-jp">自己PRの書き方</div>
+  <div class="section-num">STEP 01</div>
+  <div class="section-title">강점을 정하라</div>
+  <div class="section-title-jp">自分の強みを決める</div>
+
+  <div class="step-flow">
+    <span class="step-flow-item current">Step 1 강점</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 2 자기PR</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 3 가쿠치카</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 4 지망동기</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 5 표기룰</span>
+  </div>
 
   <p>
-    자기PR은 <span class="hl">"나의 강점은 OO입니다"</span>로 시작합니다(두괄식).
-    진단에서 나온 상위 강점 중 지원 기업·직종과 가장 맞는 것 하나를 골라,
-    에피소드로 증명하는 구조입니다.
+    ES의 모든 것은 <span class="hl">강점 하나를 정하는 것</span>에서 시작합니다.
+    아직 자신의 강점을 모른다면, 먼저 커리어 나침반 진단을 받으세요.
+    진단 결과에서 강점 TOP 3을 확인한 뒤, 아래 3단계를 거치면 ES의 기초가 완성됩니다.
   </p>
 
-  <h3>자기PR 구조</h3>
+  <div class="info-box info-box-purple">
+    <div class="box-label box-label-purple">진단 먼저</div>
+    <p>
+      <a href="career-test.html" style="color:var(--accent);font-weight:600;text-decoration:underline;">커리어 나침반 진단 →</a>
+      에서 16강점 + 8가치 + 4축 분석을 받으세요. 결과지를 옆에 두고 이 가이드를 진행하면 효과적입니다.
+    </p>
+  </div>
+
+  <h3>1-A. 추상적 강점을 "행동 특성"으로 바꾸기</h3>
+
+  <p>
+    "협조성이 있습니다", "리더십이 강점입니다"는 너무 추상적입니다.
+    면접관은 모든 지원자에게 같은 말을 듣습니다.
+    강점은 반드시 <span class="hl">행동 특성</span>으로 재정의해야 차별화됩니다.
+    아래에서 진단 결과와 맞는 가치를 찾아, ❌를 ✅로 바꾸는 연습을 하세요.
+  </p>
+
+  <!-- 8가치 접이식 카드 -->
+  <div class="value-card">
+    <div class="value-card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.value-card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+      <span class="value-card-name">협조성</span>
+      <span class="value-card-jp">協調性</span>
+      <span class="value-card-toggle">▼</span>
+    </div>
+    <div class="value-card-body">
+      <div class="value-card-row">
+        <div class="value-card-bad">
+          <strong>❌ 이렇게 쓰지 마세요</strong>
+          "협조성이 있습니다"<br>
+          "팀워크를 소중히 합니다"<br>
+          "모두와 사이좋게 일할 수 있습니다"
+        </div>
+        <div class="value-card-good">
+          <strong>✅ 행동 특성으로 정의</strong>
+          "주위와 협력하면서 성과를 올리는 힘"<br>
+          "의견 대립 시 중간에서 조율하여 합의를 이끄는 힘"<br>
+          "상대의 강점을 파악하고 역할을 배분하는 힘"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="value-card">
+    <div class="value-card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.value-card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+      <span class="value-card-name">성실성</span>
+      <span class="value-card-jp">誠実さ</span>
+      <span class="value-card-toggle">▼</span>
+    </div>
+    <div class="value-card-body">
+      <div class="value-card-row">
+        <div class="value-card-bad">
+          <strong>❌ 이렇게 쓰지 마세요</strong>
+          "성실합니다"<br>
+          "맡은 일은 끝까지 합니다"<br>
+          "열심히 합니다"
+        </div>
+        <div class="value-card-good">
+          <strong>✅ 행동 특성으로 정의</strong>
+          "약속한 기한과 품질을 반드시 지키는 힘"<br>
+          "작은 실수도 보고하고, 신뢰를 쌓아가는 자세"<br>
+          "눈에 안 보이는 뒷작업까지 책임지는 자세"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="value-card">
+    <div class="value-card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.value-card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+      <span class="value-card-name">주체성</span>
+      <span class="value-card-jp">主体性</span>
+      <span class="value-card-toggle">▼</span>
+    </div>
+    <div class="value-card-body">
+      <div class="value-card-row">
+        <div class="value-card-bad">
+          <strong>❌ 이렇게 쓰지 마세요</strong>
+          "주체적입니다"<br>
+          "적극적으로 임합니다"<br>
+          "자발적으로 행동합니다"
+        </div>
+        <div class="value-card-good">
+          <strong>✅ 행동 특성으로 정의</strong>
+          "지시를 기다리지 않고, 과제를 찾아 스스로 움직이는 힘"<br>
+          "현상에 의문을 갖고 개선안을 제안하는 힘"<br>
+          "아무도 안 하는 일을 먼저 맡아 형태를 만드는 힘"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="value-card">
+    <div class="value-card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.value-card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+      <span class="value-card-name">도전정신</span>
+      <span class="value-card-jp">チャレンジ精神</span>
+      <span class="value-card-toggle">▼</span>
+    </div>
+    <div class="value-card-body">
+      <div class="value-card-row">
+        <div class="value-card-bad">
+          <strong>❌ 이렇게 쓰지 마세요</strong>
+          "도전정신이 있습니다"<br>
+          "새로운 것을 좋아합니다"<br>
+          "실패를 두려워하지 않습니다"
+        </div>
+        <div class="value-card-good">
+          <strong>✅ 행동 특성으로 정의</strong>
+          "미경험 영역에서도 가설을 세워 먼저 시도하는 힘"<br>
+          "실패에서 원인을 분석하고 다음 도전에 반영하는 힘"<br>
+          "전례가 없어도 방법을 만들어내는 추진력"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="value-card">
+    <div class="value-card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.value-card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+      <span class="value-card-name">공헌</span>
+      <span class="value-card-jp">貢献</span>
+      <span class="value-card-toggle">▼</span>
+    </div>
+    <div class="value-card-body">
+      <div class="value-card-row">
+        <div class="value-card-bad">
+          <strong>❌ 이렇게 쓰지 마세요</strong>
+          "사회에 공헌하고 싶습니다"<br>
+          "사람을 돕고 싶습니다"<br>
+          "누군가의 역할이 되고 싶습니다"
+        </div>
+        <div class="value-card-good">
+          <strong>✅ 행동 특성으로 정의</strong>
+          "상대가 진짜 필요로 하는 것을 파악하여 행동으로 옮기는 힘"<br>
+          "자신의 역할 범위 밖이라도, 팀에 필요하면 움직이는 자세"<br>
+          "감사받기 위해서가 아니라, 결과로 기여하는 자세"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="value-card">
+    <div class="value-card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.value-card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+      <span class="value-card-name">향상심</span>
+      <span class="value-card-jp">向上心</span>
+      <span class="value-card-toggle">▼</span>
+    </div>
+    <div class="value-card-body">
+      <div class="value-card-row">
+        <div class="value-card-bad">
+          <strong>❌ 이렇게 쓰지 마세요</strong>
+          "향상심이 있습니다"<br>
+          "항상 배우려고 합니다"<br>
+          "성장하고 싶습니다"
+        </div>
+        <div class="value-card-good">
+          <strong>✅ 행동 특성으로 정의</strong>
+          "현재 수준에 만족하지 않고, 다음 목표를 설정하여 행동하는 힘"<br>
+          "피드백을 적극적으로 받아들여 개선 사이클을 돌리는 힘"<br>
+          "부족한 점을 인정하고 구체적 학습 계획을 실행하는 힘"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="value-card">
+    <div class="value-card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.value-card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+      <span class="value-card-name">책임감</span>
+      <span class="value-card-jp">責任感</span>
+      <span class="value-card-toggle">▼</span>
+    </div>
+    <div class="value-card-body">
+      <div class="value-card-row">
+        <div class="value-card-bad">
+          <strong>❌ 이렇게 쓰지 마세요</strong>
+          "책임감이 있습니다"<br>
+          "맡은 일은 끝까지 합니다"<br>
+          "포기하지 않습니다"
+        </div>
+        <div class="value-card-good">
+          <strong>✅ 행동 특성으로 정의</strong>
+          "상황이 어려워져도 끝까지 완수하고, 결과에 책임지는 힘"<br>
+          "문제가 생겼을 때 남 탓하지 않고 자신의 할 일을 찾는 자세"<br>
+          "마감 직전에도 품질을 타협하지 않는 자세"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="value-card">
+    <div class="value-card-header" onclick="this.nextElementSibling.classList.toggle('open'); this.querySelector('.value-card-toggle').textContent = this.nextElementSibling.classList.contains('open') ? '▲' : '▼';">
+      <span class="value-card-name">융통성</span>
+      <span class="value-card-jp">柔軟性</span>
+      <span class="value-card-toggle">▼</span>
+    </div>
+    <div class="value-card-body">
+      <div class="value-card-row">
+        <div class="value-card-bad">
+          <strong>❌ 이렇게 쓰지 마세요</strong>
+          "융통성이 있습니다"<br>
+          "유연하게 대처합니다"<br>
+          "임기응변에 강합니다"
+        </div>
+        <div class="value-card-good">
+          <strong>✅ 행동 특성으로 정의</strong>
+          "예상 밖의 상황에서도 우선순위를 재설정하여 대응하는 힘"<br>
+          "상대의 입장에서 생각하고, 접근 방식을 바꿀 수 있는 힘"<br>
+          "계획이 무너졌을 때, 대안을 빠르게 수립하여 실행하는 힘"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-box info-box-accent">
+    <h4>사용법</h4>
+    <p>
+      <strong>1.</strong> 커리어 나침반 진단에서 나온 강점 TOP3를 확인<br>
+      <strong>2.</strong> 위 카드에서 해당 가치의 ✅ 표현 중 자신의 에피소드에 가장 맞는 것을 선택<br>
+      <strong>3.</strong> "나의 강점은 「✅ 표현」입니다" 로 자기PR 첫 문장 작성 (→ Step 2)<br>
+      <strong>4.</strong> 에피소드에서 그 행동 특성이 드러나는 장면을 구체적으로 서술
+    </p>
+  </div>
+
+
+  <h3>1-B. 이 강점이 어떤 업계에서 통하는가?</h3>
+
+  <p>
+    강점을 행동 특성으로 바꿨다면, 다음 질문은 "이 강점이 어떤 업계·직종에서 가장 빛나는가?"입니다.
+    TCS의 16강점 체계로 자신의 강점과 지원처의 궁합을 확인하세요.
+  </p>
+
+  <h3 style="border-left-color:var(--purple);">대인 관계 계열</h3>
+
+  <table class="rule-table">
+    <thead><tr><th style="width:18%;">강점</th><th style="width:40%;">적합 업계</th><th>적합 직종</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>경청력</strong><br><span style="font-size:10px;color:var(--text-muted);">傾聴力</span></td>
+        <td>금융(리테일), 인재, 호텔·서비스, 의료기기</td>
+        <td>영업(법인/개인), 인사, CS, 카운터세일즈</td>
+      </tr>
+      <tr>
+        <td><strong>전달력</strong><br><span style="font-size:10px;color:var(--text-muted);">伝達力</span></td>
+        <td>광고·미디어, 컨설팅, IT(SaaS), 교육</td>
+        <td>기획·마케팅, 프리세일즈, 교육·연수 담당</td>
+      </tr>
+      <tr>
+        <td><strong>조정력</strong><br><span style="font-size:10px;color:var(--text-muted);">調整力</span></td>
+        <td>상사(종합상사), 건설·부동산, SIer, 물류</td>
+        <td>프로젝트 매니저, 영업사무, 생산관리, 무역사무</td>
+      </tr>
+      <tr>
+        <td><strong>공감력</strong><br><span style="font-size:10px;color:var(--text-muted);">共感力</span></td>
+        <td>소비재·식품, 화장품, 호텔, 복지·의료</td>
+        <td>상품기획, 리서치, 접객·서비스직, 홍보(PR)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="border-left-color:var(--purple);">사고·분석 계열</h3>
+
+  <table class="rule-table">
+    <thead><tr><th style="width:18%;">강점</th><th style="width:40%;">적합 업계</th><th>적합 직종</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>분석력</strong><br><span style="font-size:10px;color:var(--text-muted);">分析力</span></td>
+        <td>컨설팅, 금융(투자/리서치), IT, 제약</td>
+        <td>데이터 분석, 경영기획, 마케팅, 리서처</td>
+      </tr>
+      <tr>
+        <td><strong>논리적 사고</strong><br><span style="font-size:10px;color:var(--text-muted);">論理的思考力</span></td>
+        <td>컨설팅, IT(SIer/SaaS), 금융(증권), 법률</td>
+        <td>SE/엔지니어, 컨설턴트, 법무, 사업개발</td>
+      </tr>
+      <tr>
+        <td><strong>과제 발견력</strong><br><span style="font-size:10px;color:var(--text-muted);">課題発見力</span></td>
+        <td>컨설팅, 벤처/스타트업, 광고, 인재</td>
+        <td>신규사업, 솔루션영업, 사업기획, 컨설턴트</td>
+      </tr>
+      <tr>
+        <td><strong>창의력</strong><br><span style="font-size:10px;color:var(--text-muted);">創造力</span></td>
+        <td>광고·미디어, 게임, 소비재(상품개발), IT(웹)</td>
+        <td>크리에이티브, 상품기획, UX/UI, 콘텐츠기획</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="border-left-color:var(--purple);">실행·추진 계열</h3>
+
+  <table class="rule-table">
+    <thead><tr><th style="width:18%;">강점</th><th style="width:40%;">적합 업계</th><th>적합 직종</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>행동력</strong><br><span style="font-size:10px;color:var(--text-muted);">行動力</span></td>
+        <td>벤처/스타트업, 부동산, 광고, 인재</td>
+        <td>신규영업, 사업개발, 창업지원, 이벤트기획</td>
+      </tr>
+      <tr>
+        <td><strong>계획력</strong><br><span style="font-size:10px;color:var(--text-muted);">計画力</span></td>
+        <td>메이커(생산), 건설, 물류, 금융(운용)</td>
+        <td>생산관리, 시공관리, SCM, 경영기획</td>
+      </tr>
+      <tr>
+        <td><strong>끈기/계속력</strong><br><span style="font-size:10px;color:var(--text-muted);">継続力</span></td>
+        <td>메이커(R&D), 금융(은행), 인프라, 공무원</td>
+        <td>연구개발, 루트영업, 품질관리, 경리·재무</td>
+      </tr>
+      <tr>
+        <td><strong>결단력</strong><br><span style="font-size:10px;color:var(--text-muted);">決断力</span></td>
+        <td>상사, 벤처, 외자계, 부동산(디벨로퍼)</td>
+        <td>프로젝트 리더, 바이어, 투자, 경영기획</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 style="border-left-color:var(--purple);">팀·리더십 계열</h3>
+
+  <table class="rule-table">
+    <thead><tr><th style="width:18%;">강점</th><th style="width:40%;">적합 업계</th><th>적합 직종</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>리더십</strong><br><span style="font-size:10px;color:var(--text-muted);">リーダーシップ</span></td>
+        <td>상사, 건설·부동산, 메이커, 컨설팅</td>
+        <td>영업 리더, PM, 시공관리, 지점장 후보</td>
+      </tr>
+      <tr>
+        <td><strong>서포트력</strong><br><span style="font-size:10px;color:var(--text-muted);">サポート力</span></td>
+        <td>금융(은행), 호텔·서비스, 의료, 교육</td>
+        <td>영업사무, 비서, 총무·인사, CS</td>
+      </tr>
+      <tr>
+        <td><strong>통솔력</strong><br><span style="font-size:10px;color:var(--text-muted);">統率力</span></td>
+        <td>건설, 물류, 외식, 소매(점포경영)</td>
+        <td>시공관리, 물류관리, 점장 후보, 프로젝트 리더</td>
+      </tr>
+      <tr>
+        <td><strong>유연성</strong><br><span style="font-size:10px;color:var(--text-muted);">柔軟性</span></td>
+        <td>상사, 호텔·관광, 벤처, 인재</td>
+        <td>해외영업, 카운터세일즈, CS, 이벤트기획</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>1-C. 업계별 "가장 통하는 강점" TOP 3</h3>
+
+  <table class="rule-table">
+    <thead><tr><th>업계</th><th>1순위</th><th>2순위</th><th>3순위</th></tr></thead>
+    <tbody>
+      <tr><td><strong>메이커</strong></td><td>끈기/계속력</td><td>협조성</td><td>과제 발견력</td></tr>
+      <tr><td><strong>IT/SIer</strong></td><td>논리적 사고</td><td>조정력</td><td>과제 발견력</td></tr>
+      <tr><td><strong>상사(商社)</strong></td><td>행동력</td><td>조정력</td><td>리더십</td></tr>
+      <tr><td><strong>금융(은행)</strong></td><td>경청력</td><td>성실성</td><td>끈기/계속력</td></tr>
+      <tr><td><strong>컨설팅</strong></td><td>논리적 사고</td><td>분석력</td><td>전달력</td></tr>
+      <tr><td><strong>광고·미디어</strong></td><td>창의력</td><td>전달력</td><td>행동력</td></tr>
+      <tr><td><strong>부동산</strong></td><td>행동력</td><td>결단력</td><td>경청력</td></tr>
+      <tr><td><strong>식품·소비재</strong></td><td>공감력</td><td>끈기/계속력</td><td>협조성</td></tr>
+    </tbody>
+  </table>
+
+  <div class="info-box info-box-warn">
+    <div class="box-label box-label-warn">TCS 노하우</div>
+    <h4>"강점이 업계에 안 맞으면 어떡하죠?"</h4>
+    <p>
+      가장 많이 받는 질문입니다. 답은 간단합니다:<br>
+      <strong>강점 TOP 1위가 안 맞으면, 2~3순위에서 맞는 것을 찾으세요.</strong>
+      사람에게는 여러 강점이 있습니다. 지원 기업에 따라 어필하는 강점을 바꾸는 것이 전략입니다.
+      단, 가쿠치카와 자기PR의 에피소드에서 그 강점이 드러나야 합니다 — 이것이 일관성입니다.
+    </p>
+  </div>
+
+  <div class="pt-cta">
+    <h4>자신의 강점 TOP 3를 모르겠다면?</h4>
+    <p>
+      TCS 커리어 나침반 진단에서 16강점 + 4축 분석을 무료로 받을 수 있습니다.<br>
+      진단 결과가 자기PR·가쿠치카·지망동기의 기초가 됩니다.
+    </p>
+    <a href="career-test.html" class="cta-btn">
+      무료 진단 받기 →
+    </a>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 03: Step 2 — 자기PR 400자 조립법     -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section" id="s3">
+  <div class="section-num">STEP 02</div>
+  <div class="section-title">자기PR 400자 조립법</div>
+  <div class="section-title-jp">自己PRの書き方</div>
+
+  <div class="step-flow">
+    <span class="step-flow-item">Step 1 강점</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item current">Step 2 자기PR</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 3 가쿠치카</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 4 지망동기</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 5 표기룰</span>
+  </div>
+
+  <p>
+    Step 1에서 정한 행동 특성을 <span class="hl">자기PR의 첫 문장</span>에 넣으세요.
+    "나의 강점은 OO입니다"로 시작하는 두괄식이 기본입니다.
+  </p>
+
+  <h3>자기PR 구조 (400자 기준)</h3>
 
   <div class="struct-grid">
     <div class="struct-row">
       <div class="struct-label" style="color:#4a9eff;">결론</div>
-      <div class="struct-content"><strong>"나의 강점은 OO입니다"</strong> — 두괄식 시작. 행동 특성으로 정의하세요.</div>
+      <div class="struct-content"><strong>"나의 강점은 「Step 1의 행동 특성」입니다"</strong> — 두괄식 시작. 추상적 단어 금지.</div>
       <div class="struct-pct">15%</div>
     </div>
     <div class="struct-row">
@@ -368,30 +813,12 @@ window.addEventListener('DOMContentLoaded', function(){
     </p>
   </div>
 
-  <h3>강점 표현의 핵심</h3>
-
-  <p>
-    "협조성이 있습니다", "리더십이 강점입니다"는 너무 추상적입니다.
-    강점은 반드시 <span class="hl">행동 특성</span>으로 재정의해야 합니다.
-  </p>
-
-  <div class="compare-grid">
-    <div class="compare-card bad">
-      <h5>❌ 추상적</h5>
-      <p>
-        "나의 강점은 협조성입니다"<br>
-        "리더십이 있습니다"<br>
-        "커뮤니케이션 능력이 강점입니다"
-      </p>
-    </div>
-    <div class="compare-card good">
-      <h5>✅ 행동 특성으로 정의</h5>
-      <p>
-        "주위와 협력하면서 성과를 올리는 협조성"<br>
-        "멤버를 좋은 방향으로 이끄는 리더십"<br>
-        "상대의 진짜 니즈를 파악하는 경청력"
-      </p>
-    </div>
+  <div class="rule-inline">
+    <strong>TCS 표기 룰 (자기PR 편)</strong><br>
+    ・ "나의 강점은 OO입니다" = 두괄식. 결론부터 쓸 것<br>
+    ・ 의견 표현은 思います (考えます는 면접 구두용)<br>
+    ・ ES 서면에서는 貴社 (御社는 면접 구두용)<br>
+    ・ 기업 인재상 키워드와 자신의 강점이 겹치면 적극 활용
   </div>
 
   <div class="info-box info-box-success">
@@ -403,164 +830,28 @@ window.addEventListener('DOMContentLoaded', function(){
       "이 사람은 우리 회사에 맞겠다"는 인상을 줄 수 있습니다.
     </p>
   </div>
-
-
-  <h3>TCS 8가지 핵심 가치별 자기PR 표현법</h3>
-
-  <p>
-    TCS에서는 7년간의 컨설팅을 통해
-    <span class="hl">8가지 핵심 가치</span>를 정립했습니다.
-    자기PR에서 강점을 표현할 때, 추상적인 단어가 아니라
-    <span class="hl">행동 특성</span>으로 재정의하는 것이 핵심입니다.
-    아래 테이블에서 자신의 강점에 해당하는 행을 찾아,
-    ❌를 ✅로 바꾸는 연습을 하세요.
-  </p>
-
-  <table class="rule-table">
-    <thead>
-      <tr>
-        <th style="width:15%;">핵심 가치</th>
-        <th style="width:42%;">❌ 이렇게 쓰지 마세요</th>
-        <th>✅ 이렇게 쓰세요 (행동 특성)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>협조성</strong><br><span style="font-size:10px;color:var(--text-muted);">協調性</span></td>
-        <td>
-          "협조성이 있습니다"<br>
-          "팀워크를 소중히 합니다"<br>
-          "모두와 사이좋게 일할 수 있습니다"
-        </td>
-        <td>
-          <strong>"주위와 협력하면서 성과를 올리는 힘"</strong><br>
-          "의견 대립 시 중간에서 조율하여 합의를 이끄는 힘"<br>
-          "상대의 강점을 파악하고 역할을 배분하는 힘"
-        </td>
-      </tr>
-      <tr>
-        <td><strong>성실성</strong><br><span style="font-size:10px;color:var(--text-muted);">誠実さ</span></td>
-        <td>
-          "성실합니다"<br>
-          "맡은 일은 끝까지 합니다"<br>
-          "열심히 합니다"
-        </td>
-        <td>
-          <strong>"약속한 기한과 품질을 반드시 지키는 힘"</strong><br>
-          "작은 실수도 보고하고, 신뢰를 쌓아가는 자세"<br>
-          "눈에 안 보이는 뒷작업까지 책임지는 자세"
-        </td>
-      </tr>
-      <tr>
-        <td><strong>주체성</strong><br><span style="font-size:10px;color:var(--text-muted);">主体性</span></td>
-        <td>
-          "주체적입니다"<br>
-          "적극적으로 임합니다"<br>
-          "자발적으로 행동합니다"
-        </td>
-        <td>
-          <strong>"지시를 기다리지 않고, 과제를 찾아 스스로 움직이는 힘"</strong><br>
-          "현상에 의문을 갖고 개선안을 제안하는 힘"<br>
-          "아무도 안 하는 일을 먼저 맡아 형태를 만드는 힘"
-        </td>
-      </tr>
-      <tr>
-        <td><strong>도전정신</strong><br><span style="font-size:10px;color:var(--text-muted);">チャレンジ精神</span></td>
-        <td>
-          "도전정신이 있습니다"<br>
-          "새로운 것을 좋아합니다"<br>
-          "실패를 두려워하지 않습니다"
-        </td>
-        <td>
-          <strong>"미경험 영역에서도 가설을 세워 먼저 시도하는 힘"</strong><br>
-          "실패에서 원인을 분석하고 다음 도전에 반영하는 힘"<br>
-          "전례가 없어도 방법을 만들어내는 추진력"
-        </td>
-      </tr>
-      <tr>
-        <td><strong>공헌</strong><br><span style="font-size:10px;color:var(--text-muted);">貢献</span></td>
-        <td>
-          "사회에 공헌하고 싶습니다"<br>
-          "사람을 돕고 싶습니다"<br>
-          "누군가의 역할이 되고 싶습니다"
-        </td>
-        <td>
-          <strong>"상대가 진짜 필요로 하는 것을 파악하여 행동으로 옮기는 힘"</strong><br>
-          "자신의 역할 범위 밖이라도, 팀에 필요하면 움직이는 자세"<br>
-          "감사받기 위해서가 아니라, 결과로 기여하는 자세"
-        </td>
-      </tr>
-      <tr>
-        <td><strong>향상심</strong><br><span style="font-size:10px;color:var(--text-muted);">向上心</span></td>
-        <td>
-          "향상심이 있습니다"<br>
-          "항상 배우려고 합니다"<br>
-          "성장하고 싶습니다"
-        </td>
-        <td>
-          <strong>"현재 수준에 만족하지 않고, 다음 목표를 설정하여 행동하는 힘"</strong><br>
-          "피드백을 적극적으로 받아들여 개선 사이클을 돌리는 힘"<br>
-          "부족한 점을 인정하고 구체적 학습 계획을 실행하는 힘"
-        </td>
-      </tr>
-      <tr>
-        <td><strong>책임감</strong><br><span style="font-size:10px;color:var(--text-muted);">責任感</span></td>
-        <td>
-          "책임감이 있습니다"<br>
-          "맡은 일은 끝까지 합니다"<br>
-          "포기하지 않습니다"
-        </td>
-        <td>
-          <strong>"상황이 어려워져도 끝까지 완수하고, 결과에 책임지는 힘"</strong><br>
-          "문제가 생겼을 때 남 탓하지 않고 자신의 할 일을 찾는 자세"<br>
-          "마감 직전에도 품질을 타협하지 않는 자세"
-        </td>
-      </tr>
-      <tr>
-        <td><strong>융통성</strong><br><span style="font-size:10px;color:var(--text-muted);">柔軟性</span></td>
-        <td>
-          "융통성이 있습니다"<br>
-          "유연하게 대처합니다"<br>
-          "임기응변에 강합니다"
-        </td>
-        <td>
-          <strong>"예상 밖의 상황에서도 우선순위를 재설정하여 대응하는 힘"</strong><br>
-          "상대의 입장에서 생각하고, 접근 방식을 바꿀 수 있는 힘"<br>
-          "계획이 무너졌을 때, 대안을 빠르게 수립하여 실행하는 힘"
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="info-box info-box-accent">
-    <h4>사용법</h4>
-    <p>
-      <strong>1.</strong> 커리어 나침반 진단에서 나온 강점 TOP3를 확인<br>
-      <strong>2.</strong> 위 테이블에서 해당 가치의 ✅ 표현 중 자신의 에피소드에 가장 맞는 것을 선택<br>
-      <strong>3.</strong> "나의 강점은 「✅ 표현」입니다" 로 자기PR 첫 문장 작성<br>
-      <strong>4.</strong> 에피소드에서 그 행동 특성이 드러나는 장면을 구체적으로 서술
-    </p>
-  </div>
-
-  <div class="info-box info-box-warn">
-    <div class="box-label box-label-warn">TCS 7년 노하우</div>
-    <h4>한국인 유학생이 가장 많이 하는 실수: "추상적 단어 나열"</h4>
-    <p>
-      "적극적으로 임하겠습니다", "책임감을 갖고 일하겠습니다" —
-      이런 표현은 면접관에게 <strong>아무 인상도 남기지 않습니다</strong>.
-      왜냐하면 모든 지원자가 같은 말을 하기 때문입니다.<br><br>
-      차별화의 핵심은 <strong>"어떤 상황에서, 어떤 행동으로 그 가치를 발휘했는가"</strong>입니다.
-      위 테이블의 ✅ 표현은 모두 "행동"이 들어가 있습니다.
-      이것이 TCS 첨삭의 제1원칙입니다.
-    </p>
-  </div>
 </div>
 
-<!-- ════ SECTION 03 ════ -->
-<div class="section" id="s3">
-  <div class="section-num">SECTION 03</div>
-  <div class="section-title">가쿠치카(ガクチカ)</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 04: Step 3 — 가쿠치카 400자 조립법   -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section" id="s4">
+  <div class="section-num">STEP 03</div>
+  <div class="section-title">가쿠치카 400자 조립법</div>
   <div class="section-title-jp">学生時代に力を入れたことの書き方</div>
+
+  <div class="step-flow">
+    <span class="step-flow-item">Step 1 강점</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 2 자기PR</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item current">Step 3 가쿠치카</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 4 지망동기</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 5 표기룰</span>
+  </div>
 
   <p>
     가쿠치카에서 면접관이 보는 것은 "무엇을 했는가"가 아닙니다.
@@ -569,7 +860,7 @@ window.addEventListener('DOMContentLoaded', function(){
     결과보다 사고 과정이 중요합니다.
   </p>
 
-  <h3>가쿠치카 STAR 구조</h3>
+  <h3>가쿠치카 STAR 구조 (400자 기준)</h3>
 
   <div class="struct-grid">
     <div class="struct-row">
@@ -589,7 +880,7 @@ window.addEventListener('DOMContentLoaded', function(){
     </div>
     <div class="struct-row">
       <div class="struct-label" style="color:#a78bfa;">A</div>
-      <div class="struct-content"><strong>Action(행동)</strong> — 구체적으로 무엇을 했는가? <span class="hl-warn">여기서 강점이 드러나야 합니다.</span> 자기PR과의 일관성 포인트.</div>
+      <div class="struct-content"><strong>Action(행동)</strong> — 구체적으로 무엇을 했는가? <span class="hl-warn">여기서 Step 1의 강점이 드러나야 합니다.</span> 자기PR과의 일관성 포인트.</div>
       <div class="struct-pct">35%</div>
     </div>
     <div class="struct-row">
@@ -597,6 +888,16 @@ window.addEventListener('DOMContentLoaded', function(){
       <div class="struct-content"><strong>Result(결과) + 배움</strong> — 정량적 결과 + "그 경험에서 배운 것". <span class="hl-warn">여기서 가치관이 드러나야 합니다.</span></div>
       <div class="struct-pct">20%</div>
     </div>
+  </div>
+
+  <div class="info-box info-box-purple">
+    <div class="box-label box-label-purple">핵심 연결</div>
+    <h4>Action에서 "Step 1의 강점"이 드러나야 합니다</h4>
+    <p>
+      자기PR에서 "주위와 협력하면서 성과를 올리는 힘"이라고 선언했다면,
+      가쿠치카의 Action에서도 "팀원들과 역할을 분담하고, 의견을 조율하여..."라는 행동이 나와야 합니다.
+      이것이 ES 전체의 일관성(一貫性)입니다.
+    </p>
   </div>
 
   <h3>가쿠치카 = 후카보리의 출발점</h3>
@@ -608,34 +909,47 @@ window.addEventListener('DOMContentLoaded', function(){
     "어려웠던 점은?", "어떻게 극복했는가?" — 이 모든 질문에 답할 수 있어야 합니다.
   </p>
 
-  <div class="info-box info-box-purple">
+  <div class="info-box">
     <div class="box-label box-label-purple">후카보리 5단계</div>
     <p>
       <strong>1. 문제 인식:</strong> "왜 그게 문제라고 생각했나요?"<br>
       <strong>2. 사고 과정:</strong> "왜 그 방법을 선택했나요?" "다른 방법은?"<br>
       <strong>3. 접근 방법:</strong> "구체적으로 어떻게 했나요?"<br>
       <strong>4. 실행과 조정:</strong> "어려웠던 점은?" "어떻게 극복했나요?"<br>
-      <strong>5. 학습:</strong> "그 경험에서 무엇을 배웠나요?"
+      <strong>5. 학습:</strong> "그 경험에서 무엇을 배웠나요?"<br><br>
+      후카보리 대비의 자세한 내용은 → <a href="interview-guide.html" style="color:var(--accent);font-weight:600;text-decoration:underline;">면접 완전 가이드</a>
     </p>
   </div>
 
-  <div class="info-box info-box-warn">
-    <div class="box-label box-label-warn">핵심</div>
-    <h4>가쿠치카 작성 포인트</h4>
-    <p>
-      ES와 동일한 에피소드를 면접에서도 사용하세요 (일관성).<br>
-      숫자로 성과를 표현하세요 (8분→2분, 0건→7건).<br>
-      "왜?"에 대한 답변을 미리 준비하세요 (후카보리 대비).<br>
-      경험 10개보다 3개를 깊이 파는 게 낫습니다.
-    </p>
+  <div class="rule-inline">
+    <strong>TCS 표기 룰 (가쿠치카 편)</strong><br>
+    ・ 숫자로 성과를 표현하세요 (8분→2분, 0건→7건)<br>
+    ・ 종지형 문장 사용 (진행형 しています 남용 금지)<br>
+    ・ 한자 복합어 주의: 的/化/性 접미사 대신 쉬운 일본어로 풀어 쓸 것<br>
+    ・ 경험 10개보다 3개를 깊이 파는 게 낫습니다
   </div>
 </div>
 
-<!-- ════ SECTION 04 ════ -->
-<div class="section" id="s4">
-  <div class="section-num">SECTION 04</div>
-  <div class="section-title">지망동기(志望動機)</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 05: Step 4 — 지망동기 400자 조립법   -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section" id="s5">
+  <div class="section-num">STEP 04</div>
+  <div class="section-title">지망동기 400자 조립법</div>
   <div class="section-title-jp">志望動機の書き方</div>
+
+  <div class="step-flow">
+    <span class="step-flow-item">Step 1 강점</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 2 자기PR</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 3 가쿠치카</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item current">Step 4 지망동기</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 5 표기룰</span>
+  </div>
 
   <p>
     지망동기에서 가장 중요한 것은
@@ -643,7 +957,7 @@ window.addEventListener('DOMContentLoaded', function(){
     이것을 설명하지 못하면, 아무리 좋은 가쿠치카가 있어도 떨어집니다.
   </p>
 
-  <h3>지망동기 4단계 구조</h3>
+  <h3>지망동기 4단계 구조 (400자 기준)</h3>
 
   <div class="struct-grid">
     <div class="struct-row">
@@ -663,7 +977,7 @@ window.addEventListener('DOMContentLoaded', function(){
     </div>
     <div class="struct-row">
       <div class="struct-label" style="color:#34d399;">포부</div>
-      <div class="struct-content"><strong>입사 후 무엇을 하고 싶은가</strong> — 강점을 살려 어떻게 기여할지. 재현성의 마무리.</div>
+      <div class="struct-content"><strong>입사 후 무엇을 하고 싶은가</strong> — Step 1의 강점을 살려 어떻게 기여할지. 재현성의 마무리.</div>
       <div class="struct-pct">15%</div>
     </div>
   </div>
@@ -673,7 +987,7 @@ window.addEventListener('DOMContentLoaded', function(){
   <p>
     지망동기의 핵심은 "나는 OO한 환경에서 OO할 때 최고의 성과를 낸다" —
     이것을 명확히 말할 수 있어야 합니다.
-    선호업무환경 4축 분석 결과를 그대로 모티베이션 원천으로 활용하세요.
+    커리어 나침반의 선호업무환경 4축 분석 결과를 그대로 모티베이션 원천으로 활용하세요.
   </p>
 
   <table class="rule-table">
@@ -746,19 +1060,44 @@ window.addEventListener('DOMContentLoaded', function(){
       설명회, 기업 홈페이지 IR, 최근 뉴스, 사원 인터뷰에서 "이 회사만의 특징"을 반드시 찾으세요.
     </p>
   </div>
+
+  <div class="rule-inline">
+    <strong>TCS 표기 룰 (지망동기 편)</strong><br>
+    ・ ES 서면에서는 반드시 貴社 (구두 면접에서는 御社)<br>
+    ・ "귀사를 지망하는 이유는 OO입니다" = 두괄식<br>
+    ・ 기업명·제품명은 한자 그대로 (고유명사 ≠ 한자 복합어)<br>
+    ・ 지정 글자 수의 90~100% 채우기 (80% 미만은 의욕 부족 인상)
+  </div>
 </div>
 
-<!-- ════ SECTION 05 ════ -->
-<div class="section" id="s5">
-  <div class="section-num">SECTION 05</div>
-  <div class="section-title">TCS 표기 룰</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 06: Step 5 — TCS 표기 룰 총정리     -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section" id="s6">
+  <div class="section-num">STEP 05</div>
+  <div class="section-title">TCS 표기 룰 총정리</div>
   <div class="section-title-jp">ES作成の表記ルール</div>
+
+  <div class="step-flow">
+    <span class="step-flow-item">Step 1 강점</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 2 자기PR</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 3 가쿠치카</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item">Step 4 지망동기</span>
+    <span class="step-flow-arrow">→</span>
+    <span class="step-flow-item current">Step 5 표기룰</span>
+  </div>
 
   <p>
     ES의 일본어 표현에는 정해진 룰이 있습니다.
     이것을 지키지 않으면 내용이 아무리 좋아도 "일본어가 자연스럽지 않다"는 인상을 줍니다.
     TCS에서 7년간 3,000명의 ES를 첨삭하면서 정립한 표기 원칙입니다.
   </p>
+
+  <h3>7대 표기 원칙</h3>
 
   <table class="rule-table">
     <thead>
@@ -807,7 +1146,7 @@ window.addEventListener('DOMContentLoaded', function(){
     </tbody>
   </table>
 
-  <h3>자주 하는 표현 실수</h3>
+  <h3>한국인 유학생이 자주 하는 표현 실수</h3>
 
   <div class="compare-grid">
     <div class="compare-card bad">
@@ -831,193 +1170,22 @@ window.addEventListener('DOMContentLoaded', function(){
       </p>
     </div>
   </div>
-</div>
-
-
-<!-- ════ SECTION 06 ════ -->
-<div class="section" id="s6">
-  <div class="section-num">SECTION 06</div>
-  <div class="section-title">16강점 → 업계·직종 매칭 가이드</div>
-  <div class="section-title-jp">16の強み × 業界・職種マッチングガイド</div>
-
-  <p>
-    TCS의 커리어 나침반 진단에서는 <span class="hl">16가지 강점</span>을 측정합니다.
-    자기PR에 쓸 강점을 정했다면, 다음 질문은 "이 강점이 어떤 업계·직종에서 가장 빛나는가?"입니다.
-    아래 가이드로 자신의 강점과 지원처의 궁합을 확인하세요.
-  </p>
-
-  <div class="info-box info-box-purple">
-    <div class="box-label box-label-purple">활용법</div>
-    <p>
-      <strong>1.</strong> 진단 결과에서 강점 TOP 1~3위를 확인<br>
-      <strong>2.</strong> 아래 테이블에서 해당 강점의 적합 업계·직종을 확인<br>
-      <strong>3.</strong> 지원 기업이 그 목록에 있다면 → 자기PR에서 적극적으로 어필<br>
-      <strong>4.</strong> 지원 기업이 목록에 없다면 → 2~3순위 강점으로 전환 검토
-    </p>
-  </div>
-
-  <h3>대인 관계 계열 (4강점)</h3>
-
-  <table class="rule-table">
-    <thead><tr><th style="width:18%;">강점</th><th style="width:40%;">적합 업계</th><th>적합 직종</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><strong>경청력</strong><br><span style="font-size:10px;color:var(--text-muted);">傾聴力</span></td>
-        <td>금융(리테일), 인재, 호텔·서비스, 의료기기</td>
-        <td>영업(법인/개인), 인사, CS, 카운터세일즈</td>
-      </tr>
-      <tr>
-        <td><strong>전달력</strong><br><span style="font-size:10px;color:var(--text-muted);">伝達力</span></td>
-        <td>광고·미디어, 컨설팅, IT(SaaS), 교육</td>
-        <td>기획·마케팅, 프리세일즈, 교육·연수 담당</td>
-      </tr>
-      <tr>
-        <td><strong>조정력</strong><br><span style="font-size:10px;color:var(--text-muted);">調整力</span></td>
-        <td>상사(종합상사), 건설·부동산, SIer, 물류</td>
-        <td>프로젝트 매니저, 영업사무, 생산관리, 무역사무</td>
-      </tr>
-      <tr>
-        <td><strong>공감력</strong><br><span style="font-size:10px;color:var(--text-muted);">共感力</span></td>
-        <td>소비재·식품, 화장품, 호텔, 복지·의료</td>
-        <td>상품기획, 리서치, 접객·서비스직, 홍보(PR)</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h3>사고·분석 계열 (4강점)</h3>
-
-  <table class="rule-table">
-    <thead><tr><th style="width:18%;">강점</th><th style="width:40%;">적합 업계</th><th>적합 직종</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><strong>분석력</strong><br><span style="font-size:10px;color:var(--text-muted);">分析力</span></td>
-        <td>컨설팅, 금융(투자/리서치), IT, 제약</td>
-        <td>데이터 분석, 경영기획, 마케팅, 리서처</td>
-      </tr>
-      <tr>
-        <td><strong>논리적 사고</strong><br><span style="font-size:10px;color:var(--text-muted);">論理的思考力</span></td>
-        <td>컨설팅, IT(SIer/SaaS), 금융(증권), 법률</td>
-        <td>SE/엔지니어, 컨설턴트, 법무, 사업개발</td>
-      </tr>
-      <tr>
-        <td><strong>과제 발견력</strong><br><span style="font-size:10px;color:var(--text-muted);">課題発見力</span></td>
-        <td>컨설팅, 벤처/스타트업, 광고, 인재</td>
-        <td>신규사업, 솔루션영업, 사업기획, 컨설턴트</td>
-      </tr>
-      <tr>
-        <td><strong>창의력</strong><br><span style="font-size:10px;color:var(--text-muted);">創造力</span></td>
-        <td>광고·미디어, 게임, 소비재(상품개발), IT(웹)</td>
-        <td>크리에이티브, 상품기획, UX/UI, 콘텐츠기획</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h3>실행·추진 계열 (4강점)</h3>
-
-  <table class="rule-table">
-    <thead><tr><th style="width:18%;">강점</th><th style="width:40%;">적합 업계</th><th>적합 직종</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><strong>행동력</strong><br><span style="font-size:10px;color:var(--text-muted);">行動力</span></td>
-        <td>벤처/스타트업, 부동산, 광고, 인재</td>
-        <td>신규영업, 사업개발, 창업지원, 이벤트기획</td>
-      </tr>
-      <tr>
-        <td><strong>계획력</strong><br><span style="font-size:10px;color:var(--text-muted);">計画力</span></td>
-        <td>메이커(생산), 건설, 물류, 금융(운용)</td>
-        <td>생산관리, 시공관리, SCM, 경영기획</td>
-      </tr>
-      <tr>
-        <td><strong>끈기/계속력</strong><br><span style="font-size:10px;color:var(--text-muted);">継続力</span></td>
-        <td>메이커(R&D), 금융(은행), 인프라, 공무원</td>
-        <td>연구개발, 루트영업, 품질관리, 경리·재무</td>
-      </tr>
-      <tr>
-        <td><strong>결단력</strong><br><span style="font-size:10px;color:var(--text-muted);">決断力</span></td>
-        <td>상사, 벤처, 외자계, 부동산(디벨로퍼)</td>
-        <td>프로젝트 리더, 바이어, 투자, 경영기획</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <h3>팀·리더십 계열 (4강점)</h3>
-
-  <table class="rule-table">
-    <thead><tr><th style="width:18%;">강점</th><th style="width:40%;">적합 업계</th><th>적합 직종</th></tr></thead>
-    <tbody>
-      <tr>
-        <td><strong>리더십</strong><br><span style="font-size:10px;color:var(--text-muted);">リーダーシップ</span></td>
-        <td>상사, 건설·부동산, 메이커, 컨설팅</td>
-        <td>영업 리더, PM, 시공관리, 지점장 후보</td>
-      </tr>
-      <tr>
-        <td><strong>서포트력</strong><br><span style="font-size:10px;color:var(--text-muted);">サポート力</span></td>
-        <td>금융(은행), 호텔·서비스, 의료, 교육</td>
-        <td>영업사무, 비서, 총무·인사, CS</td>
-      </tr>
-      <tr>
-        <td><strong>통솔력</strong><br><span style="font-size:10px;color:var(--text-muted);">統率力</span></td>
-        <td>건설, 물류, 외식, 소매(점포경영)</td>
-        <td>시공관리, 물류관리, 점장 후보, 프로젝트 리더</td>
-      </tr>
-      <tr>
-        <td><strong>유연성</strong><br><span style="font-size:10px;color:var(--text-muted);">柔軟性</span></td>
-        <td>상사, 호텔·관광, 벤처, 인재</td>
-        <td>해외영업, 카운터세일즈, CS, 이벤트기획</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="info-box info-box-accent">
-    <h4>자기PR ↔ 지망동기의 연결</h4>
-    <p>
-      <strong>자기PR:</strong> "나의 강점은 [16강점 중 하나]입니다" + 에피소드<br>
-      <strong>지망동기:</strong> "귀사의 [업계 특성/직종 특성]에서 이 강점을 활용하여..."<br><br>
-      이 두 가지가 같은 방향을 가리키면 <span class="hl">일관성(一貫性)</span>이 완성됩니다.
-      면접관은 "이 사람은 우리 회사에서 이런 식으로 활약하겠구나"라는 이미지를 그릴 수 있습니다.
-    </p>
-  </div>
 
   <div class="info-box info-box-warn">
-    <div class="box-label box-label-warn">TCS 노하우</div>
-    <h4>"강점이 업계에 안 맞으면 어떡하죠?"</h4>
+    <div class="box-label box-label-warn">TCS 7년 노하우</div>
+    <h4>한국인 유학생의 3대 일본어 패턴</h4>
     <p>
-      가장 많이 받는 질문입니다. 답은 간단합니다:<br>
-      <strong>강점 TOP 1위가 안 맞으면, 2~3순위에서 맞는 것을 찾으세요.</strong><br>
-      사람에게는 여러 강점이 있습니다. 지원 기업에 따라 어필하는 강점을 바꾸는 것이 전략입니다.<br>
-      단, 가쿠치카와 자기PR의 에피소드에서 그 강점이 드러나야 합니다 — 이것이 일관성입니다.
+      <strong>1. 漢語(한자 복합어) 남용:</strong> "効率化を実現", "多様性を尊重" → 쉬운 일본어로 풀어 쓰세요. "효율을 올렸다" → "作業時間を8分から2分に短縮した"<br>
+      <strong>2. 的/化/性 접미사:</strong> "積極的", "活性化", "柔軟性" → 행동으로 바꾸세요. "적극적으로 임했다" → "自ら企画を提案した"<br>
+      <strong>3. 진행형 남용:</strong> "取り組んでいます", "心がけています" → 종지형으로 쓰세요. "取り組んだ", "意識した"
     </p>
-  </div>
-
-  <h3>업계별 "가장 통하는 강점" TOP 3</h3>
-
-  <table class="rule-table">
-    <thead><tr><th>업계</th><th>1순위</th><th>2순위</th><th>3순위</th></tr></thead>
-    <tbody>
-      <tr><td><strong>메이커</strong></td><td>끈기/계속력</td><td>협조성</td><td>과제 발견력</td></tr>
-      <tr><td><strong>IT/SIer</strong></td><td>논리적 사고</td><td>조정력</td><td>과제 발견력</td></tr>
-      <tr><td><strong>상사(商社)</strong></td><td>행동력</td><td>조정력</td><td>리더십</td></tr>
-      <tr><td><strong>금융(은행)</strong></td><td>경청력</td><td>성실성</td><td>끈기/계속력</td></tr>
-      <tr><td><strong>컨설팅</strong></td><td>논리적 사고</td><td>분석력</td><td>전달력</td></tr>
-      <tr><td><strong>광고·미디어</strong></td><td>창의력</td><td>전달력</td><td>행동력</td></tr>
-      <tr><td><strong>부동산</strong></td><td>행동력</td><td>결단력</td><td>경청력</td></tr>
-      <tr><td><strong>식품·소비재</strong></td><td>공감력</td><td>끈기/계속력</td><td>협조성</td></tr>
-    </tbody>
-  </table>
-
-  <div class="pt-cta">
-    <h4>자신의 강점 TOP 3를 모르겠다면?</h4>
-    <p>
-      TCS 커리어 나침반 진단에서 16강점 + 4축 분석을 무료로 받을 수 있습니다.<br>
-      진단 결과가 자기PR·가쿠치카·지망동기의 기초가 됩니다.
-    </p>
-    <a href="career-test.html" class="cta-btn">
-      무료 진단 받기 →
-    </a>
   </div>
 </div>
 
-<!-- ════ SECTION 07 ════ -->
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SECTION 07: ES 제출 전 체크리스트            -->
+<!-- ════════════════════════════════════════════ -->
 <div class="section" id="s7">
   <div class="section-num">SECTION 07</div>
   <div class="section-title">ES 제출 전 체크리스트</div>
@@ -1031,8 +1199,10 @@ window.addEventListener('DOMContentLoaded', function(){
   <h3>일관성 체크</h3>
 
   <div class="checklist">
-    <div class="checklist-item"><span class="checklist-icon">□</span> ES의 자기PR 강점과 가쿠치카의 에피소드가 같은 방향을 가리키는가?</div>
-    <div class="checklist-item"><span class="checklist-icon">□</span> 취활의 축과 지망동기가 논리적으로 연결되어 있는가?</div>
+    <div class="checklist-item"><span class="checklist-icon">□</span> Step 1의 강점이 자기PR 첫 문장에 "행동 특성"으로 들어가 있는가?</div>
+    <div class="checklist-item"><span class="checklist-icon">□</span> 가쿠치카의 Action에서 같은 강점이 드러나는가?</div>
+    <div class="checklist-item"><span class="checklist-icon">□</span> 지망동기의 포부에서 그 강점을 활용하겠다고 마무리했는가?</div>
+    <div class="checklist-item"><span class="checklist-icon">□</span> 취활의 축(4축)과 지망동기가 논리적으로 연결되어 있는가?</div>
     <div class="checklist-item"><span class="checklist-icon">□</span> 자기PR의 강점과 "주위의 평가"가 같은 방향인가?</div>
     <div class="checklist-item"><span class="checklist-icon">□</span> 적성검사(성격검사) 결과와 모순되지 않는가?</div>
   </div>
@@ -1066,7 +1236,7 @@ window.addEventListener('DOMContentLoaded', function(){
   </div>
 
   <div class="info-box info-box-accent">
-    <h4>면접 3대 원칙으로 최종 확인</h4>
+    <h4>3대 원칙으로 최종 확인</h4>
     <p>
       <strong>① 일관성(一貫性):</strong> 자기PR - 가쿠치카 - 지망동기 - 주위평가가 하나의 축으로 연결되는가?<br>
       <strong>② 모티베이션 원천:</strong> "나는 OO한 환경에서 OO할 때 최고의 성과를 낸다"를 설명할 수 있는가?<br>
@@ -1077,17 +1247,17 @@ window.addEventListener('DOMContentLoaded', function(){
   <!-- 관련 가이드 링크 -->
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:24px;">
     <a href="self-analysis-guide.html" style="flex:1;min-width:220px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:10px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-      <span style="font-size:12px;font-weight:600;color:var(--text-sub);">📖 자기분석 완전 가이드</span>
+      <span style="font-size:12px;font-weight:600;color:var(--text-sub);">자기분석 완전 가이드</span>
       <span style="margin-left:auto;color:var(--text-muted);">→</span>
     </a>
     <a href="career-test.html" style="flex:1;min-width:220px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:10px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-      <span style="font-size:12px;font-weight:600;color:var(--text-sub);">🧭 커리어 나침반 진단</span>
+      <span style="font-size:12px;font-weight:600;color:var(--text-sub);">커리어 나침반 진단</span>
       <span style="margin-left:auto;color:var(--text-muted);">→</span>
     </a>
   </div>
   <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">
     <a href="interview-guide.html" style="flex:1;min-width:220px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;display:flex;align-items:center;gap:10px;transition:border-color 0.2s;" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-      <span style="font-size:12px;font-weight:600;color:var(--text-sub);">🎤 면접 완전 가이드</span>
+      <span style="font-size:12px;font-weight:600;color:var(--text-sub);">면접 완전 가이드</span>
       <span style="margin-left:auto;color:var(--text-muted);">→</span>
     </a>
   </div>
