@@ -275,7 +275,7 @@
 </head>
 <body>
 <div class="bg-glow"></div>
-<div class="page">
+<div class="page" id="tcs-page" style="display:none;">
 
   <!-- 헤더 -->
   <header class="site-header">
@@ -489,18 +489,21 @@ const TCS_KEY = 'tcs_auth';
 const TCS_PW  = 'tcs2025';
 
 (function() {
+  var page = document.getElementById('tcs-page');
+  var gate = document.getElementById('tcs-gate');
   if (sessionStorage.getItem(TCS_KEY) === 'ok') {
-    const dest = sessionStorage.getItem('tcs_redirect');
+    /* 이미 인증됨 → 콘텐츠 표시 */
+    page.style.display = '';
+    var dest = sessionStorage.getItem('tcs_redirect');
     if (dest) {
       sessionStorage.removeItem('tcs_redirect');
       location.replace(dest);
     }
     return;
   }
-  if (sessionStorage.getItem('tcs_redirect')) {
-    document.getElementById('tcs-gate').style.display = 'flex';
-    setTimeout(() => document.getElementById('tcs-pw').focus(), 100);
-  }
+  /* 미인증 → 게이트 표시, 콘텐츠 숨김 유지 */
+  gate.style.display = 'flex';
+  setTimeout(function(){ document.getElementById('tcs-pw').focus(); }, 100);
 })();
 
 function tcsEnter() {
@@ -511,9 +514,14 @@ function tcsEnter() {
     sessionStorage.setItem(TCS_KEY, 'ok');
     btn.textContent = '✓ 입장 중...';
     btn.disabled = true;
-    const dest = sessionStorage.getItem('tcs_redirect') || 'industry-index.html';
-    sessionStorage.removeItem('tcs_redirect');
-    location.replace(dest);
+    const dest = sessionStorage.getItem('tcs_redirect');
+    if (dest) {
+      sessionStorage.removeItem('tcs_redirect');
+      location.replace(dest);
+    } else {
+      document.getElementById('tcs-gate').style.display = 'none';
+      document.getElementById('tcs-page').style.display = '';
+    }
   } else {
     err.style.opacity = '1';
     document.getElementById('tcs-pw').select();
@@ -523,12 +531,8 @@ function tcsEnter() {
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && document.getElementById('tcs-gate').style.display === 'flex') tcsEnter();
-  if (e.key === 'Escape') document.getElementById('tcs-gate').style.display = 'none';
 });
-document.getElementById('tcs-gate').addEventListener('click', e => {
-  if (e.target === document.getElementById('tcs-gate'))
-    document.getElementById('tcs-gate').style.display = 'none';
-});
+/* 배경 클릭으로 닫기 불가 — 인증 필수 */
 
 // 카드 클릭 핸들러
 document.getElementById('card-industry').addEventListener('click', () => {
