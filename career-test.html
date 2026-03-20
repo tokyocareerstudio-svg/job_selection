@@ -3221,8 +3221,8 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
   // ══════════════════════════════════════
   // SEC 6: 자기분석 심화 가이드 + CTA
   // ══════════════════════════════════════
-  const top1Comp = top3Comps[0] ? COMP_INFO[top3Comps[0][0]]?.ko || top3Comps[0][0] : '핵심 강점';
-  const top1CompJp = top3Comps[0] ? top3Comps[0][0] : '';
+  const top1Label = top3Comps[0] ? COMP_INFO[top3Comps[0][0]]?.ko || top3Comps[0][0] : '핵심 강점';
+  const top1LabelJp = top3Comps[0] ? top3Comps[0][0] : '';
 
   // 상황별 맞춤 액션 아이템
   const sitSelf = sit.selfAnalysis || '';
