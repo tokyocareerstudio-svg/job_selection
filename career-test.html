@@ -2457,15 +2457,15 @@ function applyHardFilters(jobScores) {
     filtered['기획/관리'] = (filtered['기획/관리'] || 0) + 1.5;
     // IT 프로필 비관련 직종 감점
     filtered['물류/SCM']    = (filtered['물류/SCM'] || 0) * 0.6;
-    filtered['판매/서비스']  = (filtered['판매/서비스'] || 0) * 0.5;
+    filtered['판매/서비스']  = (filtered['판매/서비스'] || 0) * 0.4;
     filtered['시공관리']     = (filtered['시공관리'] || 0) * 0.4;
-    filtered['영업']         = (filtered['영업'] || 0) * 0.7; // IT경험자 영업 감점
+    filtered['영업']         = (filtered['영업'] || 0) * 0.55;
   }
 
   // 이공계(IT없음) 프로필 → 판매/서비스·시공관리 감점
   // 이공계 학생에게 판매직 추천은 비현실적
   if (hasEngineering && !hasIT) {
-    filtered['판매/서비스'] = (filtered['판매/서비스'] || 0) * 0.5;
+    filtered['판매/서비스'] = (filtered['판매/서비스'] || 0) * 0.25;
     filtered['시공관리']    = (filtered['시공관리'] || 0) * 0.7;
   }
 
@@ -2497,10 +2497,10 @@ function applyHardFilters(jobScores) {
     const empathyQ3Count = ['q3_11','q3_12','q3_13'].filter(id => state.q3.includes(id)).length;
     if (empathyQ3Count >= 2) {
       // 공감형 응답이 강한데 대면약함 → "내향적 공감형"
-      // 완전 소거 대신 중간 감점 + 기획/관리 보정
-      filtered['영업']       = filtered['영업'] * 0.4;
-      filtered['판매/서비스'] = filtered['판매/서비스'] * 0.3;
-      filtered['기획/관리']  = (filtered['기획/관리'] || 0) + 1.0; // 사내 기획/HR/CS 방향
+      // 영업/판매 소프트 감점 + 기획/관리 강화 (사내 기획/HR/CS 방향)
+      filtered['영업']       = filtered['영업'] * 0.3;
+      filtered['판매/서비스'] = filtered['판매/서비스'] * 0.2;
+      filtered['기획/관리']  = (filtered['기획/관리'] || 0) + 2.0;
     } else {
       // 일반 대면약함
       filtered['영업']       = filtered['영업'] * 0.15;
@@ -2513,6 +2513,10 @@ function applyHardFilters(jobScores) {
   }
   if (state.q5a.includes('q5a_5')) {
     filtered['컨설팅'] = filtered['컨설팅'] * 0.3;
+    // 발표약함일 때 물류가 기획보다 높으면 기획/관리 보정 (리더형→물류1위 방지)
+    if (filtered['기획/관리'] && filtered['물류/SCM'] && filtered['기획/관리'] < filtered['물류/SCM']) {
+      filtered['기획/관리'] = (filtered['기획/관리'] || 0) + 2.0;
+    }
   }
 
   // 이공계+IT 동시 → 기술계 오픈
@@ -2521,6 +2525,15 @@ function applyHardFilters(jobScores) {
     filtered['SE/IT'] = (jobScores['SE/IT'] || 0) + 4.0; // 개발경험 가중치 강화
   } else if (hasIT) {
     filtered['SE/IT'] = (filtered['SE/IT'] || 0) + 3.0;
+  }
+
+  // 안전장치: IT 프로필인데 TOP3에 IT관련 직종이 하나도 없으면 기획/관리 강제 부스트
+  if (hasIT) {
+    const tempSorted = Object.entries(filtered).filter(([_,s]) => s > 0).sort((a,b) => b[1] - a[1]);
+    const tempTop3 = tempSorted.slice(0, 3).map(([j]) => j);
+    if (!tempTop3.includes('SE/IT') && !tempTop3.includes('기술계') && !tempTop3.includes('기획/관리')) {
+      filtered['기획/관리'] = (filtered['기획/관리'] || 0) + 3.0;
+    }
   }
 
   return filtered;
