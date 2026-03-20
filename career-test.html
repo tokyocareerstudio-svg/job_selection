@@ -2451,9 +2451,14 @@ function applyHardFilters(jobScores) {
     filtered['크리에이티브'] = 0;
   }
   // IT 프로필이면 창조력 높아도 크리에이티브 억제 → SE/IT·기획 방향으로 보정
+  // + 비IT 직종(물류/판매/영업/시공) 감점 — IT경험자에게 물류 1순위는 비현실적
   if (hasIT && filtered['SE/IT'] !== undefined) {
     filtered['SE/IT']     = (filtered['SE/IT'] || 0) + 3.0;
     filtered['기획/관리'] = (filtered['기획/관리'] || 0) + 1.5;
+    // IT 프로필 비관련 직종 감점
+    filtered['물류/SCM']    = (filtered['물류/SCM'] || 0) * 0.6;
+    filtered['판매/서비스']  = (filtered['판매/서비스'] || 0) * 0.5;
+    filtered['시공관리']     = (filtered['시공관리'] || 0) * 0.4;
   }
 
   // 시공관리 특별 진입 조건
