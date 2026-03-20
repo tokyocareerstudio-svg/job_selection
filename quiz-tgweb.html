@@ -117,7 +117,31 @@ function getOpts(q){return lang==='jp'&&q.opts_jp?q.opts_jp:q.opts;}
 const app=document.getElementById('app');
 function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
 function formatTime(s){return Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60);}
-function startQuiz(){var pool=BANK.filter(function(q){return !q.mode||q.mode==='both'||q.mode===mode;});questions=shuffle(pool).slice(0,QUIZ_SIZE);current=0;answers=[];timer=TIME_LIMIT;phase='quiz';questionStartTime=Date.now();timerInterval=setInterval(()=>{timer--;renderTimer();if(timer<=0){clearInterval(timerInterval);finishQuiz();}},1000);render();}
+function stratifiedPick(pool,n){
+  var byCat={};pool.forEach(function(q){(byCat[q.cat]=byCat[q.cat]||[]).push(q);});
+  var cats=Object.keys(byCat);cats.forEach(function(c){byCat[c]=shuffle(byCat[c]);});
+  /* 파트 분류: 종래형 vs 신형 */
+  var oldCats=cats.filter(function(c){return c.indexOf('종래형')===0;});
+  var newCats=cats.filter(function(c){return c.indexOf('신형')===0;});
+  /* 모드별 분배: 종래형 5 : 신형 5 (10문 기준) */
+  var oldN=Math.max(1,Math.min(Math.round(n*0.5),n-1));
+  var newN=n-oldN;
+  function pickFromCats(catList,total){
+    var picked=[];
+    var sCats=shuffle(catList);
+    sCats.forEach(function(c){if(picked.length<total&&byCat[c].length>0)picked.push(byCat[c].shift());});
+    if(picked.length<total){
+      var rest=[];sCats.forEach(function(c){rest=rest.concat(byCat[c]);});
+      rest=shuffle(rest);
+      while(picked.length<total&&rest.length>0)picked.push(rest.shift());
+    }
+    return picked;
+  }
+  var oldPicked=pickFromCats(oldCats,oldN);
+  var newPicked=pickFromCats(newCats,newN);
+  return shuffle(oldPicked.concat(newPicked));
+}
+function startQuiz(){var pool=BANK.filter(function(q){return !q.mode||q.mode==='both'||q.mode===mode;});questions=stratifiedPick(pool,QUIZ_SIZE);current=0;answers=[];timer=TIME_LIMIT;phase='quiz';questionStartTime=Date.now();timerInterval=setInterval(()=>{timer--;renderTimer();if(timer<=0){clearInterval(timerInterval);finishQuiz();}},1000);render();}
 function selectAnswer(i){if(answers[current]&&answers[current].locked)return;const q=questions[current];answers[current]={selected:i,correct:i===q.ans,timeSpent:Math.round((Date.now()-questionStartTime)/1000),locked:true};render();}
 function nextQuestion(){if(current<questions.length-1){current++;questionStartTime=Date.now();render();}else finishQuiz();}
 function finishQuiz(){clearInterval(timerInterval);for(let i=0;i<questions.length;i++)if(!answers[i])answers[i]={selected:-1,correct:false,timeSpent:0,locked:true};phase='result';render();}
@@ -125,7 +149,7 @@ function renderTimer(){const el=document.querySelector('.qz-timer');if(el){el.te
 function render(){if(phase==='start')return renderStart();if(phase==='result')return renderResult();renderQuiz();}
 function setLang(l){lang=l;render();}
 function setMode(m){mode=m;render();}
-function renderStart(){var ja=lang==='jp'?'background:var(--tg);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';var ka=lang==='ko'?'background:var(--tg);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';var wa=mode==='web'?'background:var(--tg);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';var ta=mode==='tc'?'background:var(--tg);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';var pool=BANK.filter(function(q){return !q.mode||q.mode==='both'||q.mode===mode;});var md=mode==='web'?'자택 PC 수험 · 전자계산기 사용 가능 · 문제 간 자유 이동':'테스트센터 수험 · 전자계산기 불가(암산) · 메모용지 제공';app.innerHTML=`<div class="qz-start"><h2>🎯 <span style="color:var(--tg);">TG-WEB</span> 미니 모의고사</h2><p>수험 형식을 선택하고 시작하세요.<br>문제 은행에서 랜덤 ${QUIZ_SIZE}문이 출제됩니다.</p><div style="margin:20px 0 8px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tg);text-transform:uppercase;">수험 형식</div><div style="display:flex;justify-content:center;gap:4px;margin:0 0 16px;"><button onclick="setMode('web')" class="qz-btn" style="padding:10px 24px;font-size:13px;${wa}">WEB型 (자택)</button><button onclick="setMode('tc')" class="qz-btn" style="padding:10px 24px;font-size:13px;${ta}">テストセンター</button></div><div style="font-size:11px;color:var(--text-muted);margin-bottom:16px;">${md}</div><div style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tg);text-transform:uppercase;">출제 언어</div><div style="display:flex;justify-content:center;gap:4px;margin:0 0 16px;"><button onclick="setLang('jp')" class="qz-btn" style="padding:8px 20px;font-size:12px;${ja}">日本語 (실전)</button><button onclick="setLang('ko')" class="qz-btn" style="padding:8px 20px;font-size:12px;${ka}">한국어 (연습)</button></div><div style="margin-bottom:20px;"><span style="font-size:12px;color:var(--text-muted);">문제 은행: ${pool.length}문 | 출제: ${QUIZ_SIZE}문 | 제한: ${TIME_LIMIT/60}분 | 풀이는 항상 한국어</span></div><button class="qz-btn qz-btn-primary" onclick="startQuiz()" style="font-size:15px;padding:14px 40px;">시작하기</button></div>`;}
+function renderStart(){var ja=lang==='jp'?'background:var(--tg);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';var ka=lang==='ko'?'background:var(--tg);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';var wa=mode==='web'?'background:var(--tg);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';var ta=mode==='tc'?'background:var(--tg);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';var pool=BANK.filter(function(q){return !q.mode||q.mode==='both'||q.mode===mode;});var md=mode==='web'?'자택 PC 수험 · 전자계산기 사용 가능 · 문제 간 자유 이동':'테스트센터 수험 · 전자계산기 불가(암산) · 메모용지 제공';app.innerHTML=`<div class="qz-start"><h2>🎯 <span style="color:var(--tg);">TG-WEB</span> 미니 모의고사</h2><p>수험 형식을 선택하고 시작하세요.<br>문제 은행에서 파트 균등 ${QUIZ_SIZE}문이 출제됩니다.</p><div style="margin:20px 0 8px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tg);text-transform:uppercase;">수험 형식</div><div style="display:flex;justify-content:center;gap:4px;margin:0 0 16px;"><button onclick="setMode('web')" class="qz-btn" style="padding:10px 24px;font-size:13px;${wa}">WEB型 (자택)</button><button onclick="setMode('tc')" class="qz-btn" style="padding:10px 24px;font-size:13px;${ta}">テストセンター</button></div><div style="font-size:11px;color:var(--text-muted);margin-bottom:16px;">${md}</div><div style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tg);text-transform:uppercase;">출제 언어</div><div style="display:flex;justify-content:center;gap:4px;margin:0 0 16px;"><button onclick="setLang('jp')" class="qz-btn" style="padding:8px 20px;font-size:12px;${ja}">日本語 (실전)</button><button onclick="setLang('ko')" class="qz-btn" style="padding:8px 20px;font-size:12px;${ka}">한국어 (연습)</button></div><div style="margin-bottom:20px;"><span style="font-size:12px;color:var(--text-muted);">문제 은행: ${pool.length}문 | 출제: ${QUIZ_SIZE}문 (종래형 5 · 신형 5) | 제한: ${TIME_LIMIT/60}분 | 풀이는 항상 한국어</span></div><button class="qz-btn qz-btn-primary" onclick="startQuiz()" style="font-size:15px;padding:14px 40px;">시작하기</button></div>`;}
 function renderQuiz(){const q=questions[current],a=answers[current],locked=a&&a.locked;let dots='';for(let i=0;i<questions.length;i++){let c='qz-dot';if(i===current)c+=' current';else if(answers[i])c+=answers[i].correct?' done':' wrong-dot';dots+=`<div class="${c}"></div>`;}
 let opts=getOpts(q).map((o,i)=>{let c='qz-opt';if(locked){c+=' locked';if(i===q.ans)c+=' is-correct';else if(a&&a.selected===i)c+=' is-wrong';}return`<button class="${c}" onclick="selectAnswer(${i})">${o}</button>`;}).join('');
 let explain=locked?`<div class="qz-explain show"><div class="qz-explain-label">풀이</div><p>${q.explain}</p></div>`:'';

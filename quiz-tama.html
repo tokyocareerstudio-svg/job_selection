@@ -379,9 +379,37 @@ function formatTime(s) {
   return m + ':' + (sec < 10 ? '0' : '') + sec;
 }
 
+function stratifiedPick(pool, n) {
+  var byCat = {};
+  pool.forEach(function(q) { (byCat[q.cat] = byCat[q.cat] || []).push(q); });
+  var cats = Object.keys(byCat);
+  cats.forEach(function(c) { byCat[c] = shuffle(byCat[c]); });
+  /* 파트 분류: 언어 vs 계수 */
+  var langCats = cats.filter(function(c) { return c.indexOf('언어') === 0; });
+  var numCats = cats.filter(function(c) { return c.indexOf('계수') === 0; });
+  /* 실전 비율: 언어 4 : 계수 6 (10문 기준) — 카테고리 수가 적어도 비율 유지 */
+  var langN = Math.round(n * 0.4);
+  var numN = n - langN;
+  function pickFromCats(catList, total) {
+    var picked = [];
+    var sCats = shuffle(catList);
+    sCats.forEach(function(c) { if (picked.length < total && byCat[c].length > 0) picked.push(byCat[c].shift()); });
+    if (picked.length < total) {
+      var rest = [];
+      sCats.forEach(function(c) { rest = rest.concat(byCat[c]); });
+      rest = shuffle(rest);
+      while (picked.length < total && rest.length > 0) picked.push(rest.shift());
+    }
+    return picked;
+  }
+  var langPicked = pickFromCats(langCats, langN);
+  var numPicked = pickFromCats(numCats, numN);
+  return shuffle(langPicked.concat(numPicked));
+}
+
 function startQuiz() {
   var pool = BANK.filter(function(q){ return !q.mode || q.mode === 'both' || q.mode === mode; });
-  questions = shuffle(pool).slice(0, QUIZ_SIZE);
+  questions = stratifiedPick(pool, QUIZ_SIZE);
   current = 0;
   answers = [];
   timer = TIME_LIMIT;
@@ -450,7 +478,7 @@ function renderStart() {
   app.innerHTML = `
     <div class="qz-start">
       <h2>🎯 <span style="color:var(--tama);">玉手箱</span> 미니 모의고사</h2>
-      <p>수험 형식을 선택하고 시작하세요.<br>문제 은행에서 랜덤 ${QUIZ_SIZE}문이 출제됩니다.</p>
+      <p>수험 형식을 선택하고 시작하세요.<br>문제 은행에서 파트 균등 ${QUIZ_SIZE}문이 출제됩니다.</p>
       <div style="margin:20px 0 8px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tama);text-transform:uppercase;">수험 형식</div>
       <div style="display:flex;justify-content:center;gap:4px;margin:0 0 16px;">
         <button onclick="setMode('web')" class="qz-btn" style="padding:10px 24px;font-size:13px;${wa}">WEB型 (玉手箱)</button>
@@ -463,7 +491,7 @@ function renderStart() {
         <button onclick="setLang('ko')" class="qz-btn" style="padding:8px 20px;font-size:12px;${ka}">한국어 (연습)</button>
       </div>
       <div style="margin-bottom:20px;">
-        <span style="font-size:12px;color:var(--text-muted);">문제 은행: ${pool.length}문 | 출제: ${QUIZ_SIZE}문 | 제한: ${TIME_LIMIT/60}분 | 풀이는 항상 한국어</span>
+        <span style="font-size:12px;color:var(--text-muted);">문제 은행: ${pool.length}문 | 출제: ${QUIZ_SIZE}문 (언어 4 · 계수 6) | 제한: ${TIME_LIMIT/60}분 | 풀이는 항상 한국어</span>
       </div>
       <button class="qz-btn qz-btn-primary" onclick="startQuiz()" style="font-size:15px;padding:14px 40px;">시작하기</button>
     </div>`;
