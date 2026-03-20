@@ -2452,8 +2452,8 @@ function applyHardFilters(jobScores) {
   }
   // IT 프로필이면 창조력 높아도 크리에이티브 억제 → SE/IT·기획 방향으로 보정
   if (hasIT && filtered['SE/IT'] !== undefined) {
-    filtered['SE/IT']     = (filtered['SE/IT'] || 0) + 1.5;
-    filtered['기획/관리'] = (filtered['기획/관리'] || 0) + 1;
+    filtered['SE/IT']     = (filtered['SE/IT'] || 0) + 3.0;
+    filtered['기획/관리'] = (filtered['기획/관리'] || 0) + 1.5;
   }
 
   // 시공관리 특별 진입 조건
@@ -2485,9 +2485,9 @@ function applyHardFilters(jobScores) {
   // 이공계+IT 동시 → 기술계 오픈
   if (hasEngineering && hasIT) {
     filtered['기술계'] = jobScores['기술계']; // 원래 점수 복원
-    filtered['SE/IT'] = (jobScores['SE/IT'] || 0) + 2; // 개발경험 가중치
+    filtered['SE/IT'] = (jobScores['SE/IT'] || 0) + 4.0; // 개발경험 가중치 강화
   } else if (hasIT) {
-    filtered['SE/IT'] = (filtered['SE/IT'] || 0) + 2;
+    filtered['SE/IT'] = (filtered['SE/IT'] || 0) + 3.0;
   }
 
   return filtered;
@@ -2676,9 +2676,14 @@ function computeResult() {
     const noSurprise    = q5b.includes('q5b_5');
     const noMultitask   = q5b.includes('q5b_6');
 
-    // 직종과 맞는 업계 필터
+    // 직종과 맞는 업계 필터 + 프로필 기반 추가 포함
+    const itIndustryIds = ['it_sier','it_web','it_software','it_xtech','it_general_consul','it_thinktank'];
+    const hasIT_filter = state.profile.includes('it');
+    const hasEng_filter = state.profile.includes('engineering');
     let candidates = INDUSTRY_DB.filter(ind =>
       topJobs.some(job => ind.jobs.includes(job))
+      || (hasIT_filter && itIndustryIds.includes(ind.id))
+      || (hasEng_filter && ind.id.startsWith('maker_'))
     );
 
     // 소거 필터 적용 (q5a)
@@ -2710,13 +2715,22 @@ function computeResult() {
       );
     }
 
-    // 점수 산정: 직종 매칭 수 + 문화 적합도 + 글로벌 선호 + q5b 보정
+    // 점수 산정: 직종 매칭 수 + 문화 적합도 + 글로벌 선호 + q5b 보정 + 프로필 보정
+    const hasIT_ind = state.profile.includes('it');
+    const hasEng_ind = state.profile.includes('engineering');
     const scored = candidates.map(ind => {
       let score = 0;
       // 직종 매칭 수 (상위 직종일수록 가중)
       topJobs.forEach((job, i) => {
         if (ind.jobs.includes(job)) score += (3 - i) * 2;
       });
+      // 프로필 기반 업계 가산점
+      if (hasIT_ind && ['it_sier','it_web','it_software','it_xtech','it_general_consul','it_thinktank'].includes(ind.id)) {
+        score += 3;
+      }
+      if (hasEng_ind && ind.id.startsWith('maker_')) {
+        score += 2;
+      }
       // 문화 적합도
       const isStable   = ind.culture.some(c => ['안정','체계','장기고용'].includes(c));
       const isGrowth   = ind.culture.some(c => ['성장','스피드','자율','도전'].includes(c));
@@ -3186,6 +3200,12 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
         <div style="font-size:11px;color:var(--accent);padding:8px 12px;background:var(--accent-soft);border-radius:6px;margin-bottom:8px;">
           💡 당신의 <strong>${(COMP_INFO[top1Name]||{ko:top1Name}).ko}</strong> 강점과의 연결: ${strengthMatch.reason}
         </div>` : '';
+    // 프로필 기반 라벨
+    const profileLabel = (state.profile.includes('it') && ['it_sier','it_web','it_software','it_xtech','it_general_consul','it_thinktank'].includes(ind.id))
+      ? `<div style="font-size:10px;font-weight:700;color:#059669;padding:4px 10px;background:rgba(5,150,105,0.06);border:1px solid rgba(5,150,105,0.2);border-radius:6px;margin-bottom:8px;display:inline-block;">💻 IT 경험을 살릴 수 있는 업계</div>`
+      : (state.profile.includes('engineering') && ind.id.startsWith('maker_'))
+        ? `<div style="font-size:10px;font-weight:700;color:#059669;padding:4px 10px;background:rgba(5,150,105,0.06);border:1px solid rgba(5,150,105,0.2);border-radius:6px;margin-bottom:8px;display:inline-block;">🔧 이공계 경험을 살릴 수 있는 업계</div>`
+        : '';
     return `
       <div style="padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-left:3px solid ${rc};border-radius:10px;margin-bottom:10px;">
         <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
@@ -3193,6 +3213,7 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
           <span style="font-size:15px;font-weight:700;color:var(--text);">${ind.name}</span>
         </div>
         <div style="font-size:12px;color:var(--text-dim);line-height:1.7;margin-bottom:10px;">${ind.desc||''}</div>
+        ${profileLabel}
         ${matchHTML}
         <div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;">
           ${goodTags.map(t=>`<span style="font-size:10px;padding:2px 8px;border:1px solid rgba(52,211,153,0.3);border-radius:4px;color:#34d399;background:rgba(52,211,153,0.06);">${t}</span>`).join('')}
@@ -3430,27 +3451,69 @@ function renderResult(topJobs, axisAvg, compScores, filteredScores, companyType,
       </div>
     </div>
 
-    <!-- 상세 데이터 (접이식) -->
-    <div class="result-section">
-      <button onclick="document.getElementById('consult-detail').style.display=document.getElementById('consult-detail').style.display==='none'?'block':'none';this.textContent=this.textContent.includes('펼치기')?'📋 전체 응답 데이터 접기 ↑':'📋 전체 응답 데이터 펼치기 ↓';"
-        style="width:100%;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;color:var(--text-dim);font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;text-align:left;transition:all 0.2s;"
-        onmouseover="this.style.borderColor='var(--accent-border)';this.style.color='var(--accent)'"
-        onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--text-dim)'"
-      >📋 전체 응답 데이터 펼치기 ↓</button>
-      <div id="consult-detail" style="display:none;margin-top:12px;">
-        <div style="padding:20px 22px;background:rgba(74,158,255,0.04);border:1px solid var(--accent-border);border-radius:10px;">
-          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:16px;text-transform:uppercase;">Raw Data</div>
-          <div style="margin-bottom:14px;"><div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">📋 기본 프로필 ${state.mbti?'· MBTI: '+state.mbti:''}</div>${profileSelected.map(p=>`<span style="display:inline-block;font-size:11px;padding:3px 10px;background:var(--surface-2);border:1px solid var(--border);border-radius:6px;color:var(--text-dim);margin:2px 3px 2px 0;">${p}</span>`).join('')||'<span style="font-size:11px;color:var(--text-muted);">선택 없음</span>'}</div>
-          <div style="margin-bottom:14px;"><div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">💪 무의식적 강점 (STEP 2)</div>${q3Selected.map(t=>`<div style="font-size:12px;color:var(--text-dim);padding:5px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:3px;">· ${t}</div>`).join('')||'<span style="font-size:11px;color:var(--text-muted);">건너뜀</span>'}</div>
-          <div style="margin-bottom:14px;"><div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">🎯 자연스러운 적성 (STEP 3)</div>${q4Selected.map(t=>`<div style="font-size:12px;color:var(--text-dim);padding:5px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:3px;">· ${t}</div>`).join('')||'<span style="font-size:11px;color:var(--text-muted);">건너뜀</span>'}</div>
-          <div style="margin-bottom:14px;"><div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">📖 에피소드 유형 (STEP 4)</div>${selectedEpisodes.map(ep=>`<div style="font-size:12px;color:var(--text-dim);padding:5px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:3px;">· [${ep.type}] ${ep.text}</div>`).join('')||'<span style="font-size:11px;color:var(--text-muted);">건너뜀</span>'}</div>
-          <div style="margin-bottom:14px;"><div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">🚫 직종 소거 (STEP 5A)</div>${q5aSelected.map(t=>`<div style="font-size:12px;color:#f59e0b;padding:5px 10px;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.15);border-radius:6px;margin-bottom:3px;">· ${t}</div>`).join('')||'<span style="font-size:11px;color:var(--text-muted);">선택 없음</span>'}</div>
-          <div style="margin-bottom:14px;"><div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">⚠️ 기업문화 매칭 (STEP 5B)</div>${q5bSelected.map(t=>`<div style="font-size:12px;color:var(--text-dim);padding:5px 10px;background:var(--surface);border:1px solid var(--border);border-radius:6px;margin-bottom:3px;">· ${t}</div>`).join('')||'<span style="font-size:11px;color:var(--text-muted);">선택 없음</span>'}</div>
-          <div><div style="font-size:11px;font-weight:700;color:var(--text-dim);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid var(--border);">📈 직종 적합도 전체 순위</div>
-            <div style="display:flex;flex-direction:column;gap:4px;">${allJobScores.map(([job,score],i)=>{const p=JOB_PROFILES[job];const pct=allJobScores[0][1]>0?Math.round(score/allJobScores[0][1]*100):0;return`<div style="display:flex;align-items:center;gap:10px;"><span style="font-size:10px;color:var(--text-muted);width:16px;text-align:right;">${i+1}</span><span style="font-size:12px;color:${i===0?'var(--accent)':'var(--text-dim)'};font-weight:${i===0?'700':'400'};width:90px;">${p?.label||job}</span><div style="flex:1;height:3px;background:var(--surface-2);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${pct}%;background:${i===0?'var(--accent)':'var(--border-hover)'};border-radius:2px;"></div></div><span style="font-size:10px;color:var(--text-muted);width:28px;text-align:right;">${pct}%</span></div>`}).join('')}</div>
-          </div>
+    <!-- ★ SEC 7: 전체 응답 데이터 (컨설턴트용) -->
+    <div class="result-section raw-data-section">
+      <div class="result-section-title">SEC 7 · 전체 응답 데이터 (컨설턴트용)</div>
+      <details style="margin-top:8px;">
+        <summary style="padding:10px 14px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text-dim);font-size:12px;font-weight:600;cursor:pointer;list-style:none;">📋 데이터 펼치기 / 접기</summary>
+        <div style="padding:16px 18px;background:rgba(74,158,255,0.04);border:1px solid var(--accent-border);border-radius:10px;margin-top:8px;">
+
+          <!-- 7-1: 프로필 & 상황 -->
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:12px;text-transform:uppercase;">7-1. 프로필 & 상황</div>
+          <table class="raw-data-table" style="width:100%;border-collapse:collapse;font-size:11px;margin-bottom:16px;">
+            <tr><td style="width:120px;padding:5px 8px;background:var(--surface-2);border:1px solid var(--border);font-weight:600;color:var(--text-dim);">프로필</td><td style="padding:5px 8px;border:1px solid var(--border);color:var(--text-dim);">${profileSelected.join(', ') || '선택 없음'}</td></tr>
+            <tr><td style="padding:5px 8px;background:var(--surface-2);border:1px solid var(--border);font-weight:600;color:var(--text-dim);">MBTI</td><td style="padding:5px 8px;border:1px solid var(--border);color:var(--text-dim);">${state.mbti || '미입력'}</td></tr>
+            <tr><td style="padding:5px 8px;background:var(--surface-2);border:1px solid var(--border);font-weight:600;color:var(--text-dim);">졸업연도</td><td style="padding:5px 8px;border:1px solid var(--border);color:var(--text-dim);">${(state.situation||{}).year || '미입력'}</td></tr>
+            <tr><td style="padding:5px 8px;background:var(--surface-2);border:1px solid var(--border);font-weight:600;color:var(--text-dim);">ES 경험</td><td style="padding:5px 8px;border:1px solid var(--border);color:var(--text-dim);">${(state.situation||{}).esExp || '미입력'}</td></tr>
+            <tr><td style="padding:5px 8px;background:var(--surface-2);border:1px solid var(--border);font-weight:600;color:var(--text-dim);">자기분석</td><td style="padding:5px 8px;border:1px solid var(--border);color:var(--text-dim);">${(state.situation||{}).selfAnalysis || '미입력'}</td></tr>
+          </table>
+
+          <!-- 7-2: 4축 평균 & 20문항 응답 -->
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:12px;text-transform:uppercase;">7-2. 4축 평균</div>
+          <table class="raw-data-table" style="width:100%;border-collapse:collapse;font-size:11px;margin-bottom:12px;">
+            <tr><th style="padding:4px 8px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);text-align:left;">축</th><th style="padding:4px 8px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);text-align:center;">점수</th><th style="padding:4px 8px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);text-align:left;">해석 (0=A경향, 100=B경향)</th></tr>
+            ${Object.entries(axisAvg).map(([axis,val])=>`<tr><td style="padding:4px 8px;border:1px solid var(--border);color:var(--text-dim);font-weight:600;">${axis}</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--text);text-align:center;font-weight:700;">${val}</td><td style="padding:4px 8px;border:1px solid var(--border);color:var(--text-muted);font-size:10px;">${val<40?'A 경향 강함':val>60?'B 경향 강함':'중립'}</td></tr>`).join('')}
+          </table>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:8px;margin-top:16px;text-transform:uppercase;">20문항 개별 응답</div>
+          <table class="raw-data-table" style="width:100%;border-collapse:collapse;font-size:10px;margin-bottom:16px;">
+            <tr><th style="padding:3px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);width:30px;">Q</th><th style="padding:3px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);width:40px;">축</th><th style="padding:3px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);width:35px;text-align:center;">값</th><th style="padding:3px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);">A선택지</th><th style="padding:3px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);">B선택지</th></tr>
+            ${AXIS_QUESTIONS.map((q,i)=>{const entry=state.axisScores['q'+i];const val=entry?entry.val:'N/A';return`<tr><td style="padding:3px 6px;border:1px solid var(--border);color:var(--text-muted);text-align:center;">${q.num}</td><td style="padding:3px 6px;border:1px solid var(--border);color:var(--text-dim);">${q.axis}</td><td style="padding:3px 6px;border:1px solid var(--border);color:var(--text);text-align:center;font-weight:600;">${val}</td><td style="padding:3px 6px;border:1px solid var(--border);color:var(--text-muted);font-size:9px;">${q.a.substring(0,30)}${q.a.length>30?'...':''}</td><td style="padding:3px 6px;border:1px solid var(--border);color:var(--text-muted);font-size:9px;">${q.b.substring(0,30)}${q.b.length>30?'...':''}</td></tr>`}).join('')}
+          </table>
+
+          <!-- 7-3: 선택 응답 -->
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:12px;text-transform:uppercase;">7-3. 선택 응답</div>
+          <table class="raw-data-table" style="width:100%;border-collapse:collapse;font-size:11px;margin-bottom:16px;">
+            <tr><td style="width:120px;padding:5px 8px;background:var(--surface-2);border:1px solid var(--border);font-weight:600;color:var(--text-dim);">Q3 강점</td><td style="padding:5px 8px;border:1px solid var(--border);color:var(--text-dim);">${q3Selected.join(' / ') || '건너뜀'}</td></tr>
+            <tr><td style="padding:5px 8px;background:var(--surface-2);border:1px solid var(--border);font-weight:600;color:var(--text-dim);">Q4 업무환경</td><td style="padding:5px 8px;border:1px solid var(--border);color:var(--text-dim);">${q4Selected.join(' / ') || '건너뜀'}</td></tr>
+            <tr><td style="padding:5px 8px;background:var(--surface-2);border:1px solid var(--border);font-weight:600;color:var(--text-dim);">에피소드</td><td style="padding:5px 8px;border:1px solid var(--border);color:var(--text-dim);">${selectedEpisodes.map(ep=>'['+ep.type+'] '+ep.text).join(' / ') || '건너뜀'}</td></tr>
+            <tr><td style="padding:5px 8px;background:var(--surface-2);border:1px solid var(--border);font-weight:600;color:var(--text-dim);">Q5A 약점</td><td style="padding:5px 8px;border:1px solid var(--border);color:var(--text-dim);">${q5aSelected.join(' / ') || '선택 없음'}</td></tr>
+            <tr><td style="padding:5px 8px;background:var(--surface-2);border:1px solid var(--border);font-weight:600;color:var(--text-dim);">Q5B 기업문화</td><td style="padding:5px 8px;border:1px solid var(--border);color:var(--text-dim);">${q5bSelected.join(' / ') || '선택 없음'}</td></tr>
+            <tr><td style="padding:5px 8px;background:var(--surface-2);border:1px solid var(--border);font-weight:600;color:var(--text-dim);">선택 업계</td><td style="padding:5px 8px;border:1px solid var(--border);color:var(--text-dim);">${state.selectedIndustries.length>0 ? state.selectedIndustries.map(id=>{const ind=INDUSTRY_DB.find(x=>x.id===id);return ind?ind.name:id;}).join(' / ') : '자동 추천'}</td></tr>
+          </table>
+
+          <!-- 7-4: 시나리오 응답 -->
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:12px;text-transform:uppercase;">7-4. 시나리오 응답</div>
+          ${state.scenario.length>0 ? `<table class="raw-data-table" style="width:100%;border-collapse:collapse;font-size:10px;margin-bottom:16px;">
+            <tr><th style="padding:3px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);width:50px;">ID</th><th style="padding:3px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);width:35px;">선택</th><th style="padding:3px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);">역량</th></tr>
+            ${state.scenario.map(s=>`<tr><td style="padding:3px 6px;border:1px solid var(--border);color:var(--text-muted);">${s.questionId}</td><td style="padding:3px 6px;border:1px solid var(--border);color:var(--text);text-align:center;">${s.choiceIdx+1}</td><td style="padding:3px 6px;border:1px solid var(--border);color:var(--text-dim);">${s.competency.join(', ')}</td></tr>`).join('')}
+          </table>` : '<div style="font-size:11px;color:var(--text-muted);margin-bottom:16px;">건너뜀</div>'}
+
+          <!-- 7-5: 강점 점수 (원점수) -->
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:12px;text-transform:uppercase;">7-5. 강점 원점수 (compScores)</div>
+          <table class="raw-data-table" style="width:100%;border-collapse:collapse;font-size:10px;margin-bottom:16px;">
+            <tr><th style="padding:3px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);">강점</th><th style="padding:3px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);text-align:center;width:50px;">점수</th></tr>
+            ${Object.entries(compScores).sort((a,b)=>b[1]-a[1]).map(([name,score])=>`<tr><td style="padding:3px 6px;border:1px solid var(--border);color:var(--text-dim);">${name}</td><td style="padding:3px 6px;border:1px solid var(--border);color:var(--text);text-align:center;font-weight:600;">${typeof score==='number'?score.toFixed(1):score}</td></tr>`).join('')}
+          </table>
+
+          <!-- 7-6: 직종 적합도 (필터 후) -->
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:12px;text-transform:uppercase;">7-6. 직종 적합도 전체 순위 (filteredScores)</div>
+          <table class="raw-data-table" style="width:100%;border-collapse:collapse;font-size:10px;margin-bottom:8px;">
+            <tr><th style="padding:3px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);width:30px;">#</th><th style="padding:3px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);">직종</th><th style="padding:3px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);text-align:center;width:50px;">점수</th><th style="padding:3px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);text-align:center;width:40px;">%</th></tr>
+            ${allJobScores.map(([job,score],i)=>{const p=JOB_PROFILES[job];const pct=allJobScores[0][1]>0?Math.round(score/allJobScores[0][1]*100):0;return`<tr><td style="padding:3px 6px;border:1px solid var(--border);color:var(--text-muted);text-align:center;">${i+1}</td><td style="padding:3px 6px;border:1px solid var(--border);color:${i===0?'var(--accent)':'var(--text-dim)'};font-weight:${i===0?700:400};">${p?.label||job}</td><td style="padding:3px 6px;border:1px solid var(--border);color:var(--text);text-align:center;font-weight:600;">${typeof score==='number'?score.toFixed(1):score}</td><td style="padding:3px 6px;border:1px solid var(--border);color:var(--text-muted);text-align:center;">${pct}%</td></tr>`}).join('')}
+          </table>
+
         </div>
-      </div>
+      </details>
     </div>
   `;
 }
@@ -3573,6 +3636,92 @@ function savePDF() {
   const heroHTML = document.getElementById('result-hero').innerHTML;
   const bodyHTML = document.getElementById('result-body').innerHTML;
 
+  // ── var(--xxx) → 실제 값 치환 (다크→라이트) ──
+  const varMap = {
+    'var(--bg)':'#ffffff',
+    'var(--surface)':'#f8fafc',
+    'var(--surface-2)':'#f1f5f9',
+    'var(--surface-3)':'#e2e8f0',
+    'var(--border)':'#e2e8f0',
+    'var(--border-hover)':'#cbd5e1',
+    'var(--text)':'#1e293b',
+    'var(--text-sub)':'#334155',
+    'var(--text-dim)':'#475569',
+    'var(--text-muted)':'#94a3b8',
+    'var(--accent)':'#2563eb',
+    'var(--accent-soft)':'rgba(37,99,235,0.06)',
+    'var(--accent-border)':'rgba(37,99,235,0.18)',
+    'var(--warn)':'#d97706',
+    'var(--warn-soft)':'rgba(217,119,6,0.05)',
+    'var(--warn-border)':'rgba(217,119,6,0.15)',
+    'var(--success)':'#059669',
+    'var(--success-soft)':'rgba(5,150,105,0.06)'
+  };
+  // 다크 테마 색상→라이트 변환
+  const colorMap = {
+    '#4a9eff':'#2563eb',
+    '#a29bfe':'#7c3aed',
+    '#55efc4':'#059669',
+    '#34d399':'#059669',
+    '#f59e0b':'#d97706',
+    '#ef4444':'#dc2626',
+    '#fdcb6e':'#d97706',
+    'rgba(74, 158, 255, 0.08)':'rgba(37,99,235,0.06)',
+    'rgba(74,158,255,0.08)':'rgba(37,99,235,0.06)',
+    'rgba(74, 158, 255, 0.18)':'rgba(37,99,235,0.18)',
+    'rgba(74,158,255,0.18)':'rgba(37,99,235,0.18)',
+    'rgba(162, 155, 254, 0.08)':'rgba(124,58,237,0.06)',
+    'rgba(162,155,254,0.08)':'rgba(124,58,237,0.06)',
+    'rgba(162, 155, 254, 0.18)':'rgba(124,58,237,0.18)',
+    'rgba(162,155,254,0.18)':'rgba(124,58,237,0.18)',
+    'rgba(85, 239, 196, 0.1)':'rgba(5,150,105,0.08)',
+    'rgba(85,239,196,0.1)':'rgba(5,150,105,0.08)',
+    'rgba(85, 239, 196, 0.25)':'rgba(5,150,105,0.2)',
+    'rgba(85,239,196,0.25)':'rgba(5,150,105,0.2)',
+    'rgba(245, 158, 11, 0.05)':'rgba(217,119,6,0.05)',
+    'rgba(245,158,11,0.05)':'rgba(217,119,6,0.05)',
+    'rgba(245, 158, 11, 0.15)':'rgba(217,119,6,0.15)',
+    'rgba(245,158,11,0.15)':'rgba(217,119,6,0.15)',
+    'rgba(253, 203, 110, 0.1)':'rgba(217,119,6,0.08)',
+    'rgba(253,203,110,0.1)':'rgba(217,119,6,0.08)',
+    'rgba(253, 203, 110, 0.25)':'rgba(217,119,6,0.2)',
+    'rgba(253,203,110,0.25)':'rgba(217,119,6,0.2)',
+    'rgba(136, 136, 160, 0.08)':'rgba(100,116,139,0.06)',
+    'rgba(136,136,160,0.08)':'rgba(100,116,139,0.06)',
+    'rgba(136, 136, 160, 0.2)':'rgba(100,116,139,0.15)',
+    'rgba(136,136,160,0.2)':'rgba(100,116,139,0.15)',
+    'rgba(239, 68, 68, 0.08)':'rgba(220,38,38,0.06)',
+    'rgba(239,68,68,0.08)':'rgba(220,38,38,0.06)',
+    'rgba(52, 211, 153, 0.08)':'rgba(5,150,105,0.06)',
+    'rgba(52,211,153,0.08)':'rgba(5,150,105,0.06)',
+    '#8888a0':'#64748b',
+    '#e8e8ed':'#1e293b',
+    '#c0c0d0':'#334155',
+    '#0a0a0f':'#ffffff',
+    '#141419':'#f8fafc',
+    '#1c1c24':'#f1f5f9',
+    '#22222e':'#e2e8f0',
+    '#2a2a35':'#e2e8f0',
+    '#3a3a48':'#cbd5e1',
+    '#555568':'#94a3b8'
+  };
+  function resolveVarsAndColors(html) {
+    // 1) var(--xxx) 치환
+    for (const [v, r] of Object.entries(varMap)) {
+      html = html.split(v).join(r);
+    }
+    // 2) 다크 색상 → 라이트 색상 치환
+    for (const [d, l] of Object.entries(colorMap)) {
+      html = html.split(d).join(l);
+    }
+    // 3) linear-gradient 배경 → 단색
+    html = html.replace(/background\s*:\s*linear-gradient\([^)]*\)/gi, 'background:#f0f4ff');
+    return html;
+  }
+
+  const pHero = resolveVarsAndColors(heroHTML);
+  const pBody = resolveVarsAndColors(bodyHTML);
+
   const w = window.open('','_blank');
   w.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title> </title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
@@ -3590,46 +3739,6 @@ body{font-family:'Noto Sans KR',sans-serif;color:#1e293b;font-size:10px;line-hei
 
 /* 푸터 */
 .ftr{margin-top:20px;padding-top:10px;border-top:1px solid #e2e8f0;text-align:center;font-size:7.5px;color:#94a3b8;line-height:1.8}
-
-/* ── 다크→라이트 변환 ── */
-
-/* 배경 */
-[style*="background:var(--surface)"],
-[style*="background: var(--surface)"]{ background:#f8fafc !important }
-[style*="background:var(--surface-2)"]{ background:#f1f5f9 !important }
-[style*="background:var(--accent-soft)"]{ background:#eff6ff !important }
-[style*="background:var(--bg)"]{ background:#fff !important }
-[style*="background:rgba(74,158,255"]{ background:#eff6ff !important }
-[style*="background:rgba(162,155,254"]{ background:#f5f3ff !important }
-[style*="background:rgba(85,239,196"]{ background:#ecfdf5 !important }
-[style*="background:rgba(245,158,11"]{ background:#fffbeb !important }
-[style*="background:rgba(239,68,68"]{ background:#fef2f2 !important }
-[style*="background:rgba(52,211,153"]{ background:#ecfdf5 !important }
-[style*="background:linear-gradient"]{ background:#f0f4ff !important }
-
-/* 텍스트 */
-[style*="color:var(--text)"]{ color:#1e293b !important }
-[style*="color:var(--text-sub)"]{ color:#334155 !important }
-[style*="color:var(--text-dim)"]{ color:#475569 !important }
-[style*="color:var(--text-muted)"]{ color:#94a3b8 !important }
-[style*="color:var(--accent)"]{ color:#2563eb !important }
-[style*="color:var(--success)"]{ color:#059669 !important }
-[style*="color:#a29bfe"]{ color:#7c3aed !important }
-[style*="color:#4a9eff"]{ color:#2563eb !important }
-[style*="color:#55efc4"]{ color:#059669 !important }
-[style*="color:#f59e0b"]{ color:#d97706 !important }
-[style*="color:#ef4444"]{ color:#dc2626 !important }
-[style*="color:#34d399"]{ color:#059669 !important }
-
-/* 보더 */
-[style*="border-color:var(--border)"],
-[style*="border:1px solid var(--border)"]{ border-color:#e2e8f0 !important }
-[style*="border:1px solid rgba(162,155,254"]{ border-color:#ddd6fe !important }
-[style*="border:1px solid rgba(74,158,255"]{ border-color:#bfdbfe !important }
-[style*="border:1px solid rgba(245,158,11"]{ border-color:#fde68a !important }
-[style*="border:1px solid rgba(239,68,68"]{ border-color:#fecaca !important }
-[style*="border:1px solid rgba(52,211,153"]{ border-color:#a7f3d0 !important }
-[style*="border-bottom:1px solid var(--border)"]{ border-bottom-color:#e2e8f0 !important }
 
 /* 히어로 */
 .result-hero{ padding:12px 0 10px !important; border-bottom:1.5px solid #e2e8f0 !important; margin-bottom:16px !important }
@@ -3654,13 +3763,20 @@ body{font-family:'Noto Sans KR',sans-serif;color:#1e293b;font-size:10px;line-hei
 [onclick*="copyCoupon"]{ display:none !important }
 [onclick*="consult-detail"]{ display:none !important }
 #consult-detail{ display:none !important }
-a[href*="latpeed"][style*="background:#a29bfe"]{ background:#3b82f6 !important; color:#fff !important; font-size:11px !important; padding:8px 20px !important; border-radius:8px !important }
-
-/* 라이브러리 링크 */
-a[style*="background:var(--surface)"]{ background:#f8fafc !important; border-color:#e2e8f0 !important }
+a[href*="latpeed"]{ background:#3b82f6 !important; color:#fff !important; font-size:11px !important; padding:8px 20px !important; border-radius:8px !important }
 
 /* 버튼 스타일 정리 */
 .btn, .btn-secondary, .btn-primary{ display:none !important }
+
+/* 전체 응답 데이터 섹션 (PDF에서 펼침) */
+.raw-data-section details{ display:block !important }
+.raw-data-section details[open] summary{ margin-bottom:8px }
+.raw-data-section summary{ display:none !important }
+.raw-data-section details > *:not(summary){ display:block !important }
+.raw-data-table{ width:100%;border-collapse:collapse;font-size:8.5px;margin-bottom:10px }
+.raw-data-table th{ background:#f1f5f9;color:#334155;font-weight:600;text-align:left;padding:4px 6px;border:1px solid #e2e8f0 }
+.raw-data-table td{ padding:4px 6px;border:1px solid #e2e8f0;color:#475569;word-break:break-all }
+.raw-data-table tr:nth-child(even) td{ background:#f8fafc }
 
 /* 폰트 축소 */
 [style*="font-size:15px"]{ font-size:12px !important }
@@ -3694,8 +3810,8 @@ a[style*="background:var(--surface)"]{ background:#f8fafc !important; border-col
     <div><div class="hdr-logo">TOKYO CAREER STUDIO</div><div class="hdr-sub">커리어 DNA 진단 리포트</div></div>
     <div class="hdr-r">진단일: ${ds}<br>tokyocareerstudio.com</div>
   </div>
-  <div class="result-hero">${heroHTML}</div>
-  <div id="result-body">${bodyHTML}</div>
+  <div class="result-hero">${pHero}</div>
+  <div id="result-body">${pBody}</div>
   <div class="ftr">
     Tokyo Career Studio | tokyocareerstudio.com<br>
     1:1 컨설팅 문의: latpeed.com/stores/Gvk82 | 쿠폰 코드: TCS2025
