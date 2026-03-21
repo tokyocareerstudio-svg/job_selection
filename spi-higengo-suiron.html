@@ -108,6 +108,10 @@ td:first-child{font-weight:600;color:var(--text-sub);}
 .stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}
 .sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}
 .wt-badge{font-size:10px;padding:2px 8px;border-radius:6px;background:var(--wt-soft);color:var(--wt);border:1px solid var(--wt-border);margin-left:6px;}
+.diff-badge{font-size:10px;padding:2px 8px;border-radius:6px;margin-left:6px;font-weight:700;letter-spacing:0.5px;}
+.diff-basic{background:rgba(52,211,153,0.08);color:#34d399;border:1px solid rgba(52,211,153,0.25);}
+.diff-real{background:rgba(245,158,11,0.08);color:#f59e0b;border:1px solid rgba(245,158,11,0.25);}
+.diff-hard{background:rgba(239,68,68,0.08);color:#ef4444;border:1px solid rgba(239,68,68,0.25);}
 .type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}
 .type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}
 .type-nav a:hover{border-color:var(--spi-border);background:var(--spi-soft);}
@@ -574,6 +578,323 @@ A=여행 → 나머지 여행×</div></div>
 </div></div></div>
 
 </div><!-- /section 예제 -->
+
+<!-- ==================== 연습문제 15문 ==================== -->
+<div class="section">
+  <div class="sn">연습문제</div>
+  <div class="st">추론 연습 15문</div>
+  <div class="st-jp">推論の追加練習15問</div>
+  <p>기초 5문 → 실전 6문 → 고난도 4문 순서로 구성되어 있습니다. 접이식 풀이를 열기 전에 반드시 직접 풀어보세요.</p>
+
+<!-- ===== 기초 (P01~P05) ===== -->
+
+<!-- P01 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P01 — 순서 정하기 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">3명의 키 비교</div>
+<div class="pc-jp">A, B, Cの3人の身長について次のことがわかっている。
+(ア) AはBより高い　(イ) CはAより高い
+最も身長が高いのは誰か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A, B, C 3명의 키에 대해 다음을 알고 있다.
+(ア) A는 B보다 크다  (イ) C는 A보다 크다
+키가 가장 큰 사람은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">정리</div><div class="stx">B &lt; A &lt; C → 순서 확정</div></div>
+<div class="sa">정답: C</div>
+</div></div></div>
+
+<!-- P02 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P02 — 대응 관계 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">3명의 음료</div>
+<div class="pc-jp">A, B, Cはそれぞれコーヒー·紅茶·ジュースの1つを注文した（重複なし）。
+(ア) Aはコーヒーを注文していない　(イ) Bはジュースを注文した
+Aが注文したのは何か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A, B, C는 각각 커피·홍차·주스 중 1개를 주문했다 (중복 없음).
+(ア) A는 커피를 주문하지 않았다  (イ) B는 주스를 주문했다
+A가 주문한 것은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">Step 1</div><div class="stx">B=주스 확정 → 나머지 주스×</div></div>
+<div class="ss"><div class="sl">Step 2</div><div class="stx">A: 커피×, 주스× → A=홍차 확정. 남은 C=커피</div></div>
+<div class="sa">정답: 홍차 (紅茶)</div>
+</div></div></div>
+
+<!-- P03 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P03 — 참거짓 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">2명 중 범인</div>
+<div class="pc-jp">AとBの2人のうち1人だけが犯人である。
+A:「私は犯人ではない」　B:「Aは犯人だ」
+犯人は必ず嘘をつき、犯人でない者は真実を言う。犯人は誰か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A와 B 중 1명만 범인이다.
+A: "나는 범인이 아니다"  B: "A가 범인이다"
+범인은 반드시 거짓말을 하고, 범인이 아닌 사람은 진실을 말한다. 범인은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">A가 범인?</div><div class="stx">A(범인→거짓): "범인 아니다"→ 거짓 → 실제 범인 ✓
+B(무고→진실): "A가 범인"→ 진실 ✓ 모순 없음!</div></div>
+<div class="ss"><div class="sl">B가 범인?</div><div class="stx">A(무고→진실): "범인 아니다"→ 진실 ✓
+B(범인→거짓): "A가 범인"→ 거짓 → A는 범인 아님 ✓ 모순 없음?
+하지만 두 가정 모두 성립할 수는 없다. A와 B의 발언이 같은 내용(A가 범인인지 아닌지)의 대립이므로, 두 발언이 모순 관계 → 한 명이 진실, 한 명이 거짓.
+범인=거짓 → 두 발언 중 거짓인 쪽이 범인.
+A "범인 아니다"와 B "A가 범인" → A가 범인이면 A가 거짓(범인), B가 진실 → 정합.</div></div>
+<div class="sa">정답: A</div>
+</div></div></div>
+
+<!-- P04 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P04 — 수량 추론 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">연필 나누기</div>
+<div class="pc-jp">鉛筆を3人で分ける。AはBより2本多く、BはCより1本多い。合計は16本。Bは何本か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">연필을 3명이 나눈다. A는 B보다 2자루 많고, B는 C보다 1자루 많다. 합계 16자루. B는 몇 자루?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">식 세우기</div><div class="stx">B=y로 놓으면 A=y+2, C=y-1
+(y+2)+y+(y-1)=16 → 3y+1=16 → 3y=15 → y=5</div></div>
+<div class="ss"><div class="sl">확인</div><div class="stx">A=7, B=5, C=4 → 합계 16 ✓</div></div>
+<div class="sa">정답: 5자루</div>
+</div></div></div>
+
+<!-- P05 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P05 — 내역 추론 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">과일 설문</div>
+<div class="pc-jp">10人にりんごとみかんが好きか聞いた。りんごが好き7人、みかんが好き6人、両方嫌い1人。両方好きな人は何人か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">10명에게 사과와 귤을 좋아하는지 물었다. 사과를 좋아하는 사람 7명, 귤을 좋아하는 사람 6명, 둘 다 싫어하는 사람 1명. 둘 다 좋아하는 사람은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">포함-배제</div><div class="stx">적어도 하나 좋아하는 사람 = 10 - 1 = 9명
+사과 + 귤 - 둘다 = 9 → 7 + 6 - x = 9 → x = 4</div></div>
+<div class="sa">정답: 4명</div>
+</div></div></div>
+
+<!-- ===== 실전 (P06~P11) ===== -->
+
+<!-- P06 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P06 — 순서 정하기 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">5명의 도착 순서</div>
+<div class="pc-jp">A~Eの5人がマラソンでゴールした。
+(ア) BはAより先にゴールした　(イ) CはDより後にゴールした
+(ウ) Eは3番目にゴールした　(エ) AはDより先にゴールした
+2番目にゴールしたのは誰か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A~E 5명이 마라톤에서 골인했다.
+(ア) B는 A보다 먼저 골인  (イ) C는 D보다 나중에 골인
+(ウ) E는 3번째  (エ) A는 D보다 먼저 골인
+2번째로 골인한 사람은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">Step 1</div><div class="stx">E=3번째 확정. 순서 관계: B→A→D→C (빠른 순)</div></div>
+<div class="ss"><div class="sl">Step 2</div><div class="stx">B,A는 E(3번째)보다 앞, D,C는 뒤.
+→ B=1, A=2, E=3, D=4, C=5</div></div>
+<div class="sa">정답: A (2번째)</div>
+</div></div></div>
+
+<!-- P07 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P07 — 대응 관계 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">4명의 악기</div>
+<div class="pc-jp">A~Dの4人はそれぞれピアノ·ギター·バイオリン·ドラムの1つを演奏する（重複なし）。
+(ア) Aはピアノでもドラムでもない　(イ) Bはバイオリンではない
+(ウ) Cはギターを演奏する　(エ) Dはピアノではない
+Bが演奏するのは何か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A~D 4명. 각각 피아노·기타·바이올린·드럼 중 1개 연주 (중복 없음).
+(ア) A: 피아노×, 드럼×  (イ) B: 바이올린×
+(ウ) C=기타  (エ) D: 피아노×. B가 연주하는 것은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">Step 1</div><div class="stx">C=기타 확정 → 나머지 기타×
+A: 피아노×, 기타×, 드럼× → A=바이올린</div></div>
+<div class="ss"><div class="sl">Step 2</div><div class="stx">D: 피아노× → D는 드럼. 남은 B=피아노</div></div>
+<div class="sa">정답: 피아노 (ピアノ)</div>
+</div></div></div>
+
+<!-- P08 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P08 — 참거짓 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">3명 중 범인 1명</div>
+<div class="pc-jp">A, B, Cの3人のうち1人だけが犯人である。
+A:「犯人はBだ」　B:「私は犯人ではない」　C:「犯人はAではない」
+犯人は必ず嘘をつき、犯人でない者は真実を言う。犯人は誰か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A, B, C 중 1명만 범인이다.
+A: "범인은 B다"  B: "나는 범인이 아니다"  C: "범인은 A가 아니다"
+범인은 거짓, 무고한 사람은 진실. 범인은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">A가 범인?</div><div class="stx">A(거짓): "범인은 B" → 거짓 → B는 범인 아님 ✓
+B(진실): "나는 범인 아님" → 진실 ✓
+C(진실): "범인은 A가 아님" → 진실이어야 하는데, A가 범인 → 모순 ✗</div></div>
+<div class="ss"><div class="sl">B가 범인?</div><div class="stx">A(진실): "범인은 B" → 진실 ✓
+B(거짓): "나는 범인 아님" → 거짓 → 실제 범인 ✓
+C(진실): "범인은 A가 아님" → A는 범인 아님 → 진실 ✓ — 모두 정합!</div></div>
+<div class="sa">정답: B</div>
+</div></div></div>
+
+<!-- P09 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P09 — 위치 배치 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">원형 테이블 4명</div>
+<div class="pc-jp">A~Dの4人が円形テーブルに座る。
+(ア) AとBは向かい合う　(イ) Cの右隣はA
+Dの左隣は誰か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A~D 4명이 원형 테이블에 앉는다.
+(ア) A와 B는 마주 앉는다  (イ) C의 오른쪽 옆은 A
+D의 왼쪽 옆은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">Step 1</div><div class="stx">A를 12시에 고정 → B는 6시 (마주보기)
+C의 오른쪽=A → C는 9시 위치 (시계방향으로 A가 오른쪽)</div></div>
+<div class="ss"><div class="sl">Step 2</div><div class="stx">남은 D=3시. D의 왼쪽(반시계)=A? 아니면 시계방향 기준?
+원형 좌석에서 "왼쪽 옆"=반시계 방향 → D(3시)의 왼쪽=B(6시)? 아닙니다.
+배치: 시계방향 12→3→6→9 = A→D→B→C
+D(3시)의 왼쪽(반시계)=A(12시)</div></div>
+<div class="sa">정답: A</div>
+</div></div></div>
+
+<!-- P10 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P10 — 수량 추론 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">3종류 동전</div>
+<div class="pc-jp">100円·50円·10円の硬貨が合わせて10枚あり、合計は410円である。
+100円は50円より2枚多い。それぞれ何枚か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">100엔·50엔·10엔 동전이 합계 10개, 총 410엔이다.
+100엔은 50엔보다 2개 많다. 각각 몇 개?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">식 세우기</div><div class="stx">50엔=a, 100엔=a+2, 10엔=10-(2a+2)=8-2a
+금액: 100(a+2)+50a+10(8-2a)=410
+100a+200+50a+80-20a=410 → 130a+280=410 → 130a=130 → a=1</div></div>
+<div class="ss"><div class="sl">확인</div><div class="stx">50엔=1개, 100엔=3개, 10엔=6개
+300+50+60=410엔 ✓ 합계 10개 ✓</div></div>
+<div class="sa">정답: 100엔 3개, 50엔 1개, 10엔 6개</div>
+</div></div></div>
+
+<!-- P11 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P11 — 내역 추론 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">동아리 설문</div>
+<div class="pc-jp">40人のクラスで、野球部とサッカー部への所属を調べた。
+野球部18人、サッカー部15人、どちらにも所属していない人は12人。
+両方に所属している人は何人か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">40명 반에서 야구부·축구부 소속을 조사했다.
+야구부 18명, 축구부 15명, 어디에도 속하지 않은 사람 12명. 양쪽 다 소속된 사람은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">포함-배제</div><div class="stx">적어도 한쪽 소속 = 40 - 12 = 28명
+야구 + 축구 - 양쪽 = 28 → 18 + 15 - x = 28 → x = 5</div></div>
+<div class="sa">정답: 5명</div>
+</div></div></div>
+
+<!-- ===== 고난도 (P12~P15) ===== -->
+
+<!-- P12 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P12 — 순서+조건 복합 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">6명의 줄서기</div>
+<div class="pc-jp">A~Fの6人が一列に並ぶ。
+(ア) AはBのすぐ右隣　(イ) Cは左端でも右端でもない
+(ウ) DはFより左にいる　(エ) Eは4番目
+(オ) CとDは隣り合わない
+左端にいるのは誰か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A~F 6명이 한 줄로 선다.
+(ア) A는 B 바로 오른쪽  (イ) C는 양 끝×
+(ウ) D는 F보다 왼쪽  (エ) E=4번째  (オ) C와 D는 이웃하지 않는다
+왼쪽 끝은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">Step 1</div><div class="stx">E=4번째 확정. BA 블록(B 왼쪽, A 오른쪽)을 배치해야 한다.
+BA가 1-2, 2-3, 3-4(A=4=E → 불가), 5-6 위치 가능.</div></div>
+<div class="ss"><div class="sl">Step 2</div><div class="stx">BA=1-2일 때: [B,A,_,E,_,_] → C는 양끝× → C는 3 또는 5
+D는 F보다 왼쪽 + C와 D 이웃× → C=5이면 나머지 3,6에 D,F (D&lt;F) → D=3,F=6
+C(5)와 D(3): 이웃 아님 ✓ → [B,A,D,E,C,F] 성립</div></div>
+<div class="ss"><div class="sl">검증</div><div class="stx">A는 B 바로 오른쪽 ✓ C는 양끝 아님 ✓ D(3)&lt;F(6) ✓ E=4 ✓ C(5)D(3) 이웃 아님 ✓</div></div>
+<div class="sa">정답: B (왼쪽 끝)</div>
+</div></div></div>
+
+<!-- P13 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P13 — 조건 판단 ア·イ <span class="diff-badge diff-hard">고난도</span> <span class="wt-badge">웹테 전용</span></div><div class="pc-title">2자리 정수 P</div>
+<div class="pc-jp">2桁の正の整数Pを求められるか。
+ア: Pは3の倍数　　イ: Pの各桁の積は12
+(1)アだけ (2)イだけ (3)両方必要 (4)どちらでも (5)両方あっても不明</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">2자리 양의 정수 P를 구할 수 있는가?
+ア: P는 3의 배수  イ: P의 각 자릿수의 곱은 12
+(1)ア만 (2)イ만 (3)둘 다 필요 (4)어느 쪽이든 (5)둘 다 있어도 불가</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">ア만</div><div class="stx">2자리 3의 배수: 12,15,18...99 → 많음 → ✗</div></div>
+<div class="ss"><div class="sl">イ만</div><div class="stx">자릿수 곱=12: 2×6=12→26,62 / 3×4=12→34,43 / 1×12 불가(1자리 최대 9)
+→ 26,34,43,62 → 4개 → 확정 불가 ✗</div></div>
+<div class="ss"><div class="sl">ア+イ</div><div class="stx">위 4개 중 3의 배수: 26(2+6=8×), 34(3+4=7×), 43(4+3=7×), 62(6+2=8×)
+→ 해당 없음! → 둘 다 있어도 불가</div></div>
+<div class="sa">정답: (5) 둘 다 있어도 알 수 없다 (해가 없는 경우도 (5)에 해당)</div>
+</div></div></div>
+
+<!-- P14 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P14 — 대응+소거 복합 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">5명의 요일 당번</div>
+<div class="pc-jp">A~Eの5人が月~金の清掃当番を1人ずつ担当する。
+(ア) Aは月曜でも金曜でもない　(イ) Bは水曜より前の日
+(ウ) CはDの翌日　(エ) Eは火曜ではない
+Aは何曜日か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A~E 5명이 월~금 청소당번을 1명씩 맡는다.
+(ア) A: 월×, 금×  (イ) B: 수요일보다 전 (월 또는 화)
+(ウ) C는 D 다음 날  (エ) E: 화×. A는 무슨 요일?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">Step 1</div><div class="stx">B는 월 또는 화. CD 블록은 연속 2일(D→C).
+가능한 CD 위치: 월화, 화수, 수목, 목금</div></div>
+<div class="ss"><div class="sl">Step 2</div><div class="stx">B=월일 때: CD가 화수 → D=화, C=수. 남은 목금에 A,E
+A: 금× → A=목, E=금 ✓ (E:화× → 금 OK)</div></div>
+<div class="ss"><div class="sl">검증</div><div class="stx">B=월, D=화, C=수, A=목, E=금
+A: 월×금× ✓ B: 수보다 전 ✓ C=D다음날 ✓ E: 화× ✓</div></div>
+<div class="sa">정답: 목요일 (木曜日)</div>
+</div></div></div>
+
+<!-- P15 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P15 — 참거짓+순서 복합 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">4명의 시험 등수</div>
+<div class="pc-jp">A~Dの4人が試験を受け、1位~4位が決まった（同順位なし）。
+A:「私は1位だ」　B:「Cは私より上の順位だ」
+C:「Dは最下位だ」　D:「Aの発言は嘘だ」
+4人のうち1人だけが嘘をついている。嘘をついているのは誰か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A~D 4명이 시험을 치러 1등~4등이 정해졌다 (동순위 없음).
+A: "나는 1등이다"  B: "C는 나보다 위 순위다"
+C: "D는 꼴찌다"  D: "A의 발언은 거짓이다"
+4명 중 1명만 거짓말. 거짓말하는 사람은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">핵심 관찰</div><div class="stx">A와 D의 발언은 모순 관계: A "1등이다" vs D "A발언은 거짓"
+→ 둘 중 정확히 한 명이 거짓. 거짓말쟁이는 1명뿐이므로 B, C는 반드시 진실.</div></div>
+<div class="ss"><div class="sl">D가 거짓이면?</div><div class="stx">A 진실→A=1등. C 진실→D=4등. B 진실→C&gt;B → C=2, B=3
+순위: A=1, C=2, B=3, D=4 → 모순 없음 ✓</div></div>
+<div class="ss"><div class="sl">A가 거짓이면?</div><div class="stx">A≠1등. C 진실→D=4등. B 진실→C&gt;B.
+남은 1~3등에 A,B,C 배치 (C&gt;B): C=1,B=2,A=3 또는 C=1,A=2,B=3 등 → 유일하지 않음.
+→ 순위가 유일 확정되는 D가 거짓인 경우가 정답.</div></div>
+<div class="sa">정답: D</div>
+</div></div></div>
+
+</div><!-- /section 연습문제 -->
 
 <div class="type-nav">
   <a href="spi-higengo-index.html"><div class="nl">← 인덱스</div><div class="nt">SPI 비언어 메인</div></a>
