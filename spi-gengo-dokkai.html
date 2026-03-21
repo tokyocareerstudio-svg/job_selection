@@ -9,7 +9,7 @@
 </script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SPI 언어 ⑥ 장문 독해 | Tokyo Career Studio</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 <style>:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--spi:#6c5ce7;--spi-soft:rgba(108,92,231,0.06);--spi-border:rgba(108,92,231,0.18);--common:#c4b5fd;--common-soft:rgba(196,181,253,0.08);--common-border:rgba(196,181,253,0.2);--solve:#a29bfe;--solve-soft:rgba(162,155,254,0.06);--correct:#34d399;--warn:#ef4444;--warn-soft:rgba(239,68,68,0.04);--warn-border:rgba(239,68,68,0.18);}*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}.hero{padding:48px 0 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;max-width:760px;margin:0 auto;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(196,181,253,0.05) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;padding:0 24px;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--common);background:var(--common-soft);border:1px solid var(--common-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}.hero h1{font-size:26px;font-weight:900;margin-bottom:8px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;background:var(--common-soft);color:var(--common);border:1px solid var(--common-border);}.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}.st{font-size:20px;font-weight:800;margin-bottom:4px;}.st-jp{font-family:'Noto Sans JP';font-size:11px;color:var(--text-muted);margin-bottom:20px;}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}.section h3{font-size:15px;font-weight:700;color:var(--text);margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--common);}.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}.ib-a{background:var(--common-soft);border-color:var(--common-border);border-left:3px solid var(--common);}.ib-w{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--warn);}.ib p{font-size:12px;color:var(--text-dim);line-height:1.9;}.bl{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}.bl-c{color:var(--common);}.bl-w{color:var(--warn);}.mini{margin:16px 0;border:1px solid var(--border);border-radius:10px;overflow:hidden;}.mini-q{padding:16px 18px;background:var(--surface);border-bottom:1px solid var(--border);}.mini-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--common);margin-bottom:6px;text-transform:uppercase;}.mini-q p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-a{padding:16px 18px;background:var(--solve-soft);}.mini-a p{font-size:12px;color:var(--text-sub);line-height:1.9;margin:0;white-space:pre-line;}.mini-ans{margin-top:10px;padding:8px 14px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:6px;font-size:12px;font-weight:700;color:var(--correct);}
-.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR';font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:8000px;}.at-kr{background:rgba(196,181,253,0.03);border-top:1px solid var(--common-border);}.ac-kr-body{padding:14px 16px;background:rgba(196,181,253,0.03);border-top:1px solid var(--common-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--common-border);background:var(--common-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}@media(max-width:640px){.hero h1{font-size:22px;}}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.diff-badge{font-size:10px;padding:2px 8px;border-radius:6px;margin-left:6px;font-weight:700;letter-spacing:0.5px;}.diff-basic{background:rgba(52,211,153,0.08);color:#34d399;border:1px solid rgba(52,211,153,0.25);}.diff-real{background:rgba(245,158,11,0.08);color:#f59e0b;border:1px solid rgba(245,158,11,0.25);}.diff-hard{background:rgba(239,68,68,0.08);color:#ef4444;border:1px solid rgba(239,68,68,0.25);}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR';font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:8000px;}.at-kr{background:rgba(196,181,253,0.03);border-top:1px solid var(--common-border);}.ac-kr-body{padding:14px 16px;background:rgba(196,181,253,0.03);border-top:1px solid var(--common-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--common-border);background:var(--common-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}@media(max-width:640px){.hero h1{font-size:22px;}}
 /* ── Tab System ── */
 .tab-bar{display:flex;gap:4px;margin:20px 0 0;padding:0 2px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .tab-bar::-webkit-scrollbar{display:none;}
@@ -354,6 +354,126 @@
 <div class="sa">정답: ウ</div></div></div></div>
 
 </div>
+
+<!-- ==================== 연습문제 5문 ==================== -->
+<div class="section">
+  <div class="sn">연습문제</div>
+  <div class="st">장문 독해 연습 5문</div>
+  <div class="st-jp">長文読解 追加練習5問</div>
+  <p>기초 2문 → 실전 2문 → 고난도 1문. 지문을 먼저 읽고 문제를 풀어보세요.</p>
+
+<!-- P01 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P01 — 요지 파악 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">수면의 중요성</div>
+<div class="pc-jp">【지문】
+人間にとって睡眠は不可欠である。睡眠不足は集中力の低下を招き、仕事の効率を下げる。また、免疫力が弱まり、病気にかかりやすくなる。健康を維持するためには、毎日7～8時間の睡眠を確保することが望ましい。
+
+【문제】この文章の要旨として最も適切なものはどれか。
+ア 睡眠不足は仕事に悪影響がある
+イ 健康には十分な睡眠が必要である
+ウ 7～8時間の睡眠が理想的である
+エ 免疫力を高めるには睡眠が大切だ</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">인간에게 수면은 불가결. 수면부족은 집중력 저하·업무효율 하락. 면역력 약화. 건강 유지에는 매일 7~8시간 확보가 바람직.
+요지는? ア 업무 악영향  イ 건강에 충분한 수면 필요  ウ 7~8시간 이상적  エ 면역력에 수면 중요</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">전체를 관통하는 주제=건강을 위해 충분한 수면이 필요. ア ウ エ는 부분적 내용.</div></div>
+<div class="sa">정답: イ</div>
+</div></div></div>
+
+<!-- P02 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P02 — 내용 일치 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">독서의 효과</div>
+<div class="pc-jp">【지문】
+読書は語彙力を高めるだけでなく、思考力や想像力を養う。特に小説は、登場人物の感情を通じて共感力を育てる効果がある。一方、ビジネス書は実務に直結する知識を提供する。どのジャンルであれ、継続的な読書が自己成長につながる。
+
+【문제】本文の内容に合っているものはどれか。
+ア 小説は実務知識を提供する
+イ ビジネス書は共感力を育てる
+ウ 継続的な読書は自己成長に役立つ
+エ 語彙力を高めるにはビジネス書が最適だ</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">독서는 어휘력+사고력+상상력. 소설→공감력, 비즈니스서→실무지식. 어떤 장르든 계속 읽으면 자기성장.
+내용 일치? ア 소설=실무지식  イ 비즈니스서=공감력  ウ 계속 읽으면 자기성장  エ 어휘력=비즈니스서</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">ア イ는 소설↔비즈니스서 역할이 뒤바뀜. エ는 언급 없음.</div></div>
+<div class="sa">정답: ウ</div>
+</div></div></div>
+
+<!-- P03 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P03 — 요지 파악 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">다양성과 혁신</div>
+<div class="pc-jp">【지문】
+企業がイノベーションを起こすには、多様な人材が必要だと言われる。異なるバックグラウンドを持つメンバーが議論することで、従来にない発想が生まれる。ただし、多様性だけでは不十分で、心理的安全性が確保されなければ、少数派の意見は埋もれてしまう。つまり、多様性を活かすには、誰もが発言しやすい環境づくりが欠かせない。
+
+【문제】筆者が最も言いたいことは何か。
+ア 多様な人材を採用すればイノベーションが起きる
+イ 多様性を活かすには心理的安全性が必要だ
+ウ 少数派の意見は企業にとって重要ではない
+エ 心理的安全性があれば多様性は不要だ</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">기업 혁신에 다양한 인재 필요. 다만 다양성만으론 부족, 심리적 안전성이 없으면 소수의견 매몰. 즉, 다양성 활용에는 누구나 발언하기 쉬운 환경이 불가결.
+필자의 주장? ア 다양한 채용=혁신  イ 다양성 활용에 심리적 안전성 필요  ウ 소수의견 불필요  エ 안전성만 있으면 다양성 불필요</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">「つまり」이후가 결론. 다양성+심리적 안전성 양쪽 필요.</div></div>
+<div class="sa">정답: イ</div>
+</div></div></div>
+
+<!-- P04 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P04 — 공란 보충 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">AI와 인간</div>
+<div class="pc-jp">【지문】
+AIの進歩は目覚ましい。しかし、AIが得意とするのはデータ分析やパターン認識であり、（　　）は依然として人間の強みである。今後は、AIと人間がそれぞれの長所を活かして協働する時代が来るだろう。
+
+【문제】（　　）に入る最も適切な語句はどれか。
+ア データの処理　イ 共感や創造性　ウ 正確な計算　エ 大量の情報整理</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">AI가 잘하는 것=데이터분석·패턴인식, (　)은 여전히 인간의 강점. AI와 인간이 각자 장점을 살려 협업하는 시대.
+ア 데이터 처리  イ 공감·창조성  ウ 정확한 계산  エ 대량 정보 정리</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">AI=데이터·패턴 vs 인간의 강점=AI가 못하는 것. ア ウ エ는 모두 AI 영역.</div></div>
+<div class="sa">정답: イ 共感や創造性</div>
+</div></div></div>
+
+<!-- P05 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P05 — 요지+내용일치 복합 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">글로벌 인재</div>
+<div class="pc-jp">【지문】
+グローバル人材に必要な能力として、語学力がよく挙げられる。確かに外国語ができれば海外との意思疎通は容易になる。しかし、それだけでは不十分である。異文化を理解し、相手の価値観を尊重する姿勢がなければ、いくら語学が堪能でも信頼関係は築けない。逆に、語学力が多少不足していても、相手の文化に敬意を払い、誠実にコミュニケーションを取ろうとする態度があれば、ビジネスは成立する。要するに、グローバル人材に最も求められるのは、異文化への敬意と誠実さなのである。
+
+【문제1】筆者の主張に最も近いものはどれか。
+ア 語学力はグローバル人材に不要だ
+イ 異文化理解より語学力が優先される
+ウ 語学力より異文化への敬意が重要だ
+エ 語学力と異文化理解は同等に必要だ
+
+【문제2】本文の内容に合わないものはどれか。
+ア 語学が堪能なら信頼関係は自然に築ける
+イ 語学力が不足していてもビジネスは成立しうる
+ウ 異文化を尊重する姿勢は信頼構築に必要だ
+エ グローバル人材には誠実さが求められる</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">글로벌 인재=어학력? 외국어 가능하면 의사소통 용이하지만 그것만으로 부족. 이문화 이해+상대 가치관 존중 없으면 신뢰관계 불가. 역으로 어학이 부족해도 상대문화 경의+성실한 태도가 있으면 비즈니스 성립. 요컨대 가장 필요한 것=이문화 경의와 성실함.
+문1: ア 어학 불필요  イ 어학 우선  ウ 이문화 경의가 더 중요  エ 동등
+문2(내용 불일치): ア 어학이면 신뢰 자동  イ 어학부족도 가능  ウ 존중 필요  エ 성실함 필요</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">문1 풀이</div><div class="stx">「要するに」=결론. 어학력보다 이문화 경의+성실함이 더 중요.
+ア는 「불요」까지 말하지 않음. エ는 동등이 아님. → ウ</div></div>
+<div class="ss"><div class="sl">문2 풀이</div><div class="stx">본문: 「어학이 능통해도 신뢰관계 못 쌓는다」→ ア는 정반대.</div></div>
+<div class="sa">정답: 문1 ウ / 문2 ア</div>
+</div></div></div>
+
+</div><!-- /section 연습문제 -->
 
 <div class="type-nav">
   <a href="spi-gengo-narabikae.html"><div class="nl">← 이전 유형</div><div class="nt">⑤ 문장 배열·빈칸</div></a>
