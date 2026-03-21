@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'spi-seikaku.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPI 성격검사 대책 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--border-hover:#3a3a48;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--sk:#e879f9;--sk-soft:rgba(232,121,249,0.06);--sk-border:rgba(232,121,249,0.18);--spi-c:#f59e0b;--good:#34d399;--warn:#f59e0b;--danger:#f87171;--danger-soft:rgba(248,113,113,0.08);--danger-border:rgba(248,113,113,0.2);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}
+.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;max-width:760px;margin:0 auto;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(232,121,249,0.06) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{position:relative;max-width:760px;margin:0 auto;padding:0 24px;}
+.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--sk);background:var(--sk-soft);border:1px solid var(--sk-border);padding:4px 12px;border-radius:12px;margin-bottom:20px;text-transform:uppercase;}
+.hero h1{font-size:28px;font-weight:900;line-height:1.3;margin-bottom:10px;letter-spacing:-0.5px;}
+.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:20px;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.hero-tag{font-size:11px;padding:4px 12px;border-radius:100px;background:var(--sk-soft);color:var(--sk);border:1px solid var(--sk-border);font-weight:500;}
+.section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0;}
+.section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+.section-nav-inner::-webkit-scrollbar{display:none;}
+.nav-btn{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap;text-decoration:none;}
+.nav-btn:hover,.nav-btn.active{color:var(--sk);background:var(--sk-soft);}
+.section{padding:44px 0;border-bottom:1px solid rgba(255,255,255,0.03);}
+.section:last-child{border-bottom:none;}
+.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--sk);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}
+.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}
+.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}
+.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}
+.section h3{font-size:14px;font-weight:700;color:var(--text-sub);margin:28px 0 12px;padding-left:10px;border-left:2px solid var(--sk);}
+.info-box{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}
+.info-box-accent{background:var(--sk-soft);border-color:var(--sk-border);border-left:3px solid var(--sk);}
+.info-box-danger{background:var(--danger-soft);border-color:var(--danger-border);border-left:3px solid var(--danger);}
+.info-box h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}
+.info-box p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0;}
+.box-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--sk);margin-bottom:6px;text-transform:uppercase;}
+.box-label-danger{color:var(--danger);}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead{background:var(--surface-2);}
+th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}
+td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}
+tr:last-child td{border-bottom:none;}
+td:first-child{font-weight:600;color:var(--text-sub);white-space:nowrap;}
+.hl{color:var(--sk);font-weight:700;}
+.scale-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0;}
+.scale-card{padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;}
+.scale-card .sc-name{font-size:12px;font-weight:700;color:var(--text-sub);margin-bottom:4px;}
+.scale-card .sc-desc{font-size:11px;color:var(--text-dim);line-height:1.7;}
+.scale-card .sc-jp{font-family:'Noto Sans JP',sans-serif;font-size:10px;color:var(--text-muted);margin-top:2px;}
+.example-q{padding:14px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;margin:10px 0;font-size:12px;color:var(--text-sub);line-height:1.8;}
+.example-q .q-label{font-size:10px;font-weight:700;color:var(--sk);letter-spacing:1px;margin-bottom:4px;text-transform:uppercase;}
+.example-q .q-jp{font-family:'Noto Sans JP',sans-serif;color:var(--text-muted);margin-top:4px;}
+/* Sim styles */
+.sim-start{text-align:center;padding:32px 24px;background:var(--sk-soft);border:1px solid var(--sk-border);border-radius:12px;margin:24px 0;}
+.sim-start h3{font-size:18px;font-weight:800;margin-bottom:8px;}
+.sim-start p{font-size:13px;color:var(--text-dim);margin-bottom:16px;}
+.sim-btn{display:inline-block;padding:12px 32px;background:var(--sk);color:#0a0a0f;font-size:14px;font-weight:700;border-radius:8px;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.sim-btn:hover{opacity:0.85;transform:translateY(-1px);}
+.sim-btn:disabled{opacity:0.3;cursor:not-allowed;transform:none;}
+#sim-area{display:none;}
+.progress-bar{height:3px;background:var(--surface-2);border-radius:2px;margin-bottom:24px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--sk);transition:width 0.3s;border-radius:2px;}
+.q-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.q-count{font-size:12px;color:var(--text-muted);font-weight:600;}
+.q-timer{font-family:'Space Grotesk',sans-serif;font-size:13px;color:var(--text-dim);}
+.q-text{font-size:15px;font-weight:600;line-height:1.8;margin-bottom:8px;}
+.q-text-jp{font-family:'Noto Sans JP',sans-serif;font-size:13px;color:var(--text-dim);margin-bottom:24px;line-height:1.8;}
+.q-format-label{font-size:10px;font-weight:700;color:var(--sk);letter-spacing:1px;margin-bottom:16px;text-transform:uppercase;}
+.likert-row{display:flex;gap:8px;margin-bottom:24px;}
+.likert-btn{flex:1;padding:12px 8px;background:var(--surface);border:1px solid var(--border);border-radius:8px;text-align:center;cursor:pointer;transition:all 0.15s;font-size:11px;color:var(--text-dim);line-height:1.4;}
+.likert-btn:hover{border-color:var(--sk-border);background:var(--sk-soft);color:var(--text-sub);}
+.likert-btn.selected{border-color:var(--sk);background:var(--sk-soft);color:var(--sk);font-weight:700;}
+.choice-col{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+.choice-btn{padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all 0.15s;font-size:13px;color:var(--text-sub);line-height:1.7;text-align:left;}
+.choice-btn:hover{border-color:var(--sk-border);background:var(--sk-soft);}
+.choice-btn.selected{border-color:var(--sk);background:var(--sk-soft);color:var(--sk);font-weight:600;}
+.choice-btn .cb-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-top:4px;}
+.next-btn{display:block;width:100%;padding:14px;background:var(--sk);color:#0a0a0f;font-size:14px;font-weight:700;border:none;border-radius:10px;cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.next-btn:hover{opacity:0.85;}
+.next-btn:disabled{opacity:0.3;cursor:not-allowed;}
+/* Result */
+#result-area{display:none;}
+.result-title{font-size:22px;font-weight:900;text-align:center;margin-bottom:8px;}
+.result-sub{font-size:13px;color:var(--text-dim);text-align:center;margin-bottom:32px;}
+.radar-wrap{display:flex;justify-content:center;margin:24px 0 32px;}
+.radar-wrap canvas{max-width:340px;max-height:340px;}
+.score-section{margin-bottom:32px;}
+.score-section h3{font-size:14px;font-weight:700;margin-bottom:14px;padding-left:10px;border-left:2px solid var(--sk);color:var(--text-sub);}
+.score-bar-item{margin-bottom:12px;}
+.score-bar-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;}
+.score-bar-label span:first-child{color:var(--text-sub);font-weight:600;}
+.score-bar-label span:last-child{color:var(--text-dim);font-family:'Space Grotesk',sans-serif;}
+.score-bar-track{height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;}
+.score-bar-fill{height:100%;border-radius:3px;transition:width 0.5s;}
+.consistency-card{padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:24px;text-align:center;}
+.consistency-card .cc-score{font-family:'Space Grotesk',sans-serif;font-size:48px;font-weight:700;line-height:1;}
+.consistency-card .cc-label{font-size:12px;color:var(--text-muted);margin-top:4px;margin-bottom:12px;}
+.consistency-card .cc-verdict{font-size:14px;font-weight:700;padding:6px 16px;border-radius:6px;display:inline-block;}
+.cc-good{color:var(--good);background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.2);}
+.cc-warn{color:var(--warn);background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);}
+.cc-bad{color:var(--danger);background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);}
+.feedback-box{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:16px;}
+.feedback-box h4{font-size:13px;font-weight:700;margin-bottom:8px;}
+.feedback-box p{font-size:12px;color:var(--text-dim);line-height:1.9;margin:0;}
+.fb-label{font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase;}
+.fb-label-good{color:var(--good);}
+.fb-label-warn{color:var(--warn);}
+.retry-row{display:flex;gap:12px;justify-content:center;margin-top:32px;flex-wrap:wrap;}
+.retry-btn{padding:12px 28px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text-sub);font-family:inherit;transition:all 0.2s;}
+.retry-btn:hover{border-color:var(--sk-border);background:var(--sk-soft);}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;font-size:11px;color:var(--text-muted);line-height:2;}
+.footer .brand{color:var(--sk);font-weight:700;}
+@media(max-width:600px){.hero h1{font-size:22px;}.scale-grid{grid-template-columns:1fr;}.st{font-size:17px;}.likert-row{flex-wrap:wrap;}.likert-btn{min-width:calc(50% - 4px);}}
+</style>
+</head>
+<body>
+
+<div class="hero"><div class="hero-inner">
+  <div class="hero-label">SPI Personality Test</div>
+  <h1>SPI 성격검사 대책</h1>
+  <div class="hero-sub">약 300문항 30분. 1문당 6초. 행동적·의욕적·정서적 3측면 + 허위 척도를 측정합니다.<br>생각하지 말고 직감으로 — 고민하면 일관성이 무너집니다.</div>
+  <div class="hero-tags">
+    <span class="hero-tag">300문항 / 30분</span>
+    <span class="hero-tag">2택 + 4단계 혼합</span>
+    <span class="hero-tag">일관성 체크</span>
+    <span class="hero-tag">허위 척도</span>
+  </div>
+</div></div>
+
+<div class="section-nav"><div class="section-nav-inner">
+  <a class="nav-btn" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})">01 불합격 패턴</a>
+  <a class="nav-btn" onclick="document.getElementById('s2').scrollIntoView({behavior:'smooth'})">02 측정 구조</a>
+  <a class="nav-btn" onclick="document.getElementById('s3').scrollIntoView({behavior:'smooth'})">03 출제 형식</a>
+  <a class="nav-btn" onclick="document.getElementById('s4').scrollIntoView({behavior:'smooth'})">04 일관성 공략</a>
+  <a class="nav-btn" onclick="document.getElementById('s5').scrollIntoView({behavior:'smooth'})">05 8가치 연동</a>
+  <a class="nav-btn" onclick="document.getElementById('s6').scrollIntoView({behavior:'smooth'})">06 모의체험</a>
+</div></div>
+
+<div class="container">
+
+<!-- S1 -->
+<div class="section" id="s1">
+  <div class="sn">SECTION 01</div>
+  <div class="st">SPI 성격검사에서 떨어지는 3패턴</div>
+  <div class="st-jp">SPI性格検査で落ちる3パターン</div>
+
+  <p>SPI 성격검사는 약 300문항을 30분 안에 풀어야 합니다. 능력검사와 함께 실시되며, <span class="hl">성격검사 결과만으로 불합격시키는 기업</span>도 적지 않습니다.</p>
+
+  <div class="info-box info-box-danger">
+    <div class="box-label box-label-danger">PATTERN 1 — 허위 척도(社会的望ましさ) 검출</div>
+    <p>"사회적으로 바람직한 답"만 골라서 응답하면 허위 척도가 발동합니다. "한 번도 거짓말을 한 적이 없다"에 "그렇다"로 답하면 경고 신호. 허위 척도가 높으면 결과 자체의 신뢰성이 0으로 판정되어 자동 불합격됩니다.</p>
+  </div>
+  <div class="info-box info-box-danger">
+    <div class="box-label box-label-danger">PATTERN 2 — 일관성(一貫性) 부족</div>
+    <p>300문항 중 약 30~40문항이 일관성 체크용 반전 문항입니다. 앞에서 "혼자 일하는 걸 좋아한다"에 "그렇다", 뒤에서 "팀으로 일하는 걸 좋아한다"에도 "그렇다"로 답하면 일관성 점수가 급락합니다.</p>
+  </div>
+  <div class="info-box info-box-danger">
+    <div class="box-label box-label-danger">PATTERN 3 — 극단 응답(極端回答)</div>
+    <p>모든 문항에 "매우 그렇다"만 선택하면 극단 응답 패턴으로 판정됩니다. 4단계 척도에서 양 끝만 사용하면 "성실하게 응답하지 않았다"고 판단됩니다.</p>
+  </div>
+</div>
+
+<!-- S2 -->
+<div class="section" id="s2">
+  <div class="sn">SECTION 02</div>
+  <div class="st">SPI가 측정하는 3가지 측면</div>
+  <div class="st-jp">SPIが測定する3つの側面</div>
+
+  <div class="scale-grid">
+    <div class="scale-card"><div class="sc-name">행동적 측면</div><div class="sc-jp">行動的側面</div><div class="sc-desc">사회적 내향성, 내성적 성향, 신중성, 지속성, 규칙 준수성</div></div>
+    <div class="scale-card"><div class="sc-name">의욕적 측면</div><div class="sc-jp">意欲的側面</div><div class="sc-desc">달성 의욕, 활동 의욕, 자기 신뢰성, 책임감</div></div>
+    <div class="scale-card"><div class="sc-name">정서적 측면</div><div class="sc-jp">情緒的側面</div><div class="sc-desc">경계심, 자기 억제, 기분 변동, 독자성, 비판적 태도</div></div>
+    <div class="scale-card"><div class="sc-name" style="color:var(--danger);">사회적 바람직성 척도</div><div class="sc-jp">社会的望ましさ尺度</div><div class="sc-desc">거짓말 탐지. 비현실적으로 "좋은 답"만 골랐는지 체크</div></div>
+  </div>
+
+  <div class="info-box info-box-accent">
+    <div class="box-label">기업이 보는 판정 로직</div>
+    <p>기업 인사는 성격검사 결과를 <span class="hl">"인재 유형 매칭"</span>에 사용합니다. 예를 들어 영업직은 "행동적 측면"이 높고 "정서적 안정"이 높은 프로필을 선호하고, 연구직은 "지속성"과 "신중성"이 높은 프로필을 선호합니다. 특정 점수가 높다고 합격이 아니라, <span class="hl">그 회사의 인재상과 얼마나 맞는지</span>가 핵심입니다.</p>
+  </div>
+</div>
+
+<!-- S3 -->
+<div class="section" id="s3">
+  <div class="sn">SECTION 03</div>
+  <div class="st">출제 형식 2가지</div>
+  <div class="st-jp">出題形式 — AかBか / 4段階評定</div>
+
+  <div class="example-q">
+    <div class="q-label">형식 A — 2택 (AかBか)</div>
+    A: 한 가지 일에 집중하는 편이다<br>
+    B: 여러 일을 동시에 진행하는 편이다<br>
+    <div class="q-jp">A: 一つのことに集中するほうだ / B: 複数のことを同時に進めるほうだ</div>
+    → A에 가깝다 / どちらかといえばA / どちらかといえばB / B에 가깝다
+  </div>
+  <div class="example-q">
+    <div class="q-label">형식 B — 단독 문항 4단계</div>
+    "새로운 사람과 만나는 것이 즐겁다"<br>
+    <div class="q-jp">「新しい人と会うことが楽しい」</div>
+    → あてはまる / どちらかといえばあてはまる / どちらかといえばあてはまらない / あてはまらない
+  </div>
+
+  <div class="info-box info-box-accent">
+    <div class="box-label">TCS 전략</div>
+    <p>1문당 6초입니다. <span class="hl">첫 직감을 신뢰하세요.</span> 고민하면 시간이 부족해지고, 고민할수록 응답이 요동쳐서 일관성도 떨어집니다. 자기분석에서 정한 "나는 이런 사람이다"라는 축을 미리 확정해두면 300문항에서도 흔들리지 않습니다.</p>
+  </div>
+</div>
+
+<!-- S4 -->
+<div class="section" id="s4">
+  <div class="sn">SECTION 04</div>
+  <div class="st">일관성 함정 공략</div>
+  <div class="st-jp">一貫性トラップの攻略法</div>
+
+  <h3>함정 1: 반전 문항(反転項目)</h3>
+  <div class="example-q">
+    <div class="q-label">전반부</div>"팀에서 리더 역할을 맡는 것을 좋아한다" → <strong>그렇다</strong>
+    <div class="q-jp">「チームでリーダー役を引き受けるのが好きだ」</div>
+  </div>
+  <div class="example-q">
+    <div class="q-label">후반부 (50~100문 뒤)</div>"다른 사람의 지시에 따라 일하는 것이 편하다" → <strong>???</strong>
+    <div class="q-jp">「他人の指示に従って仕事をするほうが楽だ」</div>
+  </div>
+  <p>앞에서 리더십에 긍정했으면, 뒤에서 "지시에 따르는 게 편하다"에도 강하게 긍정하면 모순 판정.</p>
+
+  <h3>함정 2: 동의어 재출제</h3>
+  <div class="example-q">
+    <div class="q-label">문항 A</div>"새로운 환경에 빠르게 적응하는 편이다"<div class="q-jp">「新しい環境にすぐ馴染むほうだ」</div>
+  </div>
+  <div class="example-q">
+    <div class="q-label">문항 B (같은 내용, 다른 표현)</div>"익숙하지 않은 상황에서도 긴장하지 않는다"<div class="q-jp">「慣れない状況でも緊張しないほうだ」</div>
+  </div>
+
+  <h3>함정 3: 허위 탐지 문항</h3>
+  <div class="example-q">
+    <div class="q-label">허위 척도 문항</div>"한 번도 약속을 어긴 적이 없다" / "한 번도 다른 사람에게 화를 낸 적이 없다"
+    <div class="q-jp">「一度も約束を破ったことがない」/「一度も他人に怒りを感じたことがない」</div>
+  </div>
+  <p>이런 문항에 "그렇다"로 답하면 허위 척도가 올라갑니다. <span class="hl">현실적으로 100% 완벽한 사람은 없으므로</span> 솔직하게 응답하세요.</p>
+
+  <div class="info-box info-box-accent">
+    <div class="box-label">TCS 3원칙</div>
+    <h4>① 자기분석의 "축"을 사전에 확정</h4>
+    <p>"나는 협조성이 높고, 주체성이 강하며, 정서적으로 안정된 사람이다" — 3~4개 축을 정해두면 300문항에서도 흔들리지 않습니다.</p>
+    <h4>② 극단 응답을 피한다</h4>
+    <p>"매우 그렇다"와 "전혀 아니다"는 정말 확신이 있는 문항에만. 대부분은 "약간 그렇다/약간 아니다"가 자연스럽습니다.</p>
+    <h4>③ 첫 직감을 신뢰</h4>
+    <p>고민은 적입니다. 읽는 순간 떠오른 첫 반응을 그대로 선택하세요.</p>
+  </div>
+</div>
+
+<!-- S5 -->
+<div class="section" id="s5">
+  <div class="sn">SECTION 05</div>
+  <div class="st">TCS 8가치 × SPI 연동</div>
+  <div class="st-jp">TCS 8つの価値観とSPI性格検査の連動</div>
+
+  <p>자기분석의 8가치 결과와 SPI 성격검사 응답이 일치하면, 면접에서도 일관된 인재상을 보여줄 수 있습니다.</p>
+
+  <div class="table-wrap"><table>
+    <thead><tr><th>TCS 가치</th><th>SPI 대응 척도</th><th>응답 방향</th></tr></thead>
+    <tbody>
+      <tr><td>협조성</td><td>사회적 내향성(↓), 지속성</td><td>팀워크·경청 문항에 긍정</td></tr>
+      <tr><td>성실성</td><td>규칙 준수성, 지속성</td><td>약속·마감 문항에 긍정</td></tr>
+      <tr><td>주체성</td><td>활동 의욕, 달성 의욕</td><td>리더십·자발성 문항에 긍정</td></tr>
+      <tr><td>도전정신</td><td>활동 의욕, 자기 신뢰성</td><td>새로운 도전·변화 문항에 긍정</td></tr>
+      <tr><td>공헌</td><td>사회적 내향성(↓)</td><td>타인 도움·봉사 문항에 긍정</td></tr>
+      <tr><td>향상심</td><td>달성 의욕, 자기 신뢰성</td><td>목표·성장 문항에 긍정</td></tr>
+      <tr><td>책임감</td><td>규칙 준수성, 지속성</td><td>끈기·완수 문항에 긍정</td></tr>
+      <tr><td>융통성</td><td>신중성(↓)</td><td>유연성·적응 문항에 긍정</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="info-box info-box-accent">
+    <div class="box-label">활용법</div>
+    <p>자기분석에서 Top 2~3 가치를 확인하고, 해당 가치에 연결된 SPI 척도를 의식하세요. 무리하게 모든 척도를 높이려 하면 일관성이 깨집니다. <span class="hl">자신의 실제 성향을 기반으로 자연스럽게</span> 응답하는 것이 최선입니다.</p>
+  </div>
+</div>
+
+<!-- S6 모의체험 -->
+<div class="section" id="s6">
+  <div class="sn">SECTION 06</div>
+  <div class="st">SPI 성격검사 모의체험</div>
+  <div class="st-jp">SPI性格検査ミニ模試 — 20問体験</div>
+
+  <div class="sim-start" id="sim-start">
+    <h3>실전 축소판 20문 체험</h3>
+    <p>2택 + 4단계 혼합 형식. 일관성 체크 쌍 3조 + 허위 척도 2문 포함.<br>결과에서 5축 프로필과 일관성 점수를 확인할 수 있습니다.</p>
+    <button class="sim-btn" onclick="startSim()">모의체험 시작 →</button>
+  </div>
+
+  <div id="sim-area">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="q-header"><div class="q-count" id="q-count"></div><div class="q-timer" id="q-timer"></div></div>
+    <div id="q-body"></div>
+    <button class="next-btn" id="next-btn" disabled onclick="nextQ()">다음 →</button>
+  </div>
+
+  <div id="result-area">
+    <div class="result-title" id="result-title"></div>
+    <div class="result-sub" id="result-sub"></div>
+    <div class="radar-wrap"><canvas id="radar-canvas" width="340" height="340"></canvas></div>
+    <div id="score-bars"></div>
+    <div id="consistency-section"></div>
+    <div id="feedback-section"></div>
+    <div class="retry-row">
+      <button class="retry-btn" onclick="location.reload()">다시 도전</button>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — SPI 성격검사 대책</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
+  <p style="margin-top:8px;font-size:10px;">본 자료는 학습 참고용이며 SPI 운영사(リクルートマネジメントソリューションズ)와 무관합니다.</p>
+</div>
+</div>
+
+<script>
+const AXES=['행동력','협조성','정서안정','지적호기심','성실성'];
+const AXES_JP=['行動力','協調性','情緒安定','知的好奇心','誠実性'];
+const POOL=[
+  {id:'s01',fmt:'likert4',ko:'새로운 사람과 만나는 것이 즐겁다',jp:'新しい人と会うことが楽しい',axis:0,dir:1,pair:'A'},
+  {id:'s02',fmt:'likert4',ko:'계획을 세우고 그대로 실행하는 편이다',jp:'計画を立ててその通り実行するほうだ',axis:4,dir:1},
+  {id:'s03',fmt:'likert4',ko:'다른 사람의 의견에 귀를 기울이는 편이다',jp:'他人の意見に耳を傾けるほうだ',axis:1,dir:1,pair:'B'},
+  {id:'s04',fmt:'likert4',ko:'스트레스를 받아도 침착하게 대처할 수 있다',jp:'ストレスを受けても冷静に対処できる',axis:2,dir:1,pair:'C'},
+  {id:'s05',fmt:'likert4',ko:'새로운 지식을 배우는 것에 흥미가 있다',jp:'新しい知識を学ぶことに興味がある',axis:3,dir:1},
+  {id:'s06',fmt:'ab4',ko_a:'혼자서 조용히 일하는 것을 선호한다',ko_b:'여러 사람과 함께 일하는 것을 선호한다',jp_a:'一人で静かに仕事をするのを好む',jp_b:'複数人で一緒に仕事をするのを好む',axis:0,dir:-1},
+  {id:'s07',fmt:'likert4',ko:'약속은 반드시 지키는 편이다',jp:'約束は必ず守るほうだ',axis:4,dir:1},
+  {id:'s08',fmt:'likert4',ko:'실패해도 금방 기분을 전환할 수 있다',jp:'失敗してもすぐに気持ちを切り替えられる',axis:2,dir:1},
+  {id:'s09',fmt:'ab4',ko_a:'논리적으로 판단하는 편이다',ko_b:'감각적으로 판단하는 편이다',jp_a:'論理的に判断するほうだ',jp_b:'感覚的に判断するほうだ',axis:3,dir:1},
+  {id:'s10',fmt:'likert4',ko:'팀의 분위기를 살피면서 행동한다',jp:'チームの雰囲気を見ながら行動する',axis:1,dir:1},
+  {id:'s11',fmt:'likert4',ko:'목표를 정하면 끝까지 해내는 편이다',jp:'目標を決めたら最後までやり遂げるほうだ',axis:0,dir:1},
+  {id:'s12',fmt:'likert4',ko:'한 번도 거짓말을 한 적이 없다',jp:'一度も嘘をついたことがない',axis:-1,dir:0,lie:true},
+  {id:'s13',fmt:'likert4',ko:'낯선 환경에서도 빠르게 적응하는 편이다',jp:'慣れない環境でもすぐに適応するほうだ',axis:0,dir:1,pair:'A'},
+  {id:'s14',fmt:'likert4',ko:'사람들 앞에서 발표하는 것이 편하다',jp:'人前で発表するのが楽だ',axis:0,dir:1},
+  {id:'s15',fmt:'ab4',ko_a:'세밀한 작업을 좋아한다',ko_b:'큰 그림을 그리는 것을 좋아한다',jp_a:'細かい作業が好きだ',jp_b:'大きな絵を描くのが好きだ',axis:4,dir:1},
+  {id:'s16',fmt:'likert4',ko:'다른 사람과 의견이 다를 때 자기 의견을 강하게 주장하는 편이다',jp:'他人と意見が違うとき自分の意見を強く主張するほうだ',axis:1,dir:-1,pair:'B'},
+  {id:'s17',fmt:'likert4',ko:'걱정이 많아서 잠을 못 이룬 적이 있다',jp:'心配事が多くて眠れないことがある',axis:2,dir:-1,pair:'C'},
+  {id:'s18',fmt:'likert4',ko:'책이나 기사를 통해 새로운 분야를 접하는 것을 즐긴다',jp:'本や記事で新しい分野に触れるのを楽しむ',axis:3,dir:1},
+  {id:'s19',fmt:'likert4',ko:'한 번 시작한 일은 중간에 그만두지 않는다',jp:'一度始めたことは途中でやめない',axis:4,dir:1},
+  {id:'s20',fmt:'likert4',ko:'모든 사람에게 한 번도 짜증을 낸 적이 없다',jp:'誰にも一度もイライラしたことがない',axis:-1,dir:0,lie:true},
+];
+
+let questions=[],currentQ=0,answers={},timerStart=0;
+
+function startSim(){
+  questions=[...POOL];
+  for(let i=questions.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[questions[i],questions[j]]=[questions[j],questions[i]];}
+  currentQ=0;answers={};timerStart=Date.now();
+  document.getElementById('sim-start').style.display='none';
+  document.getElementById('sim-area').style.display='block';
+  renderQ();
+}
+
+function renderQ(){
+  const q=questions[currentQ],total=questions.length;
+  document.getElementById('progress-fill').style.width=((currentQ/total)*100)+'%';
+  document.getElementById('q-count').textContent=(currentQ+1)+' / '+total;
+  const el=Math.floor((Date.now()-timerStart)/1000);
+  document.getElementById('q-timer').textContent=Math.floor(el/60)+':'+String(el%60).padStart(2,'0');
+  const body=document.getElementById('q-body');let html='';
+  if(q.fmt==='likert4'){
+    html+='<div class="q-text">'+q.ko+'</div><div class="q-text-jp">'+q.jp+'</div><div class="q-format-label">4단계 평가</div><div class="likert-row">';
+    ['그렇다','약간 그렇다','약간 아니다','아니다'].forEach((l,i)=>{const v=[4,3,2,1][i];const s=answers[q.id]===v?' selected':'';html+='<div class="likert-btn'+s+'" onclick="ansL(\''+q.id+'\','+v+',this)">'+l+'</div>';});
+    html+='</div>';
+  } else if(q.fmt==='ab4'){
+    html+='<div class="q-format-label">A와 B 중 어느 쪽에 가깝습니까?</div>';
+    html+='<div class="q-text" style="font-size:13px;">A: '+q.ko_a+'</div><div class="q-text-jp" style="margin-bottom:12px;">'+q.jp_a+'</div>';
+    html+='<div class="q-text" style="font-size:13px;">B: '+q.ko_b+'</div><div class="q-text-jp">'+q.jp_b+'</div>';
+    html+='<div class="likert-row" style="margin-top:16px;">';
+    ['A에<br>가깝다','약간<br>A','약간<br>B','B에<br>가깝다'].forEach((l,i)=>{const v=[4,3,2,1][i];const s=answers[q.id]===v?' selected':'';html+='<div class="likert-btn'+s+'" onclick="ansL(\''+q.id+'\','+v+',this)">'+l+'</div>';});
+    html+='</div>';
+  }
+  body.innerHTML=html;updBtn();window.scrollTo({top:document.getElementById('s6').offsetTop,behavior:'smooth'});
+}
+
+function ansL(qid,val,el){answers[qid]=val;el.parentNode.querySelectorAll('.likert-btn').forEach(b=>b.classList.remove('selected'));el.classList.add('selected');updBtn();}
+function updBtn(){const q=questions[currentQ];const btn=document.getElementById('next-btn');btn.disabled=answers[q.id]===undefined;btn.textContent=currentQ===questions.length-1?'결과 보기':'다음 →';}
+function nextQ(){if(currentQ<questions.length-1){currentQ++;renderQ();}else{showResult();}}
+
+function showResult(){
+  document.getElementById('sim-area').style.display='none';
+  document.getElementById('result-area').style.display='block';
+  const elapsed=Math.floor((Date.now()-timerStart)/1000);
+  const axS=[0,0,0,0,0],axC=[0,0,0,0,0];let lieC=0,lieT=0;
+  questions.forEach(q=>{const a=answers[q.id];if(a===undefined)return;
+    if(q.lie){lieT++;if(a>=3)lieC++;}
+    else if(q.axis>=0){const s=q.dir===1?a:(5-a);axS[q.axis]+=s;axC[q.axis]++;}
+  });
+  const axN=AXES.map((_,i)=>axC[i]===0?50:Math.round(((axS[i]-axC[i])/(axC[i]*3))*100));
+  // consistency
+  let cPairs=0,cMatch=0;const pMap={};
+  questions.forEach(q=>{if(q.pair&&!q.lie){if(!pMap[q.pair])pMap[q.pair]=[];pMap[q.pair].push(q);}});
+  Object.values(pMap).forEach(pair=>{if(pair.length<2)return;cPairs++;
+    const a1=answers[pair[0].id],a2=answers[pair[1].id];if(a1===undefined||a2===undefined)return;
+    let s1=(a1-1)/3,s2=(a2-1)/3;if(pair[0].dir===-1)s1=1-s1;if(pair[1].dir===-1)s2=1-s2;
+    if(Math.abs(s1-s2)<=0.34)cMatch++;
+  });
+  const conScore=cPairs>0?Math.round((cMatch/cPairs)*100):100;
+  const lieScore=lieT>0?Math.round((lieC/lieT)*100):0;
+  document.getElementById('result-title').textContent='SPI 성격검사 결과';
+  document.getElementById('result-sub').textContent='소요시간 '+Math.floor(elapsed/60)+'분 '+(elapsed%60)+'초 · 20문 응답 완료';
+  drawRadar(axN);
+  const colors=['#e879f9','#4a9eff','#34d399','#f59e0b','#c4b5fd'];
+  let bH='<div class="score-section"><h3>5축 프로필</h3>';
+  AXES.forEach((ax,i)=>{bH+='<div class="score-bar-item"><div class="score-bar-label"><span>'+ax+' <span style="font-size:10px;color:var(--text-muted);">'+AXES_JP[i]+'</span></span><span>'+axN[i]+'</span></div><div class="score-bar-track"><div class="score-bar-fill" style="width:'+axN[i]+'%;background:'+colors[i]+';"></div></div></div>';});
+  bH+='</div>';document.getElementById('score-bars').innerHTML=bH;
+  let cC,cV;if(conScore>=80){cC='cc-good';cV='일관성 양호';}else if(conScore>=50){cC='cc-warn';cV='일관성 주의';}else{cC='cc-bad';cV='일관성 위험';}
+  let lC=lieScore<=25?'cc-good':lieScore<=50?'cc-warn':'cc-bad';
+  let lV=lieScore<=25?'정상':lieScore<=50?'주의':'허위 의심';
+  let cH='<div class="score-section"><h3>일관성 · 허위 척도</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">';
+  cH+='<div class="consistency-card"><div class="cc-score" style="color:'+(conScore>=80?'var(--good)':conScore>=50?'var(--warn)':'var(--danger)')+';">'+conScore+'%</div><div class="cc-label">일관성 점수</div><div class="cc-verdict '+cC+'">'+cV+'</div></div>';
+  cH+='<div class="consistency-card"><div class="cc-score" style="color:'+(lieScore<=25?'var(--good)':lieScore<=50?'var(--warn)':'var(--danger)')+';">'+lieScore+'%</div><div class="cc-label">허위 척도</div><div class="cc-verdict '+lC+'">'+lV+'</div></div>';
+  cH+='</div></div>';document.getElementById('consistency-section').innerHTML=cH;
+  // feedback
+  const maxI=axN.indexOf(Math.max(...axN)),minI=axN.indexOf(Math.min(...axN));
+  const str=['행동력과 리더십이 강한 프로필. 영업, 사업개발, 경영기획 등 추진력이 필요한 직종과 잘 맞습니다.','타인과의 조화를 중시하는 프로필. 인사, 총무, 고객지원, 팀 매니지먼트와 잘 맞습니다.','정서적으로 안정된 프로필. 프레셔가 큰 환경(금융, 컨설팅)에서 강점을 발휘합니다.','지적 호기심이 강한 프로필. 연구개발, 기획, 데이터분석과 잘 맞습니다.','성실성과 책임감이 높은 프로필. 경리, 법무, 품질관리 등 정확성이 필요한 직종과 잘 맞습니다.'];
+  const wk=['신중하고 분석적인 스타일일 수 있습니다. 면접에서 "수동적"으로 보이지 않도록 에피소드를 준비하세요.','독립적이고 자기 주관이 강한 타입. 면접에서 "팀에서의 역할"을 묻는 질문에 대비하세요.','감수성이 풍부한 타입. 스트레스 대처법을 구체적으로 말할 수 있도록 준비하세요.','실행 중심 타입. "왜?"를 의식적으로 생각하는 습관을 기르면 면접 깊이가 올라갑니다.','유연하고 자유로운 타입. 구체적인 숫자나 기한을 포함한 에피소드를 준비하세요.'];
+  let fH='<div class="score-section"><h3>피드백</h3>';
+  if(conScore<80)fH+='<div class="feedback-box"><div class="fb-label fb-label-warn">일관성 개선 필요</div><h4>같은 내용에 다른 답을 하고 있습니다</h4><p>자기분석에서 정한 "나의 축"을 기억하면서 응답하면 일관성이 자연스럽게 유지됩니다.</p></div>';
+  else fH+='<div class="feedback-box"><div class="fb-label fb-label-good">일관성 양호</div><h4>응답에 일관성이 있습니다</h4><p>실전에서도 이 패턴을 유지하세요.</p></div>';
+  if(lieScore>25)fH+='<div class="feedback-box"><div class="fb-label fb-label-warn">허위 척도 주의</div><h4>"완벽한 사람"은 존재하지 않습니다</h4><p>"한 번도 거짓말을 한 적이 없다" 같은 문항에는 솔직하게 응답하는 것이 안전합니다.</p></div>';
+  fH+='<div class="feedback-box"><div class="fb-label fb-label-good">강점 축: '+AXES[maxI]+'</div><h4>'+AXES[maxI]+'('+AXES_JP[maxI]+') 점수가 가장 높습니다</h4><p>'+str[maxI]+'</p></div>';
+  fH+='<div class="feedback-box"><div class="fb-label fb-label-warn">보완 축: '+AXES[minI]+'</div><h4>'+AXES[minI]+'('+AXES_JP[minI]+') 점수가 가장 낮습니다</h4><p>'+wk[minI]+'</p></div></div>';
+  document.getElementById('feedback-section').innerHTML=fH;
+  window.scrollTo({top:document.getElementById('s6').offsetTop,behavior:'smooth'});
+}
+
+function drawRadar(scores){
+  const c=document.getElementById('radar-canvas'),ctx=c.getContext('2d'),dpr=window.devicePixelRatio||1;
+  c.width=340*dpr;c.height=340*dpr;c.style.width='340px';c.style.height='340px';ctx.scale(dpr,dpr);
+  const cx=170,cy=170,r=120,n=5,step=(Math.PI*2)/n,start=-Math.PI/2;
+  ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=1;
+  for(let lv=1;lv<=5;lv++){ctx.beginPath();for(let i=0;i<=n;i++){const a=start+i*step,lr=r*(lv/5),x=cx+lr*Math.cos(a),y=cy+lr*Math.sin(a);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.stroke();}
+  ctx.strokeStyle='rgba(255,255,255,0.08)';for(let i=0;i<n;i++){const a=start+i*step;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));ctx.stroke();}
+  ctx.fillStyle='rgba(232,121,249,0.15)';ctx.strokeStyle='#e879f9';ctx.lineWidth=2;ctx.beginPath();
+  scores.forEach((s,i)=>{const a=start+i*step,sr=r*(s/100),x=cx+sr*Math.cos(a),y=cy+sr*Math.sin(a);i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
+  ctx.closePath();ctx.fill();ctx.stroke();
+  scores.forEach((s,i)=>{const a=start+i*step,sr=r*(s/100);ctx.beginPath();ctx.arc(cx+sr*Math.cos(a),cy+sr*Math.sin(a),4,0,Math.PI*2);ctx.fillStyle='#e879f9';ctx.fill();});
+  ctx.fillStyle='#c0c0d0';ctx.font='12px "Noto Sans KR",sans-serif';ctx.textAlign='center';
+  AXES.forEach((ax,i)=>{const a=start+i*step;ctx.fillText(ax,cx+(r+22)*Math.cos(a),cy+(r+22)*Math.sin(a)+4);});
+}
+setInterval(()=>{if(document.getElementById('sim-area').style.display!=='none'&&timerStart){const e=Math.floor((Date.now()-timerStart)/1000);document.getElementById('q-timer').textContent=Math.floor(e/60)+':'+String(e%60).padStart(2,'0');}},1000);
+</script>
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>

@@ -32,6 +32,8 @@
         { label: '④ 속도산', file: 'spi-higengo-sokudo.html' },
         { label: '⑤ 집합', file: 'spi-higengo-shugo.html' },
         { label: '⑥ 정수', file: 'spi-higengo-seisu.html' },
+        { label: '── 성격검사', isHeader: true },
+        { label: '🧠 SPI 성격검사', file: 'spi-seikaku.html' },
       ]
     },
     {
@@ -52,6 +54,8 @@
         { label: '① 사칙역산', file: 'tama-keisu-shisoku.html' },
         { label: '② 도표읽기', file: 'tama-keisu-zuhyo.html' },
         { label: '③ 표빈칸추측', file: 'tama-keisu-kuukan.html' },
+        { label: '── 성격검사', isHeader: true },
+        { label: '🧠 玉手箱 OPQ', file: 'tama-seikaku.html' },
       ]
     },
     {
@@ -70,16 +74,8 @@
         { label: '계수 개요', file: 'tgweb-keisu-index.html' },
         { label: '① 종래형 (도형·추론·암호)', file: 'tgweb-keisu-juurai.html' },
         { label: '② 신형 (사칙역산·도표)', file: 'tgweb-keisu-shingata.html' },
-      ]
-    },
-    {
-      id: 'seikaku',
-      label: '성격검사',
-      icon: '🧠',
-      index: 'seikaku-guide.html',
-      children: [
-        { label: '성격검사 완전 가이드', file: 'seikaku-guide.html', isBold: true },
-        { label: '🎯 모의체험 (3유형)', file: 'seikaku-sim.html' },
+        { label: '── 성격검사', isHeader: true },
+        { label: '🧠 TG-WEB 성격검사', file: 'tgweb-seikaku.html' },
       ]
     },
   ];

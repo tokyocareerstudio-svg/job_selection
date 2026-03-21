@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'tama-seikaku.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玉手箱 OPQ 성격검사 대책 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--border-hover:#3a3a48;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--sk:#e879f9;--sk-soft:rgba(232,121,249,0.06);--sk-border:rgba(232,121,249,0.18);--good:#34d399;--warn:#f59e0b;--danger:#f87171;--danger-soft:rgba(248,113,113,0.08);--danger-border:rgba(248,113,113,0.2);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}
+.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:64px 0 48px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;max-width:760px;margin:0 auto;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(232,121,249,0.06) 0%,transparent 70%);pointer-events:none;}
+.hero-inner{position:relative;max-width:760px;margin:0 auto;padding:0 24px;}
+.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--sk);background:var(--sk-soft);border:1px solid var(--sk-border);padding:4px 12px;border-radius:12px;margin-bottom:20px;text-transform:uppercase;}
+.hero h1{font-size:28px;font-weight:900;line-height:1.3;margin-bottom:10px;letter-spacing:-0.5px;}
+.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:20px;}
+.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.hero-tag{font-size:11px;padding:4px 12px;border-radius:100px;background:var(--sk-soft);color:var(--sk);border:1px solid var(--sk-border);font-weight:500;}
+.section-nav{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:10px 0;}
+.section-nav-inner{max-width:760px;margin:0 auto;padding:0 24px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+.section-nav-inner::-webkit-scrollbar{display:none;}
+.nav-btn{flex-shrink:0;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:500;color:var(--text-muted);cursor:pointer;border:none;background:none;font-family:inherit;transition:all 0.2s;white-space:nowrap;text-decoration:none;}
+.nav-btn:hover,.nav-btn.active{color:var(--sk);background:var(--sk-soft);}
+.section{padding:44px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}
+.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--sk);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}
+.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}
+.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}
+.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}
+.section h3{font-size:14px;font-weight:700;color:var(--text-sub);margin:28px 0 12px;padding-left:10px;border-left:2px solid var(--sk);}
+.info-box{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}
+.info-box-accent{background:var(--sk-soft);border-color:var(--sk-border);border-left:3px solid var(--sk);}
+.info-box-danger{background:var(--danger-soft);border-color:var(--danger-border);border-left:3px solid var(--danger);}
+.info-box h4{font-size:13px;font-weight:700;margin-bottom:8px;color:var(--text);}
+.info-box p{font-size:12px;color:var(--text-dim);line-height:1.9;margin-bottom:0;}
+.box-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--sk);margin-bottom:6px;text-transform:uppercase;}
+.box-label-danger{color:var(--danger);}
+.table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead{background:var(--surface-2);}
+th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}
+td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}
+tr:last-child td{border-bottom:none;}
+td:first-child{font-weight:600;color:var(--text-sub);white-space:nowrap;}
+.hl{color:var(--sk);font-weight:700;}
+details{margin:12px 0;}details summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--text-sub);padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;list-style:none;display:flex;align-items:center;gap:8px;transition:all 0.2s;}
+details summary::-webkit-details-marker{display:none;}details summary::before{content:'▸';font-size:11px;color:var(--sk);transition:transform 0.2s;}
+details[open] summary::before{transform:rotate(90deg);}details[open] summary{border-radius:8px 8px 0 0;border-bottom-color:transparent;}
+details .detail-body{padding:16px;background:var(--surface);border:1px solid var(--border);border-top:none;border-radius:0 0 8px 8px;font-size:12px;color:var(--text-dim);line-height:1.9;}
+.example-q{padding:14px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;margin:10px 0;font-size:12px;color:var(--text-sub);line-height:1.8;}
+.example-q .q-label{font-size:10px;font-weight:700;color:var(--sk);letter-spacing:1px;margin-bottom:4px;text-transform:uppercase;}
+.example-q .q-jp{font-family:'Noto Sans JP',sans-serif;color:var(--text-muted);margin-top:4px;}
+.sim-start{text-align:center;padding:32px 24px;background:var(--sk-soft);border:1px solid var(--sk-border);border-radius:12px;margin:24px 0;}
+.sim-start h3{font-size:18px;font-weight:800;margin-bottom:8px;}.sim-start p{font-size:13px;color:var(--text-dim);margin-bottom:16px;}
+.sim-btn{display:inline-block;padding:12px 32px;background:var(--sk);color:#0a0a0f;font-size:14px;font-weight:700;border-radius:8px;border:none;cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.sim-btn:hover{opacity:0.85;transform:translateY(-1px);}.sim-btn:disabled{opacity:0.3;cursor:not-allowed;transform:none;}
+#sim-area{display:none;}
+.progress-bar{height:3px;background:var(--surface-2);border-radius:2px;margin-bottom:24px;overflow:hidden;}
+.progress-fill{height:100%;background:var(--sk);transition:width 0.3s;border-radius:2px;}
+.q-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+.q-count{font-size:12px;color:var(--text-muted);font-weight:600;}.q-timer{font-family:'Space Grotesk',sans-serif;font-size:13px;color:var(--text-dim);}
+.q-format-label{font-size:10px;font-weight:700;color:var(--sk);letter-spacing:1px;margin-bottom:16px;text-transform:uppercase;}
+.opq-grid{margin-bottom:24px;}
+.opq-item{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.03);}.opq-item:last-child{border-bottom:none;}
+.opq-label{font-size:13px;color:var(--text-sub);line-height:1.6;}.opq-label .ol-jp{font-family:'Noto Sans JP',sans-serif;font-size:10px;color:var(--text-muted);}
+.opq-radio{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--surface);cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--text-muted);font-weight:700;}
+.opq-radio:hover{border-color:var(--sk-border);}
+.opq-radio.sel-most{border-color:var(--good);background:rgba(52,211,153,0.1);color:var(--good);}
+.opq-radio.sel-least{border-color:var(--danger);background:rgba(248,113,113,0.1);color:var(--danger);}
+.opq-header{display:grid;grid-template-columns:1fr auto auto;gap:8px;padding:0 16px 8px;font-size:10px;color:var(--text-muted);font-weight:700;letter-spacing:1px;}
+.next-btn{display:block;width:100%;padding:14px;background:var(--sk);color:#0a0a0f;font-size:14px;font-weight:700;border:none;border-radius:10px;cursor:pointer;font-family:inherit;transition:all 0.2s;}
+.next-btn:hover{opacity:0.85;}.next-btn:disabled{opacity:0.3;cursor:not-allowed;}
+#result-area{display:none;}
+.result-title{font-size:22px;font-weight:900;text-align:center;margin-bottom:8px;}
+.result-sub{font-size:13px;color:var(--text-dim);text-align:center;margin-bottom:32px;}
+.radar-wrap{display:flex;justify-content:center;margin:24px 0 32px;}.radar-wrap canvas{max-width:340px;max-height:340px;}
+.score-section{margin-bottom:32px;}.score-section h3{font-size:14px;font-weight:700;margin-bottom:14px;padding-left:10px;border-left:2px solid var(--sk);color:var(--text-sub);}
+.score-bar-item{margin-bottom:12px;}.score-bar-label{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;}.score-bar-label span:first-child{color:var(--text-sub);font-weight:600;}.score-bar-label span:last-child{color:var(--text-dim);font-family:'Space Grotesk',sans-serif;}
+.score-bar-track{height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;}.score-bar-fill{height:100%;border-radius:3px;transition:width 0.5s;}
+.consistency-card{padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:12px;margin-bottom:24px;text-align:center;}
+.consistency-card .cc-score{font-family:'Space Grotesk',sans-serif;font-size:48px;font-weight:700;line-height:1;}.consistency-card .cc-label{font-size:12px;color:var(--text-muted);margin-top:4px;margin-bottom:12px;}.consistency-card .cc-verdict{font-size:14px;font-weight:700;padding:6px 16px;border-radius:6px;display:inline-block;}
+.cc-good{color:var(--good);background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.2);}
+.cc-warn{color:var(--warn);background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);}
+.cc-bad{color:var(--danger);background:rgba(248,113,113,0.1);border:1px solid rgba(248,113,113,0.2);}
+.feedback-box{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin-bottom:16px;}
+.feedback-box h4{font-size:13px;font-weight:700;margin-bottom:8px;}.feedback-box p{font-size:12px;color:var(--text-dim);line-height:1.9;margin:0;}
+.fb-label{font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:6px;text-transform:uppercase;}.fb-label-good{color:var(--good);}.fb-label-warn{color:var(--warn);}
+.retry-row{display:flex;gap:12px;justify-content:center;margin-top:32px;flex-wrap:wrap;}
+.retry-btn{padding:12px 28px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--border);background:var(--surface);color:var(--text-sub);font-family:inherit;transition:all 0.2s;}.retry-btn:hover{border-color:var(--sk-border);background:var(--sk-soft);}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;font-size:11px;color:var(--text-muted);line-height:2;}.footer .brand{color:var(--sk);font-weight:700;}
+@media(max-width:600px){.hero h1{font-size:22px;}.st{font-size:17px;}}
+</style>
+</head>
+<body>
+
+<div class="hero"><div class="hero-inner">
+  <div class="hero-label">Tamatebako OPQ</div>
+  <h1>玉手箱 OPQ 성격검사 대책</h1>
+  <div class="hero-sub">약 68문항 20분. 4지 강제선택 — "가장 그렇다"와 "가장 아니다"를 고르는 형식.<br>모든 척도에서 높은 점수를 받는 것은 구조적으로 불가능합니다.</div>
+  <div class="hero-tags">
+    <span class="hero-tag">68문항 / 20분</span>
+    <span class="hero-tag">4지 강제선택</span>
+    <span class="hero-tag">30개 특성 척도</span>
+    <span class="hero-tag">종합상사·금융·컨설팅</span>
+  </div>
+</div></div>
+
+<div class="section-nav"><div class="section-nav-inner">
+  <a class="nav-btn" onclick="document.getElementById('s1').scrollIntoView({behavior:'smooth'})">01 OPQ란</a>
+  <a class="nav-btn" onclick="document.getElementById('s2').scrollIntoView({behavior:'smooth'})">02 30개 척도</a>
+  <a class="nav-btn" onclick="document.getElementById('s3').scrollIntoView({behavior:'smooth'})">03 출제 형식</a>
+  <a class="nav-btn" onclick="document.getElementById('s4').scrollIntoView({behavior:'smooth'})">04 전략</a>
+  <a class="nav-btn" onclick="document.getElementById('s5').scrollIntoView({behavior:'smooth'})">05 8가치 연동</a>
+  <a class="nav-btn" onclick="document.getElementById('s6').scrollIntoView({behavior:'smooth'})">06 모의체험</a>
+</div></div>
+
+<div class="container">
+
+<div class="section" id="s1">
+  <div class="sn">SECTION 01</div>
+  <div class="st">OPQ란 무엇인가</div>
+  <div class="st-jp">OPQ (Occupational Personality Questionnaire) とは</div>
+  <p>玉手箱의 성격검사 파트는 SHL사가 개발한 글로벌 표준 성격검사 <span class="hl">OPQ</span>입니다. 30개 특성 척도를 측정하며, 핵심 특징은 <span class="hl">강제선택(ipsative) 형식</span>입니다. 4개 문장 중 "가장 그런 것"과 "가장 아닌 것"을 골라야 하므로, 모든 척도에서 높은 점수를 받는 것이 물리적으로 불가능합니다.</p>
+  <div class="info-box info-box-accent">
+    <div class="box-label">OPQ의 핵심</div>
+    <p>"가장 그렇다"를 고르면 그 척도에 +1, "가장 아니다"를 고르면 그 척도에 -1. 따라서 하나를 올리면 다른 하나가 내려갑니다. <span class="hl">"전부 좋은 답을 고르기" 전략이 작동하지 않는 유일한 검사</span>입니다.</p>
+  </div>
+</div>
+
+<div class="section" id="s2">
+  <div class="sn">SECTION 02</div>
+  <div class="st">30개 특성 척도</div>
+  <div class="st-jp">OPQの30特性尺度</div>
+
+  <details>
+    <summary>대인관계(Relationships with People) — 8척도</summary>
+    <div class="detail-body">
+      <strong>설득력</strong> — 타인을 설득하고 영향을 미치는 성향<br>
+      <strong>통솔력</strong> — 주도권을 잡고 리더십을 발휘<br>
+      <strong>독립성</strong> — 자기 의견을 관철하는 성향<br>
+      <strong>외향성</strong> — 사교적이고 활발한 성향<br>
+      <strong>친밀성</strong> — 집단에 소속되고 싶어하는 성향<br>
+      <strong>배려성</strong> — 사회적 상황에서 자신감 있는 성향<br>
+      <strong>겸허성</strong> — 자기 성과를 내세우지 않는 성향<br>
+      <strong>민주성</strong> — 타인의 의견을 존중, 합의 중시
+    </div>
+  </details>
+  <details>
+    <summary>사고 스타일(Thinking Style) — 12척도</summary>
+    <div class="detail-body">
+      <strong>데이터 합리성</strong> — 수치와 데이터 중시<br>
+      <strong>평가적</strong> — 비판적 분석 성향<br>
+      <strong>관습적</strong> — 전통과 규칙 중시<br>
+      <strong>혁신적</strong> — 새로운 접근 추구<br>
+      <strong>다양추구</strong> — 변화와 다양성 추구<br>
+      <strong>적응적</strong> — 상황에 유연하게 대응<br>
+      <strong>전방위적</strong> — 장기 계획 중시<br>
+      <strong>세부지향</strong> — 정확성과 세밀함 추구<br>
+      <strong>성실지향</strong> — 규범 준수와 책임감<br>
+      <strong>규칙지향</strong> — 규칙과 절차를 따름<br>
+      <strong>행동적</strong> — 인간 행동에 관심<br>
+      <strong>개념적</strong> — 추상적 아이디어 선호
+    </div>
+  </details>
+  <details>
+    <summary>감정·에너지(Feelings and Emotions) — 10척도</summary>
+    <div class="detail-body">
+      <strong>여유</strong> — 스트레스에도 침착<br>
+      <strong>강인함</strong> — 비판에 동요하지 않음<br>
+      <strong>낙관적</strong> — 긍정적 전망<br>
+      <strong>신뢰</strong> — 타인을 신뢰<br>
+      <strong>감정 통제</strong> — 감정 표현 절제<br>
+      <strong>활력</strong> — 에너지 수준<br>
+      <strong>경쟁적</strong> — 이기고 싶어하는 성향<br>
+      <strong>성취지향</strong> — 높은 목표 설정<br>
+      <strong>결단적</strong> — 빠른 결정<br>
+      <strong>걱정 통제</strong> — 불안을 느끼는 정도
+    </div>
+  </details>
+</div>
+
+<div class="section" id="s3">
+  <div class="sn">SECTION 03</div>
+  <div class="st">출제 형식</div>
+  <div class="st-jp">4択強制選択 — 最も/最も当てはまらない</div>
+  <div class="example-q">
+    <div class="q-label">4지 강제선택</div>
+    다음 4개 문장 중 자신에게 <strong>가장 그런 것</strong>과 <strong>가장 아닌 것</strong>을 각각 1개씩 고르시오.<br><br>
+    A: 사람들 앞에서 발표하는 것을 즐긴다<br>
+    B: 계획을 세워서 일을 진행하는 편이다<br>
+    C: 새로운 아이디어를 내는 것을 좋아한다<br>
+    D: 다른 사람의 감정에 공감하는 편이다<br>
+    <div class="q-jp">A: 人前で発表するのが楽しい / B: 計画を立てて進めるほうだ<br>C: 新しいアイデアを出すのが好きだ / D: 他者の感情に共感するほうだ</div>
+  </div>
+</div>
+
+<div class="section" id="s4">
+  <div class="sn">SECTION 04</div>
+  <div class="st">OPQ 공략 전략</div>
+  <div class="st-jp">OPQ攻略のポイント</div>
+  <div class="info-box info-box-accent">
+    <div class="box-label">TCS 전략</div>
+    <h4>① 지원 기업의 인재상을 1~2개 척도로 좁혀라</h4>
+    <p>컨설팅 → 평가적+혁신적+성취지향. 메이커 영업 → 외향성+친밀성+적응적. 전부 높이려 하면 일관성이 깨집니다.</p>
+    <h4>② "가장 아니다"에 자신의 약점을 솔직히</h4>
+    <p>강제선택이므로 반드시 하나는 -1이 됩니다. 이때 지원 직종과 무관한 척도를 "가장 아니다"로 선택하면 손해가 적습니다.</p>
+    <h4>③ 시간 배분: 1문 20초</h4>
+    <p>68문 20분이므로 1문당 약 17초. 4개 선택지를 빠르게 읽고 직감으로 결정하세요.</p>
+  </div>
+</div>
+
+<div class="section" id="s5">
+  <div class="sn">SECTION 05</div>
+  <div class="st">TCS 8가치 × OPQ 연동</div>
+  <div class="st-jp">TCS 8つの価値観とOPQの連動</div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>TCS 가치</th><th>OPQ 대응 척도</th><th>응답 방향</th></tr></thead>
+    <tbody>
+      <tr><td>협조성</td><td>친밀성, 민주성, 배려성</td><td>팀·합의 선택지에 "가장"</td></tr>
+      <tr><td>성실성</td><td>세부지향, 성실지향, 규칙지향</td><td>정확성·책임 선택지에 "가장"</td></tr>
+      <tr><td>주체성</td><td>독립성, 통솔력</td><td>리더십·자율 선택지에 "가장"</td></tr>
+      <tr><td>도전정신</td><td>혁신적, 다양추구, 경쟁적</td><td>도전·변화 선택지에 "가장"</td></tr>
+      <tr><td>공헌</td><td>친밀성, 배려성, 겸허성</td><td>배려·봉사 선택지에 "가장"</td></tr>
+      <tr><td>향상심</td><td>성취지향, 경쟁적</td><td>목표·성장 선택지에 "가장"</td></tr>
+      <tr><td>책임감</td><td>성실지향, 규칙지향</td><td>완수·규범 선택지에 "가장"</td></tr>
+      <tr><td>융통성</td><td>적응적, 다양추구</td><td>유연·변화 선택지에 "가장"</td></tr>
+    </tbody>
+  </table></div>
+</div>
+
+<div class="section" id="s6">
+  <div class="sn">SECTION 06</div>
+  <div class="st">OPQ 모의체험</div>
+  <div class="st-jp">OPQミニ模試 — 20問体験</div>
+  <div class="sim-start" id="sim-start">
+    <h3>강제선택 20문 체험</h3>
+    <p>4지 중 "가장 그렇다(◎)"와 "가장 아니다(✗)"를 선택. 일관성 체크 1쌍 포함.<br>결과에서 5축 프로필 피드백을 확인할 수 있습니다.</p>
+    <button class="sim-btn" onclick="startSim()">모의체험 시작 →</button>
+  </div>
+  <div id="sim-area">
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+    <div class="q-header"><div class="q-count" id="q-count"></div><div class="q-timer" id="q-timer"></div></div>
+    <div id="q-body"></div>
+    <button class="next-btn" id="next-btn" disabled onclick="nextQ()">다음 →</button>
+  </div>
+  <div id="result-area">
+    <div class="result-title" id="result-title"></div>
+    <div class="result-sub" id="result-sub"></div>
+    <div class="radar-wrap"><canvas id="radar-canvas" width="340" height="340"></canvas></div>
+    <div id="score-bars"></div>
+    <div id="consistency-section"></div>
+    <div id="feedback-section"></div>
+    <div class="retry-row"><button class="retry-btn" onclick="location.reload()">다시 도전</button></div>
+  </div>
+</div>
+
+<div class="footer">
+  <p><span class="brand">Tokyo Career Studio</span> — 玉手箱 OPQ 성격검사 대책</p>
+  <p>© Tokyo Career Studio. All rights reserved.</p>
+  <p style="margin-top:8px;font-size:10px;">본 자료는 학습 참고용이며 玉手箱 운영사(日本エス・エイチ・エル)와 무관합니다.</p>
+</div>
+</div>
+
+<script>
+const AXES=['행동력','협조성','정서안정','지적호기심','성실성'];
+const AXES_JP=['行動力','協調性','情緒安定','知的好奇心','誠実性'];
+const POOL=[
+  {id:'o01',pair:'OA',opts:[{ko:'사람들 앞에서 자신감 있게 발표한다',jp:'人前で自信を持って発表する',axis:0,dir:1},{ko:'꼼꼼하게 확인하면서 일을 진행한다',jp:'丁寧に確認しながら仕事を進める',axis:4,dir:1},{ko:'새로운 방법을 시도하는 것을 좋아한다',jp:'新しい方法を試すのが好きだ',axis:3,dir:1},{ko:'다른 사람의 기분을 잘 살핀다',jp:'他人の気持ちをよく察する',axis:1,dir:1}]},
+  {id:'o02',opts:[{ko:'경쟁에서 이기고 싶은 마음이 강하다',jp:'競争で勝ちたい気持ちが強い',axis:0,dir:1},{ko:'계획을 세우고 체계적으로 진행한다',jp:'計画を立てて体系的に進める',axis:4,dir:1},{ko:'감정의 기복이 적은 편이다',jp:'感情の起伏が少ないほうだ',axis:2,dir:1},{ko:'팀의 조화를 중시한다',jp:'チームの調和を大事にする',axis:1,dir:1}]},
+  {id:'o03',opts:[{ko:'어려운 문제일수록 도전하고 싶다',jp:'難しい問題ほど挑戦したい',axis:0,dir:1},{ko:'데이터를 바탕으로 판단하는 편이다',jp:'データに基づいて判断するほうだ',axis:3,dir:1},{ko:'마감 전에 충분한 여유를 가지고 끝낸다',jp:'締め切り前に余裕を持って終わらせる',axis:4,dir:1},{ko:'상대방의 입장에서 생각하려고 노력한다',jp:'相手の立場で考えようと努力する',axis:1,dir:1}]},
+  {id:'o04',opts:[{ko:'리더 역할을 자연스럽게 맡는 편이다',jp:'リーダー役を自然と引き受けるほうだ',axis:0,dir:1},{ko:'예상치 못한 상황에서도 당황하지 않는다',jp:'予想外の状況でも慌てない',axis:2,dir:1},{ko:'규칙과 절차를 정확히 따른다',jp:'ルールや手順を正確に守る',axis:4,dir:1},{ko:'다양한 분야에 관심이 있다',jp:'さまざまな分野に関心がある',axis:3,dir:1}]},
+  {id:'o05',pair:'OA',opts:[{ko:'적극적으로 사람들과 교류한다',jp:'積極的に人と交流する',axis:0,dir:1},{ko:'비판을 받아도 감정적으로 흔들리지 않는다',jp:'批判を受けても感情的に揺れない',axis:2,dir:1},{ko:'토론에서 다양한 관점을 제시한다',jp:'議論でさまざまな視点を提示する',axis:3,dir:1},{ko:'갈등 상황에서 중재 역할을 한다',jp:'対立の場で仲裁役を果たす',axis:1,dir:1}]},
+  {id:'o06',opts:[{ko:'실패를 두려워하지 않고 행동한다',jp:'失敗を恐れず行動する',axis:0,dir:1},{ko:'주변 사람의 감정 변화를 빠르게 알아챈다',jp:'周囲の感情の変化にすぐ気づく',axis:1,dir:1},{ko:'기한을 칼같이 지킨다',jp:'期限をきっちり守る',axis:4,dir:1},{ko:'어려운 상황에서도 긍정적으로 생각한다',jp:'困難な状況でもポジティブに考える',axis:2,dir:1}]},
+  {id:'o07',opts:[{ko:'처음 보는 사람과도 쉽게 대화할 수 있다',jp:'初対面の人とも気軽に話せる',axis:0,dir:1},{ko:'지적 자극이 있는 환경을 선호한다',jp:'知的刺激がある環境を好む',axis:3,dir:1},{ko:'실수가 없도록 여러 번 확인한다',jp:'ミスがないよう何度も確認する',axis:4,dir:1},{ko:'팀 전체의 이익을 개인보다 우선한다',jp:'チーム全体の利益を個人より優先する',axis:1,dir:1}]},
+  {id:'o08',opts:[{ko:'주도적으로 프로젝트를 이끈 경험이 많다',jp:'主導的にプロジェクトを引っ張った経験が多い',axis:0,dir:1},{ko:'감정을 잘 통제할 수 있다',jp:'感情をうまくコントロールできる',axis:2,dir:1},{ko:'다른 사람의 아이디어를 발전시키는 것을 좋아한다',jp:'他者のアイデアを発展させるのが好きだ',axis:3,dir:1},{ko:'맡은 일은 끝까지 책임진다',jp:'任された仕事は最後まで責任を持つ',axis:4,dir:1}]},
+  {id:'o09',opts:[{ko:'대화의 주도권을 잡는 편이다',jp:'会話の主導権を握るほうだ',axis:0,dir:1},{ko:'갑작스러운 변화에도 유연하게 대응한다',jp:'急な変化にも柔軟に対応する',axis:2,dir:1},{ko:'정확한 데이터 없이 결정하는 것이 불편하다',jp:'正確なデータなしに決断するのが不安だ',axis:3,dir:1},{ko:'동료의 고민을 들어주는 역할을 자주 한다',jp:'同僚の悩みを聞く役割をよくする',axis:1,dir:1}]},
+  {id:'o10',opts:[{ko:'목표 달성을 위해 끈기 있게 노력한다',jp:'目標達成のために粘り強く努力する',axis:0,dir:1},{ko:'문서의 오탈자를 잘 발견하는 편이다',jp:'文書の誤字脱字によく気づくほうだ',axis:4,dir:1},{ko:'추상적인 개념에 대해 생각하는 것을 좋아한다',jp:'抽象的な概念について考えるのが好きだ',axis:3,dir:1},{ko:'상대방의 이야기를 끝까지 듣고 나서 말한다',jp:'相手の話を最後まで聞いてから話す',axis:1,dir:1}]},
+  {id:'o11',opts:[{ko:'설득력 있게 자기 의견을 전달한다',jp:'説得力を持って自分の意見を伝える',axis:0,dir:1},{ko:'일의 우선순위를 명확히 정한다',jp:'仕事の優先順位を明確にする',axis:4,dir:1},{ko:'불확실한 상황에서도 평정심을 유지한다',jp:'不確実な状況でも平常心を保つ',axis:2,dir:1},{ko:'다른 사람을 돕는 것에서 보람을 느낀다',jp:'他人を助けることにやりがいを感じる',axis:1,dir:1}]},
+  {id:'o12',opts:[{ko:'행동으로 먼저 보여주는 편이다',jp:'行動で先に示すほうだ',axis:0,dir:1},{ko:'예상 밖의 결과에도 냉정하게 분석한다',jp:'予想外の結果にも冷静に分析する',axis:2,dir:1},{ko:'최신 트렌드에 관심을 갖고 공부한다',jp:'最新のトレンドに関心を持って勉強する',axis:3,dir:1},{ko:'약속한 것은 어떤 상황에서도 지킨다',jp:'約束したことはどんな状況でも守る',axis:4,dir:1}]},
+  {id:'o13',opts:[{ko:'새로운 도전에 흥분을 느낀다',jp:'新しい挑戦にワクワクする',axis:0,dir:1},{ko:'주변 사람의 장점을 잘 발견한다',jp:'周囲の人の長所をよく見つける',axis:1,dir:1},{ko:'근거 없는 주장을 쉽게 받아들이지 않는다',jp:'根拠のない主張を簡単に受け入れない',axis:3,dir:1},{ko:'감정적이 되기보다 이성적으로 판단한다',jp:'感情的になるより理性的に判断する',axis:2,dir:1}]},
+  {id:'o14',opts:[{ko:'사람들의 중심에서 에너지를 얻는다',jp:'人の中心でエネルギーを得る',axis:0,dir:1},{ko:'세부 사항까지 신경 쓰는 편이다',jp:'細部まで気を配るほうだ',axis:4,dir:1},{ko:'복잡한 문제를 구조화해서 정리하는 것을 좋아한다',jp:'複雑な問題を構造化して整理するのが好きだ',axis:3,dir:1},{ko:'갈등이 생기면 양측의 이야기를 모두 듣는다',jp:'対立が生じたら両方の話を聞く',axis:1,dir:1}]},
+  {id:'o15',opts:[{ko:'위험을 감수하더라도 큰 성과를 노린다',jp:'リスクを取ってでも大きな成果を狙う',axis:0,dir:1},{ko:'스트레스 상황에서도 유머를 잃지 않는다',jp:'ストレス下でもユーモアを忘れない',axis:2,dir:1},{ko:'정해진 절차대로 진행하는 것이 안심된다',jp:'決まった手順通りに進めるのが安心する',axis:4,dir:1},{ko:'다른 배경의 사람과 일하는 것이 재미있다',jp:'異なるバックグラウンドの人と働くのが面白い',axis:1,dir:1}]},
+  {id:'o16',opts:[{ko:'혼자 결정하기보다 팀과 상의한다',jp:'一人で決めるよりチームと相談する',axis:1,dir:1},{ko:'압박 속에서도 성과를 내는 편이다',jp:'プレッシャーの中でも成果を出すほうだ',axis:2,dir:1},{ko:'이론적 배경을 먼저 이해하고 싶다',jp:'理論的な背景をまず理解したい',axis:3,dir:1},{ko:'체크리스트를 만들어 빠짐없이 확인한다',jp:'チェックリストを作って漏れなく確認する',axis:4,dir:1}]},
+  {id:'o17',opts:[{ko:'모임에서 분위기를 띄우는 역할을 한다',jp:'集まりで場を盛り上げる役をする',axis:0,dir:1},{ko:'상대방이 편안하게 느끼도록 배려한다',jp:'相手がリラックスできるよう配慮する',axis:1,dir:1},{ko:'실패해도 원인을 분석하고 다시 도전한다',jp:'失敗しても原因を分析してまた挑戦する',axis:3,dir:1},{ko:'마감 직전이 아니라 미리 준비해둔다',jp:'締め切り直前ではなく前もって準備する',axis:4,dir:1}]},
+  {id:'o18',opts:[{ko:'주변에 영향력을 행사하고 싶다',jp:'周囲に影響力を行使したい',axis:0,dir:1},{ko:'자신의 감정을 쉽게 표현하지 않는다',jp:'自分の感情をすぐ表に出さない',axis:2,dir:1},{ko:'다양한 가능성을 검토한 후 결정한다',jp:'さまざまな可能性を検討してから決める',axis:3,dir:1},{ko:'팀워크를 통해 개인보다 좋은 결과를 낸다',jp:'チームワークで個人より良い結果を出す',axis:1,dir:1}]},
+  {id:'o19',opts:[{ko:'결과에 대한 책임을 기꺼이 진다',jp:'結果に対する責任を喜んで負う',axis:0,dir:1},{ko:'반복 작업도 정확하게 수행한다',jp:'繰り返し作業も正確に遂行する',axis:4,dir:1},{ko:'비판적 시각으로 정보를 검증한다',jp:'批判的な視点で情報を検証する',axis:3,dir:1},{ko:'긴장되는 순간에도 침착함을 유지한다',jp:'緊張する場面でも落ち着きを保つ',axis:2,dir:1}]},
+  {id:'o20',opts:[{ko:'남들이 꺼리는 일을 솔선수범한다',jp:'他人が敬遠する仕事を率先して行う',axis:0,dir:1},{ko:'동료의 성공을 함께 기뻐한다',jp:'同僚の成功を一緒に喜ぶ',axis:1,dir:1},{ko:'새로운 기술이나 도구를 배우는 것이 즐겁다',jp:'新しい技術やツールを学ぶのが楽しい',axis:3,dir:1},{ko:'한번 정한 규칙은 예외 없이 따른다',jp:'一度決めたルールは例外なく従う',axis:4,dir:1}]},
+];
+
+let questions=[],currentQ=0,answers={},timerStart=0;
+function startSim(){questions=[...POOL];for(let i=questions.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[questions[i],questions[j]]=[questions[j],questions[i]];}currentQ=0;answers={};timerStart=Date.now();document.getElementById('sim-start').style.display='none';document.getElementById('sim-area').style.display='block';renderQ();}
+
+function renderQ(){
+  const q=questions[currentQ],total=questions.length;
+  document.getElementById('progress-fill').style.width=((currentQ/total)*100)+'%';
+  document.getElementById('q-count').textContent=(currentQ+1)+' / '+total;
+  const el=Math.floor((Date.now()-timerStart)/1000);
+  document.getElementById('q-timer').textContent=Math.floor(el/60)+':'+String(el%60).padStart(2,'0');
+  const body=document.getElementById('q-body');
+  const ans=answers[q.id]||{most:null,least:null};
+  let html='<div class="q-format-label">가장 그런 것 (◎)과 가장 아닌 것 (✗)을 각각 1개씩 선택</div>';
+  html+='<div class="opq-header"><span></span><span>◎</span><span>✗</span></div><div class="opq-grid">';
+  q.opts.forEach((opt,i)=>{
+    html+='<div class="opq-item"><div class="opq-label">'+opt.ko+'<div class="ol-jp">'+opt.jp+'</div></div>';
+    html+='<div class="opq-radio'+(ans.most===i?' sel-most':'')+'" onclick="ansOPQ(\''+q.id+'\',\'most\','+i+')">◎</div>';
+    html+='<div class="opq-radio'+(ans.least===i?' sel-least':'')+'" onclick="ansOPQ(\''+q.id+'\',\'least\','+i+')">✗</div></div>';
+  });
+  html+='</div>';body.innerHTML=html;updBtn();window.scrollTo({top:document.getElementById('s6').offsetTop,behavior:'smooth'});
+}
+function ansOPQ(qid,type,idx){if(!answers[qid])answers[qid]={most:null,least:null};if(type==='most'){if(answers[qid].least===idx)return;answers[qid].most=idx;}else{if(answers[qid].most===idx)return;answers[qid].least=idx;}renderQ();}
+function updBtn(){const q=questions[currentQ];const a=answers[q.id];const btn=document.getElementById('next-btn');btn.disabled=!(a&&a.most!==null&&a.least!==null);btn.textContent=currentQ===questions.length-1?'결과 보기':'다음 →';}
+function nextQ(){if(currentQ<questions.length-1){currentQ++;renderQ();}else{showResult();}}
+
+function showResult(){
+  document.getElementById('sim-area').style.display='none';document.getElementById('result-area').style.display='block';
+  const elapsed=Math.floor((Date.now()-timerStart)/1000);
+  const axS=[0,0,0,0,0],axC=[0,0,0,0,0];
+  questions.forEach(q=>{const a=answers[q.id];if(!a)return;
+    q.opts.forEach((opt,i)=>{if(a.most===i){axS[opt.axis]+=1;axC[opt.axis]++;}if(a.least===i){axS[opt.axis]-=1;axC[opt.axis]++;}});
+  });
+  const axN=AXES.map((_,i)=>{if(axC[i]===0)return 50;const mx=axC[i]/2,mn=-axC[i]/2;return Math.round(((axS[i]-mn)/(mx-mn))*100);});
+  // OPQ consistency: pair OA
+  let cPairs=0,cMatch=0;const pMap={};
+  questions.forEach(q=>{if(q.pair){if(!pMap[q.pair])pMap[q.pair]=[];pMap[q.pair].push(q);}});
+  Object.values(pMap).forEach(pair=>{if(pair.length<2)return;cPairs++;
+    const a1=answers[pair[0].id],a2=answers[pair[1].id];if(!a1||!a2)return;
+    if(pair[0].opts[a1.most]?.axis===pair[1].opts[a2.most]?.axis)cMatch++;
+  });
+  const conScore=cPairs>0?Math.round((cMatch/cPairs)*100):100;
+  document.getElementById('result-title').textContent='玉手箱 OPQ 결과';
+  document.getElementById('result-sub').textContent='소요시간 '+Math.floor(elapsed/60)+'분 '+(elapsed%60)+'초 · 20문 응답 완료';
+  drawRadar(axN);
+  const colors=['#e879f9','#4a9eff','#34d399','#f59e0b','#c4b5fd'];
+  let bH='<div class="score-section"><h3>5축 프로필</h3>';
+  AXES.forEach((ax,i)=>{bH+='<div class="score-bar-item"><div class="score-bar-label"><span>'+ax+' <span style="font-size:10px;color:var(--text-muted);">'+AXES_JP[i]+'</span></span><span>'+axN[i]+'</span></div><div class="score-bar-track"><div class="score-bar-fill" style="width:'+axN[i]+'%;background:'+colors[i]+';"></div></div></div>';});
+  bH+='</div>';document.getElementById('score-bars').innerHTML=bH;
+  let cC=conScore>=80?'cc-good':conScore>=50?'cc-warn':'cc-bad';
+  let cV=conScore>=80?'일관성 양호':conScore>=50?'일관성 주의':'일관성 위험';
+  document.getElementById('consistency-section').innerHTML='<div class="score-section"><h3>일관성</h3><div class="consistency-card"><div class="cc-score" style="color:'+(conScore>=80?'var(--good)':conScore>=50?'var(--warn)':'var(--danger)')+';">'+conScore+'%</div><div class="cc-label">일관성 점수</div><div class="cc-verdict '+cC+'">'+cV+'</div></div></div>';
+  const maxI=axN.indexOf(Math.max(...axN)),minI=axN.indexOf(Math.min(...axN));
+  const str=['행동력과 리더십이 강한 프로필. 영업, 사업개발, 경영기획과 잘 맞습니다.','타인과의 조화를 중시하는 프로필. 인사, 총무, 고객지원과 잘 맞습니다.','정서적으로 안정된 프로필. 금융, 컨설팅 등 프레셔가 큰 환경에서 강점.','지적 호기심이 강한 프로필. 연구개발, 기획, 데이터분석과 잘 맞습니다.','성실성과 책임감이 높은 프로필. 경리, 법무, 품질관리와 잘 맞습니다.'];
+  const wk=['신중하고 분석적인 스타일. "수동적"으로 보이지 않도록 에피소드를 준비하세요.','독립적이고 주관이 강한 타입. "팀에서의 역할"을 묻는 질문에 대비하세요.','감수성이 풍부한 타입. 스트레스 대처법을 구체적으로 준비하세요.','실행 중심 타입. "왜?"를 의식적으로 생각하면 면접 깊이가 올라갑니다.','유연한 타입. 구체적 숫자나 기한을 포함한 에피소드를 준비하세요.'];
+  let fH='<div class="score-section"><h3>피드백</h3>';
+  fH+='<div class="feedback-box"><div class="fb-label fb-label-good">강점 축: '+AXES[maxI]+'</div><h4>'+AXES[maxI]+'('+AXES_JP[maxI]+') 점수가 가장 높습니다</h4><p>'+str[maxI]+'</p></div>';
+  fH+='<div class="feedback-box"><div class="fb-label fb-label-warn">보완 축: '+AXES[minI]+'</div><h4>'+AXES[minI]+'('+AXES_JP[minI]+') 점수가 가장 낮습니다</h4><p>'+wk[minI]+'</p></div></div>';
+  document.getElementById('feedback-section').innerHTML=fH;
+  window.scrollTo({top:document.getElementById('s6').offsetTop,behavior:'smooth'});
+}
+
+function drawRadar(scores){const c=document.getElementById('radar-canvas'),ctx=c.getContext('2d'),dpr=window.devicePixelRatio||1;c.width=340*dpr;c.height=340*dpr;c.style.width='340px';c.style.height='340px';ctx.scale(dpr,dpr);const cx=170,cy=170,r=120,n=5,step=(Math.PI*2)/n,start=-Math.PI/2;ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=1;for(let lv=1;lv<=5;lv++){ctx.beginPath();for(let i=0;i<=n;i++){const a=start+i*step,lr=r*(lv/5);i===0?ctx.moveTo(cx+lr*Math.cos(a),cy+lr*Math.sin(a)):ctx.lineTo(cx+lr*Math.cos(a),cy+lr*Math.sin(a));}ctx.stroke();}ctx.strokeStyle='rgba(255,255,255,0.08)';for(let i=0;i<n;i++){const a=start+i*step;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+r*Math.cos(a),cy+r*Math.sin(a));ctx.stroke();}ctx.fillStyle='rgba(232,121,249,0.15)';ctx.strokeStyle='#e879f9';ctx.lineWidth=2;ctx.beginPath();scores.forEach((s,i)=>{const a=start+i*step,sr=r*(s/100);i===0?ctx.moveTo(cx+sr*Math.cos(a),cy+sr*Math.sin(a)):ctx.lineTo(cx+sr*Math.cos(a),cy+sr*Math.sin(a));});ctx.closePath();ctx.fill();ctx.stroke();scores.forEach((s,i)=>{const a=start+i*step,sr=r*(s/100);ctx.beginPath();ctx.arc(cx+sr*Math.cos(a),cy+sr*Math.sin(a),4,0,Math.PI*2);ctx.fillStyle='#e879f9';ctx.fill();});ctx.fillStyle='#c0c0d0';ctx.font='12px "Noto Sans KR",sans-serif';ctx.textAlign='center';AXES.forEach((ax,i)=>{const a=start+i*step;ctx.fillText(ax,cx+(r+22)*Math.cos(a),cy+(r+22)*Math.sin(a)+4);});}
+setInterval(()=>{if(document.getElementById('sim-area').style.display!=='none'&&timerStart){const e=Math.floor((Date.now()-timerStart)/1000);document.getElementById('q-timer').textContent=Math.floor(e/60)+':'+String(e%60).padStart(2,'0');}},1000);
+</script>
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>
