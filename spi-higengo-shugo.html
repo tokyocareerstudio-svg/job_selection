@@ -31,7 +31,7 @@
 .venn-num{position:absolute;font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;}
 .vn-a{left:40px;top:80px;color:var(--tc);}.vn-ab{left:122px;top:80px;color:var(--spi);}.vn-b{right:40px;top:80px;color:var(--wt);}.vn-out{left:125px;top:160px;color:var(--text-muted);font-size:12px;}
 .table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}table{width:100%;border-collapse:collapse;font-size:12px;}thead{background:var(--surface-2);}th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}tr:last-child td{border-bottom:none;}td:first-child{font-weight:600;color:var(--text-sub);}
-.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.diff-badge{font-size:10px;padding:2px 8px;border-radius:6px;margin-left:6px;font-weight:700;letter-spacing:0.5px;}.diff-basic{background:rgba(52,211,153,0.08);color:#34d399;border:1px solid rgba(52,211,153,0.25);}.diff-real{background:rgba(245,158,11,0.08);color:#f59e0b;border:1px solid rgba(245,158,11,0.25);}.diff-hard{background:rgba(239,68,68,0.08);color:#ef4444;border:1px solid rgba(239,68,68,0.25);}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
 .at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{color:var(--text-dim);background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}.at-kr{background:rgba(245,158,11,0.03);border-top:1px solid var(--spi-border);}.at-kr:hover{background:rgba(245,158,11,0.06);}.ac-kr-body{padding:14px 16px;background:rgba(245,158,11,0.03);border-top:1px solid var(--spi-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}
 .type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--spi-border);background:var(--spi-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}
 .footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
@@ -226,6 +226,261 @@ B: 250-200 = +50만 (증가 ✓)
 <div class="sa">정답: 점유율은 내렸다 (30% → 27.5%)</div></div></div></div>
 
 </div>
+
+<!-- ==================== 연습문제 15문 ==================== -->
+<div class="section">
+  <div class="sn">연습문제</div>
+  <div class="st">집합·표 읽기 연습 15문</div>
+  <div class="st-jp">集合·表の読み取り 追加練習15問</div>
+  <p>기초 5문 → 실전 6문 → 고난도 4문. 풀이를 열기 전에 반드시 직접 풀어보세요.</p>
+
+<!-- ===== 기초 (P01~P05) ===== -->
+
+<!-- P01 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P01 — 2집합 기본 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">개·고양이 설문</div>
+<div class="pc-jp">30人にアンケートを取った。犬が好き18人、猫が好き14人、両方好き6人。どちらも好きでない人は何人か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">30명에게 설문. 개를 좋아하는 사람 18명, 고양이 14명, 둘 다 6명. 둘 다 좋아하지 않는 사람은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">포함-배제</div><div class="stx">적어도 하나 = 18 + 14 - 6 = 26명
+둘 다 안 좋아함 = 30 - 26 = 4명</div></div>
+<div class="sa">정답: 4명</div>
+</div></div></div>
+
+<!-- P02 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P02 — 집합 (한쪽만) <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">개만 좋아하는 사람</div>
+<div class="pc-jp">P01と同じ条件で、犬だけが好きな人（猫は好きでない人）は何人か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">P01과 같은 조건. 개만 좋아하는 사람(고양이는 ×)은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">개만 = 개 전체 - 둘 다 = 18 - 6 = 12명</div></div>
+<div class="sa">정답: 12명</div>
+</div></div></div>
+
+<!-- P03 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P03 — 증가율 기본 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">매출 증가율</div>
+<div class="pc-jp">ある店の昨年の売上は200万円、今年は240万円。売上の増加率は何%か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">어떤 가게의 작년 매출 200만엔, 올해 240만엔. 증가율은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">증가율 = (240-200)/200 × 100 = 40/200 × 100 = 20%</div></div>
+<div class="sa">정답: 20%</div>
+</div></div></div>
+
+<!-- P04 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P04 — 구성비 기본 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">비율 계산</div>
+<div class="pc-jp">全体の売上が500万円で、商品Aの売上が125万円。商品Aの構成比は何%か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">전체 매출 500만엔, 상품A 매출 125만엔. 상품A의 구성비는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">125/500 × 100 = 25%</div></div>
+<div class="sa">정답: 25%</div>
+</div></div></div>
+
+<!-- P05 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P05 — 대우 명제 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">논리 기본</div>
+<div class="pc-jp">「雨が降れば試合は中止になる」の対偶はどれか。
+(A) 試合が中止にならなければ雨は降らなかった
+(B) 雨が降らなければ試合は中止にならない
+(C) 試合が中止になれば雨が降った</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">"비가 오면 시합은 중지된다"의 대우는?
+(A) 시합이 중지되지 않으면 비는 오지 않았다
+(B) 비가 오지 않으면 시합은 중지되지 않는다
+(C) 시합이 중지되면 비가 왔다</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">원래: P→Q (비→중지)
+대우: ¬Q→¬P (중지 아님→비 아님) = (A)
+(B)는 역의 부정, (C)는 역</div></div>
+<div class="sa">정답: (A)</div>
+</div></div></div>
+
+<!-- ===== 실전 (P06~P11) ===== -->
+
+<!-- P06 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P06 — 표 읽기 (증감) <span class="diff-badge diff-real">실전</span></div><div class="pc-title">3년간 매출 비교</div>
+<div class="pc-jp">ある会社の売上：2022年 800万円、2023年 920万円、2024年 874万円。
+2022→2023年の増加率と、2023→2024年の減少率をそれぞれ求めよ。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">어떤 회사 매출: 2022년 800만, 2023년 920만, 2024년 874만.
+2022→2023 증가율과 2023→2024 감소율을 각각 구하라.</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">22→23 증가율: (920-800)/800 × 100 = 15%
+23→24 감소율: (920-874)/920 × 100 = 46/920 × 100 = 5%</div></div>
+<div class="sa">정답: 증가율 15%, 감소율 5%</div>
+</div></div></div>
+
+<!-- P07 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P07 — 집합 (여사건) <span class="diff-badge diff-real">실전</span></div><div class="pc-title">적어도 1과목 합격</div>
+<div class="pc-jp">50人が数学と英語の試験を受けた。数学合格35人、英語合格28人、両方不合格5人。両方合格した人は何人か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">50명이 수학·영어 시험을 봤다. 수학 합격 35명, 영어 합격 28명, 둘 다 불합격 5명. 둘 다 합격한 사람은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">적어도 하나 합격 = 50 - 5 = 45명
+35 + 28 - x = 45 → x = 18</div></div>
+<div class="sa">정답: 18명</div>
+</div></div></div>
+
+<!-- P08 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P08 — 표 읽기 (점유율) <span class="diff-badge diff-real">실전</span></div><div class="pc-title">시장 점유율</div>
+<div class="pc-jp">ある市場の全体は1,000億円。A社250億円、B社200億円、C社150億円、その他400億円。
+A社の市場シェアが前年の28%から変化した。シェアは上がったか下がったか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">시장 전체 1,000억엔. A사 250억, B사 200억, C사 150억, 기타 400억.
+A사 점유율이 전년 28%에서 변동. 올랐나 내렸나?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">올해 A사 점유율 = 250/1000 × 100 = 25%
+전년 28% → 25%로 하락</div></div>
+<div class="sa">정답: 내렸다 (28%→25%, 3%p 하락)</div>
+</div></div></div>
+
+<!-- P09 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P09 — 논리 추론 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">필요·충분 조건</div>
+<div class="pc-jp">「xが4の倍数ならばxは偶数である」
+この命題の逆·裏·対偶のうち、必ず真であるものはどれか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">"x가 4의 배수이면 x는 짝수이다"
+이 명제의 역·이·대우 중 반드시 참인 것은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">원래(참): 4배수→짝수
+대우(항상 원래와 진리값 동일): 짝수 아님→4배수 아님 = 홀수→4배수 아님 → 참 ✓
+역: 짝수→4배수? x=6은 짝수지만 4배수× → 거짓
+이: 4배수 아님→짝수 아님? x=6 → 거짓</div></div>
+<div class="sa">정답: 대우 (「偶数でなければ4の倍数でない」)</div>
+</div></div></div>
+
+<!-- P10 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P10 — 득점 범위 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">평균과 범위</div>
+<div class="pc-jp">5人のテストの平均点が72点。最高点が95点、最低点が40点。残り3人の平均点は何点か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">5명 시험 평균 72점. 최고 95점, 최저 40점. 나머지 3명의 평균은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">총점 = 72 × 5 = 360점
+나머지 3명 합 = 360 - 95 - 40 = 225점
+평균 = 225/3 = 75점</div></div>
+<div class="sa">정답: 75점</div>
+</div></div></div>
+
+<!-- P11 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P11 — 표 읽기 (복합) <span class="diff-badge diff-real">실전</span></div><div class="pc-title">2부문 비교</div>
+<div class="pc-jp">A部門：2023年 売上150万円（利益率20%）、B部門：2023年 売上200万円（利益率15%）。
+利益額が大きいのはどちらか。差額はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A부문: 매출 150만(이익률 20%). B부문: 매출 200만(이익률 15%).
+이익액이 큰 쪽은? 차액은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">A 이익 = 150 × 0.20 = 30만엔
+B 이익 = 200 × 0.15 = 30만엔
+→ 동일! 차액 = 0</div></div>
+<div class="sa">정답: 같다 (각 30만엔, 차액 0)</div>
+</div></div></div>
+
+<!-- ===== 고난도 (P12~P15) ===== -->
+
+<!-- P12 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P12 — 3집합 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">3과목 설문</div>
+<div class="pc-jp">60人に英語·数学·国語の好き嫌いを聞いた。英語30人、数学25人、国語20人が好き。英数両方10人、英国両方8人、数国両方6人、3科目全部好き3人。どれも好きでない人は何人か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">60명에게 영어·수학·국어 선호 조사. 영어 30, 수학 25, 국어 20명 좋아함. 영+수 10, 영+국 8, 수+국 6, 3과목 전부 3명. 어느 것도 좋아하지 않는 사람은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">3집합 포함-배제</div><div class="stx">|A∪B∪C| = |A|+|B|+|C|-|A∩B|-|A∩C|-|B∩C|+|A∩B∩C|
+= 30+25+20-10-8-6+3 = 54명</div></div>
+<div class="ss"><div class="sl">결론</div><div class="stx">어느 것도 × = 60 - 54 = 6명</div></div>
+<div class="sa">정답: 6명</div>
+</div></div></div>
+
+<!-- P13 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P13 — 표 읽기 (CAGR) <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">2년 연평균 성장률</div>
+<div class="pc-jp">売上が2022年に100万円、2024年に121万円になった。年平均成長率（CAGR）は何%か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">매출이 2022년 100만엔에서 2024년 121만엔. 연평균 성장률(CAGR)은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">2년간: 100 × (1+r)² = 121
+(1+r)² = 1.21 → 1+r = 1.1 → r = 0.1</div></div>
+<div class="sa">정답: 10%</div>
+</div></div></div>
+
+<!-- P14 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P14 — 집합+논리 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">확실히 말할 수 있는 것</div>
+<div class="pc-jp">100人のうち、A資格保有者60人、B資格保有者50人。次のうち確実に言えるのはどれか。
+(ア) 両方持つ人は少なくとも10人いる
+(イ) 両方持つ人は最大50人である
+(ウ) どちらも持たない人は最大40人である</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">100명 중 A자격 보유 60명, B자격 보유 50명. 확실히 말할 수 있는 것은?
+(ア) 양쪽 보유자는 적어도 10명  (イ) 양쪽 보유자는 최대 50명  (ウ) 양쪽 미보유는 최대 40명</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">(ア) 최소 양쪽 = A+B-전체 = 60+50-100 = 10 → 적어도 10명 ✓
+(イ) 최대 양쪽 = min(60,50) = 50 → 최대 50명 ✓
+(ウ) 양쪽 미보유 최대: 양쪽 보유 최소(=10)일 때 →
+적어도 하나 보유 = 60+50-10=100 → 미보유 0명. 미보유 최대는
+양쪽 보유 최대(=50)일 때: 적어도 하나 = 60+50-50=60 → 미보유=40 ✓</div></div>
+<div class="sa">정답: 3개 모두 확실히 말할 수 있다</div>
+</div></div></div>
+
+<!-- P15 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P15 — 표 읽기+추론 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">누락 데이터 추정</div>
+<div class="pc-jp">3部門の売上（単位：万円）
+　　2023年　2024年
+A部門　120　　?
+B部門　?　　　160
+C部門　80　　　90
+全体合計：2023年350万円、2024年400万円。A部門2024年とB部門2023年の売上を求めよ。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">3부문 매출(만엔): A 2023=120/2024=?, B 2023=?/2024=160, C 2023=80/2024=90.
+전체 합계: 2023년 350만, 2024년 400만. A 2024년과 B 2023년은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">2023년: A(120)+B+C(80)=350 → B=150만엔
+2024년: A+B(160)+C(90)=400 → A=150만엔</div></div>
+<div class="sa">정답: A 2024년=150만엔, B 2023년=150만엔</div>
+</div></div></div>
+
+</div><!-- /section 연습문제 -->
 
 <div class="type-nav">
   <a href="spi-higengo-sokudo.html"><div class="nl">← 이전 유형</div><div class="nt">④ 속도·일·농도</div></a>

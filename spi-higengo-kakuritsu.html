@@ -77,6 +77,11 @@ td:first-child{font-weight:600;color:var(--text-sub);}
 .pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}
 .pc-h{padding:18px 20px;}
 .pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}
+.diff-badge{font-size:10px;padding:2px 8px;border-radius:6px;margin-left:6px;font-weight:700;letter-spacing:0.5px;}
+.diff-basic{background:rgba(52,211,153,0.08);color:#34d399;border:1px solid rgba(52,211,153,0.25);}
+.diff-real{background:rgba(245,158,11,0.08);color:#f59e0b;border:1px solid rgba(245,158,11,0.25);}
+.diff-hard{background:rgba(239,68,68,0.08);color:#ef4444;border:1px solid rgba(239,68,68,0.25);}
+.wt-badge{font-size:10px;padding:2px 8px;border-radius:6px;background:var(--wt-soft);color:var(--wt);border:1px solid var(--wt-border);margin-left:6px;}
 .pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}
 .pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
 .at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}
@@ -469,8 +474,242 @@ P = 3/5 × 1/2 = 3/10</div></div>
 
 </div>
 
+<!-- ==================== 연습문제 15문 ==================== -->
+<div class="section">
+  <div class="sn">연습문제</div>
+  <div class="st">확률 연습 15문</div>
+  <div class="st-jp">順列·組合せ·確率の追加練習15問</div>
+  <p>기초 5문 → 실전 6문 → 고난도 4문. 풀이를 열기 전에 반드시 직접 풀어보세요.</p>
+
+<!-- ===== 기초 (P01~P05) ===== -->
+
+<!-- P01 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P01 — 순열 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">3명 줄세우기</div>
+<div class="pc-jp">A, B, Cの3人を1列に並べる方法は何通りか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A, B, C 3명을 한 줄로 세우는 방법은 몇 가지?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">3! = 3 × 2 × 1 = 6</div></div>
+<div class="sa">정답: 6가지</div>
+</div></div></div>
+
+<!-- P02 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P02 — 조합 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">5명 중 2명 선출</div>
+<div class="pc-jp">5人の中から2人の委員を選ぶ方法は何通りか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">5명 중 2명의 위원을 뽑는 방법은 몇 가지?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">₅C₂ = 5! / (2! × 3!) = (5×4) / (2×1) = 10</div></div>
+<div class="sa">정답: 10가지</div>
+</div></div></div>
+
+<!-- P03 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P03 — 확률 기본 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">주사위 짝수</div>
+<div class="pc-jp">サイコロを1回振って、偶数の目が出る確率はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">주사위를 1번 던져 짝수가 나올 확률은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">짝수: 2, 4, 6 → 3가지. 전체: 6가지
+P = 3/6 = 1/2</div></div>
+<div class="sa">정답: 1/2</div>
+</div></div></div>
+
+<!-- P04 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P04 — 곱의 법칙 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">셔츠와 바지</div>
+<div class="pc-jp">シャツ4種類とズボン3種類がある。組合せは何通りか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">셔츠 4종류, 바지 3종류. 조합은 몇 가지?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">곱의 법칙: 4 × 3 = 12</div></div>
+<div class="sa">정답: 12가지</div>
+</div></div></div>
+
+<!-- P05 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P05 — 여사건 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">동전 2번 (적어도 1번 앞)</div>
+<div class="pc-jp">コインを2回投げて、少なくとも1回は表が出る確率はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">동전을 2번 던져 적어도 1번 앞면이 나올 확률은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">여사건</div><div class="stx">2번 모두 뒷면 확률 = (1/2)² = 1/4
+적어도 1번 앞면 = 1 - 1/4 = 3/4</div></div>
+<div class="sa">정답: 3/4</div>
+</div></div></div>
+
+<!-- ===== 실전 (P06~P11) ===== -->
+
+<!-- P06 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P06 — 순열 조건부 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">5명 줄서기 (양 끝 조건)</div>
+<div class="pc-jp">A~Eの5人が1列に並ぶ。AとBが両端に立つ方法は何通りか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A~E 5명이 한 줄로 선다. A와 B가 양 끝에 서는 방법은 몇 가지?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">양 끝에 A,B 배치: 2가지 (A좌B우, A우B좌)
+나머지 C,D,E 가운데 3자리: 3! = 6
+2 × 6 = 12</div></div>
+<div class="sa">정답: 12가지</div>
+</div></div></div>
+
+<!-- P07 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P07 — 조합 응용 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">남녀 혼합 위원회</div>
+<div class="pc-jp">男子4人、女子3人の中から3人の委員を選ぶ。男子が少なくとも1人含まれる選び方は何通りか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">남자 4명, 여자 3명 중 3명의 위원을 뽑는다. 남자가 적어도 1명 포함되는 경우는 몇 가지?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">여사건</div><div class="stx">전체: ₇C₃ = 35
+남자 0명(여자만 3명): ₃C₃ = 1
+적어도 남자 1명 = 35 - 1 = 34</div></div>
+<div class="sa">정답: 34가지</div>
+</div></div></div>
+
+<!-- P08 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P08 — 확률 (비복원추출) <span class="diff-badge diff-real">실전</span></div><div class="pc-title">카드 뽑기</div>
+<div class="pc-jp">1~10の番号が書かれたカードから2枚引く（引いたカードは戻さない）。2枚とも奇数である確率はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">1~10 번호 카드에서 2장을 뽑는다 (비복원). 2장 모두 홀수일 확률은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">홀수: 1,3,5,7,9 → 5장
+2장 모두 홀수: ₅C₂ / ₁₀C₂ = 10/45 = 2/9</div></div>
+<div class="sa">정답: 2/9</div>
+</div></div></div>
+
+<!-- P09 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P09 — 같은 것이 있는 순열 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">BANANA 나열</div>
+<div class="pc-jp">BANANAの6文字を全て使って並べる方法は何通りか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">BANANA의 6글자를 모두 사용해 나열하는 방법은 몇 가지?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">B×1, A×3, N×2
+6! / (3! × 2! × 1!) = 720 / (6×2×1) = 720/12 = 60</div></div>
+<div class="sa">정답: 60가지</div>
+</div></div></div>
+
+<!-- P10 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P10 — 기댓값 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">주사위 상금</div>
+<div class="pc-jp">サイコロを1回振り、出た目×100円がもらえる。参加費は400円。期待利益はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">주사위 1번 던져 나온 눈 × 100엔을 받는다. 참가비 400엔. 기대 이익은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">기대 상금 = (1+2+3+4+5+6)/6 × 100 = 3.5 × 100 = 350엔
+기대 이익 = 350 - 400 = -50엔</div></div>
+<div class="sa">정답: -50엔 (손해)</div>
+</div></div></div>
+
+<!-- P11 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P11 — 독립시행 반복 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">동전 3번 (정확히 2번 앞)</div>
+<div class="pc-jp">コインを3回投げて、ちょうど2回表が出る確率はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">동전을 3번 던져 정확히 2번 앞면이 나올 확률은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">₃C₂ × (1/2)² × (1/2)¹ = 3 × 1/4 × 1/2 = 3/8</div></div>
+<div class="sa">정답: 3/8</div>
+</div></div></div>
+
+<!-- ===== 고난도 (P12~P15) ===== -->
+
+<!-- P12 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P12 — 조건부 확률 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">불량품 검사</div>
+<div class="pc-jp">工場Aと工場Bから製品を仕入れる。Aは全体の60%を供給し不良率2%、Bは40%を供給し不良率5%。
+任意の1個が不良品だったとき、それがA工場の製品である確率はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">공장A(공급 60%, 불량률 2%)와 공장B(공급 40%, 불량률 5%).
+임의의 1개가 불량품일 때, 그것이 A공장 제품일 확률은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">베이즈 정리</div><div class="stx">P(불량|A)×P(A) = 0.02×0.6 = 0.012
+P(불량|B)×P(B) = 0.05×0.4 = 0.020
+P(불량) = 0.012 + 0.020 = 0.032
+P(A|불량) = 0.012 / 0.032 = 12/32 = 3/8</div></div>
+<div class="sa">정답: 3/8 (= 37.5%)</div>
+</div></div></div>
+
+<!-- P13 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P13 — 원순열+조건 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">원탁 (부부 인접)</div>
+<div class="pc-jp">夫婦2組の4人が円形テーブルに座る。それぞれの夫婦が隣り合う座り方は何通りか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">부부 2쌍(4명)이 원탁에 앉는다. 각 부부가 이웃하는 경우는 몇 가지?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">부부를 각각 1블록으로 묶으면 2블록 원순열: (2-1)! = 1
+각 부부 내부 좌우 교환: 2 × 2 = 4
+1 × 4 = 4</div></div>
+<div class="sa">정답: 4가지</div>
+</div></div></div>
+
+<!-- P14 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P14 — 확률 복합 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">주사위 2개 (합이 8 이상)</div>
+<div class="pc-jp">サイコロを2個同時に振る。目の合計が8以上になる確率はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">주사위 2개를 동시에 던진다. 눈의 합이 8 이상일 확률은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">열거</div><div class="stx">전체: 6×6=36
+합=8: (2,6)(3,5)(4,4)(5,3)(6,2)=5가지
+합=9: (3,6)(4,5)(5,4)(6,3)=4가지
+합=10: (4,6)(5,5)(6,4)=3가지
+합=11: (5,6)(6,5)=2가지
+합=12: (6,6)=1가지
+합계: 5+4+3+2+1=15</div></div>
+<div class="ss"><div class="sl">확률</div><div class="stx">P = 15/36 = 5/12</div></div>
+<div class="sa">정답: 5/12</div>
+</div></div></div>
+
+<!-- P15 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P15 — 조합+확률 복합 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">빨간 공·파란 공 (비복원 3개)</div>
+<div class="pc-jp">袋に赤い球4個と青い球6個が入っている。3個を同時に取り出すとき、赤2個·青1個になる確率はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">주머니에 빨간 공 4개, 파란 공 6개. 3개를 동시에 꺼낼 때 빨간 2개·파란 1개일 확률은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">빨2파1: ₄C₂ × ₆C₁ = 6 × 6 = 36
+전체: ₁₀C₃ = 120
+P = 36/120 = 3/10</div></div>
+<div class="sa">정답: 3/10</div>
+</div></div></div>
+
+</div><!-- /section 연습문제 -->
+
 <div class="type-nav">
-  <a href="spi-higengo-suiron.html"><div class="nl">← 이전 유형</div><div class="nt">① 추론</div></a>
   <a href="spi-higengo-soneki.html"><div class="nl">다음 유형 →</div><div class="nt">③ 손익산·요금</div></a>
 </div>
 

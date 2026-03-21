@@ -25,7 +25,7 @@
 /* Price flow */
 .price-flow{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;padding:8px 0;}.pf-box{padding:10px 14px;border-radius:8px;text-align:center;border:1px solid var(--border);background:var(--surface-2);min-width:80px;}.pf-box .pf-label{font-size:9px;color:var(--text-muted);}.pf-box .pf-val{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--text);}.pf-box.hl-box{border-color:var(--spi);background:var(--spi-soft);}.pf-box.hl-box .pf-val{color:var(--spi);}.pf-arrow{font-size:16px;color:var(--text-muted);}
 .table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}table{width:100%;border-collapse:collapse;font-size:12px;}thead{background:var(--surface-2);}th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}tr:last-child td{border-bottom:none;}td:first-child{font-weight:600;color:var(--text-sub);}
-.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.diff-badge{font-size:10px;padding:2px 8px;border-radius:6px;margin-left:6px;font-weight:700;letter-spacing:0.5px;}.diff-basic{background:rgba(52,211,153,0.08);color:#34d399;border:1px solid rgba(52,211,153,0.25);}.diff-real{background:rgba(245,158,11,0.08);color:#f59e0b;border:1px solid rgba(245,158,11,0.25);}.diff-hard{background:rgba(239,68,68,0.08);color:#ef4444;border:1px solid rgba(239,68,68,0.25);}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
 .at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{color:var(--text-dim);background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}.at-kr{background:rgba(245,158,11,0.03);border-top:1px solid var(--spi-border);}.at-kr:hover{background:rgba(245,158,11,0.06);}.ac-kr-body{padding:14px 16px;background:rgba(245,158,11,0.03);border-top:1px solid var(--spi-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}
 .type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--spi-border);background:var(--spi-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}
 .footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
@@ -238,6 +238,248 @@ C→A 4,000엔, D→A 4,000엔, D→B 2,000엔
 <div class="sa">정답: 1,130엔</div></div></div></div>
 
 </div>
+
+<!-- ==================== 연습문제 15문 ==================== -->
+<div class="section">
+  <div class="sn">연습문제</div>
+  <div class="st">손익산·요금 연습 15문</div>
+  <div class="st-jp">損益算·料金の追加練習15問</div>
+  <p>기초 5문 → 실전 6문 → 고난도 4문. 풀이를 열기 전에 반드시 직접 풀어보세요.</p>
+
+<!-- ===== 기초 (P01~P05) ===== -->
+
+<!-- P01 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P01 — 이익 기본 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">정가와 이익</div>
+<div class="pc-jp">原価600円の商品に25%の利益を見込んで定価をつけた。定価はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">원가 600엔 상품에 25% 이익을 붙여 정가를 매겼다. 정가는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">정가 = 원가 × (1 + 이익률) = 600 × 1.25 = 750</div></div>
+<div class="sa">정답: 750엔</div>
+</div></div></div>
+
+<!-- P02 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P02 — 할인 기본 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">할인 후 가격</div>
+<div class="pc-jp">定価2,000円の商品を15%引きで売った。売値はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">정가 2,000엔 상품을 15% 할인해서 팔았다. 판매가는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">판매가 = 2000 × (1 - 0.15) = 2000 × 0.85 = 1,700</div></div>
+<div class="sa">정답: 1,700엔</div>
+</div></div></div>
+
+<!-- P03 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P03 — 이익률 계산 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">이익률은 몇 %?</div>
+<div class="pc-jp">原価400円の商品を500円で売った。利益率は何%か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">원가 400엔 상품을 500엔에 팔았다. 이익률은 몇 %?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">이익 = 500 - 400 = 100엔
+이익률 = 이익/원가 × 100 = 100/400 × 100 = 25%</div></div>
+<div class="sa">정답: 25%</div>
+</div></div></div>
+
+<!-- P04 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P04 — 정산 기본 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">2명의 식사 정산</div>
+<div class="pc-jp">AとBの2人で食事をし、合計3,200円だった。Aが2,000円、Bが1,200円支払った。割り勘にすると、AはBにいくら渡すべきか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A와 B 2명이 식사하여 합계 3,200엔. A가 2,000엔, B가 1,200엔 지불. 균등 분할하면 B가 A에게 얼마를 줘야 하나?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">1인당 = 3200 / 2 = 1,600엔
+A는 2000 지불 → 400엔 초과. B는 1200 지불 → 400엔 부족
+→ B가 A에게 400엔 전달</div></div>
+<div class="sa">정답: B가 A에게 400엔</div>
+</div></div></div>
+
+<!-- P05 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P05 — 소비세 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">세금 포함 가격</div>
+<div class="pc-jp">税抜き価格が800円の商品に消費税10%がかかる。税込み価格はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">세전 800엔 상품에 소비세 10%가 붙는다. 세금 포함 가격은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">세포함 = 800 × 1.10 = 880</div></div>
+<div class="sa">정답: 880엔</div>
+</div></div></div>
+
+<!-- ===== 실전 (P06~P11) ===== -->
+
+<!-- P06 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P06 — 할인 후 손익 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">할인해도 이익?</div>
+<div class="pc-jp">原価800円の商品に30%の利益を見込んで定価をつけた。定価の10%引きで売ると、利益はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">원가 800엔에 30% 이익을 붙여 정가를 매겼다. 정가의 10% 할인으로 팔면 이익은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">정가 = 800 × 1.30 = 1,040엔
+판매가 = 1,040 × 0.90 = 936엔
+이익 = 936 - 800 = 136엔</div></div>
+<div class="sa">정답: 136엔</div>
+</div></div></div>
+
+<!-- P07 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P07 — 원가 역산 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">원가를 구하라</div>
+<div class="pc-jp">ある商品に20%の利益を見込んで定価をつけ、その定価から100円引きで売ったところ、利益が80円だった。原価はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">상품에 20% 이익을 붙여 정가를 매기고, 정가에서 100엔 할인해 팔았더니 이익이 80엔. 원가는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">식 세우기</div><div class="stx">원가=x, 정가=1.2x, 판매가=1.2x-100
+이익: (1.2x - 100) - x = 80
+0.2x - 100 = 80 → 0.2x = 180 → x = 900</div></div>
+<div class="ss"><div class="sl">검증</div><div class="stx">원가 900, 정가 1080, 판매가 980, 이익 80엔 ✓</div></div>
+<div class="sa">정답: 900엔</div>
+</div></div></div>
+
+<!-- P08 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P08 — 손익분기 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">최대 할인율</div>
+<div class="pc-jp">原価500円の商品に40%の利益を見込んで定価をつけた。損をしないためには、定価の何%引きまで許容できるか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">원가 500엔에 40% 이익을 붙여 정가를 매겼다. 손해를 보지 않으려면 정가의 최대 몇 % 할인까지 가능?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">정가 = 500 × 1.40 = 700엔
+손익분기: 판매가 ≥ 원가 → 700(1-d) ≥ 500
+1-d ≥ 500/700 = 5/7 ≈ 0.714
+d ≤ 0.286... ≈ 약 28.6%</div></div>
+<div class="sa">정답: 약 28.6% (= 2/7)</div>
+</div></div></div>
+
+<!-- P09 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P09 — 복수 상품 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">2종류 상품 합산</div>
+<div class="pc-jp">商品Aを原価300円で仕入れ20%の利益で60個、商品Bを原価500円で仕入れ15%の利益で40個売った。合計利益はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">상품A: 원가 300엔, 20% 이익으로 60개. 상품B: 원가 500엔, 15% 이익으로 40개. 합계 이익은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">A 이익: 300 × 0.20 × 60 = 3,600엔
+B 이익: 500 × 0.15 × 40 = 3,000엔
+합계: 3,600 + 3,000 = 6,600엔</div></div>
+<div class="sa">정답: 6,600엔</div>
+</div></div></div>
+
+<!-- P10 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P10 — 요금 할인 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">단체 입장료</div>
+<div class="pc-jp">遊園地の入場料は大人1,500円、子供800円。20人以上の団体は全員20%引き。大人12人、子供10人の団体の合計はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">놀이공원 입장료: 성인 1,500엔, 어린이 800엔. 20명 이상 단체는 전원 20% 할인. 성인 12명, 어린이 10명 단체의 합계는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">합계 22명 → 단체 할인 적용
+성인: 1500 × 0.80 × 12 = 14,400엔
+어린이: 800 × 0.80 × 10 = 6,400엔
+합계: 14,400 + 6,400 = 20,800엔</div></div>
+<div class="sa">정답: 20,800엔</div>
+</div></div></div>
+
+<!-- P11 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P11 — 정산 응용 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">3명 비율 정산</div>
+<div class="pc-jp">A, B, Cの3人が旅行費用12,000円を2:1:1の比率で負担する。Cが先に全額立て替えた場合、AとBはCにそれぞれいくら渡すべきか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A, B, C 3명이 여행비 12,000엔을 2:1:1 비율로 부담. C가 전액 선지불. A와 B는 C에게 각각 얼마?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">비율 합: 2+1+1=4
+A 부담: 12000×2/4=6,000엔 → C에게 6,000엔
+B 부담: 12000×1/4=3,000엔 → C에게 3,000엔
+C 부담: 3,000엔 (자기몫. 12000-6000-3000=3000 자기부담분)</div></div>
+<div class="sa">정답: A→C 6,000엔, B→C 3,000엔</div>
+</div></div></div>
+
+<!-- ===== 고난도 (P12~P15) ===== -->
+
+<!-- P12 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P12 — 2단계 할인+소비세 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">쿠폰+포인트+세금</div>
+<div class="pc-jp">定価5,000円の商品にまず20%OFFクーポンを適用し、その後ポイント300円分を使い、最後に消費税10%がかかる。支払い額はいくらか（ポイント適用後の金額に課税）。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">정가 5,000엔에 20%OFF 쿠폰 적용 → 포인트 300엔 사용 → 소비세 10% 부과 (포인트 적용 후 금액에 과세). 지불액은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">Step 1</div><div class="stx">쿠폰 후: 5000 × 0.80 = 4,000엔</div></div>
+<div class="ss"><div class="sl">Step 2</div><div class="stx">포인트 후: 4000 - 300 = 3,700엔</div></div>
+<div class="ss"><div class="sl">Step 3</div><div class="stx">소비세 후: 3700 × 1.10 = 4,070엔</div></div>
+<div class="sa">정답: 4,070엔</div>
+</div></div></div>
+
+<!-- P13 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P13 — 복수상품 손익 역산 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">팔다 남은 재고</div>
+<div class="pc-jp">原価600円の商品を100個仕入れた。80個を定価（原価の30%増し）で売り、残り20個を定価の半額で売った。全体の利益はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">원가 600엔 상품 100개 매입. 80개를 정가(원가의 30% 증가)로, 나머지 20개를 정가의 반값으로 팔았다. 전체 이익은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">계산</div><div class="stx">정가 = 600 × 1.30 = 780엔
+정가 판매 80개: 780 × 80 = 62,400엔
+반값 판매 20개: 390 × 20 = 7,800엔
+총 매출 = 62,400 + 7,800 = 70,200엔
+총 원가 = 600 × 100 = 60,000엔
+이익 = 70,200 - 60,000 = 10,200엔</div></div>
+<div class="sa">정답: 10,200엔</div>
+</div></div></div>
+
+<!-- P14 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P14 — 세포함 역산 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">세전 가격 구하기</div>
+<div class="pc-jp">消費税10%込みで1,430円の商品がある。この商品の税抜き原価が1,000円のとき、利益率は何%か（税抜き売価ベース）。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">소비세 10% 포함 1,430엔인 상품이 있다. 세전 원가가 1,000엔일 때, 이익률은 몇 %? (세전 판매가 기준)</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">세전 판매가 = 1430 / 1.10 = 1,300엔
+이익 = 1300 - 1000 = 300엔
+이익률 = 300/1000 × 100 = 30%</div></div>
+<div class="sa">정답: 30%</div>
+</div></div></div>
+
+<!-- P15 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P15 — 복합 정산+할인 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">4명 불균등 정산</div>
+<div class="pc-jp">4人で食事をし、合計16,000円（税込み）だった。Aはクーポンで20%引きの分を支払い、B·C·Dは残りを均等に割る。Bの支払い額はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">4명이 식사하여 합계 16,000엔(세포함). A는 쿠폰으로 20% 할인된 금액을 지불하고, B·C·D가 나머지를 균등 분할. B의 지불액은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">균등 1인분 = 16000/4 = 4,000엔
+A 지불 = 4000 × 0.80 = 3,200엔
+나머지 = 16000 - 3200 = 12,800엔
+B = C = D = 12800/3 ≈ 4,266.67엔
+→ 단수처리: B=C=4,267엔, D=4,266엔 (또는 각자 4,267엔으로 합의)</div></div>
+<div class="sa">정답: 약 4,267엔 (12,800 ÷ 3)</div>
+</div></div></div>
+
+</div><!-- /section 연습문제 -->
 
 <div class="type-nav">
   <a href="spi-higengo-kakuritsu.html"><div class="nl">← 이전 유형</div><div class="nt">② 순열·조합·확률</div></a>

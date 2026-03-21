@@ -27,7 +27,7 @@
 .tri-top{padding:10px 24px;background:var(--spi-soft);border:2px solid var(--spi);border-radius:8px 8px 0 0;font-size:14px;font-weight:900;color:var(--spi);text-align:center;}
 .tri-bot{display:flex;gap:0;}.tri-bl,.tri-br{padding:10px 20px;background:var(--surface-2);border:1px solid var(--border);font-size:13px;font-weight:700;color:var(--text-sub);text-align:center;}.tri-bl{border-radius:0 0 0 8px;border-right:none;}.tri-br{border-radius:0 0 8px 0;}
 .table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}table{width:100%;border-collapse:collapse;font-size:12px;}thead{background:var(--surface-2);}th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}tr:last-child td{border-bottom:none;}td:first-child{font-weight:600;color:var(--text-sub);}
-.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);margin-bottom:6px;text-transform:uppercase;}.diff-badge{font-size:10px;padding:2px 8px;border-radius:6px;margin-left:6px;font-weight:700;letter-spacing:0.5px;}.diff-basic{background:rgba(52,211,153,0.08);color:#34d399;border:1px solid rgba(52,211,153,0.25);}.diff-real{background:rgba(245,158,11,0.08);color:#f59e0b;border:1px solid rgba(245,158,11,0.25);}.diff-hard{background:rgba(239,68,68,0.08);color:#ef4444;border:1px solid rgba(239,68,68,0.25);}.wt-badge{font-size:10px;padding:2px 8px;border-radius:6px;background:var(--wt-soft);color:var(--wt);border:1px solid var(--wt-border);margin-left:6px;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
 .at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{color:var(--text-dim);background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}.at-kr{background:rgba(245,158,11,0.03);border-top:1px solid var(--spi-border);}.at-kr:hover{background:rgba(245,158,11,0.06);}.ac-kr-body{padding:14px 16px;background:rgba(245,158,11,0.03);border-top:1px solid var(--spi-border);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}.wt-badge{font-size:10px;padding:2px 8px;border-radius:6px;background:var(--wt-soft);color:var(--wt);border:1px solid var(--wt-border);margin-left:6px;}
 .type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--spi-border);background:var(--spi-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}
 .footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
@@ -284,6 +284,241 @@
 <div class="sa">정답: 12분 후</div></div></div></div>
 
 </div>
+
+<!-- ==================== 연습문제 15문 ==================== -->
+<div class="section">
+  <div class="sn">연습문제</div>
+  <div class="st">속도·일·농도 연습 15문</div>
+  <div class="st-jp">速度·仕事·濃度の追加練習15問</div>
+  <p>기초 5문 → 실전 6문 → 고난도 4문. 풀이를 열기 전에 반드시 직접 풀어보세요.</p>
+
+<!-- ===== 기초 (P01~P05) ===== -->
+
+<!-- P01 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P01 — 속도 기본 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">거리 구하기</div>
+<div class="pc-jp">時速60kmで2時間30分走った。走った距離は何kmか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">시속 60km로 2시간 30분 달렸다. 달린 거리는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">거리 = 속도 × 시간 = 60 × 2.5 = 150km</div></div>
+<div class="sa">정답: 150km</div>
+</div></div></div>
+
+<!-- P02 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P02 — 속도 단위변환 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">분속 → 시속</div>
+<div class="pc-jp">分速80mは時速何kmか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">분속 80m는 시속 몇 km?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">분속 80m = 시속 80×60 = 4,800m = 시속 4.8km</div></div>
+<div class="sa">정답: 시속 4.8km</div>
+</div></div></div>
+
+<!-- P03 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P03 — 일산 기본 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">혼자 하면 며칠?</div>
+<div class="pc-jp">Aは1日で全体の1/6を仕上げる。全体を終えるのに何日かかるか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A는 하루에 전체의 1/6을 완성한다. 전체를 끝내는 데 며칠?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">1일에 1/6 → 전체 = 6일</div></div>
+<div class="sa">정답: 6일</div>
+</div></div></div>
+
+<!-- P04 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P04 — 농도 기본 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">소금물 농도</div>
+<div class="pc-jp">水200gに食塩50gを溶かした。食塩水の濃度は何%か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">물 200g에 소금 50g을 녹였다. 소금물 농도는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">전체 = 200 + 50 = 250g
+농도 = 50/250 × 100 = 20%</div></div>
+<div class="sa">정답: 20%</div>
+</div></div></div>
+
+<!-- P05 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P05 — 마주오기 기본 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">두 사람이 만남</div>
+<div class="pc-jp">AとBが10km離れた地点から同時に向かい合って歩く。Aは時速4km、Bは時速6km。何時間後に出会うか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A와 B가 10km 떨어진 지점에서 동시에 마주보고 걷는다. A 시속 4km, B 시속 6km. 몇 시간 후에 만나나?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">접근 속도 = 4 + 6 = 시속 10km
+시간 = 10 / 10 = 1시간</div></div>
+<div class="sa">정답: 1시간 후</div>
+</div></div></div>
+
+<!-- ===== 실전 (P06~P11) ===== -->
+
+<!-- P06 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P06 — 따라잡기 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">동생을 따라잡기</div>
+<div class="pc-jp">弟が分速60mで出発してから10分後に、兄が分速100mで同じ道を追いかけた。兄が弟に追いつくのは兄が出発してから何分後か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">동생이 분속 60m로 출발한 10분 후, 형이 분속 100m로 같은 길을 쫓았다. 형이 동생을 따라잡는 건 형 출발 후 몇 분?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">동생 선행 거리 = 60 × 10 = 600m
+속도차 = 100 - 60 = 분속 40m
+따라잡기 시간 = 600 / 40 = 15분</div></div>
+<div class="sa">정답: 15분 후</div>
+</div></div></div>
+
+<!-- P07 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P07 — 평균 속도 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">왕복 평균</div>
+<div class="pc-jp">行きは時速30km、帰りは時速20kmで同じ道を往復した。全体の平均時速はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">갈 때 시속 30km, 올 때 시속 20km로 같은 길을 왕복했다. 전체 평균 시속은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">편도 거리 = d로 놓으면
+갈 때 시간 = d/30, 올 때 시간 = d/20
+평균 속도 = 총 거리/총 시간 = 2d / (d/30 + d/20)
+= 2d / (2d/60 + 3d/60) = 2d / (5d/60) = 2d × 60/(5d) = 24</div></div>
+<div class="sa">정답: 시속 24km</div>
+</div></div></div>
+
+<!-- P08 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P08 — 일산 합동 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">A와 B가 함께</div>
+<div class="pc-jp">Aは1人で12日、Bは1人で6日で終わる仕事がある。2人で一緒にやると何日かかるか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A 혼자 12일, B 혼자 6일 걸리는 일이 있다. 둘이 함께 하면 며칠?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">A: 1일에 1/12, B: 1일에 1/6
+합계: 1/12 + 1/6 = 1/12 + 2/12 = 3/12 = 1/4
+→ 4일</div></div>
+<div class="sa">정답: 4일</div>
+</div></div></div>
+
+<!-- P09 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P09 — 농도 혼합 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">두 소금물 섞기</div>
+<div class="pc-jp">8%の食塩水300gと12%の食塩水200gを混ぜると何%の食塩水になるか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">8% 소금물 300g과 12% 소금물 200g을 섞으면 몇 %?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">소금: 300×0.08 + 200×0.12 = 24 + 24 = 48g
+전체: 300 + 200 = 500g
+농도: 48/500 × 100 = 9.6%</div></div>
+<div class="sa">정답: 9.6%</div>
+</div></div></div>
+
+<!-- P10 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P10 — 통과산 <span class="diff-badge diff-real">실전</span> <span class="wt-badge">웹테</span></div><div class="pc-title">열차가 터널 통과</div>
+<div class="pc-jp">長さ150mの列車が時速72kmで、長さ450mのトンネルを通過する。列車が完全に通過するまで何秒かかるか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">길이 150m 열차가 시속 72km로 길이 450m 터널을 통과한다. 완전히 통과하는 데 몇 초?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">이동 거리 = 열차 + 터널 = 150 + 450 = 600m
+시속 72km = 초속 20m (72000/3600)
+시간 = 600 / 20 = 30초</div></div>
+<div class="sa">정답: 30초</div>
+</div></div></div>
+
+<!-- P11 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P11 — 연령산 <span class="diff-badge diff-real">실전</span> <span class="wt-badge">웹테</span></div><div class="pc-title">부자의 나이</div>
+<div class="pc-jp">現在、父は38歳、子は10歳。父の年齢が子の年齢の3倍になるのは何年後か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">현재 아버지 38세, 아이 10세. 아버지 나이가 아이의 3배가 되는 것은 몇 년 후?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">x년 후: 38+x = 3(10+x)
+38+x = 30+3x → 8 = 2x → x = 4</div></div>
+<div class="ss"><div class="sl">검증</div><div class="stx">4년 후: 아버지 42세, 아이 14세 → 42 = 3×14 ✓</div></div>
+<div class="sa">정답: 4년 후</div>
+</div></div></div>
+
+<!-- ===== 고난도 (P12~P15) ===== -->
+
+<!-- P12 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P12 — 유수산 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">강 위의 배</div>
+<div class="pc-jp">静水での船の速さは時速15km、川の流れは時速3km。上流のA地点から下流のB地点まで24km。往復にかかる時間は何時間か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">잔잔한 물에서 배 속도 시속 15km, 강 유속 시속 3km. 상류A에서 하류B까지 24km. 왕복 소요 시간은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">하류행(순류): 15+3=18km/h → 24/18 = 4/3시간
+상류행(역류): 15-3=12km/h → 24/12 = 2시간
+왕복: 4/3 + 2 = 4/3 + 6/3 = 10/3 ≈ 3시간 20분</div></div>
+<div class="sa">정답: 10/3시간 (3시간 20분)</div>
+</div></div></div>
+
+<!-- P13 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P13 — 일산+도중합류 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">도중에 합류</div>
+<div class="pc-jp">Aは1人で20日、Bは1人で30日で終わる仕事がある。Aが6日間1人で作業した後、Bが加わった。残りを2人で何日で終えるか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A 혼자 20일, B 혼자 30일 걸리는 일. A가 6일 혼자 일한 후 B가 합류. 나머지를 둘이 며칠 만에 끝내나?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">A 6일분: 6 × 1/20 = 6/20 = 3/10
+남은 일: 1 - 3/10 = 7/10
+합동 1일: 1/20 + 1/30 = 3/60 + 2/60 = 5/60 = 1/12
+남은 일 / 합동: (7/10) ÷ (1/12) = 7/10 × 12 = 84/10 = 8.4일</div></div>
+<div class="sa">정답: 8.4일 (= 42/5일)</div>
+</div></div></div>
+
+<!-- P14 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P14 — 농도 역산 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">물을 증발시키면?</div>
+<div class="pc-jp">5%の食塩水400gを加熱して水を蒸発させ、8%の食塩水にしたい。何gの水を蒸発させればよいか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">5% 소금물 400g을 가열해 물을 증발시켜 8%로 만들고 싶다. 물을 몇 g 증발시키면 되나?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">소금양 = 400 × 0.05 = 20g (불변)
+증발 후: 20 / (400 - x) = 0.08
+20 = 0.08(400-x) = 32 - 0.08x
+0.08x = 12 → x = 150</div></div>
+<div class="sa">정답: 150g</div>
+</div></div></div>
+
+<!-- P15 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P15 — 속도+시간차 복합 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">출발 시각 역산</div>
+<div class="pc-jp">A地点からB地点まで10kmある。太郎は時速5kmで歩き、花子は時速15kmの自転車で同じ道を進む。2人が同時にB地点に着くには、花子は太郎より何分遅く出発すればよいか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">A에서 B까지 10km. 타로 시속 5km 도보, 하나코 시속 15km 자전거. 동시에 B에 도착하려면 하나코는 타로보다 몇 분 늦게 출발해야 하나?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">타로 소요: 10/5 = 2시간 = 120분
+하나코 소요: 10/15 = 2/3시간 = 40분
+시간차: 120 - 40 = 80분</div></div>
+<div class="sa">정답: 80분 (1시간 20분)</div>
+</div></div></div>
+
+</div><!-- /section 연습문제 -->
 
 <div class="type-nav">
   <a href="spi-higengo-soneki.html"><div class="nl">← 이전 유형</div><div class="nt">③ 손익산·요금</div></a>

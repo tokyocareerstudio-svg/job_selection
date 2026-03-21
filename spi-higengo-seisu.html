@@ -29,7 +29,7 @@
 .seq-n.q{border-color:var(--spi);background:var(--spi-soft);color:var(--spi);}
 .seq-op{font-size:11px;color:var(--text-muted);}
 .table-wrap{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:10px;}table{width:100%;border-collapse:collapse;font-size:12px;}thead{background:var(--surface-2);}th{padding:10px 14px;text-align:left;font-weight:700;font-size:10px;letter-spacing:1px;color:var(--text-muted);border-bottom:1px solid var(--border);white-space:nowrap;text-transform:uppercase;}td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.03);color:var(--text-dim);vertical-align:top;line-height:1.7;}tr:last-child td{border-bottom:none;}td:first-child{font-weight:600;color:var(--text-sub);}
-.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--wt);margin-bottom:6px;text-transform:uppercase;}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--wt);margin-bottom:6px;text-transform:uppercase;}.diff-badge{font-size:10px;padding:2px 8px;border-radius:6px;margin-left:6px;font-weight:700;letter-spacing:0.5px;}.diff-basic{background:rgba(52,211,153,0.08);color:#34d399;border:1px solid rgba(52,211,153,0.25);}.diff-real{background:rgba(245,158,11,0.08);color:#f59e0b;border:1px solid rgba(245,158,11,0.25);}.diff-hard{background:rgba(239,68,68,0.08);color:#ef4444;border:1px solid rgba(239,68,68,0.25);}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-jp{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:1.9;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;}
 .at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{color:var(--text-dim);background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}.at-kr{background:rgba(245,158,11,0.03);border-top:1px solid var(--spi-border);}.at-kr:hover{background:rgba(245,158,11,0.06);}.ac-kr-body{padding:14px 16px;background:rgba(245,158,11,0.03);border-top:1px solid rgba(245,158,11,0.18);font-size:13px;color:var(--text-sub);line-height:1.9;white-space:pre-line;}.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}
 .type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--wt-border);background:var(--wt-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}
 .footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
@@ -252,6 +252,245 @@ x+11 = 2x+10
 <div class="sa">정답: 1세</div></div></div></div>
 
 </div>
+
+<!-- ==================== 연습문제 15문 ==================== -->
+<div class="section">
+  <div class="sn">연습문제</div>
+  <div class="st">정수·방정식 연습 15문</div>
+  <div class="st-jp">整数·方程式の追加練習15問</div>
+  <p>기초 5문 → 실전 6문 → 고난도 4문. 풀이를 열기 전에 반드시 직접 풀어보세요.</p>
+
+<!-- ===== 기초 (P01~P05) ===== -->
+
+<!-- P01 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P01 — 수열 추리 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">등차수열</div>
+<div class="pc-jp">3, 7, 11, 15, □ — □に入る数は何か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">3, 7, 11, 15, □ — □에 들어갈 수는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">공차 = +4 → 15 + 4 = 19</div></div>
+<div class="sa">정답: 19</div>
+</div></div></div>
+
+<!-- P02 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P02 — 방정식 기본 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">일차방정식</div>
+<div class="pc-jp">3x + 5 = 20 のとき、xの値はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">3x + 5 = 20일 때, x의 값은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">3x = 20 - 5 = 15 → x = 5</div></div>
+<div class="sa">정답: x = 5</div>
+</div></div></div>
+
+<!-- P03 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P03 — 약수 기본 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">약수의 개수</div>
+<div class="pc-jp">36の正の約数は全部で何個か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">36의 양의 약수는 모두 몇 개?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">36 = 2² × 3²
+약수 개수 = (2+1)(2+1) = 9
+확인: 1,2,3,4,6,9,12,18,36</div></div>
+<div class="sa">정답: 9개</div>
+</div></div></div>
+
+<!-- P04 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P04 — 나머지 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">나누기 나머지</div>
+<div class="pc-jp">47 を 6 で割った商と余りを求めよ。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">47을 6으로 나눈 몫과 나머지를 구하라.</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">47 ÷ 6 = 7 ... 5 (6×7=42, 47-42=5)</div></div>
+<div class="sa">정답: 몫 7, 나머지 5</div>
+</div></div></div>
+
+<!-- P05 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P05 — 연립방정식 <span class="diff-badge diff-basic">기초</span></div><div class="pc-title">x와 y</div>
+<div class="pc-jp">x + y = 10、x − y = 4 のとき、x と y を求めよ。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">x + y = 10, x - y = 4일 때, x와 y를 구하라.</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">두 식을 더하면: 2x = 14 → x = 7
+x + y = 10 → y = 3</div></div>
+<div class="sa">정답: x = 7, y = 3</div>
+</div></div></div>
+
+<!-- ===== 실전 (P06~P11) ===== -->
+
+<!-- P06 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P06 — 수열 추리 (등비) <span class="diff-badge diff-real">실전</span></div><div class="pc-title">등비수열</div>
+<div class="pc-jp">2, 6, 18, 54, □ — □に入る数は何か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">2, 6, 18, 54, □ — □에 들어갈 수는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">공비 = ×3 → 54 × 3 = 162</div></div>
+<div class="sa">정답: 162</div>
+</div></div></div>
+
+<!-- P07 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P07 — n진법 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">2진법 → 10진법</div>
+<div class="pc-jp">2進法の 10110 を10進法に変換せよ。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">2진법 10110을 10진법으로 변환하라.</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">1×2⁴ + 0×2³ + 1×2² + 1×2¹ + 0×2⁰
+= 16 + 0 + 4 + 2 + 0 = 22</div></div>
+<div class="sa">정답: 22</div>
+</div></div></div>
+
+<!-- P08 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P08 — 최대공약수·최소공배수 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">GCD와 LCM</div>
+<div class="pc-jp">24と36の最大公約数と最小公倍数を求めよ。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">24와 36의 최대공약수와 최소공배수를 구하라.</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">소인수분해</div><div class="stx">24 = 2³ × 3, 36 = 2² × 3²
+GCD = 2² × 3 = 12
+LCM = 2³ × 3² = 72</div></div>
+<div class="sa">정답: GCD = 12, LCM = 72</div>
+</div></div></div>
+
+<!-- P09 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P09 — 연립방정식 응용 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">노트와 펜</div>
+<div class="pc-jp">ノート3冊とペン2本で700円、ノート1冊とペン4本で600円。ノート1冊の値段はいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">노트 3권+펜 2자루=700엔, 노트 1권+펜 4자루=600엔. 노트 1권 가격은?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">3n + 2p = 700 ···①
+n + 4p = 600 ···②
+②×3: 3n + 12p = 1800 ···③
+③-①: 10p = 1100 → p = 110
+n = 600 - 4(110) = 600 - 440 = 160</div></div>
+<div class="sa">정답: 160엔</div>
+</div></div></div>
+
+<!-- P10 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P10 — 수열 추리 (계차) <span class="diff-badge diff-real">실전</span></div><div class="pc-title">계차수열</div>
+<div class="pc-jp">1, 2, 4, 7, 11, □ — □に入る数は何か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">1, 2, 4, 7, 11, □ — □에 들어갈 수는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">계차: +1, +2, +3, +4, +5
+→ 11 + 5 = 16</div></div>
+<div class="sa">정답: 16</div>
+</div></div></div>
+
+<!-- P11 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P11 — 배수 응용 <span class="diff-badge diff-real">실전</span></div><div class="pc-title">3의 배수 판별</div>
+<div class="pc-jp">4桁の数 3□72 が3の倍数になるには、□に入る数字は何か（0~9のうち全て挙げよ）。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">4자리 수 3□72가 3의 배수가 되려면, □에 들어갈 숫자는? (0~9 중 전부)</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">3의 배수 판별: 각 자릿수 합이 3의 배수
+3 + □ + 7 + 2 = 12 + □
+12+□이 3의 배수 → □ = 0, 3, 6, 9</div></div>
+<div class="sa">정답: 0, 3, 6, 9</div>
+</div></div></div>
+
+<!-- ===== 고난도 (P12~P15) ===== -->
+
+<!-- P12 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P12 — n진법 변환 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">10진법 → 5진법</div>
+<div class="pc-jp">10進法の 87 を5進法で表せ。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">10진법 87을 5진법으로 나타내라.</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">87 ÷ 5 = 17 ... 2
+17 ÷ 5 = 3 ... 2
+3 ÷ 5 = 0 ... 3
+→ 아래에서 위로 읽기: 322₍₅₎</div></div>
+<div class="ss"><div class="sl">검증</div><div class="stx">3×25 + 2×5 + 2×1 = 75+10+2 = 87 ✓</div></div>
+<div class="sa">정답: 322₍₅₎</div>
+</div></div></div>
+
+<!-- P13 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P13 — 수열 추리 (복합) <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">피보나치형</div>
+<div class="pc-jp">1, 1, 2, 3, 5, 8, 13, □ — □に入る数は何か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">1, 1, 2, 3, 5, 8, 13, □ — □에 들어갈 수는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">규칙: 앞 두 수의 합 = 다음 수 (피보나치)
+8 + 13 = 21</div></div>
+<div class="sa">정답: 21</div>
+</div></div></div>
+
+<!-- P14 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P14 — 부정방정식 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">정수해 찾기</div>
+<div class="pc-jp">80円の切手と120円の切手を合わせて10枚買い、合計が880円になった。80円切手は何枚か。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">80엔 우표와 120엔 우표를 합해 10장 사서 합계 880엔. 80엔 우표는 몇 장?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">풀이</div><div class="stx">80x + 120(10-x) = 880
+80x + 1200 - 120x = 880
+-40x = -320 → x = 8</div></div>
+<div class="ss"><div class="sl">검증</div><div class="stx">80×8 + 120×2 = 640+240 = 880 ✓</div></div>
+<div class="sa">정답: 8장</div>
+</div></div></div>
+
+<!-- P15 -->
+<div class="pc"><div class="pc-h">
+<div class="pc-num">P15 — 나머지+규칙성 <span class="diff-badge diff-hard">고난도</span></div><div class="pc-title">나머지의 패턴</div>
+<div class="pc-jp">3の累乗（3¹, 3², 3³, ...）を7で割った余りには周期がある。3¹⁰⁰ を7で割った余りはいくらか。</div>
+</div>
+<button class="at at-kr" onclick="tog(this)"><span>🇰🇷 번역 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ac-kr-body">3의 거듭제곱(3¹, 3², 3³, ...)을 7로 나눈 나머지에 주기가 있다. 3¹⁰⁰을 7로 나눈 나머지는?</div></div>
+<button class="at" onclick="tog(this)"><span>💡 정답·풀이 보기</span><span class="ch">▼</span></button>
+<div class="ac"><div class="ab">
+<div class="ss"><div class="sl">패턴 찾기</div><div class="stx">3¹÷7=나머지 3
+3²=9÷7=나머지 2
+3³=27÷7=나머지 6
+3⁴=81÷7=나머지 4
+3⁵=243÷7=나머지 5
+3⁶=729÷7=나머지 1
+→ 주기 6 (3,2,6,4,5,1 반복)</div></div>
+<div class="ss"><div class="sl">적용</div><div class="stx">100 ÷ 6 = 16 ... 4
+→ 주기 4번째 나머지 = 4</div></div>
+<div class="sa">정답: 4</div>
+</div></div></div>
+
+</div><!-- /section 연습문제 -->
 
 <div class="type-nav">
   <a href="spi-higengo-shugo.html"><div class="nl">← 이전 유형</div><div class="nt">⑤ 집합·표 읽기</div></a>
