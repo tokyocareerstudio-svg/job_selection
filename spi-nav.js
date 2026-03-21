@@ -72,6 +72,16 @@
         { label: '② 신형 (사칙역산·도표)', file: 'tgweb-keisu-shingata.html' },
       ]
     },
+    {
+      id: 'seikaku',
+      label: '성격검사',
+      icon: '🧠',
+      index: 'seikaku-guide.html',
+      children: [
+        { label: '성격검사 완전 가이드', file: 'seikaku-guide.html', isBold: true },
+        { label: '🎯 모의체험 (3유형)', file: 'seikaku-sim.html' },
+      ]
+    },
   ];
 
   // 현재 파일이 어느 시험에 속하는지 판별
