@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'tama-fullquiz.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玉手箱 풀 모의고사 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--tama:#34d399;--tama-soft:rgba(52,211,153,0.06);--tama-border:rgba(52,211,153,0.18);--correct:#34d399;--wrong:#ef4444;--solve:#a29bfe;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:680px;margin:0 auto;padding:20px 24px 100px;}
+
+/* Header */
+.qz-header{padding:24px 0;border-bottom:1px solid var(--border);margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.qz-title{font-size:18px;font-weight:800;letter-spacing:-0.3px;}
+.qz-title span{color:var(--tama);}
+.qz-timer{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--tama);min-width:70px;text-align:right;}
+.qz-timer.warn{color:var(--wrong);animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+
+/* Progress */
+.qz-progress{display:flex;gap:4px;margin-bottom:20px;}
+.qz-dot{flex:1;height:4px;border-radius:2px;background:var(--surface-2);transition:background 0.3s;}
+.qz-dot.done{background:var(--correct);}.qz-dot.wrong-dot{background:var(--wrong);}.qz-dot.current{background:var(--tama);opacity:0.6;}
+
+/* Card */
+.qz-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 24px;min-height:300px;position:relative;transition:all 0.3s;}
+.qz-meta{display:flex;justify-content:space-between;margin-bottom:16px;}
+.qz-num{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tama);text-transform:uppercase;}
+.qz-cat{font-size:11px;color:var(--text-muted);padding:2px 10px;background:var(--surface-2);border-radius:6px;}
+.qz-q{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:14px;color:var(--text-sub);line-height:2.0;margin-bottom:20px;white-space:pre-line;}
+.qz-opts{display:flex;flex-direction:column;gap:8px;}
+.qz-opt{padding:12px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--text-sub);cursor:pointer;transition:all 0.2s;text-align:left;font-family:inherit;line-height:1.6;}
+.qz-opt:hover:not(.locked){border-color:var(--tama-border);background:var(--tama-soft);}
+.qz-opt.selected{border-color:var(--tama);background:var(--tama-soft);color:var(--text);font-weight:600;}
+.qz-opt.locked{cursor:default;}
+.qz-opt.is-correct{border-color:var(--correct);background:rgba(52,211,153,0.08);color:var(--correct);}
+.qz-opt.is-wrong{border-color:var(--wrong);background:rgba(239,68,68,0.06);color:var(--wrong);opacity:0.7;}
+
+/* Explanation */
+.qz-explain{margin-top:16px;padding:16px;background:rgba(162,155,254,0.05);border:1px solid rgba(162,155,254,0.15);border-radius:10px;display:none;}
+.qz-explain.show{display:block;}
+.qz-explain-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:6px;text-transform:uppercase;}
+.qz-explain p{font-size:12px;color:var(--text-dim);line-height:1.8;margin:0;}
+
+/* Actions */
+.qz-actions{display:flex;gap:10px;margin-top:20px;justify-content:flex-end;}
+.qz-btn{padding:10px 24px;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:all 0.2s;border:none;}
+.qz-btn-primary{background:var(--tama);color:#0a0a0f;}.qz-btn-primary:hover{opacity:0.9;}
+.qz-btn-secondary{background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);}.qz-btn-secondary:hover{border-color:var(--tama-border);}
+.qz-btn:disabled{opacity:0.3;cursor:default;}
+
+/* Start & Result screens */
+.qz-start,.qz-result{text-align:center;padding:60px 20px;}
+.qz-start h2,.qz-result h2{font-size:24px;font-weight:900;margin-bottom:12px;}
+.qz-start p,.qz-result p{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:24px;}
+.qz-score{font-family:'Space Grotesk',sans-serif;font-size:64px;font-weight:700;color:var(--tama);line-height:1;}
+.qz-score-label{font-size:13px;color:var(--text-muted);margin-top:8px;margin-bottom:24px;}
+.qz-breakdown{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;}
+.qz-stat{padding:14px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;min-width:100px;}
+.qz-stat-num{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;}
+.qz-stat-num.green{color:var(--correct);}.qz-stat-num.red{color:var(--wrong);}
+.qz-stat-label{font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+
+/* Footer */
+.qz-footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);text-align:center;}
+.qz-footer p{font-size:11px;color:var(--text-muted);}
+.qz-footer a{color:var(--tama);text-decoration:none;}.qz-footer a:hover{text-decoration:underline;}
+
+@media(max-width:640px){.qz-card{padding:20px 16px;}.qz-start h2,.qz-result h2{font-size:20px;}.qz-score{font-size:48px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="app"></div>
+  <div class="qz-footer">
+    <p><a href="tama-index.html">← 玉手箱 가이드로 돌아가기</a></p>
+    <p style="margin-top:8px;">© Tokyo Career Studio. All rights reserved.</p>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// 문제 은행 (QUESTION BANK)
+// 카테고리: gengo-gab, gengo-images, keisu-shisoku, keisu-zuhyo, keisu-kuukan
+// 문제를 추가하려면 이 배열에 객체를 추가하기만 하면 됩니다.
+// ============================================================
+const BANK = [
+// --- 언어: GAB형 논리적독해 (실전 길이 장문) ---
+{cat:'언어·GAB형',
+q:'【본문】최근 많은 기업이 사원의 부업을 허용하기 시작했다. 그 배경에는 종신고용제도의 약체화와 개인의 커리어 자율성에 대한 의식 변화가 있다. 부업을 허용한 기업에서는 사원의 스킬 향상이나 모티베이션 향상이 보고되고 있다. 또한 본업에서는 얻을 수 없는 인맥이나 지식을 획득하여 이노베이션으로 연결하는 사례도 나타나고 있다. 한편 본업에의 집중력 저하나 정보 유출 리스크를 우려하는 목소리도 있다. 특히 경쟁사에서의 부업은 이익상반의 문제가 발생할 수 있어, 대부분의 기업은 일정한 조건 하에서만 부업을 인정하고 있다. 이러한 상황에서 기업은 부업의 메리트를 살리면서 리스크를 관리하는 균형 잡힌 제도 설계가 요구되고 있다.\n\n【설문】부업을 허용한 기업에서는 반드시 사원의 스킬이 향상된다.',
+q_jp:'【本文】近年、多くの企業が社員の副業を容認し始めている。その背景には、終身雇用制度の弱体化と個人のキャリア自律性に対する意識変化がある。副業を容認した企業では、社員のスキル向上やモチベーション向上が報告されている。また本業では得られない人脈や知見を獲得し、イノベーションにつなげる事例も出てきた。一方で、本業への集中力低下や情報漏洩リスクを懸念する声もある。特に競合他社での副業は利益相反の問題が生じうるため、大半の企業は一定の条件下でのみ副業を認めている。こうした状況において、企業は副業のメリットを活かしつつリスクを管理するバランスの取れた制度設計が求められている。\n\n【設問】副業を容認した企業では、必ず社員のスキルが向上する。',
+opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],
+opts_jp:['A. 正しい','B. 誤り','C. 判断できない'],
+ans:1,explain:'본문은 「スキル向上が報告されている(보고되고 있다)」이지 「반드시 향상된다」는 아님. 보고 = 일부 사례이지 필연이 아님.'},
+
+{cat:'언어·GAB형',
+q:'【본문 (위와 동일)】\n\n【설문】경쟁사에서의 부업을 전면 금지하는 기업이 대부분이다.',
+q_jp:'【本文（上と同じ）】\n\n【設問】競合他社での副業を全面禁止する企業が大半である。',
+opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],
+opts_jp:['A. 正しい','B. 誤り','C. 判断できない'],
+ans:2,explain:'본문은 「일정한 조건 하에서만 인정(一定の条件下でのみ認めている)」이라 했지, 경쟁사 부업을 전면 금지한다고는 안 했음. 판단 불가.'},
+
+{cat:'언어·GAB형',
+q:'【본문】일본의 식품 폐기물(食品ロス) 문제는 심각하다. 농림수산성에 따르면 연간 약 523만 톤의 식품이 아직 먹을 수 있는 상태에서 폐기되고 있다. 이는 세계의 식량 원조량의 약 1.2배에 해당한다. 식품 폐기물의 약 절반은 가정에서 발생하며, 나머지 절반은 식품 제조업, 외식 산업, 소매업 등 사업자 측에서 발생한다. 정부는 2030년까지 식품 폐기물을 2000년 대비 반감시키는 목표를 내걸고 있으며, 소비기한 표시의 재검토나 푸드 뱅크 활동의 지원 등 다양한 대책을 추진하고 있다.\n\n【설문】식품 폐기물의 대부분은 사업자 측에서 발생한다.',
+q_jp:'【本文】日本の食品ロス問題は深刻である。農林水産省によると、年間約523万トンの食品がまだ食べられる状態で廃棄されている。これは世界の食糧援助量の約1.2倍に相当する。食品ロスの約半分は家庭から発生し、残りの半分は食品製造業、外食産業、小売業など事業者側から発生している。家庭では買いすぎや食べ残しが主な原因であり、事業者側では規格外品の廃棄や返品が大きな割合を占める。政府は2030年までに食品ロスを2000年比で半減させる目標を掲げており、消費期限表示の見直しやフードバンク活動の支援など、さまざまな対策を推進している。こうした官民一体の取り組みが今後の削減効果を左右する。\n\n【設問】食品ロスの大部分は事業者側から発生している。',
+opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],
+opts_jp:['A. 正しい','B. 誤り','C. 判断できない'],
+ans:1,explain:'「약 절반은 가정, 나머지 절반은 사업자」이므로 「대부분이 사업자」는 틀리다.'},
+
+{cat:'언어·GAB형',
+q:'【본문 (위와 동일)】\n\n【설문】일본의 연간 식품 폐기량은 세계 식량 원조량보다 많다.',
+q_jp:'【本文（上と同じ）】\n\n【設問】日本の年間食品廃棄量は世界の食糧援助量より多い。',
+opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],
+opts_jp:['A. 正しい','B. 誤り','C. 判断できない'],
+ans:0,explain:'「세계의 식량 원조량의 약 1.2배에 해당(約1.2倍に相当する)」이므로 원조량보다 많다 = 맞다.'},
+
+{cat:'언어·GAB형',
+q:'【본문】텔레워크의 보급은 도시부와 지방의 관계에 큰 변화를 가져왔다. 종래에는 도쿄 등 대도시에 오피스를 두고 통근하는 것이 일반적이었으나, 코로나 이후 장소에 구애받지 않는 근무가 가능해졌다. 그 결과, 주거비가 저렴하고 자연 환경이 풍부한 지방으로 이주하는 사람이 증가하고 있다. 그러나 지방 이주자 전원이 텔레워크 종사자인 것은 아니며, 지방 기업에 전직하거나 농업을 시작하는 등 다양한 동기가 있다. 지자체도 이주 촉진을 위해 보조금 제도나 빈집 뱅크 등을 정비하고 있지만, 의료나 교육 등 인프라 면에서의 과제도 남아 있다.\n\n【설문】지방 이주자의 증가는 텔레워크 보급만이 원인이다.',
+q_jp:'【本文】テレワークの普及は、都市部と地方の関係に大きな変化をもたらした。従来は東京など大都市にオフィスを構え通勤するのが一般的であったが、コロナ禍以降、場所にとらわれない勤務が可能となった。その結果、住居費が安く自然環境の豊かな地方へ移住する人が増加している。移住相談件数はコロナ前と比較して約3倍に増えたとの調査結果もある。しかし、地方移住者の全員がテレワーク従事者というわけではなく、地方企業への転職や農業を始めるなど多様な動機がある。自治体も移住促進のため補助金制度や空き家バンクなどを整備しているが、医療や教育などインフラ面での課題も残っている。\n\n【設問】地方移住者の増加は、テレワークの普及だけが原因である。',
+opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],
+opts_jp:['A. 正しい','B. 誤り','C. 判断できない'],
+ans:1,explain:'「전원이 텔레워크 종사자인 것은 아니며, 전직이나 농업 등 다양한 동기가 있다」고 명확히 부정.'},
+
+{cat:'언어·GAB형',
+q:'【본문 (위와 동일)】\n\n【설문】지자체는 이주 촉진을 위해 인프라 정비를 완료했다.',
+q_jp:'【本文（上と同じ）】\n\n【設問】自治体は移住促進のためにインフラ整備を完了した。',
+opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],
+opts_jp:['A. 正しい','B. 誤り','C. 判断できない'],
+ans:1,explain:'「의료나 교육 등 인프라 면에서의 과제도 남아 있다(課題も残っている)」이므로 완료가 아님.'},
+
+// --- 언어: IMAGES형 취지판정 (실전 길이 장문) ---
+{cat:'언어·IMAGES형',
+q:'【본문】현대 사회에서 다양성(ダイバーシティ)의 추진은 기업 경영에 불가결한 요소가 되고 있다. 성별, 국적, 연령, 장애의 유무 등에 관계없이 다양한 인재가 활약할 수 있는 환경을 정비하는 것은, 단순히 사회적 책임의 관점뿐 아니라 기업의 경쟁력 강화에도 직결된다. 다양한 시점을 가진 팀은 이노베이션을 창출하기 쉽고, 다양한 고객 니즈에 대응할 수 있기 때문이다. 그러나 다양성의 추진에는 커뮤니케이션 비용의 증가나 의사결정의 지연 등의 과제도 수반된다.\n\n【설문】다양성의 추진은 기업의 경쟁력 강화에 기여한다.',
+q_jp:'【本文】現代社会においてダイバーシティの推進は企業経営に不可欠な要素となっている。性別、国籍、年齢、障害の有無等に関わらず多様な人材が活躍できる環境を整備することは、単に社会的責任の観点のみならず、企業の競争力強化にも直結する。多様な視点を持つチームはイノベーションを創出しやすく、多様な顧客ニーズに対応できるからだ。実際に、経営層の多様性が高い企業ほど利益率が上回るという調査結果も複数報告されている。しかし、ダイバーシティの推進にはコミュニケーションコストの増加や意思決定の遅延などの課題も伴い、形だけの多様性では十分な効果は得られない。\n\n【設問】ダイバーシティの推進は企業の競争力強化に寄与する。',
+opts:['A. 필자의 취지','B. 본문에 있지만 취지 아님','C. 본문과 관계없음'],
+opts_jp:['A. 筆者の趣旨','B. 本文に述べられているが趣旨ではない','C. 本文とは関係ない'],
+ans:0,explain:'본문의 핵심 주장 = 다양성 추진이 경쟁력 강화에 직결된다는 것.'},
+
+{cat:'언어·IMAGES형',
+q:'【본문 (위와 동일)】\n\n【설문】다양성 추진에는 커뮤니케이션 비용 증가 등의 과제가 있다.',
+q_jp:'【本文（上と同じ）】\n\n【設問】ダイバーシティの推進にはコミュニケーションコスト増加などの課題がある。',
+opts:['A. 필자의 취지','B. 본문에 있지만 취지 아님','C. 본문과 관계없음'],
+opts_jp:['A. 筆者の趣旨','B. 本文に述べられているが趣旨ではない','C. 本文とは関係ない'],
+ans:1,explain:'본문에 언급은 되어 있지만(しかし 이하), 필자의 핵심 주장이 아니라 부차적 언급.'},
+
+{cat:'언어·IMAGES형',
+q:'【본문】온라인 쇼핑의 확대에 따라 물류 업계는 큰 전환기를 맞고 있다. 택배 물량의 급증으로 배송 드라이버의 부족이 심각해지고 있으며, 재배달에 의한 비효율도 과제가 되고 있다. 이에 대해 택배 로커의 설치, 드론 배송의 실증 실험, AI를 활용한 배송 루트 최적화 등 다양한 해결책이 모색되고 있다. 그 중에서도 소비자의 수취 방식을 유연화하는 것이 가장 즉효성 있는 대책으로 주목받고 있다.\n\n【설문】드론 배송은 이미 실용화되어 물류 문제를 해결했다.',
+q_jp:'【本文】オンラインショッピングの拡大に伴い、物流業界は大きな転換期を迎えている。宅配物量の急増により配送ドライバーの不足が深刻化しており、再配達による非効率も大きな課題となっている。国土交通省の調査によれば、宅配便の約15%が再配達となっており、年間約9万トンのCO2が余分に排出されていると推計される。これに対し、宅配ロッカーの設置、ドローン配送の実証実験、AIを活用した配送ルート最適化など、さまざまな解決策が模索されている。中でも、消費者の受け取り方法を柔軟化することが最も即効性のある対策として注目されている。物流の持続可能性を確保するには、技術と制度の両面からの改革が求められる。\n\n【設問】ドローン配送はすでに実用化され、物流問題を解決した。',
+opts:['A. 필자의 취지','B. 본문에 있지만 취지 아님','C. 본문과 관계없음'],
+opts_jp:['A. 筆者の趣旨','B. 本文に述べられているが趣旨ではない','C. 本文とは関係ない'],
+ans:2,explain:'본문은 「실증 실험(実証実験)」이라 했지 「실용화」라고 하지 않았으며, 문제 해결도 언급 없음.'},
+
+{cat:'언어·IMAGES형',
+q:'【본문 (위와 동일)】\n\n【설문】소비자의 수취 방식 유연화가 가장 즉효성 있는 대책이다.',
+q_jp:'【本文（上と同じ）】\n\n【設問】消費者の受け取り方法の柔軟化が最も即効性のある対策である。',
+opts:['A. 필자의 취지','B. 본문에 있지만 취지 아님','C. 본문과 관계없음'],
+opts_jp:['A. 筆者の趣旨','B. 本文に述べられているが趣旨ではない','C. 本文とは関係ない'],
+ans:0,explain:'마지막 문장 「가장 즉효성 있는 대책으로 주목(最も即効性のある対策として注目)」이 필자의 핵심 주장.'},
+
+// --- 계수: 사칙역산 (수식이므로 jp 동일) ---
+{cat:'계수·사칙역산',q:'□ + 37 = 92',opts:['45','55','65','129','該当なし'],ans:1,explain:'□ = 92 - 37 = 55'},
+{cat:'계수·사칙역산',q:'□ × 8 = 96',opts:['11','12','13','88','768'],ans:1,explain:'□ = 96 ÷ 8 = 12'},
+{cat:'계수·사칙역산',q:'64 - □ = 19',opts:['35','45','55','83','該当なし'],ans:1,explain:'□ = 64 - 19 = 45'},
+{cat:'계수·사칙역산',q:'(□ + 7) × 4 = 60',opts:['5','8','12','15','22'],ans:1,explain:'□ + 7 = 60 ÷ 4 = 15 → □ = 15 - 7 = 8'},
+{cat:'계수·사칙역산',q:'□ × 0.25 = 7',opts:['1.75','7.25','14','28','175'],ans:3,explain:'□ = 7 ÷ 0.25 = 28. 0.25 = 1/4이므로 □ = 7 × 4 = 28'},
+{cat:'계수·사칙역산',q:'48 ÷ □ = 6',opts:['0.125','6','8','42','288'],ans:2,explain:'48 ÷ □ = 6 → □ = 48 ÷ 6 = 8. (□ = 6 × 48 = 288 함정 주의)'},
+{cat:'계수·사칙역산',q:'(□ - 5) × 3 = 36',opts:['7','12','15','17','19'],ans:3,explain:'□ - 5 = 36 ÷ 3 = 12 → □ = 12 + 5 = 17'},
+{cat:'계수·사칙역산',q:'□ ÷ 0.5 = 18',opts:['9','18.5','36','90','該当なし'],ans:0,explain:'□ = 18 × 0.5 = 9. 0.5로 나누면 2배이므로 □ = 18의 절반 = 9'},
+
+// --- 계수: 도표읽기 ---
+{cat:'계수·도표읽기',
+q:'【X사 사업부별 매출 (백만엔)】\n식품: 2023년 320 / 2024년 368\n음료: 2023년 280 / 2024년 294\n일용품: 2023년 150 / 2024년 180\n화장품: 2023년 250 / 2024년 240\n\n2024년 식품사업부의 전년대비 매출 증가율은?',
+q_jp:'【X社 事業部別売上（百万円）】\n食品: 2023年 320 / 2024年 368\n飲料: 2023年 280 / 2024年 294\n日用品: 2023年 150 / 2024年 180\n化粧品: 2023年 250 / 2024年 240\n\n2024年の食品事業部の前年比売上増加率は？',
+opts:['10%','12%','15%','18%','20%'],ans:2,explain:'(368-320)÷320×100 = 48÷320×100 = 15%'},
+
+{cat:'계수·도표읽기',
+q:'【Z사 지역별 매출 (억엔)】\n관동: Q1=50, Q2=55, Q3=48, Q4=67 (연간220)\n간사이: Q1=35, Q2=40, Q3=38, Q4=47 (연간160)\n규슈: Q1=20, Q2=22, Q3=19, Q4=29 (연간90)\n합계: 470\n\n연간합계에서 규슈 매출이 차지하는 비율은?',
+q_jp:'【Z社 地域別売上（億円）】\n関東: Q1=50, Q2=55, Q3=48, Q4=67（年間220）\n関西: Q1=35, Q2=40, Q3=38, Q4=47（年間160）\n九州: Q1=20, Q2=22, Q3=19, Q4=29（年間90）\n合計: 470\n\n年間合計において九州の売上が占める割合は？',
+opts:['15%','17%','19%','21%','23%'],ans:2,explain:'90÷470×100 = 19.14% → 약 19%'},
+
+{cat:'계수·도표읽기',
+q:'【Z사 (동일 데이터)】간사이 지역의 분기 평균 매출은?',
+q_jp:'【Z社（同データ）】関西地域の四半期平均売上は？',
+opts:['36億円','38億円','40億円','42億円','44億円'],ans:2,explain:'간사이 연간 160 ÷ 4 = 40억엔'},
+
+// --- 계수: 표빈칸추측 ---
+{cat:'계수·표빈칸',
+q:'표의 법칙을 찾아 ?에 들어갈 값은?\n\n| A | B |\n| 3 | 15 |\n| 5 | 25 |\n| 8 | ? |',
+q_jp:'表の法則を見つけて？に入る値は？\n\n| A | B |\n| 3 | 15 |\n| 5 | 25 |\n| 8 | ? |',
+opts:['35','38','40','45','48'],ans:2,explain:'B = A × 5. 3×5=15, 5×5=25 → 8×5=40'},
+
+{cat:'계수·표빈칸',
+q:'표의 법칙을 찾아 ?에 들어갈 값은?\n\n| X | Y | Z |\n| 6 | 5 | 30 |\n| 4 | 9 | 36 |\n| 7 | 8 | ? |',
+q_jp:'表の法則を見つけて？に入る値は？\n\n| X | Y | Z |\n| 6 | 5 | 30 |\n| 4 | 9 | 36 |\n| 7 | 8 | ? |',
+opts:['15','48','54','56','63'],ans:3,explain:'Z = X × Y. 6×5=30, 4×9=36 → 7×8=56'},
+
+{cat:'계수·표빈칸',
+q:'표의 법칙을 찾아 ?에 들어갈 값은?\n\n| A | B | C | 합계 |\n| 15 | 25 | 10 | 50 |\n| 20 | ? | 12 | 50 |\n| 18 | 22 | 10 | 50 |',
+q_jp:'表の法則を見つけて？に入る値は？\n\n| A | B | C | 合計 |\n| 15 | 25 | 10 | 50 |\n| 20 | ? | 12 | 50 |\n| 18 | 22 | 10 | 50 |',
+opts:['15','18','20','22','28'],ans:1,explain:'각 행의 합계=50. 20+?+12=50 → ?=18'},
+// === 추가 문제 (30문 달성) ===
+// --- 언어: GAB형 추가 ---
+{cat:'언어·GAB형',
+q:'【본문】최근 SNS의 보급에 의해 기업의 마케팅 수법은 크게 변화했다. 종래의 TV 광고에 비해 비용이 낮고 타겟을 좁힐 수 있다는 이점이 있다. 또한 소비자의 반응을 실시간으로 파악할 수 있어 광고 전략의 수정이 용이하다. 그러나 SNS상에서의 정보 확산은 기업이 통제할 수 없는 측면도 있으며, 부정적인 입소문이 순식간에 퍼져 브랜드 이미지를 훼손하는 리스크도 존재한다. 따라서 SNS 마케팅에는 신속한 위기관리 체제의 구축이 불가결하다.\n\n【설문】SNS 마케팅은 TV 광고보다 비용이 낮다.',
+q_jp:'【本文】近年、SNSの普及により企業のマーケティング手法は大きく変化した。従来のテレビ広告に比べ、コストが低くターゲットを絞れるという利点がある。また、消費者の反応をリアルタイムで把握でき、広告戦略の修正が容易である。インフルエンサーとの連携によって若年層への訴求力を高める企業も増えている。しかし、SNS上での情報拡散は企業がコントロールできない側面もあり、ネガティブな口コミが瞬時に広がりブランドイメージを毀損するリスクも存在する。したがって、SNSマーケティングには迅速な危機管理体制の構築が不可欠である。効果的に活用できれば従来の広告以上の成果を得られるが、運用を誤れば企業の信頼を一瞬で失いかねない。\n\n【設問】SNSマーケティングはテレビ広告よりコストが低い。',
+opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],
+opts_jp:['A. 正しい','B. 誤り','C. 判断できない'],
+ans:0,explain:'본문에 「TV광고에 비해 비용이 낮고(コストが低く)」라고 명확히 언급. 맞다.'},
+
+{cat:'언어·GAB형',
+q:'【본문】기업의 사회적 책임(CSR) 활동은 브랜드 이미지 향상에 기여한다. 환경 보전, 지역 공헌, 다양성 추진 등의 CSR 활동을 적극적으로 실시하는 기업은 소비자로부터의 신뢰를 얻기 쉽다는 조사 결과가 있다. 그러나 그것이 직접적으로 매출 증가로 이어지는지에 대해서는 의견이 나뉘고 있다. CSR 활동에 드는 비용이 단기적으로는 수익을 압박할 수 있지만, 장기적으로는 기업 가치 향상에 기여한다는 견해도 있다.\n\n【설문】CSR 활동은 단기적으로 수익을 압박할 수 있다.',
+q_jp:'【本文】企業の社会的責任（CSR）活動はブランドイメージの向上に寄与する。環境保全、地域貢献、ダイバーシティ推進などのCSR活動を積極的に実施する企業は、消費者からの信頼を得やすいという調査結果がある。近年ではESG投資の観点から、投資家もCSRの取り組みを評価基準に加えており、株価や資金調達に影響するケースも出てきた。しかし、それが直接的に売上増加につながるかについては意見が分かれている。CSR活動にかかるコストが短期的には収益を圧迫しうるが、長期的には企業価値の向上に寄与するという見解もある。いずれにせよ、CSRは形式的な取り組みにとどまらず、経営戦略と一体化させることが求められる。\n\n【設問】CSR活動は短期的に収益を圧迫しうる。',
+opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],
+opts_jp:['A. 正しい','B. 誤り','C. 判断できない'],
+ans:0,explain:'본문에 「비용이 단기적으로는 수익을 압박할 수 있지만(コストが短期的には収益を圧迫しうる)」이라고 명시.'},
+
+// --- 언어: IMAGES형 추가 ---
+{cat:'언어·IMAGES형',
+q:'【본문】인구 감소 사회에서는 노동력 부족이 심각화되고 있다. 특히 건설업, 간호·개호, 운수업 등에서 인재 확보가 어려워지고 있다. 이에 대해 AI와 로봇 기술의 활용이 해결책의 하나로 기대되고 있다. 이미 제조업에서는 산업용 로봇이 널리 도입되어 있으며, 최근에는 서비스업에서도 배선 로봇이나 청소 로봇 등이 도입되기 시작했다. 그러나 AI와 로봇이 인간의 노동을 완전히 대체할 수 있는지에 대해서는 다양한 논의가 이루어지고 있다.\n\n【설문】건설업에서는 이미 AI가 노동력 부족을 해결했다.',
+q_jp:'【本文】人口減少社会では労働力不足が深刻化している。特に建設業、看護·介護、運輸業などで人材確保が困難になっている。有効求人倍率はこれらの業種で常に2倍を超え、採用難が常態化している。これに対し、AIやロボット技術の活用が解決策の一つとして期待されている。すでに製造業では産業用ロボットが広く導入されており、最近ではサービス業でも配膳ロボットや清掃ロボットなどが導入され始めた。介護分野では移乗支援ロボットの実証実験も進んでいる。しかし、AIやロボットが人間の労働を完全に代替できるかについてはさまざまな議論がなされている。導入コストの問題もあり、特に中小企業での普及には時間がかかる見通しだ。\n\n【設問】建設業ではすでにAIが労働力不足を解決した。',
+opts:['A. 필자의 취지','B. 본문에 있지만 취지 아님','C. 본문과 관계없음'],
+opts_jp:['A. 筆者の趣旨','B. 本文に述べられているが趣旨ではない','C. 本文とは関係ない'],
+ans:2,explain:'본문은 건설업에서의 AI 활용이나 해결 완료에 대해 언급 없음. 관계없는 주장.'},
+
+{cat:'언어·IMAGES형',
+q:'【본문】온라인 교육의 보급으로 지리적 제약 없이 학습할 수 있게 되었다. 도시부와 지방의 교육 격차 해소에도 기여할 가능성이 있다. 또한 학습 이력의 데이터화에 의해 개인에게 최적화된 학습 계획을 제공할 수 있다는 이점도 있다. 한편 대면 수업의 장점도 재인식되고 있다. 그룹 워크나 프레젠테이션 등 대인 커뮤니케이션 능력의 육성에는 대면 환경이 효과적이라는 지적이 있으며, 온라인과 대면을 조합한 하이브리드형 교육이 주목받고 있다.\n\n【설문】하이브리드형 교육이 주목받고 있다.',
+q_jp:'【本文】オンライン教育の普及により、地理的制約なく学習できるようになった。都市部と地方の教育格差の解消にも寄与する可能性がある。実際に、地方の生徒が都市部の有名講師の授業をリアルタイムで受講できるサービスも増えている。また、学習履歴のデータ化により個人に最適化された学習計画を提供できるという利点もある。録画授業であれば繰り返し視聴でき、理解度に応じたペースで学べる点も評価されている。一方、対面授業の利点も再認識されている。グループワークやプレゼンテーションなど対人コミュニケーション能力の育成には対面環境が効果的との指摘があり、オンラインと対面を組み合わせたハイブリッド型教育が注目されている。\n\n【設問】ハイブリッド型教育が注目されている。',
+opts:['A. 필자의 취지','B. 본문에 있지만 취지 아님','C. 본문과 관계없음'],
+opts_jp:['A. 筆者の趣旨','B. 本文に述べられているが趣旨ではない','C. 本文とは関係ない'],
+ans:0,explain:'본문의 마지막 결론 = 하이브리드형 교육이 주목. 필자의 취지.'},
+
+// --- 계수: 사칙역산 추가 ---
+{cat:'계수·사칙역산',q:'(120 - □) ÷ 4 = 25',opts:['5','10','15','20','25'],ans:3,explain:'120-□ = 25×4 = 100 → □ = 120-100 = 20'},
+{cat:'계수·사칙역산',q:'□ × 1.5 = 45',opts:['22.5','30','33','67.5','該当なし'],ans:1,explain:'□ = 45 ÷ 1.5 = 30'},
+
+// --- 계수: 도표읽기 추가 ---
+{cat:'계수·도표읽기',
+q:'【A사 분기별 매출 (만엔)】\nQ1: 800, Q2: 1,000, Q3: 900, Q4: 1,300\n\nQ2에서 Q3으로의 매출 감소율은?',
+q_jp:'【A社 四半期別売上（万円）】\nQ1: 800, Q2: 1,000, Q3: 900, Q4: 1,300\n\nQ2からQ3への売上減少率は？',
+opts:['5%','8%','10%','12%','15%'],ans:2,explain:'(1,000-900)÷1,000×100 = 10%'},
+
+{cat:'계수·도표읽기',
+q:'【B사 제품별 출하량 (만개)】\n제품X: 1월 50, 2월 60, 3월 70\n제품Y: 1월 30, 2월 35, 3월 45\n\n3월 시점에서 제품X의 출하량은 제품Y의 몇 배인가?',
+q_jp:'【B社 製品別出荷量（万個）】\n製品X: 1月50, 2月60, 3月70\n製品Y: 1月30, 2月35, 3月45\n\n3月時点で製品Xの出荷量は製品Yの何倍か？',
+opts:['約1.2倍','約1.4倍','約1.6倍','約1.8倍','約2.0倍'],ans:2,explain:'70÷45 = 1.555... → 약 1.6배'},
+
+// --- 계수: 표빈칸 (수정) ---
+{cat:'계수·표빈칸',
+q:'표의 법칙을 찾아 ?에 들어갈 값은?\n\n| A | B | C |\n| 2 | 5 | 12 |\n| 3 | 4 | 13 |\n| 6 | 1 | ? |',
+q_jp:'表の法則を見つけて？に入る値は？\n\n| A | B | C |\n| 2 | 5 | 12 |\n| 3 | 4 | 13 |\n| 6 | 1 | ? |',
+opts:['13','14','16','19','22'],ans:2,explain:'C = 2A + B + 3. 2×2+5+3=12, 2×3+4+3=13, 2×6+1+3=16.'},
+
+// === 추가 문제 (50문 달성용) ===
+
+// --- 계수·도표읽기 +5 ---
+{cat:'계수·도표읽기',
+q:'어느 회사의 월별 매출(만엔): 1월 800, 2월 750, 3월 900, 4월 850, 5월 1000. 1월 대비 5월의 매출 증가율은?',
+q_jp:'ある会社の月別売上（万円）：1月800、2月750、3月900、4月850、5月1000。1月比で5月の売上増加率は？',
+opts:['20%','25%','30%','35%','40%'],ans:1,explain:'(1000-800)÷800 = 200÷800 = 0.25 = 25%'},
+{cat:'계수·도표읽기',
+q:'A지점 매출 450만엔, B지점 매출 300만엔, C지점 매출 250만엔. 전체 매출에서 B지점이 차지하는 비율은?',
+q_jp:'A店売上450万円、B店売上300万円、C店売上250万円。全体売上に占めるB店の割合は？',
+opts:['25%','28%','30%','33%','35%'],ans:2,explain:'전체 = 450+300+250 = 1000. B비율 = 300÷1000 = 30%'},
+{cat:'계수·도표읽기',
+q:'2022년 수출액 2400억엔, 수입액 2000억엔. 2023년 수출액 2640억엔, 수입액 2300억엔. 무역수지(수출-수입)의 전년 대비 변화는?',
+q_jp:'2022年輸出額2400億円、輸入額2000億円。2023年輸出額2640億円、輸入額2300億円。貿易収支（輸出−輸入）の前年比変化は？',
+opts:['60억엔 감소','변화 없음','40억엔 감소','60억엔 증가','100억엔 감소'],opts_jp:['60億円減少','変化なし','40億円減少','60億円増加','100億円減少'],ans:0,explain:'2022: 2400-2000=400. 2023: 2640-2300=340. 변화: 340-400 = -60 → 60억엔 감소.'},
+{cat:'계수·도표읽기',
+q:'4분기 매출: Q1 120, Q2 150, Q3 180, Q4 250(단위: 만엔). 하반기(Q3+Q4) 매출이 연간 총매출에서 차지하는 비율(소수점 이하 반올림)은?',
+q_jp:'四半期売上：Q1 120、Q2 150、Q3 180、Q4 250（単位：万円）。下半期（Q3+Q4）売上が年間総売上に占める割合（小数点以下四捨五入）は？',
+opts:['57%','59%','61%','63%','65%'],ans:2,explain:'총 = 120+150+180+250 = 700. 하반기 = 430. 430÷700 = 0.6142... ≒ 61%'},
+{cat:'계수·도표읽기',
+q:'A제품 판매수 300개(단가 500엔), B제품 판매수 200개(단가 800엔). A와 B의 매출액 차이는?',
+q_jp:'A製品販売数300個（単価500円）、B製品販売数200個（単価800円）。AとBの売上額の差は？',
+opts:['10,000円','20,000円','30,000円','50,000円','100,000円'],ans:0,explain:'A매출 = 300×500 = 150,000. B매출 = 200×800 = 160,000. 차이 = 10,000엔.'},
+
+// --- 계수·사칙역산 +2 ---
+{cat:'계수·사칙역산',q:'□ ÷ 0.4 + 5 = 25',opts:['4','6','8','10','12'],ans:2,explain:'□÷0.4 = 20 → □ = 20 × 0.4 = 8'},
+{cat:'계수·사칙역산',q:'(□ - 3) × 6 = 54',opts:['9','10','11','12','15'],ans:3,explain:'□-3 = 54÷6 = 9 → □ = 12'},
+
+// --- 계수·표빈칸 +1 ---
+{cat:'계수·표빈칸',
+q:'표의 법칙을 찾아 ?에 들어갈 값은?\n\n| X | Y | Z |\n| 3 | 2 | 8 |\n| 5 | 4 | 14 |\n| 7 | 1 | ? |',
+q_jp:'表の法則を見つけて？に入る値は？\n\n| X | Y | Z |\n| 3 | 2 | 8 |\n| 5 | 4 | 14 |\n| 7 | 1 | ? |',
+opts:['12','13','15','16','18'],ans:2,explain:'Z = X×2 + Y. 3×2+2=8, 5×2+4=14, 7×2+1=15.'},
+
+// --- 언어·GAB형 +2 ---
+{cat:'언어·GAB형',
+q:'【본문】일본에서는 2024년부터 의사의 시간외 노동에 상한 규제가 적용되었다. 이른바 「2024년 문제」라 불리며, 의료 현장에서는 인원 부족이 한층 심각해질 것으로 우려되고 있다. 대책으로 태스크 시프트(업무 이관)가 주목받고 있다. 의사의 업무 중 일부를 간호사나 약사 등에게 이관함으로써 의사의 부담을 줄이는 것이다. 그러나 이를 위해서는 각 직종의 전문성 향상과 법적 정비가 필요하며, 현장의 합의 형성도 중요한 과제이다.\n\n【설문】2024년 문제의 대책으로 태스크 시프트가 이미 전국적으로 완료되었다.',
+q_jp:'【本文】日本では2024年から医師の時間外労働に上限規制が適用された。いわゆる「2024年問題」と呼ばれ、医療現場では人員不足がさらに深刻化すると懸念されている。特に地方の救急医療では、限られた医師で24時間体制を維持しなければならず、一人あたりの負担は都市部を大きく上回る。対策としてタスクシフト（業務移管）が注目されている。医師の業務の一部を看護師や薬剤師等に移管することで医師の負担を軽減するものだ。しかし、そのためには各職種の専門性向上と法的整備が必要であり、現場の合意形成も重要な課題である。オンライン診療の拡充も並行して議論が進められている。\n\n【設問】2024年問題の対策としてタスクシフトはすでに全国的に完了している。',
+opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],
+opts_jp:['A. 正しい','B. 誤り','C. 判断できない'],
+ans:1,explain:'본문은 태스크 시프트가 「주목받고 있다(注目されている)」고만 했고, 완료되었다고는 기술하지 않음. 틀리다.'},
+{cat:'언어·GAB형',
+q:'【본문 (위와 동일)】\n\n【설문】태스크 시프트의 실현에는 법적 정비가 필요하다.',
+q_jp:'【本文（上と同じ）】\n\n【設問】タスクシフトの実現には法的整備が必要である。',
+opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],
+opts_jp:['A. 正しい','B. 誤り','C. 判断できない'],
+ans:0,explain:'본문에 「법적 정비가 필요(法的整備が必要)」라고 명시되어 있으므로 맞다.'},
+
+// --- 언어·IMAGES형 +2 ---
+{cat:'언어·IMAGES형',
+q:'【본문】일본의 스타트업 생태계는 최근 급성장을 보이고 있다. 정부의 스타트업 육성 5개년 계획에 따르면 2027년까지 유니콘 기업 100사 창출을 목표로 하고 있다. 또한 대기업과 스타트업의 협업(오픈 이노베이션)도 활발해지고 있으며, CVC(Corporate Venture Capital)를 통한 투자도 증가 추세이다. 그러나 미국이나 중국과 비교하면 벤처캐피털 투자액은 여전히 적고, 실패에 대한 사회적 허용도가 낮다는 점이 과제로 지적된다.\n\n【설문】일본의 벤처캐피털 투자액은 미국·중국을 이미 넘어섰다.',
+q_jp:'【本文】日本のスタートアップ・エコシステムは近年急成長を見せている。政府のスタートアップ育成5か年計画によれば、2027年までにユニコーン企業100社の創出を目指している。また大企業とスタートアップの協業（オープンイノベーション）も活発化しており、CVC（Corporate Venture Capital）を通じた投資も増加傾向にある。2023年の国内スタートアップ投資額は約1兆円に達し、5年前の約3倍となった。しかし、米国や中国と比較するとベンチャーキャピタル投資額は依然として少なく、失敗に対する社会的寛容度が低い点が課題として指摘される。\n\n【設問】日本のベンチャーキャピタル投資額は米国・中国をすでに超えている。',
+opts:['A. 필자의 취지','B. 본문에 있지만 취지 아님','C. 본문과 관계없음'],
+opts_jp:['A. 筆者の趣旨','B. 本文にあるが趣旨ではない','C. 本文と関係ない'],
+ans:2,explain:'본문은 「미국·중국과 비교하면 여전히 적다」고 했으므로 넘어섰다는 내용은 본문과 반대.'},
+{cat:'언어·IMAGES형',
+q:'【본문 (위와 동일)】\n\n【설문】정부는 유니콘 기업 창출을 목표로 하고 있다.',
+q_jp:'【本文（上と同じ）】\n\n【設問】政府はユニコーン企業の創出を目指している。',
+opts:['A. 필자의 취지','B. 본문에 있지만 취지 아님','C. 본문과 관계없음'],
+opts_jp:['A. 筆者の趣旨','B. 本文にあるが趣旨ではない','C. 本文と関係ない'],
+ans:1,explain:'본문에 언급은 있지만 필자의 주된 주장(취지)은 스타트업 생태계의 성장과 과제이며, 유니콘 목표는 부수적 정보.'},
+
+// --- 계수·도표읽기 +3 (추가) ---
+{cat:'계수·도표읽기',
+q:'X사 영업이익률: 2021년 8%, 2022년 10%, 2023년 12%. 2023년 매출이 5억엔일 때, 2023년 영업이익은?',
+q_jp:'X社営業利益率：2021年8%、2022年10%、2023年12%。2023年売上が5億円のとき、2023年の営業利益は？',
+opts:['4,000万円','5,000万円','6,000万円','8,000万円','1億円'],ans:2,explain:'5억 × 12% = 6000만엔'},
+{cat:'계수·도표읽기',
+q:'3개 지역 인구: A지역 15만, B지역 25만, C지역 10만. A지역 인구를 기준(100)으로 했을 때 B지역의 지수는?',
+q_jp:'3地域の人口：A地域15万、B地域25万、C地域10万。A地域人口を基準(100)としたときB地域の指数は？',
+opts:['125','150','167','175','200'],ans:2,explain:'25÷15 = 1.666... → 지수 약 167'},
+{cat:'계수·도표읽기',
+q:'전년 매출 3,200만엔, 올해 매출 3,680만엔. 전년 대비 성장률은?',
+q_jp:'前年売上3,200万円、今年売上3,680万円。前年比成長率は？',
+opts:['12%','13%','14%','15%','16%'],ans:3,explain:'(3680-3200)÷3200 = 480÷3200 = 0.15 = 15%'},
+
+// --- 추가 2문 (50문 달성) ---
+{cat:'계수·표빈칸',
+q:'표의 법칙을 찾아 ?에 들어갈 값은?\n\n| P | Q | R |\n| 2 | 5 | 11 |\n| 4 | 3 | 15 |\n| 6 | 1 | ? |',
+q_jp:'表の法則を見つけて？に入る値は？\n\n| P | Q | R |\n| 2 | 5 | 11 |\n| 4 | 3 | 15 |\n| 6 | 1 | ? |',
+opts:['17','18','19','21','23'],ans:2,explain:'R = 3P + Q. 3×2+5=11, 3×4+3=15, 3×6+1=19.'},
+{cat:'계수·사칙역산',q:'√□ × 3 = 15',opts:['5','9','15','25','45'],ans:3,explain:'√□ = 15÷3 = 5 → □ = 5² = 25'},
+
+];
+
+
+const QUIZ_SIZE = 30;
+const TIME_LIMIT = 1500; // 25분
+
+let questions = [];
+let current = 0;
+let answers = [];
+let timer = TIME_LIMIT;
+let timerInterval = null;
+let questionStartTime = 0;
+let phase = 'start';
+let lang = 'jp';
+let mode = 'web'; // 'web' or 'cgab'
+
+const app = document.getElementById('app');
+
+function getQ(q) { return lang === 'jp' && q.q_jp ? q.q_jp : q.q; }
+function getOpts(q) { return lang === 'jp' && q.opts_jp ? q.opts_jp : q.opts; }
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function formatTime(s) {
+  const m = Math.floor(s / 60);
+  const sec = s % 60;
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
+function stratifiedPick(pool, n) {
+  var byCat = {};
+  pool.forEach(function(q) { (byCat[q.cat] = byCat[q.cat] || []).push(q); });
+  var cats = Object.keys(byCat);
+  cats.forEach(function(c) { byCat[c] = shuffle(byCat[c]); });
+  /* 파트 분류: 언어 vs 계수 */
+  var langCats = cats.filter(function(c) { return c.indexOf('언어') === 0; });
+  var numCats = cats.filter(function(c) { return c.indexOf('계수') === 0; });
+  /* 풀 모의고사 비율: 언어 12 : 계수 18 (30문 기준) */
+  var langN = Math.round(n * 0.4);
+  var numN = n - langN;
+  function pickFromCats(catList, total) {
+    var picked = [];
+    var sCats = shuffle(catList);
+    sCats.forEach(function(c) { if (picked.length < total && byCat[c].length > 0) picked.push(byCat[c].shift()); });
+    if (picked.length < total) {
+      var rest = [];
+      sCats.forEach(function(c) { rest = rest.concat(byCat[c]); });
+      rest = shuffle(rest);
+      while (picked.length < total && rest.length > 0) picked.push(rest.shift());
+    }
+    return picked;
+  }
+  var langPicked = pickFromCats(langCats, langN);
+  var numPicked = pickFromCats(numCats, numN);
+  return shuffle(langPicked.concat(numPicked));
+}
+
+function startQuiz() {
+  var pool = BANK.filter(function(q){ return !q.mode || q.mode === 'both' || q.mode === mode; });
+  questions = stratifiedPick(pool, QUIZ_SIZE);
+  current = 0;
+  answers = [];
+  timer = TIME_LIMIT;
+  phase = 'quiz';
+  questionStartTime = Date.now();
+  timerInterval = setInterval(() => {
+    timer--;
+    renderTimer();
+    if (timer <= 0) { clearInterval(timerInterval); finishQuiz(); }
+  }, 1000);
+  render();
+}
+
+function selectAnswer(idx) {
+  if (answers[current] && answers[current].locked) return;
+  const q = questions[current];
+  const timeSpent = Math.round((Date.now() - questionStartTime) / 1000);
+  answers[current] = { selected: idx, correct: idx === q.ans, timeSpent, locked: true };
+  render();
+}
+
+function nextQuestion() {
+  if (current < questions.length - 1) {
+    current++;
+    questionStartTime = Date.now();
+    render();
+  } else {
+    finishQuiz();
+  }
+}
+
+function finishQuiz() {
+  clearInterval(timerInterval);
+  // 미응답 문제 처리
+  for (let i = 0; i < questions.length; i++) {
+    if (!answers[i]) answers[i] = { selected: -1, correct: false, timeSpent: 0, locked: true };
+  }
+  phase = 'result';
+  render();
+}
+
+function renderTimer() {
+  const el = document.querySelector('.qz-timer');
+  if (el) {
+    el.textContent = formatTime(timer);
+    el.classList.toggle('warn', timer <= 30);
+  }
+}
+
+function render() {
+  if (phase === 'start') return renderStart();
+  if (phase === 'result') return renderResult();
+  renderQuiz();
+}
+
+function setLang(l){lang=l;render();}
+function setMode(m){mode=m;render();}
+
+function renderStart() {
+  var ja=lang==='jp'?'background:var(--tama);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';
+  var ka=lang==='ko'?'background:var(--tama);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';
+  var wa=mode==='web'?'background:var(--tama);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';
+  var ca=mode==='cgab'?'background:var(--tama);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';
+  var pool=BANK.filter(function(q){return !q.mode||q.mode==='both'||q.mode===mode;});
+  var modeDesc=mode==='web'?'자택 PC 수험 · 전자계산기 사용 가능 · 1형식 반복 출제':'테스트센터 수험 · 전자계산기 불가(암산) · 시간이 더 짧음';
+  app.innerHTML = `
+    <div class="qz-start">
+      <h2>📝 <span style="color:var(--tama);">玉手箱</span> 풀 모의고사</h2>
+      <p>실전에 가까운 구성 <strong>30문 / 25분</strong>으로 진행됩니다.<br>언어 12문 + 계수 18문이 출제됩니다.</p>
+      <div style="margin:20px 0 8px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tama);text-transform:uppercase;">수험 형식</div>
+      <div style="display:flex;justify-content:center;gap:4px;margin:0 0 16px;">
+        <button onclick="setMode('web')" class="qz-btn" style="padding:10px 24px;font-size:13px;${wa}">WEB型 (玉手箱)</button>
+        <button onclick="setMode('cgab')" class="qz-btn" style="padding:10px 24px;font-size:13px;${ca}">C-GAB (テストセンター)</button>
+      </div>
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:16px;">${modeDesc}</div>
+      <div style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tama);text-transform:uppercase;">출제 언어</div>
+      <div style="display:flex;justify-content:center;gap:4px;margin:0 0 16px;">
+        <button onclick="setLang('jp')" class="qz-btn" style="padding:8px 20px;font-size:12px;${ja}">日本語 (실전)</button>
+        <button onclick="setLang('ko')" class="qz-btn" style="padding:8px 20px;font-size:12px;${ka}">한국어 (연습)</button>
+      </div>
+      <div style="margin-bottom:20px;">
+        <span style="font-size:12px;color:var(--text-muted);">문제 은행: ${pool.length}문 | 출제: ${QUIZ_SIZE}문 (언어 12 · 계수 18) | 제한: 25분 | 풀이는 항상 한국어</span>
+      </div>
+      <button class="qz-btn qz-btn-primary" onclick="startQuiz()" style="font-size:15px;padding:14px 40px;">시작하기</button>
+    </div>`;
+}
+
+function renderQuiz() {
+  const q = questions[current];
+  const a = answers[current];
+  const locked = a && a.locked;
+
+  let dotsHTML = '';
+  for (let i = 0; i < questions.length; i++) {
+    let cls = 'qz-dot';
+    if (i === current) cls += ' current';
+    else if (answers[i]) cls += answers[i].correct ? ' done' : ' wrong-dot';
+    dotsHTML += `<div class="${cls}"></div>`;
+  }
+
+  let optsHTML = getOpts(q).map((o, i) => {
+    let cls = 'qz-opt';
+    if (locked) {
+      cls += ' locked';
+      if (i === q.ans) cls += ' is-correct';
+      else if (a && a.selected === i) cls += ' is-wrong';
+    } else if (a && a.selected === i) {
+      cls += ' selected';
+    }
+    return `<button class="${cls}" onclick="selectAnswer(${i})">${o}</button>`;
+  }).join('');
+
+  let explainHTML = '';
+  if (locked) {
+    explainHTML = `<div class="qz-explain show">
+      <div class="qz-explain-label">풀이</div>
+      <p>${q.explain}</p>
+    </div>`;
+  }
+
+  let actionsHTML = '';
+  if (locked) {
+    const isLast = current === questions.length - 1;
+    actionsHTML = `<div class="qz-actions">
+      <button class="qz-btn qz-btn-primary" onclick="${isLast ? 'finishQuiz()' : 'nextQuestion()'}">${isLast ? '결과 보기' : '다음 문제 →'}</button>
+    </div>`;
+  }
+
+  app.innerHTML = `
+    <div class="qz-header">
+      <div class="qz-title"><span>玉手箱</span> 풀 모의고사 · ${mode==='web'?'WEB':'C-GAB'}</div>
+      <div class="qz-timer${timer<=60?' warn':''}">${formatTime(timer)}</div>
+    </div>
+    <div class="qz-progress">${dotsHTML}</div>
+    <div class="qz-card">
+      <div class="qz-meta">
+        <div class="qz-num">Q${current+1} / ${questions.length}</div>
+        <div class="qz-cat">${q.cat}</div>
+      </div>
+      <div class="qz-q">${getQ(q)}</div>
+      <div class="qz-opts">${optsHTML}</div>
+      ${explainHTML}
+      ${actionsHTML}
+    </div>`;
+}
+
+function renderResult() {
+  const cc = answers.filter(a => a.correct).length;
+  const wc = answers.filter(a => !a.correct).length;
+  const tt = TIME_LIMIT - timer;
+  const avg = Math.round(tt / questions.length);
+  const pct = Math.round(cc / questions.length * 100);
+  const hensachi = Math.min(80, Math.max(25, Math.round(50 + (pct - 55) * 0.45)));
+  const cs = {};
+  questions.forEach((q, i) => { if (!cs[q.cat]) cs[q.cat] = { total: 0, correct: 0 }; cs[q.cat].total++; if (answers[i] && answers[i].correct) cs[q.cat].correct++; });
+  let langS={total:0,correct:0}, numS={total:0,correct:0};
+  questions.forEach((q,i)=>{ if(q.cat.indexOf('언어')===0){langS.total++;if(answers[i]&&answers[i].correct)langS.correct++;}else{numS.total++;if(answers[i]&&answers[i].correct)numS.correct++;}});
+  const langPct=langS.total?Math.round(langS.correct/langS.total*100):0;
+  const numPct=numS.total?Math.round(numS.correct/numS.total*100):0;
+  let bars=Object.entries(cs).map(([c,s])=>{const r=Math.round(s.correct/s.total*100);const co=r>=70?'var(--correct)':r>=40?'var(--tama)':'var(--wrong)';return`<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;"><span style="color:var(--text-sub);">${c}</span><span style="color:${co};font-weight:700;">${s.correct}/${s.total} (${r}%)</span></div><div style="height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;"><div style="height:100%;width:${r}%;background:${co};border-radius:3px;transition:width 0.5s;"></div></div></div>`;}).join('');
+  const catArr=Object.entries(cs).map(([c,s])=>({cat:c,rate:s.correct/s.total}));catArr.sort((a,b)=>a.rate-b.rate);
+  const weak=catArr.length>0&&catArr[0].rate<0.5?catArr[0].cat:'없음';
+  const strong=catArr.length>0&&catArr[catArr.length-1].rate>=0.5?catArr[catArr.length-1].cat:'없음';
+  app.innerHTML=`<div class="qz-result"><h2>풀 모의고사 결과</h2>
+<div style="display:flex;justify-content:center;gap:24px;margin:20px 0 8px;flex-wrap:wrap;">
+<div><div style="font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-bottom:4px;">종합 정답률</div><div class="qz-score">${pct}<span style="font-size:24px;color:var(--text-dim);">%</span></div></div>
+<div><div style="font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-bottom:4px;">예상 편차치</div><div class="qz-score" style="color:${hensachi>=55?'var(--correct)':hensachi>=45?'var(--tama)':'var(--wrong)'};">${hensachi}</div></div>
+</div>
+<div class="qz-score-label">${cc}문 정답 / ${questions.length}문</div>
+<div class="qz-breakdown">
+<div class="qz-stat"><div class="qz-stat-num green">${cc}</div><div class="qz-stat-label">정답</div></div>
+<div class="qz-stat"><div class="qz-stat-num red">${wc}</div><div class="qz-stat-label">오답</div></div>
+<div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${avg}<span style="font-size:12px;">초</span></div><div class="qz-stat-label">문항 평균</div></div>
+<div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${formatTime(tt)}</div><div class="qz-stat-label">총 소요</div></div>
+</div>
+<div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;">
+<div class="qz-stat" style="min-width:130px;"><div class="qz-stat-num" style="color:var(--tama);">${langPct}%</div><div class="qz-stat-label">언어 (${langS.correct}/${langS.total})</div></div>
+<div class="qz-stat" style="min-width:130px;"><div class="qz-stat-num" style="color:var(--tama);">${numPct}%</div><div class="qz-stat-label">계수 (${numS.correct}/${numS.total})</div></div>
+</div>
+<div style="text-align:left;max-width:440px;margin:0 auto 16px;">
+<div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tama);margin-bottom:12px;text-transform:uppercase;">유형별 정답률</div>${bars}</div>
+<div style="max-width:440px;margin:0 auto 24px;display:flex;gap:12px;">
+<div style="flex:1;padding:12px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:8px;text-align:left;"><div style="font-size:10px;font-weight:700;color:var(--wrong);letter-spacing:1px;margin-bottom:4px;">약점 유형</div><div style="font-size:12px;color:var(--text-sub);">${weak}</div></div>
+<div style="flex:1;padding:12px;background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.15);border-radius:8px;text-align:left;"><div style="font-size:10px;font-weight:700;color:var(--correct);letter-spacing:1px;margin-bottom:4px;">강점 유형</div><div style="font-size:12px;color:var(--text-sub);">${strong}</div></div>
+</div>
+<div style="font-size:11px;color:var(--text-muted);margin-bottom:20px;line-height:1.8;">
+※ 예상 편차치는 정답률 기반 간이 추정값입니다. 참고용으로만 활용하세요.<br>
+※ 玉手箱는 시간 내 정답 수가 핵심입니다. 모르는 문제는 빠르게 넘기는 연습을 하세요.
+</div>
+<button class="qz-btn qz-btn-primary" onclick="phase='start';render();" style="font-size:15px;padding:14px 40px;">다시 도전하기</button></div>`;
+}
+
+render();
+</script>
+
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>

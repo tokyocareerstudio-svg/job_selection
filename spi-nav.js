@@ -45,6 +45,7 @@
       children: [
         { label: '玉手箱 전체 가이드', file: 'tama-index.html', isBold: true },
         { label: '🎯 미니 모의고사', file: 'quiz-tama.html' },
+        { label: '📝 풀 모의고사 (30문)', file: 'tama-fullquiz.html' },
         { label: '── 언어 (言語)', isHeader: true },
         { label: '언어 개요', file: 'tama-gengo-index.html' },
         { label: '① GAB형 논리적독해', file: 'tama-gengo-gab.html' },
