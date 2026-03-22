@@ -68,6 +68,7 @@
       children: [
         { label: 'TG-WEB 전체 가이드', file: 'tgweb-index.html', isBold: true },
         { label: '🎯 미니 모의고사', file: 'quiz-tgweb.html' },
+        { label: '📝 풀 모의고사 (25문)', file: 'tgweb-fullquiz.html' },
         { label: '── 언어 (言語)', isHeader: true },
         { label: '언어 개요', file: 'tgweb-gengo-index.html' },
         { label: '① 종래형 (공란·나열·장문)', file: 'tgweb-gengo-juurai.html' },
