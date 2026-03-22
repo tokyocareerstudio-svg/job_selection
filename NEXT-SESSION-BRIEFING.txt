@@ -4,70 +4,95 @@ NEXT SESSION BRIEFING — 2025.03.23 (세션4 완료)
 Repository: tokyocareerstudio-svg/job_selection
 Deploy: job-selection.vercel.app (pw: tcs2025)
 GitHub PAT: (메모리 참조)
-최종 커밋: 1aa7e10
+최종 커밋: 808a868
 Vercel Hobby: 일일 배포 100회 제한 → 커밋 모아서 push
 
 ================================================================
-이번 세션 완료 작업 (2025.03.23 세션4)
+세션4 완료 작업 요약
 ================================================================
 
-1. SPI 보강 Phase 1 — 전체 완료 (+135문)
-   비언어 6유형 +90문 / 언어 5유형 +45문
-   난이도배지 CSS (.diff-basic/.diff-real/.diff-hard) 전 11파일
+[Phase 1] SPI 연습문제 +135문 완료
+  비언어 6유형 × 15문 = 90문 (suiron/kakuritsu/soneki/sokudo/shugo/seisu)
+  언어 5유형 × 10~5문 = 45문 (nigo/youhou/jukugo/narabikae/dokkai)
+  난이도배지 CSS 전 11파일 적용 (.diff-basic/.diff-real/.diff-hard)
 
-2. SPI 보강 Phase 2 — 풀 모의고사 3종 완료
-   spi-fullquiz.html: 35문/35분 (언어15+비언어20)
-   tama-fullquiz.html: 30문/12분 (언어12+계수18, 실전급)
-   tgweb-fullquiz.html: 25문/18분 (종래형15+신형10)
-   공통: 편차치+바차트+강약점 결과화면, spi-nav 등록
+[Phase 2] 풀 모의고사 3종 완료
+  spi-fullquiz.html  — 35문/35분 (언어15+비언어20)
+  tama-fullquiz.html — 30문/12분 (언어12+계수18, 실전급 1문당24초)
+  tgweb-fullquiz.html — 25문/18분 (종래형15+신형10)
+  공통: 편차치+유형별바차트+강약점 결과화면, WEB/TC모드, JP/KR언어
 
-3. TG-WEB 전개도·일필서 SVG 도형 삽입
-   quiz-tgweb.html: 전개도5문+일필서5문 = 10문에 인라인 SVG
-   tgweb-fullquiz.html에도 동일 SVG 포함
-
-================================================================
-PENDING 작업 (우선순위 순)
-================================================================
-
-★ SPI 보강 Phase 3: 약점 진단 시스템
-  quiz-spi.html 결과 화면에 유형별 바차트, 약점 자동추천
-  학습 이력 sessionStorage 저장
-
-★ SPI 보강 Phase 4: 영어 파트 (spi-english.html 신규)
-★ SPI 보강 Phase 5: 공식 플래시카드 (spi-flashcard.html 신규)
-
-① ES 가이드 재설계 (es-guide.html)
-② 면접 가이드 점검 (interview-guide.html)
-③ GD 대비 (gd-guide.html) 신규
-④ 기술면접 (tech-interview.html) 신규
-⑤ index.html HIDDEN 해제 (①② 완료 후)
-⑥ 미커버 업계 리포트 4개
-⑧ 로드맵 잔여
-⑨ 인증 가드 미적용 파일 확인
+[SVG 보강] TG-WEB 전개도·일필서 도형 삽입
+  quiz-tgweb.html + tgweb-fullquiz.html: 전개도5문+일필서5문 인라인 SVG
 
 ================================================================
-사이트 현황 (업데이트)
+사이트 현황 (최신)
 ================================================================
-- HTML 파일: 127개 (+3: spi-fullquiz, tama-fullquiz, tgweb-fullquiz)
+- HTML 파일: 128개
 - 업계 리포트: 33개 / 직종 카드: 47개
-- 웹테스트: 17파일 / 성격검사: 2파일
-- 풀 모의고사: 3파일 (SPI 35문 + 玉手箱 30문 + TG-WEB 25문) NEW
+- 웹테스트 가이드: 17파일 / 성격검사: 2파일
+- 풀 모의고사: 3파일 (NEW)
 - 모의고사 문제은행:
-  SPI 58+135=193문 / 玉手箱 50문 / TG-WEB 47문 / 성격 60문
-  총: 350문
+  quiz-spi: 58문 / spi-fullquiz: 60문 (공유 풀)
+  quiz-tama: 50문 / tama-fullquiz: 52문 (공유 풀)
+  quiz-tgweb: 47문 / tgweb-fullquiz: 49문 (공유 풀)
+  성격검사: SPI20 + OPQ20 + TG-WEB20 = 60문
+  SPI 연습문제(P문제): 135문
+  ──────────
+  총: 약 450문 (중복 제외 시 약 350문)
+- spi-nav.js 등록: 40항목
 - 인증: index.html 게이트 + 하위 파일 가드
 
 ================================================================
-모의고사 현황 일람
+모의고사 일람
 ================================================================
-| 시험     | 미니(10문) | 풀 모의고사       |
-|----------|-----------|-------------------|
-| SPI      | quiz-spi  | spi-fullquiz 35문/35분 |
-| 玉手箱   | quiz-tama | tama-fullquiz 30문/12분 |
-| TG-WEB   | quiz-tgweb| tgweb-fullquiz 25문/18분 |
+| 시험   | 미니(10문)  | 풀 모의고사          | 풀 크기 |
+|--------|-----------|---------------------|---------|
+| SPI    | quiz-spi  | spi-fullquiz 35문/35분 | 60문   |
+| 玉手箱  | quiz-tama | tama-fullquiz 30문/12분| 52문   |
+| TG-WEB | quiz-tgweb| tgweb-fullquiz 25문/18분| 49문  |
 
 ================================================================
-인증 / ES표기룰
+다음 세션 착수 우선순위
 ================================================================
-비밀번호: tcs2025 | sessionStorage('tcs_auth')='ok'
-ES표기룰: 思います(O)/考えます(X) | 기본형 | 히라가나 | 두괄식
+
+★ Phase 3: 약점 진단 시스템
+  대상: quiz-spi.html (기존 미니 모의고사)
+  추가 기능:
+  - 결과 화면에 유형별 정답률 바차트 (풀 모의고사와 동일 스타일)
+  - 약점 유형 자동 추천 ("추론이 약합니다 → 추론 페이지로" 링크)
+  - 학습 이력 sessionStorage 저장 (같은 탭 내 누적)
+  참고: 풀 모의고사 3종에는 이미 바차트+강약점이 구현됨
+       → 미니 모의고사 3종에도 동일 적용하면 Phase 3 완료
+
+★ Phase 4: 영어 파트 (spi-english.html 신규)
+  SPI 영어검사 (테센 20분)
+  동의어·반의어·빈칸·장문독해
+  어휘카드 100개 + 예제 20문 + 모의 10문
+  spi-nav.js에 영어 섹션 추가
+
+★ Phase 5: 공식·암기 플래시카드 (spi-flashcard.html 신규)
+  비언어 공식 50+개 (순열/조합/확률/속도/손익/집합/정수)
+  언어 오용주의 30개
+  랜덤 셔플 + 맞음/틀림 카운트 + 미암기 필터
+
+================================================================
+콘텐츠 PENDING (Phase 완료 후)
+================================================================
+① ES 가이드 재설계 (es-guide.html, 1308줄)
+② 면접 가이드 점검 (interview-guide.html, 875줄)
+③ GD 대비 페이지 신규 (gd-guide.html)
+④ 기술면접 페이지 신규 (tech-interview.html)
+⑤ index.html Step 05/06 카드 HIDDEN 해제 (①② 완료 후)
+⑥ 미커버 업계 리포트 4개 (software/xtech/thinktank/education)
+⑧ 로드맵 잔여 (타임라인/비자생활/기업검색/용어사전)
+⑨ 인증 가드 미적용 파일 확인 (career-test.html 등)
+
+================================================================
+기술 참조
+================================================================
+인증: tcs2025 | sessionStorage('tcs_auth')='ok'
+ES표기룰: 思います(O)/考えます(X) | 기본형 | 히라가나 | 두괄식 | 貴社(서면)/御社(구술)
+난이도배지: .diff-basic(초록) / .diff-real(주황) / .diff-hard(빨강)
+SVG 스타일: .nf(전개도셀) / .ev/.od/.od-bad(일필서노드) / .edg(엣지) — tgweb-keisu-juurai.html 참조
+모의고사 공통구조: BANK배열 → stratifiedPick → renderQuiz → renderResult(편차치+바차트)
