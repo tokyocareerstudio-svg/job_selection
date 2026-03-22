@@ -16,6 +16,7 @@
       children: [
         { label: 'SPI 전체 가이드', file: 'spi-index.html', isBold: true },
         { label: '🎯 미니 모의고사', file: 'quiz-spi.html' },
+        { label: '📝 풀 모의고사 (35문)', file: 'spi-fullquiz.html' },
         { label: '── 언어', isHeader: true },
         { label: '언어 개요', file: 'spi-gengo-index.html' },
         { label: '① 어구의 의미', file: 'spi-gengo-goku.html' },

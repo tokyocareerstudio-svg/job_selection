@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'spi-fullquiz.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPI 풀 모의고사 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--accent:#4a9eff;--accent-soft:rgba(74,158,255,0.06);--accent-border:rgba(74,158,255,0.18);--correct:#34d399;--wrong:#ef4444;--solve:#a29bfe;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:680px;margin:0 auto;padding:20px 24px 100px;}
+.qz-header{padding:24px 0;border-bottom:1px solid var(--border);margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.qz-title{font-size:18px;font-weight:800;letter-spacing:-0.3px;}.qz-title span{color:var(--accent);}
+.qz-timer{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--accent);min-width:70px;text-align:right;}
+.qz-timer.warn{color:var(--wrong);animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}
+.qz-progress{display:flex;gap:4px;margin-bottom:20px;}
+.qz-dot{flex:1;height:4px;border-radius:2px;background:var(--surface-2);transition:background 0.3s;}
+.qz-dot.done{background:var(--correct);}.qz-dot.wrong-dot{background:var(--wrong);}.qz-dot.current{background:var(--accent);opacity:0.6;}
+.qz-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 24px;min-height:300px;}
+.qz-meta{display:flex;justify-content:space-between;margin-bottom:16px;}
+.qz-num{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase;}
+.qz-cat{font-size:11px;color:var(--text-muted);padding:2px 10px;background:var(--surface-2);border-radius:6px;}
+.qz-q{font-family:'Noto Sans JP','Noto Sans KR',sans-serif;font-size:14px;color:var(--text-sub);line-height:2.0;margin-bottom:20px;white-space:pre-line;}
+.qz-opts{display:flex;flex-direction:column;gap:8px;}
+.qz-opt{padding:12px 16px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--text-sub);cursor:pointer;transition:all 0.2s;text-align:left;font-family:inherit;line-height:1.6;}
+.qz-opt:hover:not(.locked){border-color:var(--accent-border);background:var(--accent-soft);}
+.qz-opt.locked{cursor:default;}.qz-opt.is-correct{border-color:var(--correct);background:rgba(52,211,153,0.08);color:var(--correct);}.qz-opt.is-wrong{border-color:var(--wrong);background:rgba(239,68,68,0.06);color:var(--wrong);opacity:0.7;}
+.qz-explain{margin-top:16px;padding:16px;background:rgba(162,155,254,0.05);border:1px solid rgba(162,155,254,0.15);border-radius:10px;display:none;}
+.qz-explain.show{display:block;}.qz-explain-label{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:6px;text-transform:uppercase;}.qz-explain p{font-size:12px;color:var(--text-dim);line-height:1.8;margin:0;}
+.qz-actions{display:flex;gap:10px;margin-top:20px;justify-content:flex-end;}
+.qz-btn{padding:10px 24px;border-radius:10px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;transition:all 0.2s;border:none;}
+.qz-btn-primary{background:var(--accent);color:#0a0a0f;}.qz-btn-primary:hover{opacity:0.9;}
+.qz-start,.qz-result{text-align:center;padding:60px 20px;}
+.qz-start h2,.qz-result h2{font-size:24px;font-weight:900;margin-bottom:12px;}
+.qz-start p,.qz-result p{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:24px;}
+.qz-score{font-family:'Space Grotesk',sans-serif;font-size:64px;font-weight:700;color:var(--accent);line-height:1;}
+.qz-score-label{font-size:13px;color:var(--text-muted);margin-top:8px;margin-bottom:24px;}
+.qz-breakdown{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;}
+.qz-stat{padding:14px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;min-width:100px;}
+.qz-stat-num{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;}.qz-stat-num.green{color:var(--correct);}.qz-stat-num.red{color:var(--wrong);}
+.qz-stat-label{font-size:10px;color:var(--text-muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px;}
+.qz-footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--border);text-align:center;}
+.qz-footer p{font-size:11px;color:var(--text-muted);}.qz-footer a{color:var(--accent);text-decoration:none;}
+@media(max-width:640px){.qz-card{padding:20px 16px;}.qz-start h2,.qz-result h2{font-size:20px;}.qz-score{font-size:48px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="app"></div>
+  <div class="qz-footer">
+    <p><a href="spi-index.html">← SPI 가이드로 돌아가기</a></p>
+    <p style="margin-top:8px;">© Tokyo Career Studio. All rights reserved.</p>
+  </div>
+</div>
+<script>
+const BANK = [
+// --- 언어: 어구의 의미 ---
+{cat:'언어·어구의 의미',q:'「潤沢」의 의미로 가장 적절한 것은?',q_jp:'「潤沢」の意味として最も適切なものはどれか。',opts:['물건이 풍부한 모양','갑작스러운 변화','건조하고 메마른 모양','느리고 조용한 모양','끈기 있게 노력하는 모양'],opts_jp:['物が豊かなさま','突然の変化','乾燥したさま','ゆっくりと静かなさま','粘り強く努力するさま'],ans:0,explain:'潤沢(じゅんたく) = 물건·자금 등이 풍부하고 넉넉한 모양.'},
+{cat:'언어·어구의 의미',q:'「逼迫」의 의미로 가장 적절한 것은?',q_jp:'「逼迫」の意味として最も適切なものはどれか。',opts:['여유가 있는 상태','사태가 급박하게 다가옴','천천히 진행됨','과거를 그리워함','의지가 굳건함'],opts_jp:['余裕がある状態','事態が差し迫ること','ゆっくり進むこと','過去を懐かしむこと','意志が固いこと'],ans:1,explain:'逼迫(ひっぱく) = 사태가 절박하게 다가옴. 재정 핍박 등에 사용.'},
+{cat:'언어·어구의 의미',q:'「忌憚」의 의미로 가장 적절한 것은?',q_jp:'「忌憚」の意味として最も適切なものはどれか。',opts:['기뻐서 어쩔 줄 모름','꺼리고 삼감','강하게 주장함','잊어버림','비밀로 함'],opts_jp:['喜びに満ちること','はばかり遠慮すること','強く主張すること','忘れること','秘密にすること'],ans:1,explain:'忌憚(きたん) = 꺼리고 삼감. 「忌憚のないご意見」= 거리낌 없는 의견.'},
+// --- 언어: 두 단어 관계 ---
+{cat:'언어·두 단어',q:'「寛容 : 厳格」과 같은 관계인 것은?',q_jp:'「寛容 : 厳格」と同じ関係のものはどれか。',opts:['快適 : 不快','勤勉 : 努力','先生 : 教師','動物 : 犬','入口 : 出口'],ans:0,explain:'반의 관계. 관용(너그러움) ↔ 엄격. 쾌적 ↔ 불쾌도 반의 관계.'},
+{cat:'언어·두 단어',q:'「医師 : 患者」와 같은 관계인 것은?',q_jp:'「医師 : 患者」と同じ関係のものはどれか。',opts:['教師 : 生徒','病院 : 学校','薬 : 注射','大人 : 子供','勉強 : 授業'],ans:0,explain:'역할 관계(서비스 제공자 : 수혜자). 의사:환자 = 교사:학생.'},
+// --- 언어: 장문독해 ---
+{cat:'언어·장문독해',
+q:'【본문】최근 인공지능(AI)의 급속한 발전이 사회의 모든 분야에 변혁을 가져오고 있다. 제조업에서는 AI에 의한 품질 검사 자동화가 진행되어 불량품 검출 정밀도가 종래의 목시 검사를 대폭 상회하게 되었다. 의료 분야에서는 화상 진단 보조나 신약 개발 효율화에 AI가 활용되어 암의 조기 발견율이 향상되었다는 보고도 있다. 한편 AI 보급에 수반되는 과제도 현재화되고 있다. 우선 AI가 학습하는 데이터에 편향이 있는 경우 판단 결과에도 편향이 생기는 「알고리즘 바이어스」 문제가 있다. 채용 전형에 AI를 도입한 기업에서 과거 데이터가 남성 중심이었기 때문에 여성 응모자가 불리하게 평가된 사례도 보고되고 있다. 또한 AI에 의한 자동화가 진행됨으로써 정형적인 사무 작업이나 단순한 분석 업무를 담당하던 노동자의 고용이 위협받는다는 우려도 있다. 경제산업성의 시산에 따르면 2030년까지 AI나 로봇 도입으로 약 340만 명분의 업무가 대체될 가능성이 있다고 한다. 이러한 상황을 감안하여 AI 기술의 은혜를 최대화하면서 사회적인 부정적 영향을 최소한으로 억제하기 위한 제도 설계와 리스킬링 지원의 충실이 시급한 과제가 되고 있다.\n\n본문의 내용과 합치하는 것은?',
+q_jp:'【本文】近年、人工知能（AI）の急速な発展が社会のあらゆる分野に変革をもたらしている。製造業ではAIによる品質検査の自動化が進み、不良品の検出精度は従来の目視検査を大幅に上回るようになった。医療分野では画像診断の補助や新薬開発の効率化にAIが活用され、がんの早期発見率が向上したという報告もある。一方で、AIの普及に伴う課題も顕在化している。まず、AIが学習するデータに偏りがある場合、判断結果にも偏りが生じる「アルゴリズムバイアス」の問題がある。採用選考にAIを導入した企業で、過去のデータが男性中心であったために女性応募者が不利に評価されたケースも報告されている。また、AIによる自動化が進むことで、定型的な事務作業や単純な分析業務を担っていた労働者の雇用が脅かされるという懸念もある。経済産業省の試算では、2030年までにAIやロボットの導入により約340万人分の業務が代替される可能性があるとされている。こうした状況を踏まえ、AI技術の恩恵を最大化しつつ、社会的な負の影響を最小限に抑えるための制度設計やリスキリング支援の充実が急務となっている。\n\n本文の内容と合致するものはどれか。',
+opts:['AI에 의한 품질 검사는 목시 검사보다 정밀도가 낮다','알고리즘 바이어스에 의해 채용 전형에서 불공평한 평가가 발생한 사례가 있다','AI 도입으로 2030년까지 모든 사무직이 소멸된다','경제산업성은 AI 도입에 반대하고 있다','AI는 의료 분야에서는 활용되지 않고 있다'],
+opts_jp:['AIによる品質検査は目視検査より精度が低い','アルゴリズムバイアスにより採用選考で不公平な評価が生じた事例がある','AI導入で2030年までに全ての事務職が消滅する','経済産業省はAI導入に反対している','AIは医療分野では活用されていない'],
+ans:1,explain:'본문에 「채용 전형에 AI를 도입한 기업에서 여성 응모자가 불리하게 평가된 사례(ケース)도 보고되고 있다」고 명시.'},
+
+{cat:'언어·장문독해',
+q:'【본문 (위와 동일)】\n\n본문에서 필자가 가장 주장하고 싶은 것은?',
+q_jp:'【本文（上と同じ）】\n\n本文で筆者が最も主張したいことは？',
+opts:['AI 기술의 발전을 즉시 중단해야 한다','AI의 은혜를 최대화하면서 부정적 영향을 억제하는 제도 설계가 시급하다','AI는 제조업에서만 활용해야 한다','알고리즘 바이어스는 해결 불가능한 문제이다','AI에 의한 고용 대체는 일어나지 않는다'],
+opts_jp:['AI技術の発展を直ちに停止すべきだ','AIの恩恵を最大化しつつ負の影響を抑える制度設計が急務だ','AIは製造業でのみ活用すべきだ','アルゴリズムバイアスは解決不可能な問題だ','AIによる雇用代替は起こらない'],
+ans:1,explain:'마지막 문장 「제도 설계와 리스킬링 지원의 충실이 시급한 과제(制度設計やリスキリング支援の充実が急務)」가 필자의 핵심 주장.'},
+
+{cat:'언어·장문독해',
+q:'【본문】일본의 노동 시장에서 「잡형(ジョブ型) 고용」으로의 이행이 주목을 받고 있다. 종래 일본 기업의 대부분은 「멤버십형 고용」을 채용하여, 신졸 일괄 채용으로 입사한 사원을 사내에서 배치 전환하면서 장기적으로 육성하는 모델이 주류였다. 이 모델에서는 사원의 귀속 의식이 높아지기 쉽고 조직의 일체감이 생긴다는 이점이 있는 반면, 개인의 전문성이 자라기 어렵고 글로벌 경쟁에서 불리하다는 지적도 늘고 있었다. 잡형 고용에서는 직무 내용이나 필요한 스킬을 명확히 정의한 후 채용·평가를 실시하기 때문에 전문성 높은 인재를 적재적소에 활용할 수 있다고 한다. 실제로 대기업을 중심으로 잡형으로의 이행이 진행되고 있으며, 히타치제작소나 KDDI 등이 전사적 도입을 발표했다. 그러나 잡형 고용에도 과제가 있다. 직무 범위가 한정되기 때문에 부문을 넘은 협력이나 유연한 인재 배치가 어려워진다는 문제가 지적되고 있다. 또한 신졸자처럼 실무 경험이 적은 인재의 육성을 어떻게 할 것인가라는 점도 미해결이다. 향후 일본의 고용 제도는 멤버십형의 강점인 장기적 인재 육성과 잡형의 강점인 전문성 활용을 기업의 실정에 맞게 최적으로 조합해 나가는 것이 요구될 것이다.\n\n멤버십형 고용의 과제로 본문에서 언급된 것은?',
+q_jp:'【本文】日本の労働市場において、「ジョブ型雇用」への移行が注目を集めている。従来の日本企業の多くは「メンバーシップ型雇用」を採用し、新卒一括採用で入社した社員を社内で配置転換しながら長期的に育成するモデルが主流であった。このモデルでは社員の帰属意識が高まりやすく、組織の一体感が生まれるという利点がある一方、個人の専門性が育ちにくく、グローバル競争において不利になるとの指摘も増えていた。ジョブ型雇用では、職務内容や必要なスキルを明確に定義した上で採用・評価を行うため、専門性の高い人材を適材適所で活用できるとされる。実際に、大手企業を中心にジョブ型への移行が進んでおり、日立製作所やKDDIなどが全社的な導入を発表している。しかし、ジョブ型雇用にも課題がある。職務範囲が限定されるため、部門を超えた協力や柔軟な人材配置が難しくなるという問題が指摘されている。また、新卒者のように実務経験の少ない人材の育成をどう行うかという点も未解決である。今後の日本の雇用制度は、メンバーシップ型の強みである長期的な人材育成と、ジョブ型の強みである専門性の活用を、企業の実情に応じて最適に組み合わせていくことが求められるだろう。\n\nメンバーシップ型雇用の課題として本文で言及されていることは？',
+opts:['사원의 귀속 의식이 높아지기 어렵다','조직의 일체감이 생기지 않는다','개인의 전문성이 자라기 어렵다','신졸 일괄 채용이 불가능하다','글로벌 경쟁에서 항상 유리하다'],
+opts_jp:['社員の帰属意識が高まりにくい','組織の一体感が生まれない','個人の専門性が育ちにくい','新卒一括採用ができない','グローバル競争で常に有利だ'],
+ans:2,explain:'「개인의 전문성이 자라기 어렵고(個人の専門性が育ちにくく)」가 멤버십형의 과제로 언급.'},
+
+{cat:'언어·장문독해',
+q:'【본문 (위와 동일)】\n\n필자가 향후 일본의 고용 제도에 대해 주장하는 것은?',
+q_jp:'【本文（上と同じ）】\n\n筆者が今後の日本の雇用制度について主張していることは？',
+opts:['멤버십형을 완전히 폐지해야 한다','잡형만을 전면 도입해야 한다','양쪽의 강점을 기업 실정에 맞게 조합해야 한다','고용 제도 자체가 불필요하다','신졸 채용을 중단해야 한다'],
+opts_jp:['メンバーシップ型を完全に廃止すべきだ','ジョブ型のみを全面導入すべきだ','両方の強みを企業の実情に応じて組み合わせるべきだ','雇用制度自体が不要だ','新卒採用を中止すべきだ'],
+ans:2,explain:'마지막 문장 「멤버십형의 강점과 잡형의 강점을 기업 실정에 맞게 최적으로 조합(最適に組み合わせていく)」이 필자의 주장.'},
+
+{cat:'언어·장문독해',
+q:'【본문】식품 로스 삭감은 지속 가능한 사회 실현을 향한 중요한 과제 중 하나이다. 농림수산성의 추계에 따르면 일본에서는 연간 약 472만 톤의 식품 로스가 발생하고 있으며, 그 중 약 절반은 사업자에게서, 나머지 절반은 가정에서 배출되고 있다. 사업자측 식품 로스의 주요 원인으로는 제조 시의 과잉 생산, 소매점에서의 판매 기한 만료, 음식점에서의 먹고 남김 등이 있다. 특히 일본 특유의 상관습으로 알려진 「3분의 1 룰」은 제조일부터 유통기한까지의 기간을 3등분하여 최초 3분의 1 기간 내에 소매점에 납품하지 않으면 안 된다는 것으로, 납품 기한을 넘긴 상품이 대량 폐기되는 요인이 되고 있었다. 최근 이 상관습의 재검토가 진행되어 납품 기한을 「2분의 1」로 완화하는 움직임이 대형 편의점 체인을 중심으로 확산되고 있다. 가정에서의 식품 로스 삭감에는 계획적인 장보기와 적절한 식재료 보존, 남은 음식을 활용한 조리 등 소비자 한 사람 한 사람의 행동 변용이 불가결하다. 정부는 2030년도까지 식품 로스를 2000년도 대비 반감시킨다는 목표를 내걸고 있으며, 푸드뱅크 활동 지원이나 푸드셰어링 앱의 보급 촉진 등 관민 일체가 된 대처가 가속되고 있다.\n\n「3분의 1 룰」에 대해 본문에서 언급된 내용으로 맞는 것은?',
+q_jp:'【本文】食品ロス削減は、持続可能な社会の実現に向けた重要な課題の一つである。農林水産省の推計によると、日本では年間約472万トンの食品ロスが発生しており、そのうち約半分は事業者から、残りの半分は家庭から排出されている。事業者側の食品ロスの主な原因としては、製造時の過剰生産、小売店での販売期限切れ、飲食店での食べ残しなどが挙げられる。特に日本特有の商慣習として知られる「3分の1ルール」は、製造日から賞味期限までの期間を3等分し、最初の3分の1の期間内に小売店に納品しなければならないというもので、納品期限を過ぎた商品が大量に廃棄される要因となっていた。近年、この商慣習の見直しが進み、納品期限を「2分の1」に緩和する動きが大手コンビニチェーンを中心に広がっている。家庭における食品ロスの削減には、計画的な買い物や適切な食材の保存、残り物を活用した調理など、消費者一人ひとりの行動変容が不可欠である。政府は2030年度までに食品ロスを2000年度比で半減させるという目標を掲げており、フードバンク活動への支援やフードシェアリングアプリの普及促進など、官民一体となった取り組みが加速している。\n\n「3分の1ルール」について本文で述べられている内容として正しいものはどれか。',
+opts:['정부가 법률로 의무화한 제도이다','납품 기한을 넘긴 상품이 대량 폐기되는 요인이었다','소비자가 자발적으로 시작한 운동이다','이미 완전히 폐지되었다','해외에서 도입된 제도이다'],
+opts_jp:['政府が法律で義務化した制度である','納品期限を過ぎた商品が大量廃棄される要因であった','消費者が自発的に始めた運動である','すでに完全に廃止されている','海外から導入された制度である'],
+ans:1,explain:'본문에 「납품 기한을 넘긴 상품이 대량 폐기되는 요인(大量に廃棄される要因)」이라고 명시.'},
+
+{cat:'언어·장문독해',
+q:'【본문 (위와 동일)】\n\n본문의 내용과 합치하지 않는 것은?',
+q_jp:'【本文（上と同じ）】\n\n本文の内容と合致しないものはどれか。',
+opts:['일본의 식품 로스는 연간 약 472만 톤이다','식품 로스의 약 절반은 가정에서 발생한다','납품 기한을 2분의 1로 완화하는 움직임이 있다','식품 로스 삭감에 소비자의 행동 변용은 필요없다','정부는 2030년도까지 식품 로스 반감 목표를 내걸고 있다'],
+opts_jp:['日本の食品ロスは年間約472万トンである','食品ロスの約半分は家庭から発生している','納品期限を2分の1に緩和する動きがある','食品ロス削減に消費者の行動変容は必要ない','政府は2030年度までに食品ロス半減の目標を掲げている'],
+ans:3,explain:'본문은 「소비자 한 사람 한 사람의 행동 변용이 불가결(消費者一人ひとりの行動変容が不可欠)」이라고 했으므로 「필요없다」는 본문과 반대.'},
+
+{cat:'비언어·속도',q:'시속 60km로 2시간 30분 달리면 몇 km를 이동하는가?',q_jp:'時速60kmで2時間30分走ると、何km移動するか。',opts:['120km','140km','150km','160km','180km'],ans:2,explain:'60 × 2.5 = 150km'},
+{cat:'비언어·속도',q:'240km의 거리를 시속 80km로 달리면 몇 시간 걸리는가?',q_jp:'240kmの距離を時速80kmで走ると、何時間かかるか。',opts:['2時間','2時間30分','3時間','3時間30分','4時間'],ans:2,explain:'240 ÷ 80 = 3시간'},
+// --- 비언어: 손익산 ---
+{cat:'비언어·손익산',q:'원가 800엔의 상품에 25%의 이익을 붙여 정가를 매겼다. 정가는?',q_jp:'原価800円の商品に25%の利益を付けて定価をつけた。定価はいくらか。',opts:['900円','950円','1,000円','1,050円','1,100円'],ans:2,explain:'800 × 1.25 = 1,000엔'},
+{cat:'비언어·손익산',q:'정가 1,200엔의 상품을 20% 할인해서 팔았다. 판매가는?',q_jp:'定価1,200円の商品を20%割引で販売した。販売価格はいくらか。',opts:['840円','900円','960円','1,000円','1,080円'],ans:2,explain:'1,200 × 0.8 = 960엔'},
+// --- 비언어: 확률 ---
+{cat:'비언어·확률',q:'주머니에 빨간 공 3개, 파란 공 5개, 흰 공 2개가 있다. 1개를 꺼낼 때 파란 공일 확률은?',q_jp:'袋に赤い玉3個、青い玉5個、白い玉2個がある。1個取り出すとき、青い玉である確率は？',opts:['1/5','3/10','1/2','5/10','2/5'],ans:2,explain:'파란 5 / 전체 10 = 1/2'},
+{cat:'비언어·확률',q:'동전을 3번 던질 때, 3번 모두 앞면이 나올 확률은?',q_jp:'コインを3回投げるとき、3回とも表が出る確率は？',opts:['1/2','1/4','1/6','1/8','1/16'],ans:3,explain:'(1/2)³ = 1/8'},
+// --- 비언어: 추론 ---
+{cat:'비언어·추론',q:'「이 도시의 모든 공원에는 벤치가 있다」가 참일 때, 반드시 참인 것은?',q_jp:'「この都市のすべての公園にはベンチがある」が真であるとき、必ず真であるものはどれか。',opts:['벤치가 없으면 공원이 아니다','공원이 아니면 벤치가 없다','벤치가 있으면 공원이다','이 도시 밖 공원에도 벤치가 있다','공원에 벤치가 2개 이상 있다'],opts_jp:['ベンチがなければ公園ではない','公園でなければベンチがない','ベンチがあれば公園である','この都市外の公園にもベンチがある','公園にはベンチが2つ以上ある'],ans:0,explain:'대우: 벤치가 없으면(¬B) → 공원이 아니다(¬A). 원명제와 대우만 동치.'},
+// --- 비언어: 집합 ---
+{cat:'비언어·집합',q:'100명 중 영어를 좋아하는 사람 60명, 수학을 좋아하는 사람 50명, 둘 다 좋아하는 사람 20명이다. 둘 다 좋아하지 않는 사람은?',q_jp:'100人中、英語が好きな人60人、数学が好きな人50人、両方好きな人20人。どちらも好きでない人は？',opts:['5人','10人','15人','20人','30人'],ans:1,explain:'영어만 40 + 수학만 30 + 둘다 20 = 90. 100-90 = 10명.'},
+// --- 비언어: 정수 ---
+{cat:'비언어·정수',q:'72의 약수의 개수는?',q_jp:'72の約数の個数はいくつか。',opts:['8個','10個','12個','14個','16個'],ans:2,explain:'72 = 2³ × 3². 약수 개수 = (3+1)(2+1) = 12개.'},
+// === 추가 문제 (30문 달성) ===
+// --- 언어: 어구의 의미 추가 ---
+{cat:'언어·어구의 의미',q:'「齟齬」의 의미로 가장 적절한 것은?',q_jp:'「齟齬」の意味として最も適切なものはどれか。',opts:['의견이 맞지 않음','매우 기쁨','서로 돕는 것','깊이 반성함','강하게 반대함'],opts_jp:['意見が食い違うこと','非常に喜ぶこと','互いに助け合うこと','深く反省すること','強く反対すること'],ans:0,explain:'齟齬(そご) = 의견이나 사실이 서로 맞지 않고 어긋남.'},
+{cat:'언어·어구의 의미',q:'「瑕疵」의 의미로 가장 적절한 것은?',q_jp:'「瑕疵」の意味として最も適切なものはどれか。',opts:['훌륭한 성과','흠, 결점','깊은 감사','빠른 대응','친밀한 관계'],opts_jp:['素晴らしい成果','きず、欠点','深い感謝','迅速な対応','親密な関係'],ans:1,explain:'瑕疵(かし) = 흠, 결점. 법률 용어로도 사용 (계약의 하자 등).'},
+{cat:'언어·어구의 의미',q:'「杞憂」의 의미로 가장 적절한 것은?',q_jp:'「杞憂」の意味として最も適切なものはどれか。',opts:['현명한 판단','쓸데없는 걱정','깊은 슬픔','강한 의지','갑작스러운 변화'],opts_jp:['賢明な判断','取り越し苦労','深い悲しみ','強い意志','突然の変化'],ans:1,explain:'杞憂(きゆう) = 쓸데없는 걱정. 기나라 사람이 하늘이 무너질까 걱정한 고사에서 유래.'},
+// --- 언어: 두 단어 추가 ---
+{cat:'언어·두 단어',q:'「包含 : 除外」와 같은 관계인 것은?',q_jp:'「包含 : 除外」と同じ関係のものはどれか。',opts:['賛成 : 反対','原因 : 結果','部分 : 全体','理論 : 実践','質問 : 回答'],ans:0,explain:'반의 관계. 포함 ↔ 제외 = 찬성 ↔ 반대.'},
+{cat:'언어·두 단어',q:'「画家 : 絵画」와 같은 관계인 것은?',q_jp:'「画家 : 絵画」と同じ関係のものはどれか。',opts:['作家 : 小説','学校 : 教室','音楽 : 楽器','映画 : 俳優','料理 : 食材'],ans:0,explain:'작자 : 작품 관계. 화가:회화 = 작가:소설.'},
+// --- 비언어: 속도 추가 ---
+{cat:'비언어·속도',q:'집에서 역까지 분속 80m로 15분 걸린다. 거리는?',q_jp:'家から駅まで分速80mで15分かかる。距離は？',opts:['800m','1,000m','1,200m','1,500m','1,600m'],ans:2,explain:'80 × 15 = 1,200m'},
+// --- 비언어: 손익산 추가 ---
+{cat:'비언어·손익산',q:'원가 500엔의 상품에 40%의 이익을 붙여 정가를 매기고, 정가에서 10% 할인 판매했다. 이익은?',q_jp:'原価500円の商品に40%の利益を付けて定価をつけ、定価から10%引きで販売した。利益はいくらか。',opts:['100円','130円','150円','170円','200円'],ans:1,explain:'정가 = 500×1.4 = 700. 판매가 = 700×0.9 = 630. 이익 = 630-500 = 130엔.'},
+{cat:'비언어·손익산',q:'정가 2,000엔의 상품을 15% 할인하고 추가로 100엔 할인했다. 최종 판매가는?',q_jp:'定価2,000円の商品を15%引きし、さらに100円引きした。最終販売価格は？',opts:['1,500円','1,550円','1,600円','1,700円','1,800円'],ans:2,explain:'2,000×0.85 = 1,700 → 1,700-100 = 1,600엔.'},
+// --- 비언어: 확률 추가 ---
+{cat:'비언어·확률',q:'1-5까지 번호가 적힌 카드 5장에서 2장을 뽑을 때, 합이 6 이상일 확률은?',q_jp:'1〜5の番号カード5枚から2枚引くとき、合計が6以上になる確率は？',opts:['2/5','3/10','1/2','7/10','3/5'],ans:4,explain:'₅C₂=10. 6이상: (1,5)(2,4)(2,5)(3,4)(3,5)(4,5) = 6가지. 6/10 = 3/5.'},
+// --- 비언어: 추론 추가 ---
+{cat:'비언어·추론',q:'A, B, C 3명이 시험을 봤다. 「A의 점수는 B보다 높다」「C의 점수는 A보다 높다」일 때, 반드시 맞는 것은?',q_jp:'A, B, C 3人がテストを受けた。「AはBより高い」「CはAより高い」のとき、必ず正しいものは？',opts:['A가 1위','B가 2위','C가 1위','B가 1위','순위를 알 수 없다'],opts_jp:['Aが1位','Bが2位','Cが1位','Bが1位','順位がわからない'],ans:2,explain:'C > A > B이므로 C가 1위는 확실.'},
+{cat:'비언어·추론',q:'「모든 학생은 교복을 입는다」가 참일 때, 반드시 참인 것은?',q_jp:'「すべての学生は制服を着る」が真のとき、必ず真であるものは？',opts:['교복을 입지 않으면 학생이 아니다','학생이 아니면 교복을 입지 않는다','교복을 입으면 학생이다','일부 학생은 교복을 입지 않는다','교복을 입는 사람은 모두 학생이다'],opts_jp:['制服を着ていなければ学生ではない','学生でなければ制服を着ていない','制服を着ていれば学生だ','一部の学生は制服を着ていない','制服を着ている人はすべて学生だ'],ans:0,explain:'대우: 교복 안 입음(¬B)→학생 아님(¬A). 역(B→A)은 반드시 참이 아님.'},
+// --- 비언어: 집합 추가 ---
+{cat:'비언어·집합',q:'40명의 학생 중 야구를 좋아하는 학생 25명, 축구를 좋아하는 학생 20명이다. 둘 다 좋아하는 학생은 최소 몇 명인가?',q_jp:'40人の生徒のうち野球好き25人、サッカー好き20人。両方好きな生徒は最低何人か。',opts:['0人','3人','5人','10人','15人'],ans:2,explain:'최소 중복 = 25+20-40 = 5명. (합집합이 전체를 넘지 못하므로)'},
+// --- 비언어: 정수 추가 ---
+{cat:'비언어·정수',q:'3자리 자연수 중 4의 배수는 몇 개인가?',q_jp:'3桁の自然数のうち、4の倍数はいくつあるか。',opts:['200個','224個','225個','250個','300個'],ans:2,explain:'100-999 중 4의 배수. 최소 100(=4×25), 최대 996(=4×249). 개수 = 249-25+1 = 225개.'},
+{cat:'비언어·정수',q:'1부터 100까지의 정수 중 3으로도 5로도 나누어떨어지는 수는 몇 개인가?',q_jp:'1から100までの整数のうち、3でも5でも割り切れる数はいくつあるか。',opts:['3個','5個','6個','7個','10個'],ans:2,explain:'3과 5의 최소공배수 = 15. 100÷15 = 6.67 → 6개 (15,30,45,60,75,90).'},
+// --- 추가 2문 (30문 달성) ---
+{cat:'언어·어구의 의미',q:'「矜持」의 의미로 가장 적절한 것은?',q_jp:'「矜持」の意味として最も適切なものはどれか。',opts:['긴장하여 어쩔 줄 모름','자부심, 긍지','깊은 후회','빠른 판단력','겸허한 자세'],opts_jp:['緊張して落ち着かないこと','誇り、プライド','深い後悔','素早い判断力','謙虚な姿勢'],ans:1,explain:'矜持(きょうじ/きんじ) = 자부심, 프라이드. 「프로로서의 矜持」처럼 사용.'},
+{cat:'비언어·속도',q:'A가 분속 60m, B가 분속 80m로 같은 방향으로 동시에 출발했다. 800m 앞에 있는 B를 A가 따라잡으려면 몇 분 걸리는가?',q_jp:'Aが分速60m、Bが分速80mで同じ方向に同時に出発した。800m先にいるBにAが追いつくには何分かかるか。',opts:['20분','30분','40분','60분','따라잡을 수 없다'],opts_jp:['20分','30分','40分','60分','追いつけない'],ans:4,explain:'A(60m/분)가 B(80m/분)보다 느리므로 절대 따라잡을 수 없다. 함정 문제.'},
+// --- 테센 전용: 문장정리 (テストセンター限定) ---
+{cat:'언어·문장정리',mode:'tc',
+q:'다음 문장을 논리적 순서로 배열하시오.\nア. したがって、早期の対策が求められている。\nイ. 近年、地球温暖化の影響が深刻化している。\nウ. 例えば、海面上昇により島嶼国の存続が危ぶまれている。\nエ. その結果、異常気象や生態系の変化が報告されている。',
+q_jp:'次の文を論理的な順序に並べなさい。\nア. したがって、早期の対策が求められている。\nイ. 近年、地球温暖化の影響が深刻化している。\nウ. 例えば、海面上昇により島嶼国の存続が危ぶまれている。\nエ. その結果、異常気象や生態系の変化が報告されている。',
+opts:['イ→エ→ウ→ア','イ→ウ→エ→ア','ウ→イ→エ→ア','エ→イ→ウ→ア','イ→ア→エ→ウ'],
+ans:0,explain:'イ(도입:온난화 심각)→エ(その結果:이상기상)→ウ(例えば:구체 예시 해면상승)→ア(したがって:결론 대책)'},
+
+{cat:'언어·문장정리',mode:'tc',
+q:'다음 문장을 논리적 순서로 배열하시오.\nア. こうした取り組みが、持続可能な社会の実現につながる。\nイ. 食品ロスは、環境負荷の増大を引き起こす深刻な問題である。\nウ. その対策として、消費期限の見直しやフードバンクの活用が進められている。\nエ. 日本では年間約500万トンの食品が廃棄されている。',
+q_jp:'次の文を論理的な順序に並べなさい。\nア. こうした取り組みが、持続可能な社会の実現につながる。\nイ. 食品ロスは、環境負荷の増大を引き起こす深刻な問題である。\nウ. その対策として、消費期限の見直しやフードバンクの活用が進められている。\nエ. 日本では年間約500万トンの食品が廃棄されている。',
+opts:['イ→エ→ウ→ア','エ→イ→ウ→ア','イ→ウ→エ→ア','ウ→エ→イ→ア','エ→ウ→イ→ア'],
+ans:0,explain:'イ(도입:식품로스 문제)→エ(구체 수치)→ウ(その対策:대책)→ア(こうした:결론)'},
+
+{cat:'언어·문장정리',mode:'tc',
+q:'다음 문장을 논리적 순서로 배열하시오.\nア. その結果、都市部の地価は上昇を続けている。\nイ. 日本では人口の都市集中が加速している。\nウ. 一方で、地方の過疎化も深刻な社会問題となっている。\nエ. 特に東京圏への一極集中が顕著である。',
+q_jp:'次の文を論理的な順序に並べなさい。\nア. その結果、都市部の地価は上昇を続けている。\nイ. 日本では人口の都市集中が加速している。\nウ. 一方で、地方の過疎化も深刻な社会問題となっている。\nエ. 特に東京圏への一極集中が顕著である。',
+opts:['イ→エ→ア→ウ','イ→ア→エ→ウ','エ→イ→ア→ウ','ア→イ→エ→ウ','イ→ウ→エ→ア'],
+ans:0,explain:'イ(도입:도시집중 가속)→エ(特に:도쿄 일극집중)→ア(その結果:지가 상승)→ウ(一方で:역접 지방과소화)'},
+
+// --- 웹테 전용: 입력형 (WEBテスティング限定) ---
+{cat:'비언어·입력형',mode:'web',
+q:'어떤 상품의 원가에 30%의 이익을 붙여 정가를 매기고, 정가에서 200엔 할인하여 판매한 결과, 이익이 70엔이었다. 원가는 몇 엔인가?\n(실제 시험에서는 숫자를 직접 입력합니다)',
+q_jp:'ある商品の原価に30%の利益を付けて定価をつけ、定価から200円引きで販売した結果、利益が70円だった。原価はいくらか。\n（実際の試験では数値を直接入力します）',
+opts:['800円','900円','1,000円','1,100円','1,200円'],
+opts_jp:['800円','900円','1,000円','1,100円','1,200円'],
+ans:1,explain:'원가=x, 정가=1.3x, 판매가=1.3x-200, 이익=0.3x-200=70 → 0.3x=270 → x=900엔.'},
+
+{cat:'비언어·입력형',mode:'web',
+q:'A, B 2종류의 제품을 합계 50개 구입했다. A는 1개 300엔, B는 1개 500엔으로, 합계 금액이 19,000엔이었다. A는 몇 개 구입했는가?\n(실제 시험에서는 숫자를 직접 입력합니다)',
+q_jp:'A, B 2種類の製品を合計50個購入した。Aは1個300円、Bは1個500円で、合計金額が19,000円だった。Aは何個購入したか。\n（実際の試験では数値を直接入力します）',
+opts:['20個','25個','30個','35個','40個'],
+opts_jp:['20個','25個','30個','35個','40個'],
+ans:2,explain:'A+B=50, 300A+500B=19000. B=50-A → 300A+500(50-A)=19000 → 300A+25000-500A=19000 → -200A=-6000 → A=30'},
+
+// === 추가 문제 ===
+// --- 언어·두 단어 +1 ---
+{cat:'언어·두 단어',q:'「絵画 : 美術」과 같은 관계인 것은?',q_jp:'「絵画 : 美術」と同じ関係のものはどれか。',opts:['小説 : 文学','勉強 : 遊び','先生 : 学校','東京 : 大阪','赤 : 青'],ans:0,explain:'포함 관계. 회화는 미술의 일종. 소설은 문학의 일종.'},
+
+// --- 언어·문장정리 +2 ---
+{cat:'언어·문장정리',mode:'tc',
+q:'다음 A~E를 자연스러운 문장으로 배열하시오.\nA: 한편 지나친 의존은\nB: SNS의 보급에 의해\nC: 정보 수집이 용이해졌다\nD: 정보의 진위 판별력 저하를 초래한다\nE: 그러나',
+q_jp:'次のA〜Eを自然な文章に並べ替えなさい。\nA: 一方、過度な依存は\nB: SNSの普及により\nC: 情報収集が容易になった\nD: 情報の真偽判別力の低下を招く\nE: しかし',
+opts:['B→C→E→A→D','B→C→A→E→D','A→B→C→D→E','C→B→A→D→E','E→B→C→A→D'],
+ans:0,explain:'B(SNS보급에 의해)→C(정보수집 용이)→E(그러나)→A(지나친 의존은)→D(판별력 저하 초래). 순접→역접의 자연스러운 흐름.'},
+{cat:'언어·문장정리',mode:'tc',
+q:'다음 A~E를 자연스러운 문장으로 배열하시오.\nA: 기업의 글로벌화가 진행됨에 따라\nB: 다양한 문화적 배경을 가진\nC: 인재의 활용이 불가결해졌다\nD: 그 결과\nE: 사내 공용어를 영어로 하는 기업도 나타났다',
+q_jp:'次のA〜Eを自然な文章に並べ替えなさい。\nA: 企業のグローバル化が進むにつれ\nB: 多様な文化的背景を持つ\nC: 人材の活用が不可欠になった\nD: その結果\nE: 社内公用語を英語にする企業も現れた',
+opts:['A→B→C→D→E','B→C→A→D→E','D→A→B→C→E','A→D→B→C→E','B→A→C→D→E'],
+ans:0,explain:'A(글로벌화 진행)→B(다양한 배경을 가진)→C(인재 활용 불가결)→D(그 결과)→E(영어 공용어 기업 출현). 원인→결과 흐름.'},
+
+// --- 비언어·손익산 +1 ---
+{cat:'비언어·손익산',q:'원가 1,500엔의 상품에 40%의 이익을 붙여 정가를 매겼으나, 팔리지 않아 정가에서 300엔 할인해서 팔았다. 이익은 얼마인가?',q_jp:'原価1,500円の商品に40%の利益を乗せて定価をつけたが、売れないため定価から300円引きで売った。利益はいくらか。',opts:['200円','300円','400円','500円','600円'],ans:1,explain:'정가 = 1500 × 1.4 = 2100엔. 판매가 = 2100 - 300 = 1800엔. 이익 = 1800 - 1500 = 300엔.'},
+
+// --- 비언어·속도 +1 ---
+{cat:'비언어·속도',q:'A지점에서 B지점까지 12km이다. 갈 때는 시속 4km로 걷고, 올 때는 시속 6km로 걸었다. 왕복 평균 속도는?',q_jp:'A地点からB地点まで12kmある。行きは時速4kmで歩き、帰りは時速6kmで歩いた。往復の平均速度は？',opts:['時速4.5km','時速4.8km','時速5.0km','時速5.2km','時速5.5km'],ans:1,explain:'갈 때 12÷4=3시간, 올 때 12÷6=2시간. 총 24km÷5시간 = 시속 4.8km. 평균속도는 거리합÷시간합.'},
+
+// --- 비언어·확률 +2 ---
+{cat:'비언어·확률',q:'빨간 구슬 4개, 흰 구슬 6개가 든 주머니에서 동시에 2개를 꺼낼 때, 2개 모두 빨간 구슬일 확률은?',q_jp:'赤い玉4個、白い玉6個が入った袋から同時に2個取り出すとき、2個とも赤い玉である確率は？',opts:['1/15','2/15','4/15','1/5','2/5'],ans:1,explain:'₁₀C₂ = 45, ₄C₂ = 6. 6/45 = 2/15.'},
+{cat:'비언어·확률',q:'1~9의 숫자가 적힌 카드 9장에서 2장을 뽑을 때, 합이 10이 되는 확률은?',q_jp:'1〜9の数字が書かれたカード9枚から2枚引くとき、合計が10になる確率は？',opts:['1/9','2/9','1/6','1/3','4/9'],ans:0,explain:'₉C₂ = 36. 합이 10: (1,9)(2,8)(3,7)(4,6) = 4통. 4/36 = 1/9.'},
+
+// --- 비언어·추론 +2 ---
+{cat:'비언어·추론',q:'A, B, C, D, E의 5명이 일렬로 줄을 선다. A는 B보다 앞, C는 D보다 뒤, E는 맨 뒤이다. 반드시 참인 것은?',q_jp:'A, B, C, D, Eの5人が一列に並ぶ。AはBより前、CはDより後ろ、Eは一番後ろである。必ず正しいのはどれか。',opts:['A가 맨 앞이다','B는 E 바로 앞이다','D는 C보다 앞이다','C는 맨 뒤이다','B는 A보다 앞이다'],opts_jp:['Aが一番前である','BはEのすぐ前である','DはCより前である','Cが一番後ろである','BはAより前である'],ans:2,explain:'조건: A<B(순서), D<C(C는 D보다 뒤 = D가 C보다 앞). E는 맨 뒤. 따라서 D가 C보다 앞은 반드시 참.'},
+{cat:'비언어·추론',q:'P, Q, R, S 4명의 시험 점수에 대해: ①P는 Q보다 높다 ②R는 S보다 낮다 ③Q는 S보다 높다. 확실히 말할 수 있는 것은?',q_jp:'P, Q, R, S 4人の試験の点数について：①PはQより高い ②RはSより低い ③QはSより高い。確実に言えることはどれか。',opts:['R은 S보다 높다','S가 최고점이다','Q가 최저점이다','Q는 R보다 높다','P는 Q보다 낮다'],opts_jp:['RはSより高い','Sが最高点である','Qが最低点である','QはRより高い','PはQより低い'],ans:3,explain:'①P>Q ③Q>S ②S>R → P>Q>S>R. [0]R>S=✗(R<S) [1]S최고=✗(P최고) [2]Q최저=✗(R최저) [3]Q>R=✓ [4]P<Q=✗(P>Q). 정답은 Q>R.'},
+
+// --- 비언어·정수 +2 ---
+{cat:'비언어·정수',q:'연속하는 3개의 자연수의 합이 96일 때, 가장 큰 수는?',q_jp:'連続する3つの自然数の和が96のとき、最も大きい数はいくつか。',opts:['31','32','33','34','35'],ans:2,explain:'n-1, n, n+1로 놓으면 3n=96, n=32. 가장 큰 수 = 33.'},
+{cat:'비언어·정수',q:'3으로 나누면 2가 남고, 5로 나누면 3이 남는 2자리 자연수 중 가장 작은 것은?',q_jp:'3で割ると2余り、5で割ると3余る2桁の自然数のうち、最も小さいものはいくつか。',opts:['18','23','28','38','53'],ans:1,explain:'3으로 나누면 2 남음: 8,11,14,17,20,23... 5로 나누면 3 남음: 8,13,18,23... 공통: 8(1자리), 23(2자리). 답 23.'},
+
+// --- 비언어·집합 +3 ---
+{cat:'비언어·집합',q:'100명 중 영어를 배운 사람이 60명, 중국어를 배운 사람이 45명, 둘 다 배우지 않은 사람이 15명이다. 둘 다 배운 사람은?',q_jp:'100人中、英語を学んだ人が60人、中国語を学んだ人が45人、どちらも学ばなかった人が15人である。両方学んだ人は何人か。',opts:['10人','15人','20人','25人','30人'],ans:2,explain:'적어도 하나 = 100 - 15 = 85. 영어+중국어 - 둘다 = 85 → 60+45-x=85 → x=20.'},
+{cat:'비언어·집합',q:'50명의 학생 중 A 클럽 소속이 28명, B 클럽 소속이 22명, 둘 다 소속이 8명이다. 어느 클럽에도 소속되지 않은 학생은?',q_jp:'50人の学生のうち、Aクラブ所属が28人、Bクラブ所属が22人、両方所属が8人である。どちらにも所属していない学生は何人か。',opts:['6人','8人','10人','12人','14人'],ans:1,explain:'A또는B = 28+22-8 = 42. 어느 쪽도 아닌 사람 = 50-42 = 8명.'},
+{cat:'비언어·집합',q:'80명의 사원 중 TOEIC 수험 경험자가 55명, 한자 검정 수험 경험자가 40명이다. 둘 다 경험이 없는 사원이 0명일 때, 둘 다 경험한 사원은 최소 몇 명인가?',q_jp:'80人の社員のうちTOEIC受験経験者が55人、漢字検定受験経験者が40人である。どちらも経験がない社員が0人のとき、両方経験した社員は最少で何人か。',opts:['10人','15人','20人','25人','30人'],ans:1,explain:'전원이 적어도 하나 경험 → 55+40-x=80 → x=15. 최소 15명.'},
+
+// --- 비언어·입력형 +3 ---
+{cat:'비언어·입력형',mode:'web',
+q:'어떤 수를 5배 하고 12를 빼면 38이 된다. 어떤 수는?\n(실제 시험에서는 숫자를 직접 입력합니다)',
+q_jp:'ある数を5倍して12を引くと38になる。ある数はいくつか。\n（実際の試験では数値を直接入力します）',
+opts:['8','10','12','14','16'],ans:1,explain:'5x - 12 = 38 → 5x = 50 → x = 10'},
+{cat:'비언어·입력형',mode:'web',
+q:'시속 60km로 달리는 차가 2시간 30분에 이동하는 거리는 몇 km인가?\n(실제 시험에서는 숫자를 직접 입력합니다)',
+q_jp:'時速60kmで走る車が2時間30分で移動する距離は何kmか。\n（実際の試験では数値を直接入力します）',
+opts:['120km','130km','140km','150km','160km'],ans:3,explain:'60 × 2.5 = 150km'},
+{cat:'비언어·입력형',mode:'web',
+q:'전체의 3/8이 240명일 때, 전체 인원수는?\n(실제 시험에서는 숫자를 직접 입력합니다)',
+q_jp:'全体の3/8が240人のとき、全体の人数は？\n（実際の試験では数値を直接入力します）',
+opts:['540人','600人','640人','720人','800人'],ans:2,explain:'전체 × 3/8 = 240 → 전체 = 240 × 8/3 = 640명'},
+
+];
+
+const QUIZ_SIZE = 35;
+const TIME_LIMIT = 2100;
+let questions=[],current=0,answers=[],timer=TIME_LIMIT,timerInterval=null,questionStartTime=0,phase='start',lang='jp',mode='web';
+/* CAT 난이도 추적 */
+let catLevel = 1; /* 0=기초, 1=실전, 2=고난도 */
+function getQ(q){return lang==='jp'&&q.q_jp?q.q_jp:q.q;}
+function getOpts(q){return lang==='jp'&&q.opts_jp?q.opts_jp:q.opts;}
+const app=document.getElementById('app');
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+function formatTime(s){return Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60);}
+function stratifiedPick(pool,n){
+  var byCat={};pool.forEach(function(q){(byCat[q.cat]=byCat[q.cat]||[]).push(q);});
+  var cats=Object.keys(byCat);cats.forEach(function(c){byCat[c]=shuffle(byCat[c]);});
+  var langCats=cats.filter(function(c){return c.indexOf('언어')===0;});
+  var numCats=cats.filter(function(c){return c.indexOf('비언어')===0;});
+  /* 풀 모의고사 비율: 언어 15 + 비언어 20 = 35문 */
+  var langN=Math.min(15,Math.round(n*15/35));
+  var numN=n-langN;
+  function pickFromCats(catList,total){
+    var picked=[];
+    var sCats=shuffle(catList);
+    /* 라운드로빈: 각 카테고리에서 최소 1문 */
+    sCats.forEach(function(c){if(picked.length<total&&byCat[c].length>0)picked.push(byCat[c].shift());});
+    /* 2라운드 */
+    sCats.forEach(function(c){if(picked.length<total&&byCat[c].length>0)picked.push(byCat[c].shift());});
+    /* 나머지 랜덤 */
+    if(picked.length<total){
+      var rest=[];sCats.forEach(function(c){rest=rest.concat(byCat[c]);});
+      rest=shuffle(rest);
+      while(picked.length<total&&rest.length>0)picked.push(rest.shift());
+    }
+    return picked;
+  }
+  var langPicked=pickFromCats(langCats,langN);
+  var numPicked=pickFromCats(numCats,numN);
+  return shuffle(langPicked.concat(numPicked));
+}
+function startQuiz(){var pool=BANK.filter(function(q){return !q.mode||q.mode==='both'||q.mode===mode;});questions=stratifiedPick(pool,QUIZ_SIZE);current=0;answers=[];timer=TIME_LIMIT;phase='quiz';questionStartTime=Date.now();timerInterval=setInterval(()=>{timer--;renderTimer();if(timer<=0){clearInterval(timerInterval);finishQuiz();}},1000);render();}
+function selectAnswer(i){if(answers[current]&&answers[current].locked)return;const q=questions[current];answers[current]={selected:i,correct:i===q.ans,timeSpent:Math.round((Date.now()-questionStartTime)/1000),locked:true};render();}
+function nextQuestion(){if(current<questions.length-1){current++;questionStartTime=Date.now();render();}else finishQuiz();}
+function finishQuiz(){clearInterval(timerInterval);for(let i=0;i<questions.length;i++)if(!answers[i])answers[i]={selected:-1,correct:false,timeSpent:0,locked:true};phase='result';render();}
+function renderTimer(){const el=document.querySelector('.qz-timer');if(el){el.textContent=formatTime(timer);el.classList.toggle('warn',timer<=30);}}
+function render(){if(phase==='start')return renderStart();if(phase==='result')return renderResult();renderQuiz();}
+function setLang(l){lang=l;render();}
+function setMode(m){mode=m;render();}
+function renderStart(){var ja=lang==='jp'?'background:var(--accent);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';var ka=lang==='ko'?'background:var(--accent);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';var wa=mode==='web'?'background:var(--accent);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';var ta=mode==='tc'?'background:var(--accent);color:#0a0a0f;':'background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);';var pool=BANK.filter(function(q){return !q.mode||q.mode==='both'||q.mode===mode;});app.innerHTML=`<div class="qz-start"><h2>📝 <span style="color:var(--accent);">SPI</span> 풀 모의고사</h2><p>실전과 동일한 구성 <strong>35문 / 35분</strong>으로 진행됩니다.<br>언어 15문 + 비언어 20문이 출제됩니다.</p><div style="margin:20px 0 8px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase;">수험 형식</div><div style="display:flex;justify-content:center;gap:4px;margin:0 0 16px;"><button onclick="setMode('web')" class="qz-btn" style="padding:10px 24px;font-size:13px;${wa}">WEBテスティング</button><button onclick="setMode('tc')" class="qz-btn" style="padding:10px 24px;font-size:13px;${ta}">テストセンター</button></div><div style="font-size:11px;color:var(--text-muted);margin-bottom:16px;">${mode==='web'?'자택 PC 수험 · 전자계산기 사용 가능 · 입력형 출제 가능':'회장 PC 수험 · 전자계산기 불가(암산) · 문장정리/도형 추가 출제'}</div><div style="margin:0 0 8px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--accent);text-transform:uppercase;">출제 언어</div><div style="display:flex;justify-content:center;gap:4px;margin:0 0 16px;"><button onclick="setLang('jp')" class="qz-btn" style="padding:8px 20px;font-size:12px;${ja}">日本語 (실전)</button><button onclick="setLang('ko')" class="qz-btn" style="padding:8px 20px;font-size:12px;${ka}">한국어 (연습)</button></div><div style="margin-bottom:20px;"><span style="font-size:12px;color:var(--text-muted);">문제 은행: ${pool.length}문 | 출제: ${QUIZ_SIZE}문 (언어 15 · 비언어 20) | 제한: 35분 | 풀이는 항상 한국어</span></div><button class="qz-btn qz-btn-primary" onclick="startQuiz()" style="font-size:15px;padding:14px 40px;">시작하기</button></div>`;}
+function renderQuiz(){const q=questions[current],a=answers[current],locked=a&&a.locked;let dots='';for(let i=0;i<questions.length;i++){let c='qz-dot';if(i===current)c+=' current';else if(answers[i])c+=answers[i].correct?' done':' wrong-dot';dots+=`<div class="${c}"></div>`;}
+let opts=getOpts(q).map((o,i)=>{let c='qz-opt';if(locked){c+=' locked';if(i===q.ans)c+=' is-correct';else if(a&&a.selected===i)c+=' is-wrong';}return`<button class="${c}" onclick="selectAnswer(${i})">${o}</button>`;}).join('');
+let explain=locked?`<div class="qz-explain show"><div class="qz-explain-label">풀이</div><p>${q.explain}</p></div>`:'';
+let actions=locked?`<div class="qz-actions"><button class="qz-btn qz-btn-primary" onclick="${current===questions.length-1?'finishQuiz()':'nextQuestion()'}">${current===questions.length-1?'결과 보기':'다음 문제 →'}</button></div>`:'';
+app.innerHTML=`<div class="qz-header"><div class="qz-title"><span>SPI</span> 풀 모의고사 · ${mode==='web'?'WEB':'TC'}</div><div class="qz-timer${timer<=60?' warn':''}">${formatTime(timer)}</div></div><div class="qz-progress">${dots}</div><div class="qz-card"><div class="qz-meta"><div class="qz-num">Q${current+1} / ${questions.length}</div><div class="qz-cat">${q.cat}</div></div><div class="qz-q">${getQ(q)}</div><div class="qz-opts">${opts}</div>${explain}${actions}</div>`;}
+function renderResult(){const cc=answers.filter(a=>a.correct).length,wc=answers.filter(a=>!a.correct).length,tt=TIME_LIMIT-timer,avg=Math.round(tt/questions.length),pct=Math.round(cc/questions.length*100);
+/* 편차치 추정: 정답률 기반 간이 계산 (평균 50%, 표준편차 10으로 가정) */
+const hensachi=Math.min(80,Math.max(25,Math.round(50+(pct-55)*0.45)));
+const cs={};questions.forEach((q,i)=>{if(!cs[q.cat])cs[q.cat]={total:0,correct:0};cs[q.cat].total++;if(answers[i]&&answers[i].correct)cs[q.cat].correct++;});
+/* 언어/비언어 분리 */
+const langStats={total:0,correct:0},numStats={total:0,correct:0};
+questions.forEach((q,i)=>{if(q.cat.indexOf('언어')===0){langStats.total++;if(answers[i]&&answers[i].correct)langStats.correct++;}else{numStats.total++;if(answers[i]&&answers[i].correct)numStats.correct++;}});
+const langPct=langStats.total?Math.round(langStats.correct/langStats.total*100):0;
+const numPct=numStats.total?Math.round(numStats.correct/numStats.total*100):0;
+/* 카테고리별 바차트 */
+let bars=Object.entries(cs).map(([c,s])=>{const r=Math.round(s.correct/s.total*100);const co=r>=70?'var(--correct)':r>=40?'var(--accent)':'var(--wrong)';return`<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;"><span style="color:var(--text-sub);">${c}</span><span style="color:${co};font-weight:700;">${s.correct}/${s.total} (${r}%)</span></div><div style="height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;"><div style="height:100%;width:${r}%;background:${co};border-radius:3px;transition:width 0.5s;"></div></div></div>`;}).join('');
+/* 강점/약점 판별 */
+const catArr=Object.entries(cs).map(([c,s])=>({cat:c,rate:s.correct/s.total}));
+catArr.sort((a,b)=>a.rate-b.rate);
+const weak=catArr.length>0&&catArr[0].rate<0.5?catArr[0].cat:'없음';
+const strong=catArr.length>0&&catArr[catArr.length-1].rate>=0.5?catArr[catArr.length-1].cat:'없음';
+
+app.innerHTML=`<div class="qz-result"><h2>풀 모의고사 결과</h2>
+<div style="display:flex;justify-content:center;gap:24px;margin:20px 0 8px;flex-wrap:wrap;">
+<div><div style="font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-bottom:4px;">종합 정답률</div><div class="qz-score">${pct}<span style="font-size:24px;color:var(--text-dim);">%</span></div></div>
+<div><div style="font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-bottom:4px;">예상 편차치</div><div class="qz-score" style="color:${hensachi>=55?'var(--correct)':hensachi>=45?'var(--accent)':'var(--wrong)'};">${hensachi}</div></div>
+</div>
+<div class="qz-score-label">${cc}문 정답 / ${questions.length}문</div>
+<div class="qz-breakdown">
+<div class="qz-stat"><div class="qz-stat-num green">${cc}</div><div class="qz-stat-label">정답</div></div>
+<div class="qz-stat"><div class="qz-stat-num red">${wc}</div><div class="qz-stat-label">오답</div></div>
+<div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${avg}<span style="font-size:12px;">초</span></div><div class="qz-stat-label">문항 평균</div></div>
+<div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${formatTime(tt)}</div><div class="qz-stat-label">총 소요</div></div>
+</div>
+<div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;">
+<div class="qz-stat" style="min-width:130px;"><div class="qz-stat-num" style="color:var(--accent);">${langPct}%</div><div class="qz-stat-label">언어 (${langStats.correct}/${langStats.total})</div></div>
+<div class="qz-stat" style="min-width:130px;"><div class="qz-stat-num" style="color:var(--accent);">${numPct}%</div><div class="qz-stat-label">비언어 (${numStats.correct}/${numStats.total})</div></div>
+</div>
+<div style="text-align:left;max-width:440px;margin:0 auto 16px;">
+<div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--accent);margin-bottom:12px;text-transform:uppercase;">유형별 정답률</div>${bars}</div>
+<div style="max-width:440px;margin:0 auto 24px;display:flex;gap:12px;">
+<div style="flex:1;padding:12px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:8px;text-align:left;"><div style="font-size:10px;font-weight:700;color:var(--wrong);letter-spacing:1px;margin-bottom:4px;">약점 유형</div><div style="font-size:12px;color:var(--text-sub);">${weak}</div></div>
+<div style="flex:1;padding:12px;background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.15);border-radius:8px;text-align:left;"><div style="font-size:10px;font-weight:700;color:var(--correct);letter-spacing:1px;margin-bottom:4px;">강점 유형</div><div style="font-size:12px;color:var(--text-sub);">${strong}</div></div>
+</div>
+<div style="font-size:11px;color:var(--text-muted);margin-bottom:20px;line-height:1.8;">
+※ 예상 편차치는 정답률 기반 간이 추정값입니다. 실제 SPI는 CAT 방식으로 난이도가 조정되므로 참고용으로만 활용하세요.<br>
+※ 편차치 55 이상 = 대기업 서류통과 안전권 / 50 이상 = 평균 / 45 미만 = 보강 필요
+</div>
+<button class="qz-btn qz-btn-primary" onclick="phase='start';render();" style="font-size:15px;padding:14px 40px;">다시 도전하기</button></div>`;}
+render();
+</script>
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>
