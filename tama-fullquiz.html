@@ -347,7 +347,7 @@ opts:['17','18','19','21','23'],ans:2,explain:'R = 3P + Q. 3×2+5=11, 3×4+3=15,
 
 
 const QUIZ_SIZE = 30;
-const TIME_LIMIT = 1500; // 25분
+const TIME_LIMIT = 720; // 12분 (실전급: 1문당 24초)
 
 let questions = [];
 let current = 0;
@@ -478,7 +478,7 @@ function renderStart() {
   app.innerHTML = `
     <div class="qz-start">
       <h2>📝 <span style="color:var(--tama);">玉手箱</span> 풀 모의고사</h2>
-      <p>실전에 가까운 구성 <strong>30문 / 25분</strong>으로 진행됩니다.<br>언어 12문 + 계수 18문이 출제됩니다.</p>
+      <p>실전과 동일한 시간 압박 <strong>30문 / 12분</strong>으로 진행됩니다.<br>언어 12문 + 계수 18문. 1문당 평균 24초 — 모르면 바로 넘기세요!</p>
       <div style="margin:20px 0 8px;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tama);text-transform:uppercase;">수험 형식</div>
       <div style="display:flex;justify-content:center;gap:4px;margin:0 0 16px;">
         <button onclick="setMode('web')" class="qz-btn" style="padding:10px 24px;font-size:13px;${wa}">WEB型 (玉手箱)</button>
@@ -491,7 +491,7 @@ function renderStart() {
         <button onclick="setLang('ko')" class="qz-btn" style="padding:8px 20px;font-size:12px;${ka}">한국어 (연습)</button>
       </div>
       <div style="margin-bottom:20px;">
-        <span style="font-size:12px;color:var(--text-muted);">문제 은행: ${pool.length}문 | 출제: ${QUIZ_SIZE}문 (언어 12 · 계수 18) | 제한: 25분 | 풀이는 항상 한국어</span>
+        <span style="font-size:12px;color:var(--text-muted);">문제 은행: ${pool.length}문 | 출제: ${QUIZ_SIZE}문 (언어 12 · 계수 18) | 제한: 12분 (1문당 24초) | 풀이는 항상 한국어</span>
       </div>
       <button class="qz-btn qz-btn-primary" onclick="startQuiz()" style="font-size:15px;padding:14px 40px;">시작하기</button>
     </div>`;
