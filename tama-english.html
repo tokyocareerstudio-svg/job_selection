@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'tama-english.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>玉手箱 영어검사 대책 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--tama:#34d399;--tama-soft:rgba(52,211,153,0.06);--tama-border:rgba(52,211,153,0.18);--eng:#60a5fa;--eng-soft:rgba(96,165,250,0.06);--eng-border:rgba(96,165,250,0.18);--solve:#a29bfe;--solve-soft:rgba(162,155,254,0.06);--correct:#34d399;--wrong:#ef4444;--warn-soft:rgba(239,68,68,0.04);--warn-border:rgba(239,68,68,0.18);}
+*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:48px 0 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;max-width:760px;margin:0 auto;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(52,211,153,0.05) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;padding:0 24px;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-back:hover{color:var(--text-dim);}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--eng);background:var(--eng-soft);border:1px solid var(--eng-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}.hero h1{font-size:26px;font-weight:900;line-height:1.3;margin-bottom:8px;letter-spacing:-0.5px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;}.htag-e{background:var(--eng-soft);color:var(--eng);border:1px solid var(--eng-border);}
+.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}.sn{font-size:10px;font-weight:700;letter-spacing:3px;color:var(--tama);opacity:0.7;margin-bottom:6px;text-transform:uppercase;}.st{font-size:20px;font-weight:800;margin-bottom:4px;letter-spacing:-0.3px;}.st-jp{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:var(--text-muted);margin-bottom:20px;}.section p{font-size:13px;color:var(--text-sub);line-height:2.0;margin-bottom:14px;}.section h3{font-size:15px;font-weight:700;color:var(--text);margin:40px 0 14px;padding-left:12px;border-left:3px solid var(--tama);}
+.ib{padding:18px 20px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:16px 0;}.ib-a{background:var(--tama-soft);border-color:var(--tama-border);border-left:3px solid var(--tama);}.ib-w{background:var(--warn-soft);border-color:var(--warn-border);border-left:3px solid var(--wrong);}.ib p,.ib div{font-size:12px;color:var(--text-dim);line-height:1.9;}.bl{font-size:10px;font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase;}.bl-t{color:var(--tama);}.bl-w{color:var(--wrong);}
+.pc{margin:20px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface);}.pc-h{padding:18px 20px;}.pc-num{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--tama);margin-bottom:6px;text-transform:uppercase;}.diff-badge{font-size:10px;padding:2px 8px;border-radius:6px;margin-left:6px;font-weight:700;letter-spacing:0.5px;}.diff-basic{background:rgba(52,211,153,0.08);color:#34d399;border:1px solid rgba(52,211,153,0.25);}.diff-real{background:rgba(245,158,11,0.08);color:#f59e0b;border:1px solid rgba(245,158,11,0.25);}.diff-hard{background:rgba(239,68,68,0.08);color:#ef4444;border:1px solid rgba(239,68,68,0.25);}.pc-title{font-size:15px;font-weight:700;color:var(--text);margin-bottom:12px;}.pc-passage{font-family:'Space Grotesk','Noto Sans KR',sans-serif;font-size:12px;color:var(--text-dim);line-height:2.0;padding:14px 16px;background:var(--surface-2);border-radius:8px;white-space:pre-line;margin-bottom:12px;}.pc-q{font-size:13px;color:var(--text-sub);padding:0 4px;line-height:1.8;}
+.at{width:100%;padding:12px 20px;background:var(--surface-2);border:none;border-top:1px solid var(--border);color:var(--text-muted);font-size:12px;font-weight:600;font-family:inherit;cursor:pointer;text-align:left;transition:all 0.2s;display:flex;align-items:center;justify-content:space-between;}.at:hover{color:var(--text-dim);background:var(--surface-3);}.at .ch{transition:transform 0.3s;font-size:14px;}.at.open .ch{transform:rotate(180deg);}.ac{max-height:0;overflow:hidden;transition:max-height 0.4s ease;}.ac.open{max-height:6000px;}
+.ab{padding:20px;border-top:1px solid var(--border);background:var(--solve-soft);}.ss{margin-bottom:14px;}.ss:last-child{margin-bottom:0;}.sl{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--solve);margin-bottom:4px;text-transform:uppercase;}.stx{font-size:12px;color:var(--text-sub);line-height:2.0;white-space:pre-line;}.sa{margin-top:16px;padding:12px 16px;background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.18);border-radius:8px;font-size:13px;font-weight:700;color:var(--correct);}
+.tab-bar{display:flex;gap:4px;margin:20px 0 0;overflow-x:auto;scrollbar-width:none;}.tab-bar::-webkit-scrollbar{display:none;}.tab-btn{flex:0 0 auto;padding:10px 18px;background:var(--surface);border:1px solid var(--border);border-bottom:none;border-radius:10px 10px 0 0;font-size:12px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.2s;font-family:inherit;white-space:nowrap;}.tab-btn:hover{color:var(--text-dim);}.tab-btn.active{background:var(--surface-2);color:var(--tama);border-color:var(--tama-border);}.tab-panel{display:none;padding:20px 0;border-top:1px solid var(--tama-border);margin-top:-1px;}.tab-panel.active{display:block;}.tab-count{font-size:10px;color:var(--text-muted);font-weight:400;margin-left:6px;}.tab-btn.active .tab-count{color:var(--tama);}
+/* Quiz */
+.qz-area{max-width:600px;margin:0 auto;}.qz-btn{display:inline-block;padding:10px 24px;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:inherit;}.qz-btn-primary{background:var(--tama);color:#0a0a0f;}.qz-btn-primary:hover{filter:brightness(1.1);}
+.qz-option{display:block;width:100%;text-align:left;padding:14px 18px;margin:6px 0;background:var(--surface);border:1.5px solid var(--border);border-radius:10px;color:var(--text-sub);font-size:13px;font-family:inherit;cursor:pointer;transition:all 0.15s;line-height:1.6;}.qz-option:hover:not(.locked){border-color:var(--tama-border);background:var(--tama-soft);}.qz-option.selected{border-color:var(--tama);background:var(--tama-soft);color:var(--text);font-weight:600;}.qz-option.correct-show{border-color:var(--correct);background:rgba(52,211,153,0.06);}.qz-option.wrong-show{border-color:var(--wrong);background:rgba(239,68,68,0.04);opacity:0.7;}
+.qz-progress{font-size:11px;color:var(--text-muted);margin-bottom:6px;}.qz-timer{font-size:13px;font-weight:700;color:var(--tama);font-family:'Space Grotesk',sans-serif;}.qz-timer.warn{color:var(--wrong);}
+.qz-result{text-align:center;padding:32px 20px;}.qz-result h2{font-size:20px;font-weight:800;margin-bottom:8px;}.qz-score{font-size:52px;font-weight:900;line-height:1;margin:8px 0;font-family:'Space Grotesk',sans-serif;color:var(--text);}.qz-score-label{font-size:12px;color:var(--text-muted);margin-bottom:20px;}.qz-breakdown{display:flex;justify-content:center;gap:16px;margin-bottom:24px;flex-wrap:wrap;}.qz-stat{text-align:center;min-width:70px;}.qz-stat-num{font-size:24px;font-weight:800;font-family:'Space Grotesk',sans-serif;}.qz-stat-num.green{color:var(--correct);}.qz-stat-num.red{color:var(--wrong);}.qz-stat-label{font-size:10px;color:var(--text-muted);margin-top:2px;}
+.type-nav{display:flex;gap:8px;margin-top:32px;flex-wrap:wrap;}.type-nav a{flex:1;min-width:200px;padding:14px 18px;background:var(--surface);border:1px solid var(--border);border-radius:10px;text-decoration:none;transition:all 0.2s;text-align:center;}.type-nav a:hover{border-color:var(--tama-border);background:var(--tama-soft);}.type-nav .nl{font-size:10px;color:var(--text-muted);margin-bottom:2px;}.type-nav .nt{font-size:13px;font-weight:700;color:var(--text);}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.hero h1{font-size:22px;}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-inner">
+<a href="tama-index.html" class="hero-back">← 玉手箱 전체 가이드</a>
+<div class="hero-label">玉手箱 · ENGLISH</div>
+<h1>玉手箱 영어검사 대책</h1>
+<div class="hero-sub">GAB형 영어독해(논리적독해 A/B/C) + IMAGES형 영어독해(취지판정) — 외자계·종합상사 빈출<br>유형 해설 + 예제 10문 + 미니 모의고사 8문</div>
+<div class="hero-tags">
+<span class="htag htag-e">GAB형 영어 24문/10분</span>
+<span class="htag htag-e">IMAGES형 영어 32문/10분</span>
+<span class="htag htag-e">외자계·상사 빈출</span>
+</div>
+</div></div>
+
+<div class="container">
+
+<!-- ═══ Section 1: 개요 ═══ -->
+<div class="section">
+<div class="sn">SECTION 01</div>
+<div class="st">玉手箱 영어검사란?</div>
+<div class="st-jp">玉手箱 英語検査の概要</div>
+<p>玉手箱 영어는 일본어 언어 검사와 동일한 형식을 영어 지문으로 출제합니다. GAB형(논리적독해)과 IMAGES형(취지판정) 두 유형 중 하나가 출제되며, 기업마다 다릅니다. 외자계 기업, 종합상사, 글로벌 메이커에서 빈출합니다.</p>
+
+<div class="ib ib-a">
+<div class="bl bl-t">출제 유형</div>
+<div>
+<strong>① GAB형 영어독해 (논리적독해)</strong><br>
+영어 장문(약 300~500단어)을 읽고 설문문이 A(논리적으로 맞다) / B(논리적으로 틀리다) / C(판단할 수 없다)인지 판별. 24문(8지문×3문)/10분. 1문당 25초.<br><br>
+<strong>② IMAGES형 영어독해 (취지판정)</strong><br>
+영어 장문(약 200~400단어)을 읽고 설문문이 본문의 취지에 합치하는지 4지선다로 판정. 32문(8지문×4문)/10분. 1문당 약19초.
+</div>
+</div>
+
+<div class="ib ib-w">
+<div class="bl bl-w">핵심 포인트</div>
+<div>
+<strong>일본어 玉手箱와 풀이 전략이 동일합니다.</strong> 영어 읽기 속도만 추가됩니다.<br>
+GAB형: 본문에 쓰여 있는 것만으로 판단. 상식·추측 절대 금지. C(판단 불가)가 가장 까다로움.<br>
+IMAGES형: 본문 전체의 취지(주장)와 일치하는 것 고르기. 부분 일치 함정 주의.<br>
+<strong>시간이 극도로 짧습니다.</strong> 영어 속독 훈련이 핵심. 모르는 지문은 과감히 넘기세요.
+</div>
+</div>
+</div>
+
+<!-- ═══ Section 2: GAB형 예제 ═══ -->
+<div class="section">
+<div class="sn">SECTION 02</div>
+<div class="st">유형별 예제 10문</div>
+<div class="st-jp">タイプ別 例題10問</div>
+
+<div class="tab-bar">
+<button class="tab-btn active" onclick="showTab('gab-tab')">GAB형 영어독해<span class="tab-count">5</span></button>
+<button class="tab-btn" onclick="showTab('img-tab')">IMAGES형 영어독해<span class="tab-count">5</span></button>
+</div>
+
+<!-- GAB형 예제 -->
+<div class="tab-panel active" id="gab-tab">
+
+<p style="font-size:12px;color:var(--text-muted);margin-bottom:16px;">A = 본문에서 논리적으로 생각하여 설문문은 분명히 맞다 / B = 분명히 틀리다 / C = 판단할 수 없다</p>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">EX-01 <span class="diff-badge diff-basic">BASIC</span></div>
+<div class="pc-passage">The global electric vehicle market grew by 35% in 2024, with China accounting for over 60% of all EV sales worldwide. European markets also saw significant growth, driven by stricter emission regulations. However, adoption rates in North America remained relatively slow compared to other regions, partly due to limited charging infrastructure.</div>
+<div class="pc-q"><strong>설문:</strong> China was the largest market for electric vehicles in 2024.</div>
+</div><button class="at" onclick="toggleAcc(this)"><span>풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab"><div class="ss"><div class="sl">ANSWER</div><div class="stx">정답: <strong>A (맞다)</strong>
+"China accounting for over 60% of all EV sales" → 60% 이상이면 최대 시장이 맞음.
+본문에서 직접 도출 가능한 사실.</div></div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">EX-02 <span class="diff-badge diff-real">REAL</span></div>
+<div class="pc-passage">A recent study by McKinsey found that companies investing in employee wellbeing programs saw a 21% increase in productivity. The study, which surveyed 500 firms across 12 countries, also noted that mental health support was the most requested benefit among workers under 35. Despite these findings, only 38% of companies surveyed had implemented comprehensive wellbeing initiatives.</div>
+<div class="pc-q"><strong>설문:</strong> Most companies in the study had comprehensive wellbeing programs.</div>
+</div><button class="at" onclick="toggleAcc(this)"><span>풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab"><div class="ss"><div class="sl">ANSWER</div><div class="stx">정답: <strong>B (틀리다)</strong>
+"only 38% of companies surveyed had implemented" → 38%는 과반수 미달. "Most"는 틀림.</div></div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">EX-03 <span class="diff-badge diff-real">REAL</span></div>
+<div class="pc-passage">Japan's semiconductor industry, once dominant globally, has been working to regain its competitive edge. The government announced a $13 billion subsidy package to attract foreign chipmakers, with TSMC opening its first Japanese factory in Kumamoto. Industry analysts expect Japan's share of global chip production to increase from the current 10% to approximately 15% by 2030.</div>
+<div class="pc-q"><strong>설문:</strong> TSMC's Kumamoto factory is already fully operational.</div>
+</div><button class="at" onclick="toggleAcc(this)"><span>풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab"><div class="ss"><div class="sl">ANSWER</div><div class="stx">정답: <strong>C (판단할 수 없다)</strong>
+본문에는 "opening its first Japanese factory"만 언급. "fully operational"인지는 본문만으로 알 수 없음.
+GAB형에서 C가 가장 어렵다. 본문에 명시되지 않은 정보는 모두 C.</div></div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">EX-04 <span class="diff-badge diff-hard">HARD</span></div>
+<div class="pc-passage">The rise of generative AI has prompted significant debate about its impact on employment. A World Economic Forum report projects that AI will create 97 million new jobs by 2025 while displacing 85 million existing ones. The net effect is expected to be positive, but the transition will require massive reskilling programs, particularly for workers in routine cognitive tasks.</div>
+<div class="pc-q"><strong>설문:</strong> AI will eliminate more jobs than it creates, according to the report.</div>
+</div><button class="at" onclick="toggleAcc(this)"><span>풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab"><div class="ss"><div class="sl">ANSWER</div><div class="stx">정답: <strong>B (틀리다)</strong>
+create 97M > displace 85M. "net effect is expected to be positive". 숫자를 정확히 비교하면 B.
+수치 비교 문제는 GAB형 빈출 패턴.</div></div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">EX-05 <span class="diff-badge diff-hard">HARD</span></div>
+<div class="pc-passage">Telemedicine adoption surged during the pandemic, with virtual consultations increasing by 3,800% in 2020 alone. While many patients reported satisfaction with remote healthcare, studies indicate that diagnostic accuracy for certain conditions, particularly dermatological and musculoskeletal issues, remains lower in virtual settings compared to in-person examinations.</div>
+<div class="pc-q"><strong>설문:</strong> Telemedicine is less accurate than in-person care for all medical conditions.</div>
+</div><button class="at" onclick="toggleAcc(this)"><span>풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab"><div class="ss"><div class="sl">ANSWER</div><div class="stx">정답: <strong>B (틀리다)</strong>
+"certain conditions, particularly dermatological and musculoskeletal" → 특정 분야만 언급. "all medical conditions"는 과도한 일반화 → B.
+"all", "every", "always" 같은 전칭 표현은 함정 시그널.</div></div></div></div></div>
+
+</div>
+
+<!-- IMAGES형 예제 -->
+<div class="tab-panel" id="img-tab">
+
+<p style="font-size:12px;color:var(--text-muted);margin-bottom:16px;">본문의 취지(저자의 주장)에 가장 가까운 선택지를 고르세요.</p>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">EX-06 <span class="diff-badge diff-basic">BASIC</span></div>
+<div class="pc-passage">Diversity in the workplace is no longer just a moral imperative — it is a business necessity. Research consistently shows that diverse teams outperform homogeneous ones in innovation and problem-solving. Companies that embrace diversity are better positioned to understand global markets and attract top talent from a wider pool.</div>
+<div class="pc-q"><strong>이 본문의 취지로 가장 적절한 것은?</strong><br>
+A. 다양성은 도덕적 이유로만 중요하다<br>
+B. 다양성은 비즈니스 성과에도 직결되는 필수 요소다<br>
+C. 동질적인 팀이 혁신에 더 유리하다<br>
+D. 다양성은 특정 업종에서만 효과가 있다</div>
+</div><button class="at" onclick="toggleAcc(this)"><span>풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab"><div class="ss"><div class="sl">ANSWER</div><div class="stx">정답: <strong>B</strong>
+"no longer just a moral imperative — it is a business necessity" → 핵심 주장은 비즈니스 필수.
+A는 "도덕적 이유로만"이라서 오답 (본문은 "더 이상 도덕만이 아니다"고 함).</div></div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">EX-07 <span class="diff-badge diff-real">REAL</span></div>
+<div class="pc-passage">The shift toward subscription-based business models has transformed industries from software to food delivery. While subscriptions offer predictable revenue streams for companies, consumer fatigue is becoming a growing concern. A recent survey found that the average household manages 12 active subscriptions, and 40% of respondents reported canceling at least one service in the past six months due to cost concerns.</div>
+<div class="pc-q"><strong>이 본문의 취지로 가장 적절한 것은?</strong><br>
+A. 구독 모델은 모든 업종에서 성공적이다<br>
+B. 소비자는 구독 서비스에 매우 만족하고 있다<br>
+C. 구독 모델은 기업에 유리하지만 소비자 피로감이라는 과제가 있다<br>
+D. 구독 모델은 곧 사라질 것이다</div>
+</div><button class="at" onclick="toggleAcc(this)"><span>풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab"><div class="ss"><div class="sl">ANSWER</div><div class="stx">정답: <strong>C</strong>
+"predictable revenue streams for companies" + "consumer fatigue is becoming a growing concern" → 양면을 다루는 C가 취지.
+A의 "모든 업종"은 과도한 일반화, D의 "사라질 것"은 본문에 없음.</div></div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">EX-08 <span class="diff-badge diff-real">REAL</span></div>
+<div class="pc-passage">The concept of "quiet quitting" — doing the minimum required at work — has sparked heated debate. Proponents argue it represents healthy boundary-setting, while critics view it as disengagement. However, organizational psychologists suggest the phenomenon reflects deeper systemic issues: lack of career growth opportunities, inadequate compensation, and poor management practices that fail to motivate employees.</div>
+<div class="pc-q"><strong>이 본문의 취지로 가장 적절한 것은?</strong><br>
+A. 조용한 퇴직은 게으른 직원의 핑계다<br>
+B. 조용한 퇴직은 건전한 경계 설정의 표현이다<br>
+C. 조용한 퇴직의 본질은 개인 문제가 아닌 조직 구조의 문제다<br>
+D. 조용한 퇴직은 일시적 유행이다</div>
+</div><button class="at" onclick="toggleAcc(this)"><span>풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab"><div class="ss"><div class="sl">ANSWER</div><div class="stx">정답: <strong>C</strong>
+"reflects deeper systemic issues" → 저자(심리학자)의 주장은 시스템적 문제.
+A와 B는 각각 찬반 의견일 뿐 본문의 최종 주장이 아님 — IMAGES형의 전형적 함정.</div></div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">EX-09 <span class="diff-badge diff-hard">HARD</span></div>
+<div class="pc-passage">While renewable energy costs have plummeted over the past decade, the intermittency problem remains the Achilles heel of solar and wind power. Battery storage technology is improving rapidly, but current solutions cannot yet provide the reliability needed for baseload power generation. Until grid-scale storage becomes economically viable, natural gas will continue to serve as a crucial bridge fuel in the energy transition.</div>
+<div class="pc-q"><strong>이 본문의 취지로 가장 적절한 것은?</strong><br>
+A. 재생에너지는 이미 모든 면에서 화석연료보다 우수하다<br>
+B. 축전 기술이 해결되기 전까지 천연가스가 과도기적으로 필요하다<br>
+C. 천연가스는 영원히 주요 에너지원으로 남을 것이다<br>
+D. 배터리 기술은 더 이상 발전할 여지가 없다</div>
+</div><button class="at" onclick="toggleAcc(this)"><span>풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab"><div class="ss"><div class="sl">ANSWER</div><div class="stx">정답: <strong>B</strong>
+"natural gas will continue to serve as a crucial bridge fuel" + "Until grid-scale storage becomes economically viable" → 조건부 과도기론.
+C의 "영원히"는 "bridge fuel"과 모순. A는 "intermittency problem remains"와 모순.</div></div></div></div></div>
+
+<div class="pc"><div class="pc-h"><div class="pc-num">EX-10 <span class="diff-badge diff-hard">HARD</span></div>
+<div class="pc-passage">The democratization of AI tools has lowered the barrier to entry for startups, but this accessibility cuts both ways. While founders can now build MVPs faster than ever, the ease of replication means that competitive moats based solely on technology are increasingly shallow. In this environment, startups that combine AI capabilities with deep domain expertise and proprietary data will be the ones that survive the inevitable market consolidation.</div>
+<div class="pc-q"><strong>이 본문의 취지로 가장 적절한 것은?</strong><br>
+A. AI 도구의 보급으로 스타트업의 미래는 밝기만 하다<br>
+B. 기술만으로는 차별화가 어려우며, 도메인 전문성과 독점 데이터가 생존의 열쇠다<br>
+C. AI 스타트업은 모두 실패할 것이다<br>
+D. 대기업만이 AI 시대에서 살아남을 수 있다</div>
+</div><button class="at" onclick="toggleAcc(this)"><span>풀이 보기</span><span class="ch">▼</span></button><div class="ac"><div class="ab"><div class="ss"><div class="sl">ANSWER</div><div class="stx">정답: <strong>B</strong>
+"competitive moats based solely on technology are increasingly shallow" + "combine AI capabilities with deep domain expertise and proprietary data" → 기술+전문성+데이터 조합이 핵심.
+A는 "cuts both ways"를 무시한 해석.</div></div></div></div></div>
+
+</div>
+</div>
+
+<!-- ═══ Section 3: 미니 모의고사 ═══ -->
+<div class="section">
+<div class="sn">SECTION 03</div>
+<div class="st">영어 미니 모의고사</div>
+<div class="st-jp">英語ミニ模擬テスト 8問</div>
+<p>GAB형 4문 + IMAGES형 4문 = 8문, 제한시간 5분</p>
+<div class="qz-area" id="engQuizApp"></div>
+</div>
+
+<!-- ═══ Section 4: 학습 전략 ═══ -->
+<div class="section">
+<div class="sn">SECTION 04</div>
+<div class="st">玉手箱 영어 학습 전략</div>
+
+<div class="ib ib-a">
+<div class="bl bl-t">핵심 전략 3가지</div>
+<div>
+<strong>1. 일본어 GAB/IMAGES를 먼저 마스터하라</strong> — 풀이 로직이 동일. 영어로 넘어가면 읽기 속도만 추가됨.<br>
+<strong>2. 영어 속독 훈련</strong> — 1분에 200단어 이상 읽는 속도가 필요. 영자신문·비즈니스 기사를 매일 1편씩 시간 재고 읽기.<br>
+<strong>3. "all/every/always" 전칭 표현을 의심하라</strong> — GAB형에서 B(틀리다)의 80%는 과도한 일반화. IMAGES형에서도 동일.
+</div>
+</div>
+
+<div class="ib">
+<div class="bl" style="color:var(--text-muted);">시간 배분</div>
+<div>
+GAB형 24문/10분: 지문당 약75초(읽기 45초 + 설문 3개×10초)<br>
+IMAGES형 32문/10분: 지문당 약75초(읽기 40초 + 설문 4개×8초)<br>
+→ 모르는 지문은 30초 안에 찍고 넘기기. 시간 내 전문 풀기가 최우선.
+</div>
+</div>
+</div>
+
+<!-- 하단 네비 -->
+<div class="type-nav">
+<a href="tama-gengo-index.html"><div class="nl">← PREV</div><div class="nt">언어 개요</div></a>
+<a href="tama-keisu-index.html"><div class="nl">NEXT →</div><div class="nt">계수 개요</div></a>
+</div>
+
+<div class="footer">
+<p><span class="brand">Tokyo Career Studio</span> — 적성검사 대책 가이드</p>
+<p>© 2025 Tokyo Career Studio. All rights reserved.</p>
+</div>
+</div>
+
+<script>
+function showTab(id){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById(id).classList.add('active');event.target.closest('.tab-btn')?.classList.add('active')||(event.target.classList.add('active'));}
+function toggleAcc(btn){btn.classList.toggle('open');btn.nextElementSibling.classList.toggle('open');}
+
+/* ═══ 모의고사 8문 ═══ */
+const BANK=[
+  // GAB형 (A/B/C 판정)
+  {cat:'GAB형',passage:'Digital payment adoption in Japan has historically lagged behind other developed nations, with cash accounting for over 70% of transactions as recently as 2019. However, the pandemic accelerated cashless adoption significantly, and by 2024, digital payments represented approximately 40% of all consumer transactions. The government has set a target of 80% cashless adoption by 2030.',q:'Cash is no longer used for any transactions in Japan.',opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],ans:1,exp:'"approximately 40% digital" → 60%는 여전히 현금 포함. "no longer used for any"는 B.'},
+  {cat:'GAB형',passage:'Artificial intelligence in healthcare has shown remarkable progress in diagnostic imaging. Studies demonstrate that AI systems can detect certain cancers in radiology scans with accuracy rates exceeding 95%, sometimes outperforming human radiologists. However, regulatory frameworks for AI-assisted diagnosis vary significantly across countries, creating uncertainty for medical device companies seeking global market access.',q:'AI systems are more accurate than human doctors in all medical diagnoses.',opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],ans:1,exp:'"certain cancers in radiology scans"만 언급. "all medical diagnoses"는 과도한 일반화 → B.'},
+  {cat:'GAB형',passage:'The four-day work week has been trialed in several countries with promising results. A large-scale pilot in the UK involving 61 companies found that revenue remained stable or increased in 92% of participating firms, while employee burnout decreased significantly. Most participating companies chose to continue the arrangement after the trial period ended.',q:'Revenue decreased in the majority of companies that participated in the UK pilot.',opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],ans:1,exp:'"revenue remained stable or increased in 92%"→ 감소한 곳은 최대 8%. "majority"는 B.'},
+  {cat:'GAB형',passage:'Space tourism has transitioned from science fiction to commercial reality. Companies like SpaceX and Blue Origin now offer suborbital flights to private citizens, with ticket prices ranging from $250,000 to $450,000. While the market is currently limited to ultra-high-net-worth individuals, industry projections suggest prices could fall below $100,000 within a decade as technology matures and competition increases.',q:'Space tourism tickets are currently affordable for most consumers.',opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],ans:1,exp:'"limited to ultra-high-net-worth individuals" + $250K~$450K → "most consumers"에게 affordable은 B.'},
+  {cat:'GAB형',passage:'The global supply of rare earth elements is heavily concentrated, with China controlling approximately 60% of mining and 90% of processing capacity. Western nations have begun investing in alternative supply chains, including deep-sea mining and recycling from electronic waste. Australia and Canada have also expanded their mining operations to reduce dependence on Chinese supply.',q:'Japan has started mining rare earth elements domestically.',opts:['A. 맞다','B. 틀리다','C. 판단할 수 없다'],ans:2,exp:'본문에 일본의 채굴에 대한 언급 없음 → C. 본문에 없으면 C.'},
+  // IMAGES형 (취지판정)
+  {cat:'IMAGES형',passage:'Remote work has fundamentally altered the commercial real estate landscape. Office vacancy rates in major cities have reached historic highs, prompting landlords to convert underutilized spaces into residential units or mixed-use developments. Rather than signaling the death of the office, this transformation reflects a broader shift toward flexible work arrangements that combine remote and in-person collaboration.',q:'이 본문의 취지로 가장 적절한 것은?',opts:['오피스가 완전히 사라질 것이다','원격근무로 상업용 부동산이 변화하고 있지만 오피스 자체는 없어지지 않는다','부동산 투자는 더 이상 수익이 나지 않는다','모든 기업이 완전 원격근무로 전환했다'],ans:1,exp:'"Rather than signaling the death of the office, this transformation reflects a broader shift" → 변화 중이지만 소멸은 아님.'},
+  {cat:'IMAGES형',passage:'Corporate ESG reporting has moved from voluntary to increasingly mandatory across major economies. The EU\'s Corporate Sustainability Reporting Directive now requires large companies to disclose detailed environmental and social metrics. While standardization efforts are underway, the lack of universal reporting frameworks means that comparing ESG performance across companies and regions remains challenging.',q:'이 본문의 취지로 가장 적절한 것은?',opts:['ESG 보고는 완전히 표준화되어 비교가 쉽다','ESG 보고가 의무화되는 추세이나 표준화 부재로 비교가 어렵다','ESG 보고는 기업에 불필요한 부담이다','EU만이 ESG 규제를 시행하고 있다'],ans:1,exp:'"moved from voluntary to increasingly mandatory" + "lack of universal reporting frameworks" → 의무화 추세 + 표준화 미비.'},
+  {cat:'IMAGES형',passage:'The rise of plant-based meat alternatives initially disrupted the food industry, with companies like Beyond Meat and Impossible Foods capturing significant market share. However, recent data shows a plateau in sales growth as consumers express concerns about ultra-processed ingredients and high sodium content. Traditional meat producers have responded by improving animal welfare standards and launching their own sustainable product lines.',q:'이 본문의 취지로 가장 적절한 것은?',opts:['대체육 시장은 계속 급성장하고 있다','대체육의 초기 성장세가 둔화되고 있으며 기존 육류업계도 대응하고 있다','소비자는 대체육에 완전히 만족하고 있다','전통 육류 산업은 대체육에 의해 완전히 대체될 것이다'],ans:1,exp:'"plateau in sales growth" + "Traditional meat producers have responded" → 성장 둔화 + 기존 업계 대응. 양면을 다루는 B가 취지.'},
+  {cat:'IMAGES형',passage:'The concept of "smart cities" promises to use technology and data to improve urban living. Sensors, AI-powered traffic management, and connected infrastructure can reduce energy consumption and improve public services. Critics, however, warn that smart city initiatives often prioritize surveillance capabilities over citizen privacy, and that the benefits tend to flow disproportionately to affluent neighborhoods while underserved communities are left behind.',q:'이 본문의 취지로 가장 적절한 것은?',opts:['스마트 시티는 모든 시민에게 공평한 혜택을 준다','스마트 시티는 잠재력이 크지만 프라이버시와 형평성 문제가 동반된다','스마트 시티 기술은 아직 실용화 단계가 아니다','스마트 시티는 감시 목적으로만 사용된다'],ans:1,exp:'"promises to improve" + "critics warn surveillance / disproportionately" → 잠재력 + 과제 양면.'},
+];
+
+const QUIZ_SIZE=8, TIME_LIMIT=300;
+let questions=[],answers=[],current=0,timer=TIME_LIMIT,timerInterval=null,phase='start';
+const app=document.getElementById('engQuizApp');
+
+function stratifiedPick(bank,size){
+  const byCat={};bank.forEach(q=>{(byCat[q.cat]=byCat[q.cat]||[]).push(q);});
+  const targets={'GAB형':4,'IMAGES형':4};
+  let picked=[];
+  Object.entries(targets).forEach(([cat,n])=>{
+    const pool=(byCat[cat]||[]).slice();
+    for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
+    picked=picked.concat(pool.slice(0,n));
+  });
+  return picked;
+}
+function formatTime(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+function startQuiz(){questions=stratifiedPick(BANK,QUIZ_SIZE);answers=new Array(questions.length).fill(null);current=0;phase='quiz';timer=TIME_LIMIT;if(timerInterval)clearInterval(timerInterval);timerInterval=setInterval(()=>{timer--;if(timer<=0){clearInterval(timerInterval);phase='result';render();}renderTimer();},1000);render();}
+function renderTimer(){const el=document.querySelector('.qz-timer');if(el){el.textContent=formatTime(timer);el.classList.toggle('warn',timer<=60);}}
+function render(){if(phase==='start')return renderStart();if(phase==='result')return renderResult();renderQuiz();}
+function renderStart(){app.innerHTML=`<div style="text-align:center;padding:24px 0;"><h3 style="font-size:18px;margin-bottom:8px;">🇬🇧 玉手箱 영어 미니 모의고사</h3><p style="font-size:12px;color:var(--text-dim);margin-bottom:16px;">GAB형 4문 + IMAGES형 4문 = 8문 | 제한시간 5분</p><button class="qz-btn qz-btn-primary" onclick="startQuiz()" style="font-size:15px;padding:14px 40px;">시작하기</button></div>`;}
+
+function renderQuiz(){
+  const q=questions[current],a=answers[current],locked=a&&a.locked;
+  let dots='';for(let i=0;i<questions.length;i++){dots+=`<div style="display:inline-block;width:8px;height:8px;border-radius:50%;margin:0 3px;background:${i===current?'var(--tama)':answers[i]?(answers[i].correct?'var(--correct)':'var(--wrong)'):'var(--surface-2)'};"></div>`;}
+  let optsHTML=q.opts.map((o,i)=>{let cls='qz-option';if(locked){cls+=' locked';if(i===q.ans)cls+=' correct-show';if(a&&a.selected===i&&!a.correct)cls+=' wrong-show';}else if(a&&a.selected===i)cls+=' selected';return`<button class="${cls}" onclick="selectOpt(${i})">${o}</button>`;}).join('');
+  let expHTML='';if(locked){expHTML=`<div style="margin-top:12px;padding:12px 16px;background:var(--solve-soft);border:1px solid var(--tama-border);border-radius:8px;font-size:12px;color:var(--text-sub);line-height:1.8;"><strong style="color:var(--tama);">해설:</strong> ${q.exp}</div>`;}
+  let btnHTML='';if(locked){btnHTML=current<questions.length-1?`<button class="qz-btn qz-btn-primary" onclick="current++;render();" style="margin-top:16px;">다음 →</button>`:`<button class="qz-btn qz-btn-primary" onclick="clearInterval(timerInterval);phase='result';render();" style="margin-top:16px;">결과 보기</button>`;}else{btnHTML=`<button class="qz-btn qz-btn-primary" onclick="confirmAnswer()" style="margin-top:16px;${!a?'opacity:0.4;cursor:default;':''}" ${!a?'disabled':''}>확인</button>`;}
+  app.innerHTML=`<div style="padding:16px 0;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"><div class="qz-progress">${current+1}/${questions.length}　<span style="padding:2px 8px;background:var(--tama-soft);color:var(--tama);border-radius:4px;font-size:10px;font-weight:700;">${q.cat}</span></div><div class="qz-timer">${formatTime(timer)}</div></div><div style="margin-bottom:8px;">${dots}</div><div style="padding:14px 16px;background:var(--surface-2);border-radius:8px;margin-bottom:16px;font-size:12px;color:var(--text-dim);line-height:2.0;font-family:'Space Grotesk','Noto Sans KR',sans-serif;">${q.passage}</div><div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:12px;line-height:1.7;">${q.q}</div>${optsHTML}${expHTML}<div style="text-align:center;">${btnHTML}</div></div>`;
+}
+function selectOpt(i){if(answers[current]&&answers[current].locked)return;answers[current]={selected:i};render();}
+function confirmAnswer(){const a=answers[current];if(!a)return;a.correct=a.selected===questions[current].ans;a.locked=true;render();}
+
+function renderResult(){
+  const cc=answers.filter(a=>a&&a.correct).length,wc=answers.filter(a=>a&&!a.correct).length,tt=TIME_LIMIT-timer,avg=Math.round(tt/questions.length),pct=Math.round(cc/questions.length*100);
+  const hensachi=Math.min(80,Math.max(25,Math.round(50+(pct-55)*0.45)));
+  const cs={};questions.forEach((q,i)=>{if(!cs[q.cat])cs[q.cat]={total:0,correct:0};cs[q.cat].total++;if(answers[i]&&answers[i].correct)cs[q.cat].correct++;});
+  let bars=Object.entries(cs).map(([c,s])=>{const r=Math.round(s.correct/s.total*100);const co=r>=70?'var(--correct)':r>=40?'var(--tama)':'var(--wrong)';return`<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;"><span style="color:var(--text-sub);">${c}</span><span style="color:${co};font-weight:700;">${s.correct}/${s.total} (${r}%)</span></div><div style="height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;"><div style="height:100%;width:${r}%;background:${co};border-radius:3px;transition:width 0.5s;"></div></div></div>`;}).join('');
+  const catArr=Object.entries(cs).map(([c,s])=>({cat:c,rate:s.correct/s.total}));catArr.sort((a,b)=>a.rate-b.rate);
+  const weak=catArr.length>0&&catArr[0].rate<0.5?catArr[0].cat:'없음';
+  const strong=catArr.length>0&&catArr[catArr.length-1].rate>=0.5?catArr[catArr.length-1].cat:'없음';
+  try{const hist=JSON.parse(sessionStorage.getItem('tama_eng_history')||'[]');hist.push({date:new Date().toISOString(),pct,hensachi,correct:cc,total:questions.length,weak});if(hist.length>20)hist.splice(0,hist.length-20);sessionStorage.setItem('tama_eng_history',JSON.stringify(hist));}catch(e){}
+  const hist=JSON.parse(sessionStorage.getItem('tama_eng_history')||'[]');
+  let histHTML='';if(hist.length>1){histHTML='<div style="text-align:left;max-width:440px;margin:0 auto 20px;"><div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tama);margin-bottom:8px;text-transform:uppercase;">이번 탭 학습 이력</div>';hist.slice(-5).forEach((h,i)=>{const d=new Date(h.date);const ts=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');histHTML+=`<div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-muted);">#${hist.length-hist.slice(-5).length+i+1} ${ts}</span><span style="color:var(--text-sub);">${h.pct}% / 편차치 ${h.hensachi}</span></div>`;});histHTML+='</div>';}
+  app.innerHTML=`<div class="qz-result"><h2>영어 모의고사 결과</h2><div style="display:flex;justify-content:center;gap:24px;margin:20px 0 8px;flex-wrap:wrap;"><div><div style="font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-bottom:4px;">종합 정답률</div><div class="qz-score">${pct}<span style="font-size:24px;color:var(--text-dim);">%</span></div></div><div><div style="font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-bottom:4px;">예상 편차치</div><div class="qz-score" style="color:${hensachi>=55?'var(--correct)':hensachi>=45?'var(--tama)':'var(--wrong)'};">${hensachi}</div></div></div><div class="qz-score-label">${cc}문 정답 / ${questions.length}문</div><div class="qz-breakdown"><div class="qz-stat"><div class="qz-stat-num green">${cc}</div><div class="qz-stat-label">정답</div></div><div class="qz-stat"><div class="qz-stat-num red">${wc}</div><div class="qz-stat-label">오답</div></div><div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${avg}<span style="font-size:12px;">초</span></div><div class="qz-stat-label">문항 평균</div></div><div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${formatTime(tt)}</div><div class="qz-stat-label">총 소요</div></div></div><div style="text-align:left;max-width:440px;margin:0 auto 16px;"><div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tama);margin-bottom:12px;text-transform:uppercase;">유형별 정답률</div>${bars}</div><div style="max-width:440px;margin:0 auto 24px;display:flex;gap:12px;"><div style="flex:1;padding:12px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:8px;text-align:left;"><div style="font-size:10px;font-weight:700;color:var(--wrong);letter-spacing:1px;margin-bottom:4px;">약점 유형</div><div style="font-size:12px;color:var(--text-sub);">${weak}</div></div><div style="flex:1;padding:12px;background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.15);border-radius:8px;text-align:left;"><div style="font-size:10px;font-weight:700;color:var(--correct);letter-spacing:1px;margin-bottom:4px;">강점 유형</div><div style="font-size:12px;color:var(--text-sub);">${strong}</div></div></div>${histHTML}<div style="font-size:11px;color:var(--text-muted);margin-bottom:20px;line-height:1.8;">※ 예상 편차치는 정답률 기반 간이 추정값입니다. 참고용으로만 활용하세요.<br>※ 玉手箱 영어는 시간 내 전문 풀기가 핵심. 모르는 지문은 과감히 넘기세요.</div><div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;"><button class="qz-btn qz-btn-primary" onclick="phase='start';render();" style="font-size:15px;padding:14px 40px;">다시 도전하기</button><button class="qz-btn" onclick="location.href='tama-fullquiz.html';" style="font-size:13px;padding:12px 28px;background:var(--surface-2);color:var(--text-sub);border:1px solid var(--border);">풀 모의고사 도전 →</button></div></div>`;
+}
+render();
+</script>
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>

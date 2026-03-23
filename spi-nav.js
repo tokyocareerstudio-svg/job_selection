@@ -62,6 +62,8 @@
         { label: '③ 표빈칸추측', file: 'tama-keisu-kuukan.html' },
         { label: '── 성격검사', isHeader: true },
         { label: '🧠 玉手箱 OPQ', file: 'tama-seikaku.html' },
+        { label: '── 영어 (ENG)', isHeader: true },
+        { label: '🇬🇧 영어검사 대책', file: 'tama-english.html' },
       ]
     },
     {
