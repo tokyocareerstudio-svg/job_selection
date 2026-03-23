@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<script>
+(function(){
+  if (sessionStorage.getItem('tcs_auth') !== 'ok') {
+    sessionStorage.setItem('tcs_redirect', location.pathname.split('/').pop() || 'spi-flashcard.html');
+    location.replace('index.html');
+  }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>공식·암기 플래시카드 | Tokyo Career Studio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#141419;--surface-2:#1c1c24;--surface-3:#22222e;--border:#2a2a35;--text:#e8e8ed;--text-sub:#c0c0d0;--text-dim:#8888a0;--text-muted:#555568;--accent:#e17055;--spi:#6c5ce7;--spi-soft:rgba(108,92,231,0.06);--spi-border:rgba(108,92,231,0.18);--correct:#34d399;--wrong:#ef4444;--fc-front:#1e1e2a;--fc-back:#14141e;}
+*{margin:0;padding:0;box-sizing:border-box;}body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR','Noto Sans JP',sans-serif;line-height:1.8;font-size:15px;-webkit-font-smoothing:antialiased;}.container{max-width:760px;margin:0 auto;padding:0 24px 100px;}
+.hero{padding:48px 0 36px;border-bottom:1px solid var(--border);position:relative;overflow:hidden;max-width:760px;margin:0 auto;}.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(108,92,231,0.05) 0%,transparent 70%);pointer-events:none;}.hero-inner{position:relative;max-width:760px;margin:0 auto;padding:0 24px;}.hero-back{font-size:12px;color:var(--text-muted);text-decoration:none;transition:color 0.2s;display:inline-flex;align-items:center;gap:6px;margin-bottom:16px;}.hero-back:hover{color:var(--text-dim);}.hero-label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:3px;color:var(--spi);background:var(--spi-soft);border:1px solid var(--spi-border);padding:4px 12px;border-radius:12px;margin-bottom:16px;text-transform:uppercase;}.hero h1{font-size:26px;font-weight:900;line-height:1.3;margin-bottom:8px;letter-spacing:-0.5px;}.hero-sub{font-size:13px;color:var(--text-dim);line-height:1.9;margin-bottom:16px;}.hero-tags{display:flex;flex-wrap:wrap;gap:6px;}.htag{font-size:11px;padding:4px 12px;border-radius:100px;font-weight:500;}.htag-spi{background:var(--spi-soft);color:var(--spi);border:1px solid var(--spi-border);}
+/* flashcard */
+.fc-controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:24px 0 16px;}
+.fc-btn{padding:6px 16px;background:var(--surface);border:1px solid var(--border);border-radius:100px;font-size:11px;font-weight:600;color:var(--text-muted);cursor:pointer;transition:all 0.15s;font-family:inherit;}.fc-btn:hover{color:var(--text-dim);}.fc-btn.active{background:var(--spi-soft);color:var(--spi);border-color:var(--spi-border);}
+.fc-stats{margin-left:auto;font-size:11px;color:var(--text-muted);display:flex;gap:12px;align-items:center;}
+.fc-stats .green{color:var(--correct);font-weight:700;}.fc-stats .red{color:var(--wrong);font-weight:700;}
+.fc-wrap{perspective:1000px;margin:0 auto;max-width:560px;}
+.fc-card{width:100%;min-height:280px;position:relative;cursor:pointer;transform-style:preserve-3d;transition:transform 0.5s;}
+.fc-card.flipped{transform:rotateY(180deg);}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:32px 28px;text-align:center;}
+.fc-front{background:var(--fc-front);border:1px solid var(--spi-border);}
+.fc-back{background:var(--fc-back);border:1px solid var(--border);transform:rotateY(180deg);}
+.fc-cat{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--spi);text-transform:uppercase;margin-bottom:12px;}
+.fc-question{font-size:18px;font-weight:800;color:var(--text);line-height:1.5;margin-bottom:8px;}
+.fc-hint{font-size:12px;color:var(--text-muted);margin-top:8px;}
+.fc-answer{font-size:16px;font-weight:700;color:var(--correct);line-height:1.6;margin-bottom:8px;}
+.fc-detail{font-size:12px;color:var(--text-dim);line-height:1.9;white-space:pre-line;}
+.fc-example{font-size:12px;color:var(--text-muted);margin-top:12px;padding:10px 14px;background:var(--surface-2);border-radius:8px;text-align:left;line-height:1.8;}
+.fc-nav{display:flex;gap:12px;justify-content:center;margin-top:20px;align-items:center;}
+.fc-nav-btn{width:48px;height:48px;border-radius:12px;border:1px solid var(--border);background:var(--surface);color:var(--text-dim);font-size:18px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center;font-family:inherit;}.fc-nav-btn:hover{background:var(--surface-2);color:var(--text);}
+.fc-judge{display:flex;gap:10px;justify-content:center;margin-top:16px;}
+.fc-judge-btn{padding:12px 28px;border-radius:10px;border:none;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.15s;font-family:inherit;}.fc-correct{background:rgba(52,211,153,0.1);color:var(--correct);border:1px solid rgba(52,211,153,0.25);}.fc-correct:hover{background:rgba(52,211,153,0.18);}.fc-wrong{background:rgba(239,68,68,0.08);color:var(--wrong);border:1px solid rgba(239,68,68,0.2);}.fc-wrong:hover{background:rgba(239,68,68,0.15);}
+.fc-progress{font-size:13px;font-weight:700;color:var(--text-sub);min-width:60px;text-align:center;}
+.fc-complete{text-align:center;padding:40px 20px;}
+.fc-complete h2{font-size:22px;font-weight:800;margin-bottom:12px;}
+.fc-complete p{font-size:13px;color:var(--text-dim);margin-bottom:20px;line-height:1.8;}
+.section{padding:36px 0;border-bottom:1px solid rgba(255,255,255,0.03);}.section:last-child{border-bottom:none;}
+.footer{padding:40px 0 60px;border-top:1px solid var(--border);margin-top:20px;text-align:center;}.footer p{font-size:11px;color:var(--text-muted);line-height:1.8;}.footer .brand{font-weight:700;color:var(--text-dim);}
+@media(max-width:640px){.hero h1{font-size:22px;}.fc-card{min-height:240px;}.fc-question{font-size:16px;}.fc-controls{gap:6px;}}
+</style>
+</head>
+<body>
+<div class="hero"><div class="hero-inner">
+<a href="spi-index.html" class="hero-back">← SPI 전체 가이드</a>
+<div class="hero-label">FLASHCARD</div>
+<h1>공식·암기 플래시카드</h1>
+<div class="hero-sub">비언어 핵심 공식 52개 + 언어 오용주의 30개 = 총 82장<br>카드를 클릭하면 뒤집힙니다. 맞음/틀림을 체크하고 미암기만 반복하세요.</div>
+<div class="hero-tags">
+<span class="htag htag-spi">비언어 공식 52장</span>
+<span class="htag htag-spi">언어 오용주의 30장</span>
+<span class="htag htag-spi">랜덤 셔플</span>
+</div>
+</div></div>
+
+<div class="container">
+<div class="section">
+
+<div class="fc-controls">
+<button class="fc-btn active" onclick="setFilter('all')">전체</button>
+<button class="fc-btn" onclick="setFilter('비언어')">비언어 공식</button>
+<button class="fc-btn" onclick="setFilter('언어')">언어 오용주의</button>
+<button class="fc-btn" onclick="setFilter('wrong')">미암기만</button>
+<button class="fc-btn" onclick="shuffleDeck()" style="border-color:var(--spi-border);">🔀 셔플</button>
+<div class="fc-stats">
+<span>✅ <span class="green" id="correctCount">0</span></span>
+<span>❌ <span class="red" id="wrongCount">0</span></span>
+</div>
+</div>
+
+<div id="fcApp"></div>
+
+</div>
+
+<div class="footer">
+<p><span class="brand">Tokyo Career Studio</span> — 적성검사 대책 가이드</p>
+<p>© 2025 Tokyo Career Studio. All rights reserved.</p>
+</div>
+</div>
+
+<script>
+const CARDS = [
+  // ═══ 비언어: 순열·조합 (8) ═══
+  {cat:'비언어',sub:'순열·조합',q:'순열 nPr 공식',a:'nPr = n! / (n-r)!',d:'n개에서 r개를 순서 있게 뽑기',ex:'5P3 = 5×4×3 = 60'},
+  {cat:'비언어',sub:'순열·조합',q:'조합 nCr 공식',a:'nCr = n! / (r!(n-r)!)',d:'n개에서 r개를 순서 없이 뽑기',ex:'5C2 = 10'},
+  {cat:'비언어',sub:'순열·조합',q:'같은 것을 포함하는 순열',a:'n! / (a! × b! × ...)',d:'a개, b개 같은 것이 있을 때',ex:'MISSISSIPPI → 11!/(4!4!2!)'},
+  {cat:'비언어',sub:'순열·조합',q:'원형 순열',a:'(n-1)!',d:'원형으로 배치할 때의 경우의 수',ex:'5명이 원탁에 앉기 = 4! = 24'},
+  {cat:'비언어',sub:'순열·조합',q:'중복 조합',a:'n+r-1 C r',d:'n종류에서 중복 허용하여 r개 선택',ex:'3종류 음료 5개 선택 = 7C5 = 21'},
+  {cat:'비언어',sub:'순열·조합',q:'여사건 활용',a:'전체 - 조건을 만족하지 않는 수',d:'직접 세기 어려울 때 반대를 구해서 빼기',ex:'적어도 1명 당첨 = 전체 - 0명 당첨'},
+  {cat:'비언어',sub:'순열·조합',q:'곱의 법칙 vs 합의 법칙',a:'동시: 곱 / 택일: 합',d:'A이면서 B = A×B, A이거나 B = A+B',ex:'상의3×하의4 = 12벌'},
+  {cat:'비언어',sub:'순열·조합',q:'특정 조건이 있는 조합',a:'포함 필수: 나머지에서 뽑기\n제외 필수: 나머지에서 뽑기',d:'특정 인원 반드시 포함/제외 시',ex:'A 반드시 포함하여 5명 중 3명 뽑기 = 4C2'},
+
+  // ═══ 비언어: 확률 (8) ═══
+  {cat:'비언어',sub:'확률',q:'확률의 기본 공식',a:'P(A) = A가 일어나는 경우의 수 / 전체 경우의 수',d:'모든 경우가 동일하게 나올 때',ex:'주사위 짝수 = 3/6 = 1/2'},
+  {cat:'비언어',sub:'확률',q:'여사건의 확률',a:'P(Aᶜ) = 1 - P(A)',d:'적어도 1번은 = 1 - (한 번도 아닌)',ex:'적어도 1번 6 = 1-(5/6)ⁿ'},
+  {cat:'비언어',sub:'확률',q:'독립사건의 곱',a:'P(A∩B) = P(A) × P(B)',d:'A와 B가 서로 영향을 주지 않을 때',ex:'동전 2회 모두 앞면 = 1/2 × 1/2 = 1/4'},
+  {cat:'비언어',sub:'확률',q:'배반사건의 합',a:'P(A∪B) = P(A) + P(B)',d:'A와 B가 동시에 일어나지 않을 때',ex:'1 또는 2가 나올 확률 = 1/6 + 1/6 = 1/3'},
+  {cat:'비언어',sub:'확률',q:'일반 덧셈 정리',a:'P(A∪B) = P(A)+P(B)-P(A∩B)',d:'A와 B가 동시에 일어날 수도 있을 때',ex:'트럼프에서 하트 또는 킹'},
+  {cat:'비언어',sub:'확률',q:'조건부 확률',a:'P(A|B) = P(A∩B) / P(B)',d:'B가 일어난 조건에서 A의 확률',ex:'비 올 때 우산 가져올 확률'},
+  {cat:'비언어',sub:'확률',q:'반복 시행의 확률',a:'nCr × pʳ × (1-p)ⁿ⁻ʳ',d:'n회 중 r회 성공할 확률',ex:'3회 중 2회 성공, p=1/3 → 3C2×(1/3)²×(2/3)¹'},
+  {cat:'비언어',sub:'확률',q:'기댓값',a:'E = Σ(값 × 확률)',d:'각 결과값에 확률을 곱한 합',ex:'주사위 기댓값 = (1+2+3+4+5+6)/6 = 3.5'},
+
+  // ═══ 비언어: 속도·거리·시간 (8) ═══
+  {cat:'비언어',sub:'속도',q:'속도·거리·시간 기본',a:'거리 = 속도 × 시간\n속도 = 거리 / 시간\n시간 = 거리 / 속도',d:'「は(速)·じ(時)·き(距)」공식',ex:'시속 60km로 2시간 = 120km'},
+  {cat:'비언어',sub:'속도',q:'평균 속도 (왕복)',a:'2ab / (a+b)',d:'갈 때 속도 a, 올 때 속도 b의 왕복 평균\n(a+b)/2가 아님에 주의!',ex:'갈때40 올때60 → 2×40×60/100 = 48'},
+  {cat:'비언어',sub:'속도',q:'상대 속도 (같은 방향)',a:'|v₁ - v₂|',d:'두 물체가 같은 방향으로 이동 시',ex:'80km/h와 60km/h → 상대속도 20km/h'},
+  {cat:'비언어',sub:'속도',q:'상대 속도 (반대 방향)',a:'v₁ + v₂',d:'두 물체가 반대 방향으로 이동 시',ex:'80km/h와 60km/h → 상대속도 140km/h'},
+  {cat:'비언어',sub:'속도',q:'유수산(流水算)',a:'하류: (배+강) 속도\n상류: (배-강) 속도',d:'강의 흐름이 있는 배의 속도',ex:'배 10km/h, 강 2km/h → 하류12, 상류8'},
+  {cat:'비언어',sub:'속도',q:'열차의 통과 시간',a:'(열차길이+대상길이) / 속도',d:'열차가 터널·다리를 완전 통과할 때',ex:'200m 열차, 800m 터널, 시속72km → 1000/20 = 50초'},
+  {cat:'비언어',sub:'속도',q:'시계산 (시침과 분침)',a:'분침: 6°/분, 시침: 0.5°/분\n분침이 시침보다 5.5°/분 빠름',d:'몇 시 몇 분에 겹치는가/직각인가 등',ex:'3시 이후 겹침 = 90°÷5.5°/분 ≈ 16.36분'},
+  {cat:'비언어',sub:'속도',q:'단위 변환',a:'km/h → m/s: ×(1/3.6) 또는 ÷3.6\nm/s → km/h: ×3.6',d:'시속↔초속 변환',ex:'72km/h = 20m/s'},
+
+  // ═══ 비언어: 손익산 (7) ═══
+  {cat:'비언어',sub:'손익산',q:'이익률(利益率) 공식',a:'이익률 = (정가-원가)/원가 × 100%',d:'원가 기준의 이익 비율',ex:'원가800, 정가1000 → 이익률25%'},
+  {cat:'비언어',sub:'손익산',q:'할인율 공식',a:'할인율 = (정가-매가)/정가 × 100%',d:'정가 기준으로 얼마 할인했는가',ex:'정가1000, 매가800 → 할인율20%'},
+  {cat:'비언어',sub:'손익산',q:'정가 설정',a:'정가 = 원가 × (1 + 이익률)',d:'원가에 원하는 이익률을 곱해서 정가 산출',ex:'원가500, 이익률40% → 정가700'},
+  {cat:'비언어',sub:'손익산',q:'할인 후 판매가',a:'매가 = 정가 × (1 - 할인율)',d:'정가에서 할인율만큼 빼기',ex:'정가1000, 2할인 → 매가800'},
+  {cat:'비언어',sub:'손익산',q:'총이익 공식',a:'총이익 = 매가 - 원가\n(또는 Σ각 상품 이익)',d:'판매 가격에서 원가를 빼면 이익',ex:'매가1200-원가800 = 이익400'},
+  {cat:'비언어',sub:'손익산',q:'손익분기점(BEP)',a:'BEP = 고정비 / (단가 - 변동비)',d:'이익=0이 되는 판매 수량',ex:'고정비100만, 단가500, 변동비300 → 5000개'},
+  {cat:'비언어',sub:'손익산',q:'연속 할인',a:'최종가 = 정가 × (1-할인1) × (1-할인2)',d:'두 번 할인하면 곱해서 계산',ex:'10%+20% 할인 = ×0.9×0.8 = 0.72 (28% 할인, 30%가 아님!)'},
+
+  // ═══ 비언어: 집합 (6) ═══
+  {cat:'비언어',sub:'집합',q:'2집합 벤다이어그램',a:'|A∪B| = |A|+|B|-|A∩B|',d:'합집합 = 각각의 합 - 겹치는 부분',ex:'영어 20명+수학 15명-둘다 8명 = 27명'},
+  {cat:'비언어',sub:'집합',q:'3집합 벤다이어그램',a:'|A∪B∪C| = |A|+|B|+|C|\n-|A∩B|-|B∩C|-|A∩C|\n+|A∩B∩C|',d:'포함-배제 원리',ex:'전체에서 어느 것도 안 하는 사람 수 구하기'},
+  {cat:'비언어',sub:'집합',q:'여집합 (어느 쪽에도 속하지 않음)',a:'전체 - |A∪B|',d:'전체에서 합집합을 빼면 어디에도 속하지 않는 수',ex:'40명 중 A∪B=35명 → 어느 쪽도 안 = 5명'},
+  {cat:'비언어',sub:'집합',q:'"적어도 하나"의 집합',a:'적어도 하나 = A∪B = 전체 - 없음',d:'여사건 활용이 간편',ex:'적어도 하나 참가 = 전체 - 둘 다 미참가'},
+  {cat:'비언어',sub:'집합',q:'"만(だけ)" = 차집합',a:'A만 = |A| - |A∩B|',d:'A에는 속하지만 B에는 속하지 않는 수',ex:'영어만 = 영어20 - 둘다8 = 12명'},
+  {cat:'비언어',sub:'집합',q:'드모르간 법칙',a:'(A∪B)ᶜ = Aᶜ∩Bᶜ\n(A∩B)ᶜ = Aᶜ∪Bᶜ',d:'합집합의 여 = 각 여의 교\n교집합의 여 = 각 여의 합',ex:'A도 B도 아닌 = A가 아닌 AND B가 아닌'},
+
+  // ═══ 비언어: 정수·약배수 (7) ═══
+  {cat:'비언어',sub:'정수',q:'최대공약수(GCD) 구하기',a:'유클리드 호제법:\nGCD(a,b) = GCD(b, a mod b)',d:'나머지가 0이 될 때까지 반복',ex:'GCD(48,18) → GCD(18,12) → GCD(12,6) → 6'},
+  {cat:'비언어',sub:'정수',q:'최소공배수(LCM) 공식',a:'LCM(a,b) = a×b / GCD(a,b)',d:'두 수의 곱을 최대공약수로 나눔',ex:'LCM(12,18) = 216/6 = 36'},
+  {cat:'비언어',sub:'정수',q:'N 이하의 배수의 개수',a:'⌊N/a⌋',d:'N을 a로 나눈 몫(소수 이하 버림)',ex:'100 이하 7의 배수 = ⌊100/7⌋ = 14개'},
+  {cat:'비언어',sub:'정수',q:'나머지 정리 (합동식)',a:'a ≡ b (mod m) → a와 b는 m으로 나눈 나머지가 같다',d:'나머지끼리의 연산이 가능',ex:'17 ≡ 2 (mod 5), 13 ≡ 3 (mod 5) → 17×13 ≡ 6 ≡ 1 (mod 5)'},
+  {cat:'비언어',sub:'정수',q:'약수의 개수',a:'N = p₁ᵃ × p₂ᵇ × ...\n약수 개수 = (a+1)(b+1)...',d:'소인수분해 후 지수+1의 곱',ex:'72 = 2³×3² → (3+1)(2+1) = 12개'},
+  {cat:'비언어',sub:'정수',q:'연속 정수의 합',a:'S = n(처음+끝)/2',d:'등차수열의 합 공식',ex:'1+2+...+100 = 100×101/2 = 5050'},
+  {cat:'비언어',sub:'정수',q:'n진법 변환',a:'n진법→10진법: 각 자릿수×nᵏ의 합\n10진법→n진법: n으로 반복 나눗셈',d:'SPI에서는 2진법·8진법이 출제',ex:'1011₂ = 8+0+2+1 = 11₁₀'},
+
+  // ═══ 비언어: 기타 (8) ═══
+  {cat:'비언어',sub:'추론',q:'대우 명제',a:'P→Q의 대우 = ¬Q→¬P\n원래 명제와 진리값이 같다',d:'대우만 진리값이 같음 (역·이는 다를 수 있음)',ex:'"비가 오면 우산" ↔ "우산 안 가져옴 → 비 안 옴"'},
+  {cat:'비언어',sub:'추론',q:'순서 관계 정리법',a:'부등호로 일렬 정리 후 조건 대입',d:'A>B, B>C → A>C (추이율)',ex:'5명 키 비교: 조건 3개 → 일렬 나열'},
+  {cat:'비언어',sub:'추론',q:'거짓말쟁이 문제',a:'각 사람이 참/거짓이라고 가정\n→ 모순 없는 조합 찾기',d:'경우를 나눠서 소거',ex:'A:"B는 거짓말" → A가 참이면 B는 거짓'},
+  {cat:'비언어',sub:'추론',q:'비율·비례식',a:'a:b = c:d → ad = bc (내항의 곱 = 외항의 곱)',d:'비례식의 기본',ex:'2:3 = x:12 → x = 8'},
+  {cat:'비언어',sub:'추론',q:'농도 계산',a:'농도% = 소금/소금물 × 100\n소금 = 소금물 × 농도%/100',d:'소금물 혼합 시 소금의 양으로 계산',ex:'10% 200g + 5% 300g → (20+15)/500 = 7%'},
+  {cat:'비언어',sub:'추론',q:'일의 양 (仕事算)',a:'전체=1, A가 x일 → 1일 작업량=1/x\n함께: 1/a + 1/b = 1일 합산 작업량',d:'공동 작업 시간 계산',ex:'A:6일, B:12일 → 함께 1/6+1/12=1/4 → 4일'},
+  {cat:'비언어',sub:'추론',q:'분할불·계산 (割り勘)',a:'총액을 비율로 나누기\nA:B = m:n → A = 총액×m/(m+n)',d:'비율대로 비용 분담',ex:'3000원을 2:1로 → 2000원, 1000원'},
+  {cat:'비언어',sub:'추론',q:'표·그래프 읽기 핵심',a:'① 단위 확인 (만/억, %/실수)\n② 증감률 = (나중-이전)/이전 × 100\n③ 구성비 = 부분/전체 × 100',d:'실수와 비율을 혼동하지 않기!',ex:'매출 10%↑ ≠ 이익 10%↑ (비용 구조가 다름)'},
+
+  // ═══ 언어: 오용주의 (30) ═══
+  {cat:'언어',sub:'오용주의',q:'「役不足」의 올바른 의미',a:'역할이 자기 실력에 비해 가볍다\n(X) 실력이 부족하다',d:'역부족의 의미가 아닌 "역할 부족"',ex:'그에게 과장은 役不足だ = 그에게는 너무 쉬운 직책이다'},
+  {cat:'언어',sub:'오용주의',q:'「敷居が高い」의 올바른 의미',a:'빚이나 잘못이 있어 가기 어렵다\n(X) 수준이 높아서 들어가기 어렵다',d:'심리적 부채감이 원래 의미',ex:'불의리가 있어서 그 가게는 敷居が高い'},
+  {cat:'언어',sub:'오용주의',q:'「情けは人の為ならず」',a:'남에게 베푸는 정은 결국 자기에게 돌아온다\n(X) 동정은 상대를 위해 되지 않는다',d:'위해 되지 않는다 = 오용',ex:'친절은 돌고 돌아 자신에게 온다'},
+  {cat:'언어',sub:'오용주의',q:'「確信犯」의 올바른 의미',a:'정치적·종교적 신념에 의한 범행\n(X) 나쁜 줄 알면서 하는 것',d:'현대 일본어에서는 오용이 널리 퍼져 있지만 SPI에서는 원래 의미로 출제',ex:'テロリストは確信犯だ (신념범)'},
+  {cat:'언어',sub:'오용주의',q:'「姑息」의 올바른 의미',a:'그때그때 임시방편의\n(X) 비겁한, 치사한',d:'비겁하다는 의미는 오용',ex:'姑息な対応 = 임시방편적 대응'},
+  {cat:'언어',sub:'오용주의',q:'「破天荒」의 올바른 의미',a:'지금까지 아무도 하지 못한 일을 해냄\n(X) 파격적이고 무모하다',d:'무모하다/거칠다는 의미가 아님',ex:'破天荒な快挙 = 전인미답의 쾌거'},
+  {cat:'언어',sub:'오용주의',q:'「潮時」의 올바른 의미',a:'적절한 때, 좋은 타이밍\n(X) 그만둘 때, 물러날 때',d:'부정적 의미가 아님',ex:'今が潮時だ = 지금이 적기다'},
+  {cat:'언어',sub:'오용주의',q:'「他力本願」의 올바른 의미',a:'아미타불의 본원력에 의한 구제\n(X) 타인에게 의지하는 것',d:'불교 용어가 원래 의미, SPI에서는 양쪽 모두 출제 가능',ex:'원래는 정토진종의 교리 용어'},
+  {cat:'언어',sub:'오용주의',q:'「気が置けない」의 올바른 의미',a:'마음 편하게 지낼 수 있는 (친밀한)\n(X) 방심할 수 없는, 경계해야 하는',d:'"놓을 수 없다"가 아닌 "놓아도 되는" 관계',ex:'気が置けない友人 = 편한 친구'},
+  {cat:'언어',sub:'오용주의',q:'「失笑する」의 올바른 의미',a:'참을 수 없어 웃음이 나오다\n(X) 어이없어서 웃지 못하다',d:'웃지 못하는 것이 아니라 웃음이 터지는 것',ex:'あまりにも面白くて失笑した'},
+  {cat:'언어',sub:'오용주의',q:'「煮詰まる」의 올바른 의미',a:'논의가 충분히 되어 결론에 가까워지다\n(X) 논의가 막혀서 진행이 안 되다',d:'막히다라는 의미는 오용',ex:'議論が煮詰まってきた = 결론이 가까워졌다'},
+  {cat:'언어',sub:'오용주의',q:'「おもむろに」의 올바른 의미',a:'천천히, 조용히\n(X) 갑자기, 불쑥',d:'急にの反対が正しい意味',ex:'おもむろに立ち上がった = 천천히 일어났다'},
+  {cat:'언어',sub:'오용주의',q:'「やぶさかでない」의 올바른 의미',a:'기꺼이 하겠다 (긍정)\n(X) 하기 싫다, 꺼린다',d:'이중부정 = 긍정',ex:'協力するにやぶさかでない = 기꺼이 협력하겠다'},
+  {cat:'언어',sub:'오용주의',q:'「号泣」의 올바른 의미',a:'크게 소리를 내어 울다\n(X) 눈물을 흘리며 울다',d:'소리를 내는 것이 포인트',ex:'号泣 = 소리 내어 울기 (静かに泣くは号泣でない)'},
+  {cat:'언어',sub:'오용주의',q:'「割愛する」의 올바른 의미',a:'아까운 것을 아쉽지만 빼다/양보하다\n(X) 불필요한 부분을 삭제하다',d:'아까움이 전제',ex:'紙面の都合で割愛します = 아쉽지만 생략'},
+  {cat:'언어',sub:'오용주의',q:'「琴線に触れる」의 올바른 의미',a:'감동하다, 공감하다 (긍정)\n(X) 화나게 하다, 신경을 건드리다',d:'逆鱗に触れる와 혼동 주의',ex:'彼の演説は琴線に触れた = 감동했다'},
+  {cat:'언어',sub:'오용주의',q:'「憮然」의 올바른 의미',a:'실망하여 멍하니 있는 모습\n(X) 화가 나서 뚱한 얼굴',d:'怒りではなく落胆の意味',ex:'憮然とした表情 = 실망한 표정'},
+  {cat:'언어',sub:'오용주의',q:'「御の字」의 올바른 의미',a:'매우 고맙고 감사한 것, 최상\n(X) 그럭저럭 만족, 타협점',d:'원래는 최상급의 감사를 표현',ex:'合格できれば御の字だ = 합격하면 더할 나위 없다'},
+  {cat:'언어',sub:'오용주의',q:'「さわり」의 올바른 의미',a:'이야기의 핵심·가장 감동적인 부분\n(X) 이야기의 도입부',d:'冒頭ではなくクライマックス',ex:'曲のさわり = 곡의 클라이맥스 부분'},
+  {cat:'언어',sub:'오용주의',q:'「にやける」의 올바른 의미',a:'나긋나긋하게 굴다, 연약해 보이다\n(X) 히죽히죽 웃다',d:'표정이 아니라 태도에 관한 말',ex:'원래 若気く에서 유래 = 젊은이처럼 나약해 보이다'},
+  {cat:'언어',sub:'오용주의',q:'「小春日和」의 올바른 의미',a:'늦가을~초겨울의 따뜻한 날씨\n(X) 봄처럼 포근한 날씨 (계절 무관)',d:'小春 = 음력 10월 (양력 11월경)',ex:'11月の小春日和 = 11월의 따뜻한 날'},
+  {cat:'언어',sub:'오용주의',q:'「檄を飛ばす」의 올바른 의미',a:'자기 주장을 널리 알려 동의·결기를 촉구하다\n(X) 격려하다, 발파를 걸다',d:'激励とは違う',ex:'同志に檄を飛ばす = 동지들에게 결기를 호소'},
+  {cat:'언어',sub:'오용주의',q:'「悲喜こもごも」의 올바른 의미',a:'한 사람이 기쁨과 슬픔을 번갈아 경험\n(X) 기뻐하는 사람과 슬퍼하는 사람이 뒤섞여 있다',d:'복수가 아닌 한 사람의 감정 변화',ex:'試験の結果に悲喜こもごもの思い = 한 사람의 복잡한 심경'},
+  {cat:'언어',sub:'오용주의',q:'「なし崩し」의 올바른 의미',a:'조금씩 처리해 나가다\n(X) 흐지부지하게 만들다, 유야무야',d:'少しずつ片付けるが本来の意味',ex:'借金をなし崩しに返す = 빚을 조금씩 갚다'},
+  {cat:'언어',sub:'오용주의',q:'「世間ずれ」의 올바른 의미',a:'세상 경험이 많아 교활해진\n(X) 세상과 동떨어진, 괴짜인',d:'ずれ = 擦れ(닳다)이지 ズレ(어긋남)가 아님',ex:'世間ずれした人 = 세파에 시달려 약삭빠른 사람'},
+  {cat:'언어',sub:'오용주의',q:'「白羽の矢が立つ」',a:'많은 사람 중에서 선발/지명되다\n(X) 좋은 의미로만 사용 (원래는 인신공양의 표적)',d:'원래는 불길한 의미였으나 현재는 발탁의 의미',ex:'プロジェクトリーダーに白羽の矢が立つ'},
+  {cat:'언어',sub:'오용주의',q:'「天地無用」의 올바른 의미',a:'(짐을) 뒤집지 마시오\n(X) 뒤집어도 상관없다',d:'無用 = ~하지 마라 (금지)',ex:'택배 상자의 天地無用 = 위아래를 바꾸지 마세요'},
+  {cat:'언어',sub:'오용주의',q:'「穿った見方」의 올바른 의미',a:'본질을 꿰뚫는 견해\n(X) 비뚤어진/삐딱한 시각',d:'穿つ = 꿰뚫다 (긍정적)',ex:'穿った意見 = 핵심을 찌르는 의견'},
+  {cat:'언어',sub:'오용주의',q:'「まんじりともしない」',a:'잠시도 잠들지 못하다\n(X) 미동도 하지 않다',d:'微動ではなく不眠',ex:'一晩中まんじりともしなかった = 밤새 한숨도 못 잤다'},
+  {cat:'언어',sub:'오용주의',q:'「圧巻」의 올바른 의미',a:'전체 중 가장 뛰어난 부분\n(X) 압도적이다 (형용사적 사용은 본래 오용)',d:'명사로서 "최고의 부분"을 가리킴',ex:'この映画の圧巻は最後のシーン = 이 영화의 백미는 마지막 장면'},
+];
+
+/* ═══ 플래시카드 엔진 ═══ */
+let deck = [...CARDS];
+let idx = 0;
+let correctSet = new Set();
+let wrongSet = new Set();
+let currentFilter = 'all';
+
+function shuffleDeck() {
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  idx = 0;
+  renderCard();
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.fc-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  if (f === 'all') deck = [...CARDS];
+  else if (f === 'wrong') deck = CARDS.filter((c, i) => wrongSet.has(CARDS.indexOf(c)) && !correctSet.has(CARDS.indexOf(c)));
+  else deck = CARDS.filter(c => c.cat === f);
+  if (deck.length === 0) {
+    document.getElementById('fcApp').innerHTML = `<div class="fc-complete"><h2>해당 카드가 없습니다</h2><p>${f === 'wrong' ? '틀린 카드가 없습니다. 전체를 다시 시작하세요!' : '이 카테고리에 카드가 없습니다.'}</p><button class="fc-btn" onclick="setFilter('all')" style="padding:12px 28px;">전체 보기</button></div>`;
+    return;
+  }
+  idx = 0;
+  shuffleDeck();
+}
+
+function renderCard() {
+  updateStats();
+  if (idx >= deck.length) {
+    document.getElementById('fcApp').innerHTML = `<div class="fc-complete">
+      <h2>🎉 한 바퀴 완료!</h2>
+      <p>✅ 맞음: ${correctSet.size}장 / ❌ 틀림: ${wrongSet.size - correctSet.size > 0 ? wrongSet.size : 0}장<br>미암기 카드만 필터링하여 반복하세요.</p>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
+        <button class="fc-btn" onclick="idx=0;renderCard();" style="padding:12px 28px;background:var(--spi-soft);color:var(--spi);border-color:var(--spi-border);">처음부터 다시</button>
+        <button class="fc-btn" onclick="setFilter('wrong')" style="padding:12px 28px;">미암기만 반복</button>
+        <button class="fc-btn" onclick="correctSet.clear();wrongSet.clear();setFilter('all')" style="padding:12px 28px;">초기화 후 전체</button>
+      </div>
+    </div>`;
+    return;
+  }
+  const c = deck[idx];
+  const globalIdx = CARDS.indexOf(c);
+  document.getElementById('fcApp').innerHTML = `
+    <div class="fc-wrap">
+      <div class="fc-card" id="fcCard" onclick="this.classList.toggle('flipped')">
+        <div class="fc-face fc-front">
+          <div class="fc-cat">${c.cat} · ${c.sub}</div>
+          <div class="fc-question">${c.q}</div>
+          <div class="fc-hint">카드를 클릭하면 뒤집힙니다</div>
+        </div>
+        <div class="fc-face fc-back">
+          <div class="fc-cat">${c.cat} · ${c.sub}</div>
+          <div class="fc-answer">${c.a}</div>
+          <div class="fc-detail">${c.d}</div>
+          ${c.ex ? `<div class="fc-example">💡 ${c.ex}</div>` : ''}
+        </div>
+      </div>
+    </div>
+    <div class="fc-judge">
+      <button class="fc-judge-btn fc-wrong" onclick="markWrong(${globalIdx})">❌ 틀림</button>
+      <button class="fc-judge-btn fc-correct" onclick="markCorrect(${globalIdx})">✅ 맞음</button>
+    </div>
+    <div class="fc-nav">
+      <button class="fc-nav-btn" onclick="prev()" ${idx===0?'disabled style="opacity:0.3;"':''}>◀</button>
+      <div class="fc-progress">${idx + 1} / ${deck.length}</div>
+      <button class="fc-nav-btn" onclick="next()">▶</button>
+    </div>`;
+}
+
+function markCorrect(gi) { correctSet.add(gi); wrongSet.delete(gi); next(); }
+function markWrong(gi) { wrongSet.add(gi); correctSet.delete(gi); next(); }
+function next() { idx = Math.min(idx + 1, deck.length); renderCard(); }
+function prev() { idx = Math.max(idx - 1, 0); renderCard(); }
+function updateStats() {
+  document.getElementById('correctCount').textContent = correctSet.size;
+  document.getElementById('wrongCount').textContent = wrongSet.size;
+}
+
+shuffleDeck();
+</script>
+<script src="spi-nav.js"></script>
+<script src="global-nav.js"></script>
+</body>
+</html>

@@ -37,6 +37,8 @@
         { label: '🧠 SPI 성격검사', file: 'spi-seikaku.html' },
         { label: '── 영어 (ENG)', isHeader: true },
         { label: '🇬🇧 영어검사 대책', file: 'spi-english.html' },
+        { label: '── 학습 도구', isHeader: true },
+        { label: '🃏 공식·암기 플래시카드', file: 'spi-flashcard.html' },
       ]
     },
     {
