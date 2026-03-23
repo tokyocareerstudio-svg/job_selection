@@ -35,6 +35,8 @@
         { label: '⑥ 정수', file: 'spi-higengo-seisu.html' },
         { label: '── 성격검사', isHeader: true },
         { label: '🧠 SPI 성격검사', file: 'spi-seikaku.html' },
+        { label: '── 영어 (ENG)', isHeader: true },
+        { label: '🇬🇧 영어검사 대책', file: 'spi-english.html' },
       ]
     },
     {
