@@ -562,7 +562,8 @@ function renderResult() {
   const totalTime = TIME_LIMIT - timer;
   const avgTime = Math.round(totalTime / questions.length);
   const pct = Math.round(correctCount / questions.length * 100);
-
+  /* 편차치 추정 */
+  const hensachi = Math.min(80, Math.max(25, Math.round(50 + (pct - 55) * 0.45)));
   // 카테고리별 분석
   const catStats = {};
   questions.forEach((q, i) => {
@@ -570,19 +571,37 @@ function renderResult() {
     catStats[q.cat].total++;
     if (answers[i] && answers[i].correct) catStats[q.cat].correct++;
   });
-  let catHTML = Object.entries(catStats).map(([cat, s]) => {
+  /* 언어/계수 분리 */
+  const langS={total:0,correct:0}, numS={total:0,correct:0};
+  questions.forEach((q,i)=>{if(q.cat.indexOf('언어')===0){langS.total++;if(answers[i]&&answers[i].correct)langS.correct++;}else{numS.total++;if(answers[i]&&answers[i].correct)numS.correct++;}});
+  const langPct=langS.total?Math.round(langS.correct/langS.total*100):0;
+  const numPct=numS.total?Math.round(numS.correct/numS.total*100):0;
+  /* 바차트 */
+  let bars = Object.entries(catStats).map(([cat, s]) => {
     const r = Math.round(s.correct / s.total * 100);
     const color = r >= 70 ? 'var(--correct)' : r >= 40 ? 'var(--tama)' : 'var(--wrong)';
-    return `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;">
-      <span style="color:var(--text-sub);">${cat}</span>
-      <span style="color:${color};font-weight:700;">${s.correct}/${s.total} (${r}%)</span>
-    </div>`;
+    return `<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;"><span style="color:var(--text-sub);">${cat}</span><span style="color:${color};font-weight:700;">${s.correct}/${s.total} (${r}%)</span></div><div style="height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;"><div style="height:100%;width:${r}%;background:${color};border-radius:3px;transition:width 0.5s;"></div></div></div>`;
   }).join('');
+  /* 강점/약점 판별 */
+  const catArr=Object.entries(catStats).map(([c,s])=>({cat:c,rate:s.correct/s.total}));catArr.sort((a,b)=>a.rate-b.rate);
+  const weak=catArr.length>0&&catArr[0].rate<0.5?catArr[0].cat:'없음';
+  const strong=catArr.length>0&&catArr[catArr.length-1].rate>=0.5?catArr[catArr.length-1].cat:'없음';
+  /* 약점 → 가이드 링크 */
+  const weakLinks={'언어·GAB형':'tama-gengo-gab.html','언어·IMAGES형':'tama-gengo-images.html','계수·도표읽기':'tama-keisu-zuhyo.html','계수·사칙역산':'tama-keisu-shisoku.html','계수·표빈칸':'tama-keisu-kuukan.html'};
+  const weakLink=weakLinks[weak]||'';
+  const weakHTML=weak!=='없음'&&weakLink?`<a href="${weakLink}" style="display:inline-block;margin-top:6px;font-size:11px;color:var(--tama);text-decoration:underline;">${weak} 집중 학습 →</a>`:'';
+  /* sessionStorage 학습 이력 */
+  try{const hist=JSON.parse(sessionStorage.getItem('tama_mini_history')||'[]');hist.push({date:new Date().toISOString(),pct:pct,hensachi:hensachi,correct:correctCount,total:questions.length,weak:weak});if(hist.length>20)hist.splice(0,hist.length-20);sessionStorage.setItem('tama_mini_history',JSON.stringify(hist));}catch(e){}
+  const hist=JSON.parse(sessionStorage.getItem('tama_mini_history')||'[]');
+  let histHTML='';if(hist.length>1){histHTML='<div style="text-align:left;max-width:440px;margin:0 auto 20px;"><div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tama);margin-bottom:8px;text-transform:uppercase;">이번 탭 학습 이력</div>';hist.slice(-5).forEach((h,i)=>{const d=new Date(h.date);const ts=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');histHTML+=`<div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-muted);">#${hist.length-hist.slice(-5).length+i+1} ${ts}</span><span style="color:var(--text-sub);">${h.pct}% / 편차치 ${h.hensachi}</span></div>`;});histHTML+='</div>';}
 
   app.innerHTML = `
     <div class="qz-result">
-      <h2>모의고사 결과</h2>
-      <div class="qz-score">${pct}<span style="font-size:24px;color:var(--text-dim);">%</span></div>
+      <h2>미니 모의고사 결과</h2>
+      <div style="display:flex;justify-content:center;gap:24px;margin:20px 0 8px;flex-wrap:wrap;">
+        <div><div style="font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-bottom:4px;">종합 정답률</div><div class="qz-score">${pct}<span style="font-size:24px;color:var(--text-dim);">%</span></div></div>
+        <div><div style="font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-bottom:4px;">예상 편차치</div><div class="qz-score" style="color:${hensachi>=55?'var(--correct)':hensachi>=45?'var(--tama)':'var(--wrong)'};">${hensachi}</div></div>
+      </div>
       <div class="qz-score-label">${correctCount}문 정답 / ${questions.length}문</div>
       <div class="qz-breakdown">
         <div class="qz-stat"><div class="qz-stat-num green">${correctCount}</div><div class="qz-stat-label">정답</div></div>
@@ -590,11 +609,26 @@ function renderResult() {
         <div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${avgTime}<span style="font-size:12px;">초</span></div><div class="qz-stat-label">문항 평균</div></div>
         <div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${formatTime(totalTime)}</div><div class="qz-stat-label">총 소요</div></div>
       </div>
-      <div style="text-align:left;max-width:400px;margin:0 auto 24px;">
-        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tama);margin-bottom:8px;text-transform:uppercase;">카테고리별 분석</div>
-        ${catHTML}
+      <div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;">
+        <div class="qz-stat" style="min-width:130px;"><div class="qz-stat-num" style="color:var(--tama);">${langPct}%</div><div class="qz-stat-label">언어 (${langS.correct}/${langS.total})</div></div>
+        <div class="qz-stat" style="min-width:130px;"><div class="qz-stat-num" style="color:var(--tama);">${numPct}%</div><div class="qz-stat-label">계수 (${numS.correct}/${numS.total})</div></div>
       </div>
-      <button class="qz-btn qz-btn-primary" onclick="phase='start';render();" style="font-size:15px;padding:14px 40px;">다시 도전하기</button>
+      <div style="text-align:left;max-width:440px;margin:0 auto 16px;">
+        <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tama);margin-bottom:12px;text-transform:uppercase;">유형별 정답률</div>${bars}
+      </div>
+      <div style="max-width:440px;margin:0 auto 24px;display:flex;gap:12px;">
+        <div style="flex:1;padding:12px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:8px;text-align:left;"><div style="font-size:10px;font-weight:700;color:var(--wrong);letter-spacing:1px;margin-bottom:4px;">약점 유형</div><div style="font-size:12px;color:var(--text-sub);">${weak}</div>${weakHTML}</div>
+        <div style="flex:1;padding:12px;background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.15);border-radius:8px;text-align:left;"><div style="font-size:10px;font-weight:700;color:var(--correct);letter-spacing:1px;margin-bottom:4px;">강점 유형</div><div style="font-size:12px;color:var(--text-sub);">${strong}</div></div>
+      </div>
+      ${histHTML}
+      <div style="font-size:11px;color:var(--text-muted);margin-bottom:20px;line-height:1.8;">
+        ※ 예상 편차치는 정답률 기반 간이 추정값입니다. 참고용으로만 활용하세요.<br>
+        ※ 玉手箱는 시간 내 정답 수가 핵심입니다. 모르는 문제는 빠르게 넘기는 연습을 하세요.
+      </div>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <button class="qz-btn qz-btn-primary" onclick="phase='start';render();" style="font-size:15px;padding:14px 40px;">다시 도전하기</button>
+        <button class="qz-btn" onclick="location.href='tama-fullquiz.html';" style="font-size:13px;padding:12px 28px;background:var(--surface-2);color:var(--text-sub);border:1px solid var(--border);">풀 모의고사 도전 →</button>
+      </div>
     </div>`;
 }
 

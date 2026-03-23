@@ -174,8 +174,60 @@ let opts=getOpts(q).map((o,i)=>{let c='qz-opt';if(locked){c+=' locked';if(i===q.
 let explain=locked?`<div class="qz-explain show"><div class="qz-explain-label">풀이</div><p>${q.explain}</p></div>`:'';
 let actions=locked?`<div class="qz-actions"><button class="qz-btn qz-btn-primary" onclick="${current===questions.length-1?'finishQuiz()':'nextQuestion()'}">${current===questions.length-1?'결과 보기':'다음 문제 →'}</button></div>`:'';
 app.innerHTML=`<div class="qz-header"><div class="qz-title"><span>TG-WEB</span> ${mode==='web'?'WEB型':'テストセンター'}</div><div class="qz-timer${timer<=30?' warn':''}">${formatTime(timer)}</div></div><div class="qz-progress">${dots}</div><div class="qz-card"><div class="qz-meta"><div class="qz-num">Q${current+1} / ${questions.length}</div><div class="qz-cat">${q.cat}</div></div><div class="qz-q">${getQ(q)}</div><div class="qz-opts">${opts}</div>${explain}${actions}</div>`;}
-function renderResult(){const cc=answers.filter(a=>a.correct).length,wc=answers.filter(a=>!a.correct).length,tt=TIME_LIMIT-timer,avg=Math.round(tt/questions.length),pct=Math.round(cc/questions.length*100);const cs={};questions.forEach((q,i)=>{if(!cs[q.cat])cs[q.cat]={total:0,correct:0};cs[q.cat].total++;if(answers[i]&&answers[i].correct)cs[q.cat].correct++;});let ch=Object.entries(cs).map(([c,s])=>{const r=Math.round(s.correct/s.total*100);const co=r>=70?'var(--correct)':r>=40?'var(--tg)':'var(--wrong)';return`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:12px;"><span style="color:var(--text-sub);">${c}</span><span style="color:${co};font-weight:700;">${s.correct}/${s.total} (${r}%)</span></div>`;}).join('');
-app.innerHTML=`<div class="qz-result"><h2>모의고사 결과</h2><div class="qz-score">${pct}<span style="font-size:24px;color:var(--text-dim);">%</span></div><div class="qz-score-label">${cc}문 정답 / ${questions.length}문</div><div class="qz-breakdown"><div class="qz-stat"><div class="qz-stat-num green">${cc}</div><div class="qz-stat-label">정답</div></div><div class="qz-stat"><div class="qz-stat-num red">${wc}</div><div class="qz-stat-label">오답</div></div><div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${avg}<span style="font-size:12px;">초</span></div><div class="qz-stat-label">문항 평균</div></div><div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${formatTime(tt)}</div><div class="qz-stat-label">총 소요</div></div></div><div style="text-align:left;max-width:400px;margin:0 auto 24px;"><div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tg);margin-bottom:8px;text-transform:uppercase;">카테고리별 분석</div>${ch}</div><button class="qz-btn qz-btn-primary" onclick="phase='start';render();" style="font-size:15px;padding:14px 40px;">다시 도전하기</button></div>`;}
+function renderResult(){const cc=answers.filter(a=>a.correct).length,wc=answers.filter(a=>!a.correct).length,tt=TIME_LIMIT-timer,avg=Math.round(tt/questions.length),pct=Math.round(cc/questions.length*100);
+/* 편차치 추정 */
+const hensachi=Math.min(80,Math.max(25,Math.round(50+(pct-55)*0.45)));
+const cs={};questions.forEach((q,i)=>{if(!cs[q.cat])cs[q.cat]={total:0,correct:0};cs[q.cat].total++;if(answers[i]&&answers[i].correct)cs[q.cat].correct++;});
+/* 종래형/신형 분리 */
+const juraiS={total:0,correct:0},shinS={total:0,correct:0};
+questions.forEach((q,i)=>{if(q.cat.indexOf('종래형')===0){juraiS.total++;if(answers[i]&&answers[i].correct)juraiS.correct++;}else{shinS.total++;if(answers[i]&&answers[i].correct)shinS.correct++;}});
+const juraiPct=juraiS.total?Math.round(juraiS.correct/juraiS.total*100):0;
+const shinPct=shinS.total?Math.round(shinS.correct/shinS.total*100):0;
+/* 바차트 */
+let bars=Object.entries(cs).map(([c,s])=>{const r=Math.round(s.correct/s.total*100);const co=r>=70?'var(--correct)':r>=40?'var(--tg)':'var(--wrong)';return`<div style="margin-bottom:10px;"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;"><span style="color:var(--text-sub);">${c}</span><span style="color:${co};font-weight:700;">${s.correct}/${s.total} (${r}%)</span></div><div style="height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;"><div style="height:100%;width:${r}%;background:${co};border-radius:3px;transition:width 0.5s;"></div></div></div>`;}).join('');
+/* 강점/약점 판별 */
+const catArr=Object.entries(cs).map(([c,s])=>({cat:c,rate:s.correct/s.total}));catArr.sort((a,b)=>a.rate-b.rate);
+const weak=catArr.length>0&&catArr[0].rate<0.5?catArr[0].cat:'없음';
+const strong=catArr.length>0&&catArr[catArr.length-1].rate>=0.5?catArr[catArr.length-1].cat:'없음';
+/* 약점 → 가이드 링크 */
+const weakLinks={'종래형·추론':'tgweb-keisu-juurai.html','종래형·전개도':'tgweb-keisu-juurai.html','종래형·일필서':'tgweb-keisu-juurai.html','종래형·암호':'tgweb-keisu-juurai.html','종래형·장문독해':'tgweb-gengo-juurai.html','종래형·공란보충':'tgweb-gengo-juurai.html','신형·동의어':'tgweb-gengo-shingata.html','신형·반의어':'tgweb-gengo-shingata.html','신형·속담':'tgweb-gengo-shingata.html','신형·사칙역산':'tgweb-keisu-shingata.html'};
+const weakLink=weakLinks[weak]||'';
+const weakHTML=weak!=='없음'&&weakLink?`<a href="${weakLink}" style="display:inline-block;margin-top:6px;font-size:11px;color:var(--tg);text-decoration:underline;">${weak} 집중 학습 →</a>`:'';
+/* sessionStorage 학습 이력 */
+try{const hist=JSON.parse(sessionStorage.getItem('tgweb_mini_history')||'[]');hist.push({date:new Date().toISOString(),pct:pct,hensachi:hensachi,correct:cc,total:questions.length,weak:weak});if(hist.length>20)hist.splice(0,hist.length-20);sessionStorage.setItem('tgweb_mini_history',JSON.stringify(hist));}catch(e){}
+const hist=JSON.parse(sessionStorage.getItem('tgweb_mini_history')||'[]');
+let histHTML='';if(hist.length>1){histHTML='<div style="text-align:left;max-width:440px;margin:0 auto 20px;"><div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tg);margin-bottom:8px;text-transform:uppercase;">이번 탭 학습 이력</div>';hist.slice(-5).forEach((h,i)=>{const d=new Date(h.date);const ts=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');histHTML+=`<div style="display:flex;justify-content:space-between;font-size:11px;padding:4px 0;border-bottom:1px solid var(--border);"><span style="color:var(--text-muted);">#${hist.length-hist.slice(-5).length+i+1} ${ts}</span><span style="color:var(--text-sub);">${h.pct}% / 편차치 ${h.hensachi}</span></div>`;});histHTML+='</div>';}
+app.innerHTML=`<div class="qz-result"><h2>미니 모의고사 결과</h2>
+<div style="display:flex;justify-content:center;gap:24px;margin:20px 0 8px;flex-wrap:wrap;">
+<div><div style="font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-bottom:4px;">종합 정답률</div><div class="qz-score">${pct}<span style="font-size:24px;color:var(--text-dim);">%</span></div></div>
+<div><div style="font-size:11px;color:var(--text-muted);letter-spacing:1px;margin-bottom:4px;">예상 편차치</div><div class="qz-score" style="color:${hensachi>=55?'var(--correct)':hensachi>=45?'var(--tg)':'var(--wrong)'};">${hensachi}</div></div>
+</div>
+<div class="qz-score-label">${cc}문 정답 / ${questions.length}문</div>
+<div class="qz-breakdown">
+<div class="qz-stat"><div class="qz-stat-num green">${cc}</div><div class="qz-stat-label">정답</div></div>
+<div class="qz-stat"><div class="qz-stat-num red">${wc}</div><div class="qz-stat-label">오답</div></div>
+<div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${avg}<span style="font-size:12px;">초</span></div><div class="qz-stat-label">문항 평균</div></div>
+<div class="qz-stat"><div class="qz-stat-num" style="color:var(--text-sub);">${formatTime(tt)}</div><div class="qz-stat-label">총 소요</div></div>
+</div>
+<div style="display:flex;gap:12px;justify-content:center;margin-bottom:24px;flex-wrap:wrap;">
+<div class="qz-stat" style="min-width:130px;"><div class="qz-stat-num" style="color:var(--tg);">${juraiPct}%</div><div class="qz-stat-label">종래형 (${juraiS.correct}/${juraiS.total})</div></div>
+<div class="qz-stat" style="min-width:130px;"><div class="qz-stat-num" style="color:var(--tg);">${shinPct}%</div><div class="qz-stat-label">신형 (${shinS.correct}/${shinS.total})</div></div>
+</div>
+<div style="text-align:left;max-width:440px;margin:0 auto 16px;">
+<div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--tg);margin-bottom:12px;text-transform:uppercase;">유형별 정답률</div>${bars}</div>
+<div style="max-width:440px;margin:0 auto 24px;display:flex;gap:12px;">
+<div style="flex:1;padding:12px;background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:8px;text-align:left;"><div style="font-size:10px;font-weight:700;color:var(--wrong);letter-spacing:1px;margin-bottom:4px;">약점 유형</div><div style="font-size:12px;color:var(--text-sub);">${weak}</div>${weakHTML}</div>
+<div style="flex:1;padding:12px;background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.15);border-radius:8px;text-align:left;"><div style="font-size:10px;font-weight:700;color:var(--correct);letter-spacing:1px;margin-bottom:4px;">강점 유형</div><div style="font-size:12px;color:var(--text-sub);">${strong}</div></div>
+</div>
+${histHTML}
+<div style="font-size:11px;color:var(--text-muted);margin-bottom:20px;line-height:1.8;">
+※ 예상 편차치는 정답률 기반 간이 추정값입니다. 참고용으로만 활용하세요.<br>
+※ TG-WEB는 종래형과 신형의 출제 경향이 다릅니다. 지원 기업의 출제 유형을 미리 확인하세요.
+</div>
+<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+<button class="qz-btn qz-btn-primary" onclick="phase='start';render();" style="font-size:15px;padding:14px 40px;">다시 도전하기</button>
+<button class="qz-btn" onclick="location.href='tgweb-fullquiz.html';" style="font-size:13px;padding:12px 28px;background:var(--surface-2);color:var(--text-sub);border:1px solid var(--border);">풀 모의고사 도전 →</button>
+</div></div>`;}
 render();
 </script>
 <script src="spi-nav.js"></script>
